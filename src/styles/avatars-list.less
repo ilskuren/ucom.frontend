@@ -1,0 +1,25 @@
+.avatars-list {
+  margin: -5px;
+}
+
+.avatars-list__item {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.avatars-list_shifted {
+  padding: 0 0 0 10px;
+  margin: 0;
+
+  &:after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+
+  .avatars-list__item {
+    margin: 0 0 0 -10px;
+    float: right;
+  }
+}

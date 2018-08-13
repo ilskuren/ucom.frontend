@@ -27,6 +27,15 @@ const HomePage = () => (
     </div>
     <div className="text-input-wrapper">
       <Input placeholder="label" />
+    </div><br />
+    <div className="text-input-wrapper">
+      <Input placeholder="label" subtext="Subtext" />
+    </div><br />
+    <div className="text-input-wrapper">
+      <Input placeholder="label" error="Critical Error" />
+    </div><br />
+    <div className="text-input-wrapper">
+      <Input placeholder="label" isSearch />
     </div>
   </div>
 );

@@ -1,0 +1,44 @@
+.menu {
+  display: flex;
+  align-items: center;
+  margin: 0 -15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: @black;
+}
+
+.menu__item {
+  margin: 0 15px;
+}
+
+.menu__item_active {
+  color: @red;
+
+  .menu__link {
+    color: @red;
+  }
+}
+
+.menu__link {
+  text-decoration: none;
+  color: @black;
+}
+
+.menu_media {
+  text-transform: capitalize;
+  font-size: 20px;
+  color: fade(#1b1e1e, 60);
+
+  .menu__link {
+    color: fade(#1b1e1e, 60);
+  }
+
+  .menu__item_active {
+    color: #1b1e1e;
+
+    .menu__link {
+      color: #1b1e1e;
+    }
+  }
+}

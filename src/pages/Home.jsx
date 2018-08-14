@@ -27,7 +27,7 @@ const HomePage = () => (
 
         <div className="posts-grid posts-grid_post-card">
           <div className="posts-grid__item">
-            <div className="post-card post-card_fluid">
+            <div className="post-card">
               <div className="post-card__inner">
                 <div className="post-card__cover">
                   <img className="post-card__img" src="https://cdn-images-1.medium.com/max/2000/0*garzrb4YWfV8ummS" alt="" />

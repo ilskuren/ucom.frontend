@@ -1,10 +1,10 @@
 import React from 'react';
 
 const InfoBLock = ({
-  label, children
+  title, children,
 }) => (
   <div className="info-block">
-    <div className="info-block__label">{label}</div>
+    <div className="info-block__title">{title}</div>
     { children }
   </div>
 );

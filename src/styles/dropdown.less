@@ -1,8 +1,10 @@
+@d: dropdown;
 @borderRadius: 4px;
 
-.dropdown {
+.@{d} {
   line-height: 16px;
   position: relative;
+  box-sizing: border-box;
 
   &__select {
     color: @gray-light;
@@ -25,7 +27,7 @@
       border-bottom-right-radius: 0;
       border-bottom: transparent;
 
-      .dropdown__arrow {
+      .@{d}__arrow {
         transform: rotate(45deg);
       }
     }
@@ -34,9 +36,9 @@
   &__arrow {
     position: absolute;
     top: calc(50% - 3px);
-    right: 22px;
-    height: 10px;
-    width: 10px;
+    right: 20px;
+    height: 8px;
+    width: 8px;
     border: 2px @black solid;
     border-bottom: transparent;
     border-right: transparent;
@@ -49,9 +51,8 @@
     width: 100%;
     display: none;
     position: absolute;
-    top: 48px;
+    top: 100%;
     left: -1px;
-    padding: 12px 0;
     border: 1px @gray-darker solid;
     border-bottom-left-radius: @borderRadius;
     border-bottom-right-radius: @borderRadius;
@@ -67,7 +68,7 @@
   }
 
   &__option {
-    margin: 12px 16px;
+    margin: 24px 16px;
     overflow-wrap: break-word;
     color: @black;
     &:hover {

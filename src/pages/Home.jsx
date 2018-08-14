@@ -37,6 +37,9 @@ const HomePage = () => (
     <div className="text-input-wrapper">
       <Input placeholder="label" isSearch />
     </div>
+    <div className="text-input-wrapper">
+      <Input value="ddd" placeholder="label" />
+    </div>
   </div>
 );
 

@@ -17,25 +17,25 @@
     box-sizing: border-box;
     height: 48px;
     border-radius: 4px;
-    border: 1px solid #B1B1B1;
+    border: 1px solid @gray;
     padding: 15px 24px 17px 16px;
     width: 100%;
 
     &::placeholder {
-      color: #C1C1C1;
+      color: @gray-light;
     }
 
     &:focus {
       outline: none;
-      border-color: #585858;
+      border-color: @gray-darker;
     }
 
     &:hover {
-      border-color: #585858;
+      border-color: @gray-darker;
     }
 
     &_error {
-      border-color: #D8352F;
+      border-color: @red;
     }
 
     &_with-icon {
@@ -53,12 +53,12 @@
   }
 
   &__subtext {
-    color: #767676;
+    color: @gray-dark;
     margin-top: 12px;
   }
 
   &__error {
-    color: #D8352F;
+    color: @red;
     margin-top: 12px;
   }
 }

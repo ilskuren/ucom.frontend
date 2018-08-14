@@ -1,0 +1,85 @@
+@b: button;
+@b_size: button_size;
+@b_theme: button_theme;
+
+.@{b} {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  &_size {
+    &_big {
+      background: @red;
+      color: @white;
+      height: 60px;
+      border-radius: 4px;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+    &_big:hover {
+      background: @red-dark;
+    }
+    &_big:active {
+      background: @red-darker;
+    }
+
+
+    &_medium {
+      background: @blue-green;
+      color: @black;
+      height: 48px;
+      border-radius: 24px;
+      font-size: 1.14rem;
+    }
+    &_medium:hover {
+      background: @blue-green-dark;
+    }
+    &_medium:active {
+      background: @blue-green-darker;
+    }
+
+    &_small {
+      height: 40px;
+      border-radius: 4px;
+
+      &.@{b_theme}_red {
+        background: @red;
+        color: @white;
+      }
+      &.@{b_theme}_red:hover {
+        background: @red-dark;
+      }
+      &.@{b_theme}_red:active {
+        background: @red-darker;
+      }
+
+      &.@{b_theme}_white {
+        background: @white;
+        color: @black;
+        border: 1px solid @gray-126;
+      }
+      &.@{b_theme}_white:hover {
+        border-color: @gray-80;
+      }
+      &.@{b_theme}_white:active {
+        border-color: @black;
+      }
+
+      &.@{b_theme}_gray {
+        background: @gray-239;
+      }
+      &.@{b_theme}_gray:hover {
+        background: @gray-233;
+      }
+      &.@{b_theme}_gray:active {
+        background: @gray-229;
+      }
+    }
+  }
+
+  &_disabled, &_disabled:hover, &_disabled:active {
+    cursor: default;
+    background: @gray-196;
+  }
+}

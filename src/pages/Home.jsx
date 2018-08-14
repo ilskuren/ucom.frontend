@@ -167,7 +167,6 @@ const HomePage = () => (
         </div>
       </div>
     </div>
-
     <div className="content content_shadows">
       <div className="content__inner">
         Feed

@@ -13,7 +13,7 @@ const HomePage = () => (
     <div className="content">
       <div className="content__inner">
         <div className="page-nav">
-          <div className="menu menu_media">
+          <div className="menu menu_media menu_responsive">
             <div className="menu__item menu__item_active">
               <a href="#" className="menu__link">Editorial Media</a>
             </div>
@@ -207,7 +207,7 @@ const HomePage = () => (
               <div className="feed__toolbar">
                 <div className="toolbar">
                   <div className="toolbar__main">
-                    <div className="menu menu_nav">
+                    <div className="menu menu_nav menu_responsive">
                       <div className="menu__item menu__item_active">
                         <button className="menu__link">All</button>
                       </div>
@@ -233,7 +233,7 @@ const HomePage = () => (
               </div>
 
               <div className="feed__list">
-                {[0, 0, 0].map(() => (
+                {[0, 0].map(() => (
                   <div className="feed__item">
                     <div className="post">
                       <div className="post__type">Poll</div>

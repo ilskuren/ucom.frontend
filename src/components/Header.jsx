@@ -35,7 +35,7 @@ const Header = () => (
     </div>
 
     <div className="header__main">
-      <nav className="menu">
+      <nav className="menu menu_responsive">
         <div className="menu__item menu__item_active">
           <a href="#" className="menu__link">Create Event</a>
         </div>

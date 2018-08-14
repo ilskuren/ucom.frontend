@@ -3,7 +3,7 @@ import IconSearch from '../components/Icons/Search';
 import InputError from '../components/Icons/InputError';
 import InputComplete from '../components/Icons/InputComplete';
 
-const Input = ({
+const TextInput = ({
   value, label, placeholder, subtext, error, isSearch,
 }) => {
   const isIconExist = isSearch || error;
@@ -31,4 +31,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default TextInput;

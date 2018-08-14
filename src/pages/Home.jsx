@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import Input from '../components/Input';
+import TextInput from '../components/TextInput';
 
 const HomePage = () => (
   <div className="page">
@@ -23,22 +23,22 @@ const HomePage = () => (
       </div>
     </div>
     <div className="text-input-wrapper">
-      <Input label="Label" placeholder="label" />
+      <TextInput label="Label" placeholder="label" />
     </div>
     <div className="text-input-wrapper">
-      <Input placeholder="label" />
+      <TextInput placeholder="label" />
     </div><br />
     <div className="text-input-wrapper">
-      <Input placeholder="label" subtext="Subtext" />
+      <TextInput placeholder="label" subtext="Subtext" />
     </div><br />
     <div className="text-input-wrapper">
-      <Input placeholder="label" error="Critical Error" />
+      <TextInput placeholder="label" error="Critical Error" />
     </div><br />
     <div className="text-input-wrapper">
-      <Input placeholder="label" isSearch />
+      <TextInput placeholder="label" isSearch />
     </div>
     <div className="text-input-wrapper">
-      <Input value="ddd" placeholder="label" />
+      <TextInput value="ddd" placeholder="label" />
     </div>
   </div>
 );

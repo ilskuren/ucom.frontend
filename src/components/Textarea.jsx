@@ -4,8 +4,13 @@ const Textarea = ({
   label, value, onChange,
 }) => (
   <div className="textarea">
-    { label && <div className="textarea__label">{label}</div> }
-    <textarea className="textarea__text" defaultValue={value} onChange={onChange} />
+    { label && <label className="textarea__label">{label}</label> }
+    <textarea
+      className="textarea__text"
+      defaultValue={value}
+      onChange={onChange}
+      placeholder="Type something..."
+    />
   </div>
 );
 

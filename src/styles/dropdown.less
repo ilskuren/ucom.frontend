@@ -1,0 +1,88 @@
+@d: dropdown;
+@borderRadius: 4px;
+
+.@{d} {
+  font-size: 1rem;
+  line-height: 16px;
+  position: relative;
+  box-sizing: border-box;
+
+  &__select {
+    color: @gray-light;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border: 1px @gray solid;
+    border-radius: @borderRadius;
+    padding-left: 16px;
+    padding-right: 50px;
+    &:hover {
+      cursor: pointer;
+      border-color: @gray-darker;
+    }
+
+    &_opened {
+      border-color: @gray-darker;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: transparent;
+
+      .@{d}__arrow {
+        transform: rotate(45deg);
+      }
+    }
+  }
+  
+  &__arrow {
+    position: absolute;
+    top: calc(50% - 3px);
+    right: 20px;
+    height: 8px;
+    width: 8px;
+    border: 2px @black solid;
+    border-bottom: transparent;
+    border-right: transparent;
+    transform: rotate(225deg);
+    transform-origin: 33% 33%;
+    margin: 0;
+  }
+
+  &__options {
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    border: 1px @gray-darker solid;
+    border-bottom-left-radius: @borderRadius;
+    border-bottom-right-radius: @borderRadius;
+    background-color: #fff;
+    z-index: 1;
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_opened {
+      display: block;
+    }
+  }
+
+  &__option {
+    margin: 24px 16px;
+    overflow-wrap: break-word;
+    color: @black;
+    &:hover {
+      color: @red;
+    }
+  }
+
+  &__label {
+    margin: 10px 0;
+  }
+  
+  &__error {
+    margin: 10px 0;
+    color: @gray-dark;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
+import VerticalMenu from '../components/VerticalMenu';
 
 const HomePage = () => (
   <div className="page">
@@ -167,6 +168,7 @@ const HomePage = () => (
         </div>
       </div>
     </div>
+    <VerticalMenu sections={[{ type: 'df', percentages: '65' }, { type: 'df', percentages: '65' }]} />
     <div className="content content_shadows">
       <div className="content__inner">
         Feed

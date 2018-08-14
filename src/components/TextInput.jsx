@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import IconSearch from '../components/Icons/Search';
-import InputError from '../components/Icons/InputError';
-import InputComplete from '../components/Icons/InputComplete';
+import InputErrorIcon from '../components/Icons/InputError';
+import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
   value, label, placeholder, subtext, error, isSearch,
@@ -23,8 +23,8 @@ const TextInput = ({
             placeholder={placeholder}
           />
           { isSearch && <div className="text-input__icon"><IconSearch /></div> }
-          { error && <div className="text-input__icon"><InputError /></div> }
-          { value && <div className="text-input__icon"><InputComplete /></div> }
+          { error && <div className="text-input__icon"><InputErrorIcon /></div> }
+          { value && <div className="text-input__icon"><InputCompleteIcon /></div> }
         </div>
       </label>
       { subtext && <div className="text-input__subtext">{subtext}</div> }

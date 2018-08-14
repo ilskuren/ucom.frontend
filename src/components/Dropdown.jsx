@@ -5,7 +5,7 @@ const Dropdown = ({
   value, label, error, options, isOpened,
 }) => (
   <div className="dropdown">
-    <div className="dropdown__label">{label}</div>
+    { label && <div className="dropdown__label">{label}</div> }
     <div className={classNames('dropdown__select', { dropdown__select_opened: options && isOpened })}>
       <div className="dropdown__value">{value}</div>
       <div className="dropdown__arrow" />
@@ -17,7 +17,7 @@ const Dropdown = ({
         ))}
       </div>
     </div>
-    <div className="dropdown__error">{error}</div>
+    { error && <div className="dropdown__error">{error}</div> }
   </div>
 );
 

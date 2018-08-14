@@ -1,11 +1,16 @@
 import React from 'react';
 
 const Textarea = ({
-  label, value, onChange,
+  label, value, onChange, placeholder,
 }) => (
   <div className="textarea">
-    <div className="textarea__label">{label}</div>
-    <textarea className="textarea__text" defaultValue={value} onChange={onChange} />
+    { label && <label className="textarea__label">{label}</label> }
+    <textarea
+      className="textarea__text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
   </div>
 );
 

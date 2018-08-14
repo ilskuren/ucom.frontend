@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import DropZone from '../components/DropZone';
 
 const HomePage = () => (
   <div className="page">
@@ -21,6 +22,7 @@ const HomePage = () => (
         </div>
       </div>
     </div>
+    <DropZone text="add or drag img" />
   </div>
 );
 

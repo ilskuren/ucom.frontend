@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputError from '../components/Icons/InputError';
 import InputComplete from '../components/Icons/InputComplete';
@@ -6,9 +7,7 @@ import InputComplete from '../components/Icons/InputComplete';
 const TextInput = ({
   value, label, placeholder, subtext, error, isSearch,
 }) => {
-  const isIconExist = isSearch || error;
-  const inputClassName =
-    `text-input__input${error ? ' text-input__input_error' : ''}${isIconExist ? ' text-input__input_with-icon' : ''}`;
+  const isIconExist = isSearch || error || value;
   return (
     <div className="text-input">
       <label>
@@ -16,7 +15,10 @@ const TextInput = ({
         <div className="text-input__input-wrapper">
           <input
             value={value}
-            className={inputClassName}
+            className={classNames('text-input__input', {
+              'text-input__input_error': Boolean(error),
+              'text-input__input_with-icon': Boolean(isIconExist),
+            })}
             type="text"
             placeholder={placeholder}
           />

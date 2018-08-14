@@ -1,8 +1,5 @@
 .content {
-  box-sizing: border-box;
-  max-width: 1280px;
   padding: 40px 40px 0;
-  display: flex;
 }
 
 .content_shadows {
@@ -13,13 +10,16 @@
   box-sizing: border-box;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 40px 0;
 
   &:after {
     content: '';
     display: table;
     clear: both;
   }
+}
+
+.content__inner_flex {
+  display: flex;
 }
 
 .content__vertical-menu {

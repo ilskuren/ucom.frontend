@@ -1,3 +1,7 @@
+.content {
+  padding: 40px 40px 0;
+}
+
 .content_shadows {
   box-shadow: 0 1px 34px rgba(216, 232, 232, 0.8);
 }
@@ -6,5 +10,29 @@
   box-sizing: border-box;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 40px 0;
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.content__inner_flex {
+  display: flex;
+}
+
+.content__vertical-menu {
+  min-width: 23%;
+  margin-right: 2.85rem;
+  @media (max-width: 750px) {
+    display: none;
+   }
+}
+
+.content__person-form {
+  width: 77%;
+  @media (max-width: 750px) {
+    width: 100%;
+   }
 }

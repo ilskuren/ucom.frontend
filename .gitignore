@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 public
+.history
 
 .vscode/*
 !.vscode/settings.json

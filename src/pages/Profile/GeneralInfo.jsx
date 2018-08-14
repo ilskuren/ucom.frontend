@@ -15,16 +15,7 @@ const ProfileGeneralInfoPage = () => (
       </div>
       <div className="content__person-form">
         <PersonForm>
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
+          Content
         </PersonForm>
       </div>
     </div>

@@ -168,7 +168,6 @@ const HomePage = () => (
         </div>
       </div>
     </div>
-    <VerticalMenu sections={['first', 'second', 'third']} />
     <div className="content content_shadows">
       <div className="content__inner">
         Feed

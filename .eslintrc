@@ -7,6 +7,7 @@
   "rules": {
     "react/prop-types": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/label-has-for": "off",
     "react/no-array-index-key": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
@@ -15,7 +16,6 @@
     "no-plusplus": "off",
     "import/prefer-default-export": "off",
     "react/no-danger": "off",
-    "no-shadow": "off",
-    "jsx-a11y/label-has-for": "off"
+    "no-shadow": "off"
   }
 }

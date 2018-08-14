@@ -1,6 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
+import IconArrowUp from '../components/Icons/ArrowUp';
+import IconArrowDown from '../components/Icons/ArrowDown';
+import IconComment from '../components/Icons/Comment';
+import IconShare from '../components/Icons/Share';
 
 const HomePage = () => (
   <div className="page">
@@ -201,29 +205,133 @@ const HomePage = () => (
               </div>
 
               <div className="feed__toolbar">
-                <div className="feed__nav">
-                  <div className="menu menu_nav">
-                    <div className="menu__item menu__item_active">
-                      <button className="menu__link">All</button>
-                    </div>
-                    <div className="menu__item">
-                      <button className="menu__link">Call</button>
-                    </div>
-                    <div className="menu__item">
-                      <button className="menu__link">Poll</button>
-                    </div>
-                    <div className="menu__item">
-                      <button className="menu__link">Appeal</button>
-                    </div>
-                    <div className="menu__item">
-                      <button className="menu__link">Promote</button>
+                <div className="toolbar">
+                  <div className="toolbar__main">
+                    <div className="menu menu_nav">
+                      <div className="menu__item menu__item_active">
+                        <button className="menu__link">All</button>
+                      </div>
+                      <div className="menu__item">
+                        <button className="menu__link">Call</button>
+                      </div>
+                      <div className="menu__item">
+                        <button className="menu__link">Poll</button>
+                      </div>
+                      <div className="menu__item">
+                        <button className="menu__link">Appeal</button>
+                      </div>
+                      <div className="menu__item">
+                        <button className="menu__link">Promote</button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="feed__filter">
-                  Sort by
+                  <div className="toolbar__side">
+                    Sort by
+                  </div>
                 </div>
+              </div>
+
+              <div className="feed__list">
+                {[0, 0, 0].map(() => (
+                  <div className="feed__item">
+                    <div className="post">
+                      <div className="post__type">Poll</div>
+
+                      <div className="post__header">
+                        <div className="toolbar">
+                          <div className="toolbar__main">
+                            10 min ago
+                          </div>
+
+                          <div className="toolbar__side">
+                            <div className="rating">
+                              <div className="inline inline_small">
+                                <div className="inline__item">
+                                  <div className="rating__icon">
+                                    <IconArrowUp />
+                                  </div>
+                                </div>
+                                <div className="inline__item">
+                                  <div className="rating__value rating__value_up">+100</div>
+                                </div>
+                                <div className="inline__item">
+                                  <div className="rating__icon">
+                                    <IconArrowDown />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="post__user">
+                        <div className="user-card">
+                          <div className="user-card__avatar">
+                            <Avatar src="http://1o9ddb39vxx9vbisv3djd3iysr.wpengine.netdna-cdn.com/wp-content/uploads/2017/06/Vinnie-Tortorich.jpg" />
+                          </div>
+                          <div className="user-card__info">
+                            <div className="user-card__name">TUDO</div>
+                            <div className="user-card__account">@apple_inc</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="post__text">
+                        <h1>Camon guys, we need ur help!</h1>
+                        <p>MacBook Pro 2017 or MacBook 2015?</p>
+                        <p><img src="https://cdn-images-1.medium.com/max/2000/0*garzrb4YWfV8ummS" alt="" /></p>
+                      </div>
+
+                      <div className="post__vote">
+                        <div className="vote">
+                          <div className="vote__item">
+                            <button className="vote__button">
+                              <div className="vote__name">MacBook Pro 2017</div>
+                              <div className="vote__value">27%</div>
+                              <div className="vote__progress" style={{ width: '27%' }} />
+                            </button>
+                          </div>
+                          <div className="vote__item">
+                            <button className="vote__button">
+                              <div className="vote__name">MacBook Pro 2015</div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="post__footer">
+                        <div className="toolbar">
+                          <div className="toolbar__main">
+                            <button className="button-clean">
+                              <span className="inline inline_small">
+                                <span className="inline__item">
+                                  <span className="post__icon">
+                                    <IconComment />
+                                  </span>
+                                </span>
+                                <span className="inline__item">300</span>
+                              </span>
+                            </button>
+                          </div>
+                          <div className="toolbar__side">
+                            <button className="button-clean">
+                              <span className="inline inline_small">
+                                <span className="inline__item">
+                                  <span className="post__icon">
+                                    <IconShare />
+                                  </span>
+                                </span>
+                                <span className="inline__item">Share</span>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

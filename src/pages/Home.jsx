@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
 import Avatar from '../components/Avatar';
-import TextInput from '../components/TextInput';
 
 const HomePage = () => (
   <div className="page">

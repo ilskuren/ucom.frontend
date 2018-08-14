@@ -57,29 +57,29 @@
       &.@{b_theme}_white {
         background: @white;
         color: @black;
-        border: 1px solid @gray-126;
+        border: 1px solid @gray-dark;
       }
       &.@{b_theme}_white:hover {
-        border-color: @gray-80;
+        border-color: @gray-darker;
       }
       &.@{b_theme}_white:active {
         border-color: @black;
       }
 
       &.@{b_theme}_gray {
-        background: @gray-239;
+        background: darken(@gray-lighter, 5);
       }
       &.@{b_theme}_gray:hover {
-        background: @gray-233;
+        background: lighten(@gray-light, 10);
       }
       &.@{b_theme}_gray:active {
-        background: @gray-229;
+        background: lighten(@gray-dark, 35);
       }
     }
   }
 
   &_disabled, &_disabled:hover, &_disabled:active {
     cursor: default;
-    background: @gray-196;
+    background: @gray-disabled;
   }
 }

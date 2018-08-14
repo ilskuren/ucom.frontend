@@ -174,25 +174,6 @@ const HomePage = () => (
         Feed
       </div>
     </div>
-
-    <div className="text-input-wrapper">
-      <TextInput label="Label" placeholder="label" />
-    </div>
-    <div className="text-input-wrapper">
-      <TextInput placeholder="label" />
-    </div><br />
-    <div className="text-input-wrapper">
-      <TextInput placeholder="label" subtext="Subtext" />
-    </div><br />
-    <div className="text-input-wrapper">
-      <TextInput placeholder="label" error="Critical Error" />
-    </div><br />
-    <div className="text-input-wrapper">
-      <TextInput placeholder="label" isSearch />
-    </div>
-    <div className="text-input-wrapper">
-      <TextInput value="ddd" placeholder="label" />
-    </div>
   </div>
 );
 

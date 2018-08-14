@@ -5,7 +5,7 @@ const Button = (props) => {
   const btnClass = classNames('button', {
     [`button_theme_${props.theme}`]: Boolean(props.theme),
     [`button_size_${props.size}`]: true,
-    button_disabled: props.disabled,
+    button_disabled: props.isDisabled,
   });
 
   return (

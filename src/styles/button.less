@@ -71,6 +71,17 @@
       &.button_theme_gray:active {
         background: lighten(@gray-dark, 35);
       }
+
+      &.button_theme_transparent {
+        background: transparent;
+        border: 2px solid @gray;
+      }
+      &.button_theme_transparent:hover {
+        border: 2px solid @gray-dark;
+      }
+      &.button_theme_transparent:active {
+        border: 2px solid @gray-dark;
+      }
     }
   }
 

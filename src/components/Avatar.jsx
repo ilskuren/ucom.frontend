@@ -16,7 +16,7 @@ const Avatar = props => (
 
 Avatar.propTypes = {
   square: PropTypes.bool,
-  size: PropTypes.oneOf('big'),
+  size: PropTypes.string,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
 };

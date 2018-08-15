@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from './Avatar';
 
 const UserCard = props => (
@@ -18,5 +19,13 @@ const UserCard = props => (
     </div>
   </div>
 );
+
+UserCard.propTypes = {
+  squareAvatar: PropTypes.bool,
+};
+
+UserCard.defaultProps = {
+  squareAvatar: false,
+};
 
 export default UserCard;

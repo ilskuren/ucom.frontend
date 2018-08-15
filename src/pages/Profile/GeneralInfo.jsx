@@ -7,6 +7,7 @@ import VerticalMenu from '../../components/VerticalMenu';
 import PersonForm from '../../components/PersonForm';
 import DropZone from '../../components/DropZone';
 import NavBar from '../../components/NavBar';
+import DateInput from '../../components/DateInput';
 
 const ProfileGeneralInfoPage = () => (
   <div className="page">
@@ -18,7 +19,7 @@ const ProfileGeneralInfoPage = () => (
       isHaveBeenSavedChanges
     />
     <div className="content">
-      <div className="content__inner content__inner_flex">
+      <div className="content__inner_flex">
         <div className="content__vertical-menu">
           <VerticalMenu
             sections={[{ type: 'personal contacts', percents: '0' }, { type: 'social networks', percents: '0' }]}
@@ -45,6 +46,12 @@ const ProfileGeneralInfoPage = () => (
                   <TextInput label="Position" />
                 </div>
                 <div className="profile__block">
+                  <DateInput label="Started date" />
+                </div>
+                <div className="profile__block">
+                  <DateInput label="Ended date" />
+                </div>
+                <div className="profile__block">
                   <span className="profile__text">Work here now?</span>
                   <Button text="add another" size="small" theme="transparent" />
                 </div>
@@ -60,6 +67,12 @@ const ProfileGeneralInfoPage = () => (
                 </div>
                 <div className="profile__block">
                   <TextInput label="Level" />
+                </div>
+                <div className="profile__block">
+                  <DateInput label="Started date" />
+                </div>
+                <div className="profile__block">
+                  <DateInput label="Ended date" />
                 </div>
                 <div className="profile__block">
                   <span className="profile__text">Work here now?</span>

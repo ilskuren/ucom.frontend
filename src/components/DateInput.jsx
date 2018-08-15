@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextInput from '../components/TextInput';
 import Dropdown from '../components/Dropdown';
 
@@ -33,5 +34,12 @@ const DateInput = ({
     </div>
   </div>
 );
+
+DateInput.propTypes = {
+  label: PropTypes.string,
+  dayValue: PropTypes.string,
+  monthValue: PropTypes.string,
+  yearValue: PropTypes.string,
+};
 
 export default DateInput;

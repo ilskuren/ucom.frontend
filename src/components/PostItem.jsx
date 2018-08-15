@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PostItem = props => (
   <div className="post-item">
@@ -29,5 +30,9 @@ const PostItem = props => (
     </div>
   </div>
 );
+
+PostItem.propTypes = {
+  coverImg: PropTypes.string.isRequired,
+};
 
 export default PostItem;

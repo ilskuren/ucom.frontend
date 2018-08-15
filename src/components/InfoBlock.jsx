@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const InfoBLock = ({
+const InfoBlock = ({
   title, children,
 }) => (
   <div className="info-block">
@@ -9,4 +10,12 @@ const InfoBLock = ({
   </div>
 );
 
-export default InfoBLock;
+InfoBlock.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
+
+export default InfoBlock;

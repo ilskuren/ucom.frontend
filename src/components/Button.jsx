@@ -21,6 +21,7 @@ Button.propTypes = {
   theme: PropTypes.string,
   size: PropTypes.string,
   isDisabled: PropTypes.bool,
+  isStretched: PropTypes.bool,
   text: PropTypes.string,
 };
 

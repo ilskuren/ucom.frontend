@@ -79,6 +79,7 @@ const ProfileWorkAndEducationPage = () => (
                   <Button text="Stud here now?" size="small" theme="transparent" />
                 </div>
                 <div className="profile__block">
+                  <span className="profile__text">Achievements</span>
                   <DropZone text="add or drag file" />
                 </div>
                 <div className="profile__block">

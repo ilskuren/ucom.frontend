@@ -47,11 +47,11 @@ const ProfileContactsPage = () => (
                 <div className="profile__block">
                   <TextInput label="Your Twitter" />
                 </div>
-                <div className={classNames('profile__block')}>
+                <div className="profile__block">
                   <Button text="add another" size="small" theme="transparent" />
                 </div>
                 <div className="profile__block">
-                  <Button text="FINISH" size="big" theme="red" isStretched />
+                  <Button text="finish" size="big" theme="red" isStretched />
                 </div>
               </InfoBlock>
             </div>

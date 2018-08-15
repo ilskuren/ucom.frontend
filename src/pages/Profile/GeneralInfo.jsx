@@ -33,6 +33,7 @@ const ProfileGeneralInfoPage = () => (
                   <Avatar
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJAs96f68aCsNIwrrkiPAq5Ir-3dRv0QKWKBHUq5soIJBqL71E6g"
                     size="big"
+                    alt="Avatar"
                   />
                   <div className="profile__drop-zone">
                     <DropZone text="add or drag img" />

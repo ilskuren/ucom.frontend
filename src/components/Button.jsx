@@ -6,6 +6,7 @@ const Button = (props) => {
     [`button_theme_${props.theme}`]: Boolean(props.theme),
     [`button_size_${props.size}`]: true,
     button_disabled: props.isDisabled,
+    button_stretched: props.isStretched,
   });
 
   return (

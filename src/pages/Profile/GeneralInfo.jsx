@@ -1,10 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
+import PersonForm from '../../components/PersonForm';
+import DropZone from '../../components/DropZone';
 
 const ProfileGeneralInfoPage = () => (
   <div className="page">
@@ -17,37 +18,55 @@ const ProfileGeneralInfoPage = () => (
         />
       </div>
       <div className="content__person-form">
-        <InfoBlock title="Personal networks">
-          <div className="content__block">
-            <TextInput label="Email" />
+        <PersonForm>
+          <div className="profile__info-block">
+            <InfoBlock title="Blockchain">
+              <div className="profile__block">
+                <TextInput label="Your first asset" placeholder="Example Kickcoin" isSearch />
+              </div>
+              <div className="profile__block">
+                <TextInput label="Year of purchase" inputWidth={100} />
+              </div>
+            </InfoBlock>
           </div>
-          <div className={classNames('content__block', 'content__block_email')}>
-            <TextInput label="Phone number" placeholder="+7 (_ _ _)_ _ _ _ _ _ _" />
+          <div className="profile__info-block">
+            <InfoBlock title="Work">
+              <div className="profile__block">
+                <TextInput label="Work place" />
+              </div>
+              <div className="profile__block">
+                <TextInput label="Position" />
+              </div>
+              <div className="profile__block">
+                <span className="profile__text">Work here now?</span>
+                <Button text="add another" size="small" theme="transparent" />
+              </div>
+            </InfoBlock>
           </div>
-          <div className="content__block">
-            <TextInput label="Your website" />
+          <div className="profile__info-block">
+            <InfoBlock title="Education">
+              <div className="profile__block">
+                <TextInput label="Education" />
+              </div>
+              <div className="profile__block">
+                <TextInput label="Spec" />
+              </div>
+              <div className="profile__block">
+                <TextInput label="Level" />
+              </div>
+              <div className="profile__block">
+                <span className="profile__text">Work here now?</span>
+                <Button text="Stud here now?" size="small" theme="transparent" />
+              </div>
+              <div className="profile__block">
+                <DropZone text="add or drag file" />
+              </div>
+              <div className="profile__block">
+                <Button text="PROCEED" theme="red" size="big" isStretched />
+              </div>
+            </InfoBlock>
           </div>
-        </InfoBlock>
-        <InfoBlock title="Social networks">
-          <div className="content__block">
-            <TextInput label="Your facebook" />
-          </div>
-          <div className="content__block">
-            <TextInput label="Your Reddit" />
-          </div>
-          <div className="content__block">
-            <TextInput label="Your Medium" />
-          </div>
-          <div className="content__block">
-            <TextInput label="Your Twitter" />
-          </div>
-          <div className={classNames('content__block', 'content__block_add-button')}>
-            <Button text="add another" size="small" theme="transparent" />
-          </div>
-          <div className="content__block">
-            <Button text="FINISH" size="big" theme="red" />
-          </div>
-        </InfoBlock>
+        </PersonForm>
       </div>
     </div>
   </div>

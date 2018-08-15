@@ -2,7 +2,6 @@
   outline: none;
   cursor: pointer;
   border: none;
-  width: 100%;
   font-weight: bold;
   &_size {
     &_big {
@@ -38,6 +37,7 @@
     &_small {
       min-height: 40px;
       border-radius: 4px;
+      padding: 0 25px;
 
       &.button_theme_red {
         background: @red;
@@ -88,5 +88,9 @@
   &_disabled, &_disabled:hover, &_disabled:active {
     cursor: default;
     background: @gray-disabled;
+  }
+
+  &_stretched {
+    width: 100%;
   }
 }

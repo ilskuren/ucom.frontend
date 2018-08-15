@@ -6,7 +6,7 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type
 }) => {
   const isIconExist = isSearch || error || value;
   return (
@@ -27,7 +27,7 @@ const TextInput = ({
               'text-input__input_error': Boolean(error),
               'text-input__input_with-icon': Boolean(isIconExist),
             })}
-            type="text"
+            type={type || 'text'}
             placeholder={placeholder}
           />
           { isSearch && <div className="text-input__icon"><IconSearch /></div> }

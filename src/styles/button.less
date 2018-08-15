@@ -1,8 +1,4 @@
-@b: button;
-@b_size: button_size;
-@b_theme: button_theme;
-
-.@{b} {
+.button {
   outline: none;
   cursor: pointer;
   border: none;
@@ -43,36 +39,36 @@
       min-height: 40px;
       border-radius: 4px;
 
-      &.@{b_theme}_red {
+      &.button_theme_red {
         background: @red;
         color: @white;
       }
-      &.@{b_theme}_red:hover {
+      &.button_theme_red:hover {
         background: @red-dark;
       }
-      &.@{b_theme}_red:active {
+      &.button_theme_red:active {
         background: @red-darker;
       }
 
-      &.@{b_theme}_white {
+      &.button_theme_white {
         background: @white;
         color: @black;
         border: 1px solid @gray-dark;
       }
-      &.@{b_theme}_white:hover {
+      &.button_theme_white:hover {
         border-color: @gray-darker;
       }
-      &.@{b_theme}_white:active {
+      &.button_theme_white:active {
         border-color: @black;
       }
 
-      &.@{b_theme}_gray {
+      &.button_theme_gray {
         background: darken(@gray-lighter, 5);
       }
-      &.@{b_theme}_gray:hover {
+      &.button_theme_gray:hover {
         background: lighten(@gray-light, 10);
       }
-      &.@{b_theme}_gray:active {
+      &.button_theme_gray:active {
         background: lighten(@gray-dark, 35);
       }
     }

@@ -17,28 +17,53 @@
 
   .menu__link {
     color: @red;
+    cursor: default;
   }
 }
 
 .menu__link {
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-size: inherit;
+  font-weight: inherit;
   text-decoration: none;
+  outline: none;
   color: @black;
+  cursor: pointer;
 }
 
 .menu_media {
   text-transform: capitalize;
   font-size: 20px;
-  color: fade(#1b1e1e, 60);
+  color: fade(@black, 60);
 
   .menu__link {
-    color: fade(#1b1e1e, 60);
+    color: fade(@black, 60);
   }
 
   .menu__item_active {
-    color: #1b1e1e;
+    color: @black;
 
     .menu__link {
-      color: #1b1e1e;
+      color: @black;
+    }
+  }
+}
+
+.menu_nav {
+  font-size: 16px;
+  color: fade(@black, 30);
+
+  .menu__link {
+    color: fade(@black, 30);
+  }
+
+  .menu__item_active {
+    color: @black;
+
+    .menu__link {
+      color: @black;
     }
   }
 }

@@ -5,6 +5,10 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import IconComment from '../components/Icons/Comment';
 import IconShare from '../components/Icons/Share';
+import IconFacebook from '../components/Icons/Facebook';
+import IconTwitter from '../components/Icons/Twitter';
+import IconLinkedin from '../components/Icons/Linkedin';
+import IconTelegram from '../components/Icons/Telegram';
 
 const HomePage = () => (
   <div className="page">
@@ -183,7 +187,7 @@ const HomePage = () => (
 
         <div className="grid grid_content">
           <div className="grid__item">
-            <div classNames="feed">
+            <div className="feed">
               <div className="feed__title">
                 <h1 className="title title_small">Ur News Feed</h1>
               </div>
@@ -401,6 +405,51 @@ const HomePage = () => (
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer">
+          <div className="toolbar toolbar_responsive">
+            <div className="toolbar__main">
+              <div className="inline inline_large">
+                <div className="inline__item">
+                  <a href="#">
+                    <IconFacebook />
+                  </a>
+                </div>
+                <div className="inline__item">
+                  <a href="#">
+                    <IconTwitter />
+                  </a>
+                </div>
+                <div className="inline__item">
+                  <a href="#">
+                    <IconLinkedin />
+                  </a>
+                </div>
+                <div className="inline__item">
+                  <a href="#">
+                    <IconTelegram />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="toolbar__side">
+              <nav className="menu menu_footer">
+                <div className="menu__item">
+                  <a href="#" className="menu__link">Assets</a>
+                </div>
+                <div className="menu__item">
+                  <a href="#" className="menu__link">FAQ</a>
+                </div>
+                <div className="menu__item">
+                  <a href="#" className="menu__link">U Token</a>
+                </div>
+                <div className="menu__item">
+                  <a href="#" className="menu__link">About</a>
+                </div>
+              </nav>
             </div>
           </div>
         </div>

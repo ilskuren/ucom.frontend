@@ -2,7 +2,7 @@ import React from 'react';
 import TextInput from '../components/TextInput';
 import Dropdown from '../components/Dropdown';
 
-const MONTH = [
+const MONTHS = [
   'January',
   'February',
   'March',
@@ -26,7 +26,7 @@ const DateInput = ({
       <TextInput value={dayValue} subtext="Date" />
     </div>
     <div className="date-input__month">
-      <Dropdown value={monthValue} subtext="Month" options={MONTH} error="Error" />
+      <Dropdown value={monthValue} subtext="Month" options={MONTHS} error="Error" />
     </div>
     <div className="date-input__year">
       <TextInput value={yearValue} subtext="Year" />

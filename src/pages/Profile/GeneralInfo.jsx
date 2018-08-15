@@ -10,10 +10,17 @@ import DropZone from '../../components/DropZone';
 import Avatar from '../../components/Avatar';
 import Textarea from '../../components/Textarea';
 import DateInput from '../../components/DateInput';
+import NavBar from '../../components/NavBar';
 
 const ProfileGeneralInfoPage = () => (
   <div className="page">
     <Header />
+    <NavBar
+      title="Create Profile"
+      tabs={[{ name: 'General Info', active: true },
+      { name: 'Work & Education', active: true }, { name: 'Contacts', active: true }]}
+      isHaveBeenSavedChanges
+    />
 
     <div className="content">
       <div className="content__inner_flex">
@@ -59,7 +66,7 @@ const ProfileGeneralInfoPage = () => (
                   <DateInput label="Birthday" />
                 </div>
                 <div className={classNames('profile__block', 'profile__block_textarea')}>
-                  <Textarea label="About me" placeholder="Type something..." />
+                  <Textarea rows={6} label="About me" placeholder="Type something..." />
                 </div>
               </InfoBlock>
             </div>

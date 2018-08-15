@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import TextInput from '../components/TextInput';
 import Dropdown from '../components/Dropdown';
 
@@ -18,16 +17,19 @@ const MONTH = [
   'December',
 ];
 
-const DateInput = () => (
+const DateInput = ({
+  label, dayValue, monthValue, yearValue,
+}) => (
   <div className="date-input">
+    { label && <div className="date-input__label">{label}</div> }
     <div className="date-input__day">
-      <TextInput subtext="Date" />
+      <TextInput value={dayValue} subtext="Date" />
     </div>
     <div className="date-input__month">
-      <Dropdown subtext="Month" options={MONTH} error="Error" />
+      <Dropdown value={monthValue} subtext="Month" options={MONTH} error="Error" />
     </div>
     <div className="date-input__year">
-      <TextInput subtext="Year" />
+      <TextInput value={yearValue} subtext="Year" />
     </div>
   </div>
 );

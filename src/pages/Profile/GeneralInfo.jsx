@@ -7,16 +7,13 @@ import NavBar from '../../components/NavBar';
 const ProfileGeneralInfoPage = () => (
   <div className="page">
     <Header />
-
+    <NavBar
+      title="Create Profile"
+      tabs={[{ name: 'General Info', active: true },
+      { name: 'Work & Education', active: true }, { name: 'Contacts', active: true }]}
+      isHaveBeenSavedChanges
+    />
     <div className="content">
-      <div className="content__nav-menu">
-        <NavBar
-          title="Create Profile"
-          tabs={[{ name: 'General Info', active: true },
-          { name: 'Work & Education', active: true }, { name: 'Contacts', active: true }]}
-          isHaveBeenSavedChanges
-        />
-      </div>
       <div className="content__inner content__inner_flex">
         <div className="content__vertical-menu">
           <VerticalMenu sections={[{ type: 'blockchain', percents: '0' }, { type: 'work', percents: '0' },

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Textarea = ({
-  label, value, placeholder, rows
+  label, value, placeholder, rows,
 }) => (
   <div className="textarea">
     { label && <label className="textarea__label">{label}</label> }

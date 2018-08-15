@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const NavBar = (props) => {
@@ -26,6 +27,14 @@ const NavBar = (props) => {
       </div>
     </div>
   );
+};
+
+NavBar.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.shape({
+    active: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default NavBar;

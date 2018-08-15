@@ -1,8 +1,5 @@
 .content {
-  box-sizing: border-box;
-  max-width: 1280px;
   padding: 40px 40px 0;
-  display: flex;
 }
 
 .content_shadows {
@@ -13,7 +10,6 @@
   box-sizing: border-box;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 40px 0;
 
   &:after {
     content: '';
@@ -22,18 +18,21 @@
   }
 }
 
+.content__inner_flex {
+  display: flex;
+}
+
 .content__vertical-menu {
   min-width: 23%;
   margin-right: 2.85rem;
-  @media (max-width: 750px) {
+  @media (max-width: 768px) {
     display: none;
    }
 }
 
 .content__person-form {
-  width: 77%; 
-  @media (max-width: 750px) {
+  width: 77%;
+  @media (max-width: 768px) {
     width: 100%;
    }
 }
-

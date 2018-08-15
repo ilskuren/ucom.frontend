@@ -1,15 +1,21 @@
 .menu {
   display: flex;
   align-items: center;
-  margin: 0 -15px;
+  margin: -5px -15px;
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
   color: @black;
 }
 
+.menu_responsive {
+  @media (max-width: 767px) {
+    display: block;
+  }
+}
+
 .menu__item {
-  margin: 0 15px;
+  margin: 5px 15px;
 }
 
 .menu__item_active {
@@ -66,4 +72,9 @@
       color: @black;
     }
   }
+}
+
+.menu_footer {
+  font-size: 16px;
+  text-transform: initial;
 }

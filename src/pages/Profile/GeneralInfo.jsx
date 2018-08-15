@@ -22,7 +22,7 @@ const ProfileGeneralInfoPage = () => (
       <div className="content__inner_flex">
         <div className="content__vertical-menu">
           <VerticalMenu
-            sections={[{ type: 'personal contacts', percents: '0' }, { type: 'social networks', percents: '0' }]}
+            sections={[{ type: 'personal info', percents: '25' }, { type: 'location', percents: '0' }]}
           />
         </div>
         <div className="content__person-form">

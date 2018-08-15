@@ -1,6 +1,11 @@
 .profile {
   &__block {
     margin-bottom: 45px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: auto;
+     }
     &_email {
       width: 240px;
     }
@@ -33,6 +38,10 @@
   }
 
   &__drop-zone {
-    width: calc(100% - 190px)
+    width: calc(100% - 190px);
+    @media (max-width: 768px) {
+      margin-top: 15px;
+      width: auto;
+     }
   }
 }

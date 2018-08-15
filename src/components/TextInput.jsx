@@ -6,7 +6,7 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type,
 }) => {
   const isIconExist = isSearch || error || value;
   return (
@@ -50,6 +50,7 @@ TextInput.propTypes = {
   isSearch: PropTypes.bool,
   isRequired: PropTypes.bool,
   inputWidth: PropTypes.number,
+  type: PropTypes.string,
 };
 
 export default TextInput;

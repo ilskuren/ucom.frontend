@@ -9,7 +9,7 @@ const Header = () => (
     <div className="header__side">
       <div className="inline">
         <div className="inline__item">
-          <Avatar src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+          <Avatar src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" alt="Avatar" />
         </div>
         <div className="inline__item">
           <div className="icon-counter">

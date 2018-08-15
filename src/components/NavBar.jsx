@@ -37,6 +37,11 @@ NavBar.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   title: PropTypes.string.isRequired,
+  isHaveBeenSavedChanges: PropTypes.bool,
+};
+
+NavBar.defaultProps = {
+  isHaveBeenSavedChanges: false,
 };
 
 export default NavBar;

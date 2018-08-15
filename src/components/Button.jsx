@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Button = (props) => {
@@ -14,6 +15,19 @@ const Button = (props) => {
       {props.text}
     </button>
   );
+};
+
+Button.propTypes = {
+  theme: PropTypes.string,
+  size: PropTypes.string,
+  isDisabled: PropTypes.bool,
+  isStretched: PropTypes.bool,
+  text: PropTypes.string,
+};
+
+Button.defaultProps = {
+  isDisabled: false,
+  text: '',
 };
 
 export default Button;

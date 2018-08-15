@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, label, placeholder, subtext, error, isSearch, inputWidth, isRequired,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired,
 }) => {
   const isIconExist = isSearch || error || value;
   return (
@@ -38,6 +39,17 @@ const TextInput = ({
       { error && <div className="text-input__error">{error}</div> }
     </div>
   );
+};
+
+TextInput.propTypes = {
+  value: PropTypes.string,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  subtext: PropTypes.string,
+  error: PropTypes.string,
+  isSearch: PropTypes.bool,
+  isRequired: PropTypes.bool,
+  inputWidth: PropTypes.bool,
 };
 
 export default TextInput;

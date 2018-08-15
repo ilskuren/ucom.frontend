@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Dropdown = ({
@@ -20,5 +21,13 @@ const Dropdown = ({
     { subtext && <div className="dropdown__subtext">{subtext}</div>}
   </div>
 );
+
+Dropdown.propTypes = {
+  value: PropTypes.string,
+  label: PropTypes.string,
+  subtext: PropTypes.string,
+  isOpened: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default Dropdown;

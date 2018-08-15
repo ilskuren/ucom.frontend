@@ -2,7 +2,6 @@
   outline: none;
   cursor: pointer;
   border: none;
-  width: 100%;
   font-weight: bold;
   &_size {
     &_big {
@@ -72,11 +71,26 @@
       &.button_theme_gray:active {
         background: lighten(@gray-dark, 35);
       }
+
+      &.button_theme_transparent {
+        background: transparent;
+        border: 2px solid @gray;
+      }
+      &.button_theme_transparent:hover {
+        border: 2px solid @gray-dark;
+      }
+      &.button_theme_transparent:active {
+        border: 2px solid @gray-dark;
+      }
     }
   }
 
   &_disabled, &_disabled:hover, &_disabled:active {
     cursor: default;
     background: @gray-disabled;
+  }
+
+  &_stretched {
+    width: 100%;
   }
 }

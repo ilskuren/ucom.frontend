@@ -38,7 +38,9 @@ class Header extends PureComponent {
             {!this.props.userIsAuth ? (
               <div className="inline">
                 <div className="inline__item">
-                  <IconLogo />
+                  <a href="/" className="button-icon">
+                    <IconLogo />
+                  </a>
                 </div>
                 <div className="inline__item">
                   <nav className="menu menu_responsive">

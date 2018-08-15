@@ -44,6 +44,7 @@ const TextInput = ({
 TextInput.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
+  type: PropTypes.string,
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
   error: PropTypes.string,

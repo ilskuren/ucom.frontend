@@ -1,4 +1,5 @@
 import React, { Fragment, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
 import IconSearch from './Icons/Search';
@@ -108,5 +109,9 @@ class Header extends PureComponent {
     );
   }
 }
+
+Header.propTypes = {
+  userIsAuth: PropTypes.bool,
+};
 
 export default Header;

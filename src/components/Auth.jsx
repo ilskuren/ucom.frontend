@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextInput from './TextInput';
 import IconClose from './Icons/Close';
 
@@ -36,5 +37,9 @@ const Auth = props => (
     </div>
   </div>
 );
+
+Auth.propTypes = {
+  onClickClose: PropTypes.func,
+};
 
 export default Auth;

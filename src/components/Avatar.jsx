@@ -18,7 +18,7 @@ Avatar.propTypes = {
   square: PropTypes.bool,
   size: PropTypes.string,
   src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
 };
 
 Avatar.defaultProps = {

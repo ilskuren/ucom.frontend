@@ -12,10 +12,12 @@ const TextInput = ({
     <div className="text-input">
       <label>
         {
-          <div className="text-input__labels-container">
-            { label && <div className="text-input__label">{label}</div> }
-            { isRequired && <div className="text-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
-          </div>
+          (isRequired || label) && (
+            <div className="text-input__labels-container">
+              { <div className="text-input__label">{label}</div> }
+              { <div className="text-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
+            </div>
+          )
         }
         <div className="text-input__input-wrapper" style={{ width: inputWidth }}>
           <input

@@ -22,7 +22,7 @@ const ProfileWorkAndEducationPage = () => (
       <div className="content__inner_flex">
         <div className="content__vertical-menu">
           <VerticalMenu
-            sections={[{ type: 'personal contacts', percents: '0' }, { type: 'social networks', percents: '0' }]}
+            sections={[{ type: 'blockchain', percents: '0' }, { type: 'work', percents: '0' }, { type: 'education', percents: '0' }]}
           />
         </div>
         <div className="content__person-form">
@@ -75,8 +75,8 @@ const ProfileWorkAndEducationPage = () => (
                   <DateInput label="Ended date" />
                 </div>
                 <div className="profile__block">
-                  <span className="profile__text">Work here now?</span>
-                  <Button text="Stud here now?" size="small" theme="transparent" />
+                  <span className="profile__text">Stud here now?</span>
+                  <Button text="add another" size="small" theme="transparent" />
                 </div>
                 <div className="profile__block">
                   <span className="profile__text">Achievements</span>

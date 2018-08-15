@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Dropdown = ({
-  value, label, error, options, isOpened,
+  value, label, options, isOpened, subtext,
 }) => (
   <div className="dropdown">
     { label && <div className="dropdown__label">{label}</div> }
@@ -17,7 +17,7 @@ const Dropdown = ({
         ))}
       </div>
     </div>
-    { error && <div className="dropdown__error">{error}</div> }
+    { subtext && <div className="dropdown__subtext">{subtext}</div>}
   </div>
 );
 

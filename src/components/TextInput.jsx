@@ -5,13 +5,18 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, label, placeholder, subtext, error, isSearch, type,
+  value, label, placeholder, subtext, error, isSearch, isRequired, type,
 }) => {
   const isIconExist = isSearch || error || value;
   return (
     <div className="text-input">
       <label>
-        { label && <div className="text-input__label">{label}</div> }
+        {
+          <div className="text-input__labels-container">
+            { label && <div className="text-input__label">{label}</div> }
+            { isRequired && <div className="text-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
+          </div>
+        }
         <div className="text-input__input-wrapper">
           <input
             value={value}

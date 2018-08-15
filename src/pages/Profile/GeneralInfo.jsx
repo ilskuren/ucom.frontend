@@ -59,7 +59,7 @@ const ProfileGeneralInfoPage = () => (
                   <DateInput label="Birthday" />
                 </div>
                 <div className={classNames('profile__block', 'profile__block_textarea')}>
-                  <Textarea label="About me" placeholder="Type something..." />
+                  <Textarea rows={6} label="About me" placeholder="Type something..." />
                 </div>
               </InfoBlock>
             </div>

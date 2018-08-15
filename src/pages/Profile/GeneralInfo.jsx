@@ -3,6 +3,8 @@ import Header from '../../components/Header';
 import VerticalMenu from '../../components/VerticalMenu';
 import PersonForm from '../../components/PersonForm';
 import NavBar from '../../components/NavBar';
+import TextInput from '../../components/TextInput';
+
 
 const ProfileGeneralInfoPage = () => (
   <div className="page">
@@ -22,7 +24,7 @@ const ProfileGeneralInfoPage = () => (
         </div>
         <div className="content__person-form">
           <PersonForm>
-            Content
+            <TextInput label="label" isRequired />
           </PersonForm>
         </div>
       </div>

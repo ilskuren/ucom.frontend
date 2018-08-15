@@ -5,7 +5,7 @@ import Avatar from './Avatar';
 const UserCard = props => (
   <div className="user-card">
     <div className="user-card__avatar">
-      <Avatar square={props.squareAvatar} src="http://1o9ddb39vxx9vbisv3djd3iysr.wpengine.netdna-cdn.com/wp-content/uploads/2017/06/Vinnie-Tortorich.jpg" />
+      <Avatar square={props.squareAvatar} src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
     </div>
     <div className="user-card__info">
       <div className="user-card__name">TUDO</div>

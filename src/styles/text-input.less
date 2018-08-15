@@ -1,7 +1,18 @@
 .text-input {
   font-size: 1.142rem;
   &__label {
+    flex: 1;
+  }
+  &__required-label {
+    color: @orange;
+  }
+  &__labels-container {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 12px;
+    @media (max-width: 425px) {
+      flex-direction: column;
+     }
   }
 
   &__input-wrapper {

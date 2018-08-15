@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 class Popup extends PureComponent {
@@ -51,5 +52,13 @@ class Popup extends PureComponent {
     return null;
   }
 }
+
+Popup.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  onClickClose: PropTypes.func,
+};
 
 export default Popup;

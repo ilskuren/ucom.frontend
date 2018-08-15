@@ -32,7 +32,7 @@ const PostItem = props => (
 );
 
 PostItem.propTypes = {
-  coverImg: PropTypes.string.isRequired,
+  coverImg: PropTypes.string,
 };
 
 export default PostItem;

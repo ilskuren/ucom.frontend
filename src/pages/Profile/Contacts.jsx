@@ -23,7 +23,7 @@ const ProfileContactsPage = () => (
             <div className="profile__info-block">
               <InfoBlock title="Personal networks">
                 <div className="profile__block">
-                  <TextInput label="Email" />
+                  <TextInput label="Email" isRequired />
                 </div>
                 <div className={classNames('profile__block', 'profile__block_email')}>
                   <TextInput label="Phone number" placeholder="+7 (_ _ _)_ _ _ _ _ _ _" />

@@ -44,16 +44,16 @@ const ProfileGeneralInfoPage = () => (
                   </div>
                 </div>
                 <div className="profile__block">
-                  <TextInput label="First name" />
+                  <TextInput label="First name" value="Sub" />
                 </div>
                 <div className="profile__block">
-                  <TextInput label="Second name" />
+                  <TextInput label="Second name" value="Zero" />
                 </div>
                 <div className="profile__block">
-                  <TextInput label="Nickname" placeholder="@nickname" />
+                  <TextInput label="Nickname" placeholder="@nickname" isRequired />
                 </div>
                 <div className="profile__block">
-                  <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch />
+                  <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch isRequired />
                 </div>
                 <div className="profile__block">
                   <DateInput label="Birthday" />

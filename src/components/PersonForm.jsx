@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PersonForm = props => <div className="person-form">{props.children}</div>;
+const PersonForm = props => <form className="person-form">{props.children}</form>;
 
 PersonForm.propTypes = {
   children: PropTypes.oneOfType([

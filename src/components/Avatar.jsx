@@ -7,6 +7,7 @@ const Avatar = props => (
     className={classNames(
       'avatar',
       { avatar_square: props.square },
+      { [`avatar_${props.size}`]: Boolean(props.size) },
     )}
   >
     <img className="avatar__img" src={props.src} alt={props.alt} />
@@ -15,6 +16,7 @@ const Avatar = props => (
 
 Avatar.propTypes = {
   square: PropTypes.bool,
+  size: PropTypes.string,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
 };

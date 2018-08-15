@@ -49,7 +49,7 @@ TextInput.propTypes = {
   error: PropTypes.string,
   isSearch: PropTypes.bool,
   isRequired: PropTypes.bool,
-  inputWidth: PropTypes.bool,
+  inputWidth: PropTypes.number,
 };
 
 export default TextInput;

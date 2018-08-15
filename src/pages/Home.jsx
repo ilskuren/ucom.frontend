@@ -5,7 +5,6 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import IconComment from '../components/Icons/Comment';
 import IconShare from '../components/Icons/Share';
-import DateInput from '../components/DateInput';
 
 const HomePage = () => (
   <div className="page">
@@ -29,7 +28,7 @@ const HomePage = () => (
             </div>
           </div>
         </div>
-        <DateInput />
+
         <div className="post-group">
           <div className="post-group__item">
             <div className="grid grid_main-post">

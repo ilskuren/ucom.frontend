@@ -1,0 +1,84 @@
+.nav-bar {
+  font-weight: bold;
+  font-size: 1.14rem;
+  border-bottom: 1px solid darken(@gray-lighter, 5);
+  &__menu {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.95rem;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: baseline;
+    }
+  }
+  &__content {
+    padding: 0 40px;
+    margin-top: 3.15rem;
+  }
+  &__title {
+    font-size: 3.58rem;
+    margin-bottom: 4.4rem;
+    @media (max-width: 767px) {
+      margin-bottom: 2.4rem;
+    }
+  }
+  &__tabs {
+    display: flex;
+    flex: 1 1 auto;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      & > * {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  &__tab {
+    font-size: 1.14rem;
+    padding: 0 2.24rem;
+    @media (max-width: 767px) {
+      padding: 0;
+    }
+    cursor: pointer;
+    &:last-child, &:first-child {
+      padding: 0;
+    }
+    &_active {
+      &:hover {
+        color: @red;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          border-radius: 3px;
+          height: 2px;
+          left: 0;
+          top: 2.9rem;
+          display: block;
+          width: 100%;
+          background-color: @red;
+          @media (max-width: 767px) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &__changes-notification {
+    font-weight: normal;
+    display: none;
+    @media (max-width: 767px) {
+      margin-bottom: 0.5rem;
+    }
+    &_displayed {
+      display: block;
+    }
+  }
+  &__back-button {
+    flex-basis: 12.3rem;
+    margin-left: 1.5rem;
+    @media (max-width: 767px) {
+      flex-basis: auto;
+      margin: 0;
+    }
+  }
+}

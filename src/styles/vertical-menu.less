@@ -11,6 +11,7 @@
   padding: 0;
     &__section {
       list-style-type: none;
+      cursor: pointer;
       display: flex;
       padding: 1.45rem;
       justify-content: space-between;
@@ -21,15 +22,17 @@
       }
       &_active {
         position: relative;
-        &::before {
-          content: "";
-          position: absolute;
-          border-radius: 3px;
-          height: 1.14rem;
-          left: -1px;
-          display: block;
-          width: 2px;
-          background-color: @red;
+        &:hover {
+          &::before {
+            content: "";
+            position: absolute;
+            border-radius: 3px;
+            height: 1.14rem;
+            left: -1px;
+            display: block;
+            width: 2px;
+            background-color: @red;
+          }
         }
       }
     }

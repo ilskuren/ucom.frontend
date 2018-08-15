@@ -6,7 +6,7 @@ const VerticalMenu = (props) => {
   const sections = props.sections.map((section, i) => (
     <li
       className={classNames('vertical-menu__section', {
-      'vertical-menu__section_active': i === 0,
+      'vertical-menu__section_active': true,
       })}
       key={i}
     >

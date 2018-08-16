@@ -6,7 +6,7 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled,
 }) => {
   const isIconExist = isSearch || error || value;
   return (
@@ -28,7 +28,13 @@ const TextInput = ({
               'text-input__input_with-icon': Boolean(isIconExist),
             })}
             type={type || 'text'}
+            disabled={disabled}
             placeholder={placeholder}
+            onChange={(e) => {
+              if (typeof onChange === 'function') {
+                onChange(e.target.value);
+              }
+            }}
           />
           { isSearch && <div className="text-input__icon"><IconSearch /></div> }
           { error && <div className="text-input__icon"><InputErrorIcon /></div> }
@@ -51,6 +57,8 @@ TextInput.propTypes = {
   isSearch: PropTypes.bool,
   isRequired: PropTypes.bool,
   inputWidth: PropTypes.number,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default TextInput;

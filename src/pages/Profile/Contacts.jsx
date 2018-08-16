@@ -7,7 +7,6 @@ import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import PersonForm from '../../components/PersonForm';
 import NavBar from '../../components/NavBar';
-import CopyButtonInput from '../../components/CopyButtonInput';
 
 const ProfileContactsPage = () => (
   <div className="page">
@@ -30,9 +29,6 @@ const ProfileContactsPage = () => (
           <PersonForm>
             <div className="profile__info-block">
               <InfoBlock title="Personal networks">
-                <div className="profile__block">
-                  <CopyButtonInput value="Email" />
-                </div>
                 <div className="profile__block">
                   <TextInput label="Email" isRequired />
                 </div>
@@ -61,10 +57,10 @@ const ProfileContactsPage = () => (
                 <div className="profile__block">
                   <Button text="add another" size="small" theme="transparent" />
                 </div>
-                <div className="profile__block">
-                  <Button text="finish" size="big" theme="red" isStretched />
-                </div>
               </InfoBlock>
+              <div className="profile__block">
+                <Button text="finish" size="big" theme="red" isStretched />
+              </div>
             </div>
           </PersonForm>
         </div>

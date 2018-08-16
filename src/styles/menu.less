@@ -4,7 +4,6 @@
   margin: -5px -15px;
   font-size: 14px;
   font-weight: bold;
-  text-transform: uppercase;
   color: @black;
 }
 
@@ -40,7 +39,6 @@
 }
 
 .menu_media {
-  text-transform: capitalize;
   font-size: 20px;
   color: fade(@black, 60);
 
@@ -112,7 +110,6 @@
 }
 
 .menu_tabs {
-  text-transform: none;
   font-size: 1.14rem;
   margin: 0;
   @media (max-width: 768px) {
@@ -126,5 +123,10 @@
 
 .menu_footer {
   font-size: 16px;
-  text-transform: initial;
+}
+
+.menu_main {
+  .menu__link {
+    text-transform: uppercase;
+  }
 }

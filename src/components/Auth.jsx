@@ -17,11 +17,31 @@ class Auth extends PureComponent {
       accountName: '',
       loading: false,
       showError: false,
+      errors: null,
     };
   }
 
+  getError(fieldName) {
+    const { errors } = this.state;
+
+    if (!errors) {
+      return null;
+    }
+
+    const fieldError = errors.find(error => error.field === fieldName);
+
+    if (!fieldError) {
+      return null;
+    }
+
+    return fieldError.message;
+  }
+
   login() {
-    this.setState({ loading: true });
+    this.setState({
+      errors: null,
+      loading: true,
+    });
 
     setTimeout(() => {
       login({
@@ -30,7 +50,10 @@ class Auth extends PureComponent {
       })
         .then((data) => {
           if (data.errors) {
-            // TODO: Show erros
+            this.setState({
+              errors: data.errors,
+              loading: false,
+            });
           }
 
           if (data.user) {
@@ -82,6 +105,7 @@ class Auth extends PureComponent {
             <div className="auth__fields">
               <div className="auth__field">
                 <TextInput
+                  error={this.getError('account_name')}
                   label="Account name"
                   value={this.state.accountName}
                   disabled={this.state.loading}

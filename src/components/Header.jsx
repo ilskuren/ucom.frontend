@@ -47,7 +47,7 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <nav className="menu menu_responsive">
                     <div className="menu__item">
-                      <button href="#" className="menu__link" onClick={() => this.openAuthPopup()}>Sign in</button>
+                      <button className="menu__link" onClick={() => this.openAuthPopup()}>Sign in</button>
                     </div>
                   </nav>
                 </div>
@@ -57,6 +57,13 @@ class Header extends PureComponent {
             <div className="inline">
               <div className="inline__item">
                 <Avatar src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+              </div>
+              <div className="inline__item">
+                <nav className="menu">
+                  <div className="menu__item">
+                    <a href="#" className="menu__link menu__link_">{this.props.user.nickname}</a>
+                  </div>
+                </nav>
               </div>
               <div className="inline__item">
                 <div className="icon-counter">
@@ -83,7 +90,7 @@ class Header extends PureComponent {
         </div>
 
         <div className="header__main">
-          <nav className="menu menu_responsive">
+          <nav className="menu menu_main menu_responsive">
             <div className="menu__item">
               <a href="#" className="menu__link">Create Event</a>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import NavBar from '../../components/NavBar';
+import InputWithCopy from '../../components/InputWithCopy';
 
 const SettingsReferralPage = () => (
   <div className="page">
@@ -14,8 +15,9 @@ const SettingsReferralPage = () => (
 
     <div className="content">
       <div className="content__inner_flex">
-        <div className="content__settings-form">
-          Settings
+        <div className="settings__block">
+          <div className="settings__label">Your referral link</div>
+          <div className="settings__input"><InputWithCopy value="Email" /></div>
         </div>
       </div>
     </div>

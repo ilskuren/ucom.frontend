@@ -82,10 +82,10 @@ const ProfileWorkAndEducationPage = () => (
                   <span className="profile__text">Achievements</span>
                   <DropZone text="add or drag file" />
                 </div>
-                <div className="profile__block">
-                  <Button text="PROCEED" theme="red" size="big" isStretched />
-                </div>
               </InfoBlock>
+              <div className="profile__block">
+                <Button text="proceed" theme="red" size="big" isStretched />
+              </div>
             </div>
           </PersonForm>
         </div>

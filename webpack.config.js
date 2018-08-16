@@ -38,6 +38,15 @@ module.exports = {
         },
       },
     }, {
+      test: /\.(png|svg|gif|jpg)/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          name: 'images/[name].[ext]',
+          limit: 300000,
+        },
+      },
+    }, {
       test: /\.(html)$/,
       use: {
         loader: 'html-loader',

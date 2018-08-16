@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 const Switcher = ({ isChecked }) => (
   <div className="switcher">
     <label className="switcher__label">
-      <span>Off</span>
+      <span className="switcher__label-off">Off</span>
       <input className="switcher__input" type="checkbox" value={isChecked} />
       <div className="switcher__checkmark">
+        <div className="switcher__toggle-background" />
         <div className="switcher__toggle" />
       </div>
-      <span>On</span>
+      <span className="switcher__label-on">On</span>
     </label>
   </div>
 );

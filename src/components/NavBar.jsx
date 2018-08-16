@@ -5,8 +5,8 @@ import Button from './Button';
 
 const NavBar = (props) => {
   const tabs = props.tabs.map((tab, i) => {
-    const tabClass = classNames('nav-bar__tab', {
-      'nav-bar__tab_active': tab.active,
+    const tabClass = classNames('menu__tab', {
+      menu__tab_active: tab.active,
     });
     return <div className={tabClass} key={i}>{tab.name} </div>;
   });
@@ -20,10 +20,22 @@ const NavBar = (props) => {
       <div className="nav-bar__content">
         <div className="nav-bar__title">{props.title}</div>
         <div className="nav-bar__menu">
-          <div className="nav-bar__tabs">{tabs}</div>
-          <div className={changesNotificationClass}>Your changes have been saved.</div>
-          <div className="nav-bar__back-button">
-            <Button text="Back to Profile" size="small" theme="transparent" />
+          <div className="toolbar toolbar_responsive">
+            <div className="toolbar__main">
+              <div className="menu menu_tabs">{tabs}</div>
+            </div>
+            <div className="toolbar__side">
+              <div className="inline">
+                <div className="inline__item">
+                  <div className={changesNotificationClass}>Your changes have been saved.</div>
+                </div>
+                <div className="inline__item">
+                  <div className="nav-bar__back-button">
+                    <Button text="Back to Profile" size="small" theme="transparent" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

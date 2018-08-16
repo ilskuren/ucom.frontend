@@ -4,6 +4,7 @@
   border: none;
   font-weight: bold;
   padding-bottom: 0;
+  border-radius: 4px;
 
   &_theme {
     &_red {
@@ -60,20 +61,26 @@
   &_size {
     &_big {
       min-height: 60px;
-      border-radius: 4px;
       font-size: 1rem;
+      &.button_rounded {
+        border-radius: 30px;
+      }
     }
 
     &_medium {
       min-height: 48px;
-      border-radius: 24px;
       font-size: 1.14rem;
+      &.button_rounded {
+        border-radius: 24px;
+      }
     }
 
     &_small {
       min-height: 40px;
       font-size: 1.14rem;
-      border-radius: 4px;
+      &.button_rounded {
+        border-radius: 20px;
+      }
     }
   }
 

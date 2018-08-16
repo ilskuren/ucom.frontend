@@ -14,9 +14,7 @@ const SettingsNotificationsPage = () => (
 
     <div className="content">
       <div className="content__inner_flex">
-        <div className="content__settings-form">
-          Settings
-        </div>
+        Settings
       </div>
     </div>
   </div>

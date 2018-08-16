@@ -57,10 +57,10 @@ const ProfileContactsPage = () => (
                 <div className="profile__block">
                   <Button text="add another" size="small" theme="transparent" />
                 </div>
-                <div className="profile__block">
-                  <Button text="finish" size="big" theme="red" isStretched />
-                </div>
               </InfoBlock>
+              <div className="profile__block">
+                <Button text="finish" size="big" theme="red" isStretched />
+              </div>
             </div>
           </PersonForm>
         </div>

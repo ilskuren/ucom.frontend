@@ -23,7 +23,7 @@ const NavBar = (props) => {
           <div className="nav-bar__tabs">{tabs}</div>
           <div className={changesNotificationClass}>Your changes have been saved.</div>
           <div className="nav-bar__back-button">
-            <Button text="Back to Profile" size="small" theme="white" />
+            <Button text="Back to Profile" size="small" theme="transparent" />
           </div>
         </div>
       </div>

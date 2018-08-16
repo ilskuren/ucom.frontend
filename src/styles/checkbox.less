@@ -1,0 +1,39 @@
+.checkbox-input {
+  display: inline-block;
+
+  &__label {
+    display: block;
+  }
+
+  &__checkmark {
+    display: block;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #E8ECEC;
+    border-radius: 2px;
+    background: @white;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &__input {
+    display: none;
+
+    &:checked {
+      ~ .checkbox-input__checkmark {
+        background-color: @red;
+        border-color: @red;
+        background-image: url('../static/img/tick.svg');
+        
+      }
+    }
+
+    &:hover:not(:checked) {
+      ~ .checkbox-input__checkmark {
+        background-image: url('../static/img/tick_hover.svg');
+      }
+    }
+  }
+}

@@ -3,91 +3,78 @@
   cursor: pointer;
   border: none;
   font-weight: bold;
-  &_size {
-    &_big {
+  padding-bottom: 0;
+
+  &_theme {
+    &_red {
       background: @red;
       color: @white;
+      text-transform: uppercase;
+      &:hover {
+        background: @red-dark;
+      }
+      &:active {
+        background: @red-darker;
+      }
+    }
+
+    &_blue-green {
+      background: @blue-green;
+      color: @black;
+      &:hover {
+        background: @blue-green-dark;
+      }
+      &:active {
+        background: @blue-green-darker;
+      }
+    }
+
+    &_gray {
+      background: darken(@gray-lighter, 5);
+      &:hover {
+        background: lighten(@gray-light, 10);
+      }
+      &:active {
+        background: lighten(@gray-dark, 35);
+      }
+    }
+
+    &_transparent {
+      background: transparent;
+      border: 1px solid @gray;
+      &:hover {
+        border: 1px solid @gray-dark;
+      }
+      &:active {
+        border: 1px solid @black;
+      }
+    }
+
+    &_disabled, &_disabled:hover, &_disabled:active {
+        cursor: default;
+        background: @gray-disabled;
+      }
+    }
+
+
+  &_size {
+    &_big {
       min-height: 60px;
       border-radius: 4px;
       font-size: 1rem;
-      text-transform: uppercase;
     }
-    &_big:hover {
-      background: @red-dark;
-    }
-    &_big:active {
-      background: @red-darker;
-    }
-
 
     &_medium {
-      background: @blue-green;
-      color: @black;
       min-height: 48px;
       border-radius: 24px;
       font-size: 1.14rem;
-    }
-    &_medium:hover {
-      background: @blue-green-dark;
-    }
-    &_medium:active {
-      background: @blue-green-darker;
     }
 
     &_small {
       min-height: 40px;
       font-size: 1.14rem;
       border-radius: 4px;
-
-      &.button_theme_red {
-        background: @red;
-        color: @white;
-      }
-      &.button_theme_red:hover {
-        background: @red-dark;
-      }
-      &.button_theme_red:active {
-        background: @red-darker;
-      }
-
-      &.button_theme_white {
-        background: @white;
-        color: @black;
-        border: 1px solid @gray-dark;
-      }
-      &.button_theme_white:hover {
-        border-color: @gray-darker;
-      }
-      &.button_theme_white:active {
-        border-color: @black;
-      }
-
-      &.button_theme_gray {
-        background: darken(@gray-lighter, 5);
-      }
-      &.button_theme_gray:hover {
-        background: lighten(@gray-light, 10);
-      }
-      &.button_theme_gray:active {
-        background: lighten(@gray-dark, 35);
-      }
-
-      &.button_theme_transparent {
-        background: transparent;
-        border: 2px solid @gray;
-      }
-      &.button_theme_transparent:hover {
-        border: 2px solid @gray-dark;
-      }
-      &.button_theme_transparent:active {
-        border: 2px solid @gray-dark;
-      }
     }
-  }
-
-  &_disabled, &_disabled:hover, &_disabled:active {
-    cursor: default;
-    background: @gray-disabled;
   }
 
   &_stretched {

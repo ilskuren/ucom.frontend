@@ -24,3 +24,13 @@ export const login = ({ brainkey, accountName }) => {
   })
     .then(resp => resp.json());
 };
+
+export const getMyself = token => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
+    method: 'get',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

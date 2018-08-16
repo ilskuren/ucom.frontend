@@ -47,7 +47,7 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <nav className="menu menu_responsive">
                     <div className="menu__item">
-                      <button className="menu__link" onClick={() => this.openAuthPopup()}>Sign in</button>
+                      <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Sign in</button>
                     </div>
                   </nav>
                 </div>
@@ -90,21 +90,21 @@ class Header extends PureComponent {
         </div>
 
         <div className="header__main">
-          <nav className="menu menu_main menu_responsive">
+          <nav className="menu menu_responsive">
             <div className="menu__item">
-              <a href="#" className="menu__link">Create Event</a>
+              <a href="#" className="menu__link menu__link_upper">Create Event</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link">People</a>
+              <a href="#" className="menu__link menu__link_upper">People</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link">Organizations</a>
+              <a href="#" className="menu__link menu__link_upper">Organizations</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link">Products</a>
+              <a href="#" className="menu__link menu__link_upper">Products</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link">Events</a>
+              <a href="#" className="menu__link menu__link_upper">Events</a>
             </div>
             <div className="menu__item">
               <button className="button-icon">

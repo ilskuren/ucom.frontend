@@ -6,7 +6,8 @@ import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
 import { login } from '../api';
-import { setUser } from '../actions';
+import { setUser, setToken } from '../actions';
+import { saveToken } from '../utils/token';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -58,6 +59,10 @@ class Auth extends PureComponent {
 
           if (data.user) {
             this.props.setUser(data.user);
+          }
+
+          if (data.token) {
+            saveToken(data.token);
           }
         })
         .catch(() => {
@@ -140,6 +145,7 @@ class Auth extends PureComponent {
 Auth.propTypes = {
   onClickClose: PropTypes.func,
   setUser: PropTypes.func,
+  setToken: PropTypes.func,
 };
 
 export default connect(
@@ -148,5 +154,6 @@ export default connect(
   }),
   dispatch => ({
     setUser: data => dispatch(setUser(data)),
+    setToken: data => dispatch(setToken(data)),
   }),
 )(Auth);

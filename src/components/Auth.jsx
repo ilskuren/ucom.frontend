@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from './TextInput';
@@ -5,6 +6,7 @@ import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
 import { login } from '../api';
+import { setUser } from '../actions';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -26,8 +28,14 @@ class Auth extends PureComponent {
         brainkey: this.state.brainkey,
         accountName: this.state.accountName,
       })
-        .then(() => {
-          // TODO: Set user, save session
+        .then((data) => {
+          if (data.errors) {
+            // TODO: Show erros
+          }
+
+          if (data.user) {
+            this.props.setUser(data.user);
+          }
         })
         .catch(() => {
           this.setState({
@@ -107,6 +115,14 @@ class Auth extends PureComponent {
 
 Auth.propTypes = {
   onClickClose: PropTypes.func,
+  setUser: PropTypes.func,
 };
 
-export default Auth;
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    setUser: data => dispatch(setUser(data)),
+  }),
+)(Auth);

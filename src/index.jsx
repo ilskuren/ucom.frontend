@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import { Router, Route, Switch } from 'react-router';
@@ -13,28 +12,30 @@ import SettingsNotificationsPage from './pages/Settings/Notifications';
 import SettingsSecurityPage from './pages/Settings/Security';
 import SettingsReferralPage from './pages/Settings/Referral';
 import SettingsBlacklistPage from './pages/Settings/Blacklist';
-import appReducer from './reducers/app';
+
+import store from './store';
 
 import './index.less';
 
 const history = createBrowserHistory();
-const store = createStore(appReducer);
 
 const App = () => (
   <Provider store={store}>
-    <Router history={history}>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/profile/general-info" component={ProfileGeneralInfoPage} />
-        <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} />
-        <Route exact path="/profile/contacts" component={ProfileContactsPage} />
-        <Route exact path="/settings/account" component={SettingsAccountPage} />
-        <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
-        <Route exact path="/settings/security" component={SettingsSecurityPage} />
-        <Route exact path="/settings/referral" component={SettingsReferralPage} />
-        <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
-      </Switch>
-    </Router>
+    <div className="app">
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/profile/general-info" component={ProfileGeneralInfoPage} />
+          <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} />
+          <Route exact path="/profile/contacts" component={ProfileContactsPage} />
+          <Route exact path="/settings/account" component={SettingsAccountPage} />
+          <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
+          <Route exact path="/settings/security" component={SettingsSecurityPage} />
+          <Route exact path="/settings/referral" component={SettingsReferralPage} />
+          <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
+        </Switch>
+      </Router>
+    </div>
   </Provider>
 );
 

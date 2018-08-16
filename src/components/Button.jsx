@@ -8,6 +8,7 @@ const Button = (props) => {
     [`button_size_${props.size}`]: true,
     button_disabled: props.isDisabled,
     button_stretched: props.isStretched,
+    button_rounded: props.isRounded,
   });
 
   return (
@@ -22,6 +23,7 @@ Button.propTypes = {
   size: PropTypes.string,
   isDisabled: PropTypes.bool,
   isStretched: PropTypes.bool,
+  isRounded: PropTypes.bool,
   text: PropTypes.string,
 };
 

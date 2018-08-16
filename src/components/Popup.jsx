@@ -29,9 +29,13 @@ class Popup extends PureComponent {
     const popup = (
       <div
         role="presentation"
+        ref={(el) => { this.popupInner = el; }}
         className="popup__inner"
         onClick={(e) => {
-          if (e.target === this.container && typeof this.props.onClickClose === 'function') {
+          if (
+            (e.target === this.container || e.target === this.popupInner) &&
+            typeof this.props.onClickClose === 'function'
+          ) {
             this.props.onClickClose();
           }
         }}

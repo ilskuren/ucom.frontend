@@ -11,21 +11,24 @@ const UserCard = props => (
       <div className="user-card__name">TUDO</div>
       <div className="user-card__account">@apple_inc</div>
     </div>
-    <div className="user-card__rate">
-      <div className="rate">
-        <div className="rate__value">9 200 <span className="rate__degree">°</span></div>
-        <div className="rate__label">Rate</div>
-      </div>
-    </div>
+    { props.isRated &&
+      <div className="user-card__rate">
+        <div className="rate">
+          <div className="rate__value">9 200 <span className="rate__degree">°</span></div>
+          <div className="rate__label">Rate</div>
+        </div>
+      </div> }
   </div>
 );
 
 UserCard.propTypes = {
   squareAvatar: PropTypes.bool,
+  isRated: PropTypes.bool,
 };
 
 UserCard.defaultProps = {
   squareAvatar: false,
+  isRated: false,
 };
 
 export default UserCard;

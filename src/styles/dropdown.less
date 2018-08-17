@@ -1,8 +1,8 @@
-@d: dropdown;
 @borderRadius: 4px;
 
-.@{d} {
+.dropdown {
   font-size: 1.142rem;
+  width: 100%;
   line-height: 16px;
   position: relative;
   box-sizing: border-box;
@@ -30,12 +30,12 @@
       border-bottom-right-radius: 0;
       border-bottom: transparent;
 
-      .@{d}__arrow {
+      .dropdown__arrow {
         transform: rotate(45deg);
       }
     }
   }
-  
+
   &__arrow {
     position: absolute;
     top: calc(50% - 3px);
@@ -77,16 +77,19 @@
     &:hover {
       color: @red;
     }
+    &_type {
+      &_user:hover {
+        color: @black;
+      }
+    }
   }
 
   &__label {
     margin: 10px 0;
   }
-  
+
   &__subtext {
     margin-top: 12px;
     color: @gray-dark;
   }
-
-  
 }

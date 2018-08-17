@@ -1,5 +1,4 @@
 .nav-bar {
-  font-weight: bold;
   font-size: 1.14rem;
   border-bottom: 1px solid darken(@gray-lighter, 5);
   &__content {
@@ -9,26 +8,9 @@
   &__title {
     font-size: 3.58rem;
     margin-bottom: 3.5rem;
+    font-weight: bold;
     @media (max-width: 767px) {
       margin-bottom: 2.4rem;
-    }
-  }
-  &__changes-notification {
-    font-weight: normal;
-    display: none;
-    @media (max-width: 767px) {
-      margin-bottom: 0.5rem;
-    }
-    &_displayed {
-      display: block;
-    }
-  }
-  &__back-button {
-    flex-basis: 12.3rem;
-    margin-left: 1.5rem;
-    @media (max-width: 767px) {
-      flex-basis: auto;
-      margin: 0;
     }
   }
 }

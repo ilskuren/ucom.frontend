@@ -4,7 +4,6 @@
   margin: -5px -15px;
   font-size: 14px;
   font-weight: bold;
-  text-transform: uppercase;
   color: @black;
 }
 
@@ -39,8 +38,11 @@
   cursor: pointer;
 }
 
+.menu__link_upper {
+  text-transform: uppercase;
+}
+
 .menu_media {
-  text-transform: capitalize;
   font-size: 20px;
   color: fade(@black, 60);
 
@@ -74,57 +76,64 @@
   }
 }
 
-.menu__tab {
-  color: @black;
+.menu_tabs {
+  text-transform: none;
   font-size: 1.14rem;
-  padding: 1.1rem 2.24rem;
-  cursor: pointer;
-  &:last-child, &:first-child {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  margin-left: 0;
   @media (max-width: 768px) {
-    & > * {
-      padding-left: 0;
-      padding-right: 0;
+    flex-direction: column;
+    align-items: baseline;
+    &:first-child, &:last-child {
+      margin: 0;
     }
   }
-  &_active {
-    &:hover {
-      color: @red;
+
+  .menu__link {
+    color: @black;
+    padding: 2.2rem 0;
+    display: block;
+    @media (max-width: 768px) {
+      padding: 0.6rem 0;
+    }
+  }
+
+  .menu__item {
+    margin: 0 2rem;
+    @media (max-width: 768px) {
+      margin: 0;
+    }
+    &:first-child, &:last-child {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    &_active {
       position: relative;
-      &::after {
-        content: "";
-        position: absolute;
-        border-radius: 3px;
-        height: 2px;
-        left: 0;
-        top: 3.4rem;
-        display: block;
-        width: 100%;
-        background-color: @red;
-        @media (max-width: 768px) {
-          display: none;
+      .menu__link {
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          color: @red;
+          &::after {
+            content: '';
+            position: absolute;
+            border-radius: 3px;
+            height: 2px;
+            left: 0;
+            bottom: 4px;
+            display: block;
+            width: 100%;
+            background-color: @red;
+            @media (max-width: 768px) {
+              display: none;
+            }
+          }
         }
       }
     }
   }
 }
 
-.menu_tabs {
-  text-transform: none;
-  font-size: 1.14rem;
-  margin: 0;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: baseline;
-    & > * {
-      padding: 0.5rem 0;
-    }
-  }
-}
-
 .menu_footer {
   font-size: 16px;
-  text-transform: initial;
 }

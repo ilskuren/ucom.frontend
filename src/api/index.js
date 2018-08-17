@@ -1,4 +1,3 @@
-import { randomString } from '../utils/randomString';
 import config from '../../package.json';
 
 const Eos = require('eosjs');
@@ -8,9 +7,8 @@ const { ecc } = Eos.modules;
 export const login = ({ brainkey, accountName }) => {
   const ownerKey = ecc.seedPrivate(brainkey);
   const activeKey = ecc.seedPrivate(ownerKey);
-  const accountNameSign = ecc.sign(accountName, activeKey);
+  const sign = ecc.sign(accountName, activeKey);
   const publicKey = ecc.privateToPublic(activeKey);
-  const sign = ecc.sign(`${accountNameSign}${randomString(20)}`, activeKey);
 
   return fetch(`${config.backend.httpEndpoint}/api/v1/auth/register`, {
     method: 'post',
@@ -26,3 +24,13 @@ export const login = ({ brainkey, accountName }) => {
   })
     .then(resp => resp.json());
 };
+
+export const getMyself = token => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
+    method: 'get',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from './TextInput';
@@ -5,6 +6,8 @@ import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
 import { login } from '../api';
+import { setUser } from '../actions';
+import { saveToken } from '../utils/token';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -15,19 +18,52 @@ class Auth extends PureComponent {
       accountName: '',
       loading: false,
       showError: false,
+      errors: null,
     };
   }
 
+  getError(fieldName) {
+    const { errors } = this.state;
+
+    if (!errors) {
+      return null;
+    }
+
+    const fieldError = errors.find(error => error.field === fieldName);
+
+    if (!fieldError) {
+      return null;
+    }
+
+    return fieldError.message;
+  }
+
   login() {
-    this.setState({ loading: true });
+    this.setState({
+      errors: null,
+      loading: true,
+    });
 
     setTimeout(() => {
       login({
         brainkey: this.state.brainkey,
         accountName: this.state.accountName,
       })
-        .then(() => {
-          // TODO: Set user, save session
+        .then((data) => {
+          if (data.errors) {
+            this.setState({
+              errors: data.errors,
+              loading: false,
+            });
+          }
+
+          if (data.user) {
+            this.props.setUser(data.user);
+          }
+
+          if (data.token) {
+            saveToken(data.token);
+          }
         })
         .catch(() => {
           this.setState({
@@ -74,6 +110,7 @@ class Auth extends PureComponent {
             <div className="auth__fields">
               <div className="auth__field">
                 <TextInput
+                  error={this.getError('account_name')}
                   label="Account name"
                   value={this.state.accountName}
                   disabled={this.state.loading}
@@ -107,6 +144,14 @@ class Auth extends PureComponent {
 
 Auth.propTypes = {
   onClickClose: PropTypes.func,
+  setUser: PropTypes.func,
 };
 
-export default Auth;
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    setUser: data => dispatch(setUser(data)),
+  }),
+)(Auth);

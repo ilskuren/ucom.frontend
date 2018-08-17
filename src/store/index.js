@@ -1,5 +1,7 @@
+import { createStore } from 'redux';
+
 const getInitialState = () => ({
-  user: {},
+  user: null,
 });
 
 const app = (state = getInitialState(), action) => {
@@ -13,4 +15,4 @@ const app = (state = getInitialState(), action) => {
   }
 };
 
-export default app;
+export default createStore(app);

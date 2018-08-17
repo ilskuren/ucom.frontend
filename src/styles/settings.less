@@ -1,6 +1,20 @@
 .settings {
+  width: 100%;
+  
+  &__form {
+    flex-basis: 600px;
+    font-size: 1.142rem;
+    padding-top: 24px;
+  }
+
+  &__change-password-button {
+    padding-top: 20px;
+    margin-bottom: 11px;
+  }
+
   &__block {
     display: flex;
+    align-items: baseline;
     width: 100%;
     margin-bottom: 40px;
 
@@ -20,7 +34,7 @@
 
   &__input {
     width: 75%;
-    max-width: 500px;
+    max-width: 400px;
 
     @media (max-width: 424px) {
       width: 100%;

@@ -48,8 +48,8 @@ const SettingsNotificationsPage = () => (
             <InfoBlock title="Alerts" size="small">
               {
                 alerts.map((item, index) => (
-                  <div className="settings__block" key={index}>
-                    <div className={classNames('settings__label', 'settings__label_wider')}>
+                  <div className={classNames('settings__block', 'settings__block_alerts')} key={index}>
+                    <div className={classNames('settings__label', 'settings__label_alerts')}>
                       {item.name}
                     </div>
                     <div className="settings__switcher">
@@ -64,14 +64,12 @@ const SettingsNotificationsPage = () => (
             <InfoBlock title="Account" size="small">
               {
                 account.map((item, index) => (
-                  <div className="settings__checkbox" key={index}>
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Checkbox isChecked={item.value} />
-                      </div>
-                      <div className="inline__item">
-                        {item.name}
-                      </div>
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox isChecked={item.value} />
+                    </div>
+                    <div className="inline__item">
+                      {item.name}
                     </div>
                   </div>
                 ))
@@ -82,14 +80,12 @@ const SettingsNotificationsPage = () => (
             <InfoBlock title="Platform events" size="small">
               {
                 events.map((item, index) => (
-                  <div className="settings__checkbox" key={index}>
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Checkbox isChecked={item.value} />
-                      </div>
-                      <div className="inline__item">
-                        {item.name}
-                      </div>
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox isChecked={item.value} />
+                    </div>
+                    <div className="inline__item">
+                      {item.name}
                     </div>
                   </div>
                 ))

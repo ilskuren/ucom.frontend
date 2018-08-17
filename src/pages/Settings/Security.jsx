@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import NavBar from '../../components/NavBar';
+import UserList from '../../components/UserList';
 
 const SettingsSecurityPage = () => (
   <div className="page">
@@ -14,9 +15,7 @@ const SettingsSecurityPage = () => (
 
     <div className="content">
       <div className="content__inner_flex">
-        <div className="content__settings-block">
-          Settings
-        </div>
+        <UserList />
       </div>
     </div>
   </div>

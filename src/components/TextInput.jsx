@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
+import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
   value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled,
 }) => {
-  const isIconExist = isSearch || error || value;
+  const isIconExist = isSearch || error || value || type === 'password';
   return (
     <div className="text-input">
       <label>
@@ -39,6 +40,7 @@ const TextInput = ({
           { isSearch && <div className="text-input__icon"><IconSearch /></div> }
           { error && <div className="text-input__icon"><InputErrorIcon /></div> }
           { value && <div className="text-input__icon"><InputCompleteIcon /></div> }
+          { type === 'password' && <div className="text-input__password-icon"><Eye /></div> }
         </div>
       </label>
       { subtext && <div className="text-input__subtext">{subtext}</div> }

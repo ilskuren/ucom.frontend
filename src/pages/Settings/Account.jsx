@@ -19,6 +19,7 @@ const SettingsAccountPage = () => (
 
     <div className="content">
       <div className="content__inner_flex">
+        <div className="settings">
         <div className="settings__form">
           <div className="settings__block">
             <div className="settings__label">Email</div>
@@ -60,6 +61,7 @@ const SettingsAccountPage = () => (
             <div className="settings__input"><Dropdown options={[]} /></div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>

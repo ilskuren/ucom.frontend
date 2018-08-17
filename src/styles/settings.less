@@ -1,6 +1,20 @@
 .settings {
   width: 100%;
-  
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 30px;
+    max-width: 1024px;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      padding-left: 20px;
+      padding-right: 30px;
+    }
+  }
+
   &__form {
     flex-basis: 600px;
     font-size: 1.142rem;
@@ -17,6 +31,10 @@
     align-items: baseline;
     width: 100%;
     margin-bottom: 40px;
+    &_alerts {
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
 
     @media (max-width: 424px) {
       flex-direction: column;
@@ -30,14 +48,53 @@
     flex-grow: 1;
     align-items: center;
     padding: 12px 0;
+
+    &_alerts {
+      max-width: 260px;
+      margin-right: 8px;
+      flex-grow: 0;
+    }
   }
 
   &__input {
+    display: flex;
+    align-items: center;
     width: 75%;
     max-width: 400px;
 
     @media (max-width: 424px) {
       width: 100%;
+    }
+  }
+
+  &__switcher {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 150px;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  &__info-block {
+    margin-bottom: 30px;
+    &_alerts {
+      width: 40%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+    &_account {
+      display: flex;
+      min-width: 200px;
+    }
+    &_events {
+      display: flex;
+      min-width: 200px;
     }
   }
 }

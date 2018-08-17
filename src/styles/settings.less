@@ -4,13 +4,20 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 30px;
-    max-width: 1078px;
+    max-width: 1024px;
+    flex-wrap: wrap;
+
+    @media (max-width: 773px) {
+    }
   }
 
   &__block {
     display: flex;
     width: 100%;
     margin-bottom: 40px;
+    &_alerts {
+      margin-bottom: 15px;
+    }
 
     @media (max-width: 424px) {
       flex-direction: column;
@@ -25,8 +32,9 @@
     align-items: center;
     padding: 12px 0;
 
-    &_wider {
+    &_alerts {
       max-width: 260px;
+      margin-right: 8px;
     }
   }
 
@@ -46,18 +54,32 @@
   }
 
   &__checkbox {
+    display: flex;
+    align-items: center;
     margin-bottom: 4px;
   }
 
   &__info-block {
+    margin-bottom: 30px;
     &_alerts {
-      flex-grow: 2;
+      flex-grow: 10;
+      @media (max-width: 1023px) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
     }
     &_account {
-      flex-grow: 1.3
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+      min-width: 280px;
     }
     &_events {
-      flex-grow: 1.15
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+      min-width: 280px;
     }
   }
 }

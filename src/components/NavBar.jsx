@@ -1,19 +1,13 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Button from './Button';
 
 const NavBar = (props) => {
-  const tabs = props.tabs.map((tab, i) => {
-    const tabClass = classNames('menu__tab', {
-      menu__tab_active: tab.active,
-    });
-    return <div className={tabClass} key={i}>{tab.name} </div>;
-  });
-
-  const changesNotificationClass = classNames('nav-bar__changes-notification', {
-    'nav-bar__changes-notification_displayed': props.isHaveBeenSavedChanges,
-  });
+  const tabs = props.tabs.map((tab, i) => (
+    <div className="menu__item menu__item_active" key={i}>
+      <a href="#" className="menu__link">{tab.name}</a>
+    </div>
+  ));
 
   return (
     <div className="nav-bar">
@@ -26,13 +20,13 @@ const NavBar = (props) => {
             </div>
             <div className="toolbar__side">
               <div className="inline">
-                <div className="inline__item">
-                  <div className={changesNotificationClass}>Your changes have been saved.</div>
-                </div>
-                <div className="inline__item">
-                  <div className="nav-bar__back-button">
-                    <Button text="Back to Profile" size="small" theme="transparent" />
+                { props.isHaveBeenSavedChanges &&
+                  <div className="inline__item">
+                    Your changes have been saved
                   </div>
+                }
+                <div className="inline__item">
+                  <Button text="Back to Profile" size="small" theme="transparent" />
                 </div>
               </div>
             </div>
@@ -50,10 +44,6 @@ NavBar.propTypes = {
   })).isRequired,
   title: PropTypes.string.isRequired,
   isHaveBeenSavedChanges: PropTypes.bool,
-};
-
-NavBar.defaultProps = {
-  isHaveBeenSavedChanges: false,
 };
 
 export default NavBar;

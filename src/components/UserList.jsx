@@ -5,8 +5,8 @@ const UserList = () => (
   <div className="user-list">
 
     {
-        [0, 0, 0, 0].map(() => (
-          <div className="user-list__user-container">
+        [0, 0, 0, 0].map((_, userIndex) => (
+          <div className="user-list__user-container" key={userIndex}>
             <div className="toolbar">
               <div className="toolbar__main">
                 <div className="user-list__user">

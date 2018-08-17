@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Avatar from './Avatar';
 
-const setUserOption = (option, length, i) => {
+const setUserOption = (option, length, optionIndex) => {
   if (typeof option === 'string') {
     return option;
   }
-  const isLastOption = length === i + 1; // for presentation purposes
+  const isLastIndex = length - 1 === optionIndex;
   const userOptionClass = classNames('user-option', {
-    'user-option_link-color_red': !isLastOption,
+    'user-option_link-color_red': !isLastIndex,
   });
 
   return (
@@ -32,7 +32,7 @@ const setUserOption = (option, length, i) => {
         <div className="toolbar__side">
           <span className="inline__item">
             <span className={userOptionClass}>
-              {isLastOption ? 'Invite sent' : 'Invite'}
+              {isLastIndex ? 'Invite sent' : 'Invite'}
             </span>
           </span>
         </div>
@@ -71,9 +71,9 @@ const Dropdown = ({
         <div className="dropdown__value">{value}</div>
         <div className="dropdown__arrow" />
         <div className={classNames(dropdownOptionsClass)}>
-          {options.map((option, i) => (
-            <div className={dropdownOptionClass} key={i}>
-              {isUserOption ? setUserOption(option, options.length, i) : option}
+          {options.map((option, optionIndex) => (
+            <div className={dropdownOptionClass} key={optionIndex}>
+              {isUserOption ? setUserOption(option, options.length, optionIndex) : option}
             </div>
           ))}
         </div>

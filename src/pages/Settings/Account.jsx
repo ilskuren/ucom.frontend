@@ -25,6 +25,7 @@ const SettingsAccountPage = () => (
           <div className="settings__block">
             <div className="settings__label">Password</div>
             <div className="settings__input"><TextInput type="password" /></div>
+            <div>Change password</div>
           </div>
           <div className="settings__block">
             <div className="settings__label">Profile link</div>

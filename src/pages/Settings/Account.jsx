@@ -4,6 +4,8 @@ import NavBar from '../../components/NavBar';
 import TextInput from '../../components/TextInput';
 import Dropdown from '../../components/Dropdown';
 import PrefixInput from '../../components/PrefixInput';
+import Link from '../../components/Link';
+import KYC from '../../components/KYC';
 
 const SettingsAccountPage = () => (
   <div className="page">
@@ -24,9 +26,14 @@ const SettingsAccountPage = () => (
           </div>
           <div className="settings__block">
             <div className="settings__label">Password</div>
-            <div className="settings__input"><TextInput type="password" /></div>
-            <div>Change password</div>
+            <div className="settings__input">
+              <TextInput type="password" />
+              <div className="settings__change-password-button">
+                <Link href="#">Change password</Link>
+              </div>
+            </div>
           </div>
+
           <div className="settings__block">
             <div className="settings__label">Profile link</div>
             <div className="settings__input">
@@ -38,7 +45,7 @@ const SettingsAccountPage = () => (
           </div>
           <div className="settings__block">
             <div className="settings__label">KYC</div>
-            <div className="settings__input"><TextInput /></div>
+            <div className="settings__input"><KYC /></div>
           </div>
           <div className="settings__block">
             <div className="settings__label">Timezone</div>

@@ -5,9 +5,11 @@ import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
 import IconSearch from './Icons/Search';
 import IconLogo from './Icons/Logo';
-import Avatar from './Avatar';
 import Popup from './Popup';
 import Auth from './Auth';
+import UserCard from './UserCard';
+import { removeToken } from '../utils/token';
+import { setUser } from '../actions';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -26,11 +28,16 @@ class Header extends PureComponent {
     this.setState({ showAuthPopup: true });
   }
 
+  logout() {
+    removeToken();
+    this.props.setUser({});
+  }
+
   render() {
     return (
       <div className="header">
         <div className="header__side">
-          {!this.props.user ? (
+          {!this.props.user.id ? (
             <Fragment>
               {this.state.showAuthPopup && (
                 <Popup onClickClose={() => this.closeAuthPopup()}>
@@ -38,50 +45,51 @@ class Header extends PureComponent {
                 </Popup>
               )}
 
-              <div className="inline">
-                <div className="inline__item">
-                  <a href="/" className="button-icon">
+              <nav className="menu menu_responsive">
+                <div className="menu__item">
+                  <a href="/" className="menu__link">
                     <IconLogo />
                   </a>
                 </div>
-                <div className="inline__item">
-                  <nav className="menu menu_responsive">
-                    <div className="menu__item">
-                      <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Sign in</button>
-                    </div>
-                  </nav>
+                <div className="menu__item">
+                  <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Sign in</button>
                 </div>
-              </div>
+              </nav>
             </Fragment>
           ) : (
-            <div className="inline">
+            <div className="inline inline_large">
               <div className="inline__item">
-                <Avatar src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+                <UserCard
+                  profileLink="#"
+                  userName={this.props.user.nickname}
+                />
               </div>
               <div className="inline__item">
-                <nav className="menu">
-                  <div className="menu__item">
-                    <a href="#" className="menu__link menu__link_">{this.props.user.nickname}</a>
-                  </div>
-                </nav>
+                <button className="button-clean button-clean_link" onClick={() => this.logout()}>
+                  <strong>Logout</strong>
+                </button>
               </div>
               <div className="inline__item">
-                <div className="icon-counter">
-                  <div className="icon-counter__icon">
-                    <IconBell />
+                <div className="inline inline_small">
+                  <div className="inline__item">
+                    <div className="icon-counter">
+                      <div className="icon-counter__icon">
+                        <IconBell />
+                      </div>
+                      <div className="icon-counter__counter">
+                        <span className="counter counter_top">1</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="icon-counter__counter">
-                    <span className="counter counter_top">1</span>
-                  </div>
-                </div>
-              </div>
-              <div className="inline__item">
-                <div className="icon-counter">
-                  <div className="icon-counter__icon">
-                    <IconNotification />
-                  </div>
-                  <div className="icon-counter__counter">
-                    <span className="counter counter_top">23</span>
+                  <div className="inline__item">
+                    <div className="icon-counter">
+                      <div className="icon-counter__icon">
+                        <IconNotification />
+                      </div>
+                      <div className="icon-counter__counter">
+                        <span className="counter counter_top">23</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -120,8 +128,14 @@ class Header extends PureComponent {
 
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
+  setUser: PropTypes.func,
 };
 
-export default connect(state => ({
-  user: state.user,
-}))(Header);
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    setUser: data => dispatch(setUser(data)),
+  }),
+)(Header);

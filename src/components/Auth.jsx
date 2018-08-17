@@ -64,6 +64,10 @@ class Auth extends PureComponent {
           if (data.token) {
             saveToken(data.token);
           }
+
+          if (typeof this.props.onClickClose === 'function') {
+            this.props.onClickClose();
+          }
         })
         .catch(() => {
           this.setState({

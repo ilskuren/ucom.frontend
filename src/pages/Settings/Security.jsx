@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import NavBar from '../../components/NavBar';
-import UserList from '../../components/UserList';
+import Switcher from '../../components/Switcher';
 
 const SettingsSecurityPage = () => (
   <div className="page">
@@ -15,7 +15,20 @@ const SettingsSecurityPage = () => (
 
     <div className="content">
       <div className="content__inner_flex">
-        <UserList />
+        <div className="settings__form">
+          <div className="settings__block">
+            <div className="settings__label">Auto-login</div>
+            <div className="settings__input">
+              <Switcher />
+            </div>
+          </div>
+          <div className="settings__block">
+            <div className="settings__label">2FA</div>
+            <div className="settings__input">
+              <Switcher />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import NavBar from '../../components/NavBar';
 import InputWithCopy from '../../components/InputWithCopy';
-import Dropdown from '../../components/Dropdown';
+import Accordeon from '../../components/Accordeon';
 
 const SettingsReferralPage = () => (
   <div className="page">
@@ -22,47 +22,20 @@ const SettingsReferralPage = () => (
               <div className="settings__label">Your referral link</div>
               <div className="settings__input"><InputWithCopy value="Email" /></div>
             </div>
+            <div className="settings__title">Social network</div>
             <div className="settings__block">
-              <div className="settings__label">Facebook</div>
-              <div className="settings__input">
-                <Dropdown
-                  options={[
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                  ]}
-                />
+              <div className="settings__combine-label-input">
+                <Accordeon label="Facebook" />
               </div>
             </div>
             <div className="settings__block">
-              <div className="settings__label">Twitter</div>
-              <div className="settings__input">
-                <Dropdown
-                  options={[
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                  ]}
-                />
+              <div className="settings__combine-label-input">
+                <Accordeon label="Twitter" />
               </div>
             </div>
             <div className="settings__block">
-              <div className="settings__label">GitHub</div>
-              <div className="settings__input">
-                <Dropdown
-                  isOpened
-                  options={[
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                    { name: 'Bruce Wayne' },
-                  ]}
-                />
+              <div className="settings__combine-label-input">
+                <Accordeon label="Github" isOpened />
               </div>
             </div>
           </div>

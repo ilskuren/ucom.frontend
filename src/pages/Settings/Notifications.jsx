@@ -39,61 +39,58 @@ const SettingsNotificationsPage = () => (
       tabs={[{ name: 'Account', active: true }, { name: 'Notifications', active: true }, { name: 'Security', active: true },
       { name: 'Privacy', active: true }, { name: 'Referral', active: true }, { name: 'Blacklist', active: true },
       { name: 'Wallet', active: true }]}
-      isHaveBeenSavedChanges
     />
 
     <div className="content">
       <div className="content__inner_flex">
         <div className="settings">
-          <div className="settings__container">
-            <div className={classNames('settings__info-block', 'settings__info-block_alerts')}>
-              <InfoBlock title="Alerts" size="small">
-                {
-                  alerts.map((item, index) => (
-                    <div className={classNames('settings__block', 'settings__block_alerts')} key={index}>
-                      <div className={classNames('settings__label', 'settings__label_alerts')}>
-                        {item.name}
-                      </div>
-                      <div className="settings__switcher">
-                        <Switcher isChecked={item.value} />
-                      </div>
+          <div className={classNames('settings__info-block', 'settings__info-block_alerts')}>
+            <InfoBlock title="Alerts" size="small">
+              {
+                alerts.map((item, index) => (
+                  <div className={classNames('settings__block', 'settings__block_alerts')} key={index}>
+                    <div className={classNames('settings__label', 'settings__label_alerts')}>
+                      {item.name}
                     </div>
-                  ))
-                }
-              </InfoBlock>
-            </div>
-            <div className={classNames('settings__info-block', 'settings__info-block_account')}>
-              <InfoBlock title="Account" size="small">
-                {
-                  account.map((item, index) => (
-                    <div className="settings__checkbox inline" key={index}>
-                      <div className="inline__item">
-                        <Checkbox isChecked={item.value} />
-                      </div>
-                      <div className="inline__item">
-                        {item.name}
-                      </div>
+                    <div className="settings__switcher">
+                      <Switcher isChecked={item.value} />
                     </div>
-                  ))
-                }
-              </InfoBlock>
-            </div>
-            <div className={classNames('settings__info-block', 'settings__info-block_events')}>
-              <InfoBlock title="Platform events" size="small">
-                {
-                  events.map((item, index) => (
-                    <div className="settings__checkbox inline" key={index}>
-                      <div className="inline__item">
-                        <Checkbox isChecked={item.value} />
-                      </div>
-                      <div className="inline__item">
-                        {item.name}
-                      </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
+          </div>
+          <div className={classNames('settings__info-block', 'settings__info-block_account')}>
+            <InfoBlock title="Account" size="small">
+              {
+                account.map((item, index) => (
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox isChecked={item.value} />
                     </div>
-                  ))
-                }
-              </InfoBlock>
-            </div>
+                    <div className="inline__item">
+                      {item.name}
+                    </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
+          </div>
+          <div className={classNames('settings__info-block', 'settings__info-block_events')}>
+            <InfoBlock title="Platform events" size="small">
+              {
+                events.map((item, index) => (
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox isChecked={item.value} />
+                    </div>
+                    <div className="inline__item">
+                      {item.name}
+                    </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
           </div>
         </div>
       </div>

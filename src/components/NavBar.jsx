@@ -25,9 +25,11 @@ const NavBar = (props) => {
                     Your changes have been saved
                   </div>
                 }
-                <div className="inline__item">
-                  <Button text="Back to Profile" size="small" theme="transparent" />
-                </div>
+                { props.isDisplayedBackButton &&
+                  <div className="inline__item">
+                    <Button text="Back to Profile" size="small" theme="transparent" />
+                  </div>
+                }
               </div>
             </div>
           </div>
@@ -44,6 +46,7 @@ NavBar.propTypes = {
   })).isRequired,
   title: PropTypes.string.isRequired,
   isHaveBeenSavedChanges: PropTypes.bool,
+  isDisplayedBackButton: PropTypes.bool,
 };
 
 export default NavBar;

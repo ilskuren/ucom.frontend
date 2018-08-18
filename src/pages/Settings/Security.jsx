@@ -7,9 +7,10 @@ const SettingsSecurityPage = () => (
   <div className="page">
     <Header />
     <NavBar
-      title="Settings"
+      title="Security"
       tabs={[{ name: 'Account', active: true }, { name: 'Notifications', active: true }, { name: 'Security', active: true },
-      { name: 'Referral', active: true }, { name: 'Blacklist', active: true }]}
+      { name: 'Privacy', active: true }, { name: 'Referral', active: true }, { name: 'Blacklist', active: true },
+      { name: 'Wallet', active: true }]}
       isHaveBeenSavedChanges
     />
 

@@ -24,14 +24,12 @@ const Accordeon = ({
       }
     </div>
     { isOpened &&
-      <div className="accordeon__friends-list-container">
-        <div className={classNames('accordeon__friends-list', { 'accordeon__friends-list_open': isOpened })}>
-          <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
-          <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
-          <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
-          <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
-          <UserOption name="Bruce Wayne" linkText="Invite sent" />
-        </div>
+      <div className={classNames('accordeon__friends-list', { 'accordeon__friends-list_open': isOpened })}>
+        <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
+        <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
+        <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
+        <UserOption name="Bruce Wayne" linkColor="red" linkText="Invite" />
+        <UserOption name="Bruce Wayne" linkText="Invite sent" />
       </div>
     }
   </div>

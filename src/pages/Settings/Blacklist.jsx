@@ -8,42 +8,45 @@ const SettingsBlacklistPage = () => (
   <div className="page">
     <Header />
     <NavBar
-      title="Blacklist"
+      title="Settings"
       tabs={[{ name: 'Account', active: true }, { name: 'Notifications', active: true }, { name: 'Security', active: true },
-      { name: 'Privacy', active: true }, { name: 'Referal', active: true }, { name: 'Blacklist', active: true },
+      { name: 'Privacy', active: true }, { name: 'Referral', active: true }, { name: 'Blacklist', active: true },
       { name: 'Wallet', active: true }]}
-      isHaveBeenSavedChanges
     />
 
     <div className="content">
       <div className="content__black-list">
-        <div className="blacklist">
-          <div className="blacklist__list">
-            <UserList list={[
-              {
-                src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-                name: 'Bruce Wayne',
-                nickname: '@bruce_wayne',
-              },
-              {
-                src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-                name: 'Bruce Wayne',
-                nickname: '@bruce_wayne',
-              },
-              {
-                src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-                name: 'Bruce Wayne',
-                nickname: '@bruce_wayne',
-              },
-              {
-                src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-                name: 'Bruce Wayne',
-                nickname: '@bruce_wayne',
-              }]}
-            />
-          </div>
-          <div className="blacklist__add-button">
-            <Button text="add person" size="small" theme="transparent" isStretched />
+        <div className="settings">
+          <div className="settings__form">
+            <div className="blacklist">
+              <div className="blacklist__list">
+                <UserList list={[
+                  {
+                    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+                    name: 'Bruce Wayne',
+                    nickname: '@bruce_wayne',
+                  },
+                  {
+                    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+                    name: 'Bruce Wayne',
+                    nickname: '@bruce_wayne',
+                  },
+                  {
+                    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+                    name: 'Bruce Wayne',
+                    nickname: '@bruce_wayne',
+                  },
+                  {
+                    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+                    name: 'Bruce Wayne',
+                    nickname: '@bruce_wayne',
+                  }]}
+                />
+              </div>
+              <div className="blacklist__add-button">
+                <Button text="add person" size="small" theme="transparent" isStretched />
+              </div>
+            </div>
           </div>
         </div>
       </div>

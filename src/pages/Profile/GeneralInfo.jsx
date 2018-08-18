@@ -20,6 +20,7 @@ const ProfileGeneralInfoPage = () => (
       tabs={[{ name: 'General Info', active: true },
       { name: 'Work & Education', active: true }, { name: 'Contacts', active: true }]}
       isHaveBeenSavedChanges
+      isDisplayedBackButton
     />
 
     <div className="content">

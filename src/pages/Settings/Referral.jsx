@@ -8,7 +8,7 @@ const SettingsReferralPage = () => (
   <div className="page">
     <Header />
     <NavBar
-      title="Referral"
+      title="Settings"
       tabs={[{ name: 'Account', active: true }, { name: 'Notifications', active: true }, { name: 'Security', active: true },
       { name: 'Privacy', active: true }, { name: 'Referral', active: true }, { name: 'Blacklist', active: true },
       { name: 'Wallet', active: true }]}

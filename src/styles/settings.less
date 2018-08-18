@@ -19,6 +19,9 @@
     flex-basis: 600px;
     font-size: 1.142rem;
     padding-top: 24px;
+    & > *:first-child {
+      margin-top: 0;
+    }
   }
 
   &__change-password-button {
@@ -30,10 +33,10 @@
     display: flex;
     align-items: baseline;
     width: 100%;
-    margin-bottom: 40px;
+    margin-top: 40px;
     &_alerts {
       justify-content: space-between;
-      margin-bottom: 15px;
+      margin-top: 15px;
     }
 
     @media (max-width: 424px) {
@@ -89,11 +92,11 @@
   &__title {
     font-weight: bold;
     font-size: 1.14rem;
-    margin-bottom: 2.1rem;
+    margin-top: 4.1rem;
   }
 
   &__info-block {
-    margin-bottom: 30px;
+    margin-top: 30px;
     &_alerts {
       width: 40%;
       @media (max-width: 767px) {

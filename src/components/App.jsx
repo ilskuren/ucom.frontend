@@ -12,7 +12,7 @@ import SettingsSecurityPage from '../pages/Settings/Security';
 import SettingsReferralPage from '../pages/Settings/Referral';
 import SettingsBlacklistPage from '../pages/Settings/Blacklist';
 import { setUser } from '../actions';
-import { getToken } from '../utils/token';
+import { getToken, removeToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
 
@@ -41,6 +41,7 @@ class App extends PureComponent {
           this.setState({ loading: false });
         })
         .catch(() => {
+          removeToken();
           this.setState({ loading: false });
         });
     }

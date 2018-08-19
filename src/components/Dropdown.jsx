@@ -1,43 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Avatar from './Avatar';
+import UserOption from './UserOption';
 
 const setUserOption = (option, length, optionIndex) => {
   if (typeof option === 'string') {
     return option;
   }
   const isLastIndex = length - 1 === optionIndex;
-  const userOptionClass = classNames('user-option', {
-    'user-option_link-color_red': !isLastIndex,
-  });
 
   return (
-    <div className="user-option">
-      <div className="toolbar">
-        <div className="toolbar__main">
-          <div className="inline">
-            <span className="inline__item">
-              <Avatar
-                src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg"
-              />
-            </span>
-            <span className="inline__item">
-              <span className="user-option__name">
-                {option.name}
-              </span>
-            </span>
-          </div>
-        </div>
-        <div className="toolbar__side">
-          <span className="inline__item">
-            <span className={userOptionClass}>
-              {isLastIndex ? 'Invite sent' : 'Invite'}
-            </span>
-          </span>
-        </div>
-      </div>
-    </div>
+    <UserOption
+      name="bruce wayne"
+      linkColor={!isLastIndex ? 'red' : ''}
+      linkText={isLastIndex ? 'Invite sent' : 'Invite'}
+    />
   );
 };
 

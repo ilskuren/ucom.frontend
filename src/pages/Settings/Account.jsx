@@ -13,8 +13,8 @@ const SettingsAccountPage = () => (
     <NavBar
       title="Settings"
       tabs={[{ name: 'Account', active: true }, { name: 'Notifications', active: true }, { name: 'Security', active: true },
-      { name: 'Referral', active: true }, { name: 'Blacklist', active: true }]}
-      isHaveBeenSavedChanges
+      { name: 'Privacy', active: true }, { name: 'Referral', active: true }, { name: 'Blacklist', active: true },
+      { name: 'Wallet', active: true }]}
     />
 
     <div className="content">

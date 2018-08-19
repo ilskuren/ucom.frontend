@@ -1,9 +1,18 @@
 .nav-bar {
   font-size: 1.14rem;
   border-bottom: 1px solid darken(@gray-lighter, 5);
+  &__menu {
+    @media (max-width: 319px) {
+      padding-bottom: 5px;
+    }
+  }
   &__content {
     padding: 0 40px;
     margin-top: 3.15rem;
+    @media (max-width: 767px){
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
   &__title {
     font-size: 3.58rem;
@@ -11,6 +20,7 @@
     font-weight: bold;
     @media (max-width: 767px) {
       margin-bottom: 2.4rem;
+      font-size: 2rem;
     }
   }
 }

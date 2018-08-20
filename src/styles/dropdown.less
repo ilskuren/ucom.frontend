@@ -14,11 +14,11 @@
     display: flex;
     box-sizing: border-box;
     align-items: center;
-    height: 48px;
+    min-height: 48px;
     border: 1px @gray solid;
     border-radius: @borderRadius;
     padding-left: 16px;
-    padding-right: 50px;
+    padding-right: 16px;
     &:hover {
       cursor: pointer;
       border-color: @gray-darker;
@@ -92,4 +92,48 @@
     margin-top: 12px;
     color: @gray-dark;
   }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    min-height: 48px;
+    padding: 8px 0 8px 0;
+    width: 100%;
+    overflow: hidden;
+
+    &::placeholder {
+      color: @gray-light;
+    }
+  }
+
+  &__input-prefix {
+    color: #8C8C8C;
+    display: flex;
+    flex-grow: 0;
+    flex-wrap: wrap;
+  }
+
+  &__input {
+    border: none;
+    padding: 0;
+    background: transparent;
+    flex-grow: 1;
+    width: 60px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 }
+

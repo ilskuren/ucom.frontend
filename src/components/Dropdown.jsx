@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import UserOption from './UserOption';
+import Tag from './Tag';
 
 const setUserOption = (option, length, optionIndex) => {
   if (typeof option === 'string') {
@@ -18,8 +19,22 @@ const setUserOption = (option, length, optionIndex) => {
   );
 };
 
+const renderSearchInput = (value, tags, placeholder) => (
+  <div className="dropdown__input-wrapper">
+    <div className="dropdown__input-prefix">
+      { tags && tags.map(tag => <div className="dropdown__tag"><Tag value={tag} size={10} /></div>) }
+    </div>
+    <input
+      value={value}
+      className="dropdown__input"
+      type="text"
+      placeholder={placeholder}
+    />
+  </div>
+);
+
 const Dropdown = ({
-  value, label, options, subtext, isOpened,
+  value, label, options, subtext, isOpened, tags, withFilterInput, placeholder,
 }) => {
   const isUserOption = options.every(option => typeof option !== 'string');
   const dropdownOptionsClass = classNames(
@@ -45,8 +60,11 @@ const Dropdown = ({
     <div className="dropdown">
       { label && <div className="dropdown__label">{label}</div> }
       <div className={dropdownSelectClass}>
-        <div className="dropdown__value">{value}</div>
-        <div className="dropdown__arrow" />
+        {withFilterInput
+          ? renderSearchInput(value, tags, placeholder)
+          : <div className="dropdown__value">{value}</div>
+        }
+        {!withFilterInput && <div className="dropdown__arrow" />}
         <div className={classNames(dropdownOptionsClass)}>
           {options.map((option, optionIndex) => (
             <div className={dropdownOptionClass} key={optionIndex}>
@@ -64,7 +82,10 @@ Dropdown.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   subtext: PropTypes.string,
+  placeholder: PropTypes.string,
   isOpened: PropTypes.bool,
+  withFilterInput: PropTypes.bool,
+  tags: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.shape({

@@ -23,8 +23,11 @@ class ProfileGeneralInfoPage extends PureComponent {
       lastName: this.props.user.last_name || '',
       nickname: this.props.user.nickname || '',
       about: this.props.user.about || '',
+      birthday: this.props.user.birthday || '',
       loading: false,
     };
+
+    console.log(this.props.user);
   }
 
   save() {
@@ -34,6 +37,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       lastName: this.state.lastName,
       nickname: this.state.nickname,
       about: this.state.about,
+      birthday: this.state.birthday,
     };
 
     this.setState({ loading: true });
@@ -109,7 +113,11 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch isRequired />
                   </div>
                   <div className="profile__block">
-                    <DateInput label="Birthday" />
+                    <DateInput
+                      label="Birthday"
+                      // value={this.state.birthday}
+                      onChange={birthday => this.setState({ birthday })}
+                    />
                   </div>
                   <div className={classNames('profile__block', 'profile__block_textarea')}>
                     <Textarea

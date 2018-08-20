@@ -20,7 +20,10 @@ class ProfileGeneralInfoPage extends PureComponent {
 
     this.state = {
       firstName: this.props.user.first_name || '',
-      loading: true,
+      lastName: this.props.user.last_name || '',
+      nickname: this.props.user.nickname || '',
+      about: this.props.user.about || '',
+      loading: false,
     };
   }
 
@@ -28,6 +31,9 @@ class ProfileGeneralInfoPage extends PureComponent {
     const token = getToken();
     const data = {
       first_name: this.state.firstName,
+      lastName: this.state.lastName,
+      nickname: this.state.nickname,
+      about: this.state.about,
     };
 
     this.setState({ loading: true });
@@ -56,7 +62,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                 this.save();
               }}
             >
-              <Loading loading={this.state.loading} className="loading_block" appear />
+              <Loading loading={this.state.loading} className="loading_block" />
 
               <div className="profile__info-block">
                 <InfoBlock title="Personal info">
@@ -85,10 +91,19 @@ class ProfileGeneralInfoPage extends PureComponent {
                     />
                   </div>
                   <div className="profile__block">
-                    <TextInput label="Second name" value="Zero" />
+                    <TextInput
+                      label="Second name"
+                      value={this.state.lastName}
+                      onChange={lastName => this.setState({ lastName })}
+                    />
                   </div>
                   <div className="profile__block">
-                    <TextInput label="Nickname" placeholder="@nickname" isRequired />
+                    <TextInput
+                      label="Nickname"
+                      placeholder="@nickname"
+                      value={this.state.nickname}
+                      onChange={nickname => this.setState({ nickname })}
+                    />
                   </div>
                   <div className="profile__block">
                     <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch isRequired />
@@ -97,7 +112,13 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <DateInput label="Birthday" />
                   </div>
                   <div className={classNames('profile__block', 'profile__block_textarea')}>
-                    <Textarea rows={6} label="About me" placeholder="Type something..." />
+                    <Textarea
+                      rows={6}
+                      label="About me"
+                      placeholder="Type something..."
+                      value={this.state.about}
+                      onChange={about => this.setState({ about })}
+                    />
                   </div>
                 </InfoBlock>
               </div>

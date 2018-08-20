@@ -8,7 +8,7 @@ const app = (state = getInitialState(), action) => {
   switch (action.type) {
     case 'SET_USER':
       return Object.assign({}, state, {
-        user: Object.assign({}, state, action.data),
+        user: Object.assign({}, state.user, action.data),
       });
     default:
       return state;

@@ -55,6 +55,7 @@ class Auth extends PureComponent {
               errors: data.errors,
               loading: false,
             });
+            return;
           }
 
           if (data.user) {

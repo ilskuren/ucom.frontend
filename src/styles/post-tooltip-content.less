@@ -8,6 +8,7 @@
   }
 
   &__repost-title {
+    cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
     line-height: 17px;
@@ -38,23 +39,63 @@
   }
 
   &__social-element {
+    cursor: pointer;
     display: inline-block;
     width: 32px;
     height: 32px;
     border-radius: 2px;
     background-color: #E8ECEC;
+    background-repeat: no-repeat;
+    background-position: center center;
     margin-right: 8px;
+
+    &_fb {
+      background-image: url('../static/img/fb_logo.svg');
+    }
+
+    &_twitter {
+      background-image: url('../static/img/twitter_logo.svg');
+    }
+
+    &_telegram {
+      background-image: url('../static/img/telegram_logo.svg');
+    }
+
+    &_vk {
+      background-image: url('../static/img/vk_logo.svg');
+    }
   }
 
-  &__link {
+  &__share-link {
     padding-top: 18px;
   }
 
-  &__link-title {
+  &__share-link-title {
     font-weight: bold;
     font-size: 1rem;
     line-height: 17px;
     color: @black;
     letter-spacing: 0.38px;
+  }
+
+  &__share-link-link {
+    padding-top: 8px;
+  }
+
+  &__link {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: 0.38px;
+    width: calc(100% - 18px);
+  }
+
+  &__copy {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url('../static/img/copy.svg');
+    background-repeat: no-repeat;
   }
 }

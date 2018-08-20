@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 
 const UserCard = props => (
@@ -10,7 +11,7 @@ const UserCard = props => (
     <div className="user-card__info">
       <div className="user-card__name">
         {props.profileLink ? (
-          <a href={props.profileLink}>{props.userName}</a>
+          <Link to={props.profileLink}>{props.userName}</Link>
         ) : (
           <Fragment>{props.userName}</Fragment>
         )}

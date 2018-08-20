@@ -52,7 +52,7 @@ class Header extends PureComponent {
                   </a>
                 </div>
                 <div className="menu__item">
-                  <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Sign in</button>
+                  <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
                 </div>
               </nav>
             </Fragment>
@@ -60,7 +60,7 @@ class Header extends PureComponent {
             <div className="inline inline_large">
               <div className="inline__item">
                 <UserCard
-                  profileLink="#"
+                  profileLink="/profile/general-info"
                   userName={this.props.user.nickname}
                 />
               </div>

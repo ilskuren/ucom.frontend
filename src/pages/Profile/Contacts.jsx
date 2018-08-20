@@ -7,6 +7,9 @@ import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import PersonForm from '../../components/PersonForm';
 import NavBar from '../../components/NavBar';
+import Tooltip from '../../components/Tooltip';
+import ProfileTooltipContent from '../../components/ProfileTooltipContent';
+import HordeIcon from '../../static/img/horde_ico.png';
 
 const ProfileContactsPage = () => (
   <div className="page">
@@ -30,6 +33,12 @@ const ProfileContactsPage = () => (
           <PersonForm>
             <div className="profile__info-block">
               <InfoBlock title="Personal networks">
+                <div className="profile__block">
+                  <div>111</div>
+                  <Tooltip>
+                    <ProfileTooltipContent title="Horde ICO" username="HORDE" avatar={HordeIcon} />
+                  </Tooltip>
+                </div>
                 <div className="profile__block">
                   <TextInput label="Email" isRequired />
                 </div>

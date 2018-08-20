@@ -3,9 +3,7 @@ import { Router, Route, Switch } from 'react-router';
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
-import ProfileGeneralInfoPage from '../pages/Profile/GeneralInfo';
-import ProfileWorkAndEducationPage from '../pages/Profile/WorkAndEducation';
-import ProfileContactsPage from '../pages/Profile/Contacts';
+import ProfilePage from '../pages/Profile';
 import SettingsAccountPage from '../pages/Settings/Account';
 import SettingsNotificationsPage from '../pages/Settings/Notifications';
 import SettingsSecurityPage from '../pages/Settings/Security';
@@ -21,7 +19,7 @@ class App extends PureComponent {
     super(props);
 
     this.state = {
-      loading: false,
+      loading: true,
     };
   }
 
@@ -32,9 +30,9 @@ class App extends PureComponent {
   restoreSession() {
     const token = getToken();
 
-    if (token) {
-      this.setState({ loading: true });
+    this.setState({ loading: true });
 
+    if (token) {
       getMyself(token)
         .then((data) => {
           this.props.setUser(data);
@@ -44,21 +42,21 @@ class App extends PureComponent {
           removeToken();
           this.setState({ loading: false });
         });
+    } else {
+      this.setState({ loading: false });
     }
   }
 
   render() {
     return (
       <Fragment>
-        <Loading loading={this.state.loading} />
+        <Loading loading={this.state.loading} appear />
 
         {!this.state.loading && (
           <Router history={this.props.history}>
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile/general-info" component={ProfileGeneralInfoPage} />
-              <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} />
-              <Route exact path="/profile/contacts" component={ProfileContactsPage} />
+              <Route path="/profile" component={ProfilePage} />
               <Route exact path="/settings/account" component={SettingsAccountPage} />
               <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
               <Route exact path="/settings/security" component={SettingsSecurityPage} />

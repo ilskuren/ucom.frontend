@@ -4,6 +4,7 @@ import React from 'react';
 
 const LoadingScreen = props => (
   <CSSTransition
+    appear={props.appear}
     in={props.loading}
     timeout={300}
     classNames="loading"
@@ -15,6 +16,7 @@ const LoadingScreen = props => (
 
 LoadingScreen.propTypes = {
   loading: PropTypes.bool,
+  appear: PropTypes.bool,
 };
 
 export default LoadingScreen;

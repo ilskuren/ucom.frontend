@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
@@ -28,15 +29,36 @@ class ProfilePage extends PureComponent {
               <div className="nav-bar__menu">
                 <div className="toolbar toolbar_responsive">
                   <div className="toolbar__main">
-                    <div className="menu menu_tabs">
-                      <div className="menu__item menu__item_active">
-                        <a href="#" className="menu__link">General Info</a>
+                    <div className="menu menu_simple-tabs">
+                      <div className="menu__item">
+                        <NavLink
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          to="/profile/general-info"
+                          isActive={() => this.props.location.pathname === '/profile/general-info'}
+                        >
+                          General Info
+                        </NavLink>
                       </div>
-                      <div className="menu__item menu__item_active">
-                        <a href="#" className="menu__link">Work & Education</a>
+                      <div className="menu__item">
+                        <NavLink
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          to="/profile/work-and-education"
+                          isActive={() => this.props.location.pathname === '/profile/work-and-education'}
+                        >
+                          Work & Education
+                        </NavLink>
                       </div>
-                      <div className="menu__item menu__item_active">
-                        <a href="#" className="menu__link">Contacts</a>
+                      <div className="menu__item">
+                        <NavLink
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          to="/profile/contacts"
+                          isActive={() => this.props.location.pathname === '/profile/contacts'}
+                        >
+                          Contacts
+                        </NavLink>
                       </div>
                     </div>
                   </div>

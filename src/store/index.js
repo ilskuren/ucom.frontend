@@ -10,6 +10,8 @@ const app = (state = getInitialState(), action) => {
       return Object.assign({}, state, {
         user: Object.assign({}, state.user, action.data),
       });
+    case 'REMOVE_USER':
+      return Object.assign({}, state, { user: {} });
     default:
       return state;
   }

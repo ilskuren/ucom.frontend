@@ -9,6 +9,7 @@ import PersonForm from '../../components/PersonForm';
 import NavBar from '../../components/NavBar';
 import Tooltip from '../../components/Tooltip';
 import ProfileTooltipContent from '../../components/ProfileTooltipContent';
+import PostTooltipContent from '../../components/PostTooltipContent';
 import HordeIcon from '../../static/img/horde_ico.png';
 
 const ProfileContactsPage = () => (
@@ -37,6 +38,12 @@ const ProfileContactsPage = () => (
                   <div>111</div>
                   <Tooltip>
                     <ProfileTooltipContent title="Horde ICO" username="HORDE" avatar={HordeIcon} />
+                  </Tooltip>
+                </div>
+                <div className="profile__block">
+                  <div>111</div>
+                  <Tooltip>
+                    <PostTooltipContent />
                   </Tooltip>
                 </div>
                 <div className="profile__block">

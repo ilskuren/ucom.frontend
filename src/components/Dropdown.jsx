@@ -21,9 +21,7 @@ const setUserOption = (option, length, optionIndex) => {
 
 const renderSearchInput = (value, tags, placeholder) => (
   <div className="dropdown__input-wrapper">
-    <div className="dropdown__input-prefix">
-      { tags && tags.map(tag => <div className="dropdown__tag"><Tag value={tag} size={10} /></div>) }
-    </div>
+    { tags && tags.map(tag => <div className="dropdown__tag"><Tag value={tag} size={10} /></div>) }
     <input
       value={value}
       className="dropdown__input"

@@ -21,7 +21,11 @@ const setUserOption = (option, length, optionIndex) => {
 
 const renderSearchInput = (value, tags, placeholder) => (
   <div className="dropdown__input-wrapper">
-    { tags && tags.map(tag => <div className="dropdown__tag"><Tag value={tag} size={10} /></div>) }
+    {
+      tags && tags.map((tag, index) => (
+        <div key={index} className="dropdown__tag"><Tag value={tag} size={10} /></div>
+      ))
+    }
     <input
       value={value}
       className="dropdown__input"
@@ -32,7 +36,7 @@ const renderSearchInput = (value, tags, placeholder) => (
 );
 
 const Dropdown = ({
-  value, label, options, subtext, isOpened, tags, withFilterInput, placeholder,
+  value, label, options = [], subtext, isOpened, tags, isSearchable, placeholder,
 }) => {
   const isUserOption = options.every(option => typeof option !== 'string');
   const dropdownOptionsClass = classNames(
@@ -58,11 +62,11 @@ const Dropdown = ({
     <div className="dropdown">
       { label && <div className="dropdown__label">{label}</div> }
       <div className={dropdownSelectClass}>
-        {withFilterInput
+        {isSearchable
           ? renderSearchInput(value, tags, placeholder)
           : <div className="dropdown__value">{value}</div>
         }
-        {!withFilterInput && <div className="dropdown__arrow" />}
+        {!isSearchable && <div className="dropdown__arrow" />}
         <div className={classNames(dropdownOptionsClass)}>
           {options.map((option, optionIndex) => (
             <div className={dropdownOptionClass} key={optionIndex}>
@@ -82,7 +86,7 @@ Dropdown.propTypes = {
   subtext: PropTypes.string,
   placeholder: PropTypes.string,
   isOpened: PropTypes.bool,
-  withFilterInput: PropTypes.bool,
+  isSearchable: PropTypes.bool,
   tags: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),

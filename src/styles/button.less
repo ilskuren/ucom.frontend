@@ -1,10 +1,18 @@
 .button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 1em;
   outline: none;
   cursor: pointer;
   border: none;
   font-weight: bold;
   border-radius: 4px;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &_theme {
     &_red {

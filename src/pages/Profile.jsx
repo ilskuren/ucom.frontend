@@ -24,7 +24,7 @@ class ProfilePage extends PureComponent {
           <div className="content__inner">
             <div className="nav-bar nav-bar_simple">
               <div className="nav-bar__title">
-                <h1 className="title">Create Profile</h1>
+                <h1 className="title">Edit Profile</h1>
               </div>
               <div className="nav-bar__menu">
                 <div className="toolbar toolbar_responsive">

@@ -50,7 +50,7 @@ const SettingsAccountPage = () => (
             </div>
             <div className="settings__block">
               <div className="settings__label">Timezone</div>
-              <div className="settings__input"><Dropdown options={[]} withFilterInput withTags tags={['123', '1234', '4234234']} /></div>
+              <div className="settings__input"><Dropdown options={[]} /></div>
             </div>
             <div className="settings__block">
               <div className="settings__label">Language</div>

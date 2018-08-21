@@ -10,6 +10,18 @@ const TextInput = ({
   value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled,
 }) => {
   const isIconExist = isSearch || error || value || type === 'password';
+  let icon;
+
+  if (isSearch) {
+    icon = <div className="text-input__icon"><IconSearch /></div>;
+  } else if (error) {
+    icon = <div className="text-input__icon"><InputErrorIcon /></div>;
+  } else if (value) {
+    icon = <div className="text-input__icon"><InputCompleteIcon /></div>;
+  } else if (type === 'password') {
+    icon = <div className="text-input__icon text-input__icon_password"><Eye /></div>;
+  }
+
   return (
     <div className="text-input">
       <label>
@@ -37,10 +49,8 @@ const TextInput = ({
               }
             }}
           />
-          { isSearch && <div className="text-input__icon"><IconSearch /></div> }
-          { error && <div className="text-input__icon"><InputErrorIcon /></div> }
-          { value && <div className="text-input__icon"><InputCompleteIcon /></div> }
-          { type === 'password' && <div className="text-input__password-icon"><Eye /></div> }
+
+          {icon}
         </div>
       </label>
       { subtext && <div className="text-input__subtext">{subtext}</div> }

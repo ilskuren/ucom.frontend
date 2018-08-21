@@ -8,6 +8,7 @@ const Avatar = props => (
       'avatar',
       { avatar_square: props.square },
       { [`avatar_${props.size}`]: Boolean(props.size) },
+      { avatar_border_white: props.borderWhite },
     )}
   >
     <img className="avatar__img" src={props.src} alt={props.alt} />
@@ -19,6 +20,7 @@ Avatar.propTypes = {
   size: PropTypes.string,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
+  borderWhite: PropTypes.string,
 };
 
 Avatar.defaultProps = {

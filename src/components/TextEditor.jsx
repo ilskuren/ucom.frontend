@@ -1,22 +1,23 @@
-import React from 'react';
-import CircleButton from './CircleButton';
+import React, { PureComponent } from 'react';
+import Letters from '@ckeditor/letters/build/letters';
 
-const TextEditor = () => (
-  <div className="text-editor">
-    <div className="text-editor__hashtag">
-      <a href="#"># STORY</a>
-    </div>
-    <div className="text-editor__content">
-      <div className="text-editor__add-button">
-        <CircleButton />
-      </div>
-      <div className="text-editor__main-text">
-        <div className="text-editor__title">Title</div>
-        <div className="text-editor__lead-text">Lead text</div>
-        <div className="text-editor__text">Text</div>
-      </div>
-    </div>
-  </div>
-);
+export default class TextEditor extends PureComponent {
+  componentDidMount() {
+    Letters.create(document.querySelector('.text-editor'), {
+      cloudServices: {
+        tokenUrl: 'https://34467.cke-cs.com/token/dev/i0uxEkiJEzU59EEF2bsPwv5fCR0g9YrsVuiesXE7CXGULQM6VRpFaQS2kPD4',
+        uploadUrl: 'https://34467.cke-cs.com/easyimage/upload/',
+        webSocketUrl: '34467.cke-cs.com/ws',
+        documentId: 'text-editor',
+      },
+      title: 'Title',
+      body: '<h2>Lead text</h2> <h3>Text</h3>',
+    });
+  }
 
-export default TextEditor;
+  render() {
+    return (
+      <div className="text-editor" />
+    );
+  }
+}

@@ -11,6 +11,7 @@ import SettingsNotificationsPage from '../pages/Settings/Notifications';
 import SettingsSecurityPage from '../pages/Settings/Security';
 import SettingsReferralPage from '../pages/Settings/Referral';
 import SettingsBlacklistPage from '../pages/Settings/Blacklist';
+import PostStoryPage from '../pages/Post/Story';
 import { setUser } from '../actions';
 import { getToken } from '../utils/token';
 import { getMyself } from '../api';
@@ -63,6 +64,7 @@ class App extends PureComponent {
               <Route exact path="/settings/security" component={SettingsSecurityPage} />
               <Route exact path="/settings/referral" component={SettingsReferralPage} />
               <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
+              <Route exact path="/post/story" component={PostStoryPage} />
             </Switch>
           </Router>
         )}

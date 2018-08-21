@@ -6,9 +6,7 @@ const PostStoryPage = () => (
   <div className="page">
     <div className="content">
       <div className="content__inner_flex">
-        <div className="post">
-          <TextEditor />
-        </div>
+        <TextEditor />
       </div>
     </div>
   </div>

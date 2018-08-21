@@ -6,7 +6,6 @@ import React, { PureComponent, Fragment } from 'react';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
-import Header from '../components/Header';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
@@ -17,9 +16,7 @@ class ProfilePage extends PureComponent {
 
   render() {
     return this.props.user.id ? (
-      <div className="page">
-        <Header />
-
+      <Fragment>
         <div className="content content_separated">
           <div className="content__inner">
             <div className="nav-bar nav-bar_simple">
@@ -87,7 +84,7 @@ class ProfilePage extends PureComponent {
             <Footer />
           </div>
         </div>
-      </div>
+      </Fragment>
     ) : (
       <Redirect to="/" />
     );

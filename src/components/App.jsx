@@ -14,6 +14,7 @@ import { setUser } from '../actions';
 import { getToken, removeToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
+import Header from './Header';
 
 class App extends PureComponent {
   constructor(props) {
@@ -55,16 +56,20 @@ class App extends PureComponent {
 
         {!this.state.loading && (
           <Router history={this.props.history}>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/user/:id" component={UserPage} />
-              <Route exact path="/settings/account" component={SettingsAccountPage} />
-              <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
-              <Route exact path="/settings/security" component={SettingsSecurityPage} />
-              <Route exact path="/settings/referral" component={SettingsReferralPage} />
-              <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
-            </Switch>
+            <div className="page">
+              <Header />
+
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/user/:id" component={UserPage} />
+                <Route exact path="/settings/account" component={SettingsAccountPage} />
+                <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
+                <Route exact path="/settings/security" component={SettingsSecurityPage} />
+                <Route exact path="/settings/referral" component={SettingsReferralPage} />
+                <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
+              </Switch>
+            </div>
           </Router>
         )}
       </Fragment>

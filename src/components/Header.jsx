@@ -60,7 +60,7 @@ class Header extends PureComponent {
             <div className="inline inline_large">
               <div className="inline__item">
                 <UserCard
-                  profileLink="/profile/general-info"
+                  profileLink={`/user/${this.props.user.id}`}
                   userName={this.props.user.nickname}
                 />
               </div>

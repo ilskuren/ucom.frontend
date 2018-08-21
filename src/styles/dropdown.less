@@ -1,13 +1,14 @@
 @borderRadius: 4px;
 
-.dropdown {
+html .dropdown {
   font-size: 1.142rem;
   width: 100%;
   line-height: 16px;
   position: relative;
   box-sizing: border-box;
 
-  &__select {
+  &__select,
+  &__control {
     background-color: @white;
     color: @gray-light;
     position: relative;
@@ -24,11 +25,12 @@
       border-color: @gray-darker;
     }
 
-    &_opened {
+    &_opened,
+    &--is-focused {
       border-color: @gray-darker;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      border-bottom: transparent;
+      box-shadow: none;
 
       .dropdown__arrow {
         transform: rotate(45deg);
@@ -50,15 +52,22 @@
     margin: 0;
   }
 
-  &__options {
+  &__menu {
+    margin: 0;
+  }
+
+  &__options,
+  &__menu-list {
     width: 100%;
-    display: none;
+    // display: none;
+    margin: 0;    
     position: absolute;
     top: 100%;
-    left: -1px;
+    // left: -1px;
     border: 1px @gray-darker solid;
     border-bottom-left-radius: @borderRadius;
     border-bottom-right-radius: @borderRadius;
+    border-top: transparent;
     background-color: #fff;
     z-index: 1;
     &:hover {
@@ -71,8 +80,11 @@
   }
 
   &__option {
-    margin: 24px 16px;
+    padding: 24px 16px;
+    // margin: 24px 16px;
+    // padding: 0;
     overflow-wrap: break-word;
+    background-color: @white;
     color: @black;
     &:hover {
       color: @red;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import UserOption from './UserOption';
@@ -54,6 +55,14 @@ const Dropdown = ({
     {
       dropdown__select_opened: options && isOpened,
     },
+  );
+
+  return (
+    <div className="dropdown">
+      { label && <div className="dropdown__label">{label}</div> }
+      <Select value={value} options={options} isMulti classNamePrefix="dropdown" isSearchable={false} />
+      { subtext && <div className="dropdown__subtext">{subtext}</div>}
+    </div>
   );
 
   return (

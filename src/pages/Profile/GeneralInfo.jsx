@@ -26,8 +26,6 @@ class ProfileGeneralInfoPage extends PureComponent {
       birthday: this.props.user.birthday || '',
       loading: false,
     };
-
-    console.log(this.props.user);
   }
 
   save() {
@@ -115,7 +113,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   <div className="profile__block">
                     <DateInput
                       label="Birthday"
-                      // value={this.state.birthday}
+                      value={this.state.birthday}
                       onChange={birthday => this.setState({ birthday })}
                     />
                   </div>

@@ -9,7 +9,7 @@ import Popup from './Popup';
 import Auth from './Auth';
 import UserCard from './UserCard';
 import { removeToken } from '../utils/token';
-import { setUser } from '../actions';
+import { removeUser } from '../actions';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -30,7 +30,7 @@ class Header extends PureComponent {
 
   logout() {
     removeToken();
-    this.props.setUser({});
+    this.props.removeUser();
   }
 
   render() {
@@ -52,7 +52,7 @@ class Header extends PureComponent {
                   </a>
                 </div>
                 <div className="menu__item">
-                  <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Sign in</button>
+                  <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
                 </div>
               </nav>
             </Fragment>
@@ -60,7 +60,7 @@ class Header extends PureComponent {
             <div className="inline inline_large">
               <div className="inline__item">
                 <UserCard
-                  profileLink="#"
+                  profileLink="/profile/general-info"
                   userName={this.props.user.nickname}
                 />
               </div>
@@ -128,7 +128,7 @@ class Header extends PureComponent {
 
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  setUser: PropTypes.func,
+  removeUser: PropTypes.func,
 };
 
 export default connect(
@@ -136,6 +136,6 @@ export default connect(
     user: state.user,
   }),
   dispatch => ({
-    setUser: data => dispatch(setUser(data)),
+    removeUser: () => dispatch(removeUser()),
   }),
 )(Header);

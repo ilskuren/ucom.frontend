@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
 import IconPlus from './Icons/Plus';
-// import Avatar from './Avatar';
 
 const CircleButton = props => (
   <button className="circle-button">

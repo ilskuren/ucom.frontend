@@ -6,7 +6,6 @@ import React, { PureComponent, Fragment } from 'react';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
-import Button from '../components/Button';
 import Footer from '../components/Footer';
 
 class ProfilePage extends PureComponent {

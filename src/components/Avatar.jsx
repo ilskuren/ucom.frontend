@@ -20,7 +20,7 @@ Avatar.propTypes = {
   size: PropTypes.string,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
-  borderWhite: PropTypes.string,
+  borderWhite: PropTypes.bool,
 };
 
 Avatar.defaultProps = {

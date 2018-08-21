@@ -145,3 +145,25 @@
 .menu_footer {
   font-size: 16px;
 }
+
+.menu_simple-tabs {
+  margin: 0 -15px;
+  font-size: 16px;
+
+  .menu__item {
+    margin: 0 15px;
+  }
+
+  .menu__link {
+    padding: 24px 0;
+    display: block;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s ease border-bottom;
+  }
+
+  .menu__link_active,
+  .menu__link:hover {
+    border-bottom-color: @red;
+  }
+}

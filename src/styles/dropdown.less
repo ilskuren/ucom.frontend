@@ -73,6 +73,11 @@ html .dropdown {
     &:hover {
       cursor: pointer;
     }
+  }
+
+  &__options {
+    display: none;
+    left: -1px;
 
     &_opened {
       display: block;
@@ -88,6 +93,7 @@ html .dropdown {
     color: @black;
     &:hover {
       color: @red;
+      cursor: pointer;
     }
     &_type {
       &_user:hover {
@@ -146,6 +152,28 @@ html .dropdown {
     margin-right: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
+  }
+
+  &__indicator-separator {
+    display: none;
+  }
+
+  &__value-container {
+    padding: 0;
+  }
+
+  &__multi-value {
+    background-color: @blue-green;
+    border-radius: 4px;
+    padding: 5px;
+    
+    &__label {
+      font-size: 0.857rem;
+    }
+
+    &__remove {
+
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Textarea = ({
-  label, value, placeholder, rows,
+  label, value, placeholder, rows, onChange,
 }) => (
   <div className="textarea">
     { label && <label className="textarea__label">{label}</label> }
@@ -11,6 +11,11 @@ const Textarea = ({
       value={value}
       rows={rows}
       placeholder={placeholder}
+      onChange={(e) => {
+        if (typeof onChange === 'function') {
+          onChange(e.target.value);
+        }
+      }}
     />
   </div>
 );
@@ -20,6 +25,7 @@ Textarea.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   rows: PropTypes.number,
+  onChange: PropTypes.func,
 };
 
 export default Textarea;

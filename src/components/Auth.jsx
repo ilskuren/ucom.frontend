@@ -55,6 +55,7 @@ class Auth extends PureComponent {
               errors: data.errors,
               loading: false,
             });
+            return;
           }
 
           if (data.user) {
@@ -81,7 +82,7 @@ class Auth extends PureComponent {
   render() {
     return (
       <div className="layer layer_auth">
-        <Loading loading={this.state.loading} />
+        <Loading loading={this.state.loading} className="loading_layer" />
 
         <div className="layer__close">
           <button

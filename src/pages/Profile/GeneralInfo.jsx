@@ -115,7 +115,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     />
                   </div>
                   <div className="profile__block">
-                    <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch isRequired />
+                    <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch />
                   </div>
                   <div className="profile__block">
                     <DateInput

@@ -6,6 +6,8 @@ import Dropdown from '../../components/Dropdown';
 import PrefixInput from '../../components/PrefixInput';
 import Link from '../../components/Link';
 import KYC from '../../components/KYC';
+import SmallProfileDropdown from '../../components/SmallProfileDropdown';
+import HordeIcon from '../../static/img/horde_ico.png';
 
 const SettingsAccountPage = () => (
   <div className="page">
@@ -21,6 +23,16 @@ const SettingsAccountPage = () => (
       <div className="content__inner_flex">
         <div className="settings">
           <div className="settings__form">
+            <div className="settings__block">
+              <SmallProfileDropdown
+                avatar={HordeIcon}
+                name="Kirill Romanov"
+                isActive={false}
+                companyAvatar={HordeIcon}
+                companyName="HORDE"
+                companyTitle="Horde ICO"
+              />
+            </div>
             <div className="settings__block">
               <div className="settings__label">Email</div>
               <div className="settings__input"><TextInput /></div>

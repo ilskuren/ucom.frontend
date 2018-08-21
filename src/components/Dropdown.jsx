@@ -1,91 +1,64 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import UserOption from './UserOption';
+import Close from './Icons/Close';
 
-const setUserOption = (option, length, optionIndex) => {
-  if (!option.label) {
-    return option;
-  }
-  const isLastIndex = length - 1 === optionIndex;
-
-  return (
+const SelectUserOption = props => (
+  <components.Option {...props}>
     <UserOption
-      name="bruce wayne"
-      linkColor={!isLastIndex ? 'red' : ''}
-      linkText={isLastIndex ? 'Invite sent' : 'Invite'}
+      name={props.label}
+      linkIsActive={props.data.isEnvited}
+      avatar="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg"
     />
-  );
-};
+  </components.Option>
+);
+
+const CloseButton = props => (
+  <components.MultiValueRemove {...props}>
+    <div className="dropdown__multi-value__remove">
+      <Close size={8} />
+    </div>
+  </components.MultiValueRemove>
+);
 
 const Dropdown = ({
-  value, label, options, subtext, isOpened, isSearchable, placeholder, withTags,
-}) => {
-  const isUserOption = options.every(option => !option.label);
-  const dropdownOptionsClass = classNames(
-    'dropdown__options',
-    {
-      dropdown__options_opened: options && isOpened,
-    },
-  );
-  const dropdownOptionClass = classNames(
-    'dropdown__option',
-    {
-      dropdown__option_type_user: isUserOption,
-    },
-  );
-  const dropdownSelectClass = classNames(
-    'dropdown__select',
-    {
-      dropdown__select_opened: options && isOpened,
-    },
-  );
+  label, options, subtext, isMulti, isSearchable, placeholder, isUserOptions,
+}) => (
+  <div className="dropdown">
+    { label && <div className="dropdown__label">{label}</div> }
+    <Select
+      options={options}
+      isMulti={isMulti}
+      placeholder={placeholder || ''}
+      className="dropdown"
+      classNamePrefix="dropdown"
+      isSearchable={isSearchable}
+      isClearable={false}
+      components={{
+        MultiValueRemove: CloseButton,
+        [isUserOptions ? 'Option' : '']: SelectUserOption,
+      }}
+    />
+    { subtext && <div className="dropdown__subtext">{subtext}</div>}
+  </div>
+);
 
-  if (isUserOption) {
-    return (
-      <div className="dropdown">
-        { label && <div className="dropdown__label">{label}</div> }
-        <div className={dropdownSelectClass}>
-          <div className="dropdown__value">{value}</div>
-          <div className="dropdown__arrow" />
-          <div className={classNames(dropdownOptionsClass)}>
-            {options.map((option, optionIndex) => (
-              <div className={dropdownOptionClass} key={optionIndex}>
-                {isUserOption ? setUserOption(option, options.length, optionIndex) : option}
-              </div>
-            ))}
-          </div>
-        </div>
-        { subtext && <div className="dropdown__subtext">{subtext}</div>}
-      </div>
-    );
-  }
-
-  return (
-    <div className="dropdown">
-      { label && <div className="dropdown__label">{label}</div> }
-      <Select
-        options={options}
-        isMulti={withTags}
-        placeholder={placeholder || ''}
-        classNamePrefix="dropdown"
-        isSearchable={isSearchable}
-        isClearable={false}
-      />
-      { subtext && <div className="dropdown__subtext">{subtext}</div>}
-    </div>
-  );
+SelectUserOption.propTypes = {
+  label: PropTypes.string,
+  avatar: PropTypes.string,
+  data: PropTypes.shape({
+    isEnvited: PropTypes.bool,
+  }),
 };
 
 Dropdown.propTypes = {
-  value: PropTypes.string,
   label: PropTypes.string,
   subtext: PropTypes.string,
   placeholder: PropTypes.string,
-  isOpened: PropTypes.bool,
-  withTags: PropTypes.bool,
+  isUserOptions: PropTypes.bool,
   isSearchable: PropTypes.bool,
+  isMulti: PropTypes.bool,
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.shape({

@@ -21,7 +21,7 @@ html .dropdown {
     padding-left: 16px;
     padding-right: 16px;
     &:hover {
-      cursor: pointer;
+      // cursor: pointer;
       border-color: @gray-darker;
     }
 
@@ -172,7 +172,14 @@ html .dropdown {
     }
 
     &__remove {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
 
+      &:hover {
+        cursor: pointer;
+        background-color: @blue-green;
+      }
     }
   }
 }

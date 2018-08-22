@@ -61,15 +61,7 @@ class App extends PureComponent {
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
-<<<<<<< HEAD
-=======
                 <Route path="/posts/new" component={CreatePost} />
-                <Route exact path="/settings/account" component={SettingsAccountPage} />
-                <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
-                <Route exact path="/settings/security" component={SettingsSecurityPage} />
-                <Route exact path="/settings/referral" component={SettingsReferralPage} />
-                <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
->>>>>>> 3417df367a9142871498b136fc44e38503ddc302
               </Switch>
             </div>
           </Router>

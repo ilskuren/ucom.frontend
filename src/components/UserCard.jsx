@@ -2,36 +2,42 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
+import Rate from './Rate';
 
-const UserCard = props => (
-  <div className="user-card">
-    <div className="user-card__avatar">
-      <Avatar square={props.squareAvatar} src={props.avatarUrl} />
-    </div>
-    <div className="user-card__info">
-      <div className="user-card__name">
+const UserCard = (props) => {
+  const avatar = <Avatar square={props.squareAvatar} src={props.avatarUrl} />;
+
+  return (
+    <div className="user-card">
+      <div className="user-card__avatar">
         {props.profileLink ? (
-          <Link to={props.profileLink}>{props.userName}</Link>
+          <Link to={props.profileLink}>{avatar}</Link>
         ) : (
-          <Fragment>{props.userName}</Fragment>
+          <Fragment>{avatar}</Fragment>
+        )}
+      </div>
+      <div className="user-card__info">
+        <div className="user-card__name">
+          {props.profileLink ? (
+            <Link to={props.profileLink}>{props.userName}</Link>
+          ) : (
+            <Fragment>{props.userName}</Fragment>
+          )}
+        </div>
+
+        {props.accountName && (
+          <div className="user-card__account">@{props.accountName}</div>
         )}
       </div>
 
-      {props.accountName && (
-        <div className="user-card__account">@{props.accountName}</div>
+      {props.isRated && (
+        <div className="user-card__rate">
+          <Rate />
+        </div>
       )}
     </div>
-
-    {props.isRated && (
-      <div className="user-card__rate">
-        <div className="rate">
-          <div className="rate__value">9 200 <span className="rate__degree">°</span></div>
-          <div className="rate__label">Rate</div>
-        </div>
-      </div>
-    )}
-  </div>
-);
+  );
+};
 
 UserCard.propTypes = {
   squareAvatar: PropTypes.bool,

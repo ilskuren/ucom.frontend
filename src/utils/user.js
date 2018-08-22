@@ -10,3 +10,11 @@ export const getYearsFromBirthday = (birthday) => {
 export const getAvatarUrl = filename => (
   `${config.backend.httpEndpoint}/upload/${filename}`
 );
+
+export const getUserLink = userId => (
+  `/user/${userId}`
+);
+
+export const getYearOfDate = date => (
+  date.split('-')[0]
+);

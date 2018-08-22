@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Avatar = props => (
-  <div
+  <span
     className={classNames(
       'avatar',
       { avatar_square: props.square },
@@ -12,7 +12,7 @@ const Avatar = props => (
     )}
   >
     <img className="avatar__img" src={props.src} alt={props.alt} />
-  </div>
+  </span>
 );
 
 Avatar.propTypes = {

@@ -48,7 +48,23 @@ export const patchMyself = (data, token) => (
     .then(resp => resp.json())
 );
 
+export const patchMyselfFormData = (data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);
+
 export const getUser = id => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}`)
+    .then(resp => resp.json())
+);
+
+export const getUsers = () => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users`)
     .then(resp => resp.json())
 );

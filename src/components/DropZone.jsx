@@ -1,14 +1,28 @@
+import Dropzone from 'react-dropzone';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 const DropZone = props => (
-  <div className="drop-zone">
+  <Dropzone
+    accept={props.accept}
+    className="drop-zone"
+    onDrop={(files) => {
+      if (typeof props.onDrop === 'function') {
+        props.onDrop(files);
+      }
+    }}
+  >
+    <Loading className="loading_small" loading={props.loading} />
     <span className="drop-zone__text">{props.text}</span>
-  </div>
+  </Dropzone>
 );
 
 DropZone.propTypes = {
   text: PropTypes.string.isRequired,
+  accept: PropTypes.string,
+  onDrop: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default DropZone;

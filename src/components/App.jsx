@@ -10,7 +10,6 @@ import SettingsNotificationsPage from '../pages/Settings/Notifications';
 import SettingsSecurityPage from '../pages/Settings/Security';
 import SettingsReferralPage from '../pages/Settings/Referral';
 import SettingsBlacklistPage from '../pages/Settings/Blacklist';
-import PostStoryPage from '../pages/Post/Story';
 import { setUser } from '../actions';
 import { getToken, removeToken } from '../utils/token';
 import { getMyself } from '../api';

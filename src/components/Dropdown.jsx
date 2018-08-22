@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
 import UserOption from './UserOption';
@@ -17,13 +18,35 @@ const SelectUserOption = props => (
 const CloseButton = props => (
   <components.MultiValueRemove {...props}>
     <div className="dropdown__multi-value__remove">
-      <Close size={8} />
+      <Close size={9} />
     </div>
   </components.MultiValueRemove>
 );
 
+const Control = props => (
+  <div
+    className={classNames(
+      'dropdown__control-wrapper',
+      { 'dropdown__control-wrapper_opened': props.selectProps.menuIsOpen },
+    )}
+  >
+    <components.Control {...props} />
+  </div>
+);
+
+const DropdownIndicator = props => (
+  <components.DropdownIndicator {...props}>
+    <div
+      className={classNames(
+        'dropdown__arrow',
+        { 'dropdown__arrow_up': props.selectProps.menuIsOpen },
+      )}
+    />
+  </components.DropdownIndicator>
+);
+
 const Dropdown = ({
-  label, options, subtext, isMulti, isSearchable, placeholder, isUserOptions,
+  label, options, subtext, isMulti, isSearchable = false, placeholder, isUserOptions,
 }) => (
   <div className="dropdown">
     { label && <div className="dropdown__label">{label}</div> }
@@ -37,6 +60,8 @@ const Dropdown = ({
       isClearable={false}
       components={{
         MultiValueRemove: CloseButton,
+        Control,
+        DropdownIndicator,
         [isUserOptions ? 'Option' : '']: SelectUserOption,
       }}
     />
@@ -44,13 +69,20 @@ const Dropdown = ({
   </div>
 );
 
-SelectUserOption.propTypes = {
+const selectProps = {
   label: PropTypes.string,
   avatar: PropTypes.string,
   data: PropTypes.shape({
     isEnvited: PropTypes.bool,
   }),
+  selectProps: PropTypes.shape({
+    menuIsOpen: PropTypes.bool,
+  }),
 };
+
+Control.propTypes = selectProps;
+SelectUserOption.propTypes = selectProps;
+DropdownIndicator.propTypes = selectProps;
 
 Dropdown.propTypes = {
   label: PropTypes.string,
@@ -59,12 +91,12 @@ Dropdown.propTypes = {
   isUserOptions: PropTypes.bool,
   isSearchable: PropTypes.bool,
   isMulti: PropTypes.bool,
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-    })),
-  ]),
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+    isEnvited: PropTypes.bool,
+  })),
 };
 
 export default Dropdown;

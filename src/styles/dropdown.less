@@ -7,7 +7,6 @@ html .dropdown {
   position: relative;
   box-sizing: border-box;
 
-  &__select,
   &__control {
     background-color: @white;
     color: @gray-light;
@@ -18,30 +17,24 @@ html .dropdown {
     min-height: 48px;
     border: 1px @gray solid;
     border-radius: @borderRadius;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 5px 16px;
     &:hover {
-      // cursor: pointer;
+      cursor: pointer;
       border-color: @gray-darker;
     }
 
-    &_opened,
     &--is-focused {
       border-color: @gray-darker;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
       box-shadow: none;
-
-      .dropdown__arrow {
-        transform: rotate(45deg);
-      }
     }
   }
 
+  &__control-wrapper_opened .dropdown__control {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   &__arrow {
-    position: absolute;
-    top: calc(50% - 3px);
-    right: 20px;
     height: 8px;
     width: 8px;
     border: 2px @black solid;
@@ -50,20 +43,21 @@ html .dropdown {
     transform: rotate(225deg);
     transform-origin: 33% 33%;
     margin: 0;
+
+    &_up {
+      transform: rotate(45deg);
+    }
   }
 
   &__menu {
     margin: 0;
   }
 
-  &__options,
   &__menu-list {
     width: 100%;
-    // display: none;
     margin: 0;    
     position: absolute;
     top: 100%;
-    // left: -1px;
     border: 1px @gray-darker solid;
     border-bottom-left-radius: @borderRadius;
     border-bottom-right-radius: @borderRadius;
@@ -85,9 +79,7 @@ html .dropdown {
   }
 
   &__option {
-    padding: 24px 16px;
-    // margin: 24px 16px;
-    // padding: 0;
+    padding: 15px;
     overflow-wrap: break-word;
     background-color: @white;
     color: @black;
@@ -127,25 +119,6 @@ html .dropdown {
     }
   }
 
-  &__input-prefix {
-    color: #8C8C8C;
-    display: flex;
-    flex-grow: 0;
-    flex-wrap: wrap;
-  }
-
-  &__input {
-    border: none;
-    padding: 0;
-    background: transparent;
-    flex-grow: 1;
-    width: 60px;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
   &__tag {
     display: flex;
     align-items: center;
@@ -160,21 +133,27 @@ html .dropdown {
 
   &__value-container {
     padding: 0;
+    overflow: hidden;
   }
 
   &__multi-value {
     background-color: @blue-green;
     border-radius: 4px;
-    padding: 5px;
+    padding: 5px 10px;
+
+    &:hover {
+      cursor: default;
+    }
     
     &__label {
       font-size: 0.857rem;
+      padding: 0;
     }
 
     &__remove {
       display: flex;
       align-items: center;
-      padding-left: 10px;
+      padding-left: 5px;
 
       &:hover {
         cursor: pointer;

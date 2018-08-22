@@ -53,7 +53,8 @@ const SettingsAccountPage = () => (
               <div className="settings__input">
                 <Dropdown
                   isMulti
-                  isUserOptions
+                  // isSearchable
+                  // isUserOptions
                   options={[{ value: 'Actual Info', label: 'Actual Info' }, { value: '2222222', label: '2222222' }, { value: '3333', label: '3333' }, { value: 'ccsc', label: 'ccsc', isEnvited: true }]}
                 />
               </div>

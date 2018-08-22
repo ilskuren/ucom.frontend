@@ -63,7 +63,6 @@ class App extends PureComponent {
               <Route exact path="/settings/security" component={SettingsSecurityPage} />
               <Route exact path="/settings/referral" component={SettingsReferralPage} />
               <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
-              <Route exact path="/post/story" component={PostStoryPage} />
             </Switch>
           </Router>
         )}

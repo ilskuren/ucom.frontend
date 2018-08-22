@@ -63,3 +63,8 @@ export const getUser = id => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}`)
     .then(resp => resp.json())
 );
+
+export const getUsers = () => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users`)
+    .then(resp => resp.json())
+);

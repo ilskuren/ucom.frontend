@@ -16,7 +16,7 @@ class ProfilePage extends PureComponent {
   }
 
   render() {
-    return this.props.user.id ? (
+    return this.props.user ? (
       <div className="page">
         <Header />
 

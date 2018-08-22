@@ -7,13 +7,13 @@ const PrefixInput = ({
   <div className="prefix-input">
     <label>
       {
-          (isRequired || label) && (
-            <div className="prefix-input__labels-container">
-              { label && <div className="prefix-input__label">{label}</div> }
-              { isRequired && <div className="prefix-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
-            </div>
-          )
-        }
+        (isRequired || label) && (
+          <div className="prefix-input__labels-container">
+            { label && <div className="prefix-input__label">{label}</div> }
+            { isRequired && <div className="prefix-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
+          </div>
+        )
+      }
       <div className="prefix-input__input-wrapper" style={{ width: inputWidth }}>
         <span className="prefix-input__prefix">{prefix}</span>
         <input

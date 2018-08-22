@@ -4,12 +4,8 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
+import SettingsPage from '../pages/Settings';
 import UserPage from '../pages/User';
-import SettingsAccountPage from '../pages/Settings/Account';
-import SettingsNotificationsPage from '../pages/Settings/Notifications';
-import SettingsSecurityPage from '../pages/Settings/Security';
-import SettingsReferralPage from '../pages/Settings/Referral';
-import SettingsBlacklistPage from '../pages/Settings/Blacklist';
 import { setUser } from '../actions';
 import { getToken, removeToken } from '../utils/token';
 import { getMyself } from '../api';
@@ -62,12 +58,8 @@ class App extends PureComponent {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/profile" component={ProfilePage} />
+                <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
-                <Route exact path="/settings/account" component={SettingsAccountPage} />
-                <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
-                <Route exact path="/settings/security" component={SettingsSecurityPage} />
-                <Route exact path="/settings/referral" component={SettingsReferralPage} />
-                <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
               </Switch>
             </div>
           </Router>

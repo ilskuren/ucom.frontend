@@ -1,0 +1,52 @@
+.circle-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  line-height: 1px;
+  border: 1px dashed lighten(@gray, 15);
+  outline: none;
+  background: none;
+  position: relative;
+
+  &:hover {
+    border: 1px solid lighten(@gray, 15);
+    cursor: pointer;
+  }
+
+  &:active {
+    background: @gray;
+    & > svg { // This solution without react state
+      fill: @white;
+    }
+  }
+
+  & > svg { // This solution without react state
+    fill: @gray;
+  }
+
+  &__img {
+    width: inherit;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+
+    &:hover {
+      border: 1px solid @gray;
+      cursor: pointer;
+    }
+
+    &:active {
+      background: @gray;
+      & > svg { // This solution without react state
+        fill: @white;
+      }
+    }
+  }
+}

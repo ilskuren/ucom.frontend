@@ -50,14 +50,7 @@ const SettingsAccountPage = () => (
             </div>
             <div className="settings__block">
               <div className="settings__label">Timezone</div>
-              <div className="settings__input">
-                <Dropdown
-                  isMulti
-                  // isSearchable
-                  // isUserOptions
-                  options={[{ value: 'Actual Info', label: 'Actual Info' }, { value: '2222222', label: '2222222' }, { value: '3333', label: '3333' }, { value: 'ccsc', label: 'ccsc', isEnvited: true }]}
-                />
-              </div>
+              <div className="settings__input"><Dropdown options={[]} /></div>
             </div>
             <div className="settings__block">
               <div className="settings__label">Language</div>

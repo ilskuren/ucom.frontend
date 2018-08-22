@@ -47,7 +47,7 @@ const ProfileContactsPage = () => (
             </div>
           </InfoBlock>
           <div className="profile__block">
-            <Button text="finish" size="big" theme="red" isStretched />
+            <Button text="FINISH" size="big" theme="red" isStretched />
           </div>
         </div>
       </PersonForm>

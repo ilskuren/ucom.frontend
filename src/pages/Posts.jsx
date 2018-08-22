@@ -6,17 +6,9 @@ import Footer from '../components/Footer';
 
 const PostsPage = () => (
   <div className="page">
-    <Header />
-
-    <div className="content">
-      <div className="content__inner">
-        <Fragment>
-          <Route exact path="/posts/story" component={StoryPage} />
-        </Fragment>
-
-        <Footer />
-      </div>
-    </div>
+    <Fragment>
+      <Route exact path="/posts/story" component={StoryPage} />
+    </Fragment>
   </div>
 );
 

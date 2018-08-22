@@ -28,7 +28,7 @@ const CreatePost = () => (
         <Button isStretched size="small" theme="red" text="Post" />
       </div>
       <div className="create-post__author">
-        <label className="create-post__autor-label">By</label>
+        <label className="create-post__author-label">By</label>
         <div className="create-post__profile-dropdown">
           <SmallProfileDropdown
             isActive

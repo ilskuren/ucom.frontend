@@ -28,6 +28,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       country: this.props.user.country || '',
       city: this.props.user.city || '',
       address: this.props.user.address || '',
+      currencyToShow: this.props.user.currency_to_show || '',
       loading: false,
       avatarLoading: false,
     };
@@ -44,6 +45,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       country: this.state.country,
       city: this.state.city,
       address: this.state.address,
+      currency_to_show: this.state.currencyToShow,
     };
 
     this.setState({ loading: true });
@@ -141,7 +143,12 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
 
                   <div className="profile__block">
-                    <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch />
+                    <TextInput
+                      label="Asset to show"
+                      placeholder="Example Kickcoin"
+                      value={this.state.currencyToShow}
+                      onChange={currencyToShow => this.setState({ currencyToShow })}
+                    />
                   </div>
 
                   <div className="profile__block">

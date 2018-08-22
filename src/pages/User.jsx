@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
@@ -8,7 +9,7 @@ import IconLink from '../components/Icons/Link';
 import Post from '../components/Post';
 import Loading from '../components/Loading';
 import { getUser } from '../api';
-import { getYearsFromBirthday, getAvatarUrl } from '../utils/user';
+import { getYearsFromBirthday, getAvatarUrl, getYearOfDate } from '../utils/user';
 import IconEdit from '../components/Icons/Edit';
 
 class UserPage extends PureComponent {
@@ -161,7 +162,7 @@ class UserPage extends PureComponent {
                     </div>
                     <div className="user-section__text">
                       <div className="text">
-                        <p>Was a Russian nuclear physicist, dissident, and activist for disarmament, peace and human rights. He became renowned as the designer of the Soviet Union RDS-37, a codename for Soviet development of thermonuclear weapons.</p>
+                        <p>{this.state.user.about}</p>
                       </div>
                     </div>
                   </div>
@@ -222,7 +223,7 @@ class UserPage extends PureComponent {
                       <h3 className="title title_xsmall title_light">Location</h3>
                     </div>
                     <div className="user-section__content">
-                      Russia, Moscow
+                      {this.state.user.city}, {this.state.user.country}
                     </div>
                   </div>
 
@@ -233,10 +234,10 @@ class UserPage extends PureComponent {
                     <div className="user-section__content">
                       <div className="toolbar">
                         <div className="toolbar__main">
-                          BTC
+                          {this.state.user.first_currency}
                         </div>
                         <div className="toolbar__side">
-                          2013
+                          {this.state.user.first_currency_year}
                         </div>
                       </div>
                     </div>
@@ -249,11 +250,11 @@ class UserPage extends PureComponent {
                     <div className="user-section__content">
                       <div className="data">
                         <div className="data__item">
-                          <div className="data__value">+7 937 678 643</div>
+                          <div className="data__value">{this.state.user.phone_number}</div>
                           <div className="data__label">Phone</div>
                         </div>
                         <div className="data__item">
-                          <div className="data__value">tayler_soap@club.ru</div>
+                          <div className="data__value">{this.state.user.email}</div>
                           <div className="data__label">Email</div>
                         </div>
                       </div>
@@ -292,21 +293,21 @@ class UserPage extends PureComponent {
                     </div>
                     <div className="user-section__content">
                       <ul className="experience">
-                        {[0, 0, 0, 0].map(() => (
-                          <li className="experience__item">
+                        {this.state.user.users_jobs.map(item => (
+                          <li className="experience__item" key={item.id}>
                             <div className="experience__header">
                               <div className="toolbar">
                                 <div className="toolbar__main">
-                                  <div className="experience__name">Google</div>
+                                  <div className="experience__name">{item.title}</div>
                                 </div>
-                                <div className="toolbar__main">
+                                <div className="toolbar__side">
                                   <div className="experience__state">
-                                    2018 – Now
+                                    {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="experience__status">Designer</div>
+                            <div className="experience__status">{item.position}</div>
                           </li>
                         ))}
                       </ul>
@@ -319,21 +320,21 @@ class UserPage extends PureComponent {
                     </div>
                     <div className="user-section__content">
                       <ul className="experience">
-                        {[0, 0].map(() => (
-                          <li className="experience__item">
+                        {this.state.user.users_education.map(item => (
+                          <li className="experience__item" key={item.id}>
                             <div className="experience__header">
                               <div className="toolbar">
                                 <div className="toolbar__main">
-                                  <div className="experience__name">Harvard</div>
+                                  <div className="experience__name">{item.title}</div>
                                 </div>
                                 <div className="toolbar__main">
                                   <div className="experience__state">
-                                    2018 – Now
+                                    {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="experience__status">Designer</div>
+                            <div className="experience__status">{item.speciality}</div>
                           </li>
                         ))}
                       </ul>
@@ -345,7 +346,7 @@ class UserPage extends PureComponent {
                       <h3 className="title title_xsmall title_light">Created</h3>
                     </div>
                     <div className="user-section__content">
-                      8 Jul 2018
+                      {moment(this.state.user.created_at).format('D MMM YYYY')}
                     </div>
                   </div>
 

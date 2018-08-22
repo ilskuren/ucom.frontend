@@ -14,3 +14,7 @@ export const getAvatarUrl = filename => (
 export const getUserLink = userId => (
   `/user/${userId}`
 );
+
+export const getYearOfDate = date => (
+  date.split('-')[0]
+);

@@ -1,9 +1,7 @@
 import React from 'react';
 
 const StoryPage = () => (
-  <div className="create-story">
-    111
-  </div>
+  <div className="create-story">Story</div>
 );
 
 export default StoryPage;

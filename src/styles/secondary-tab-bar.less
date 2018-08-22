@@ -1,0 +1,22 @@
+.secondary-tab-bar {
+  font-size: 1.142rem;
+  color: @black;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  &__element {
+    margin-right: 30px;
+    line-height: 25px;
+    opacity: .2;
+    padding-bottom: 3px;
+    &:hover {
+      opacity: 1;
+    }
+
+    &_active {
+      opacity: 1;
+      border-bottom: 2px solid @black;
+      font-weight: bold;
+    }
+  }
+}

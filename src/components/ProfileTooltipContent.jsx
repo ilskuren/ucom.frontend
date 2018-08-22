@@ -12,9 +12,9 @@ const ProfileTooltipContent = ({ title, username, avatar }) => (
 );
 
 ProfileTooltipContent.propTypes = {
-  title: PropTypes.string.required,
-  username: PropTypes.string.required,
-  avatar: PropTypes.string.required,
+  title: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
 };
 
 export default ProfileTooltipContent;

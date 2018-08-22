@@ -12,7 +12,7 @@ const InputWithCopy = ({
     </div>
     <div className="input-with-copy__button">
       <CopyToClipboard text={value} >
-        <Button text="Copy" theme="red" size="medium" isStretched />
+        <Button text="COPY" theme="red" size="medium" isStretched />
       </CopyToClipboard>
     </div>
   </div>

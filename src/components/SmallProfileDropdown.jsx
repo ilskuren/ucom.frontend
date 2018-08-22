@@ -38,7 +38,7 @@ SmallProfileDropdown.propTypes = {
   companyAvatar: PropTypes.string.isRequired,
   companyTitle: PropTypes.string.isRequired,
   companyName: PropTypes.string.isRequired,
-  isActive: PropTypes.string,
+  isActive: PropTypes.bool,
 };
 
 SmallProfileDropdown.defaultProps = {

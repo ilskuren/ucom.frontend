@@ -161,7 +161,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                 </InfoBlock>
                 <div className="profile__block">
-                  <Button text="proceed" theme="red" size="big" isStretched />
+                  <Button text="PROCEED" theme="red" size="big" isStretched />
                 </div>
               </div>
             </form>

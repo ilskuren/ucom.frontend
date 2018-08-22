@@ -4,6 +4,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
+import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
 import SettingsAccountPage from '../pages/Settings/Account';
 import SettingsNotificationsPage from '../pages/Settings/Notifications';
@@ -63,6 +64,7 @@ class App extends PureComponent {
                 <Route exact path="/" component={HomePage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/user/:id" component={UserPage} />
+                <Route path="/posts/new" component={CreatePost} />
                 <Route exact path="/settings/account" component={SettingsAccountPage} />
                 <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
                 <Route exact path="/settings/security" component={SettingsSecurityPage} />

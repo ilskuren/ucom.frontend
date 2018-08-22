@@ -1,5 +1,6 @@
 .create-post {
   background-color: #FDFEFE;
+
   &__header {
     max-width: 800px;
     margin: 0 auto;
@@ -8,23 +9,17 @@
     padding-right: 40px;
   }
 
-  &__label {
-    display: inline-block;
-    font-size: 48px;
-    line-height: 54px;
-    color: @black;
-    vertical-align: middle;
-    margin-right: 40px;
-  }
-
-  &__post-button {
-    display: inline-block;
-    width: 86px;
-    vertical-align: middle;
+  &__title {
+    margin: 0 0 9px;
   }
 
   &__author {
-    padding: 8px 0px 0px 7px;
+    margin: 0 0 55px;
+  }
+
+  &__author-name {
+    font-size: 20px;
+    font-weight: bold;
   }
 
   &__author-label {
@@ -38,34 +33,7 @@
     display: inline-block;
   }
 
-  &__form-block {
-    max-width: 600px; 
-    display: flex;
-    align-items: baseline;
-    margin-top: 53px;
-
-    @media (max-width: 424px) {
-      flex-direction: column;
-      width: 100%;
-    }
-  }
-
-  &__form-label {
-    font-size: 1.142rem;
-    max-width: 200px;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    padding: 12px 0;
-    opacity: .37;
-  }
-
-  &__form-input {
-    width: 75%;
-    max-width: 400px;
-  }
-
-  &__navigation {
-    padding-top: 27px;
+  &__field {
+    margin: 0 0 40px;
   }
 }

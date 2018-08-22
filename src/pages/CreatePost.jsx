@@ -1,13 +1,13 @@
+import { kebabCase } from 'lodash';
+import { NavLink } from 'react-router-dom';
 import { Route } from 'react-router';
-import React, { Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import StoryPage from './Posts/Story';
 import Button from '../components/Button';
-import SmallProfileDropdown from '../components/SmallProfileDropdown';
 import PrefixInput from '../components/PrefixInput';
-import SecondaryTabBar from '../components/SecondaryTabBar';
-import HordeIco from '../static/img/horde_ico.png';
+import Avatar from '../components/Avatar';
 
-const TABS = [
+const TAB_NAMES = [
   'Story',
   'Challenge',
   'Poll',
@@ -18,42 +18,71 @@ const TABS = [
   'Interview',
 ];
 
-const CreatePost = () => (
-  <div className="create-post">
-    <div className="create-post__header">
-      <div className="create-post__label">
-        <h1>Create Media Post</h1>
-      </div>
-      <div className="create-post__post-button">
-        <Button isStretched size="small" theme="red" text="Post" />
-      </div>
-      <div className="create-post__author">
-        <label className="create-post__author-label">By</label>
-        <div className="create-post__profile-dropdown">
-          <SmallProfileDropdown
-            isActive
-            avatar={HordeIco}
-            name="Kirill Romanov"
-            companyAvatar={HordeIco}
-            companyName="HORDE"
-            companyTitle="Horde ICO"
-          />
+class CreatePost extends PureComponent {
+  render() {
+    return (
+      <div className="create-post">
+        <div className="create-post__header">
+          <div className="create-post__title">
+            <div className="inline inline_large">
+              <div className="inline__item">
+                <h1 className="title">Create Media Post</h1>
+              </div>
+              <div className="inline__item">
+                <Button isStretched size="small" theme="red" text="Post" />
+              </div>
+            </div>
+          </div>
+
+          <div className="create-post__author">
+            <div className="inline inline_small">
+              <span className="inline__item">
+                By
+              </span>
+              <span className="inline__item">
+                <Avatar size="xsmall" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+              </span>
+              <span className="inline__item">
+                <span className="create-post__author-name">Kirill Romanov</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="create-post__field">
+            <div className="field">
+              <div className="field__label">
+                Name Media Post
+              </div>
+              <div className="field__input">
+                <PrefixInput prefix="u.community/" />
+              </div>
+            </div>
+          </div>
+
+          <div className="create-post__navigation">
+            <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
+              {TAB_NAMES.map(tabName => (
+                <div className="menu__item">
+                  <NavLink
+                    className="menu__link"
+                    activeClassName="menu__link_active"
+                    to={`/posts/new/${kebabCase(tabName)}`}
+                    isActive={() => this.props.location.pathname === `/posts/new/${kebabCase(tabName)}`}
+                  >
+                    {tabName}
+                  </NavLink>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Fragment>
+            <Route exact path="/posts/new/story" component={StoryPage} />
+          </Fragment>
         </div>
       </div>
-      <div className="create-post__form-block">
-        <div className="create-post__form-label">Name Media Post</div>
-        <div className="create-post__form-input">
-          <PrefixInput prefix="u.community/" subtext="Media Post id — id23784528" />
-        </div>
-      </div>
-      <div className="create-post__navigation">
-        <SecondaryTabBar tabs={TABS} activeTab="Story" />
-      </div>
-    </div>
-    <Fragment>
-      <Route exact path="/posts/new/story" component={StoryPage} />
-    </Fragment>
-  </div>
-);
+    );
+  }
+}
 
 export default CreatePost;

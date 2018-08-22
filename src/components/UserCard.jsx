@@ -6,7 +6,7 @@ import Avatar from './Avatar';
 const UserCard = props => (
   <div className="user-card">
     <div className="user-card__avatar">
-      <Avatar square={props.squareAvatar} src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+      <Avatar square={props.squareAvatar} src={props.avatarUrl} />
     </div>
     <div className="user-card__info">
       <div className="user-card__name">
@@ -39,12 +39,14 @@ UserCard.propTypes = {
   userName: PropTypes.string,
   accountName: PropTypes.string,
   profileLink: PropTypes.string,
+  avatarUrl: PropTypes.string,
 };
 
 UserCard.defaultProps = {
   squareAvatar: false,
   isRated: false,
   userName: 'John Don',
+  avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
 };
 
 export default UserCard;

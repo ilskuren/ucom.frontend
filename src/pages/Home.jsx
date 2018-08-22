@@ -1,5 +1,4 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { Fragment } from 'react';
 import PostCard from '../components/PostCard';
 import PostItem from '../components/PostItem';
 import PostInput from '../components/PostInput';
@@ -8,9 +7,7 @@ import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 
 const HomePage = () => (
-  <div className="page">
-    <Header />
-
+  <Fragment>
     <div className="content">
       <div className="content__inner">
         <div className="page-nav">
@@ -154,7 +151,7 @@ const HomePage = () => (
         <Footer />
       </div>
     </div>
-  </div>
+  </Fragment>
 );
 
 export default HomePage;

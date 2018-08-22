@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
-import Header from '../components/Header';
-import Button from '../components/Button';
 import Footer from '../components/Footer';
 
 class ProfilePage extends PureComponent {
@@ -17,9 +15,7 @@ class ProfilePage extends PureComponent {
 
   render() {
     return this.props.user.id ? (
-      <div className="page">
-        <Header />
-
+      <Fragment>
         <div className="content content_separated">
           <div className="content__inner">
             <div className="nav-bar nav-bar_simple">
@@ -66,7 +62,9 @@ class ProfilePage extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <Button text="Back to Profile" size="small" theme="transparent" />
+                        <Link to={`/user/${this.props.user.id}`} className="button button_theme_transparent button_size_small">
+                          Back to Profile
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -87,7 +85,7 @@ class ProfilePage extends PureComponent {
             <Footer />
           </div>
         </div>
-      </div>
+      </Fragment>
     ) : (
       <Redirect to="/" />
     );

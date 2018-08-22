@@ -22,6 +22,15 @@
   }
 }
 
+.grid_user {
+  grid-column-gap: 100px;
+  grid-template-columns: 3fr 1fr;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .grid_main-post {
   .grid__item {
     padding-bottom: 20px;

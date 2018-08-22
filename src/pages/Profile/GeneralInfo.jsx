@@ -13,6 +13,7 @@ import { setUser } from '../../actions';
 import { patchMyself } from '../../api';
 import { getToken } from '../../utils/token';
 import Loading from '../../components/Loading';
+import { getAvatarUrl } from '../../utils/user';
 
 class ProfileGeneralInfoPage extends PureComponent {
   constructor(props) {
@@ -24,6 +25,9 @@ class ProfileGeneralInfoPage extends PureComponent {
       nickname: this.props.user.nickname || '',
       about: this.props.user.about || '',
       birthday: this.props.user.birthday || '',
+      country: this.props.user.country || '',
+      city: this.props.user.city || '',
+      address: this.props.user.address || '',
       loading: false,
     };
   }
@@ -36,6 +40,9 @@ class ProfileGeneralInfoPage extends PureComponent {
       nickname: this.state.nickname,
       about: this.state.about,
       birthday: this.state.birthday,
+      country: this.state.country,
+      city: this.state.city,
+      address: this.state.address,
     };
 
     this.setState({ loading: true });
@@ -73,7 +80,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                   <div className={classNames('profile__block', 'profile__block_avatar')}>
                     <Avatar
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJAs96f68aCsNIwrrkiPAq5Ir-3dRv0QKWKBHUq5soIJBqL71E6g"
+                      src={getAvatarUrl(this.props.user.avatar_filename)}
                       size="big"
                       alt="Avatar"
                     />
@@ -131,13 +138,26 @@ class ProfileGeneralInfoPage extends PureComponent {
               <div className="profile__info-block">
                 <InfoBlock title="Location">
                   <div className="profile__block">
-                    <TextInput label="Country" isSearch />
+                    <TextInput
+                      label="Country"
+                      value={this.state.country}
+                      onChange={country => this.setState({ country })}
+                    />
                   </div>
                   <div className="profile__block">
-                    <TextInput label="City" isSearch />
+                    <TextInput
+                      label="City"
+                      value={this.state.city}
+                      onChange={city => this.setState({ city })}
+                    />
                   </div>
                   <div className="profile__block">
-                    <TextInput label="Address" subtext="Actual address. Example: One Apple Park Way, Cupertino" isSearch />
+                    <TextInput
+                      label="Address"
+                      subtext="Actual address. Example: One Apple Park Way, Cupertino"
+                      value={this.state.address}
+                      onChange={address => this.setState({ address })}
+                    />
                   </div>
                 </InfoBlock>
                 <div className="profile__block">

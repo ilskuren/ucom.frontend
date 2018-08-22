@@ -1,99 +1,102 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Select, { components } from 'react-select';
+import PropTypes from 'prop-types';
 import UserOption from './UserOption';
-import Tag from './Tag';
+import Close from './Icons/Close';
 
-const setUserOption = (option, length, optionIndex) => {
-  if (typeof option === 'string') {
-    return option;
-  }
-  const isLastIndex = length - 1 === optionIndex;
-
-  return (
+const SelectUserOption = props => (
+  <components.Option {...props}>
     <UserOption
-      name="bruce wayne"
-      linkColor={!isLastIndex ? 'red' : ''}
-      linkText={isLastIndex ? 'Invite sent' : 'Invite'}
+      name={props.label}
+      linkIsActive={props.data.isEnvited}
+      avatar="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg"
     />
-  );
-};
+  </components.Option>
+);
 
-const renderSearchInput = (value, tags, placeholder) => (
-  <div className="dropdown__input-wrapper">
-    {
-      tags && tags.map((tag, index) => (
-        <div key={index} className="dropdown__tag"><Tag value={tag} size={10} /></div>
-      ))
-    }
-    <input
-      value={value}
-      className="dropdown__input"
-      type="text"
-      placeholder={placeholder}
-    />
+const CloseButton = props => (
+  <components.MultiValueRemove {...props}>
+    <div className="dropdown__multi-value__remove">
+      <Close size={9} />
+    </div>
+  </components.MultiValueRemove>
+);
+
+const Control = props => (
+  <div
+    className={classNames(
+      'dropdown__control-wrapper',
+      { 'dropdown__control-wrapper_opened': props.selectProps.menuIsOpen },
+    )}
+  >
+    <components.Control {...props} />
   </div>
 );
 
-const Dropdown = ({
-  value, label, options = [], subtext, isOpened, tags, isSearchable, placeholder,
-}) => {
-  const isUserOption = options.every(option => typeof option !== 'string');
-  const dropdownOptionsClass = classNames(
-    'dropdown__options',
-    {
-      dropdown__options_opened: options && isOpened,
-    },
-  );
-  const dropdownOptionClass = classNames(
-    'dropdown__option',
-    {
-      dropdown__option_type_user: isUserOption,
-    },
-  );
-  const dropdownSelectClass = classNames(
-    'dropdown__select',
-    {
-      dropdown__select_opened: options && isOpened,
-    },
-  );
+const DropdownIndicator = props => (
+  <components.DropdownIndicator {...props}>
+    <div
+      className={classNames(
+        'dropdown__arrow',
+        { 'dropdown__arrow_up': props.selectProps.menuIsOpen },
+      )}
+    />
+  </components.DropdownIndicator>
+);
 
-  return (
-    <div className="dropdown">
-      { label && <div className="dropdown__label">{label}</div> }
-      <div className={dropdownSelectClass}>
-        {isSearchable
-          ? renderSearchInput(value, tags, placeholder)
-          : <div className="dropdown__value">{value}</div>
-        }
-        {!isSearchable && <div className="dropdown__arrow" />}
-        <div className={classNames(dropdownOptionsClass)}>
-          {options.map((option, optionIndex) => (
-            <div className={dropdownOptionClass} key={optionIndex}>
-              {isUserOption ? setUserOption(option, options.length, optionIndex) : option}
-            </div>
-          ))}
-        </div>
-      </div>
-      { subtext && <div className="dropdown__subtext">{subtext}</div>}
-    </div>
-  );
+const Dropdown = ({
+  label, options, subtext, isMulti, isSearchable = false, placeholder, isUserOptions,
+}) => (
+  <div className="dropdown">
+    { label && <div className="dropdown__label">{label}</div> }
+    <Select
+      options={options}
+      isMulti={isMulti}
+      placeholder={placeholder || ''}
+      className="dropdown"
+      classNamePrefix="dropdown"
+      isSearchable={isSearchable}
+      isClearable={false}
+      components={{
+        MultiValueRemove: CloseButton,
+        Control,
+        DropdownIndicator,
+        [isUserOptions ? 'Option' : '']: SelectUserOption,
+      }}
+    />
+    { subtext && <div className="dropdown__subtext">{subtext}</div>}
+  </div>
+);
+
+const selectProps = {
+  label: PropTypes.string,
+  avatar: PropTypes.string,
+  data: PropTypes.shape({
+    isEnvited: PropTypes.bool,
+  }),
+  selectProps: PropTypes.shape({
+    menuIsOpen: PropTypes.bool,
+  }),
 };
 
+Control.propTypes = selectProps;
+SelectUserOption.propTypes = selectProps;
+DropdownIndicator.propTypes = selectProps;
+
 Dropdown.propTypes = {
-  value: PropTypes.string,
   label: PropTypes.string,
   subtext: PropTypes.string,
   placeholder: PropTypes.string,
-  isOpened: PropTypes.bool,
+  isUserOptions: PropTypes.bool,
   isSearchable: PropTypes.bool,
-  tags: PropTypes.arrayOf(PropTypes.string),
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-    })),
-  ]),
+  isMulti: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+    isEnvited: PropTypes.bool,
+  })),
 };
 
 export default Dropdown;

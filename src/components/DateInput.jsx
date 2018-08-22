@@ -1,70 +1,92 @@
 import { range } from 'lodash';
-import moment from 'moment';
 import Select from 'react-select';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dict from '../utils/dict';
 
-const DateInput = ({ label, value, onChange }) => {
-  const mdate = moment(value);
-  const day = mdate.date();
-  const month = mdate.month();
-  const year = mdate.year();
-  const days = range(1, 32).map(i => ({ value: i, label: i }));
-  const years = range(2018, 1905).map(i => ({ value: i, label: i }));
+class DateInput extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="date-input">
-      { label && <div className="date-input__label">{label}</div> }
+    const date = props.value ? props.value.split('-') : null;
 
-      <div className="date-input__day">
-        <Select
-          value={days.find(i => i.value === day)}
-          className="select"
-          classNamePrefix="select"
-          options={days}
-          onChange={(e) => {
-            if (typeof onChange === 'function') {
-              onChange(`${e.value}-${month}-${year}`);
-            }
-          }}
-        />
+    this.state = {
+      day: date ? date[2] : '',
+      month: date ? date[1] : '',
+      year: date ? date[0] : '',
+    };
+  }
+
+  onChange() {
+    if (typeof this.props.onChange !== 'function') {
+      return;
+    }
+
+    if (this.state.day && this.state.month && this.state.year) {
+      this.props.onChange(`${this.state.year}-${this.state.month}-${this.state.day}`);
+    }
+  }
+
+  render() {
+    const days = range(1, 32).map(i => ({ value: i, label: i }));
+    const years = range(2018, 1905).map(i => ({ value: i, label: i }));
+
+    return (
+      <div className="date-input">
+        { this.props.label && <div className="date-input__label">{this.props.label}</div> }
+
+        <div className="date-input__day">
+          <Select
+            className="select"
+            classNamePrefix="select"
+            placeholder="Day"
+            options={days}
+            value={days.find(i => +i.value === +this.state.day)}
+            onChange={(item) => {
+              this.setState({ day: item.value }, () => {
+                this.onChange();
+              });
+            }}
+          />
+        </div>
+
+        <div className="date-input__month">
+          <Select
+            className="select"
+            classNamePrefix="select"
+            placeholder="Month"
+            options={dict.months}
+            value={dict.months.find(i => +i.value === +this.state.month)}
+            onChange={(item) => {
+              this.setState({ month: item.value }, () => {
+                this.onChange();
+              });
+            }}
+          />
+        </div>
+
+        <div className="date-input__year">
+          <Select
+            className="select"
+            classNamePrefix="select"
+            placeholder="Year"
+            options={years}
+            value={years.find(i => +i.value === +this.state.year)}
+            onChange={(item) => {
+              this.setState({ year: item.value }, () => {
+                this.onChange();
+              });
+            }}
+          />
+        </div>
       </div>
-
-      <div className="date-input__month">
-        <Select
-          value={dict.months[month]}
-          className="select"
-          classNamePrefix="select"
-          options={dict.months}
-          onChange={(e) => {
-            if (typeof onChange === 'function') {
-              onChange(`${day}-${e.value}-${year}`);
-            }
-          }}
-        />
-      </div>
-
-      <div className="date-input__year">
-        <Select
-          value={years.find(i => i.value === year)}
-          className="select"
-          classNamePrefix="select"
-          options={years}
-          onChange={(e) => {
-            if (typeof onChange === 'function') {
-              onChange(`${day}-${month}-${e.value}`);
-            }
-          }}
-        />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 DateInput.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.number,
+  value: PropTypes.string,
   onChange: PropTypes.func,
 };
 

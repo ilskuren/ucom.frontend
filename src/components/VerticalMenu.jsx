@@ -11,7 +11,7 @@ const VerticalMenu = (props) => {
       key={i}
     >
       <span className="vertical-menu__type">{section.type}</span>
-      <span className="vertical-menu__percents">{`${section.percents}%`}</span>
+      {/* <span className="vertical-menu__percents">{`${section.percents}%`}</span> */}
     </li>));
 
   return (

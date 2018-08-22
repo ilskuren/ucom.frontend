@@ -47,3 +47,8 @@ export const patchMyself = (data, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const getUser = id => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}`)
+    .then(resp => resp.json())
+);

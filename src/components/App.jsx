@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
 import CreatePost from '../pages/CreatePost';
+import UserPage from '../pages/User';
 import SettingsAccountPage from '../pages/Settings/Account';
 import SettingsNotificationsPage from '../pages/Settings/Notifications';
 import SettingsSecurityPage from '../pages/Settings/Security';
@@ -14,6 +15,7 @@ import { setUser } from '../actions';
 import { getToken, removeToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
+import Header from './Header';
 
 class App extends PureComponent {
   constructor(props) {
@@ -55,16 +57,21 @@ class App extends PureComponent {
 
         {!this.state.loading && (
           <Router history={this.props.history}>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/posts/new" component={CreatePost} />
-              <Route exact path="/settings/account" component={SettingsAccountPage} />
-              <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
-              <Route exact path="/settings/security" component={SettingsSecurityPage} />
-              <Route exact path="/settings/referral" component={SettingsReferralPage} />
-              <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
-            </Switch>
+            <div className="page">
+              <Header />
+
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/user/:id" component={UserPage} />
+                <Route path="/posts/new" component={CreatePost} />
+                <Route exact path="/settings/account" component={SettingsAccountPage} />
+                <Route exact path="/settings/notifications" component={SettingsNotificationsPage} />
+                <Route exact path="/settings/security" component={SettingsSecurityPage} />
+                <Route exact path="/settings/referral" component={SettingsReferralPage} />
+                <Route exact path="/settings/blacklist" component={SettingsBlacklistPage} />
+              </Switch>
+            </div>
           </Router>
         )}
       </Fragment>

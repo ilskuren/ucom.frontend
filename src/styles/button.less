@@ -1,18 +1,29 @@
 .button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1em;
   outline: none;
   cursor: pointer;
   border: none;
   font-weight: bold;
-  padding-bottom: 0;
   border-radius: 4px;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &_theme {
     &_red {
       background: @red;
       color: @white;
+      text-transform: uppercase;
+
       &:hover {
         background: @red-dark;
       }
+
       &:active {
         background: @red-darker;
       }
@@ -21,9 +32,11 @@
     &_blue-green {
       background: @blue-green;
       color: @black;
+
       &:hover {
         background: @blue-green-dark;
       }
+
       &:active {
         background: @blue-green-darker;
       }
@@ -31,9 +44,11 @@
 
     &_gray {
       background: darken(@gray-lighter, 5);
+
       &:hover {
         background: lighten(@gray-light, 10);
       }
+
       &:active {
         background: lighten(@gray-dark, 35);
       }
@@ -42,9 +57,11 @@
     &_transparent {
       background: transparent;
       border: 1px solid @gray;
+
       &:hover {
         border: 1px solid @gray-dark;
       }
+
       &:active {
         border: 1px solid @black;
       }
@@ -61,6 +78,7 @@
     &_big {
       min-height: 60px;
       font-size: 1rem;
+
       &.button_rounded {
         border-radius: 30px;
       }
@@ -69,6 +87,7 @@
     &_medium {
       min-height: 48px;
       font-size: 1.14rem;
+
       &.button_rounded {
         border-radius: 24px;
       }
@@ -77,6 +96,7 @@
     &_small {
       min-height: 40px;
       font-size: 1.14rem;
+
       &.button_rounded {
         border-radius: 20px;
       }

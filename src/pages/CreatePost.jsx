@@ -7,6 +7,17 @@ import PrefixInput from '../components/PrefixInput';
 import SecondaryTabBar from '../components/SecondaryTabBar';
 import HordeIco from '../static/img/horde_ico.png';
 
+const TABS = [
+  'Story',
+  'Challenge',
+  'Poll',
+  'News',
+  'Trading Forecast',
+  'Review',
+  'Analitics',
+  'Interview',
+];
+
 const CreatePost = () => (
   <div className="create-post">
     <div className="create-post__header">
@@ -36,7 +47,7 @@ const CreatePost = () => (
         </div>
       </div>
       <div className="create-post__navigation">
-        <SecondaryTabBar />
+        <SecondaryTabBar tabs={TABS} activeTab="Story" />
       </div>
     </div>
     <Fragment>

@@ -1,23 +1,28 @@
 import React from 'react';
 import cn from 'classnames';
+import PropTypes from 'prop-types';
 
-const SecondaryTabBar = () => (
+const SecondaryTabBar = ({ tabs, activeTab }) => (
   <div className="secondary-tab-bar">
-    <a className={cn('secondary-tab-bar__element', {
-          'secondary-tab-bar__element_active': true,
-        })
+    { tabs.map(tab => (
+      <a className={cn('secondary-tab-bar__element', {
+        'secondary-tab-bar__element_active': tab === activeTab,
+      })
     }
-    >
-      Story
-    </a>
-    <a className="secondary-tab-bar__element">Challenge</a>
-    <a className="secondary-tab-bar__element">Poll</a>
-    <a className="secondary-tab-bar__element">News</a>
-    <a className="secondary-tab-bar__element">Trading Forecast</a>
-    <a className="secondary-tab-bar__element">Review</a>
-    <a className="secondary-tab-bar__element">Analitics</a>
-    <a className="secondary-tab-bar__element">Interview</a>
+      >
+        {tab}
+      </a>
+    ))}
   </div>
 );
+
+SecondaryTabBar.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.string),
+  activeTab: PropTypes.string.isRequired,
+};
+
+SecondaryTabBar.defaultProps = {
+  tabs: [],
+};
 
 export default SecondaryTabBar;

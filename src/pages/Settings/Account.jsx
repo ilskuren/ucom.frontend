@@ -54,7 +54,6 @@ const SettingsAccountPage = () => (
             </div>
             <div className="settings__block">
               <div className="settings__label">Language</div>
-              <div className="settings__input"><Dropdown options={[]} /></div>
             </div>
             <div className="settings__block">
               <div className="settings__label">Currency</div>

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Avatar from './Avatar';
 
 const UserOption = ({
-  name, linkIsActive, avatar,
+  name, linkColor, linkText, avatar,
 }) => {
   const linkClass = classNames('user-option__link', {
-    'user-option__link_color_red': Boolean(!linkIsActive),
+    [`user-option__link_color_${linkColor}`]: Boolean(linkColor),
   });
 
   return (
@@ -17,7 +17,7 @@ const UserOption = ({
           <div className="inline">
             <span className="inline__item">
               <Avatar
-                src={avatar}
+                src={avatar || 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg'}
               />
             </span>
             <span className="inline__item">
@@ -30,7 +30,7 @@ const UserOption = ({
         <div className="toolbar__side">
           <span className="inline__item">
             <a className={linkClass}>
-              {linkIsActive ? 'Invite sent' : 'Invite'}
+              {linkText}
             </a>
           </span>
         </div>
@@ -42,7 +42,8 @@ const UserOption = ({
 UserOption.propTypes = {
   name: PropTypes.string,
   avatar: PropTypes.string,
-  linkIsActive: PropTypes.bool,
+  linkText: PropTypes.string,
+  linkColor: PropTypes.string,
 };
 
 export default UserOption;

@@ -9,8 +9,9 @@ const SelectUserOption = props => (
   <components.Option {...props}>
     <UserOption
       name={props.label}
-      linkIsActive={props.data.isEnvited}
-      avatar="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg"
+      linkColor={props.data.isEnvited && 'red'}
+      linkText={props.data.isEnvited ? 'Invite' : 'Invite sent'}
+      avatar={props.data.avatar}
     />
   </components.Option>
 );
@@ -73,6 +74,7 @@ const selectProps = {
   label: PropTypes.string,
   avatar: PropTypes.string,
   data: PropTypes.shape({
+    avatar: PropTypes.string,
     isEnvited: PropTypes.bool,
   }),
   selectProps: PropTypes.shape({

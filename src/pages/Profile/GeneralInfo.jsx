@@ -10,7 +10,7 @@ import Avatar from '../../components/Avatar';
 import Textarea from '../../components/Textarea';
 import DateInput from '../../components/DateInput';
 import { setUser } from '../../actions';
-import { patchMyself } from '../../api';
+import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import Loading from '../../components/Loading';
 import { getAvatarUrl } from '../../utils/user';
@@ -29,6 +29,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       city: this.props.user.city || '',
       address: this.props.user.address || '',
       loading: false,
+      avatarLoading: false,
     };
   }
 
@@ -51,6 +52,20 @@ class ProfileGeneralInfoPage extends PureComponent {
       .then((data) => {
         this.props.setUser(data);
         this.setState({ loading: false });
+      });
+  }
+
+  uploadAvatar(file) {
+    this.setState({ avatarLoading: true });
+
+    const data = new FormData();
+
+    data.append('avatar_filename', file);
+
+    patchMyselfFormData(data, getToken())
+      .then((data) => {
+        this.props.setUser(data);
+        this.setState({ avatarLoading: false });
       });
   }
 
@@ -78,20 +93,28 @@ class ProfileGeneralInfoPage extends PureComponent {
                   <div className="profile__text-block">
                     Userpic Preview
                   </div>
-                  <div className={classNames('profile__block', 'profile__block_avatar')}>
+                  <div className="profile__block profile__block_avatar">
                     <Avatar
                       src={getAvatarUrl(this.props.user.avatar_filename)}
                       size="big"
                       alt="Avatar"
                     />
+
                     <div className="profile__drop-zone">
-                      <DropZone text="add or drag img" />
+                      <DropZone
+                        text="add or drag img"
+                        accept="image/jpeg, image/png"
+                        onDrop={files => this.uploadAvatar(files[0])}
+                        loading={this.state.avatarLoading}
+                      />
+
                       <div className="profile__text-block">
                         You can upload an image  in JPG or PNG format.
                         Size is not more than 10 mb.
                       </div>
                     </div>
                   </div>
+
                   <div className="profile__block">
                     <TextInput
                       label="First name"
@@ -99,6 +122,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={firstName => this.setState({ firstName })}
                     />
                   </div>
+
                   <div className="profile__block">
                     <TextInput
                       label="Second name"
@@ -106,6 +130,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={lastName => this.setState({ lastName })}
                     />
                   </div>
+
                   <div className="profile__block">
                     <TextInput
                       label="Nickname"
@@ -114,9 +139,11 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={nickname => this.setState({ nickname })}
                     />
                   </div>
+
                   <div className="profile__block">
                     <TextInput label="Asset to show" placeholder="Example Kickcoin" isSearch />
                   </div>
+
                   <div className="profile__block">
                     <DateInput
                       label="Birthday"
@@ -124,6 +151,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={birthday => this.setState({ birthday })}
                     />
                   </div>
+
                   <div className={classNames('profile__block', 'profile__block_textarea')}>
                     <Textarea
                       rows={6}
@@ -135,6 +163,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                 </InfoBlock>
               </div>
+
               <div className="profile__info-block">
                 <InfoBlock title="Location">
                   <div className="profile__block">
@@ -144,6 +173,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={country => this.setState({ country })}
                     />
                   </div>
+
                   <div className="profile__block">
                     <TextInput
                       label="City"
@@ -151,6 +181,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       onChange={city => this.setState({ city })}
                     />
                   </div>
+
                   <div className="profile__block">
                     <TextInput
                       label="Address"
@@ -160,6 +191,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     />
                   </div>
                 </InfoBlock>
+
                 <div className="profile__block">
                   <Button text="proceed" theme="red" size="big" isStretched />
                 </div>

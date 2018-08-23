@@ -39,7 +39,7 @@ class TextEditor extends PureComponent {
 
   onChangeCover(file) {
     if (typeof this.props.onChangeCover === 'function') {
-      this.props.onChangeContent(file);
+      this.props.onChangeCover(file);
     }
 
     const reader = new FileReader();

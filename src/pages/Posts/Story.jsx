@@ -11,7 +11,8 @@ class StoryPage extends PureComponent {
 
     this.state = {
       title: '',
-      content: '',
+      description: '',
+      main_image_filename: null,
       loading: false,
     };
   }
@@ -20,10 +21,12 @@ class StoryPage extends PureComponent {
     this.setState({ loading: true });
 
     const token = getToken();
-    const data = {
-      title: this.state.title,
-      content: this.state.content,
-    };
+    const data = new FormData();
+
+    data.append('title', this.state.title);
+    data.append('description', this.state.description);
+    data.append('main_image_filename', this.state.main_image_filename);
+    data.append('post_type_id', 1);
 
     createPost(data, token)
       .then(() => {
@@ -44,7 +47,8 @@ class StoryPage extends PureComponent {
         <div className="create-post__editor">
           <TextEditor
             onChangeTitle={title => this.setState({ title })}
-            onChangeContent={content => this.setState({ content })}
+            onChangeContent={description => this.setState({ description })}
+            onChangeCover={main_image_filename => this.setState({ main_image_filename })}
           />
         </div>
       </Fragment>

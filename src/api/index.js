@@ -74,10 +74,8 @@ export const createPost = (data, token) => (
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: data,
   })
     .then(resp => resp.json())
 );

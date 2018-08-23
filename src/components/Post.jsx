@@ -4,6 +4,7 @@ import IconArrowUp from './Icons/ArrowUp';
 import IconArrowDown from './Icons/ArrowDown';
 import IconComment from './Icons/Comment';
 import IconShare from './Icons/Share';
+import Rating from './Rating';
 
 const Post = () => (
   <div className="post">
@@ -16,23 +17,9 @@ const Post = () => (
         </div>
 
         <div className="toolbar__side">
-          <div className="rating">
-            <div className="inline inline_small">
-              <div className="inline__item">
-                <div className="rating__icon">
-                  <IconArrowUp />
-                </div>
-              </div>
-              <div className="inline__item">
-                <div className="rating__value rating__value_up">+100</div>
-              </div>
-              <div className="inline__item">
-                <div className="rating__icon">
-                  <IconArrowDown />
-                </div>
-              </div>
-            </div>
-          </div>
+          <Rating rating={100} choice="up" />
+          <Rating rating={0} />
+          <Rating rating={-50} choice="down" />
         </div>
       </div>
     </div>

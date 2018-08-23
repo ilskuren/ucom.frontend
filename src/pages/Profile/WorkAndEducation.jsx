@@ -19,14 +19,81 @@ class ProfileWorkAndEducationPage extends PureComponent {
       first_currency: this.props.user.first_currency || '',
       first_currency_year: this.props.user.first_currency_year || '',
       users_jobs: this.props.user.users_jobs || [],
+      users_education: this.props.user.users_education || [],
       loading: false,
     };
+
+    console.log(this.props.user);
   }
 
   componentDidMount() {
     if (this.state.users_jobs.length === 0) {
       this.addEmptyJobItem();
     }
+
+    if (this.state.users_education.length === 0) {
+      this.addEmptyEducationItem();
+    }
+  }
+
+  save() {
+    const token = getToken();
+
+    const data = {
+      first_currency: this.state.first_currency,
+      first_currency_year: this.state.first_currency_year,
+      users_jobs: this.state.users_jobs,
+      users_education: this.state.users_education,
+    };
+
+    this.setState({ loading: true });
+
+    patchMyself(data, token)
+      .then((data) => {
+        this.props.setUser(data);
+        this.setState({ loading: false });
+      });
+  }
+
+  addEmptyEducationItem() {
+    this.setState(prevState => ({
+      users_education: prevState.users_education.concat({
+        end_date: null,
+        start_date: null,
+        is_current: false,
+        degree: '',
+        speciality: '',
+        title: '',
+      }),
+    }));
+  }
+
+  changeEducationItem(index, data) {
+    this.setState((prevState) => {
+      const { users_education } = prevState;
+
+      users_education[index] = Object.assign({}, prevState.users_education[index], data);
+
+      return {
+        users_education: [].concat(users_education),
+      };
+    });
+  }
+
+  removeEducationItem(index) {
+    this.setState((prevState) => {
+      const { users_education } = prevState;
+
+      users_education.splice(index, 1);
+
+      return {
+        users_education: [].concat(users_education),
+      };
+    }, () => {
+      if (this.state.users_education.length === 0) {
+        this.addEmptyEducationItem();
+      }
+    });
   }
 
   addEmptyJobItem() {
@@ -39,24 +106,6 @@ class ProfileWorkAndEducationPage extends PureComponent {
         position: '',
       }),
     }));
-  }
-
-  save() {
-    const token = getToken();
-
-    const data = {
-      first_currency: this.state.first_currency,
-      first_currency_year: this.state.first_currency_year,
-      users_jobs: this.state.users_jobs,
-    };
-
-    this.setState({ loading: true });
-
-    patchMyself(data, token)
-      .then((data) => {
-        this.props.setUser(data);
-        this.setState({ loading: false });
-      });
   }
 
   changeJobItem(index, data) {
@@ -130,38 +179,38 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
             <div className="profile__info-block">
               <InfoBlock title="Work">
-                <div className="work-form">
+                <div className="list">
                   {this.state.users_jobs.map((item, index) => (
-                    <div className="work-form__item" key={index}>
-                      <div className="work-form__field">
+                    <div className="list__item" key={index}>
+                      <div className="profile__block">
                         <TextInput
                           label="Work place"
                           value={item.title}
                           onChange={(title) => { this.changeJobItem(index, { title }); }}
                         />
                       </div>
-                      <div className="work-form__field">
+                      <div className="profile__block">
                         <TextInput
                           label="Position"
                           value={item.position}
                           onChange={(position) => { this.changeJobItem(index, { position }); }}
                         />
                       </div>
-                      <div className="work-form__field">
+                      <div className="profile__block">
                         <DateInput
                           label="Started date"
                           value={item.start_date}
                           onChange={(start_date) => { this.changeJobItem(index, { start_date }); }}
                         />
                       </div>
-                      <div className="work-form__field">
+                      <div className="profile__block">
                         <DateInput
                           label="Ended date"
                           value={item.end_date}
                           onChange={(end_date) => { this.changeJobItem(index, { end_date }); }}
                         />
                       </div>
-                      <div className="work-form__field">
+                      <div className="profile__block">
                         <button
                           type="button"
                           className="button button_theme_transparent button_size_small"
@@ -173,7 +222,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     </div>
                   ))}
 
-                  <div className="work-form__action">
+                  <div className="profile__block">
                     <button
                       type="button"
                       className="button button_theme_transparent button_size_small"
@@ -187,25 +236,67 @@ class ProfileWorkAndEducationPage extends PureComponent {
             </div>
             <div className="profile__info-block">
               <InfoBlock title="Education">
-                <div className="profile__block">
-                  <TextInput label="Education" />
+                <div className="list">
+                  {this.state.users_education.map((item, index) => (
+                    <div className="list__item" key={index}>
+                      <div className="profile__block">
+                        <TextInput
+                          label="Education"
+                          value={item.title}
+                          onChange={(title) => { this.changeEducationItem(index, { title }); }}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <TextInput
+                          label="Spec"
+                          value={item.speciality}
+                          onChange={(speciality) => { this.changeEducationItem(index, { speciality }); }}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <TextInput
+                          label="Level"
+                          value={item.degree}
+                          onChange={(degree) => { this.changeEducationItem(index, { degree }); }}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <DateInput
+                          label="Started date"
+                          value={item.start_date}
+                          onChange={(start_date) => { this.changeEducationItem(index, { start_date }); }}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <DateInput
+                          label="Ended date"
+                          value={item.end_date}
+                          onChange={(end_date) => { this.changeEducationItem(index, { end_date }); }}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <button
+                          type="button"
+                          className="button button_theme_transparent button_size_small"
+                          onClick={() => this.removeEducationItem(index)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+
                 <div className="profile__block">
-                  <TextInput label="Spec" />
+                  <button
+                    type="button"
+                    className="button button_theme_transparent button_size_small"
+                    onClick={() => this.addEmptyEducationItem()}
+                  >
+                    Add another
+                  </button>
                 </div>
-                <div className="profile__block">
-                  <TextInput label="Level" />
-                </div>
-                <div className="profile__block">
-                  <DateInput label="Started date" />
-                </div>
-                <div className="profile__block">
-                  <DateInput label="Ended date" />
-                </div>
-                <div className="profile__block">
-                  <span className="profile__text">Stud here now?</span>
-                  <Button text="add another" size="small" theme="transparent" />
-                </div>
+
                 <div className="profile__block">
                   <span className="profile__text">Achievements</span>
                   <DropZone text="add or drag file" />

@@ -1,10 +1,19 @@
 
 import React from 'react';
+import PostItem from '../../components/PostItem';
 
 const StoryPage = () => (
   <div className="posts">
     <div className="posts__content">
-      <div className="posts__title">Title</div>
+      <div className="posts__title">
+        <PostItem
+          title="No Country for Old Men, aren't it"
+          tag="story"
+          rate={9200}
+          size="big"
+          edit
+        />
+      </div>
       <div className="posts__lead-text">
         The development continues Coinbases 2018 hiring spree. Since the start of the year, the company has hired Tina Bhatnagar to serve as vice president of operations and technology;
       </div>

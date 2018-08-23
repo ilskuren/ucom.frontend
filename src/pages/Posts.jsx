@@ -1,7 +1,6 @@
 import { Route } from 'react-router';
 import React, { Fragment } from 'react';
 import StoryPage from './Posts/Story';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const PostsPage = () => (
@@ -13,7 +12,7 @@ const PostsPage = () => (
         </div>
       </div>
 
-      <div className="sheets__content">
+      <div className="sheets__content sheets__content_posts">
         <Fragment>
           <Route exact path="/posts/story/:id" component={StoryPage} />
         </Fragment>

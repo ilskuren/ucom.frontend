@@ -36,12 +36,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 3px;
   width: 48px;
   height: 48px;
   background-color: @blue-green;
   border-radius: 50%;
   float: right;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 767px) {
     width: 24px;

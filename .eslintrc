@@ -18,6 +18,7 @@
     "import/prefer-default-export": "off",
     "no-shadow": "off",
     "quote-props": "off",
-    "react/prop-types": [1, {"ignore": ["location", "user", "setUser", "match", "history"]}]
+    "react/prop-types": [1, {"ignore": ["location", "user", "setUser", "match", "history"]}],
+    "camelcase": "off"
   }
 }

@@ -1,24 +1,54 @@
+import PropTypes from 'prop-types';
+import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
-import Letters from '@ckeditor/letters/build/letters';
 
-export default class TextEditor extends PureComponent {
+class TextEditor extends PureComponent {
   componentDidMount() {
-    Letters.create(document.querySelector('.text-editor'), {
-      blockToolbar: [],
-      cloudServices: {
-        tokenUrl: 'https://34467.cke-cs.com/token/dev/i0uxEkiJEzU59EEF2bsPwv5fCR0g9YrsVuiesXE7CXGULQM6VRpFaQS2kPD4',
-        uploadUrl: 'https://34467.cke-cs.com/easyimage/upload/',
-        webSocketUrl: '34467.cke-cs.com/ws',
-        documentId: 'text-editor',
+    this.mediumEditor = new MediumEditor(this.textEditor, {
+      toolbar: {
+        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2'],
       },
-      title: 'Title',
-      body: '<h2>Lead text</h2> <h3>Text</h3>',
     });
+
+    this.mediumEditor.subscribe('editableInput', (event, editable) => {
+      if (typeof this.props.onChangeContent === 'function') {
+        const html = editable.innerHTML;
+
+        this.props.onChangeContent(html);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.mediumEditor.destroy();
   }
 
   render() {
     return (
-      <div className="text-editor" />
+      <div className="text-editor" >
+        <div className="text-editor__inner">
+          <div className="text-editor__title">
+            <input
+              type="text"
+              placeholder="Title"
+              className="text-editor__title-input"
+              onChange={(e) => {
+                if (typeof this.props.onChangeTitle === 'function') {
+                  this.props.onChangeTitle(e.target.value);
+                }
+              }}
+            />
+          </div>
+          <div className="text-editor__content" ref={(el) => { this.textEditor = el; }} />
+        </div>
+      </div>
     );
   }
 }
+
+TextEditor.propTypes = {
+  onChangeTitle: PropTypes.func,
+  onChangeContent: PropTypes.func,
+};
+
+export default TextEditor;

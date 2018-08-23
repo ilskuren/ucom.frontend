@@ -52,12 +52,11 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
-    "@ckeditor/letters": "^2.0.0",
-    "ckeditor": "^4.10.0",
     "classnames": "^2.2.6",
     "eosjs": "^16.0.5",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
+    "medium-editor": "^5.23.3",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",

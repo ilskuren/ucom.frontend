@@ -68,3 +68,16 @@ export const getUsers = () => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users`)
     .then(resp => resp.json())
 );
+
+export const createPost = (data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(resp => resp.json())
+);

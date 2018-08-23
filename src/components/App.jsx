@@ -38,7 +38,7 @@ class App extends PureComponent {
           this.setState({ loading: false });
         })
         .catch(() => {
-          removeToken();
+          // removeToken();
           this.setState({ loading: false });
         });
     } else {

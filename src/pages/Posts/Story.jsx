@@ -1,37 +1,55 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import TextEditor from '../../components/TextEditor';
-import Dropdown from '../../components/Dropdown';
+import CreatePostHeader from '../../components/CreatePostHeader';
+import Loading from '../../components/Loading';
+import { createPost } from '../../api';
+import { getToken } from '../../utils/token';
 
-const TAGS = [
-  { value: 'fsdf', label: 'fsdf' },
-  { value: 'fsdf2', label: 'fsdf2' },
-  { value: 'fsd3', label: 'fsd3' },
-  { value: 'fsdf5', label: 'fsdf5' },
-  { value: 'fsd7', label: 'fsd7' },
-  { value: 'fsdfee', label: 'fsdfee' },
-  { value: 'fsdgf', label: 'fsdgf' },
-  { value: 'fsdsdf', label: 'fsdsdf' },
-  { value: 'fsdsdgsf', label: 'fsdsdgsf' },
-  { value: 'fsdfdgf', label: 'fsdfdgf' },
-];
+class StoryPage extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const StoryPage = () => (
-  <Fragment>
-    <div className="create-post__content">
-      <div className="create-post__field">
-        <div className="field">
-          <div className="field__label">Tags</div>
-          <div className="field__input">
-            <Dropdown isSearchable isMulti options={TAGS} />
-          </div>
+    this.state = {
+      title: '',
+      content: '',
+      loading: false,
+    };
+  }
+
+  save() {
+    this.setState({ loading: true });
+
+    const token = getToken();
+    const data = {
+      title: this.state.title,
+      content: this.state.content,
+    };
+
+    createPost(data, token)
+      .then(() => {
+        this.setState({ loading: false });
+      });
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Loading loading={this.state.loading} />
+
+        <CreatePostHeader
+          location={this.props.location}
+          onClickPost={() => { this.save(); }}
+        />
+
+        <div className="create-post__editor">
+          <TextEditor
+            onChangeTitle={title => this.setState({ title })}
+            onChangeContent={content => this.setState({ content })}
+          />
         </div>
-      </div>
-    </div>
-
-    <div className="create-post__editor">
-      <TextEditor />
-    </div>
-  </Fragment>
-);
+      </Fragment>
+    )
+  }
+}
 
 export default StoryPage;

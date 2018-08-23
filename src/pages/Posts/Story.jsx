@@ -1,6 +1,7 @@
 
 import React from 'react';
 import PostItem from '../../components/PostItem';
+import Share from '../../components/Share';
 
 const StoryPage = () => (
   <div className="posts">
@@ -14,7 +15,7 @@ const StoryPage = () => (
       />
     </div>
     <div className="posts__sidebar">
-      Sidebar
+      <Share amount="8 923" />
     </div>
   </div>
 );

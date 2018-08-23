@@ -5,7 +5,6 @@ import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
-import PersonForm from '../../components/PersonForm';
 import Loading from '../../components/Loading';
 import { setUser } from '../../actions';
 import { getToken } from '../../utils/token';

@@ -41,19 +41,21 @@ const CommentsStub = () => (
             <UserCard accountName="deckbuilder" userName="Ben Broud" avatarSize="xsmall" />
           </div>
           <div className="toolbar__side">
-            <div className="rating">
-              <div className="inline inline_small">
-                <div className="inline__item">
-                  <div className="rating__icon">
-                    <IconArrowUp />
+            <div className="comments__rating">
+              <div className="rating">
+                <div className="inline inline_small">
+                  <div className="inline__item">
+                    <div className="rating__icon">
+                      <IconArrowUp />
+                    </div>
                   </div>
-                </div>
-                <div className="inline__item">
-                  <div className="rating__value rating__value_up">+100</div>
-                </div>
-                <div className="inline__item">
-                  <div className="rating__icon">
-                    <IconArrowDown />
+                  <div className="inline__item">
+                    <div className="rating__value rating__value_up">+100</div>
+                  </div>
+                  <div className="inline__item">
+                    <div className="rating__icon">
+                      <IconArrowDown />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -75,19 +77,21 @@ const CommentsStub = () => (
               <UserCard accountName="apple_inc" userName="Jason Born" avatarSize="xsmall" />
             </div>
             <div className="toolbar__side">
-              <div className="rating">
-                <div className="inline inline_small">
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowUp />
+              <div className="comments__rating">
+                <div className="rating">
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowUp />
+                      </div>
                     </div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__value rating__value_up">+100</div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowDown />
+                    <div className="inline__item">
+                      <div className="rating__value rating__value_up">+100</div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowDown />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -155,23 +159,25 @@ const CommentsStub = () => (
             <UserCard accountName="deckbuilder" userName="Ben Broud" avatarSize="xsmall" />
           </div>
           <div className="toolbar__side">
-            <div className="rating">
-              <div className="inline inline_small">
-                <div className="inline__item">
-                  <div className="rating__icon">
-                    <IconArrowUp />
-                  </div>
-                </div>
-                <div className="inline__item">
-                  <div className="rating__value rating__value_up">+100</div>
-                </div>
-                <div className="inline__item">
-                  <div className="rating__icon">
-                    <IconArrowDown />
+            <div className="comments__rating">
+                <div className="rating">
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowUp />
+                      </div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__value rating__value_up">+100</div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowDown />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <div className="comments__comment-text">
@@ -189,19 +195,21 @@ const CommentsStub = () => (
               <UserCard accountName="apple_inc" userName="Jason Born" avatarSize="xsmall" />
             </div>
             <div className="toolbar__side">
-              <div className="rating">
-                <div className="inline inline_small">
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowUp />
+              <div className="comments__rating">
+                <div className="rating">
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowUp />
+                      </div>
                     </div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__value rating__value_up">+100</div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowDown />
+                    <div className="inline__item">
+                      <div className="rating__value rating__value_up">+100</div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowDown />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -222,19 +230,21 @@ const CommentsStub = () => (
               <UserCard accountName="apple_inc" userName="Jason Born" avatarSize="xsmall" />
             </div>
             <div className="toolbar__side">
-              <div className="rating">
-                <div className="inline inline_small">
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowUp />
+              <div className="comments__rating">
+                <div className="rating">
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowUp />
+                      </div>
                     </div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__value rating__value_up">+100</div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowDown />
+                    <div className="inline__item">
+                      <div className="rating__value rating__value_up">+100</div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowDown />
+                      </div>
                     </div>
                   </div>
                 </div>

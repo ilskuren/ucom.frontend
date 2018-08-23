@@ -21,7 +21,7 @@ const StoryPage = () => (
       </div>
       <div className="posts__text">
         <div className="posts__poster">
-          <img src={poster} alt="poster" className="posts__poster-img"/>
+          <img src={poster} alt="poster" className="posts__poster-img" />
         </div>
         Emilie Choi as its vice president of corporate and business development; Eric Soto as vice president of finance; Rachael Horwitz as vice president of communications; Alesia Haas as its new chief financial officer; and Jeff Horowitz as its chief compliance officer, among others.
         <br />

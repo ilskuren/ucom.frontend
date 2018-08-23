@@ -327,7 +327,7 @@ class UserPage extends PureComponent {
                                 <div className="toolbar__main">
                                   <div className="experience__name">{item.title}</div>
                                 </div>
-                                <div className="toolbar__main">
+                                <div className="toolbar__side">
                                   <div className="experience__state">
                                     {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
                                   </div>

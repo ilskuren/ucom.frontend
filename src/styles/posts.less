@@ -1,11 +1,22 @@
 .posts {
   display: flex;
   margin-bottom: 40px;
+
+  @media (max-width: 767px) {
+    flex-direction: column-reverse;
+  }
+
   &__content {
     flex-grow: 1;
+    margin: 0 160px;
+
+    @media (max-width: 1023px) {
+      margin: 0;
+      margin-right: 10px;
+    }
   }
 
   &__sidebar {
-    flex-basis: 150px;
+    width: 150px;
   }
 }

@@ -22,8 +22,6 @@ class ProfileWorkAndEducationPage extends PureComponent {
       users_education: this.props.user.users_education || [],
       loading: false,
     };
-
-    console.log(this.props.user);
   }
 
   componentDidMount() {

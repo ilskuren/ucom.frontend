@@ -31,3 +31,45 @@
   height: 88px;
   object-fit: cover;
 }
+
+.post-item__edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3px;
+  width: 48px;
+  height: 48px;
+  background-color: @blue-green;
+  border-radius: 50%;
+  float: right;
+
+  @media (max-width: 767px) {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.post-item_big {
+  .post-item__text {
+    font-size: 48px;
+    line-height: 1.2;
+    
+    @media (max-width: 767px) {
+      font-size: 24px;
+    }
+  }
+  
+  .post-item__main {
+    padding: 0 70px 0 0;
+    @media (max-width: 767px) {
+      padding: 0 20px 0 0;
+    }
+  }
+  
+  .edit-icon {
+    @media (max-width: 767px) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}

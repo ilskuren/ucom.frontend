@@ -1,7 +1,5 @@
 import React from 'react';
 import Avatar from './Avatar';
-import IconArrowUp from './Icons/ArrowUp';
-import IconArrowDown from './Icons/ArrowDown';
 import IconComment from './Icons/Comment';
 import IconShare from './Icons/Share';
 import Rating from './Rating';
@@ -18,8 +16,6 @@ const Post = () => (
 
         <div className="toolbar__side">
           <Rating rating={100} choice="up" />
-          <Rating rating={0} />
-          <Rating rating={-50} choice="down" />
         </div>
       </div>
     </div>

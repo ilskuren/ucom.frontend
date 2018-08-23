@@ -1,0 +1,71 @@
+.comments {
+  border: 1px solid lighten(@gray, 10);
+  max-width: 600px;
+  &__user-comment {
+    border-bottom: 1px solid lighten(@gray, 10);
+    padding: 1.5714rem 2rem 1.5714rem 1.5714rem;
+  }
+  &__input {
+    & > * {
+      border: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  &__comment {
+    padding-bottom: 10px;
+  }
+  &__main-comment {
+    padding: 1.3714rem 2rem 1.2714rem 1.5714rem;
+    &_reply {
+      & > * {
+        margin-left: 3.1429rem;
+        @media (max-width: 424px) {
+          margin-left: 0;
+        }
+      }
+    }
+    &_user-comment {
+      background: @gray-lighter;
+    }
+  }
+  &__comment-text {
+    padding-left: 43px;
+    padding-top: 14px;
+    font-size: 1.14rem;
+  }
+  &__user-link {
+    color: @red;
+  }
+  &__menu {
+    display: block;
+    padding-left: 43px;
+    padding-top: 26px;
+  }
+  &__reply, &__delete {
+    font-weight: bold;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__time {
+    padding-left: 10px;
+    font-size: 0.8571rem;
+    color: fade(@black, 60);
+    line-height: 1.7;
+  }
+  &__hide-replies {
+    width: 90%;
+    padding-bottom: 13px;
+    border-bottom: 1px solid lighten(@gray, 10);
+    color: fade(@black, 60);
+    margin: 0 auto;
+    &:hover {
+      cursor: pointer;
+    }
+    & > *:first-child {
+      padding: 0 10px;
+    }
+  }
+}

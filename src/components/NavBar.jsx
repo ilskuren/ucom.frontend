@@ -16,7 +16,7 @@ const NavBar = (props) => {
         <div className="nav-bar__menu">
           <div className="toolbar toolbar_responsive">
             <div className="toolbar__main">
-              <div className="menu menu_tabs">{tabs}</div>
+              <div className="menu menu_simple-tabs">{tabs}</div>
             </div>
             <div className="toolbar__side">
               <div className="inline">

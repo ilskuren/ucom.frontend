@@ -9,10 +9,10 @@ import DropZone from '../../components/DropZone';
 import Avatar from '../../components/Avatar';
 import Textarea from '../../components/Textarea';
 import DateInput from '../../components/DateInput';
+import Loading from '../../components/Loading';
 import { setUser } from '../../actions';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
-import Loading from '../../components/Loading';
 import { getAvatarUrl } from '../../utils/user';
 
 class ProfileGeneralInfoPage extends PureComponent {

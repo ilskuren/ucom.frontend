@@ -40,7 +40,7 @@ const StoryPage = () => (
     </div>
     <div className="posts__sidebar">
       <div className="posts__rating">
-        <Rating rating={100}/>
+        <Rating rating={100} />
       </div>
       <div className="posts__views">
         <PostViews views={352} />

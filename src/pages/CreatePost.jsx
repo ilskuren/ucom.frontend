@@ -22,7 +22,7 @@ class CreatePost extends PureComponent {
   render() {
     return (
       <div className="create-post">
-        <div className="create-post__header">
+        <div className="create-post__content">
           <div className="create-post__title">
             <div className="inline inline_large">
               <div className="inline__item">
@@ -59,7 +59,7 @@ class CreatePost extends PureComponent {
             </div>
           </div>
 
-          <div className="create-post__navigation">
+          <div className="create-post__field">
             <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
               {TAB_NAMES.map(tabName => (
                 <div className="menu__item">
@@ -75,11 +75,11 @@ class CreatePost extends PureComponent {
               ))}
             </div>
           </div>
-
-          <Fragment>
-            <Route exact path="/posts/new/story" component={StoryPage} />
-          </Fragment>
         </div>
+
+        <Fragment>
+          <Route exact path="/posts/new/story" component={StoryPage} />
+        </Fragment>
       </div>
     );
   }

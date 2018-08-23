@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import TextEditor from '../../components/TextEditor';
 import Dropdown from '../../components/Dropdown';
 
@@ -16,17 +16,22 @@ const TAGS = [
 ];
 
 const StoryPage = () => (
-  <div className="create-story">
-    <div className="create-story__form">
-      <div className="create-story__form-block">
-        <div className="create-story__form-label">Tags</div>
-        <div className="create-story__form-input"><Dropdown isSearchable isMulti options={TAGS} /></div>
+  <Fragment>
+    <div className="create-post__content">
+      <div className="create-post__field">
+        <div className="field">
+          <div className="field__label">Tags</div>
+          <div className="field__input">
+            <Dropdown isSearchable isMulti options={TAGS} />
+          </div>
+        </div>
       </div>
     </div>
-    <div className="create-story__text-editor">
+
+    <div className="create-post__editor">
       <TextEditor />
     </div>
-  </div>
+  </Fragment>
 );
 
 export default StoryPage;

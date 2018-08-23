@@ -4,6 +4,7 @@ import Letters from '@ckeditor/letters/build/letters';
 export default class TextEditor extends PureComponent {
   componentDidMount() {
     Letters.create(document.querySelector('.text-editor'), {
+      blockToolbar: [],
       cloudServices: {
         tokenUrl: 'https://34467.cke-cs.com/token/dev/i0uxEkiJEzU59EEF2bsPwv5fCR0g9YrsVuiesXE7CXGULQM6VRpFaQS2kPD4',
         uploadUrl: 'https://34467.cke-cs.com/easyimage/upload/',

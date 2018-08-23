@@ -1,25 +1,23 @@
 .field {
   display: flex;
   align-items: baseline;
-  max-width: 600px;
 
   @media (max-width: 767px) {
     flex-direction: column;
-    width: 100%;
   }
 }
 
 .field__label {
-  font-size: 1.142rem;
-  max-width: 200px;
   display: flex;
-  flex-grow: 1;
   align-items: center;
+  flex-grow: 1;
+  max-width: 200px;
   padding: 12px 0;
+  font-size: 1.142rem;
   opacity: .37;
 }
 
 .field__input {
-  width: 75%;
+  flex: 1 1 auto;
   max-width: 400px;
 }

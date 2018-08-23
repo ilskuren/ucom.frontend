@@ -63,7 +63,7 @@ const CommentsStub = () => (
           </div>
         </div>
         <div className="comments__comment-text">
-          Robinhood is in a great position to eat into Coinbase and other exchange's market share for a more mainstream.
+          Robinhood is in a great position to eat into Coinbase and other exchanges market share for a more mainstream.
         </div>
         <div className="comments__menu">
           <span className="comments__reply">Reply</span>
@@ -119,19 +119,21 @@ const CommentsStub = () => (
               <UserCard accountName="apple_inc" userName="Jason Born" avatarSize="xsmall" />
             </div>
             <div className="toolbar__side">
-              <div className="rating">
-                <div className="inline inline_small">
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowUp />
+              <div className="comments__rating">
+                <div className="rating">
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowUp />
+                      </div>
                     </div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__value rating__value_up">+100</div>
-                  </div>
-                  <div className="inline__item">
-                    <div className="rating__icon">
-                      <IconArrowDown />
+                    <div className="inline__item">
+                      <div className="rating__value rating__value_up">+100</div>
+                    </div>
+                    <div className="inline__item">
+                      <div className="rating__icon">
+                        <IconArrowDown />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -160,28 +162,28 @@ const CommentsStub = () => (
           </div>
           <div className="toolbar__side">
             <div className="comments__rating">
-                <div className="rating">
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      <div className="rating__icon">
-                        <IconArrowUp />
-                      </div>
+              <div className="rating">
+                <div className="inline inline_small">
+                  <div className="inline__item">
+                    <div className="rating__icon">
+                      <IconArrowUp />
                     </div>
-                    <div className="inline__item">
-                      <div className="rating__value rating__value_up">+100</div>
-                    </div>
-                    <div className="inline__item">
-                      <div className="rating__icon">
-                        <IconArrowDown />
-                      </div>
+                  </div>
+                  <div className="inline__item">
+                    <div className="rating__value rating__value_up">+100</div>
+                  </div>
+                  <div className="inline__item">
+                    <div className="rating__icon">
+                      <IconArrowDown />
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
         <div className="comments__comment-text">
-          Robinhood is in a great position to eat into Coinbase and other exchange's market share for a more mainstream.
+          Robinhood is in a great position to eat into Coinbase and other exchanges market share for a more mainstream.
         </div>
         <div className="comments__menu">
           <span className="comments__reply">Reply</span>

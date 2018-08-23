@@ -4,6 +4,8 @@ import PostItem from '../../components/PostItem';
 import CommentsStub from '../../components/CommentsStub';
 import poster from './images/poster.png';
 import Share from '../../components/Share';
+import Rating from '../../components/Rating';
+import PostViews from '../../components/PostViews';
 
 const StoryPage = () => (
   <div className="posts">
@@ -37,7 +39,15 @@ const StoryPage = () => (
       </div>
     </div>
     <div className="posts__sidebar">
-      <Share amount="8 923" />
+      <div className="posts__rating">
+        <Rating rating={100}/>
+      </div>
+      <div className="posts__views">
+        <PostViews views={352} />
+      </div>
+      <div className="posts__share">
+        <Share amount="8 923" />
+      </div>
     </div>
   </div>
 );

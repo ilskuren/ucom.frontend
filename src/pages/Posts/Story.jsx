@@ -48,7 +48,7 @@ class StoryPage extends PureComponent {
           />
         </div>
       </Fragment>
-    )
+    );
   }
 }
 

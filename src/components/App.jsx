@@ -8,7 +8,7 @@ import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
 import { setUser } from '../actions';
-import { getToken, removeToken } from '../utils/token';
+import { getToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
 import Header from './Header';
@@ -38,7 +38,6 @@ class App extends PureComponent {
           this.setState({ loading: false });
         })
         .catch(() => {
-          // removeToken();
           this.setState({ loading: false });
         });
     } else {

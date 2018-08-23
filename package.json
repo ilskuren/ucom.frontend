@@ -55,6 +55,7 @@
     "classnames": "^2.2.6",
     "eosjs": "^16.0.5",
     "history": "^4.7.2",
+    "keycode-js": "^1.0.0",
     "lodash": "^4.17.10",
     "medium-editor": "^5.23.3",
     "moment": "^2.22.2",

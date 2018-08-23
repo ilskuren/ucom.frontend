@@ -3,6 +3,8 @@ import React, { Fragment } from 'react';
 import StoryPage from './Posts/Story';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import PostHeader from '../components/PostHeader';
+import HordeIco from '../static/img/horde_ico.png';
 
 const PostsPage = () => (
   <div className="page">
@@ -11,7 +13,7 @@ const PostsPage = () => (
     <div className="sheets">
       <div className="sheets__list">
         <div className="sheets__item">
-          User
+          <PostHeader avatar={HordeIco} name="Kirill Elizarov" rating="40 000" />
         </div>
       </div>
 

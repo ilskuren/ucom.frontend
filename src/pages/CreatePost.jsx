@@ -1,6 +1,6 @@
 import { Route } from 'react-router';
 import React, { Fragment } from 'react';
-import StoryPage from './Posts/Story';
+import StoryPage from './CreatePost/Story';
 import Button from '../components/Button';
 import SmallProfileDropdown from '../components/SmallProfileDropdown';
 import PrefixInput from '../components/PrefixInput';

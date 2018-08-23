@@ -20,7 +20,7 @@ const PostItem = props => (
       </div>
 
       <div className="post-item__text">
-        {props.edit && <span className="post-title__edit"><EditIcon /></span>}
+        {props.edit && <span className="post-item__edit"><EditIcon /></span>}
         {props.title || 'This No-Brand Startup Won $240 Million to Fight Amazon on Price and Quality'}
       </div>
     </div>

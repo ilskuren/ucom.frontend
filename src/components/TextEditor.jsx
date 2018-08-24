@@ -25,10 +25,10 @@ class TextEditor extends PureComponent {
     });
 
     this.mediumEditor.subscribe('editableInput', (event, editable) => {
-      if (typeof this.props.onChangeContent === 'function') {
+      if (typeof this.props.onChangeDescription === 'function') {
         const html = editable.innerHTML;
 
-        this.props.onChangeContent(html);
+        this.props.onChangeDescription(html);
       }
     });
   }
@@ -82,8 +82,8 @@ class TextEditor extends PureComponent {
               placeholder="Lead text"
               className="text-editor__title text-editor__title_lead"
               onChange={(e) => {
-                if (typeof this.props.onChangeDescription === 'function') {
-                  this.props.onChangeDescription(e.target.value);
+                if (typeof this.props.onChangeLeadingText === 'function') {
+                  this.props.onChangeLeadingText(e.target.value);
                 }
               }}
             />
@@ -125,8 +125,8 @@ class TextEditor extends PureComponent {
 
 TextEditor.propTypes = {
   onChangeTitle: PropTypes.func,
-  onChangeContent: PropTypes.func,
   onChangeDescription: PropTypes.func,
+  onChangeLeadingText: PropTypes.func,
   onChangeCover: PropTypes.func,
 };
 

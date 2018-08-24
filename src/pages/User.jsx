@@ -31,8 +31,6 @@ class UserPage extends PureComponent {
 
     getUser(this.props.match.params.id)
       .then((user) => {
-        console.log(user);
-
         this.setState({
           user,
           loading: false,

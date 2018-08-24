@@ -10,7 +10,7 @@ const Passphrase = ({ isCrossOutMode, words }) => (
             id={word}
             className="passphrase__checkbox"
             name="passphrase"
-            type={isCrossOutMode ? 'checkbox' : 'text'}
+            type={isCrossOutMode ? 'checkbox' : 'button'}
             readOnly={!isCrossOutMode}
             value={word}
           />

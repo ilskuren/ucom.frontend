@@ -5,7 +5,7 @@ import Avatar from './Avatar';
 import Rate from './Rate';
 
 const UserCard = (props) => {
-  const avatar = <Avatar square={props.squareAvatar} src={props.avatarUrl} />;
+  const avatar = <Avatar square={props.squareAvatar} src={props.avatarUrl} size={props.avatarSize} />;
 
   return (
     <div className="user-card">
@@ -46,6 +46,7 @@ UserCard.propTypes = {
   accountName: PropTypes.string,
   profileLink: PropTypes.string,
   avatarUrl: PropTypes.string,
+  avatarSize: PropTypes.string,
 };
 
 UserCard.defaultProps = {

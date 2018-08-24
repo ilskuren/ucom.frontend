@@ -1,0 +1,40 @@
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 84px;
+  flex-wrap: wrap;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  &__user-card {
+    @media (max-width: 768px) {
+      margin-bottom: 20px;
+    }
+  }
+  &__user-avatar {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 12px;
+  }
+  &__user-info {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 4px;
+  }
+  &__user-name {
+    font-size: 1.142rem;
+    color: #1C1F20;
+    font-weight: bold;
+  }
+  &__user-rate {
+    padding-top: 3px;
+  }
+  &__user-rate-degree {}
+  &__follow-button {
+    width: 160px;
+  }
+}

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import React, { Fragment, PureComponent } from 'react';
-import StoryPage from './Posts/Story';
+import StoryPage from './CreatePost/Story';
 
 class CreatePost extends PureComponent {
   render() {

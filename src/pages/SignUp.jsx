@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import TextInput from '../components/TextInput';
 import Button from '../components/Button';
+import TextInput from '../components/TextInput';
+
+const words = [
+  'Blind', 'Monkey', 'Fundle', 'Sweet', 'Also', 'Large', 'Banana', 'Till', 'End', 'When', 'You', 'Watching',
+];
 
 class SignUp extends React.PureComponent {
   state = {
@@ -60,7 +64,29 @@ class SignUp extends React.PureComponent {
           >
             Passphrase
           </h3>
-          <div className="sign-up__section-content">Passphrase form</div>
+          <div className="sign-up__section-content">
+            <div className="sign-up__section-text">
+              This 12 words is your passphrase. Write them down  and remember.
+            </div>
+            <div className="sign-up__passphrases">
+              {words.map(word => (
+                <span className="sign-up__passphrase">{word}</span>
+              ))}
+            </div>
+            <div className="sign-up__button-block">
+              <div className="sign-up__button">
+                <Button
+                  isStretched
+                  text="COPY & DOWNLOAD"
+                  size="big"
+                  theme="red"
+                />
+              </div>
+              <div className="sign-up__button-description">
+                Please, copy or download your passphrase to proceed
+              </div>
+            </div>
+          </div>
         </div>
         <div className={cn('sign-up__section', { 'sign-up__section_active': activeSection === 'verification' })}>
           <h3

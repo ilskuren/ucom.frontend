@@ -156,16 +156,18 @@ class UserPage extends PureComponent {
 
               <div className="grid grid_user">
                 <div className="grid__item">
-                  <div className="user-section">
-                    <div className="user-section__title">
-                      <h2 className="title title_xsmall title_light">About</h2>
-                    </div>
-                    <div className="user-section__text">
-                      <div className="text">
-                        <p>{this.state.user.about}</p>
+                  {this.state.user.about && (
+                    <div className="user-section">
+                      <div className="user-section__title">
+                        <h2 className="title title_xsmall title_light">About</h2>
+                      </div>
+                      <div className="user-section__text">
+                        <div className="text">
+                          <p>{this.state.user.about}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="user-section">
                     <div className="user-section__title">
@@ -218,14 +220,16 @@ class UserPage extends PureComponent {
                 </div>
 
                 <div className="grid__item">
-                  <div className="user-section">
-                    <div className="user-section__title">
-                      <h3 className="title title_xsmall title_light">Location</h3>
+                  {this.state.user.city && (
+                    <div className="user-section">
+                      <div className="user-section__title">
+                        <h3 className="title title_xsmall title_light">Location</h3>
+                      </div>
+                      <div className="user-section__content">
+                        {this.state.user.city}{this.state.user.country && `, ${this.state.user.country}`}
+                      </div>
                     </div>
-                    <div className="user-section__content">
-                      {this.state.user.city}, {this.state.user.country}
-                    </div>
-                  </div>
+                  )}
 
                   <div className="user-section">
                     <div className="user-section__title">

@@ -1,15 +1,45 @@
-.rating__icon {
-  svg {
-    width: 11px;
-    height: 11px;
-    fill: @gray-light;
+.rating {
+  display: flex;
+  min-width: 80px;
+  justify-content: space-between;
+  &__icon {
+    cursor: pointer;
+    svg {
+      width: 14px;
+      height: 13px;
+      fill: @gray-light;
+    }
+
+    &_red {
+      svg {
+        fill: @red;
+      }
+    }
+
+    &_green {
+      svg {
+        fill: @green;
+      }
+    }
+
+    &:hover {
+      svg {
+        opacity: .6;
+      }
+    }
   }
-}
 
-.rating__value {
-  font-weight: bold;
-}
+  &__value {
+    font-weight: bold;
+    color: @gray-light;
+    margin: 0 10px;
 
-.rating__value_up {
-  color: @green;
+    &_up {
+      color: @green;
+    }
+
+    &_down {
+      color: @red;
+    }
+  }
 }

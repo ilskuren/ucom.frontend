@@ -30,7 +30,7 @@ class TextEditor extends PureComponent {
 
     this.mediumEditor.subscribe('editableInput', () => {
       if (typeof this.props.onChangeDescription === 'function') {
-        const content = this.mediumEditor.getContent();
+        const content = this.mediumEditor.serialize()['element-0'].value;
 
         this.props.onChangeDescription(content);
       }

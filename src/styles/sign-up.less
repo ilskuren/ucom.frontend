@@ -1,4 +1,5 @@
 .sign-up {
+  font-size: 1.142rem;
   max-width: 800px;
   padding: 90px 20px;
   margin: 0 auto;
@@ -25,8 +26,45 @@
     color: @black;
     cursor: pointer;
   }
+
   &__section-content {
     overflow: hidden;
     height: 0;
+  }
+
+  &__section-text {
+    margin-top: 25px;
+  }
+
+  &__button {
+    width: 260px;
+  }
+
+  &__button-block {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  &__button-text {
+    display: inline-block;
+    margin: 0 20px;
+    max-width: 240px;
+    line-height: 2;
+  }
+
+  &__words {
+    margin-top: 35px;
+  }
+
+  &__word {
+    display: inline-block;
+    font-weight: 700;
+    padding-right: 24px;
+    padding-bottom: 10px;
+    
+    &:last-of-type {
+      padding-right: 0;
+    }
   }
 }

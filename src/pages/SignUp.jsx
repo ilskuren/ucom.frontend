@@ -20,7 +20,7 @@ class SignUp extends React.PureComponent {
 
   render() {
     const { activeSection } = this.state;
-    const { userName, userNameError } = this.props;
+    const { userNameFieldValue, userNameFieldError } = this.props;
     return (
       <div className="sign-up">
         <h1 className="sign-up__title">Account Creation</h1>
@@ -36,8 +36,8 @@ class SignUp extends React.PureComponent {
             <div className="sign-up__username-hint">User name length must be between 3 and 12 characters</div>
             <div className="sign-up__username-input">
               <TextInput
-                value={userName}
-                error={userNameError}
+                value={userNameFieldValue}
+                error={userNameFieldError}
                 placeholder="Username"
                 inputMaxWidth="400px"
               />
@@ -45,10 +45,10 @@ class SignUp extends React.PureComponent {
             <div className="sign-up__username-button">
               <Button
                 isStretched
-                isDisabled={!userName || userNameError}
+                isDisabled={!userNameFieldValue || userNameFieldError}
                 text="PROCEED"
                 size="big"
-                theme={userName && !userNameError ? 'red' : 'gray'}
+                theme={userNameFieldValue && !userNameFieldError ? 'red' : 'gray'}
               />
             </div>
           </div>
@@ -79,13 +79,13 @@ class SignUp extends React.PureComponent {
 }
 
 SignUp.propTypes = {
-  userName: PropTypes.string,
-  userNameError: PropTypes.string,
+  userNameFieldValue: PropTypes.string,
+  userNameFieldError: PropTypes.string,
 };
 
 SignUp.defaultProps = {
-  userName: 'Ivan',
-  userNameError: 'server error',
+  userNameFieldValue: 'Ivan',
+  userNameFieldError: 'server error',
 };
 
 export default SignUp;

@@ -31,8 +31,6 @@ class StoryPage extends PureComponent {
 
     getPost(this.props.match.params.id)
       .then((post) => {
-        console.log(post);
-
         getUser(post.user_id)
           .then((user) => {
             this.setState({
@@ -74,10 +72,16 @@ class StoryPage extends PureComponent {
                       editUrl={`/posts/edit/${this.state.post.id}/`}
                     />
                   </div>
-                  <div className="posts__lead-text">{this.state.post.leading_text}</div>
-                  <div className="posts__poster">
-                    <img src={getFileUrl(this.state.post.main_image_filename)} alt="poster" className="posts__poster-img" />
-                  </div>
+
+                  {this.state.post.leading_text && (
+                    <div className="posts__lead-text">{this.state.post.leading_text}</div>
+                  )}
+
+                  {this.state.post.main_image_filename && (
+                    <div className="posts__poster">
+                      <img src={getFileUrl(this.state.post.main_image_filename)} alt="poster" className="posts__poster-img" />
+                    </div>
+                  )}
 
                   <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.post.description }} />
 

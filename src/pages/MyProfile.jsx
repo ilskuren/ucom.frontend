@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router';
 import React, { PureComponent, Fragment } from 'react';
 import FollowersPage from './MyProfile/Followers';
 import Footer from '../components/Footer';
+import ProfileHeader from '../components/ProfileHeader';
 
 class MyProfilePage extends PureComponent {
   componentDidMount() {
@@ -14,6 +15,7 @@ class MyProfilePage extends PureComponent {
     return this.props.user.id ? (
       <div className="content">
         <div className="content__inner">
+          <ProfileHeader />
           <Fragment>
             <Route exact path="/my-profile/followers" component={FollowersPage} />
           </Fragment>

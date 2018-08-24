@@ -1,0 +1,23 @@
+.field {
+  display: flex;
+  align-items: baseline;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+}
+
+.field__label {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 200px;
+  padding: 12px 0;
+  font-size: 1.142rem;
+  opacity: .37;
+}
+
+.field__input {
+  flex: 1 1 auto;
+  max-width: 400px;
+}

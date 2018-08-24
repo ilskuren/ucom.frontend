@@ -300,11 +300,13 @@ class UserPage extends PureComponent {
                                 <div className="toolbar__main">
                                   <div className="experience__name">{item.title}</div>
                                 </div>
-                                <div className="toolbar__side">
-                                  <div className="experience__state">
-                                    {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                {item.start_date && (
+                                  <div className="toolbar__side">
+                                    <div className="experience__state">
+                                      {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </div>
                             </div>
                             <div className="experience__status">{item.position}</div>
@@ -327,11 +329,13 @@ class UserPage extends PureComponent {
                                 <div className="toolbar__main">
                                   <div className="experience__name">{item.title}</div>
                                 </div>
-                                <div className="toolbar__main">
-                                  <div className="experience__state">
-                                    {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                {item.start_date && (
+                                  <div className="toolbar__side">
+                                    <div className="experience__state">
+                                      {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </div>
                             </div>
                             <div className="experience__status">{item.speciality}</div>

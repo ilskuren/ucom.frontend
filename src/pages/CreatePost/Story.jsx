@@ -1,32 +1,62 @@
-import React from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import TextEditor from '../../components/TextEditor';
-import Dropdown from '../../components/Dropdown';
+import CreatePostHeader from '../../components/CreatePostHeader';
+import Loading from '../../components/Loading';
+import { createPost } from '../../api';
+import { getToken } from '../../utils/token';
 
-const TAGS = [
-  { value: 'fsdf', label: 'fsdf' },
-  { value: 'fsdf2', label: 'fsdf2' },
-  { value: 'fsd3', label: 'fsd3' },
-  { value: 'fsdf5', label: 'fsdf5' },
-  { value: 'fsd7', label: 'fsd7' },
-  { value: 'fsdfee', label: 'fsdfee' },
-  { value: 'fsdgf', label: 'fsdgf' },
-  { value: 'fsdsdf', label: 'fsdsdf' },
-  { value: 'fsdsdgsf', label: 'fsdsdgsf' },
-  { value: 'fsdfdgf', label: 'fsdfdgf' },
-];
+class StoryPage extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const StoryPage = () => (
-  <div className="create-story">
-    <div className="create-story__form">
-      <div className="create-story__form-block">
-        <div className="create-story__form-label">Tags</div>
-        <div className="create-story__form-input"><Dropdown isSearchable isMulti options={TAGS} /></div>
-      </div>
-    </div>
-    <div className="create-story__text-editor">
-      <TextEditor />
-    </div>
-  </div>
-);
+    this.state = {
+      title: '',
+      description: '',
+      leading_text: '',
+      main_image_filename: null,
+      loading: false,
+    };
+  }
+
+  save() {
+    this.setState({ loading: true });
+
+    const token = getToken();
+    const data = new FormData();
+
+    data.append('title', this.state.title);
+    data.append('description', this.state.description);
+    data.append('leading_text', this.state.leading_text);
+    data.append('main_image_filename', this.state.main_image_filename);
+    data.append('post_type_id', 1);
+
+    createPost(data, token)
+      .then(() => {
+        this.setState({ loading: false });
+      });
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Loading loading={this.state.loading} />
+
+        <CreatePostHeader
+          location={this.props.location}
+          onClickPost={() => { this.save(); }}
+        />
+
+        <div className="create-post__editor">
+          <TextEditor
+            onChangeTitle={title => this.setState({ title })}
+            onChangeDescription={description => this.setState({ description })}
+            onChangeLeadingText={leading_text => this.setState({ leading_text })}
+            onChangeCover={main_image_filename => this.setState({ main_image_filename })}
+          />
+        </div>
+      </Fragment>
+    );
+  }
+}
 
 export default StoryPage;

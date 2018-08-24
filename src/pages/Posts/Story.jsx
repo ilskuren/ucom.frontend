@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PostItem from '../../components/PostItem';
 import CommentsStub from '../../components/CommentsStub';

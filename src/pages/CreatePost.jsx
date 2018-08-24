@@ -6,7 +6,7 @@ import StoryPage from './CreatePost/Story';
 class CreatePost extends PureComponent {
   render() {
     return this.props.user.id ? (
-      <div className="create-post">
+      <div className="create-post" id="post">
         <Fragment>
           <Route exact path="/posts/new/story" component={StoryPage} />
         </Fragment>

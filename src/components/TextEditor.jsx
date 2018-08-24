@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
-import { UploadExtension } from '../utils/editor';
 import DropZone from './DropZone';
 import IconClose from './Icons/Close';
+import config from '../../package.json';
+
+const $ = require('jquery');
+
+require('medium-editor-insert-plugin')($);
 
 class TextEditor extends PureComponent {
   constructor(props) {
@@ -19,9 +23,6 @@ class TextEditor extends PureComponent {
       toolbar: {
         buttons: ['bold', 'italic', 'underline', 'anchor', 'h2'],
       },
-      extensions: {
-        upload: new UploadExtension(),
-      },
     });
 
     this.mediumEditor.subscribe('editableInput', (event, editable) => {
@@ -30,6 +31,21 @@ class TextEditor extends PureComponent {
 
         this.props.onChangeDescription(html);
       }
+    });
+
+    $(this.textEditor).mediumInsert({
+      editor: this.mediumEditor,
+      addons: {
+        images: {
+          captions: false,
+          fileUploadOptions: {
+            url: `${config.backend.httpEndpoint}/api/v1/posts/image`,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            paramName: 'image',
+            singleFileUploads: true,
+          },
+        },
+      },
     });
   }
 

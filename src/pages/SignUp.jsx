@@ -39,7 +39,6 @@ class SignUp extends React.PureComponent {
                 value={userNameFieldValue}
                 error={userNameFieldError}
                 placeholder="Username"
-                inputMaxWidth="400px"
               />
             </div>
             <div className="sign-up__username-button">

@@ -79,3 +79,8 @@ export const createPost = (data, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const getPost = id => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`)
+    .then(resp => resp.json())
+);

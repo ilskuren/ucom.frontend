@@ -44,20 +44,30 @@
     display: flex;
     align-items: center;
     margin-top: 40px;
+
+    @media (max-width: 424px) {
+      margin-top: 10px;
+      flex-direction: column-reverse;
+    }
   }
 
-  &__button-text {
+  &__button-description {
     display: inline-block;
     margin: 0 20px;
     max-width: 240px;
     line-height: 2;
+
+    @media (max-width: 424px) {
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
   }
 
-  &__words {
+  &__passphrases {
     margin-top: 35px;
   }
 
-  &__word {
+  &__passphrase {
     display: inline-block;
     font-weight: 700;
     padding-right: 24px;
@@ -66,5 +76,20 @@
     &:last-of-type {
       padding-right: 0;
     }
+  }
+
+  &__username-hint {
+    font-size: 1.142rem;
+    margin-top: 24px;
+    margin-bottom: 38px;
+  }
+
+  &__username-input {
+    max-width: 400px;
+    margin-bottom: 40px;
+  }
+
+  &__username-button {
+    max-width: 200px;
   }
 }

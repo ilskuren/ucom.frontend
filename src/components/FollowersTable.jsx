@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import UserCard from '../components/UserCard';
 import Button from '../components/Button';
 
-const renderFollowerTableRow = ({
+const renderFollowersTableRow = ({
   userCardData: { userName, accountName, avatarUrl }, rate, followers, trustedBy,
 }) => (
   <div className="followers-table__row">
-    <UserCard
-      userName={userName}
-      accountName={accountName}
-      avatarUrl={avatarUrl}
-    />
-    <div className="followers-table__number-followers">
+    <div className="followers-table__user">
+      <UserCard
+        userName={userName}
+        accountName={accountName}
+        avatarUrl={avatarUrl}
+      />
+    </div>
+    <div className="followers-table__numbers">
       {followers}
     </div>
-    <div className="followers-table__number-trustedBy">
+    <div className="followers-table__numbers">
       {trustedBy}
     </div>
     <div className="rate">
@@ -24,17 +26,30 @@ const renderFollowerTableRow = ({
         <span class="rate__degree">°</span>
       </div>
     </div>
-    <div className="followers-table__row">
-      <Button text="Follow" size="medium" theme="transparent" />
+    <div className="followers-table__button">
+      <Button text="Follow" size="medium" theme="transparent" isStretched />
     </div>
   </div>
 );
 
 const FollowersTable = ({ users }) => (
   <div className="followers-table">
-    {users.map(renderFollowerTableRow)}
+
+    {users.map(renderFollowersTableRow)}
+    <div className="followers-table__row followers-table__row_load-more">
+      load more
+    </div>
   </div>
 );
+
+const renderFollowersTableHeader = () => (
+  <div className="followers-table__header">
+    <div className="followers-table__name">name</div>
+    <div className="followers-table__followers">name</div>
+    <div className="followers-table__trusted-by">name</div>
+    <div className="followers-table__rate">name</div>
+  </div>
+)
 
 renderFollowerTableRow.propTypes = {
   userCardData: PropTypes.shape({

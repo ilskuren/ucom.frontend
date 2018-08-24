@@ -33,11 +33,11 @@ class SignUp extends React.PureComponent {
             User Name
           </h3>
           <div className="sign-up__section-content">
+            <div className="sign-up__username-hint">User name length must be between 3 and 12 characters</div>
             <div className="sign-up__username-input">
               <TextInput
                 value={userName}
                 error={userNameError}
-                label="User name length must be between 3 and 12 characters"
                 placeholder="Username"
                 inputMaxWidth="400px"
               />

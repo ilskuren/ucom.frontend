@@ -4,6 +4,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
+import MyProfilePage from '../pages/MyProfile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
@@ -59,6 +60,7 @@ class App extends PureComponent {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />

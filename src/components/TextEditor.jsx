@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import DropZone from './DropZone';
 import IconClose from './Icons/Close';
 import config from '../../package.json';
+import { getFileUrl } from '../utils/upload';
 
 const $ = require('jquery');
 
@@ -14,7 +15,7 @@ class TextEditor extends PureComponent {
     super(props);
 
     this.state = {
-      cover: null,
+      cover: this.props.cover ? getFileUrl(this.props.cover) : null,
     };
   }
 
@@ -25,11 +26,13 @@ class TextEditor extends PureComponent {
       },
     });
 
-    this.mediumEditor.subscribe('editableInput', (event, editable) => {
-      if (typeof this.props.onChangeDescription === 'function') {
-        const html = editable.innerHTML;
+    this.mediumEditor.setContent(this.props.description);
 
-        this.props.onChangeDescription(html);
+    this.mediumEditor.subscribe('editableInput', () => {
+      if (typeof this.props.onChangeDescription === 'function') {
+        const content = this.mediumEditor.getContent();
+
+        this.props.onChangeDescription(content);
       }
     });
 
@@ -84,6 +87,7 @@ class TextEditor extends PureComponent {
               type="text"
               placeholder="Title"
               className="text-editor__title"
+              value={this.props.title}
               onChange={(e) => {
                 if (typeof this.props.onChangeTitle === 'function') {
                   this.props.onChangeTitle(e.target.value);
@@ -97,6 +101,7 @@ class TextEditor extends PureComponent {
               type="text"
               placeholder="Lead text"
               className="text-editor__title text-editor__title_lead"
+              value={this.props.leadingText}
               onChange={(e) => {
                 if (typeof this.props.onChangeLeadingText === 'function') {
                   this.props.onChangeLeadingText(e.target.value);
@@ -132,7 +137,10 @@ class TextEditor extends PureComponent {
             )}
           </div>
 
-          <div className="text-editor__content" ref={(el) => { this.textEditor = el; }} />
+          <div
+            className="text-editor__content"
+            ref={(el) => { this.textEditor = el; }}
+          />
         </div>
       </div>
     );
@@ -140,6 +148,10 @@ class TextEditor extends PureComponent {
 }
 
 TextEditor.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  leadingText: PropTypes.string,
+  cover: PropTypes.string,
   onChangeTitle: PropTypes.func,
   onChangeDescription: PropTypes.func,
   onChangeLeadingText: PropTypes.func,

@@ -23,7 +23,7 @@ const CreatePostHeader = props => (
     <div className="create-post__title">
       <div className="inline inline_large">
         <div className="inline__item">
-          <h1 className="title">Create Media Post</h1>
+          <h1 className="title">{props.title}</h1>
         </div>
         <div className="inline__item">
           <button
@@ -86,6 +86,11 @@ const CreatePostHeader = props => (
 
 CreatePostHeader.propTypes = {
   onClickPost: PropTypes.func,
+  title: PropTypes.string,
+};
+
+CreatePostHeader.defaultProps = {
+  title: 'Create Media Post',
 };
 
 export default connect(state => ({

@@ -4,20 +4,19 @@ import React, { Fragment, PureComponent } from 'react';
 import TextEditor from '../../components/TextEditor';
 import CreatePostHeader from '../../components/CreatePostHeader';
 import Loading from '../../components/Loading';
-import Avatar from '../../components/Avatar';
+import CreatePostFooter from '../../components/CreatePostFooter';
 import { createPost } from '../../api';
 import { getToken } from '../../utils/token';
-import { getAvatarUrl, getUserName } from '../../utils/user';
 
 class StoryPage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      postId: null,
       title: '',
       description: '',
       leading_text: '',
+      newPostId: null,
       main_image_filename: null,
       loading: false,
       saved: false,
@@ -38,19 +37,17 @@ class StoryPage extends PureComponent {
 
     createPost(data, token)
       .then((post) => {
-        console.log(post);
-
         this.setState({
           loading: false,
           saved: true,
-          postId: post.id,
+          newPostId: post.id,
         });
       });
   }
 
   render() {
     return this.state.saved ? (
-      <Redirect to={`/posts/story/${this.state.postId}`} />
+      <Redirect to={`/posts/story/${this.state.newPostId}`} />
     ) : (
       <Fragment>
         <Loading loading={this.state.loading} />
@@ -62,37 +59,17 @@ class StoryPage extends PureComponent {
 
         <div className="create-post__editor">
           <TextEditor
+            title={this.state.title}
+            description={this.state.description}
+            leadingText={this.state.leading_text}
             onChangeTitle={title => this.setState({ title })}
             onChangeDescription={description => this.setState({ description })}
             onChangeLeadingText={leading_text => this.setState({ leading_text })}
             onChangeCover={main_image_filename => this.setState({ main_image_filename })}
           />
         </div>
-        <div className="create-post__content create-post__content_footer">
-          <div className="toolbar">
-            <div className="toolbar__main">
-              <a href="#post" className="create-post__back-link">Back to settings ↑</a>
-            </div>
-            <div className="toolbar__side">
-              <div className="inline">
-                <div className="inline__item">
-                  <Avatar size="xsmall" src={getAvatarUrl(this.props.user.avatar_filename)} />
-                </div>
-                <span className="inline__item">
-                  <span className="create-post__author-name">{getUserName(this.props.user)}</span>
-                </span>
-                <span className="inline__item">
-                  <button
-                    className="button button_theme_red button_size_small button_stretched"
-                    onClick={() => this.save()}
-                  >
-                    Post
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <CreatePostFooter onClickPost={() => this.save()} />
       </Fragment>
     );
   }

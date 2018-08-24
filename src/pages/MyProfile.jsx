@@ -15,7 +15,13 @@ class MyProfilePage extends PureComponent {
     return this.props.user.id ? (
       <div className="content">
         <div className="content__inner">
-          <ProfileHeader />
+          <ProfileHeader
+            name="James Franco"
+            nickname="kames_franko"
+            status="My status or messege"
+            userRatePosition={123}
+            userRate="12 293"
+          />
           <Fragment>
             <Route exact path="/my-profile/followers" component={FollowersPage} />
           </Fragment>

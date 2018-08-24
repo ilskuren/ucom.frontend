@@ -1,0 +1,32 @@
+.sign-up {
+  max-width: 800px;
+  padding: 90px 20px;
+  margin: 0 auto;
+
+  &__title {
+    margin-bottom: 64px;
+  }
+
+  &__section {
+    margin-bottom: 64px;
+    &_active {
+      .sign-up__section-content {
+        height: auto;
+      }
+
+      .sign-up__section-title {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__section-title {
+    opacity: .2;
+    color: @black;
+    cursor: pointer;
+  }
+  &__section-content {
+    overflow: hidden;
+    height: 0;
+  }
+}

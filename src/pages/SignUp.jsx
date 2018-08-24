@@ -1,5 +1,21 @@
 import React from 'react';
 import cn from 'classnames';
+import Passphrase from '../components/Passphrase';
+
+const passphraseWords = [
+  'Monkey',
+  'Trully',
+  'Sick',
+  'Sweet',
+  'Snail',
+  'Glitch',
+  'Split',
+  'Till',
+  'Start',
+  'While',
+  'They',
+  'Watching',
+];
 
 class SignUp extends React.PureComponent {
   state = {
@@ -38,7 +54,7 @@ class SignUp extends React.PureComponent {
           >
             Passphrase
           </h3>
-          <div className="sign-up__section-content">Passphrase form</div>
+          <div className="sign-up__section-content">34543</div>
         </div>
         <div className={cn('sign-up__section', { 'sign-up__section_active': activeSection === 'verification' })}>
           <h3
@@ -48,7 +64,9 @@ class SignUp extends React.PureComponent {
           >
             Verification
           </h3>
-          <div className="sign-up__section-content">Verification form</div>
+          <div className="sign-up__section-content">
+            <Passphrase words={passphraseWords} isCrossOutMode />
+          </div>
         </div>
       </div>
     );

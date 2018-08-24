@@ -96,7 +96,7 @@ class TextEditor extends PureComponent {
             />
           </div>
 
-          <div className="text-editor__field">
+          <div className="text-editor__field text-editor__field_small">
             <input
               type="text"
               placeholder="Lead text"
@@ -110,11 +110,12 @@ class TextEditor extends PureComponent {
             />
           </div>
 
-          <div className="text-editor__field">
+          <div className="text-editor__field text-editor__field_small">
             {!this.state.cover ? (
               <DropZone
                 text="Add cover image"
                 accept="image/jpeg, image/png"
+                className="drop-zone_line"
                 onDrop={files => this.onChangeCover(files[0])}
               />
             ) : (

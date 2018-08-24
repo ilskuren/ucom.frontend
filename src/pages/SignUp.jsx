@@ -47,9 +47,9 @@ class SignUp extends React.PureComponent {
             <div className="sign-up__section-text">
               This 12 words is your passphrase. Write them down  and remember.
             </div>
-            <div className="sign-up__words">
+            <div className="sign-up__passphrases">
               {words.map(word => (
-                <span className="sign-up__word">{word}</span>
+                <span className="sign-up__passphrase">{word}</span>
               ))}
             </div>
             <div className="sign-up__button-block">
@@ -61,7 +61,7 @@ class SignUp extends React.PureComponent {
                   theme="red"
                 />
               </div>
-              <div className="sign-up__button-text">
+              <div className="sign-up__button-description">
                 Please, copy or download your passphrase to proceed
               </div>
             </div>

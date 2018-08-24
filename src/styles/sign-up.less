@@ -44,20 +44,28 @@
     display: flex;
     align-items: center;
     margin-top: 40px;
+    
+    @media (max-width: 424px) {
+      flex-direction: column-reverse;
+    }
   }
 
-  &__button-text {
+  &__button-description {
     display: inline-block;
-    margin: 0 20px;
+    margin: 5px 20px;
     max-width: 240px;
     line-height: 2;
+    
+    @media (max-width: 424px) {
+      line-height: 1.2;
+    }
   }
 
-  &__words {
+  &__passphrases {
     margin-top: 35px;
   }
 
-  &__word {
+  &__passphrase {
     display: inline-block;
     font-weight: 700;
     padding-right: 24px;

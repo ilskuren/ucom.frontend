@@ -179,4 +179,17 @@
       color: @red;
     }
   }
+  
+  .menu__link_black.menu__link_active,
+  .menu__link_black.menu__link:hover {
+    border-bottom-color: @black;
+
+    @media (max-width: 1023px) {
+      color: @black;
+    }
+  }
+  
+  .menu__link_black {
+    padding: 12px 0;
+  }
 }

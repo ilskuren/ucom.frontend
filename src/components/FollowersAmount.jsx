@@ -8,7 +8,7 @@ const FollowersAmount = ({
   <div className="followers-amount">
     <div className="inline inline_small">
       <div className="inline__item">
-        <div className="rate rate_followers-amount">
+        <div className="rate rate_small rate_right">
           <div className="rate__value">{rate}</div>
           <div className="rate__label">{status}</div>
         </div>

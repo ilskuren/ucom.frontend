@@ -198,9 +198,9 @@ class SignUp extends React.PureComponent {
             content: (
               <Fragment>
                 <Passphrase words={verificationWords} isCrossOutMode />
-                <div className="sign-up__accept">
+                <div className="sign-up__agreement">
                   <Checkbox />
-                  <div className="sign-up__accept-text">I accept the <a className="sign-up__accept-terms" href="#">General Terms and Conditions.</a></div>
+                  <div className="sign-up__agreement-text">I accept the <a className="sign-up__agreement-conditions" href="#">General Terms and Conditions.</a></div>
                 </div>
               </Fragment>
             ),

@@ -19,7 +19,7 @@
   &__checkbox {
     position: absolute;
     opacity: 0;
-    & + input[type="checkbox"] {
+    & + .passphrase__label {
       cursor: pointer;
     }
     &:checked + .passphrase__label {
@@ -38,6 +38,10 @@
         animation-fill-mode: forwards;
       }
     }
+  }
+  &__word-value {
+    position: absolute;
+    opacity: 0;
   }
   &__label {
       position: relative;

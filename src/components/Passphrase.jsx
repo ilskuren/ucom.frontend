@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 
 const Passphrase = ({ isCrossOutMode, words }) => (
   <div className="passphrase">
     {
-      words.map((word, positionInList) => {
-        const bindId = word.toLowerCase() + positionInList;
+      words.map((word) => {
+        const bindId = uuid(1000);
         return (
           <span className="passphrase__word" key={word}>
             <input

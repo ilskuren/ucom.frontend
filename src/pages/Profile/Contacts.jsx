@@ -59,7 +59,7 @@ class ProfileContactsPage extends PureComponent {
             <Loading loading={this.state.loading} className="loading_block" />
 
             <div className="profile__info-block">
-              <InfoBlock title="Personal networks">
+              <InfoBlock title="Contacts">
                 <div className="profile__block">
                   <TextInput
                     label="Email"

@@ -109,23 +109,25 @@ class UserPage extends PureComponent {
                     <div className="user-header__actions">
                       <div className="toolbar">
                         <div className="toolbar__main">
-                          <div className="inline inline_large">
-                            <div className="inline__item">
-                              <button className="button button_theme_transparent button_size_medium">Follow</button>
-                            </div>
-                            <div className="inline__item">
-                              <div className="inline inline_small">
-                                <div className="inline__item">
-                                  Trusted you
-                                </div>
-                                <div className="inline__item">
-                                  <span className="icon">
-                                    <IconInfo />
-                                  </span>
+                          {this.props.user.id !== this.state.user.id && (
+                            <div className="inline inline_large">
+                              <div className="inline__item">
+                                <button className="button button_theme_transparent button_size_medium">Follow</button>
+                              </div>
+                              <div className="inline__item">
+                                <div className="inline inline_small">
+                                  <div className="inline__item">
+                                    Trusted you
+                                  </div>
+                                  <div className="inline__item">
+                                    <span className="icon">
+                                      <IconInfo />
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <div className="toolbar__side">
                           <div className="inline inline_large">

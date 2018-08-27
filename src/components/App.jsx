@@ -64,7 +64,7 @@ class App extends PureComponent {
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />
                 <Route path="/posts/edit" component={EditPost} />
-                <Route path="/posts/story" component={Posts} />
+                <Route path="/posts" component={Posts} />
               </Switch>
             </div>
           </Router>

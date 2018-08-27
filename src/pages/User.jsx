@@ -24,13 +24,19 @@ class UserPage extends PureComponent {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(this.props.match.params.id);
   }
 
-  getData() {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.getData(nextProps.match.params.id);
+    }
+  }
+
+  getData(userId) {
     this.setState({ loading: true });
 
-    getUser(this.props.match.params.id)
+    getUser(userId)
       .then((user) => {
         this.setState({
           user,

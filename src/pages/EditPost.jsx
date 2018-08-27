@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import React, { Fragment, PureComponent } from 'react';
-import StoryPage from './CreatePost/Story';
+import StoryPage from './EditPost/Story';
 
-class CreatePost extends PureComponent {
+class EditPost extends PureComponent {
   render() {
     return this.props.user.id ? (
       <div className="create-post" id="post">
         <Fragment>
-          <Route exact path="/posts/new/story" component={StoryPage} />
+          <Route path="/posts/edit/:id" component={StoryPage} />
         </Fragment>
       </div>
     ) : (
@@ -19,4 +19,4 @@ class CreatePost extends PureComponent {
 
 export default connect(state => ({
   user: state.user,
-}), null)(CreatePost);
+}), null)(EditPost);

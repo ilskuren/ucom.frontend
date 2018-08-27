@@ -6,6 +6,7 @@ import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
+import EditPost from '../pages/EditPost';
 import Posts from '../pages/Posts';
 import UserPage from '../pages/User';
 import { setUser } from '../actions';
@@ -62,6 +63,7 @@ class App extends PureComponent {
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />
+                <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts/story" component={Posts} />
               </Switch>
             </div>

@@ -79,3 +79,19 @@ export const createPost = (data, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const editPost = (id, data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);
+
+export const getPost = id => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`)
+    .then(resp => resp.json())
+);

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -20,7 +21,13 @@ const PostItem = props => (
       </div>
 
       <div className="post-item__text">
-        {props.edit && <span className="post-item__edit"><EditIcon /></span>}
+        {props.edit && (
+          <Link to={props.editUrl}>
+            <span className="post-item__edit">
+              <EditIcon />
+            </span>
+          </Link>
+        )}
         {props.title || 'This No-Brand Startup Won $240 Million to Fight Amazon on Price and Quality'}
       </div>
     </div>
@@ -38,6 +45,7 @@ PostItem.propTypes = {
   tag: PropTypes.string,
   size: PropTypes.string,
   edit: PropTypes.bool,
+  editUrl: PropTypes.string,
 };
 
 export default PostItem;

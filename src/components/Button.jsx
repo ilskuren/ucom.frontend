@@ -18,7 +18,7 @@ const Button = (props) => {
   );
 };
 
-export const ButtonType = {
+Button.propTypes = {
   theme: PropTypes.string,
   size: PropTypes.string,
   isDisabled: PropTypes.bool,
@@ -26,8 +26,6 @@ export const ButtonType = {
   isRounded: PropTypes.bool,
   text: PropTypes.string,
 };
-
-Button.propTypes = ButtonType;
 
 Button.defaultProps = {
   isDisabled: false,

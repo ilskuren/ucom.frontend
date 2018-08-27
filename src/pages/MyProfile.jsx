@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router';
 import FollowersPage from './MyProfile/Followers';
 import Footer from '../components/Footer';
 import FollowersAmount from '../components/FollowersAmount';
+import ProfileHeader from '../components/ProfileHeader';
 
 class MyProfilePage extends PureComponent {
   componentDidMount() {
@@ -14,6 +15,13 @@ class MyProfilePage extends PureComponent {
   render() {
     return this.props.user.id ? (
       <Fragment>
+        <ProfileHeader
+          name="James Franco"
+          nickname="kames_franko"
+          status="My status or messege"
+          userRatePosition={123}
+          userRate="12 293"
+        />
         <div className="my-profile">
           <div className="content content_separated">
             <div className="my-profile__statistics-menu">
@@ -76,6 +84,7 @@ class MyProfilePage extends PureComponent {
             </div>
           </div>
         </div>
+
         <div className="content">
           <div className="content__inner">
             <Fragment>

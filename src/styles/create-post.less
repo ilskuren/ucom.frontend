@@ -1,71 +1,48 @@
 .create-post {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   background-color: #FDFEFE;
-  &__header {
+  padding: 82px 0 0;
+
+  &__content {
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding-top: 82px;
-    padding-left: 40px;
-    padding-right: 40px;
-  }
+    padding: 0 40px;
 
-  &__label {
-    display: inline-block;
-    font-size: 48px;
-    line-height: 54px;
-    color: @black;
-    vertical-align: middle;
-    margin-right: 40px;
-  }
-
-  &__post-button {
-    display: inline-block;
-    width: 86px;
-    vertical-align: middle;
-  }
-
-  &__author {
-    padding: 8px 0px 0px 7px;
-  }
-
-  &__author-label {
-    font-size: 1.142rem;
-    margin-right: 12px;
-    color: @black;
-    opacity: .37;
-  }
-
-  &__profile-dropdown {
-    display: inline-block;
-  }
-
-  &__form-block {
-    max-width: 600px; 
-    display: flex;
-    align-items: baseline;
-    margin-top: 53px;
-
-    @media (max-width: 424px) {
-      flex-direction: column;
-      width: 100%;
+    &_footer {
+      padding: 40px;
     }
   }
 
-  &__form-label {
-    font-size: 1.142rem;
-    max-width: 200px;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    padding: 12px 0;
-    opacity: .37;
+  &__title {
+    margin: 0 0 9px;
   }
 
-  &__form-input {
-    width: 75%;
-    max-width: 400px;
+  &__author {
+    margin: 0 0 55px;
   }
 
-  &__navigation {
-    padding-top: 27px;
+  &__author-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__field {
+    margin: 0 0 40px;
+  }
+
+  &__editor {
+    flex: 1 1 auto;
+    margin: 0 40px;
+    box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
+  }
+
+  &__back-link {
+    font-size: 16px;
+    font-weight: bold;
   }
 }

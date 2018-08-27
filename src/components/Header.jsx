@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -101,6 +102,14 @@ class Header extends PureComponent {
 
         <div className="header__main">
           <nav className="menu menu_responsive">
+            <div className="menu__item">
+              <Link to="/" className="menu__link menu__link_upper">U.Community</Link>
+            </div>
+            {this.props.user.id && (
+              <div className="menu__item">
+                <Link to="/posts/new/story" className="menu__link menu__link_upper">Create Post</Link>
+              </div>
+            )}
             <div className="menu__item">
               <a href="#" className="menu__link menu__link_upper">Create Event</a>
             </div>

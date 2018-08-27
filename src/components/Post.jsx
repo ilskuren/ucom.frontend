@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import Avatar from './Avatar';
@@ -47,11 +48,11 @@ class Post extends PureComponent {
         <div className="post__header">
           <div className="toolbar">
             <div className="toolbar__main">
-              10 min ago
+              {moment(this.props.post.updated_at).fromNow()}
             </div>
 
             <div className="toolbar__side">
-              <Rating rating={100} choice="up" />
+              <Rating rating={0} />
             </div>
           </div>
         </div>
@@ -119,7 +120,7 @@ class Post extends PureComponent {
                       <IconComment />
                     </span>
                   </span>
-                  <span className="inline__item">300</span>
+                  <span className="inline__item">0</span>
                 </span>
               </button>
             </div>

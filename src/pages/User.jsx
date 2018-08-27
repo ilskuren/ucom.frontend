@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -42,11 +43,14 @@ class UserPage extends PureComponent {
       getUserPosts(userId),
     ])
       .then((result) => {
-        console.log(result);
+        let posts = result[1];
+
+        posts = sortBy(posts, item => new Date(item.updated_at).getTime())
+          .reverse();
 
         this.setState({
+          posts,
           user: result[0],
-          posts: result[1],
           loading: false,
         });
       });

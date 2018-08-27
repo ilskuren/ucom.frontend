@@ -41,7 +41,9 @@ class Post extends PureComponent {
   render() {
     return (
       <div className="post">
-        <Loading loading={this.state.loading} />
+        <div className="post__loading">
+          <Loading loading={this.state.loading} />
+        </div>
 
         <div className="post__type">Story</div>
 

@@ -24,7 +24,6 @@ const PostsGroup = (props) => {
           {sidePosts.map(post => (
             <div className="grid__item" key={post.id}>
               <PostItem
-                tag="story"
                 title={post.title}
                 rate={post.current_rate}
                 url={getPostUrl(post.id)}
@@ -40,7 +39,7 @@ const PostsGroup = (props) => {
             <div className="grid__item" key={post.id}>
               <PostItem
                 title={post.title}
-                rate={post.rate}
+                rate={post.current_rate}
                 url={getPostUrl(post.id)}
                 coverImg={getFileUrl(post.main_image_filename)}
               />

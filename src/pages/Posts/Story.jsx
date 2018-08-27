@@ -66,7 +66,7 @@ class StoryPage extends PureComponent {
                     <PostItem
                       title={this.state.post.title}
                       tag="story"
-                      rate={9200}
+                      rate={this.state.post.current_rate}
                       size="big"
                       edit={this.props.user.id && this.props.user.id === this.state.post.user_id}
                       editUrl={`/posts/edit/${this.state.post.id}/`}
@@ -91,7 +91,7 @@ class StoryPage extends PureComponent {
                 </div>
                 <div className="posts__sidebar">
                   <div className="posts__rating">
-                    <Rating rating={100} />
+                    <Rating rating={this.state.post.current_vote} />
                   </div>
                   <div className="posts__views">
                     <PostViews views={352} />

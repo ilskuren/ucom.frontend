@@ -54,7 +54,7 @@ class Post extends PureComponent {
             </div>
 
             <div className="toolbar__side">
-              <Rating rating={0} />
+              <Rating rating={this.props.post.current_vote} />
             </div>
           </div>
         </div>

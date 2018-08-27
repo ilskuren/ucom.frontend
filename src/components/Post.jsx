@@ -1,14 +1,14 @@
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
-import Avatar from './Avatar';
 import IconComment from './Icons/Comment';
 import IconShare from './Icons/Share';
 import Rating from './Rating';
 import Loading from './Loading';
+import UserCard from './UserCard';
 import { getFileUrl } from '../utils/upload';
 import { getUser } from '../api';
-import { getUserName } from '../utils/user';
+import { getUserName, getUserLink } from '../utils/user';
 
 class Post extends PureComponent {
   constructor(props) {
@@ -59,15 +59,12 @@ class Post extends PureComponent {
 
         {this.state.user && (
           <div className="post__user">
-            <div className="user-card">
-              <div className="user-card__avatar">
-                <Avatar src={getFileUrl(this.state.user.avatar_filename)} />
-              </div>
-              <div className="user-card__info">
-                <div className="user-card__name">{getUserName(this.state.user)}</div>
-                <div className="user-card__account">@{this.state.user.account_name}</div>
-              </div>
-            </div>
+            <UserCard
+              userName={getUserName(this.state.user)}
+              accountName={this.state.user.account_name}
+              profileLink={getUserLink(this.state.user.id)}
+              avatarUrl={getFileUrl(this.state.user.avatar_filename)}
+            />
           </div>
         )}
 

@@ -8,7 +8,7 @@ import Loading from './Loading';
 import UserCard from './UserCard';
 import { getFileUrl } from '../utils/upload';
 import { getUser } from '../api';
-import { getUserName, getUserLink } from '../utils/user';
+import { getUserName, getUserUrl } from '../utils/user';
 
 class Post extends PureComponent {
   constructor(props) {
@@ -64,7 +64,7 @@ class Post extends PureComponent {
             <UserCard
               userName={getUserName(this.state.user)}
               accountName={this.state.user.account_name}
-              profileLink={getUserLink(this.state.user.id)}
+              profileLink={getUserUrl(this.state.user.id)}
               avatarUrl={getFileUrl(this.state.user.avatar_filename)}
             />
           </div>

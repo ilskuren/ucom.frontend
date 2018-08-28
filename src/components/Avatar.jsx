@@ -6,9 +6,10 @@ const Avatar = props => (
   <span
     className={classNames(
       'avatar',
-      { avatar_square: props.square },
+      { 'avatar_square': props.square },
       { [`avatar_${props.size}`]: Boolean(props.size) },
-      { avatar_border_white: props.borderWhite },
+      { 'avatar_border_white': props.borderWhite },
+      { 'avatar_blank': !props.src },
     )}
   >
     <img className="avatar__img" src={props.src} alt={props.alt} />
@@ -18,7 +19,7 @@ const Avatar = props => (
 Avatar.propTypes = {
   square: PropTypes.bool,
   size: PropTypes.string,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   alt: PropTypes.string,
   borderWhite: PropTypes.bool,
 };

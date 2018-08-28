@@ -1,3 +1,7 @@
-export const getPostUrl = postId => (
-  `/posts/${postId}`
-);
+export const getPostUrl = (postId) => {
+  if (postId) {
+    return `/posts/${postId}`;
+  }
+
+  return null;
+};

@@ -118,7 +118,10 @@ class UserPage extends PureComponent {
                       </div>
                       <div className="toolbar__side">
                         <div className="user-header__rate">
-                          <Rate className="rate_big" />
+                          <Rate
+                            className="rate_big"
+                            value={this.state.user.current_rate}
+                          />
                         </div>
                       </div>
                     </div>

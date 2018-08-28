@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
 import Loading from '../components/Loading';
 import { getUsers, getPosts, getUserPosts } from '../api';
-import { getUserLink, getAvatarUrl } from '../utils/user';
+import { getUserUrl, getAvatarUrl } from '../utils/user';
 
 class HomePage extends PureComponent {
   constructor(props) {
@@ -163,7 +163,7 @@ class HomePage extends PureComponent {
                               <UserCard
                                 userName={`${user.first_name} ${user.last_name}`}
                                 accountName={user.nickname}
-                                profileLink={getUserLink(user.id)}
+                                profileLink={getUserUrl(user.id)}
                                 avatarUrl={getAvatarUrl(user.avatar_filename)}
                               />
                             </div>

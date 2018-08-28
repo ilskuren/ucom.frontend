@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router';
 import FollowersPage from './MyProfile/Followers';
 import Footer from '../components/Footer';
-import ProfileHeader from '../components/ProfileHeader';
 import FollowersAmount from '../components/FollowersAmount';
+import ProfileHeader from '../components/ProfileHeader';
 
 class MyProfilePage extends PureComponent {
   componentDidMount() {
@@ -86,6 +86,7 @@ class MyProfilePage extends PureComponent {
             </div>
           </div>
         </div>
+
         <div className="content">
           <div className="content__inner">
             <Fragment>

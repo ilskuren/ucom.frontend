@@ -95,3 +95,13 @@ export const getPost = id => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`)
     .then(resp => resp.json())
 );
+
+export const getUserPosts = id => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}/posts`)
+    .then(resp => resp.json())
+);
+
+export const getPosts = () => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts`)
+    .then(resp => resp.json())
+);

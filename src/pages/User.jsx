@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ import Post from '../components/Post';
 import Loading from '../components/Loading';
 import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
-import { getUser } from '../api';
+import { getUser, getUserPosts } from '../api';
 import { getYearsFromBirthday, getAvatarUrl, getYearOfDate } from '../utils/user';
 
 class UserPage extends PureComponent {
@@ -20,20 +21,36 @@ class UserPage extends PureComponent {
     this.state = {
       loading: true,
       user: {},
+      posts: [],
     };
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(this.props.match.params.id);
   }
 
-  getData() {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.getData(nextProps.match.params.id);
+    }
+  }
+
+  getData(userId) {
     this.setState({ loading: true });
 
-    getUser(this.props.match.params.id)
-      .then((user) => {
+    Promise.all([
+      getUser(userId),
+      getUserPosts(userId),
+    ])
+      .then((result) => {
+        let posts = result[1];
+
+        posts = sortBy(posts, item => new Date(item.updated_at).getTime())
+          .reverse();
+
         this.setState({
-          user,
+          posts,
+          user: result[0],
           loading: false,
         });
       });
@@ -214,9 +231,12 @@ class UserPage extends PureComponent {
                         <h2 className="title title_xsmall title_light">Feed</h2>
                       </div>
                       <div className="post-list">
-                        {[0, 0, 0].map(() => (
-                          <div className="post-list__item">
-                            <Post />
+                        {this.state.posts.map(item => (
+                          <div className="post-list__item" key={item.id}>
+                            <Post
+                              post={item}
+                              user={this.state.user}
+                            />
                           </div>
                         ))}
                       </div>

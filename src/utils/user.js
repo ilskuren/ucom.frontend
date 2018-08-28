@@ -1,10 +1,11 @@
 import config from '../../package.json';
 
-export const getYearsFromBirthday = (birthday) => {
-  const currentYear = (new Date()).getFullYear();
-  const year = birthday.split('-')[0];
+export const getYearsFromBirthday = (value) => {
+  const birthday = new Date(value);
+  const ageDifMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDifMs);
 
-  return currentYear - year;
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
 
 export const getAvatarUrl = filename => (

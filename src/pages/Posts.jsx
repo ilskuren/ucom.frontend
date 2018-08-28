@@ -7,7 +7,7 @@ const PostsPage = () => (
   <div className="content">
     <div className="content__inner">
       <Fragment>
-        <Route exact path="/posts/story/:id" component={StoryPage} />
+        <Route exact path="/posts/:id" component={StoryPage} />
       </Fragment>
 
       <Footer />

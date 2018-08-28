@@ -22,7 +22,7 @@
   &__preview-text {
     color: @black;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 30px;
 
     & svg {
       transform: scale(0.8)
@@ -34,11 +34,19 @@
   }
 
   &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
     margin: 0 0 9px;
   }
 
   &__author {
     margin: 0 0 55px;
+
+    &_preview {
+      margin-bottom: 20px;
+    }
   }
 
   &__author-name {
@@ -48,6 +56,10 @@
 
   &__field {
     margin: 0 0 40px;
+
+    &_high {
+      margin-bottom: 60px;
+    }
   }
 
   &__editor {

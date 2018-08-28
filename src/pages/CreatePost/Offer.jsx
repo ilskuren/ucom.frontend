@@ -5,10 +5,8 @@ import CreatePostHeader from '../../components/CreatePostHeader';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import TextInput from '../../components/TextInput';
-import PrefixInput from '../../components/PrefixInput';
 import Switcher from '../../components/Switcher';
 import DropZone from '../../components/DropZone';
-import EyeIcon from '../../components/Icons/Eye';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -37,65 +35,14 @@ class StoryPage extends PureComponent {
         <Loading loading={this.state.loading} />
 
         <CreatePostHeader
-          title="Create offer"
+          title="Create Offer"
           location={this.props.location}
           onClickPost={() => { this.save(); }}
-          withoutTabs
+          tabs={['Sale', 'Token Sale', 'Event', 'Service', 'White List', 'Charity', 'Give Away']}
+          isPreview
         />
         <div className="create-post__content">
-          <div className="create-post__preview-text inline">
-            <div className="inline__item">Preivew</div>
-            <div className="inline__item"><EyeIcon /></div>
-          </div>
           <div className="form">
-            <div className="form__block">
-              <div className="form__label form__label_color_gray">Name Media Post</div>
-              <div className="form__input">
-                <PrefixInput
-                  prefix="u.community/"
-                  subtext="Media Post id - id23784528"
-                />
-              </div>
-            </div>
-            <div className="form__block form__block_shifted_down">
-              <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black menu__link_active">
-                    Sale
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    Token Sale
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    Event
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    Service
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    White List
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    Charity
-                  </div>
-                </div>
-                <div className="menu__item">
-                  <div className="menu__link menu__link_black">
-                    Give Away
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="form__block form__block_shifted_down">
               <div className="form__label form__label_color_gray">Offer Title</div>
               <div className="form__input">

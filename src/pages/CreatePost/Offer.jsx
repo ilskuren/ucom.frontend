@@ -41,61 +41,59 @@ class StoryPage extends PureComponent {
           withoutTabs
         />
         <div className="create-post__content">
-          <div className="settings">
-            <div className="settings__form">
-              <div className="settings__block">
-                <div className="settings__label">Name Media Post</div>
-                <div className="settings__input">
-                  <PrefixInput
-                    prefix="u.community/"
-                    subtext="Media Post id - id23784528"
-                  />
-                </div>
+          <div className="form">
+            <div className="form__block">
+              <div className="form__label">Name Media Post</div>
+              <div className="form__input">
+                <PrefixInput
+                  prefix="u.community/"
+                  subtext="Media Post id - id23784528"
+                />
               </div>
-              <div className="settings__block">
-                <div className="settings__label">Offer Title</div>
-                <div className="settings__input">
-                  <TextInput placeholder="Type something..." />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label">Offer Title</div>
+              <div className="form__input">
+                <TextInput placeholder="Type something..." />
               </div>
-              <div className="settings__block">
-                <div className="settings__label">Action Button</div>
-                <div className="settings__input">
-                  <TextInput placeholder="Name of Acton Button" />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label">Action Button</div>
+              <div className="form__input">
+                <TextInput placeholder="Name of Acton Button" />
               </div>
-              <div className="settings__block">
-                <div className="settings__label" />
-                <div className="settings__input">
-                  <TextInput placeholder="Link" />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label" />
+              <div className="form__input">
+                <TextInput placeholder="Link" />
               </div>
-              <div className="settings__block">
-                <div className="settings__label">Time Sale</div>
-                <div className="settings__input">
-                  <TextInput placeholder="Days" inputWidth={120} />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label">Time Sale</div>
+              <div className="form__input">
+                <TextInput placeholder="Days" inputWidth={120} />
               </div>
-              <div className="settings__block">
-                <div className="settings__label" />
-                <div className="settings__input">
-                  Unlimited
-                  <Switcher />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label" />
+              <div className="form__input">
+                Unlimited
+                <Switcher />
               </div>
-              <div className="settings__block">
-                <div className="settings__label">Add Team</div>
-                <div className="settings__input">
-                  <TextInput placeholder="Find People" />
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label">Add Team</div>
+              <div className="form__input">
+                <TextInput placeholder="Find People" />
               </div>
-              <div className="settings__block">
-                <div className="settings__label">Offer&apos;s cover</div>
-                <div className="settings__input">
-                  <DropZone text="add or drag img" />
-                  You can upload an image in JPG or PNG format.
-                  Size is not more than 10mb.
-                </div>
+            </div>
+            <div className="form__block">
+              <div className="form__label">Offer&apos;s cover</div>
+              <div className="form__input">
+                <DropZone text="add or drag img" />
+                You can upload an image in JPG or PNG format.
+                Size is not more than 10mb.
               </div>
             </div>
           </div>

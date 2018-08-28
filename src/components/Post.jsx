@@ -1,145 +1,134 @@
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import React, { PureComponent } from 'react';
+import React, { Fragment } from 'react';
 import IconComment from './Icons/Comment';
 import IconShare from './Icons/Share';
 import Rating from './Rating';
-import Loading from './Loading';
 import UserCard from './UserCard';
-import { getFileUrl } from '../utils/upload';
-import { getUser } from '../api';
-import { getUserName, getUserUrl } from '../utils/user';
 
-class Post extends PureComponent {
-  constructor(props) {
-    super(props);
+const Post = props => (
+  <div className="post">
+    <div className="post__type">
+      <span className={classNames({ blank: !props.postId })}>Story</span>
+    </div>
 
-    this.state = {
-      loading: false,
-      user: props.user,
-    };
-  }
-
-  componentDidMount() {
-    if (!this.state.user) {
-      this.getUser();
-    }
-  }
-
-  getUser() {
-    this.setState({ loading: true });
-
-    getUser(this.props.post.user_id)
-      .then((user) => {
-        this.setState({
-          user,
-          loading: false,
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div className="post">
-        <div className="post__loading">
-          <Loading loading={this.state.loading} />
+    <div className="post__header">
+      <div className="toolbar">
+        <div className="toolbar__main">
+          {props.updatedAt ? (
+            <Fragment>{moment(props.updatedAt).fromNow()}</Fragment>
+          ) : (
+            <span className="blank">Lorem, ipsum.</span>
+          )}
         </div>
 
-        <div className="post__type">Story</div>
-
-        <div className="post__header">
-          <div className="toolbar">
-            <div className="toolbar__main">
-              {moment(this.props.post.updated_at).fromNow()}
-            </div>
-
-            <div className="toolbar__side">
-              <Rating rating={this.props.post.current_vote} />
-            </div>
-          </div>
-        </div>
-
-        {this.state.user && (
-          <div className="post__user">
-            <UserCard
-              userName={getUserName(this.state.user)}
-              accountName={this.state.user.account_name}
-              profileLink={getUserUrl(this.state.user.id)}
-              avatarUrl={getFileUrl(this.state.user.avatar_filename)}
-            />
+        {!Number.isNaN(+props.rating) && (
+          <div className="toolbar__side">
+            <Rating rating={props.rating} />
           </div>
         )}
+      </div>
+    </div>
 
-        <div className="post__content">
-          {this.props.post.title && (
-            <h1 className="post__title">
-              <Link to={`/posts/${this.props.post.id}`}>{this.props.post.title}</Link>
-            </h1>
+    <div className="post__user">
+      <UserCard
+        userName={props.userName}
+        accountName={props.accountName}
+        profileLink={props.profileLink}
+        avatarUrl={props.avatarUrl}
+      />
+    </div>
+
+    <div className="post__content">
+      <h1 className="post__title">
+        {props.title ? (
+          <Link to={`/posts/${props.postId}`}>{props.title}</Link>
+        ) : (
+          <span className="blank">Lorem ipsum dolor sit.</span>
+        )}
+      </h1>
+
+      {!props.postId ? (
+        <h2 className="post__title post__title_leading">
+          <span className="blank">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, laborum.</span>
+        </h2>
+      ) : (
+        <Fragment>
+          {props.leadingText && (
+            <h2 className="post__title post__title_leading">{props.leadingText}</h2>
           )}
+        </Fragment>
+      )}
 
-          {this.props.post.leading_text && (
-            <h2 className="post__title post__title_leading">{this.props.post.leading_text}</h2>
-          )}
-
-          {this.props.post.main_image_filename && (
-            <div className="post__cover">
-              <img src={getFileUrl(this.props.post.main_image_filename)} alt="" />
-            </div>
-          )}
-
-          {/* {this.props.post.description && (
-            <div className="post__text" dangerouslySetInnerHTML={{ __html: this.props.post.description }} />
-          )} */}
+      {props.coverUrl && (
+        <div className="post__cover">
+          <img src={props.coverUrl} alt="cover" />
         </div>
+      )}
+    </div>
 
-        {/* <div className="post__vote">
-          <div className="vote">
-            <div className="vote__item">
-              <button className="vote__button">
-                <div className="vote__name">MacBook Pro 2017</div>
-                <div className="vote__value">27%</div>
-                <div className="vote__progress" style={{ width: '27%' }} />
-              </button>
-            </div>
-            <div className="vote__item">
-              <button className="vote__button">
-                <div className="vote__name">MacBook Pro 2015</div>
-              </button>
-            </div>
+    {/* <div className="post__vote">
+      <div className="vote">
+        <div className="vote__item">
+          <button className="vote__button">
+            <div className="vote__name">MacBook Pro 2017</div>
+            <div className="vote__value">27%</div>
+            <div className="vote__progress" style={{ width: '27%' }} />
+          </button>
+        </div>
+        <div className="vote__item">
+          <button className="vote__button">
+            <div className="vote__name">MacBook Pro 2015</div>
+          </button>
+        </div>
+      </div>
+    </div> */}
+
+    {props.postId && (
+      <div className="post__footer">
+        <div className="toolbar">
+          <div className="toolbar__main">
+            <button className="button-clean">
+              <span className="inline inline_small">
+                <span className="inline__item">
+                  <span className="post__icon">
+                    <IconComment />
+                  </span>
+                </span>
+                <span className="inline__item">0</span>
+              </span>
+            </button>
           </div>
-        </div> */}
-
-        <div className="post__footer">
-          <div className="toolbar">
-            <div className="toolbar__main">
-              <button className="button-clean">
-                <span className="inline inline_small">
-                  <span className="inline__item">
-                    <span className="post__icon">
-                      <IconComment />
-                    </span>
+          <div className="toolbar__side">
+            <button className="button-clean">
+              <span className="inline inline_small">
+                <span className="inline__item">
+                  <span className="post__icon">
+                    <IconShare />
                   </span>
-                  <span className="inline__item">0</span>
                 </span>
-              </button>
-            </div>
-            <div className="toolbar__side">
-              <button className="button-clean">
-                <span className="inline inline_small">
-                  <span className="inline__item">
-                    <span className="post__icon">
-                      <IconShare />
-                    </span>
-                  </span>
-                  <span className="inline__item">Share</span>
-                </span>
-              </button>
-            </div>
+                <span className="inline__item">Share</span>
+              </span>
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    )}
+  </div>
+);
+
+Post.propTypes = {
+  postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  updatedAt: PropTypes.string,
+  userName: PropTypes.string,
+  accountName: PropTypes.string,
+  profileLink: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  title: PropTypes.string,
+  leadingText: PropTypes.string,
+  coverUrl: PropTypes.string,
+};
 
 export default Post;

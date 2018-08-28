@@ -1,11 +1,15 @@
 import config from '../../package.json';
 
 export const getYearsFromBirthday = (value) => {
-  const birthday = new Date(value);
-  const ageDifMs = Date.now() - birthday.getTime();
-  const ageDate = new Date(ageDifMs);
+  if (value) {
+    const birthday = new Date(value);
+    const ageDifMs = Date.now() - birthday.getTime();
+    const ageDate = new Date(ageDifMs);
 
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
+  return null;
 };
 
 export const getAvatarUrl = filename => (
@@ -25,11 +29,15 @@ export const getYearOfDate = date => (
 );
 
 export const getUserName = (user) => {
-  if (user.first_name && user.last_name) {
-    return `${user.first_name} ${user.last_name}`;
-  } else if (user.first_name) {
-    return user.first_name;
+  if (user) {
+    if (user.first_name && user.last_name) {
+      return `${user.first_name} ${user.last_name}`;
+    } else if (user.first_name) {
+      return user.first_name;
+    }
+
+    return user.account_name;
   }
 
-  return user.account_name;
+  return null;
 };

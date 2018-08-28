@@ -14,6 +14,7 @@ import { getToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
 import Header from './Header';
+import SignUp from '../pages/SignUp';
 
 class App extends PureComponent {
   constructor(props) {
@@ -59,6 +60,7 @@ class App extends PureComponent {
 
               <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />

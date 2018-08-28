@@ -65,28 +65,31 @@ const CreatePostHeader = props => (
       </div>
     </div> */}
 
-    <div className="create-post__field">
-      <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
-        {TAB_NAMES.map(tabName => (
-          <div className="menu__item" key={tabName}>
-            <NavLink
-              className="menu__link"
-              activeClassName="menu__link_active"
-              to={`/posts/new/${kebabCase(tabName)}`}
-              isActive={() => props.location.pathname === `/posts/new/${kebabCase(tabName)}`}
-            >
-              {tabName}
-            </NavLink>
-          </div>
-        ))}
+    {!props.withoutTabs && (
+      <div className="create-post__field">
+        <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
+          {TAB_NAMES.map(tabName => (
+            <div className="menu__item" key={tabName}>
+              <NavLink
+                className="menu__link"
+                activeClassName="menu__link_active"
+                to={`/posts/new/${kebabCase(tabName)}`}
+                isActive={() => props.location.pathname === `/posts/new/${kebabCase(tabName)}`}
+              >
+                {tabName}
+              </NavLink>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    )}
   </div>
 );
 
 CreatePostHeader.propTypes = {
   onClickPost: PropTypes.func,
   title: PropTypes.string,
+  withoutTabs: PropTypes.bool,
 };
 
 CreatePostHeader.defaultProps = {

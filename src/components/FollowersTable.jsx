@@ -37,7 +37,7 @@ const renderFollowersTableRow = ({
       </div>
       <div className="followers-table__button">
         <Button
-          text={conditionForDemonstration ? 'Following' : 'Follow' }
+          text={conditionForDemonstration ? 'Following' : 'Follow'}
           size="medium"
           theme="transparent"
           isStretched

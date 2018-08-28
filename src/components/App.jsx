@@ -7,12 +7,15 @@ import ProfilePage from '../pages/Profile';
 import MyProfilePage from '../pages/MyProfile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
+import EditPost from '../pages/EditPost';
+import Posts from '../pages/Posts';
 import UserPage from '../pages/User';
 import { setUser } from '../actions';
-import { getToken, removeToken } from '../utils/token';
+import { getToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
 import Header from './Header';
+import SignUp from '../pages/SignUp';
 
 class App extends PureComponent {
   constructor(props) {
@@ -39,7 +42,6 @@ class App extends PureComponent {
           this.setState({ loading: false });
         })
         .catch(() => {
-          removeToken();
           this.setState({ loading: false });
         });
     } else {
@@ -59,11 +61,14 @@ class App extends PureComponent {
 
               <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />
+                <Route path="/posts/edit" component={EditPost} />
+                <Route path="/posts" component={Posts} />
               </Switch>
             </div>
           </Router>

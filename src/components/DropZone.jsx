@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -6,7 +7,7 @@ import Loading from './Loading';
 const DropZone = props => (
   <Dropzone
     accept={props.accept}
-    className="drop-zone"
+    className={classNames('drop-zone', props.className)}
     onDrop={(files) => {
       if (typeof props.onDrop === 'function') {
         props.onDrop(files);
@@ -23,6 +24,7 @@ DropZone.propTypes = {
   accept: PropTypes.string,
   onDrop: PropTypes.func,
   loading: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default DropZone;

@@ -38,7 +38,7 @@ class ProfileGeneralInfoPage extends PureComponent {
     const token = getToken();
     const data = {
       first_name: this.state.firstName,
-      lastName: this.state.lastName,
+      last_name: this.state.lastName,
       nickname: this.state.nickname,
       about: this.state.about,
       birthday: this.state.birthday,

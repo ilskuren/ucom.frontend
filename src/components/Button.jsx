@@ -19,9 +19,9 @@ const Button = (props) => {
   );
 
   return (
-    <button className={btnClass}>
+    <button className={btnClass} disabled={props.isDisabled}>
       { props.withCheckedIcon && renderCheckedIcon() }
-      {props.text}
+      { props.text }
     </button>
   );
 };

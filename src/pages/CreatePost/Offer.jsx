@@ -4,6 +4,8 @@ import React, { Fragment, PureComponent } from 'react';
 import CreatePostHeader from '../../components/CreatePostHeader';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
+import OfferTitle from '../../components/OfferTitle';
+import burgerImg from './images/burger.png';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -36,6 +38,8 @@ class StoryPage extends PureComponent {
           onClickPost={() => { this.save(); }}
           withoutTabs
         />
+
+        <OfferTitle imgSrc={burgerImg} />
 
         <CreatePostFooter onClickPost={() => this.save()} />
       </Fragment>

@@ -1,0 +1,177 @@
+.offer-title {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 47vh;
+    @media (max-width: 424px) {
+      padding-top: 60vh;
+    }
+    @media (max-width: 767px) {
+      padding-top: 70vh;
+    }
+  }
+
+  &__inner {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 18px;
+
+    @media (max-width: 767px) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+  &__cover {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  &__img {
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__text {
+    font-size: 2rem;
+    font-weight: bold;
+    max-width: 500px;
+    line-height: 1.22;
+    @media (max-width: 767px) {
+      font-size: calc(2rem - 1vh)
+    }
+    @media (max-width: 424px) {
+      font-size: calc(2rem - 2vh)
+    }
+  }
+
+  &__share {
+    max-width: 1000px;
+  }
+  &__share-button {
+    padding: 13px;
+    border: 2px solid @white;
+    border-radius: 50%;
+    max-width: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      background-color: @white;
+      & > *:first-child {
+        fill: @black;
+      }
+    }
+  }
+  &__share-button-arrow {
+    fill: @white;
+  }
+
+  &__buyers {
+    display: flex;
+    align-items: center;
+    margin-top: 13px;
+    @media (max-width: 767px) {
+      margin-top: 30px;
+    }
+  }
+
+  &__number-buyers {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 0.8571rem;
+    align-self: baseline;
+  }
+
+  &__buyers-word {
+    font-weight: bold;
+    font-size: 0.8571rem;
+    align-self: baseline;
+    opacity: .6;
+  }
+
+  &__footer {
+    margin-top: 40px;
+    @media (max-width: 767px) {
+      margin-top: 20px;
+    }
+  }
+
+  &__button {
+    min-width: 160px;
+    @media (max-width: 767px) {
+      margin-top: 10px;
+    }
+  }
+
+  &__time {
+    margin-left: 34px;
+    @media (max-width: 767px) {
+      margin-left: 0;
+    }
+  }
+
+  &__value {
+    font-size: 2.2857rem;
+    font-weight: 900;
+  }
+
+  &__name {
+    font-size: 0.7143rem;
+    opacity: .6;
+  }
+
+  &__footer-board {
+    margin-bottom: 0.5rem;
+    display: flex;
+  }
+
+  &__board-more {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 10px;
+    background: @white;
+    color: @black;
+    cursor: pointer;
+  }
+
+  &_responsive-footer {
+    @media (max-width: 767px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router';
 import FollowersPage from './MyProfile/Followers';
 import Footer from '../components/Footer';
+import ProfileHeader from '../components/ProfileHeader';
 import FollowersAmount from '../components/FollowersAmount';
 
 class MyProfilePage extends PureComponent {
@@ -16,6 +17,15 @@ class MyProfilePage extends PureComponent {
       <Fragment>
         <div className="my-profile">
           <div className="content content_separated">
+            <div className="my-profile__header">
+              <ProfileHeader
+                name="James Franco"
+                nickname="kames_franko"
+                status="My status or messege"
+                userRatePosition={123}
+                userRate="12 293"
+              />
+            </div>
             <div className="my-profile__statistics-menu">
               <div className="toolbar">
                 <div className="toolbar__main">

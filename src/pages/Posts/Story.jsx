@@ -10,7 +10,7 @@ import Tags from '../../components/Tags';
 import Rate from '../../components/Rate';
 import { getPost, getUser } from '../../api';
 import { getFileUrl } from '../../utils/upload';
-import { getUserName } from '../../utils/user';
+import { getUserName, getUserUrl } from '../../utils/user';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -49,6 +49,7 @@ class StoryPage extends PureComponent {
               name={getUserName(this.state.user)}
               rating={this.state.user.current_rate}
               userId={this.state.user.id}
+              userUrl={getUserUrl(this.state.user.id)}
             />
           </div>
         </div>

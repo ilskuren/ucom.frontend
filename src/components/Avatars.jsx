@@ -13,7 +13,7 @@ const renderAvatar = (avatarData, number, orderStacking) => {
 
   return (
     <span
-      className='avatars__avatar'
+      className="avatars__avatar"
       style={{ zIndex: orderStacking === 'fifo' ? number : '' }}
       key={number}
     >

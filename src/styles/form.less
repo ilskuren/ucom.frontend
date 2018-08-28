@@ -19,6 +19,18 @@
     width: 100%;
     margin-top: 40px;
 
+    &_shifted_down {
+      margin-top: 60px;
+    }
+
+    &_shifted_up {
+      margin-top: 32px;
+    }
+
+    &_no-label {
+      margin-top: 12px;
+    }
+
     @media (max-width: 424px) {
       flex-direction: column;
       width: 100%;
@@ -55,9 +67,18 @@
     }
   }
 
+  &__input-label {
+    margin-right: 10px;
+  }
+
   &__title {
     font-weight: bold;
     font-size: 1.14rem;
     margin-top: 4.1rem;
+  }
+
+  &__subtext {
+    margin-top: 25px;
+    line-height: 1.5;
   }
 }

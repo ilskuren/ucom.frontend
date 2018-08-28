@@ -6,7 +6,6 @@ import PostItem from '../../components/PostItem';
 import Share from '../../components/Share';
 import Rating from '../../components/Rating';
 import PostViews from '../../components/PostViews';
-import Loading from '../../components/Loading';
 import PostHeader from '../../components/PostHeader';
 import { getPost, getUser } from '../../api';
 import { getFileUrl } from '../../utils/upload';
@@ -45,8 +44,6 @@ class StoryPage extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Loading loading={this.state.loading} appear />
-
         {!this.state.loading && (
           <div className="sheets">
             <div className="sheets__list">

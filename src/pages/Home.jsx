@@ -5,7 +5,6 @@ import Post from '../components/Post';
 import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
-import Loading from '../components/Loading';
 import { getUsers, getPosts, getUserPosts } from '../api';
 import { getUserUrl, getAvatarUrl } from '../utils/user';
 
@@ -17,7 +16,6 @@ class HomePage extends PureComponent {
       users: [],
       posts: [],
       userPosts: [],
-      loading: false,
     };
   }
 
@@ -29,13 +27,8 @@ class HomePage extends PureComponent {
     const promises = [
       getUsers(),
       getPosts(),
+      this.props.user.id ? getUserPosts(this.props.user.id) : null,
     ];
-
-    if (this.props.user.id) {
-      promises.push(getUserPosts(this.props.user.id));
-    }
-
-    this.setState({ loading: true });
 
     Promise.all(promises)
       .then((result) => {
@@ -43,7 +36,6 @@ class HomePage extends PureComponent {
           posts: result[1],
           users: result[0],
           userPosts: result[2] || [],
-          loading: false,
         });
       });
   }
@@ -51,8 +43,6 @@ class HomePage extends PureComponent {
   render() {
     return (
       <Fragment>
-        <Loading loading={this.state.loading} />
-
         <div className="content">
           <div className="content__inner">
             <div className="page-nav">
@@ -72,9 +62,7 @@ class HomePage extends PureComponent {
               </div>
             </div>
 
-            {this.state.posts.length && (
-              <PostsGroup posts={this.state.posts} />
-            )}
+            <PostsGroup posts={this.state.posts} />
           </div>
         </div>
 

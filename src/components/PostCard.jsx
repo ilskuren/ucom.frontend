@@ -13,12 +13,18 @@ const PostCard = (props) => {
     <div className="post-card">
       <div className="post-card__inner">
         <div
-          classNames={classNames(
+          className={classNames(
             'post-card__cover',
             { 'post-card__cover_blank': !props.coverUrl },
           )}
         >
-          <img className="post-card__img" src={props.coverUrl} alt="cover" />
+          {props.coverUrl && (
+            <img
+              className="post-card__img"
+              src={props.coverUrl}
+              alt="cover"
+            />
+          )}
         </div>
 
         <div className="post-card__side">
@@ -29,10 +35,17 @@ const PostCard = (props) => {
 
         <div className="post-card__main">
           <div className="post-card__tags">
-            <span className="tags">
-              <span className="tags__item tags__item_icon">#</span>
-              <span className="tags__item">story</span>
-            </span>
+            {props.tags ? (
+              <span className="tags">
+                <span className="tags__item tags__item_icon">#</span>
+
+                {props.tags.map(tag => (
+                  <span className="tags__item">{tag}</span>
+                ))}
+              </span>
+            ) : (
+              <span className="blank">Lorem ipsum dolor sit amet.</span>
+            )}
           </div>
 
           <div className="post-card__title">
@@ -41,7 +54,7 @@ const PostCard = (props) => {
                 {props.title ? (
                   <Fragment>{props.title}</Fragment>
                 ) : (
-                  <span className="balnk">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, modi?</span>
+                  <span className="blank">Lorem ipsum dolor sit amet.</span>
                 )}
               </PostLinkTag>
             </h1>

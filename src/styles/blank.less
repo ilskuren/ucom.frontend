@@ -1,5 +1,21 @@
+@keyframes flashing {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .blank {
   display: inline;
+  line-height: 1.4;
   color: transparent;
-  background: #eee;
+  background: rgba(0,0,0,0.04);
+  animation-name: flashing;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease;
 }

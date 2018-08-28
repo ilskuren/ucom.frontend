@@ -8,10 +8,9 @@ import { getUserUrl } from '../utils/user';
 
 const PostsGroup = (props) => {
   const { posts } = props;
-  const mainPost = posts[0];
-  // const mainPost = {};
-  const sidePosts = posts.slice(1, 5);
-  const footerPosts = posts.slice(6, 9);
+  const mainPost = posts.length ? posts[0] : {};
+  const sidePosts = posts.length ? posts.slice(1, 5) : [{}, {}, {}, {}];
+  const footerPosts = posts.length ? posts.slice(6, 9) : [{}, {}, {}];
 
   return (
     <div className="post-group">
@@ -25,6 +24,7 @@ const PostsGroup = (props) => {
               url={getPostUrl(mainPost.id)}
               userUrl={getUserUrl(mainPost.User && mainPost.User.id)}
               userImageUrl={getFileUrl(mainPost.User && mainPost.User.avatar_filename)}
+              tags={mainPost.id ? ['story'] : null}
             />
           </div>
 
@@ -34,6 +34,7 @@ const PostsGroup = (props) => {
                 title={post.title}
                 rate={post.current_rate}
                 url={getPostUrl(post.id)}
+                tags={post.id ? ['story'] : null}
               />
             </div>
           ))}
@@ -49,6 +50,7 @@ const PostsGroup = (props) => {
                 rate={post.current_rate}
                 url={getPostUrl(post.id)}
                 coverImg={getFileUrl(post.main_image_filename)}
+                tags={post.id ? ['story'] : null}
               />
             </div>
           ))}

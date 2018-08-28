@@ -12,7 +12,11 @@ const Avatar = props => (
       { 'avatar_blank': !props.src },
     )}
   >
-    <img className="avatar__img" src={props.src} alt={props.alt} />
+    {props.src ? (
+      <img className="avatar__img" src={props.src} alt={props.alt} />
+    ) : (
+      <span className="avatar__img avatar__img_blank" />
+    )}
   </span>
 );
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import Avatar from './Avatar';
 import Rate from './Rate';
+import Tags from './Tags';
 
 const PostCard = (props) => {
   const PostLinkTag = props.url ? Link : 'span';
@@ -35,17 +36,7 @@ const PostCard = (props) => {
 
         <div className="post-card__main">
           <div className="post-card__tags">
-            {props.tags ? (
-              <span className="tags">
-                <span className="tags__item tags__item_icon">#</span>
-
-                {props.tags.map(tag => (
-                  <span className="tags__item">{tag}</span>
-                ))}
-              </span>
-            ) : (
-              <span className="blank">Lorem ipsum dolor sit amet.</span>
-            )}
+            <Tags tags={props.tags} />
           </div>
 
           <div className="post-card__title">
@@ -114,6 +105,7 @@ PostCard.propTypes = {
   rate: PropTypes.number,
   title: PropTypes.string,
   userImageUrl: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default PostCard;

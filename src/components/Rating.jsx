@@ -6,16 +6,31 @@ import IconArrowDown from '../components/Icons/ArrowDown';
 
 const Rating = ({ rating, choice }) => (
   <div className="rating">
-    <div className={cn('rating__icon', { 'rating__icon_red': choice === 'down' })}>
+    <div
+      className={cn(
+        'rating__icon',
+        { 'rating__icon_red': choice === 'down' },
+      )}
+    >
       <IconArrowDown />
     </div>
-    <div className={cn('rating__value', {
-      'rating__value_up': rating > 0,
-      'rating__value_down': rating < 0,
-    })}
-    >{rating > 0 && '+'}{rating}
+
+    <div
+      className={cn(
+        'rating__value',
+        { 'rating__value_up': rating > 0 },
+        { 'rating__value_down': rating < 0 },
+      )}
+    >
+      {rating > 0 && '+'}{rating}
     </div>
-    <div className={cn('rating__icon', { 'rating__icon_green': choice === 'up' })}>
+
+    <div
+      className={cn(
+        'rating__icon',
+        { 'rating__icon_green': choice === 'up' },
+      )}
+    >
       <IconArrowUp />
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 
 const getInitialState = () => ({
-  user: { id: 1},
+  user: {},
 });
 
 const app = (state = getInitialState(), action) => {

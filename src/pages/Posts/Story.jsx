@@ -55,85 +55,93 @@ class StoryPage extends PureComponent {
 
         <div className="sheets__content sheets__content_posts">
           <div className="posts">
-            <div className="posts__content">
-              <div className="posts__header">
-                <div className="toolbar toolbar_top">
-                  <div className="toolbar__main">
-                    <div className="posts__tags">
-                      <Tags tags={this.state.post.id ? ['story'] : null} />
-                    </div>
+            <div className="grid grid_post">
+              <div className="grid__item">
+                <div className="posts__header">
+                  <div className="toolbar toolbar_top toolbar_responsive-reverse">
+                    <div className="toolbar__main">
+                      <div className="posts__tags">
+                        <Tags tags={this.state.post.id ? ['story'] : null} />
+                      </div>
 
-                    <h1 className="title title_medium">
-                      {this.state.post.title || (
-                        <span className="blank">Lorem ipsum dolor sit amet.</span>
-                      )}
-                    </h1>
-                  </div>
-                  <div className="toolbar__side">
-                    <Rate
-                      className="rate_medium"
-                      value={this.state.post.current_rate}
-                    />
+                      <h1 className="title title_medium">
+                        {this.state.post.title || (
+                          <span className="blank">Lorem ipsum dolor sit amet.</span>
+                        )}
+                      </h1>
+                    </div>
+                    <div className="toolbar__side">
+                      <Rate
+                        className="rate_medium"
+                        value={this.state.post.current_rate}
+                      />
+                    </div>
                   </div>
                 </div>
+
+                {!this.state.post.id ? (
+                  <div className="posts__lead-text">
+                    <span className="blank">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, laboriosam!</span>
+                  </div>
+                ) : (
+                  <Fragment>
+                    {this.state.post.leading_text && (
+                      <div className="posts__lead-text">
+                        {this.state.post.leading_text || (
+                          <span className="blank">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, laboriosam!</span>
+                        )}
+                      </div>
+                    )}
+                  </Fragment>
+                )}
+
+                {!this.state.post.id ? (
+                  <div className="posts__poster">
+                    <div className="posts__poster-img posts__poster-img_blank" />
+                  </div>
+                ) : (
+                  <Fragment>
+                    {this.state.post.main_image_filename && (
+                      <div className="posts__poster">
+                        <img src={getFileUrl(this.state.post.main_image_filename)} alt="poster" className="posts__poster-img" />
+                      </div>
+                    )}
+                  </Fragment>
+                )}
+
+                {this.state.post.id && (
+                  <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.post.description }} />
+                )}
+
+                {/* <div className="posts__comments">
+                  <CommentsStub />
+                </div> */}
               </div>
 
-              {!this.state.post.id ? (
-                <div className="posts__lead-text">
-                  <span className="blank">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, laboriosam!</span>
-                </div>
-              ) : (
-                <Fragment>
-                  {this.state.post.leading_text && (
-                    <div className="posts__lead-text">
-                      {this.state.post.leading_text || (
-                        <span className="blank">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, laboriosam!</span>
-                      )}
+              <div className="grid__item">
+                {this.state.post.id && (
+                  <div className="posts__sidebar">
+                    <div className="posts__rating">
+                      <Rating rating={this.state.post.current_vote} />
                     </div>
-                  )}
-                </Fragment>
-              )}
 
-              {!this.state.post.id ? (
-                <div className="posts__poster">
-                  <div className="posts__poster-img posts__poster-img_blank" />
-                </div>
-              ) : (
-                <Fragment>
-                  {this.state.post.main_image_filename && (
-                    <div className="posts__poster">
-                      <img src={getFileUrl(this.state.post.main_image_filename)} alt="poster" className="posts__poster-img" />
+                    <div className="posts__views">
+                      <PostViews views={352} />
                     </div>
-                  )}
-                </Fragment>
-              )}
 
-              {this.state.post.id && (
-                <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.post.description }} />
-              )}
+                    <div className="posts__share">
+                      <Share amount="8 923" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
 
-              {/* <div className="posts__comments">
-                <CommentsStub />
-              </div> */}
+            {/* <div className="posts__content">
             </div>
 
             <div className="posts__sidebar">
-              {this.state.post.id && (
-                <Fragment>
-                  <div className="posts__rating">
-                    <Rating rating={this.state.post.current_vote} />
-                  </div>
-
-                  <div className="posts__views">
-                    <PostViews views={352} />
-                  </div>
-
-                  <div className="posts__share">
-                    <Share amount="8 923" />
-                  </div>
-                </Fragment>
-              )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

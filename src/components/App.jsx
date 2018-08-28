@@ -15,6 +15,7 @@ import { getMyself } from '../api';
 import Loading from './Loading';
 import Header from './Header';
 import SignUp from '../pages/SignUp';
+import Page from './Page';
 
 class App extends PureComponent {
   constructor(props) {
@@ -55,7 +56,7 @@ class App extends PureComponent {
 
         {!this.state.loading && (
           <Router history={this.props.history}>
-            <div className="page">
+            <Page>
               <Header />
 
               <Switch>
@@ -68,7 +69,7 @@ class App extends PureComponent {
                 <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts" component={Posts} />
               </Switch>
-            </div>
+            </Page>
           </Router>
         )}
       </Fragment>

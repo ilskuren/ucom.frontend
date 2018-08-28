@@ -102,7 +102,7 @@ PostCard.propTypes = {
   url: PropTypes.string,
   userUrl: PropTypes.string,
   coverUrl: PropTypes.string,
-  rate: PropTypes.number,
+  rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title: PropTypes.string,
   userImageUrl: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),

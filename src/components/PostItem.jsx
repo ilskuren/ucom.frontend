@@ -52,9 +52,9 @@ const PostItem = (props) => {
 PostItem.propTypes = {
   coverImg: PropTypes.string,
   title: PropTypes.string,
-  tags: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
   editUrl: PropTypes.string,
-  rate: PropTypes.number,
+  rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   url: PropTypes.string,
 };
 

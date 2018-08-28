@@ -105,3 +105,13 @@ export const getPosts = () => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts`)
     .then(resp => resp.json())
 );
+
+export const postUpVote = (postId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/upvote`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

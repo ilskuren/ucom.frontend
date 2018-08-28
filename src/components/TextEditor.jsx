@@ -22,7 +22,7 @@ class TextEditor extends PureComponent {
   componentDidMount() {
     this.mediumEditor = new MediumEditor(this.textEditor, {
       toolbar: {
-        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2'],
+        buttons: ['bold', 'italic', 'underline', 'strikethrough', 'anchor', 'h2', 'quote', 'orderedlist', 'unorderedlist'],
       },
     });
 

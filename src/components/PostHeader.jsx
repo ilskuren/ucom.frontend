@@ -59,7 +59,8 @@ PostHeader.propTypes = {
   avatar: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.string,
-  userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  userId: PropTypes.number,
+  userUrl: PropTypes.string,
 };
 
 export default PostHeader;

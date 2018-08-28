@@ -8,7 +8,7 @@ const Tags = ({ tags }) => (
         <span className="tags__item tags__item_icon">#</span>
 
         {tags.map(tag => (
-          <span className="tags__item">{tag}</span>
+          <span className="tags__item" key={tag}>{tag}</span>
         ))}
       </span>
     ) : (

@@ -123,7 +123,10 @@ class StoryPage extends PureComponent {
                 {this.state.post.id && (
                   <div className="posts__sidebar">
                     <div className="posts__rating">
-                      <Rating rating={this.state.post.current_vote} />
+                      <Rating
+                        rating={this.state.post.current_vote}
+                        postId={this.state.post.id}
+                      />
                     </div>
 
                     <div className="posts__views">

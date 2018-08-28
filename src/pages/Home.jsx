@@ -6,7 +6,9 @@ import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
 import { getUsers, getPosts, getUserPosts } from '../api';
-import { getUserUrl, getAvatarUrl } from '../utils/user';
+import { getUserUrl, getAvatarUrl, getUserName } from '../utils/user';
+import { getFileUrl } from '../utils/upload';
+import { getPostUrl } from '../utils/posts';
 
 class HomePage extends PureComponent {
   constructor(props) {
@@ -109,13 +111,27 @@ class HomePage extends PureComponent {
                       </div>
                     </div>
 
-                    <div className="feed__list">
-                      {this.state.userPosts.map(post => (
-                        <div className="feed__item" key={post.id}>
-                          <Post post={post} />
-                        </div>
-                      ))}
-                    </div>
+                    {this.props.user && (
+                      <div className="feed__list">
+                        {this.state.userPosts.map(item => (
+                          <div className="feed__item" key={item.id}>
+                            <Post
+                              postId={item.id}
+                              updatedAt={item.updated_at}
+                              rating={item.current_vote}
+                              userName={getUserName(this.props.user)}
+                              accountName={this.props.user.account_name}
+                              profileLink={getUserUrl(this.props.user.id)}
+                              avatarUrl={getFileUrl(this.props.user.avatar_filename)}
+                              title={item.title}
+                              url={getPostUrl(item.id)}
+                              leadingText={item.leading_text}
+                              coverUrl={getFileUrl(item.main_image_filename)}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

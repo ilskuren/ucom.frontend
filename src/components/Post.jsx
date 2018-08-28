@@ -26,7 +26,10 @@ const Post = props => (
 
         {!Number.isNaN(+props.rating) && (
           <div className="toolbar__side">
-            <Rating rating={props.rating} />
+            <Rating
+              rating={props.rating}
+              postId={props.postId}
+            />
           </div>
         )}
       </div>
@@ -120,6 +123,7 @@ const Post = props => (
 );
 
 Post.propTypes = {
+  rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   updatedAt: PropTypes.string,
   userName: PropTypes.string,

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import classNames from 'classnames';
 import { sortBy } from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -135,11 +134,19 @@ class UserPage extends PureComponent {
                         )}
                       </div>
 
-                      <div className="user-header__status">
-                        {this.state.user.mood_message || (
+                      {!this.state.user.id ? (
+                        <div className="user-header__status">
                           <span className="blank">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, aperiam.</span>
-                        )}
-                      </div>
+                        </div>
+                      ) : (
+                        <Fragment>
+                          {this.state.user.mood_message && (
+                            <div className="user-header__status">
+                              {this.state.user.mood_message}
+                            </div>
+                          )}
+                        </Fragment>
+                      )}
                     </div>
                     <div className="toolbar__side">
                       <div className="user-header__rate">
@@ -207,22 +214,18 @@ class UserPage extends PureComponent {
 
               <div className="grid grid_user">
                 <div className="grid__item">
-                  <div className="user-section">
-                    <div className="user-section__title">
-                      <h2 className="title title_xsmall title_light">
-                        <span className={classNames({ blank: !this.state.user.id })}>About</span>
-                      </h2>
-                    </div>
-                    <div className="user-section__text">
-                      <div className="text">
-                        {this.state.user.about ? (
+                  {this.state.user.about && (
+                    <div className="user-section">
+                      <div className="user-section__title">
+                        <h2 className="title title_xsmall title_light">About</h2>
+                      </div>
+                      <div className="user-section__text">
+                        <div className="text">
                           <p>{this.state.user.about}</p>
-                        ) : (
-                          <span className="blank">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque ab dolores et eligendi earum asperiores.</span>
-                        )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   {this.state.user.id && (
                     <div className="user-section">
@@ -263,13 +266,13 @@ class UserPage extends PureComponent {
                   )}
 
                   <div className="user-section">
-                    <div className="user-section__title">
-                      <h2 className="title title_xsmall title_light">
-                        <span className={classNames({ blank: this.state.posts.length === 0 })}>Feed</span>
-                      </h2>
-                    </div>
+                    {this.state.posts.length > 0 && (
+                      <div className="user-section__title">
+                        <h2 className="title title_xsmall title_light">Feed</h2>
+                      </div>
+                    )}
                     <div className="post-list">
-                      {(this.state.posts.length > 0 ? this.state.posts : [{}, {}, {}]).map(item => (
+                      {(!this.state.user.id ? [{}, {}, {}] : this.state.posts).map(item => (
                         <div className="post-list__item" key={item.id}>
                           <Post
                             postId={item.id}
@@ -346,7 +349,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_sources && this.state.user.users_sources.length && (
+                  {this.state.user.users_sources && this.state.user.users_sources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
@@ -372,7 +375,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_jobs && this.state.user.users_jobs.length && (
+                  {this.state.user.users_jobs && this.state.user.users_jobs.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Work Experience</h3>
@@ -403,7 +406,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_education && this.state.user.users_education.length && (
+                  {this.state.user.users_education && this.state.user.users_education.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Education</h3>

@@ -28,8 +28,8 @@ const PostsGroup = (props) => {
             />
           </div>
 
-          {sidePosts.map(post => (
-            <div className="grid__item" key={post.id}>
+          {sidePosts.map((post, index) => (
+            <div className="grid__item" key={post.id || index}>
               <PostItem
                 title={post.title}
                 rate={post.current_rate}
@@ -43,8 +43,8 @@ const PostsGroup = (props) => {
 
       <div className="post-group__item">
         <div className="grid">
-          {footerPosts.map(post => (
-            <div className="grid__item" key={post.id}>
+          {footerPosts.map((post, index) => (
+            <div className="grid__item" key={post.id || index}>
               <PostItem
                 title={post.title}
                 rate={post.current_rate}

@@ -15,13 +15,6 @@ class MyProfilePage extends PureComponent {
   render() {
     return this.props.user.id ? (
       <Fragment>
-        <ProfileHeader
-          name="James Franco"
-          nickname="kames_franko"
-          status="My status or messege"
-          userRatePosition={123}
-          userRate="12 293"
-        />
         <div className="my-profile">
           <div className="content content_separated">
             <div className="my-profile__header">

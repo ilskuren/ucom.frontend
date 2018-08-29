@@ -76,7 +76,7 @@ class OfferPreview extends PureComponent {
               </div>
               <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.description }} />
               <div className="posts__comments posts__comments-offer">
-                <CommentsStub />
+                <CommentsStub isEmpty />
               </div>
             </div>
             <div className="posts__sidebar">

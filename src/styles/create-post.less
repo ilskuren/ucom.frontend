@@ -20,6 +20,14 @@
 
     &_form {
       margin-bottom: 55px;
+      @media (min-width: 1023px) {
+        padding: 0;
+      }
+    }
+
+    &_wide {
+      max-width: 1200px;
+      padding: 0;
     }
   }
   
@@ -43,6 +51,20 @@
     align-items: center;
     max-width: 600px;
     margin: 0 0 9px;
+  }
+
+  &__offer-title {
+    align-self: center;
+    min-width: 94%;
+    @media (max-width: 1024px) {
+      min-width: 92%;
+    }
+    @media (max-width: 767px) {
+      min-width: 90%;
+    }
+    @media (max-width: 424px) {
+      min-width: 78%;
+    }
   }
 
   &__author {
@@ -70,10 +92,6 @@
     flex: 1 1 auto;
     margin: 0 40px;
     box-shadow: @baseShadow;
-
-    &_inner {
-      box-shadow: none;
-    }
   }
   
   &__offer-title {

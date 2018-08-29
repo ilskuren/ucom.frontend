@@ -115,7 +115,9 @@ class StoryPage extends PureComponent {
           </div>
         </div>
 
-        <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__content create-post__content_wide">
+          <OfferTitle imgSrc={burgerImg} />
+        </div>
         <div className="create-post__preview">
           <TextEditor
             title={this.state.title}

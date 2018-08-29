@@ -23,7 +23,7 @@ const Rating = ({ rating, choice }) => (
 
 Rating.propTypes = {
   rating: PropTypes.number,
-  choice: PropTypes.oneOf('up', 'down'),
+  choice: PropTypes.oneOf(['up', 'down']),
 };
 
 Rating.defaultProps = {

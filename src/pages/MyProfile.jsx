@@ -29,7 +29,7 @@ class MyProfilePage extends PureComponent {
             <div className="my-profile__statistics-menu">
               <div className="toolbar">
                 <div className="toolbar__main">
-                  <div className="menu menu_simple-tabs">
+                  <div className="menu menu_simple-tabs menu_simple-tabs_small">
                     <div className="menu__item">
                       <div className="rate rate_small">
                         <div className="rate__value">101</div>
@@ -59,24 +59,24 @@ class MyProfilePage extends PureComponent {
               </div>
               <div className="toolbar">
                 <div className="toolbar__main">
-                  <div className="menu menu_simple-tabs">
+                  <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">
                     <div className="menu__item">
-                      <div className="menu__link menu__link_black menu__link_active">
+                      <div className="menu__link menu__link_active">
                         <FollowersAmount status="followers" />
                       </div>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link menu__link_black">
+                      <div className="menu__link">
                         <FollowersAmount status="following" />
                       </div>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link menu__link_black">
+                      <div className="menu__link">
                         <FollowersAmount status="trusted by" />
                       </div>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link menu__link_black">
+                      <div className="menu__link">
                         <FollowersAmount status="joined" />
                       </div>
                     </div>

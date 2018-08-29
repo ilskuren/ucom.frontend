@@ -165,7 +165,7 @@ class HomePage extends PureComponent {
                           {this.state.users.map(user => (
                             <div className="users-group__item" key={user.id}>
                               <UserCard
-                                userName={`${user.first_name} ${user.last_name}`}
+                                userName={getUserName(user)}
                                 accountName={user.nickname}
                                 profileLink={getUserUrl(user.id)}
                                 avatarUrl={getFileUrl(user.avatar_filename)}

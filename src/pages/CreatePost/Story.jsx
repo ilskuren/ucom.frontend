@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import { createPost } from '../../api';
 import { getToken } from '../../utils/token';
+import dict from '../../utils/dict';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -20,34 +21,73 @@ class StoryPage extends PureComponent {
       main_image_filename: null,
       loading: false,
       saved: false,
+      errors: [],
     };
   }
 
-  save() {
-    this.setState({ loading: true });
+  validate() {
+    return new Promise((resolve) => {
+      const errors = [];
 
-    const token = getToken();
-    const data = new FormData();
-
-    data.append('title', this.state.title);
-    data.append('description', this.state.description);
-    data.append('leading_text', this.state.leading_text);
-    data.append('main_image_filename', this.state.main_image_filename);
-    data.append('post_type_id', 1);
-
-    createPost(data, token)
-      .then((post) => {
-        this.setState({
-          loading: false,
-          saved: true,
-          newPostId: post.id,
+      if (this.state.title.length === 0) {
+        errors.push({
+          field: 'title',
+          message: dict.titleIsRequired,
         });
+      }
+
+      if (this.state.leading_text.length === 0) {
+        errors.push({
+          field: 'leading_text',
+          message: dict.leadingTextIsRequired,
+        });
+      }
+
+      if (this.state.description.length === 0) {
+        errors.push({
+          field: 'description',
+          message: dict.descriptionIsRequired,
+        });
+      }
+
+      this.setState({ errors }, () => {
+        resolve();
+      });
+    });
+  }
+
+  save() {
+    this.validate()
+      .then(() => {
+        if (this.state.errors.length) {
+          return;
+        }
+
+        this.setState({ loading: true });
+
+        const token = getToken();
+        const data = new FormData();
+
+        data.append('title', this.state.title);
+        data.append('description', this.state.description);
+        data.append('leading_text', this.state.leading_text);
+        data.append('main_image_filename', this.state.main_image_filename);
+        data.append('post_type_id', 1);
+
+        createPost(data, token)
+          .then((post) => {
+            this.setState({
+              loading: false,
+              saved: true,
+              newPostId: post.id,
+            });
+          });
       });
   }
 
   render() {
     return this.state.saved ? (
-      <Redirect to={`/posts/story/${this.state.newPostId}`} />
+      <Redirect to={`/posts/${this.state.newPostId}`} />
     ) : (
       <Fragment>
         <Loading loading={this.state.loading} />
@@ -59,6 +99,7 @@ class StoryPage extends PureComponent {
 
         <div className="create-post__editor">
           <TextEditor
+            errors={this.state.errors}
             title={this.state.title}
             description={this.state.description}
             leadingText={this.state.leading_text}

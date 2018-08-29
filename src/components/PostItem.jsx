@@ -1,51 +1,61 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Rate from './Rate';
 import EditIcon from './Icons/Edit';
+import Tags from './Tags';
 
-const PostItem = props => (
-  <div className={classNames('post-item', { [`post-item_${props.size}`]: props.size })}>
-    {props.coverImg && (
-      <div className="post-item__cover">
-        <img className="post-item__img" src={props.coverImg} alt="" />
-      </div>
-    )}
-    <div className="post-item__main">
-      <div className="post-item__tags">
-        <span className="tags">
-          <span className="tags__item tags__item_icon">#</span>
-          <span className="tags__item">{props.tag || 'poll'}</span>
-        </span>
+const PostItem = (props) => {
+  const LinkTag = props.url ? Link : 'span';
+
+  return (
+    <div className="post-item">
+      {props.coverImg && (
+        <div className="post-item__cover">
+          <LinkTag to={props.url}>
+            <img className="post-item__img" src={props.coverImg} alt="" />
+          </LinkTag>
+        </div>
+      )}
+
+      <div className="post-item__main">
+        <div className="post-item__tags">
+          <Tags tags={props.tags} />
+        </div>
+
+        <div className="post-item__text">
+          {props.editUrl && (
+            <Link to={props.editUrl}>
+              <span className="post-item__edit">
+                <EditIcon />
+              </span>
+            </Link>
+          )}
+
+          {props.title ? (
+            <LinkTag to={props.url}>{props.title}</LinkTag>
+          ) : (
+            <span className="blank">Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+          )}
+        </div>
       </div>
 
-      <div className="post-item__text">
-        {props.edit && (
-          <Link to={props.editUrl}>
-            <span className="post-item__edit">
-              <EditIcon />
-            </span>
-          </Link>
-        )}
-        {props.title || 'This No-Brand Startup Won $240 Million to Fight Amazon on Price and Quality'}
+      <div className="post-item__side">
+        <div className="post-item__rate">
+          <Rate value={props.rate} />
+        </div>
       </div>
     </div>
-    <div className="post-item__side">
-      <div className="post-item__rate">
-        <Rate className={props.size === 'big' && 'rate_medium'} />
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 PostItem.propTypes = {
   coverImg: PropTypes.string,
   title: PropTypes.string,
-  tag: PropTypes.string,
-  size: PropTypes.string,
-  edit: PropTypes.bool,
+  tags: PropTypes.arrayOf(PropTypes.string),
   editUrl: PropTypes.string,
+  rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  url: PropTypes.string,
 };
 
 export default PostItem;

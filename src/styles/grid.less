@@ -13,6 +13,21 @@
   }
 }
 
+.grid_post {
+  padding: 0 100px 0 200px;
+  grid-template-columns: 7fr 2fr;
+  grid-column-gap: 0;
+  grid-row-gap: 40px;
+
+  @media (max-width: 1271px) {
+    padding: 0;
+  }
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .grid_content {
   grid-column-gap: 100px;
   grid-template-columns: 2fr 1fr;

@@ -4,6 +4,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
+import MyProfilePage from '../pages/MyProfile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import EditPost from '../pages/EditPost';
@@ -14,6 +15,8 @@ import { getToken } from '../utils/token';
 import { getMyself } from '../api';
 import Loading from './Loading';
 import Header from './Header';
+import SignUp from '../pages/SignUp';
+import Page from './Page';
 
 class App extends PureComponent {
   constructor(props) {
@@ -54,19 +57,21 @@ class App extends PureComponent {
 
         {!this.state.loading && (
           <Router history={this.props.history}>
-            <div className="page">
+            <Page>
               <Header />
 
               <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
                 <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />
                 <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts" component={Posts} />
               </Switch>
-            </div>
+            </Page>
           </Router>
         )}
       </Fragment>

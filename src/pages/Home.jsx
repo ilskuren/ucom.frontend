@@ -1,12 +1,14 @@
+import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
-import PostCard from '../components/PostCard';
-import PostItem from '../components/PostItem';
 import PostInput from '../components/PostInput';
 import Post from '../components/Post';
 import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
-import { getUsers } from '../api';
-import { getUserLink, getAvatarUrl } from '../utils/user';
+import PostsGroup from '../components/PostsGroup';
+import { getUsers, getPosts, getUserPosts } from '../api';
+import { getUserUrl, getAvatarUrl, getUserName } from '../utils/user';
+import { getFileUrl } from '../utils/upload';
+import { getPostUrl } from '../utils/posts';
 
 class HomePage extends PureComponent {
   constructor(props) {
@@ -14,18 +16,28 @@ class HomePage extends PureComponent {
 
     this.state = {
       users: [],
+      posts: [],
+      userPosts: [],
     };
   }
 
   componentDidMount() {
-    this.getUsers();
+    this.getData();
   }
 
-  getUsers() {
-    getUsers()
-      .then((users) => {
+  getData() {
+    const promises = [
+      getUsers(),
+      getPosts(),
+      this.props.user.id ? getUserPosts(this.props.user.id) : null,
+    ];
+
+    Promise.all(promises)
+      .then((result) => {
         this.setState({
-          users,
+          posts: result[1],
+          users: result[0],
+          userPosts: result[2] || [],
         });
       });
   }
@@ -52,31 +64,7 @@ class HomePage extends PureComponent {
               </div>
             </div>
 
-            <div className="post-group">
-              <div className="post-group__item">
-                <div className="grid grid_main-post">
-                  <div className="grid__item">
-                    <PostCard />
-                  </div>
-
-                  {[0, 0, 0, 0].map(() => (
-                    <div className="grid__item">
-                      <PostItem />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="post-group__item">
-                <div className="grid">
-                  {[0, 0, 0].map(() => (
-                    <div className="grid__item">
-                      <PostItem coverImg="https://cdn-images-1.medium.com/max/2000/0*garzrb4YWfV8ummS" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <PostsGroup posts={this.state.posts} />
           </div>
         </div>
 
@@ -85,51 +73,67 @@ class HomePage extends PureComponent {
 
             <div className="grid grid_content">
               <div className="grid__item">
-                <div className="feed">
-                  <div className="feed__title">
-                    <h1 className="title title_small">Ur News Feed</h1>
-                  </div>
+                {this.props.user.id && (
+                  <div className="feed">
+                    <div className="feed__title">
+                      <h1 className="title title_small">Ur News Feed</h1>
+                    </div>
 
-                  <div className="feed__post-form">
-                    <PostInput />
-                  </div>
+                    <div className="feed__post-form">
+                      <PostInput />
+                    </div>
 
-                  <div className="feed__toolbar">
-                    <div className="toolbar">
-                      <div className="toolbar__main">
-                        <div className="menu menu_nav menu_responsive">
-                          <div className="menu__item menu__item_active">
-                            <button className="menu__link">All</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Call</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Poll</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Appeal</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Promote</button>
+                    <div className="feed__toolbar">
+                      <div className="toolbar">
+                        <div className="toolbar__main">
+                          <div className="menu menu_nav menu_responsive">
+                            <div className="menu__item menu__item_active">
+                              <button className="menu__link">All</button>
+                            </div>
+                            <div className="menu__item">
+                              <button className="menu__link">Call</button>
+                            </div>
+                            <div className="menu__item">
+                              <button className="menu__link">Poll</button>
+                            </div>
+                            <div className="menu__item">
+                              <button className="menu__link">Appeal</button>
+                            </div>
+                            <div className="menu__item">
+                              <button className="menu__link">Promote</button>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="toolbar__side">
-                        Sort by
+                        <div className="toolbar__side">
+                          Sort by
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="feed__list">
-                    {[0, 0].map(() => (
-                      <div className="feed__item">
-                        <Post />
+                    {this.props.user && (
+                      <div className="feed__list">
+                        {this.state.userPosts.map(item => (
+                          <div className="feed__item" key={item.id}>
+                            <Post
+                              postId={item.id}
+                              updatedAt={item.updated_at}
+                              rating={item.current_vote}
+                              userName={getUserName(this.props.user)}
+                              accountName={this.props.user.account_name}
+                              profileLink={getUserUrl(this.props.user.id)}
+                              avatarUrl={getFileUrl(this.props.user.avatar_filename)}
+                              title={item.title}
+                              url={getPostUrl(item.id)}
+                              leadingText={item.leading_text}
+                              coverUrl={getFileUrl(item.main_image_filename)}
+                            />
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="grid__item">
@@ -139,8 +143,8 @@ class HomePage extends PureComponent {
                       <h4 className="users-group__title">Organizations</h4>
 
                       <div className="users-group__list">
-                        {[0, 0, 0, 0, 0].map(() => (
-                          <div className="users-group__item">
+                        {[0, 0, 0, 0, 0].map((i, index) => (
+                          <div className="users-group__item" key={index}>
                             <UserCard squareAvatar />
                           </div>
                         ))}
@@ -159,11 +163,11 @@ class HomePage extends PureComponent {
 
                         <div className="users-group__list">
                           {this.state.users.map(user => (
-                            <div className="users-group__item">
+                            <div className="users-group__item" key={user.id}>
                               <UserCard
                                 userName={`${user.first_name} ${user.last_name}`}
                                 accountName={user.nickname}
-                                profileLink={getUserLink(user.id)}
+                                profileLink={getUserUrl(user.id)}
                                 avatarUrl={getAvatarUrl(user.avatar_filename)}
                               />
                             </div>
@@ -188,4 +192,6 @@ class HomePage extends PureComponent {
   }
 }
 
-export default HomePage;
+export default connect(state => ({
+  user: state.user,
+}))(HomePage);

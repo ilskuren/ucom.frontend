@@ -6,6 +6,7 @@ import Rate from './Rate';
 
 const UserCard = (props) => {
   const avatar = <Avatar square={props.squareAvatar} src={props.avatarUrl} size={props.avatarSize} />;
+  const LinkTag = props.profileLink ? Link : 'span';
 
   return (
     <div className="user-card">
@@ -18,11 +19,11 @@ const UserCard = (props) => {
       </div>
       <div className="user-card__info">
         <div className="user-card__name">
-          {props.profileLink ? (
-            <Link to={props.profileLink}>{props.userName}</Link>
-          ) : (
-            <Fragment>{props.userName}</Fragment>
-          )}
+          <LinkTag to={props.profileLink}>
+            {props.userName || (
+              <span className="blank">Lorem, ipsum.</span>
+            )}
+          </LinkTag>
         </div>
 
         {props.accountName && (
@@ -52,8 +53,6 @@ UserCard.propTypes = {
 UserCard.defaultProps = {
   squareAvatar: false,
   isRated: false,
-  userName: 'John Don',
-  avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
 };
 
 export default UserCard;

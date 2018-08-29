@@ -37,6 +37,12 @@
   object-fit: cover;
 }
 
+.avatar__img_blank {
+  background: rgba(0,0,0,0.04);
+
+  &:extend(.flashing);
+}
+
 .avatar_square {
   .avatar__img {
     border-radius: 20%;

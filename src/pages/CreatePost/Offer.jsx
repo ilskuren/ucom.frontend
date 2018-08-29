@@ -60,7 +60,9 @@ class StoryPage extends PureComponent {
           withoutTabs
         />
 
-        <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__offer-title">
+          <OfferTitle imgSrc={burgerImg} />
+        </div>
         <div className="create-post__editor">
           <TextEditor
             title={this.state.title}

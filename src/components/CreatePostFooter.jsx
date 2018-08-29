@@ -20,7 +20,7 @@ const CreatePostFooter = props => (
           </span>
           <span className="inline__item">
             <button
-              className="button button_theme_red button_size_small button_stretched"
+              className="button button_theme_red button_size_small button_stretched button_capitalized"
               onClick={() => {
                 if (typeof props.onClickPost === 'function') {
                   props.onClickPost();

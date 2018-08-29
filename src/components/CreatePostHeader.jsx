@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import { kebabCase } from 'lodash';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import Avatar from './Avatar';
-// import PrefixInput from './PrefixInput';
+import PrefixInput from './PrefixInput';
+import EyeIcon from './Icons/Eye';
 import { getAvatarUrl, getUserName } from '../utils/user';
 
 const TAB_NAMES = [
@@ -14,33 +16,29 @@ const TAB_NAMES = [
   'News',
   'Trading Forecast',
   'Review',
-  'Analitics',
+  'Analytics',
   'Interview',
 ];
 
 const CreatePostHeader = props => (
   <div className="create-post__content">
     <div className="create-post__title">
-      <div className="inline inline_large">
-        <div className="inline__item">
-          <h1 className="title">{props.title}</h1>
-        </div>
-        <div className="inline__item">
-          <button
-            className="button button_theme_red button_size_small button_stretched"
-            onClick={() => {
-              if (typeof props.onClickPost === 'function') {
-                props.onClickPost();
-              }
-            }}
-          >
-            Post
-          </button>
-        </div>
+      <h1 className="title">{props.title}</h1>
+      <div className="create-post__title-button">
+        <button
+          className="button button_theme_red button_size_small button_stretched button_capitalized"
+          onClick={() => {
+            if (typeof props.onClickPost === 'function') {
+              props.onClickPost();
+            }
+          }}
+        >
+          Post
+        </button>
       </div>
     </div>
 
-    <div className="create-post__author">
+    <div className={cn('create-post__author', { 'create-post__author_preview': props.isPreview })}>
       <div className="inline inline_small">
         <span className="inline__item">
           By
@@ -53,22 +51,29 @@ const CreatePostHeader = props => (
         </span>
       </div>
     </div>
-
-    {/* <div className="create-post__field">
-      <div className="field">
-        <div className="field__label">
-          Name Media Post
-        </div>
-        <div className="field__input">
-          <PrefixInput prefix="u.community/" />
+    {props.isPreview && (
+      <div className="create-post__preview-text inline">
+        <div className="inline__item">Preivew</div>
+        <div className="inline__item"><EyeIcon /></div>
+      </div>
+    )}
+    {props.isPreview && (
+      <div className="create-post__field create-post__field_high">
+        <div className="field">
+          <div className="field__label">
+            Name Media Post
+          </div>
+          <div className="field__input">
+            <PrefixInput prefix="u.community/" subtext="Media Post id - id23784528" />
+          </div>
         </div>
       </div>
-    </div> */}
+    )}
 
     {!props.withoutTabs && (
       <div className="create-post__field">
         <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small">
-          {TAB_NAMES.map(tabName => (
+          {(props.tabs || TAB_NAMES).map(tabName => (
             <div className="menu__item" key={tabName}>
               <NavLink
                 className="menu__link"
@@ -90,6 +95,8 @@ CreatePostHeader.propTypes = {
   onClickPost: PropTypes.func,
   title: PropTypes.string,
   withoutTabs: PropTypes.bool,
+  isPreview: PropTypes.bool,
+  tabs: PropTypes.arrayOf(PropTypes.string),
 };
 
 CreatePostHeader.defaultProps = {

@@ -79,7 +79,7 @@ class StoryPage extends PureComponent {
               </div>
             </div>
             <div className="form__block  form__block_shifted_up">
-              <div className="form__label form__label_color_gray" />
+              <div className="form__label form__label_no-label" />
               <div className="form__input">
                 <TextInput placeholder="Link" />
               </div>
@@ -91,7 +91,7 @@ class StoryPage extends PureComponent {
               </div>
             </div>
             <div className="form__block form__block_no-label">
-              <div className="form__label form__label_color_gray" />
+              <div className="form__label form__label_no-label" />
               <div className="form__input">
                 <Switcher textColor="gray" labels={['Unlimited', '']} />
               </div>
@@ -115,7 +115,9 @@ class StoryPage extends PureComponent {
           </div>
         </div>
 
-        <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__offer-title">
+          <OfferTitle imgSrc={burgerImg} />
+        </div>
         <div className="create-post__editor">
           <TextEditor
             title={this.state.title}

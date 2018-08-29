@@ -2,9 +2,9 @@ import React from 'react';
 
 const SettingsWalletPage = () => (
   <div className="settings">
-    <div className="settings__form">
-      <div className="settings__block">
-        <div className="settings__label">Wallet Page</div>
+    <div className="form">
+      <div className="form__block">
+        <div className="form__label">Wallet Page</div>
       </div>
     </div>
   </div>

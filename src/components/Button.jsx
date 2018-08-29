@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import IconCheck from './Icons/Check';
 
 const Button = (props) => {
   const btnClass = classNames('button', {
@@ -11,9 +12,16 @@ const Button = (props) => {
     button_rounded: props.isRounded,
   });
 
+  const renderCheckedIcon = () => (
+    <div className="button__checked-icon">
+      <IconCheck />
+    </div>
+  );
+
   return (
-    <button disabled={props.isDisabled} className={btnClass}>
-      {props.text}
+    <button className={btnClass} disabled={props.isDisabled}>
+      { props.withCheckedIcon && renderCheckedIcon() }
+      { props.text }
     </button>
   );
 };
@@ -24,6 +32,7 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   isStretched: PropTypes.bool,
   isRounded: PropTypes.bool,
+  withCheckedIcon: PropTypes.bool,
   text: PropTypes.string,
 };
 

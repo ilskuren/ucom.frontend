@@ -14,4 +14,5 @@ export default {
     { value: 11, label: 'November' },
     { value: 12, label: 'December' },
   ],
+  accountNameValidationError: 'Account name must contain only a-z or 1-5 and must have exactly 12 symbols length',
 };

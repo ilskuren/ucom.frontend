@@ -8,6 +8,7 @@ import dict from '../utils/dict';
 import { login } from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
+import { getError } from '../utils/errors';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -20,22 +21,6 @@ class Auth extends PureComponent {
       showError: false,
       errors: null,
     };
-  }
-
-  getError(fieldName) {
-    const { errors } = this.state;
-
-    if (!errors) {
-      return null;
-    }
-
-    const fieldError = errors.find(error => error.field === fieldName);
-
-    if (!fieldError) {
-      return null;
-    }
-
-    return fieldError.message;
   }
 
   login() {
@@ -115,7 +100,7 @@ class Auth extends PureComponent {
             <div className="auth__fields">
               <div className="auth__field">
                 <TextInput
-                  error={this.getError('account_name')}
+                  error={getError(this.state.errors, 'account_name')}
                   label="Account name"
                   value={this.state.accountName}
                   disabled={this.state.loading}

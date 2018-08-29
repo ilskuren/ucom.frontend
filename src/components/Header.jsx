@@ -56,6 +56,9 @@ class Header extends PureComponent {
                 <div className="menu__item">
                   <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
                 </div>
+                <div className="menu__item">
+                  <Link to="/signup" className="menu__link menu__link_upper">Signup</Link>
+                </div>
               </nav>
             </Fragment>
           ) : (

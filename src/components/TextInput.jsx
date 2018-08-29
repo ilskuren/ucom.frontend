@@ -7,7 +7,7 @@ import InputCompleteIcon from '../components/Icons/InputComplete';
 import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength,
 }) => {
   const isIconExist = isSearch || error || value || type === 'password';
   let icon;
@@ -35,6 +35,7 @@ const TextInput = ({
         }
         <div className="text-input__input-wrapper" style={{ width: inputWidth }}>
           <input
+            maxLength={maxLength}
             value={value}
             className={classNames('text-input__input', {
               'text-input__input_error': Boolean(error),
@@ -71,6 +72,7 @@ TextInput.propTypes = {
   inputWidth: PropTypes.number,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  maxLength: PropTypes.string,
 };
 
 export default TextInput;

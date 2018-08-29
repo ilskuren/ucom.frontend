@@ -11,7 +11,7 @@ import Auth from './Auth';
 import UserCard from './UserCard';
 import { removeToken } from '../utils/token';
 import { removeUser } from '../actions';
-import { getAvatarUrl } from '../utils/user';
+import { getFileUrl } from '../utils/upload';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -62,7 +62,7 @@ class Header extends PureComponent {
             <div className="inline inline_large">
               <div className="inline__item">
                 <UserCard
-                  avatarUrl={getAvatarUrl(this.props.user.avatar_filename)}
+                  avatarUrl={getFileUrl(this.props.user.avatar_filename)}
                   profileLink={`/user/${this.props.user.id}`}
                   userName={this.props.user.nickname}
                 />

@@ -1,5 +1,3 @@
-import config from '../../package.json';
-
 export const getYearsFromBirthday = (value) => {
   if (value) {
     const birthday = new Date(value);
@@ -11,10 +9,6 @@ export const getYearsFromBirthday = (value) => {
 
   return null;
 };
-
-export const getAvatarUrl = filename => (
-  `${config.backend.httpEndpoint}/upload/${filename}`
-);
 
 export const getUserUrl = (userId) => {
   if (userId) {

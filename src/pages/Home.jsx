@@ -6,7 +6,7 @@ import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
 import { getUsers, getPosts, getUserPosts } from '../api';
-import { getUserUrl, getAvatarUrl, getUserName } from '../utils/user';
+import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl } from '../utils/posts';
 
@@ -168,7 +168,7 @@ class HomePage extends PureComponent {
                                 userName={`${user.first_name} ${user.last_name}`}
                                 accountName={user.nickname}
                                 profileLink={getUserUrl(user.id)}
-                                avatarUrl={getAvatarUrl(user.avatar_filename)}
+                                avatarUrl={getFileUrl(user.avatar_filename)}
                               />
                             </div>
                           ))}

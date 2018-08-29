@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import { createPost } from '../../api';
 import { getToken } from '../../utils/token';
-import dict from '../../utils/dict';
+import { validatePost } from '../../utils/posts';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -27,28 +27,7 @@ class StoryPage extends PureComponent {
 
   validate() {
     return new Promise((resolve) => {
-      const errors = [];
-
-      if (this.state.title.length === 0) {
-        errors.push({
-          field: 'title',
-          message: dict.titleIsRequired,
-        });
-      }
-
-      if (this.state.leading_text.length === 0) {
-        errors.push({
-          field: 'leading_text',
-          message: dict.leadingTextIsRequired,
-        });
-      }
-
-      if (this.state.description.length === 0) {
-        errors.push({
-          field: 'description',
-          message: dict.descriptionIsRequired,
-        });
-      }
+      const errors = validatePost(this.state);
 
       this.setState({ errors }, () => {
         resolve();

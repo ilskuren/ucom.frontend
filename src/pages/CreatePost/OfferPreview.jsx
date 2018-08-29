@@ -2,9 +2,12 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import CreatePostHeader from '../../components/CreatePostHeader';
+import Rating from '../../components/Rating';
+import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
-import TextEditor from '../../components/TextEditor';
+import OfferTitle from '../../components/OfferTitle';
+import burgerImg from './images/burger.png';
 import { getToken } from '../../utils/token';
 import { createPost } from '../../api';
 
@@ -14,7 +17,7 @@ class OfferPreview extends PureComponent {
 
     this.state = {
       title: '',
-      description: '',
+      description: 'Content',
       leading_text: '',
       newPostId: null,
       main_image_filename: null,
@@ -24,7 +27,7 @@ class OfferPreview extends PureComponent {
   }
 
   save() {
-    this.setState({ loading: true });
+    this.setState({ loading: true, description: '' });
 
     const token = getToken();
     const data = new FormData();
@@ -58,16 +61,21 @@ class OfferPreview extends PureComponent {
           withoutTabs
         />
 
-        <div className="create-post__editor">
-          <TextEditor
-            title={this.state.title}
-            description={this.state.description}
-            leadingText={this.state.leading_text}
-            onChangeTitle={title => this.setState({ title })}
-            onChangeDescription={description => this.setState({ description })}
-            onChangeLeadingText={leading_text => this.setState({ leading_text })}
-            onChangeCover={main_image_filename => this.setState({ main_image_filename })}
-          />
+        <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__preview">
+          <div className="posts">
+            <div className="posts__content">
+              {this.state.description}
+            </div>
+            <div className="posts__sidebar">
+              <div className="posts__rating">
+                <Rating rating={100} />
+              </div>
+              <div className="posts__views">
+                <PostViews views={352} />
+              </div>
+            </div>
+          </div>
         </div>
 
         <CreatePostFooter onClickPost={() => this.save()} />

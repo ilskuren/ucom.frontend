@@ -7,7 +7,6 @@ import IconComment from './Icons/Comment';
 import IconShare from './Icons/Share';
 import Rating from './Rating';
 import UserCard from './UserCard';
-import { getPostUrl } from '../utils/posts';
 
 const Post = props => (
   <div className="post">

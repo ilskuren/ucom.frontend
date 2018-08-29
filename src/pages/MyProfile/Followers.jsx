@@ -14,7 +14,7 @@ const users = Array.from({ length: 5 }, () => (
     rate: 10800,
   }));
 
-const FollowersPage = () => (
+const MyProfileFollowersPage = () => (
   <div className="followers-list">
     <div className="followers-list__filters">
       <div className={cn(
@@ -30,4 +30,4 @@ const FollowersPage = () => (
   </div>
 );
 
-export default FollowersPage;
+export default MyProfileFollowersPage;

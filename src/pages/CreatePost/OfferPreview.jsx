@@ -6,6 +6,7 @@ import Rating from '../../components/Rating';
 import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
+import CommentsStub from '../../components/CommentsStub';
 import OfferTitle from '../../components/OfferTitle';
 import burgerImg from './images/burger.png';
 import { getToken } from '../../utils/token';
@@ -63,10 +64,21 @@ class OfferPreview extends PureComponent {
           withoutTabs
         />
 
-        <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__offer-preview-title">
+          <OfferTitle imgSrc={burgerImg} />
+        </div>
+
         <div className="create-post__preview">
           <div className="posts">
-            <div className="posts__content" dangerouslySetInnerHTML={{ __html: this.state.description }} />
+            <div className="posts__content">
+              <div className="posts__lead-text posts__lead-text_offer">
+                Burgers for free!
+              </div>
+              <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.description }} />
+              <div className="posts__comments posts__comments-offer">
+                <CommentsStub />
+              </div>
+            </div>
             <div className="posts__sidebar">
               <div className="posts__rating">
                 <Rating rating={100} />

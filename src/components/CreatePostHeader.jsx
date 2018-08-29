@@ -16,7 +16,7 @@ const TAB_NAMES = [
   'News',
   'Trading Forecast',
   'Review',
-  'Analitics',
+  'Analytics',
   'Interview',
 ];
 

@@ -91,8 +91,7 @@ class StoryPage extends PureComponent {
             <div className="form__block form__block_no-label">
               <div className="form__label form__label_color_gray" />
               <div className="form__input">
-                <span className="form__input-label form__input-label_color_gray">Unlimited</span>
-                <Switcher withoutLabels />
+                <Switcher textColor="gray" labels={['Unlimited', '']} />
               </div>
             </div>
             <div className="form__block form__block_shifted_down">

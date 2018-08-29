@@ -1,23 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-const Switcher = ({ isChecked, withoutLabels }) => (
-  <div className="switcher">
+const Switcher = ({ isChecked, labels, textColor }) => (
+  <div className={cn('switcher', { [`switcher_text-color_${textColor}`]: Boolean(textColor) })}>
     <label className="switcher__label">
-      {!withoutLabels && <span className="switcher__label-off">Off</span>}
+      <span className="switcher__label-off">
+        {labels && labels.length ? labels[0] : 'Off'}
+      </span>
       <input className="switcher__input" type="checkbox" value={isChecked} />
       <div className="switcher__checkmark">
         <div className="switcher__toggle-background" />
         <div className="switcher__toggle" />
       </div>
-      {!withoutLabels && <span className="switcher__label-off">On</span>}
+      <span className="switcher__label-off">
+        {labels && labels.length ? labels[1] : 'On'}
+      </span>
     </label>
   </div>
 );
 
 Switcher.propTypes = {
   isChecked: PropTypes.bool,
-  withoutLabels: PropTypes.bool,
+  textColor: PropTypes.string,
+  labels: PropTypes.arrayOf(PropTypes.string),
 };
 
 Switcher.defaultProps = {

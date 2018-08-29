@@ -29,7 +29,7 @@ class MyProfilePage extends PureComponent {
             <div className="my-profile__statistics-menu">
               <div className="toolbar">
                 <div className="toolbar__main">
-                  <div className="menu menu_simple-tabs menu_simple-tabs_small">
+                  <div className="menu menu_simple-tabs menu_simple-tabs_medium">
                     <div className="menu__item">
                       <div className="rate rate_small">
                         <div className="rate__value">101</div>

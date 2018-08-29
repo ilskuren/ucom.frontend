@@ -126,6 +126,7 @@ class StoryPage extends PureComponent {
                       <Rating
                         rating={this.state.post.current_vote}
                         postId={this.state.post.id}
+                        choice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
                       />
                     </div>
 

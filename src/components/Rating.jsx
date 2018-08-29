@@ -6,6 +6,7 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import { postUpVote } from '../api';
 import { getToken } from '../utils/token';
+import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -24,8 +25,13 @@ class Rating extends PureComponent {
 
     postUpVote(this.props.postId, getToken())
       .then((data) => {
+        if (data.errors) {
+          return;
+        }
+
         this.setState({
           rating: data.current_vote,
+          choice: UPVOTE_STATUS,
         });
       });
   }
@@ -36,7 +42,7 @@ class Rating extends PureComponent {
         <div
           className={cn(
             'rating__icon',
-            { 'rating__icon_red': this.state.choice === 'down' },
+            { 'rating__icon_red': this.state.choice === DOWNVOTE_STATUS },
           )}
         >
           <IconArrowDown />
@@ -56,7 +62,7 @@ class Rating extends PureComponent {
           onClick={() => this.upvote()}
           className={cn(
             'rating__icon',
-            { 'rating__icon_green': this.state.choice === 'up' },
+            { 'rating__icon_green': this.state.choice === UPVOTE_STATUS },
           )}
         >
           <IconArrowUp />
@@ -69,7 +75,7 @@ class Rating extends PureComponent {
 Rating.propTypes = {
   postId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf('up', 'down'),
+  choice: PropTypes.oneOf(UPVOTE_STATUS, DOWNVOTE_STATUS),
 };
 
 Rating.defaultProps = {

@@ -7,7 +7,10 @@ import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
 
 const PostsGroup = (props) => {
-  const { posts } = props;
+  let { posts } = props;
+
+  posts = posts.filter(p => p.title && p.description);
+
   const mainPost = posts.length ? posts[0] : {};
   const sidePosts = posts.length ? posts.slice(1, 5) : [{}, {}, {}, {}];
   const footerPosts = posts.length ? posts.slice(6, 9) : [{}, {}, {}];

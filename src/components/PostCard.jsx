@@ -1,37 +1,53 @@
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { Fragment } from 'react';
 import Avatar from './Avatar';
-import { getFileUrl } from '../utils/upload';
-import { getUserLink } from '../utils/user';
 import Rate from './Rate';
+import Tags from './Tags';
 
 const PostCard = (props) => {
-  const user = props.post.User;
+  const PostLinkTag = props.url ? Link : 'span';
+  const UserLinkTag = props.userUrl ? Link : 'span';
 
   return (
     <div className="post-card">
       <div className="post-card__inner">
-        <div className="post-card__cover">
-          <img className="post-card__img" src={getFileUrl(props.post.main_image_filename)} alt="" />
+        <div
+          className={classNames(
+            'post-card__cover',
+            { 'post-card__cover_blank': !props.coverUrl },
+          )}
+        >
+          {props.coverUrl && (
+            <img
+              className="post-card__img"
+              src={props.coverUrl}
+              alt="cover"
+            />
+          )}
         </div>
 
         <div className="post-card__side">
           <div className="post-card__rate">
-            <Rate value={props.post.current_rate} />
+            <Rate value={props.rate} />
           </div>
         </div>
 
         <div className="post-card__main">
           <div className="post-card__tags">
-            <span className="tags">
-              <span className="tags__item tags__item_icon">#</span>
-              <span className="tags__item">story</span>
-            </span>
+            <Tags tags={props.tags} />
           </div>
 
           <div className="post-card__title">
             <h1 className="title title_light">
-              <Link to={`/posts/${props.post.id}`}>{props.post.title}</Link>
+              <PostLinkTag to={props.url}>
+                {props.title ? (
+                  <Fragment>{props.title}</Fragment>
+                ) : (
+                  <span className="blank">Lorem ipsum dolor sit amet.</span>
+                )}
+              </PostLinkTag>
             </h1>
           </div>
         </div>
@@ -39,13 +55,11 @@ const PostCard = (props) => {
         <div className="post-card__footer">
           <div className="post-card__authors">
             <div className="avatars-list">
-              {user && (
-                <div className="avatars-list__item">
-                  <Link to={getUserLink(user.id)}>
-                    <Avatar square src={getFileUrl(user.avatar_filename)} />
-                  </Link>
-                </div>
-              )}
+              <div className="avatars-list__item">
+                <UserLinkTag to={props.userUrl}>
+                  <Avatar square src={props.userImageUrl} />
+                </UserLinkTag>
+              </div>
             </div>
           </div>
 
@@ -82,6 +96,16 @@ const PostCard = (props) => {
       </div>
     </div>
   );
+};
+
+PostCard.propTypes = {
+  url: PropTypes.string,
+  userUrl: PropTypes.string,
+  coverUrl: PropTypes.string,
+  rate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  title: PropTypes.string,
+  userImageUrl: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default PostCard;

@@ -72,12 +72,24 @@
       }
     }
 
-    &_disabled, &_disabled:hover, &_disabled:active {
-        cursor: default;
-        background: @gray-disabled;
-      }
-    }
+    &_blank {
+      border-color: transparent;
+      background: rgba(0, 0, 0, 0.04);
+      color: transparent;
+      cursor: default;
 
+      &:extend(.flashing);
+    }
+  }
+
+  &_disabled,
+  &_disabled:hover,
+  &_disabled:active {
+    cursor: default;
+    border-color: transparent;
+    background: @gray-disabled;
+    color: #fff;
+  }
 
   &_size {
     &_big {

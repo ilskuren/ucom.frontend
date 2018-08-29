@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import Avatar from '../components/Avatar';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, editUrl,
+  avatar, name, rating, userId, userUrl,
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
 

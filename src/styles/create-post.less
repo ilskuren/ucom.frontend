@@ -13,6 +13,9 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 0 40px;
+    @media (max-width: 424px) {
+      padding: 0 15px;
+    }
 
     &_footer {
       padding: 40px;
@@ -100,11 +103,19 @@
 
   &__preview {
     padding: 40px;
-    box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
+    box-shadow: @baseShadow;
     box-sizing: border-box;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    
+    &_editor {
+      padding-top: 0;
+    }
+    @media (max-width: 424px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 
   &__back-link {
@@ -112,16 +123,4 @@
     font-weight: bold;
   }
 
-  &__preview {
-    padding: 50px;
-    box-shadow: @baseShadow;
-    box-sizing: border-box;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-
-    &_editor {
-      padding-top: 0;
-    }
-  }
 }

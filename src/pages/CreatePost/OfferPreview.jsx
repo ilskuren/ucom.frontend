@@ -1,5 +1,4 @@
 import { Redirect } from 'react-router';
-import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import CreatePostHeader from '../../components/CreatePostHeader';
 import Rating from '../../components/Rating';
@@ -96,6 +95,4 @@ class OfferPreview extends PureComponent {
   }
 }
 
-export default connect(state => ({
-  user: state.user,
-}), null)(OfferPreview);
+export default OfferPreview;

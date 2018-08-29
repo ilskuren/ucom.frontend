@@ -17,6 +17,10 @@
     &_footer {
       padding: 40px;
     }
+
+    &_form {
+      margin-bottom: 55px;
+    }
   }
   
   &__preview-text {
@@ -65,7 +69,11 @@
   &__editor {
     flex: 1 1 auto;
     margin: 0 40px;
-    box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
+    box-shadow: @baseShadow;
+
+    &_inner {
+      box-shadow: none;
+    }
   }
   
   &__offer-title {
@@ -77,5 +85,14 @@
   &__back-link {
     font-size: 16px;
     font-weight: bold;
+  }
+
+  &__preview {
+    padding: 50px;
+    box-shadow: @baseShadow;
+    box-sizing: border-box;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
   }
 }

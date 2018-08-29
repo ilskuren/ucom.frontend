@@ -93,13 +93,18 @@ class UserPage extends PureComponent {
                       <div className="user-header__name">
                         <h1 className="title title_light">
                           <div className="inline">
-                            <div className="inline__item">
-                              {this.state.user.id ? (
-                                <Fragment>{this.state.user.first_name} {this.state.user.last_name}</Fragment>
-                              ) : (
+                            {this.state.user.id ? (
+                              <Fragment>
+                                {(this.state.user.first_name || this.state.user.last_name) && (
+                                  <div className="inline__item">{this.state.user.first_name} {this.state.user.last_name}</div>
+                                )}
+                              </Fragment>
+                            ) : (
+                              <div className="inline__item">
                                 <span className="blank">Jon Don</span>
-                              )}
-                            </div>
+                              </div>
+                            )}
+
                             {this.props.user.id && this.props.user.id === this.state.user.id && (
                               <div className="inline__item">
                                 <Link className="button-icon button-icon_edit" to="/profile/general-info">

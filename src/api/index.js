@@ -31,7 +31,7 @@ export const register = ({ brainkey, accountName }) => {
   const sign = ecc.sign(accountName, activeKey);
   const publicKey = ecc.privateToPublic(activeKey);
 
-  return fetch(`${config.backend.httpEndpoint}/api/v1/auth/login`, {
+  return fetch(`${config.backend.httpEndpoint}/api/v1/auth/registration`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

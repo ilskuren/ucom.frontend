@@ -17,6 +17,7 @@ const UserCard = (props) => {
           <Fragment>{avatar}</Fragment>
         )}
       </div>
+
       <div className="user-card__info">
         <div className="user-card__name">
           <LinkTag to={props.profileLink}>

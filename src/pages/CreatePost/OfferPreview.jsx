@@ -17,7 +17,9 @@ class OfferPreview extends PureComponent {
 
     this.state = {
       title: '',
-      description: 'Content',
+      description: `The development continues Coinbase's 2018 hiring spree. Since the start of the year, the company has hired Tina Bhatnagar to serve as vice president of operations and technology; Emilie Choi as its vice president of corporate and business development; Eric Soto as vice president of finance; Rachael Horwitz as vice president of communications; Alesia Haas as its new chief financial officer; and Jeff Horowitz as its chief compliance officer, among others.</br></br>
+      With Wagner, Coinbase is beefing up its engineering team, which the AWS vet will help grow, according to Coinbase.</br></br>
+      "Engineering is central to our mission of creating an open financial system for the world. It is core to our strategy to deliver the most trusted and easiest to use cryptocurrency products and services. We have built an amazing engineering team at a Coinbase, one which Tim will now lead and expand," Coinbase CEO Brian Armstrong wrote in a blog post announcing the hire. `,
       leading_text: '',
       newPostId: null,
       main_image_filename: null,
@@ -64,9 +66,7 @@ class OfferPreview extends PureComponent {
         <OfferTitle imgSrc={burgerImg} />
         <div className="create-post__preview">
           <div className="posts">
-            <div className="posts__content">
-              {this.state.description}
-            </div>
+            <div className="posts__content" dangerouslySetInnerHTML={{ __html: this.state.description }} />
             <div className="posts__sidebar">
               <div className="posts__rating">
                 <Rating rating={100} />

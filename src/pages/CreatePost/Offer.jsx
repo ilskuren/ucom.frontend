@@ -64,7 +64,7 @@ class StoryPage extends PureComponent {
           tabs={['Sale', 'Token Sale', 'Event', 'Service', 'White List', 'Charity', 'Give Away']}
           isPreview
         />
-        <div className="create-post__content">
+        <div className="create-post__content create-post__content_form">
           <div className="form">
             <div className="form__block form__block_shifted_down">
               <div className="form__label form__label_color_gray">Offer Title</div>
@@ -79,7 +79,7 @@ class StoryPage extends PureComponent {
               </div>
             </div>
             <div className="form__block  form__block_shifted_up">
-              <div className="form__label form__label_color_gray" />
+              <div className="form__label form__label_no-label" />
               <div className="form__input">
                 <TextInput placeholder="Link" />
               </div>
@@ -91,7 +91,7 @@ class StoryPage extends PureComponent {
               </div>
             </div>
             <div className="form__block form__block_no-label">
-              <div className="form__label form__label_color_gray" />
+              <div className="form__label form__label_no-label" />
               <div className="form__input">
                 <Switcher textColor="gray" labels={['Unlimited', '']} />
               </div>
@@ -115,10 +115,10 @@ class StoryPage extends PureComponent {
           </div>
         </div>
 
-        <div className="create-post__offer-title">
+        <div className="create-post__offer-preview-title">
           <OfferTitle imgSrc={burgerImg} />
         </div>
-        <div className="create-post__editor">
+        <div className="create-post__preview create-post__preview_editor">
           <TextEditor
             title={this.state.title}
             description={this.state.description}

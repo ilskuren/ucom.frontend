@@ -16,3 +16,7 @@ export const getPostEditUrl = (postId) => {
 
   return null;
 };
+
+export const validatePost = () => {
+
+};

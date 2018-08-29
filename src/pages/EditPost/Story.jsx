@@ -76,7 +76,7 @@ class StoryPage extends PureComponent {
     }
 
     return this.state.saved ? (
-      <Redirect to={`/posts/story/${this.props.match.params.id}`} />
+      <Redirect to={`/posts/${this.props.match.params.id}`} />
     ) : (
       <Fragment>
         <Loading appear loading={this.state.dataLoading || this.state.saveLoading} />

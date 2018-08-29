@@ -8,3 +8,11 @@ export const getPostUrl = (postId) => {
 
   return null;
 };
+
+export const getPostEditUrl = (postId) => {
+  if (postId) {
+    return `/posts/edit/${postId}`;
+  }
+
+  return null;
+};

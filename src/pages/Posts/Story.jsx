@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { PureComponent, Fragment } from 'react';
 // import CommentsStub from '../../components/CommentsStub';
@@ -8,9 +9,11 @@ import PostViews from '../../components/PostViews';
 import PostHeader from '../../components/PostHeader';
 import Tags from '../../components/Tags';
 import Rate from '../../components/Rate';
+import EditIcon from '../../components/Icons/Edit';
 import { getPost, getUser } from '../../api';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
+import { getPostEditUrl } from '../../utils/posts';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -66,9 +69,22 @@ class StoryPage extends PureComponent {
                       </div>
 
                       <h1 className="title title_medium">
-                        {this.state.post.title || (
-                          <span className="blank">Lorem ipsum dolor sit amet.</span>
-                        )}
+                        <div className="inline">
+                          <div className="inline__item">
+                            {this.state.post.title || (
+                              <span className="blank">Lorem ipsum dolor sit amet.</span>
+                            )}
+                          </div>
+                          <div className="inline__item">
+                            {(this.props.user.id && this.props.user.id === this.state.post.user_id) && (
+                              <Link to={getPostEditUrl(this.state.post.id)}>
+                                <span className="post-item__edit">
+                                  <EditIcon />
+                                </span>
+                              </Link>
+                            )}
+                          </div>
+                        </div>
                       </h1>
                     </div>
                     <div className="toolbar__side">

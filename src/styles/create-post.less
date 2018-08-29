@@ -20,14 +20,6 @@
 
     &_form {
       margin-bottom: 55px;
-      @media (min-width: 1023px) {
-        padding: 0;
-      }
-    }
-
-    &_wide {
-      max-width: 1200px;
-      padding: 0;
     }
   }
   
@@ -67,6 +59,12 @@
     }
   }
 
+  &__offer-preview-title{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
   &__author {
     margin: 0 0 55px;
 
@@ -100,6 +98,15 @@
     margin-top: 50px;
   }
 
+  &__preview {
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
+    box-sizing: border-box;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   &__back-link {
     font-size: 16px;
     font-weight: bold;
@@ -112,5 +119,9 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+
+    &_editor {
+      padding-top: 0;
+    }
   }
 }

@@ -18,7 +18,7 @@ const MyProfileOrganizationsPage = () => (
       <div className="my-profile-list__filters-element">Followed</div>
       <div className="my-profile-list__filters-element">Joined</div>
     </div>
-    <MyProfileItems bottomLabel="create organization" />
+    <MyProfileItems bottomLabel="create organization" renderButton />
   </div>
 );
 

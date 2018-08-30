@@ -112,7 +112,7 @@ const EventTitle = props => (
             <div className="toolbar__side">
               <div className="event-title__footer-board">
                 <Avatars list={boardAvatars} orderStacking="fifo" distance="close" />
-                <span className="event-title__board-more">+24</span>
+                <span className="more-users">+24</span>
               </div>
               <div className="event-title__name">BOARD</div>
             </div>

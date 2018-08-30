@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import MyProfileItems from '../../components/MyProfileItems';
 
 const MyProfileProductsPage = () => (
   <div className="my-profile-list">
@@ -16,6 +17,7 @@ const MyProfileProductsPage = () => (
       <div className="my-profile-list__filters-element">Followed</div>
       <div className="my-profile-list__filters-element">Joined</div>
     </div>
+    <MyProfileItems bottomLabel="create organization" />
   </div>
 );
 

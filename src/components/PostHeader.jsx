@@ -17,6 +17,7 @@ const PostHeader = ({
             <Avatar src={avatar} alt={name} />
           </UserLinkTag>
         </div>
+
         <div className="post-header__user-info">
           <div className="post-header__user-name">
             <UserLinkTag to={userUrl}>
@@ -25,6 +26,7 @@ const PostHeader = ({
               )}
             </UserLinkTag>
           </div>
+
           <div className="post-header__user-rate">
             {rating ? (
               <Fragment>{rating}<span className="post-header__user-rate-degree">°</span></Fragment>
@@ -34,6 +36,7 @@ const PostHeader = ({
           </div>
         </div>
       </div>
+
       <div className="post-header__follow-button">
         {userId ? (
           <Button

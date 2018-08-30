@@ -102,7 +102,7 @@ class ProfileContactsPage extends PureComponent {
                 </div> */}
               </InfoBlock>
               <div className="profile__block">
-                <Button text="FINISH" size="big" theme="red" isStretched />
+                <Button type="submit" text="FINISH" size="big" theme="red" isStretched />
               </div>
             </div>
           </form>

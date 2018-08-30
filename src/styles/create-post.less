@@ -14,9 +14,16 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 0 40px;
+    @media (max-width: 424px) {
+      padding: 0 15px;
+    }
 
     &_footer {
       padding: 40px;
+    }
+
+    &_form {
+      margin-bottom: 55px;
     }
   }
 
@@ -46,6 +53,26 @@
     margin: 0 0 9px;
   }
 
+  &__offer-title {
+    align-self: center;
+    min-width: 94%;
+    @media (max-width: 1024px) {
+      min-width: 92%;
+    }
+    @media (max-width: 767px) {
+      min-width: 90%;
+    }
+    @media (max-width: 424px) {
+      min-width: 78%;
+    }
+  }
+
+  &__offer-preview-title{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
   &__author {
     margin: 0 0 55px;
 
@@ -70,11 +97,35 @@
   &__editor {
     flex: 1 1 auto;
     margin: 0 40px;
-    box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
+    box-shadow: @baseShadow;
+  }
+  
+  &__offer-title {
+    flex: 1 1 auto;
+    margin: 0 40px;
+    margin-top: 50px;
+  }
+
+  &__preview {
+    padding: 40px;
+    box-shadow: @baseShadow;
+    box-sizing: border-box;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    
+    &_editor {
+      padding-top: 0;
+    }
+    @media (max-width: 424px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 
   &__back-link {
     font-size: 16px;
     font-weight: bold;
   }
+
 }

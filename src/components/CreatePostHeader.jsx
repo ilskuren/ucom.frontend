@@ -5,9 +5,10 @@ import { kebabCase } from 'lodash';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import Avatar from './Avatar';
+import { getFileUrl } from '../utils/upload';
 import PrefixInput from './PrefixInput';
 import EyeIcon from './Icons/Eye';
-import { getAvatarUrl, getUserName } from '../utils/user';
+import { getUserName } from '../utils/user';
 
 const TAB_NAMES = [
   'Story',
@@ -44,7 +45,7 @@ const CreatePostHeader = props => (
           By
         </span>
         <span className="inline__item">
-          <Avatar size="xsmall" src={getAvatarUrl(props.user.avatar_filename)} />
+          <Avatar size="xsmall" src={getFileUrl(props.user.avatar_filename)} />
         </span>
         <span className="inline__item">
           <span className="create-post__author-name">{getUserName(props.user)}</span>

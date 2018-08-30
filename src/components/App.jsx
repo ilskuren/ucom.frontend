@@ -58,25 +58,22 @@ class App extends PureComponent {
 
         {!this.state.loading && (
           <Router history={this.props.history}>
-            {this.props.history.location.pathname === '/404' ? (
-              <Route path="/404" component={NotFoundPage} />
-            ) : (
-              <Page>
-                <Header />
+            <Page>
+              <Header />
 
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route path="/signup" component={SignUp} />
-                  <Route path="/profile" component={ProfilePage} />
-                  <Route path="/my-profile" component={MyProfilePage} />
-                  <Route path="/settings" component={SettingsPage} />
-                  <Route path="/user/:id" component={UserPage} />
-                  <Route path="/posts/new" component={CreatePost} />
-                  <Route path="/posts/edit" component={EditPost} />
-                  <Route path="/posts" component={Posts} />
-                </Switch>
-              </Page>
-            )}
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-profile" component={MyProfilePage} />
+                <Route path="/settings" component={SettingsPage} />
+                <Route path="/user/:id" component={UserPage} />
+                <Route path="/posts/new" component={CreatePost} />
+                <Route path="/posts/edit" component={EditPost} />
+                <Route path="/posts" component={Posts} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </Page>
 
           </Router>
         )}

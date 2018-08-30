@@ -1,8 +1,16 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
-import FollowersPage from './MyProfile/Followers';
+
+import MyProfileFollowersPage from './MyProfile/Followers';
+import MyProfileFeedPage from './MyProfile/Feed';
+import MyProfileOrganizationsPage from './MyProfile/Organizations';
+import MyProfileProductsPage from './MyProfile/Products';
+import MyProfileEventsPage from './MyProfile/Events';
+
+
 import Footer from '../components/Footer';
 import FollowersAmount from '../components/FollowersAmount';
 import ProfileHeader from '../components/ProfileHeader';
@@ -29,30 +37,58 @@ class MyProfilePage extends PureComponent {
             <div className="my-profile__statistics-menu">
               <div className="toolbar">
                 <div className="toolbar__main">
-                  <div className="menu menu_simple-tabs menu_simple-tabs_medium">
+                  <div className="menu menu_simple-tabs menu_simple-tabs_medium menu_simple-tabs_black">
                     <div className="menu__item">
-                      <div className="rate rate_small">
-                        <div className="rate__value">101</div>
-                        <div className="rate__label">feed</div>
-                      </div>
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/feed"
+                        isActive={() => this.props.location.pathname === '/my-profile/feed'}
+                      >
+                        <div className="rate rate_small">
+                          <div className="rate__value">101</div>
+                          <div className="rate__label">feed</div>
+                        </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="rate rate_small">
-                        <div className="rate__value">5</div>
-                        <div className="rate__label">organizations</div>
-                      </div>
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/organizations"
+                        isActive={() => this.props.location.pathname === '/my-profile/organizations'}
+                      >
+                        <div className="rate rate_small">
+                          <div className="rate__value">5</div>
+                          <div className="rate__label">organizations</div>
+                        </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="rate rate_small">
-                        <div className="rate__value">10</div>
-                        <div className="rate__label">products</div>
-                      </div>
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/products"
+                        isActive={() => this.props.location.pathname === '/my-profile/products'}
+                      >
+                        <div className="rate rate_small">
+                          <div className="rate__value">10</div>
+                          <div className="rate__label">products</div>
+                        </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="rate rate_small">
-                        <div className="rate__value">4</div>
-                        <div className="rate__label">events</div>
-                      </div>
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/events"
+                        isActive={() => this.props.location.pathname === '/my-profile/events'}
+                      >
+                        <div className="rate rate_small">
+                          <div className="rate__value">4</div>
+                          <div className="rate__label">events</div>
+                        </div>
+                      </NavLink>
                     </div>
                   </div>
                 </div>
@@ -61,24 +97,44 @@ class MyProfilePage extends PureComponent {
                 <div className="toolbar__main">
                   <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">
                     <div className="menu__item">
-                      <div className="menu__link menu__link_active">
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/followers/followers"
+                        isActive={() => this.props.location.pathname === '/my-profile/followers/followers'}
+                      >
                         <FollowersAmount status="followers" />
-                      </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link">
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/followers/following"
+                        isActive={() => this.props.location.pathname === '/my-profile/followers/following'}
+                      >
                         <FollowersAmount status="following" />
-                      </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link">
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/followers/trusted-by"
+                        isActive={() => this.props.location.pathname === '/my-profile/followers/trusted-by'}
+                      >
                         <FollowersAmount status="trusted by" />
-                      </div>
+                      </NavLink>
                     </div>
                     <div className="menu__item">
-                      <div className="menu__link">
+                      <NavLink
+                        className="menu__link"
+                        activeClassName="menu__link_active"
+                        to="/my-profile/followers/joined"
+                        isActive={() => this.props.location.pathname === '/my-profile/followers/joined'}
+                      >
                         <FollowersAmount status="joined" />
-                      </div>
+                      </NavLink>
                     </div>
                   </div>
                 </div>
@@ -90,7 +146,11 @@ class MyProfilePage extends PureComponent {
         <div className="content">
           <div className="content__inner">
             <Fragment>
-              <Route exact path="/my-profile/followers" component={FollowersPage} />
+              <Route exact path="/my-profile/followers/*" component={MyProfileFollowersPage} />
+              <Route exact path="/my-profile/feed" component={MyProfileFeedPage} />
+              <Route exact path="/my-profile/organizations" component={MyProfileOrganizationsPage} />
+              <Route exact path="/my-profile/products" component={MyProfileProductsPage} />
+              <Route exact path="/my-profile/events" component={MyProfileEventsPage} />
             </Fragment>
             <Footer />
           </div>

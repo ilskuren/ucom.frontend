@@ -15,6 +15,8 @@ export default {
     { value: 12, label: 'December' },
   ],
   accountNameValidationError: 'Account name must contain only a-z or 1-5 and must have exactly 12 symbols length',
+  accountNameIsRequired: 'Account name is required',
+  brainkeyValidationError: 'Brainkey must have exactly 12 words',
   titleIsRequired: 'Title is required',
   leadingTextIsRequired: 'Leading text is required',
   descriptionIsRequired: 'Text is required',

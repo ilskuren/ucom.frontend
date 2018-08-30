@@ -9,6 +9,7 @@ import { login } from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
+import { validateAuth } from '../utils/user';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -16,7 +17,7 @@ class Auth extends PureComponent {
 
     this.state = {
       brainkey: '',
-      accountName: '',
+      account_name: '',
       loading: false,
       showError: false,
       errors: null,
@@ -24,6 +25,13 @@ class Auth extends PureComponent {
   }
 
   login() {
+    const errors = validateAuth(this.state);
+
+    if (errors.length) {
+      this.setState({ errors });
+      return;
+    }
+
     this.setState({
       errors: null,
       loading: true,
@@ -32,7 +40,7 @@ class Auth extends PureComponent {
     setTimeout(() => {
       login({
         brainkey: this.state.brainkey,
-        accountName: this.state.accountName,
+        account_name: this.state.account_name,
       })
         .then((data) => {
           if (data.errors) {
@@ -91,6 +99,7 @@ class Auth extends PureComponent {
           )}
 
           <form
+            noValidate
             className="auth__form"
             onSubmit={(e) => {
               e.preventDefault();
@@ -100,11 +109,12 @@ class Auth extends PureComponent {
             <div className="auth__fields">
               <div className="auth__field">
                 <TextInput
+                  maxLength="12"
                   error={getError(this.state.errors, 'account_name')}
                   label="Account name"
-                  value={this.state.accountName}
+                  value={this.state.account_name}
                   disabled={this.state.loading}
-                  onChange={accountName => this.setState({ accountName })}
+                  onChange={account_name => this.setState({ account_name })}
                 />
               </div>
               <div className="auth__field">
@@ -112,6 +122,7 @@ class Auth extends PureComponent {
                   label="Brainkey"
                   value={this.state.brainkey}
                   disabled={this.state.loading}
+                  error={getError(this.state.errors, 'brainkey')}
                   onChange={brainkey => this.setState({ brainkey })}
                 />
               </div>

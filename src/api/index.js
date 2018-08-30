@@ -4,10 +4,10 @@ const Eos = require('eosjs');
 
 const { ecc } = Eos.modules;
 
-export const login = ({ brainkey, accountName }) => {
+export const login = ({ brainkey, account_name }) => {
   const ownerKey = ecc.seedPrivate(brainkey);
   const activeKey = ecc.seedPrivate(ownerKey);
-  const sign = ecc.sign(accountName, activeKey);
+  const sign = ecc.sign(account_name, activeKey);
   const publicKey = ecc.privateToPublic(activeKey);
 
   return fetch(`${config.backend.httpEndpoint}/api/v1/auth/login`, {
@@ -18,7 +18,7 @@ export const login = ({ brainkey, accountName }) => {
     },
     body: JSON.stringify({
       sign,
-      account_name: accountName,
+      account_name,
       public_key: publicKey,
     }),
   })

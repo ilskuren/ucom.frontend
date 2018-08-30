@@ -120,9 +120,6 @@ class Header extends PureComponent {
               </Fragment>
             )}
             <div className="menu__item">
-              <a href="#" className="menu__link menu__link_upper">Create Event</a>
-            </div>
-            <div className="menu__item">
               <a href="#" className="menu__link menu__link_upper">People</a>
             </div>
             <div className="menu__item">

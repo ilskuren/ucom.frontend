@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 
 const DropZone = props => (
-  <div className="drop-zone">
+  <div className={classNames('drop-zone', props.className)}>
     <Dropzone
       multiple={props.multiple}
       accept={props.accept}
-      className={classNames('drop-zone__input', props.className)}
+      className="drop-zone__input"
       onDrop={(files) => {
         if (typeof props.onDrop === 'function') {
           props.onDrop(files);

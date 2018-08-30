@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Router, Route, Switch, Redirect } from 'react-router';
+import { Router, Route, Switch } from 'react-router';
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
@@ -74,7 +74,6 @@ class App extends PureComponent {
                   <Route path="/posts/new" component={CreatePost} />
                   <Route path="/posts/edit" component={EditPost} />
                   <Route path="/posts" component={Posts} />
-                  <Route component={() => <Redirect to="/404" />} />
                 </Switch>
               </Page>
             )}

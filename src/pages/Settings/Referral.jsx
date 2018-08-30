@@ -4,24 +4,24 @@ import Accordeon from '../../components/Accordeon';
 
 const SettingsReferralPage = () => (
   <div className="settings">
-    <div className="settings__form">
-      <div className="settings__block">
-        <div className="settings__label">Your referral link</div>
-        <div className="settings__input"><InputWithCopy value="Email" /></div>
+    <div className="form">
+      <div className="form__block">
+        <div className="form__label">Your referral link</div>
+        <div className="form__input"><InputWithCopy value="Email" /></div>
       </div>
-      <div className="settings__title">Social network</div>
-      <div className="settings__block">
-        <div className="settings__combine-label-input">
+      <div className="form__title">Social network</div>
+      <div className="form__block">
+        <div className="form__combine-label-input">
           <Accordeon label="Facebook" />
         </div>
       </div>
-      <div className="settings__block">
-        <div className="settings__combine-label-input">
+      <div className="form__block">
+        <div className="form__combine-label-input">
           <Accordeon label="Twitter" />
         </div>
       </div>
-      <div className="settings__block">
-        <div className="settings__combine-label-input">
+      <div className="form__block">
+        <div className="form__combine-label-input">
           <Accordeon label="Github" isOpened />
         </div>
       </div>

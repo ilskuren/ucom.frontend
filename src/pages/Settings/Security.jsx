@@ -3,16 +3,16 @@ import Switcher from '../../components/Switcher';
 
 const SettingsSecurityPage = () => (
   <div className="settings">
-    <div className="settings__form">
-      <div className="settings__block">
-        <div className="settings__label">Auto-login</div>
-        <div className="settings__input">
+    <div className="form">
+      <div className="form__block">
+        <div className="form__label">Auto-login</div>
+        <div className="form__input">
           <Switcher />
         </div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">2FA</div>
-        <div className="settings__input">
+      <div className="form__block">
+        <div className="form__label">2FA</div>
+        <div className="form__input">
           <Switcher />
         </div>
       </div>

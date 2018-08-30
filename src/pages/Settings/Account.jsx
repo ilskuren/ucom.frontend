@@ -7,45 +7,45 @@ import KYC from '../../components/KYC';
 
 const SettingsAccountPage = () => (
   <div className="settings">
-    <div className="settings__form">
-      <div className="settings__block">
-        <div className="settings__label">Email</div>
-        <div className="settings__input"><TextInput /></div>
+    <div className="form">
+      <div className="form__block">
+        <div className="form__label">Email</div>
+        <div className="form__input"><TextInput /></div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">Password</div>
-        <div className="settings__input">
+      <div className="form__block">
+        <div className="form__label">Password</div>
+        <div className="form__input">
           <TextInput type="password" />
-          <div className="settings__change-password-button">
+          <div className="form__change-password-button">
             <Link href="#">Change password</Link>
           </div>
         </div>
       </div>
 
-      <div className="settings__block">
-        <div className="settings__label">Profile link</div>
-        <div className="settings__input">
+      <div className="form__block">
+        <div className="form__label">Profile link</div>
+        <div className="form__input">
           <PrefixInput
             prefix="u.community/"
             subtext="You can change your profile URL once"
           />
         </div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">KYC</div>
-        <div className="settings__input"><KYC /></div>
+      <div className="form__block">
+        <div className="form__label">KYC</div>
+        <div className="form__input"><KYC /></div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">Timezone</div>
-        <div className="settings__input"><Dropdown options={[]} /></div>
+      <div className="form__block">
+        <div className="form__label">Timezone</div>
+        <div className="form__input"><Dropdown options={[]} /></div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">Language</div>
-        <div className="settings__input"><Dropdown options={[]} /></div>
+      <div className="form__block">
+        <div className="form__label">Language</div>
+        <div className="form__input"><Dropdown options={[]} /></div>
       </div>
-      <div className="settings__block">
-        <div className="settings__label">Currency</div>
-        <div className="settings__input"><Dropdown options={[]} /></div>
+      <div className="form__block">
+        <div className="form__label">Currency</div>
+        <div className="form__input"><Dropdown options={[]} /></div>
       </div>
     </div>
   </div>

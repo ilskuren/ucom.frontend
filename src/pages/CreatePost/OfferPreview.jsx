@@ -64,7 +64,7 @@ class OfferPreview extends PureComponent {
         />
 
         <div className="create-post__offer-preview-title">
-          <EventTitle imgSrc={burgerImg} />
+          <EventTitle imgSrc={burgerImg} buyers="8 923" />
         </div>
 
         <div className="create-post__preview">

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import Rate from './Rate';
 import IconShare from './Icons/Share';
 import Avatars from './Avatars';
@@ -40,7 +41,7 @@ const boardAvatars = [
 ];
 
 const EventTitle = props => (
-  <div className="event-title">
+  <div className={cn('event-title', props.className)}>
     <div className="event-title__inner">
       <div className="event-title__cover">
         <img src={props.imgSrc} className="event-title__img" alt="" />
@@ -53,7 +54,7 @@ const EventTitle = props => (
                 #
               </span>
               <span className="tags__item">
-                sell
+                {props.tag || 'sell'}
               </span>
             </span>
           </div>
@@ -64,7 +65,9 @@ const EventTitle = props => (
         <div className="toolbar toolbar_responsive">
           <div className="toolbar__main">
             <div className="event-title__text">
-              Buy 2 burgers for the price of 3, and get one for free! Or not one, maybe 4, if i want
+              { props.text
+                || 'Buy 2 burgers for the price of 3, and get one for free! Or not one, maybe 4, if i want'
+              }
             </div>
           </div>
           <div className="toolbar__side">
@@ -75,17 +78,19 @@ const EventTitle = props => (
             </div>
           </div>
         </div>
-        <div className="event-title__buyers">
-          <div className="event-title__avatar-list">
-            <Avatars list={buyersAvatars} orderStacking="fifo" distance="close" />
+        {props.buyers && (
+          <div className="event-title__buyers">
+            <div className="event-title__avatar-list">
+              <Avatars list={buyersAvatars} orderStacking="fifo" distance="close" />
+            </div>
+            <span className="event-title__number-buyers">
+              {props.buyers}
+            </span>
+            <span className="event-title__buyers-word">
+              BUYERS
+            </span>
           </div>
-          <span className="event-title__number-buyers">
-            8 923
-          </span>
-          <span className="event-title__buyers-word">
-            BUYERS
-          </span>
-        </div>
+        )}
         <div className="event-title__footer">
           <div className="toolbar toolbar_responsive">
             <div className="toolbar__main">
@@ -124,7 +129,11 @@ const EventTitle = props => (
 );
 
 EventTitle.propTypes = {
+  className: PropTypes.string,
   imgSrc: PropTypes.string,
+  tag: PropTypes.string,
+  text: PropTypes.string,
+  buyers: PropTypes.string,
 };
 
 export default EventTitle;

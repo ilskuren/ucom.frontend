@@ -57,7 +57,7 @@ class OfferPage extends PureComponent {
                 />
               </div>
             </div>
-            <EventTitle imgSrc={burgerImg} />
+            <EventTitle imgSrc={burgerImg} buyers="8 923" />
 
             <div className="sheets__content sheets__content_posts">
               <div className="posts">

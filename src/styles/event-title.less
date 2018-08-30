@@ -180,4 +180,26 @@
       flex-direction: column-reverse;
     }
   }
+
+  &_high {
+    &:after {
+      padding-bottom: 40px;
+    }
+  }
+
+  &_no-footer {
+    &:after {
+      @media (max-width: 767px) {
+        padding-top: 320px;
+      }
+    }
+
+    .event-title__footer {
+      display: none;
+    }
+
+    .event-title__img {
+      height: calc(100% - 40px);
+    }
+  }
 }

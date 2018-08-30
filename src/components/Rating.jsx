@@ -69,7 +69,7 @@ class Rating extends PureComponent {
 Rating.propTypes = {
   postId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf('up', 'down'),
+  choice: PropTypes.oneOf(['up', 'down']),
 };
 
 Rating.defaultProps = {

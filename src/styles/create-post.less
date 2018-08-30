@@ -9,6 +9,7 @@
   padding: 82px 0 0;
 
   &__content {
+    box-sizing: border-box;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
@@ -18,13 +19,35 @@
       padding: 40px;
     }
   }
+  
+  &__preview-text {
+    color: @black;
+    font-weight: 700;
+    margin-bottom: 30px;
+
+    & svg {
+      transform: scale(0.8)
+    }
+    
+    svg path {
+      fill: black;
+    }
+  }
 
   &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
     margin: 0 0 9px;
   }
 
   &__author {
     margin: 0 0 55px;
+
+    &_preview {
+      margin-bottom: 20px;
+    }
   }
 
   &__author-name {
@@ -34,6 +57,10 @@
 
   &__field {
     margin: 0 0 40px;
+
+    &_high {
+      margin-bottom: 60px;
+    }
   }
 
   &__editor {

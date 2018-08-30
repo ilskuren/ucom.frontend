@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import { editPost, getPost } from '../../api';
 import { getToken } from '../../utils/token';
+import { validatePost } from '../../utils/posts';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -22,6 +23,7 @@ class StoryPage extends PureComponent {
       saveLoading: false,
       saved: false,
       newDescription: '',
+      errors: [],
     };
   }
 
@@ -46,23 +48,40 @@ class StoryPage extends PureComponent {
       });
   }
 
+  validate() {
+    return new Promise((resolve) => {
+      const errors = validatePost(this.state);
+
+      this.setState({ errors }, () => {
+        resolve();
+      });
+    });
+  }
+
   save() {
-    this.setState({ saveLoading: true });
-
-    const token = getToken();
-    const data = new FormData();
-
-    data.append('title', this.state.title);
-    data.append('description', this.state.newDescription);
-    data.append('leading_text', this.state.leading_text);
-    data.append('main_image_filename', this.state.main_image_filename);
-
-    editPost(this.props.match.params.id, data, token)
+    this.validate()
       .then(() => {
-        this.setState({
-          saveLoading: false,
-          saved: true,
-        });
+        if (this.state.errors.length) {
+          return;
+        }
+
+        this.setState({ saveLoading: true });
+
+        const token = getToken();
+        const data = new FormData();
+
+        data.append('title', this.state.title);
+        data.append('description', this.state.newDescription);
+        data.append('leading_text', this.state.leading_text);
+        data.append('main_image_filename', this.state.main_image_filename);
+
+        editPost(this.props.match.params.id, data, token)
+          .then(() => {
+            this.setState({
+              saveLoading: false,
+              saved: true,
+            });
+          });
       });
   }
 
@@ -76,7 +95,7 @@ class StoryPage extends PureComponent {
     }
 
     return this.state.saved ? (
-      <Redirect to={`/posts/story/${this.props.match.params.id}`} />
+      <Redirect to={`/posts/${this.props.match.params.id}`} />
     ) : (
       <Fragment>
         <Loading appear loading={this.state.dataLoading || this.state.saveLoading} />
@@ -91,6 +110,7 @@ class StoryPage extends PureComponent {
 
             <div className="create-post__editor">
               <TextEditor
+                errors={this.state.errors}
                 title={this.state.title}
                 description={this.state.description}
                 leadingText={this.state.leading_text}

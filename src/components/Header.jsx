@@ -8,10 +8,11 @@ import IconSearch from './Icons/Search';
 import IconLogo from './Icons/Logo';
 import Popup from './Popup';
 import Auth from './Auth';
-import UserCard from './UserCard';
+import Avatar from './Avatar';
 import { removeToken } from '../utils/token';
 import { removeUser } from '../actions';
-import { getAvatarUrl } from '../utils/user';
+import { getFileUrl } from '../utils/upload';
+import { getUserUrl } from '../utils/user';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -56,22 +57,25 @@ class Header extends PureComponent {
                 <div className="menu__item">
                   <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
                 </div>
+                <div className="menu__item">
+                  <Link to="/signup" className="menu__link menu__link_upper">Signup</Link>
+                </div>
               </nav>
             </Fragment>
           ) : (
             <div className="inline inline_large">
               <div className="inline__item">
-                <UserCard
-                  avatarUrl={getAvatarUrl(this.props.user.avatar_filename)}
-                  profileLink={`/user/${this.props.user.id}`}
-                  userName={this.props.user.nickname}
-                />
+                <Link to={getUserUrl(this.props.user.id)}>
+                  <Avatar src={getFileUrl(this.props.user.avatar_filename)} />
+                </Link>
               </div>
+
               <div className="inline__item">
                 <button className="button-clean button-clean_link" onClick={() => this.logout()}>
                   <strong>Logout</strong>
                 </button>
               </div>
+
               <div className="inline__item">
                 <div className="inline inline_small">
                   <div className="inline__item">

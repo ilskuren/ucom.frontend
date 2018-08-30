@@ -47,7 +47,7 @@ const Post = props => (
     <div className="post__content">
       <h1 className="post__title">
         {props.title ? (
-          <Link to={`/posts/${props.postId}`}>{props.title}</Link>
+          <Link to={props.url}>{props.title}</Link>
         ) : (
           <span className="blank">Lorem ipsum dolor sit.</span>
         )}
@@ -67,7 +67,9 @@ const Post = props => (
 
       {props.coverUrl && (
         <div className="post__cover">
-          <img src={props.coverUrl} alt="cover" />
+          <Link to={props.url}>
+            <img src={props.coverUrl} alt="cover" />
+          </Link>
         </div>
       )}
     </div>
@@ -133,6 +135,7 @@ Post.propTypes = {
   title: PropTypes.string,
   leadingText: PropTypes.string,
   coverUrl: PropTypes.string,
+  url: PropTypes.string,
 };
 
 export default Post;

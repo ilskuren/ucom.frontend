@@ -6,7 +6,7 @@ import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import CommentsStub from '../../components/CommentsStub';
-import OfferTitle from '../../components/OfferTitle';
+import EventTitle from '../../components/EventTitle';
 import burgerImg from './images/burger.png';
 import { getToken } from '../../utils/token';
 import { createPost } from '../../api';
@@ -64,7 +64,7 @@ class OfferPreview extends PureComponent {
         />
 
         <div className="create-post__offer-preview-title">
-          <OfferTitle imgSrc={burgerImg} />
+          <EventTitle imgSrc={burgerImg} />
         </div>
 
         <div className="create-post__preview">

@@ -28,7 +28,12 @@
   }
 
   &__event-title {
-    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    @media (max-width: 424px) {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
   }
 
   &__preview-text {
@@ -99,7 +104,7 @@
     margin: 0 40px;
     box-shadow: @baseShadow;
   }
-  
+
   &__offer-title {
     flex: 1 1 auto;
     margin: 0 40px;
@@ -113,7 +118,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    
+
     &_editor {
       padding-top: 0;
     }

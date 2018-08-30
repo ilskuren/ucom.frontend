@@ -38,7 +38,7 @@ class Header extends PureComponent {
 
   render() {
     return (
-      <div className="header">
+      <div className="header" id="top">
         <div className="header__side">
           {!this.props.user.id ? (
             <Fragment>

@@ -17,6 +17,7 @@ import Loading from './Loading';
 import Header from './Header';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
+import CreateOffer from '../pages/CreateOffer';
 
 class App extends PureComponent {
   constructor(props) {
@@ -70,6 +71,7 @@ class App extends PureComponent {
                 <Route path="/posts/new" component={CreatePost} />
                 <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts" component={Posts} />
+                <Route path="/offer/new" component={CreateOffer} />
               </Switch>
             </Page>
           </Router>

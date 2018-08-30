@@ -152,3 +152,14 @@ export const checkAccountName = accountName => (
   })
     .then(resp => resp.json())
 );
+
+export const createOffer = (data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);

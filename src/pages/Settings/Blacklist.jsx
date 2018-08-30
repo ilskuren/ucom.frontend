@@ -4,7 +4,7 @@ import UserList from '../../components/UserList';
 
 const SettingsBlacklistPage = () => (
   <div className="settings">
-    <div className="settings__form">
+    <div className="form">
       <div className="blacklist">
         <div className="blacklist__list">
           <UserList list={[

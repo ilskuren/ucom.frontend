@@ -172,6 +172,7 @@ class UserPage extends PureComponent {
                             <div className="inline inline_large">
                               <div className="inline__item">
                                 <FollowButton
+                                  follow={this.state.user.myselfData && this.state.user.myselfData.follow}
                                   userId={this.state.user.id}
                                 />
                               </div>

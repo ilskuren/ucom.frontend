@@ -9,19 +9,27 @@ class FollowButton extends PureComponent {
     super(props);
 
     this.state = {
-
+      follow: this.props.follow,
     };
   }
 
+  componentWillReceiveProps({ follow }) {
+    this.setState({ follow });
+  }
+
   follow() {
-    follow(this.props.userId, getToken());
+    follow(this.props.userId, getToken())
+      .then(() => {
+        this.setState({ follow: true });
+      });
   }
 
   render() {
     return (
       <Button
         isStretched
-        text="Follow"
+        isDisabled={this.state.follow}
+        text={this.state.follow ? 'Following' : 'Follow'}
         size="medium"
         theme="transparent"
         onClick={() => this.follow()}
@@ -31,6 +39,7 @@ class FollowButton extends PureComponent {
 }
 
 FollowButton.propTypes = {
+  follow: PropTypes.bool,
   userId: PropTypes.number,
 };
 

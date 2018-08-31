@@ -6,7 +6,7 @@ import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, user,
+  avatar, name, rating, userId, userUrl, user, follow,
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
 
@@ -35,7 +35,10 @@ const PostHeader = ({
         {user.id && userId && user.id !== userId ? (
           <div className="toolbar__side">
             <div className="post-header__follow-button">
-              <FollowButton userId={userId} />
+              <FollowButton
+                follow={follow}
+                userId={userId}
+              />
             </div>
           </div>
         ) : null}
@@ -50,6 +53,7 @@ PostHeader.propTypes = {
   rating: PropTypes.string,
   userId: PropTypes.number,
   userUrl: PropTypes.string,
+  follow: PropTypes.bool,
 };
 
 export default connect(state => ({

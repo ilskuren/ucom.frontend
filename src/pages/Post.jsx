@@ -40,6 +40,7 @@ class Offer extends PureComponent {
                   avatar={getFileUrl(this.state.post.User && this.state.post.User.avatar_filename)}
                   name={getUserName(this.state.post.User)}
                   rating={this.state.post.User && this.state.post.User.current_rate}
+                  follow={this.state.post.User && this.state.post.User.myselfData && this.state.post.User.myselfData.follow}
                 />
               </div>
             </div>

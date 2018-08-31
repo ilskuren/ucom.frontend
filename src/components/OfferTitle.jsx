@@ -134,7 +134,7 @@ class OfferTitle extends PureComponent {
                         )}
                       </div>
                     </div>
-                    {(this.props.actionDurationInDays && this.props.actionDurationInDays > 0) && (
+                    {(this.state.daysLeft && this.state.timeLeft > 0) && (
                       <Fragment>
                         <div className="inline__item">
                           <div className="offer-title__time">

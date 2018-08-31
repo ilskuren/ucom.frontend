@@ -184,3 +184,13 @@ export const follow = (userId, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const join = (postId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/join`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

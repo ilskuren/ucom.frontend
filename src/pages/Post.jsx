@@ -57,6 +57,7 @@ class Offer extends PureComponent {
                 actionDurationInDays={this.state.post.action_duration_in_days}
                 actionButtonUrl={this.state.post.action_button_url}
                 createdAt={this.state.post.created_at}
+                join={this.state.post.myselfData && this.state.post.myselfData.join}
               />
             )}
 

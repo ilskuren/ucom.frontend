@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Fragment, PureComponent } from 'react';
@@ -9,6 +10,8 @@ import Avatar from './Avatar';
 import Tags from './Tags';
 import { getFileUrl } from '../utils/upload';
 import { getOfferEditUrl, getDateLeft } from '../utils/offer';
+import { join } from '../api';
+import { getToken } from '../utils/token';
 
 class OfferTitle extends PureComponent {
   constructor(props) {
@@ -17,31 +20,43 @@ class OfferTitle extends PureComponent {
     this.state = {
       daysLeft: '',
       timeLeft: '',
+      join: this.props.join,
     };
   }
 
   componentDidMount() {
-    this.dateLeftInterval = setInterval(() => {
-      this.getDateLeft(this.props.createdAt, this.props.actionDurationInDays);
-    }, 1000);
-  }
+    this.getDateLeft();
 
-  componentWillReceiveProps(props) {
-    this.getDateLeft(props.createdAt, props.actionDurationInDays);
+    this.dateLeftInterval = setInterval(() => {
+      this.getDateLeft();
+    }, 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.dateLeftInterval);
   }
 
-  getDateLeft(createdAt, actionDurationInDays) {
-    const dateLeft = getDateLeft(createdAt, actionDurationInDays);
+  getDateLeft() {
+    const dateLeft = getDateLeft(this.props.createdAt, this.props.actionDurationInDays);
 
     if (dateLeft) {
       this.setState({
         daysLeft: dateLeft.days,
         timeLeft: dateLeft.time,
       });
+    }
+  }
+
+  join() {
+    if (this.props.user.id) {
+      join(this.props.id, getToken())
+        .then((data) => {
+          if (data.errors) {
+            return;
+          }
+
+          this.setState({ join: true });
+        });
     }
   }
 
@@ -128,8 +143,17 @@ class OfferTitle extends PureComponent {
                     <div className="inline__item">
                       <div className="offer-title__button">
                         {this.props.actionButtonTitle && (
-                          <a className="button button_theme_red button_size_medium button_stretched" href={this.props.actionButtonUrl} target="_blank" rel="noopener noreferrer">
-                            {this.props.actionButtonTitle}
+                          <a
+                            href={this.props.actionButtonUrl}
+                            className={classNames(
+                              'button button_theme_red button_size_medium button_stretched',
+                              { 'button_disabled': this.state.join },
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => this.join()}
+                          >
+                            {this.state.join ? 'Joined' : this.props.actionButtonTitle}
                           </a>
                         )}
                       </div>
@@ -192,6 +216,7 @@ OfferTitle.propTypes = {
   buyers: PropTypes.arrayOf(PropTypes.object),
   buyersCount: PropTypes.number,
   createdAt: PropTypes.string,
+  join: PropTypes.bool,
 };
 
 export default connect(state => ({

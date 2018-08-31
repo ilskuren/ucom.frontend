@@ -18,6 +18,7 @@ import Header from './Header';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import CreateOffer from '../pages/CreateOffer';
+import Offer from '../pages/Offer';
 
 class App extends PureComponent {
   constructor(props) {
@@ -72,6 +73,7 @@ class App extends PureComponent {
                 <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts" component={Posts} />
                 <Route path="/offer/new" component={CreateOffer} />
+                <Route path="/offer/:id" component={Offer} />
               </Switch>
             </Page>
           </Router>

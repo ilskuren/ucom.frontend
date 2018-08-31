@@ -98,5 +98,5 @@ export const getOfferUrl = (offerId) => {
     return null;
   }
 
-  return `/posts/offer/${offerId}`;
+  return `/offer/${offerId}`;
 };

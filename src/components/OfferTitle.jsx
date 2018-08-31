@@ -23,7 +23,7 @@ const OfferTitle = props => (
             <Tags tags={props.tags} />
           </div>
           <div className="toolbar__side">
-            {props.rate && (
+            {(typeof props.rate !== 'undefined') && (
               <Rate className="rate_medium" value={props.rate} />
             )}
           </div>
@@ -127,6 +127,15 @@ const OfferTitle = props => (
 
 OfferTitle.propTypes = {
   imgSrc: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  rate: PropTypes.number,
+  title: PropTypes.string,
+  team: PropTypes.arrayOf(PropTypes.object),
+  actionButtonTitle: PropTypes.string,
+  actionDurationInDays: PropTypes.number,
+  actionButtonUrl: PropTypes.string,
+  buyers: PropTypes.arrayOf(PropTypes.object),
+  buyersCount: PropTypes.number,
 };
 
 export default OfferTitle;

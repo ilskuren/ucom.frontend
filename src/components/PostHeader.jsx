@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -39,19 +40,9 @@ const PostHeader = ({
 
       <div className="post-header__follow-button">
         {userId ? (
-          <Button
-            isStretched
-            text="Follow"
-            size="medium"
-            theme="transparent"
-          />
+          <Button isStretched text="Follow" size="medium" theme="transparent" />
         ) : (
-          <Button
-            isStretched
-            text="Follow"
-            size="medium"
-            theme="blank"
-          />
+          <Button isStretched text="Follow" size="medium" theme="blank" />
         )}
       </div>
     </div>
@@ -66,4 +57,6 @@ PostHeader.propTypes = {
   userUrl: PropTypes.string,
 };
 
-export default PostHeader;
+export default connect(state => ({
+  user: state.user,
+}), null)(PostHeader);

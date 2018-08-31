@@ -100,3 +100,11 @@ export const getOfferUrl = (offerId) => {
 
   return `/offer/${offerId}`;
 };
+
+export const getOfferEditUrl = (offerId) => {
+  if (!offerId) {
+    return null;
+  }
+
+  return `/offer/${offerId}/edit`;
+};

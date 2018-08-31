@@ -46,8 +46,10 @@ class Offer extends PureComponent {
             </div>
 
             <OfferTitle
+              id={this.state.offer.id}
+              userId={this.state.offer.User && this.state.offer.User.id}
               imgSrc={getFileUrl(this.state.offer.main_image_filename)}
-              tags={['story']}
+              tags={['sell']}
               rate={+this.state.offer.current_rate}
               title={this.state.offer.title}
               actionButtonTitle={this.state.offer.action_button_title}

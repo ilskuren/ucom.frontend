@@ -72,8 +72,9 @@ class App extends PureComponent {
                 <Route path="/posts/new" component={CreatePost} />
                 <Route path="/posts/edit" component={EditPost} />
                 <Route path="/posts" component={Posts} />
-                <Route path="/offer/new" component={CreateOffer} />
-                <Route path="/offer/:id" component={Offer} />
+                <Route exact path="/offer/new" component={CreateOffer} />
+                <Route exact path="/offer/:id" component={Offer} />
+                <Route exact path="/offer/:id/edit" component={CreateOffer} />
               </Switch>
             </Page>
           </Router>

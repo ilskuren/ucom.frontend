@@ -1,10 +1,14 @@
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rate from './Rate';
-// import IconShare from './Icons/Share';
+import IconShare from './Icons/Share';
+import EditIcon from './Icons/Edit';
 import Avatar from './Avatar';
 import Tags from './Tags';
 import { getFileUrl } from '../utils/upload';
+import { getOfferEditUrl } from '../utils/offer';
 
 const OfferTitle = props => (
   <div className="offer-title">
@@ -35,13 +39,22 @@ const OfferTitle = props => (
               {props.title}
             </div>
           </div>
-          {/* <div className="toolbar__side">
-            <div className="offer-title__share">
-              <div className="offer-title__share-button">
-                <IconShare className="offer-title__share-button-arrow" />
+          <div className="toolbar__side">
+            <div className="inline">
+              <div className="inline__item">
+                <button className="button-icon button-icon_share">
+                  <IconShare />
+                </button>
               </div>
+              {(props.user.id && props.user.id === props.userId) && (
+                <div className="inline__item">
+                  <Link to={getOfferEditUrl(props.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
+                    <EditIcon />
+                  </Link>
+                </div>
+              )}
             </div>
-          </div> */}
+          </div>
         </div>
 
         <div className="offer-title__buyers">
@@ -126,6 +139,8 @@ const OfferTitle = props => (
 );
 
 OfferTitle.propTypes = {
+  id: PropTypes.number,
+  userId: PropTypes.number,
   imgSrc: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   rate: PropTypes.number,
@@ -138,4 +153,6 @@ OfferTitle.propTypes = {
   buyersCount: PropTypes.number,
 };
 
-export default OfferTitle;
+export default connect(state => ({
+  user: state.user,
+}))(OfferTitle);

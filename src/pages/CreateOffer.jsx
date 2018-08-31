@@ -14,7 +14,7 @@ import { getUserName } from '../utils/user';
 import { OFFER_TYPES, validateSaleOffer, getOfferUrl } from '../utils/offer';
 import { getError } from '../utils/errors';
 import { getToken } from '../utils/token';
-import { createOffer } from '../api';
+import { createOffer, getPost, updateOffer } from '../api';
 
 class SalePage extends PureComponent {
   constructor(props) {
@@ -33,9 +33,33 @@ class SalePage extends PureComponent {
       description: null,
       errors: null,
       coverDataUrl: null,
+      loaded: this.props.match.params.id === undefined,
       saved: false,
       id: null,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      this.getData();
+    }
+  }
+
+  getData() {
+    getPost(this.props.match.params.id)
+      .then((data) => {
+        this.setState({
+          title: data.title,
+          action_button_title: data.action_button_title,
+          action_button_url: data.action_button_url,
+          action_duration_in_days: data.action_duration_in_days,
+          time_sale_unlimited: data.time_sale_unlimited,
+          main_image_filename: data.main_image_filename,
+          leading_text: data.leading_text,
+          description: data.description,
+          loaded: true,
+        });
+      });
   }
 
   save() {
@@ -64,7 +88,11 @@ class SalePage extends PureComponent {
       data.append(item, this.state[item]);
     });
 
-    createOffer(data, token)
+    (
+      this.props.match.params.id ?
+        updateOffer(this.props.match.params.id, data, token) :
+        createOffer(data, token)
+    )
       .then((data) => {
         if (data.errors) {
           this.setState({ errors });
@@ -97,6 +125,10 @@ class SalePage extends PureComponent {
 
     if (this.state.saved && this.state.id) {
       return <Redirect to={getOfferUrl(this.state.id)} />;
+    }
+
+    if (!this.state.loaded) {
+      return null;
     }
 
     return (
@@ -266,14 +298,14 @@ class SalePage extends PureComponent {
               </div>
             </div>
 
-            {(this.state.coverDataUrl || this.state.main_image_filename) && (
+            {(this.state.coverDataUrl || getFileUrl(this.state.main_image_filename)) && (
               <OfferTitle
                 tags={['sale']}
                 title={this.state.title}
                 actionButtonTitle={this.state.action_button_title}
                 actionButtonUrl={this.state.action_button_url}
                 actionDurationInDays={this.state.action_duration_in_days}
-                imgSrc={this.state.coverDataUrl || this.state.main_image_filename}
+                imgSrc={this.state.coverDataUrl || getFileUrl(this.state.main_image_filename)}
               />
             )}
 

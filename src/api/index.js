@@ -163,3 +163,14 @@ export const createOffer = (data, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const updateOffer = (id, data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);

@@ -16,7 +16,6 @@ import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl } from '..
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import { getPostUrl } from '../utils/posts';
-import { getOfferUrl } from '../utils/offer';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -292,7 +291,7 @@ class UserPage extends PureComponent {
                             profileLink={getUserUrl(this.state.user.id)}
                             avatarUrl={getFileUrl(this.state.user.avatar_filename)}
                             title={item.title}
-                            url={item.post_type_id === 1 ? getPostUrl(item.id) : getOfferUrl(item.id)}
+                            url={getPostUrl(item.id)}
                             leadingText={item.leading_text}
                             coverUrl={getFileUrl(item.main_image_filename)}
                           />

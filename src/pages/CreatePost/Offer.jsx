@@ -116,7 +116,7 @@ class StoryPage extends PureComponent {
         </div>
 
         <div className="create-post__event-title">
-          <EventTitle imgSrc={burgerImg} />
+          <EventTitle imgSrc={burgerImg} buyers="8 923" />
         </div>
         <div className="create-post__preview create-post__preview_editor">
           <TextEditor

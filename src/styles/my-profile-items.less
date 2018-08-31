@@ -50,7 +50,6 @@
       text-align: center;
       font-size: 1.1429rem;
       font-weight: bold;
-      cursor: pointer;
       color: @red;
 
       &:before {
@@ -59,6 +58,11 @@
 
       &:after {
         display: none;
+      }
+
+      & span:hover {
+        color: @red-darker;
+        cursor: pointer;
       }
     }
   }

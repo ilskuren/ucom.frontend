@@ -84,7 +84,7 @@ const MyProfileItems = ({ bottomLabel, renderButton }) => (
   <div className="my-profile-items">
     {Array.from({ length: 5 }).map(() => renderRow(renderButton))}
     <div className="my-profile-items__row my-profile-items__row_create-new">
-      {bottomLabel}
+      <span>{bottomLabel}</span>
     </div>
   </div>
 );

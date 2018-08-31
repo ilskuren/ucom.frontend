@@ -174,3 +174,13 @@ export const updateOffer = (id, data, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const follow = (userId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

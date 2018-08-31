@@ -17,11 +17,17 @@
   font-weight: bold;
   color: #8f8f8f;
 
+
   &:first-child {
     margin: 0 25px;
     padding-left: 75px;
     padding-right: 75px;
     background: #E8ECEC;
+
+    @media (max-width: 767px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 
   &:last-child {
@@ -29,6 +35,11 @@
     padding-left: 90px;
     padding-right: 90px;
     background: #EDF1F1;
+
+    @media (max-width: 767px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 }
 

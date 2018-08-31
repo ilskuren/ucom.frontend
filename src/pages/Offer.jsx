@@ -4,8 +4,7 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import PostHeader from '../components/PostHeader';
 import OfferTitle from '../components/OfferTitle';
-import Rating from '../components/Rating';
-import PostViews from '../components/PostViews';
+import PostContent from '../components/PostContent';
 import Footer from '../components/Footer';
 
 class Offer extends PureComponent {
@@ -59,30 +58,14 @@ class Offer extends PureComponent {
             />
 
             <div className="sheets__content sheets__content_posts">
-              <div className="posts">
-                <div className="grid grid_post">
-                  <div className="grid__item">
-                    <div className="posts__content">
-                      <div className="posts__lead-text posts__lead-text_offer">{this.state.offer.leading_text}</div>
-                      <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.offer.description }} />
-                    </div>
-                  </div>
-                  <div className="grid__item">
-                    <div className="posts__sidebar">
-                      <div className="posts__rating">
-                        <Rating
-                          postId={this.state.offer.id}
-                          rating={this.state.offer.current_vote}
-                          choice={this.state.offer.myselfData && this.state.offer.myselfData.myselfVote}
-                        />
-                      </div>
-                      <div className="posts__views">
-                        <PostViews views={0} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PostContent
+                leadingText={this.state.offer.leading_text}
+                description={this.state.offer.description}
+                postId={this.state.offer.id}
+                rating={this.state.offer.current_vote}
+                сhoice={this.state.offer.myselfData && this.state.offer.myselfData.myselfVote}
+                views={0}
+              />
             </div>
           </div>
 

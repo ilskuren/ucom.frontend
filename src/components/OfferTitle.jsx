@@ -134,7 +134,7 @@ class OfferTitle extends PureComponent {
                         )}
                       </div>
                     </div>
-                    {(this.state.daysLeft && this.state.timeLeft > 0) && (
+                    {this.state.daysLeft && this.state.timeLeft ? (
                       <Fragment>
                         <div className="inline__item">
                           <div className="offer-title__time">
@@ -150,7 +150,7 @@ class OfferTitle extends PureComponent {
                           </div>
                         </div>
                       </Fragment>
-                    )}
+                    ) : null}
                   </div>
                 </div>
 

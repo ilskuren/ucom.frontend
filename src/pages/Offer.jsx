@@ -55,6 +55,7 @@ class Offer extends PureComponent {
               actionButtonTitle={this.state.offer.action_button_title}
               actionDurationInDays={this.state.offer.action_duration_in_days}
               actionButtonUrl={this.state.offer.action_button_url}
+              createdAt={this.state.offer.created_at}
             />
 
             <div className="sheets__content sheets__content_posts">

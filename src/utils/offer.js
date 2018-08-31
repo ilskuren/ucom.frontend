@@ -1,3 +1,4 @@
+import moment from 'moment';
 import dict from './dict';
 
 export const OFFER_TYPES = [{
@@ -107,4 +108,21 @@ export const getOfferEditUrl = (offerId) => {
   }
 
   return `/offer/${offerId}/edit`;
+};
+
+export const getDateLeft = (createdAt, durationInDays) => {
+  if (!createdAt || !durationInDays) {
+    return null;
+  }
+
+  const nowDate = moment();
+  const startDate = moment(createdAt);
+  const endDate = startDate.add(durationInDays, 'days');
+  const diff = endDate.diff(nowDate);
+  const duration = moment.duration(diff);
+
+  return {
+    days: duration.days(),
+    time: `${duration.hours()}:${duration.minutes()}:${duration.seconds()}`,
+  };
 };

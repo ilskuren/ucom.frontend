@@ -144,7 +144,7 @@ class OfferTitle extends PureComponent {
                       <div className="offer-title__button">
                         {this.props.actionButtonTitle && (
                           <a
-                            href={this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}
+                            href={`//${this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}`}
                             className={classNames(
                               'button button_theme_red button_size_medium button_stretched',
                               { 'button_disabled': this.state.join },

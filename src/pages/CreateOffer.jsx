@@ -13,27 +13,15 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 import { OFFER_TYPES, validateSaleOffer } from '../utils/offer';
 import { getPostUrl } from '../utils/posts';
-import { getError } from '../utils/errors';
 import { getToken } from '../utils/token';
 import { createOffer, getPost, updateOffer } from '../api';
+import { setOfferData, validateOfferField } from '../actions';
 
 class SalePage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: null,
-      post_type_id: OFFER_TYPES[0].id,
-      action_button_title: null,
-      action_button_url: null,
-      action_duration_in_days: null,
-      time_sale_unlimited: null,
-      team_ids: [],
-      main_image_filename: null,
-      leading_text: null,
-      description: null,
-      errors: null,
-      coverDataUrl: null,
       loaded: this.props.match.params.id === undefined,
       saved: false,
       id: null,
@@ -196,9 +184,12 @@ class SalePage extends PureComponent {
                   <div className="field__input">
                     <TextInput
                       placeholder="Type something..."
-                      value={this.state.title}
-                      error={getError(this.state.errors, 'title')}
-                      onChange={title => this.setState({ title })}
+                      value={this.props.offer.data.title}
+                      error={this.props.offer.errors.title && this.props.offer.errors.title[0]}
+                      onChange={(title) => {
+                        this.props.setOfferData({ title });
+                        this.props.validateOfferField('title');
+                      }}
                     />
                   </div>
                 </div>
@@ -213,17 +204,23 @@ class SalePage extends PureComponent {
                     <div className="field__item">
                       <TextInput
                         placeholder="Name of Acton Button"
-                        value={this.state.action_button_title}
-                        error={getError(this.state.errors, 'action_button_title')}
-                        onChange={action_button_title => this.setState({ action_button_title })}
+                        value={this.props.offer.data.action_button_title}
+                        error={this.props.offer.errors.action_button_title && this.props.offer.errors.action_button_title[0]}
+                        onChange={(action_button_title) => {
+                          this.props.setOfferData({ action_button_title });
+                          this.props.validateOfferField('action_button_title');
+                        }}
                       />
                     </div>
                     <div className="field__item">
                       <TextInput
                         placeholder="Link"
-                        value={this.state.action_button_url}
-                        error={getError(this.state.errors, 'action_button_url')}
-                        onChange={action_button_url => this.setState({ action_button_url })}
+                        value={this.props.offer.data.action_button_url}
+                        error={this.props.offer.errors.action_button_url && this.props.offer.errors.action_button_url[0]}
+                        onChange={(action_button_url) => {
+                          this.props.setOfferData({ action_button_url });
+                          this.props.validateOfferField('action_button_url');
+                        }}
                       />
                     </div>
                   </div>
@@ -240,17 +237,18 @@ class SalePage extends PureComponent {
                       <TextInput
                         placeholder="Days"
                         inputWidth={150}
-                        value={this.state.action_duration_in_days}
-                        error={getError(this.state.errors, 'action_duration_in_days')}
-                        onChange={action_duration_in_days => this.setState({ action_duration_in_days })}
+                        value={this.props.offer.data.action_duration_in_days}
+                        error={this.props.offer.errors.action_duration_in_days && this.props.offer.errors.action_duration_in_days[0]}
+                        onChange={(action_duration_in_days) => {
+                          this.props.setOfferData({ action_duration_in_days });
+                          this.props.validateOfferField('action_duration_in_days');
+                        }}
                       />
                     </div>
                     <div className="field__item">
                       <Switcher
                         textColor="gray"
                         labels={['Unlimited', '']}
-                        isChecked={this.state.time_sale_unlimited}
-                        onChange={time_sale_unlimited => this.setState({ time_sale_unlimited })}
                       />
                     </div>
                   </div>
@@ -278,17 +276,17 @@ class SalePage extends PureComponent {
                       <DropZone
                         text="add or drag img"
                         accept="image/jpeg, image/png"
-                        error={getError(this.state.errors, 'main_image_filename')}
                         onDrop={(files) => {
-                          this.setState({ main_image_filename: files[0] });
-                          this.converCover(files[0]);
+                          this.props.setOfferData({ main_image_filename: files[0] });
+                          this.props.validateOfferField('main_image_filename');
                         }}
                       />
-                      {getError(this.state.errors, 'main_image_filename') && (
+
+                      {this.props.offer.errors.main_image_filename && this.props.offer.errors.main_image_filename.length > 0 ? (
                         <div className="field__error">
-                          <InputErrorIcon /> {getError(this.state.errors, 'main_image_filename')}
+                          <InputErrorIcon /> {this.props.offer.errors.main_image_filename}
                         </div>
-                      )}
+                      ) : null}
                     </div>
                     <div className="field__item">
                       You can upload an image in JPG or PNG format.
@@ -324,24 +322,31 @@ class SalePage extends PureComponent {
                         type="text"
                         placeholder="Lead text"
                         className="editor__input editor__input_medium"
-                        value={this.state.leading_text}
-                        onChange={e => this.setState({ leading_text: e.target.value })}
+                        value={this.props.offer.data.leading_text}
+                        onChange={(e) => {
+                          this.props.setOfferData({ leading_text: e.target.value });
+                          this.props.validateOfferField('leading_text');
+                        }}
                       />
-                      {getError(this.state.errors, 'leading_text') && (
-                        <div className="editor__error">{getError(this.state.errors, 'leading_text')}</div>
-                      )}
+                      {this.props.offer.errors.leading_text && this.props.offer.errors.leading_text.length > 0 ? (
+                        <div className="editor__error">{this.props.offer.errors.leading_text}</div>
+                      ) : null}
                     </div>
 
                     <div className="editor__item">
                       <div className="editor__body">
                         <Medium
-                          value={this.state.description}
-                          onChange={description => this.setState({ description })}
+                          value={this.props.offer.data.description}
+                          onChange={(description) => {
+                            this.props.setOfferData({ description });
+                            this.props.validateOfferField('description');
+                          }}
                         />
                       </div>
-                      {getError(this.state.errors, 'description') && (
-                        <div className="editor__error">{getError(this.state.errors, 'description')}</div>
-                      )}
+
+                      {this.props.offer.errors.description && this.props.offer.errors.description.length > 0 ? (
+                        <div className="editor__error">{this.props.offer.errors.description}</div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -382,6 +387,13 @@ class SalePage extends PureComponent {
   }
 }
 
-export default connect(state => ({
-  user: state.user,
-}), null)(SalePage);
+export default connect(
+  state => ({
+    user: state.user,
+    offer: state.offer,
+  }),
+  dispatch => ({
+    setOfferData: data => dispatch(setOfferData(data)),
+    validateOfferField: data => dispatch(validateOfferField(data)),
+  }),
+)(SalePage);

@@ -25,28 +25,41 @@ const getInitialState = () => ({
 
 const offer = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'SET_OFFER_DATA':
+    case 'SET_OFFER_DATA': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, action.data),
       });
-    case 'RESET_OFFER':
+    }
+
+    case 'RESET_OFFER': {
       return getInitialState();
+    }
+
     case 'VALIDATE_OFFER': {
       const validation = new Validator(state.data, state.rules);
+
+      validation.passes();
 
       return Object.assign({}, state, {
         errors: validation.errors.all(),
       });
     }
+
     case 'VALIDATE_OFFER_FIELD': {
       const validation = new Validator(state.data, state.rules);
 
+      validation.passes();
+
       return Object.assign({}, state, {
-        errors: Object.assign({}, state.errors, validation.errors.first(action.data)),
+        errors: Object.assign({}, state.errors, {
+          [action.data]: validation.errors.get(action.data),
+        }),
       });
     }
-    default:
+
+    default: {
       return state;
+    }
   }
 };
 

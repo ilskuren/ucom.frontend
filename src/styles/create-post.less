@@ -26,7 +26,16 @@
       margin-bottom: 55px;
     }
   }
-  
+
+  &__event-title {
+    position: relative;
+    max-width: 1200px;
+    left: 3.8%;
+    @media (max-width: 1265px) {
+      left: 0;
+    }
+  }
+
   &__preview-text {
     color: @black;
     font-weight: 700;
@@ -35,7 +44,7 @@
     & svg {
       transform: scale(0.8)
     }
-    
+
     svg path {
       fill: black;
     }
@@ -95,7 +104,7 @@
     margin: 0 40px;
     box-shadow: @baseShadow;
   }
-  
+
   &__offer-title {
     flex: 1 1 auto;
     margin: 0 40px;
@@ -109,7 +118,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    
+
     &_editor {
       padding-top: 0;
     }

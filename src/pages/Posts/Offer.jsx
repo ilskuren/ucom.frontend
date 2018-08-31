@@ -4,7 +4,7 @@ import Rating from '../../components/Rating';
 import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import PostHeader from '../../components/PostHeader';
-import OfferTitle from '../../components/OfferTitle';
+import EventTitle from '../../components/EventTitle';
 import CommentsStub from '../../components/CommentsStub';
 import burgerImg from '../CreatePost/images/burger.png';
 import { getUser } from '../../api';
@@ -57,7 +57,7 @@ class OfferPage extends PureComponent {
                 />
               </div>
             </div>
-            <OfferTitle imgSrc={burgerImg} />
+            <EventTitle imgSrc={burgerImg} />
 
             <div className="sheets__content sheets__content_posts">
               <div className="posts">

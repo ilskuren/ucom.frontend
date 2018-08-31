@@ -7,7 +7,7 @@ import CreatePostFooter from '../../components/CreatePostFooter';
 import TextInput from '../../components/TextInput';
 import Switcher from '../../components/Switcher';
 import DropZone from '../../components/DropZone';
-import OfferTitle from '../../components/OfferTitle';
+import EventTitle from '../../components/EventTitle';
 import TextEditor from '../../components/TextEditor';
 import { getToken } from '../../utils/token';
 import { createPost } from '../../api';
@@ -115,8 +115,8 @@ class StoryPage extends PureComponent {
           </div>
         </div>
 
-        <div className="create-post__offer-preview-title">
-          <OfferTitle imgSrc={burgerImg} />
+        <div className="create-post__event-title">
+          <EventTitle imgSrc={burgerImg} />
         </div>
         <div className="create-post__preview create-post__preview_editor">
           <TextEditor

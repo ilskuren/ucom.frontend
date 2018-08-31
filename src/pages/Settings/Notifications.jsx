@@ -36,8 +36,8 @@ const SettingsNotificationsPage = () => (
         <InfoBlock title="Alerts" size="small">
           {
             alerts.map((item, index) => (
-              <div className={classNames('settings__block', 'settings__block_alerts')} key={index}>
-                <div className={classNames('settings__label', 'settings__label_alerts')}>
+              <div className="settings__block" key={index}>
+                <div className="settings__label">
                   {item.name}
                 </div>
                 <div className="settings__switcher">

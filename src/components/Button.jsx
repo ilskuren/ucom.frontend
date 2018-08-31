@@ -19,7 +19,16 @@ const Button = (props) => {
   );
 
   return (
-    <button className={btnClass} disabled={props.isDisabled}>
+    <button
+      type={props.type}
+      className={btnClass}
+      disabled={props.isDisabled}
+      onClick={() => {
+        if (typeof props.onClick === 'function') {
+          props.onClick();
+        }
+      }}
+    >
       { props.withCheckedIcon && renderCheckedIcon() }
       { props.text }
     </button>
@@ -34,9 +43,12 @@ Button.propTypes = {
   isRounded: PropTypes.bool,
   withCheckedIcon: PropTypes.bool,
   text: PropTypes.string,
+  onClick: PropTypes.func,
+  type: PropTypes.string,
 };
 
 Button.defaultProps = {
+  type: 'button',
   isDisabled: false,
   text: '',
 };

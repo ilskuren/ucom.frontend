@@ -5,6 +5,7 @@ import DropZone from './DropZone';
 import IconClose from './Icons/Close';
 import config from '../../package.json';
 import { getFileUrl } from '../utils/upload';
+import { getError } from '../utils/errors';
 
 const $ = require('jquery');
 
@@ -79,6 +80,10 @@ class TextEditor extends PureComponent {
   }
 
   render() {
+    const titleError = getError(this.props.errors, 'title');
+    const leadingTextError = getError(this.props.errors, 'leading_text');
+    const descriptionError = getError(this.props.errors, 'description');
+
     return (
       <div className="text-editor" >
         <div className="text-editor__inner">
@@ -94,6 +99,9 @@ class TextEditor extends PureComponent {
                 }
               }}
             />
+            {titleError && (
+              <div className="text-editor__error">{titleError}</div>
+            )}
           </div>
 
           <div className="text-editor__field text-editor__field_small">
@@ -108,6 +116,10 @@ class TextEditor extends PureComponent {
                 }
               }}
             />
+
+            {leadingTextError && (
+              <div className="text-editor__error">{leadingTextError}</div>
+            )}
           </div>
 
           <div className="text-editor__field text-editor__field_small">
@@ -142,6 +154,9 @@ class TextEditor extends PureComponent {
             className="text-editor__content"
             ref={(el) => { this.textEditor = el; }}
           />
+          {descriptionError && (
+            <div className="text-editor__error">{descriptionError}</div>
+          )}
         </div>
       </div>
     );
@@ -157,6 +172,11 @@ TextEditor.propTypes = {
   onChangeDescription: PropTypes.func,
   onChangeLeadingText: PropTypes.func,
   onChangeCover: PropTypes.func,
+  errors: PropTypes.arrayOf(PropTypes.object),
+};
+
+TextEditor.defaultProps = {
+  errors: [],
 };
 
 export default TextEditor;

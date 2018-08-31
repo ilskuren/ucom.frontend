@@ -45,7 +45,7 @@ const MyProfileProductsPage = () => (
         />
       </div>
       <div className="my-profile-list__sheet my-profile-list__sheet_link">
-        create mediapost
+        <span>create mediapost</span>
       </div>
     </div>
   </div>

@@ -105,8 +105,6 @@ const EventTitle = props => (
                     <div className="event-title__value">0</div>
                     <div className="event-title__name">DAY</div>
                   </div>
-                </div>
-                <div className="inline__item inline__item_without-margin ">
                   <div className="event-title__time">
                     <div className="event-title__value">5:12:34</div>
                     <div className="event-title__name">HOURS</div>

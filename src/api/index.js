@@ -165,7 +165,7 @@ export const createOffer = (data, token) => (
 );
 
 export const updateOffer = (id, data, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers/${id}`, {
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
     method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${token}`,

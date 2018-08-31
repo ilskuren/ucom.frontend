@@ -62,7 +62,7 @@ class Offer extends PureComponent {
                 <div className="grid grid_post">
                   <div className="grid__item">
                     <div className="posts__content">
-                      <div className="posts__lead-text posts__lead-text_offer">{this.state.offer.title}</div>
+                      <div className="posts__lead-text posts__lead-text_offer">{this.state.offer.leading_text}</div>
                       <div className="posts__text" dangerouslySetInnerHTML={{ __html: this.state.offer.description }} />
                     </div>
                   </div>

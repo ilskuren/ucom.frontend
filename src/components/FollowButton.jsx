@@ -19,7 +19,11 @@ class FollowButton extends PureComponent {
 
   follow() {
     follow(this.props.userId, getToken())
-      .then(() => {
+      .then((data) => {
+        if (data.errors) {
+          return;
+        }
+
         this.setState({ follow: true });
       });
   }

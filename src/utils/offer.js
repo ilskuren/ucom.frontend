@@ -94,14 +94,6 @@ export const validateSaleOffer = (fields = {}) => {
   return errors;
 };
 
-export const getOfferUrl = (offerId) => {
-  if (!offerId) {
-    return null;
-  }
-
-  return `/offer/${offerId}`;
-};
-
 export const getOfferEditUrl = (offerId) => {
   if (!offerId) {
     return null;

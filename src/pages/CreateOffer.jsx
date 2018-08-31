@@ -11,7 +11,8 @@ import Medium from '../components/Medium';
 import InputErrorIcon from '../components/Icons/InputError';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
-import { OFFER_TYPES, validateSaleOffer, getOfferUrl } from '../utils/offer';
+import { OFFER_TYPES, validateSaleOffer } from '../utils/offer';
+import { getPostUrl } from '../utils/posts';
 import { getError } from '../utils/errors';
 import { getToken } from '../utils/token';
 import { createOffer, getPost, updateOffer } from '../api';
@@ -124,7 +125,7 @@ class SalePage extends PureComponent {
     }
 
     if (this.state.saved && this.state.id) {
-      return <Redirect to={getOfferUrl(this.state.id)} />;
+      return <Redirect to={getPostUrl(this.state.id)} />;
     }
 
     if (!this.state.loaded) {

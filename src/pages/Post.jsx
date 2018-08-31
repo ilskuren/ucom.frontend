@@ -67,6 +67,7 @@ class Offer extends PureComponent {
                 title={this.state.post.post_type_id === 1 ? this.state.post.title : null}
                 leadingText={this.state.post.leading_text}
                 description={this.state.post.description}
+                imgSrc={getFileUrl(this.state.post.main_image_filename)}
                 rating={this.state.post.current_vote}
                 rate={+this.state.post.current_rate}
                 tags={['story']}

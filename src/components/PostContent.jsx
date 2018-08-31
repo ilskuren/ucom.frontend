@@ -49,6 +49,11 @@ const PostContent = props => (
         ) : null}
 
         <div className="posts__content">
+          {props.imgSrc && (
+            <div className="posts__poster">
+              <img src={props.imgSrc} className="posts__poster-img" alt="" />
+            </div>
+          )}
           {props.leadingText && (
             <div className="posts__lead-text posts__lead-text_offer">{props.leadingText}</div>
           )}
@@ -86,6 +91,7 @@ PostContent.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   rating: PropTypes.number,
   сhoice: PropTypes.string,
+  imgSrc: PropTypes.string,
 };
 
 export default connect(state => ({

@@ -9,115 +9,53 @@ import DropZone from '../components/DropZone';
 import OfferTitle from '../components/OfferTitle';
 import Medium from '../components/Medium';
 import InputErrorIcon from '../components/Icons/InputError';
-import { getFileUrl } from '../utils/upload';
+import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName } from '../utils/user';
-import { OFFER_TYPES, validateSaleOffer } from '../utils/offer';
+import { OFFER_TYPES } from '../utils/offer';
 import { getPostUrl } from '../utils/posts';
 import { getToken } from '../utils/token';
+import { getFromDataFromObject } from '../utils/data';
 import { createOffer, getPost, updateOffer } from '../api';
-import { setOfferData, validateOfferField } from '../actions';
+import { setOfferData, validateOfferField, validateOffer, resetOffer } from '../actions';
 
 class SalePage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      loaded: this.props.match.params.id === undefined,
-      saved: false,
-      id: null,
+      base64Cover: null,
     };
   }
 
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.getData();
-    }
-  }
+    this.props.resetOffer();
 
-  getData() {
-    getPost(this.props.match.params.id)
-      .then((data) => {
-        this.setState({
-          title: data.title,
-          action_button_title: data.action_button_title,
-          action_button_url: data.action_button_url,
-          action_duration_in_days: data.action_duration_in_days,
-          time_sale_unlimited: data.time_sale_unlimited,
-          main_image_filename: data.main_image_filename,
-          leading_text: data.leading_text,
-          description: data.description,
-          loaded: true,
+    if (this.props.match.params.id) {
+      getPost(this.props.match.params.id)
+        .then((data) => {
+          this.props.setOfferData(data);
         });
-      });
+    }
   }
 
   save() {
-    const errors = validateSaleOffer(this.state);
-
-    this.setState({ errors });
-
-    if (errors.length) {
+    if (!this.props.offer.isValid) {
+      this.props.validateOffer();
       return;
     }
 
-    const token = getToken();
-    const data = new FormData();
+    const saveFn = this.props.match.params.id ? updateOffer : createOffer;
+    const data = getFromDataFromObject(this.props.offer.data);
 
-    [
-      'title',
-      'description',
-      // 'post_type_id',
-      'action_button_title',
-      'action_button_url',
-      'action_duration_in_days',
-      // 'time_sale_unlimited',
-      'main_image_filename',
-      'leading_text',
-    ].forEach((item) => {
-      data.append(item, this.state[item]);
-    });
-
-    (
-      this.props.match.params.id ?
-        updateOffer(this.props.match.params.id, data, token) :
-        createOffer(data, token)
-    )
+    saveFn(data, getToken(), this.props.match.params.id)
       .then((data) => {
-        if (data.errors) {
-          this.setState({ errors });
-          return;
-        }
-
-        this.setState({
-          saved: true,
-          id: data.post_id,
-        });
+        this.props.history.push(getPostUrl(data.post_id));
       });
-  }
-
-  converCover(file) {
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      this.setState({
-        coverDataUrl: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(file);
   }
 
   render() {
     if (!this.props.user.id) {
       return <Redirect to="/" />;
-    }
-
-    if (this.state.saved && this.state.id) {
-      return <Redirect to={getPostUrl(this.state.id)} />;
-    }
-
-    if (!this.state.loaded) {
-      return null;
     }
 
     return (
@@ -277,8 +215,11 @@ class SalePage extends PureComponent {
                         text="add or drag img"
                         accept="image/jpeg, image/png"
                         onDrop={(files) => {
-                          this.props.setOfferData({ main_image_filename: files[0] });
-                          this.props.validateOfferField('main_image_filename');
+                          getBase64FromFile(files[0]).then((base64Cover) => {
+                            this.props.setOfferData({ main_image_filename: files[0] });
+                            this.props.validateOfferField('main_image_filename');
+                            this.setState({ base64Cover });
+                          });
                         }}
                       />
 
@@ -297,14 +238,14 @@ class SalePage extends PureComponent {
               </div>
             </div>
 
-            {(this.state.coverDataUrl || getFileUrl(this.state.main_image_filename)) && (
+            {(this.state.base64Cover || this.props.offer.data.main_image_filename) && (
               <OfferTitle
                 tags={['sale']}
-                title={this.state.title}
-                actionButtonTitle={this.state.action_button_title}
-                actionButtonUrl={this.state.action_button_url}
-                actionDurationInDays={this.state.action_duration_in_days}
-                imgSrc={this.state.coverDataUrl || getFileUrl(this.state.main_image_filename)}
+                title={this.props.offer.data.title}
+                actionButtonTitle={this.props.offer.data.action_button_title}
+                actionButtonUrl={this.props.offer.data.action_button_url}
+                actionDurationInDays={this.props.offer.data.action_duration_in_days}
+                imgSrc={this.state.base64Cover || getFileUrl(this.props.offer.data.main_image_filename)}
               />
             )}
 
@@ -393,7 +334,9 @@ export default connect(
     offer: state.offer,
   }),
   dispatch => ({
+    resetOffer: () => dispatch(resetOffer()),
     setOfferData: data => dispatch(setOfferData(data)),
     validateOfferField: data => dispatch(validateOfferField(data)),
+    validateOffer: () => dispatch(validateOffer()),
   }),
 )(SalePage);

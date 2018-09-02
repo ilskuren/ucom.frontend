@@ -20,19 +20,26 @@ const getInitialState = () => ({
     action_duration_in_days: 'required|numeric',
     main_image_filename: 'required',
   },
-  errors: {},
+  errors: {
+
+  },
+  isValid: false,
 });
 
 const offer = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'SET_OFFER_DATA': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, action.data),
-      });
-    }
-
     case 'RESET_OFFER': {
       return getInitialState();
+    }
+
+    case 'SET_OFFER_DATA': {
+      const data = Object.assign({}, state.data, action.data);
+      const validation = new Validator(data, state.rules);
+
+      return Object.assign({}, state, {
+        data,
+        isValid: validation.passes(),
+      });
     }
 
     case 'VALIDATE_OFFER': {

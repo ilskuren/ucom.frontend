@@ -3,13 +3,13 @@ import Validator from 'validatorjs';
 const getInitialState = () => ({
   data: {
     post_type_id: 1,
-    title: null,
-    leading_text: null,
-    description: null,
-    action_button_title: null,
-    action_button_url: null,
-    action_duration_in_days: null,
-    main_image_filename: null,
+    title: '',
+    leading_text: '',
+    description: '',
+    action_button_title: '',
+    action_button_url: '',
+    action_duration_in_days: '',
+    main_image_filename: '',
   },
   rules: {
     title: 'required',

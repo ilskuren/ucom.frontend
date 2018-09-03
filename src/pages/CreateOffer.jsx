@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
@@ -28,14 +29,31 @@ class SalePage extends PureComponent {
   }
 
   componentDidMount() {
+    if (this.props.match.params.id) {
+      this.getData(this.props.match.params.id);
+    }
+  }
+
+  componentWillReceiveProps(nextProp) {
+    if (nextProp.match.params.id && nextProp.match.params.id !== this.props.match.params.id) {
+      this.getData(nextProp.match.params.id);
+    }
+
+    if (this.props.match.params.id && !nextProp.match.params.id) {
+      this.props.resetOffer();
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetOffer();
+  }
+
+  getData(id) {
     this.props.resetOffer();
 
-    if (this.props.match.params.id) {
-      getPost(this.props.match.params.id)
-        .then((data) => {
-          this.props.setOfferData(data);
-        });
-    }
+    getPost(id).then((data) => {
+      this.props.setOfferData(data);
+    });
   }
 
   save() {
@@ -97,12 +115,12 @@ class SalePage extends PureComponent {
             <div className="post-form__content post-form__content_wide">
               <div className="post-form__item">
                 <div className="menu menu_inline menu_simple-tabs menu_simple-tabs_small">
-                  {OFFER_TYPES.map(item => (
+                  {OFFER_TYPES.map((item, index) => (
                     <div className="menu__item" key={item.id}>
                       <div
                         className={classNames(
                           'menu__link',
-                          { 'menu__link_active': this.state.post_type_id === item.id },
+                          { 'menu__link_active': index === 0 },
                         )}
                       >
                         {item.description}
@@ -175,7 +193,7 @@ class SalePage extends PureComponent {
                       <TextInput
                         placeholder="Days"
                         inputWidth={150}
-                        value={this.props.offer.data.action_duration_in_days}
+                        value={this.props.offer.data.action_duration_in_days.toString()}
                         error={this.props.offer.errors.action_duration_in_days && this.props.offer.errors.action_duration_in_days[0]}
                         onChange={(action_duration_in_days) => {
                           this.props.setOfferData({ action_duration_in_days });
@@ -253,7 +271,7 @@ class SalePage extends PureComponent {
               <div
                 className={classNames(
                   'post-form__editor',
-                  { 'post-form__editor_offer': this.state.coverDataUrl || this.state.main_image_filename },
+                  { 'post-form__editor_offer': this.state.base64Cover || this.props.offer.data.main_image_filename },
                 )}
               >
                 <div className="post-form__content post-form__content_wide">
@@ -270,7 +288,7 @@ class SalePage extends PureComponent {
                         }}
                       />
                       {this.props.offer.errors.leading_text && this.props.offer.errors.leading_text.length > 0 ? (
-                        <div className="editor__error">{this.props.offer.errors.leading_text}</div>
+                        <div className="editor__error">{this.props.offer.errors.leading_text[0]}</div>
                       ) : null}
                     </div>
 
@@ -286,7 +304,7 @@ class SalePage extends PureComponent {
                       </div>
 
                       {this.props.offer.errors.description && this.props.offer.errors.description.length > 0 ? (
-                        <div className="editor__error">{this.props.offer.errors.description}</div>
+                        <div className="editor__error">{this.props.offer.errors.description[0]}</div>
                       ) : null}
                     </div>
                   </div>
@@ -327,6 +345,14 @@ class SalePage extends PureComponent {
     );
   }
 }
+
+SalePage.propTypes = {
+  resetOffer: PropTypes.func,
+  setOfferData: PropTypes.func,
+  validateOfferField: PropTypes.func,
+  validateOffer: PropTypes.func,
+  offer: PropTypes.objectOf(PropTypes.object),
+};
 
 export default connect(
   state => ({

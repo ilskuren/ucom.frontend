@@ -1,0 +1,43 @@
+.modal-content {
+  position: relative;
+  background-color: @white;
+  max-width: 1280px;
+  min-height: 200px;
+  box-shadow: @baseShadow;
+  margin: 0 auto;
+
+  &__close {
+    position: absolute;
+    top: 35px;
+    right: 45px;
+    z-index: 10;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__search {
+    font-size: 1.142rem;
+    display: flex;
+    align-items: center;
+    padding: 20px 60px 20px 40px;
+    border-bottom: 1px solid black;
+  }
+  
+  &__input {
+    width: 100%;
+
+    & input {
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__main_no-search {
+    padding-top: 50px;
+  }
+}

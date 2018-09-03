@@ -5,6 +5,9 @@ import Post from '../components/Post';
 import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
+import Popup from '../components/Popup';
+import ModalContent from '../components/ModalContent';
+import ProfilesList from '../components/ProfilesList';
 import { getUsers, getPosts, getUserPosts } from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -45,6 +48,11 @@ class HomePage extends PureComponent {
   render() {
     return (
       <Fragment>
+        <Popup onClickClose={() => {}}>
+          <ModalContent onSearchChange={() => {}}>
+            <ProfilesList />
+          </ModalContent>
+        </Popup>
         <div className="content">
           <div className="content__inner">
             <div className="page-nav">

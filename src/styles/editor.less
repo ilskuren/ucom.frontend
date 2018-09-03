@@ -1,0 +1,68 @@
+.editor__item {
+  margin: 0 0 40px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.editor__input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-size: 48px;
+  font-weight: bold;
+  outline: none;
+
+  &::-webkit-input-placeholder {
+    opacity: 1;
+    color: #C0C0C0;
+  }
+
+  &::-moz-placeholder {
+    opacity: 1;
+    color: #C0C0C0;
+  }
+
+  &:-ms-input-placeholder {
+    opacity: 1;
+    color: #C0C0C0;
+  }
+
+  &:-moz-placeholder {
+    opacity: 1;
+    color: #C0C0C0;
+  }
+}
+
+.editor__input_medium {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.editor__body {
+  margin: 0 0 -20px;
+  font-size: 18px;
+  line-height: 28px;
+  cursor: text;
+
+  h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: normal;
+  }
+
+  p {
+    margin: 0 0 20px;
+  }
+}
+
+.editor__error {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: @red;
+}

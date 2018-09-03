@@ -1,4 +1,5 @@
 import Validator from 'validatorjs';
+import { getRulesByPostTypeId } from '../utils/posts';
 
 const getInitialState = () => ({
   data: {
@@ -6,35 +7,24 @@ const getInitialState = () => ({
     title: '',
     leading_text: '',
     description: '',
+    main_image_filename: '',
     action_button_title: '',
     action_button_url: '',
     action_duration_in_days: '',
-    main_image_filename: '',
   },
-  rules: {
-    title: 'required',
-    leading_text: 'required',
-    description: 'required',
-    action_button_title: 'required',
-    action_button_url: 'required|url',
-    action_duration_in_days: 'required|numeric',
-    main_image_filename: 'required',
-  },
-  errors: {
-
-  },
+  errors: {},
   isValid: false,
 });
 
-const offer = (state = getInitialState(), action) => {
+const post = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_OFFER': {
+    case 'RESET_POST': {
       return getInitialState();
     }
 
-    case 'SET_OFFER_DATA': {
+    case 'SET_POST_DATA': {
       const data = Object.assign({}, state.data, action.data);
-      const validation = new Validator(data, state.rules);
+      const validation = new Validator(data, getRulesByPostTypeId(data.post_type_id));
 
       return Object.assign({}, state, {
         data,
@@ -42,8 +32,8 @@ const offer = (state = getInitialState(), action) => {
       });
     }
 
-    case 'VALIDATE_OFFER': {
-      const validation = new Validator(state.data, state.rules);
+    case 'VALIDATE_POST': {
+      const validation = new Validator(state.data, getRulesByPostTypeId(state.data.post_type_id));
 
       validation.passes();
 
@@ -52,8 +42,8 @@ const offer = (state = getInitialState(), action) => {
       });
     }
 
-    case 'VALIDATE_OFFER_FIELD': {
-      const validation = new Validator(state.data, state.rules);
+    case 'VALIDATE_POST_FIELD': {
+      const validation = new Validator(state.data, getRulesByPostTypeId(state.data.post_type_id));
 
       validation.passes();
 
@@ -70,4 +60,4 @@ const offer = (state = getInitialState(), action) => {
   }
 };
 
-export default offer;
+export default post;

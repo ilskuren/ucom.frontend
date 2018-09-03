@@ -4,8 +4,10 @@
   max-width: 600px;
 
   &__header {
-    text-align: left;
     margin-bottom: 20px;
+    @media (min-width: 767px) {
+      text-align: left;
+    }
   }
 
   &__button {

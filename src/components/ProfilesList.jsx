@@ -24,6 +24,7 @@ const renderProfilesRow = ({
           userName={userName}
           accountName={accountName}
           avatarUrl={avatarUrl}
+          className="user-card_text_left"
         />
       </div>
       <div className="profiles-list__info">

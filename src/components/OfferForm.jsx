@@ -32,7 +32,7 @@ class OfferForm extends PureComponent {
                 <div className="post-form__title">
                   <div className="toolbar">
                     <div className="toolbar__main">
-                      <h1 className="title">Create Offer</h1>
+                      <h1 className="title">{this.props.post.data.id ? 'Edit' : 'Create'} Offer</h1>
                     </div>
                     <div className="toolbar__side">
                       <button

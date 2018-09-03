@@ -21,6 +21,7 @@ class HomePage extends PureComponent {
       users: [],
       posts: [],
       userPosts: [],
+      allProfilesPopupIsOpened: false,
     };
   }
 
@@ -45,14 +46,24 @@ class HomePage extends PureComponent {
       });
   }
 
+  closeAllProfilesPopupPopup() {
+    this.setState({ allProfilesPopupIsOpened: false });
+  }
+
+  openAllProfilesPopupPopup() {
+    this.setState({ allProfilesPopupIsOpened: true });
+  }
+
   render() {
     return (
       <Fragment>
-        <Popup onClickClose={() => {}}>
-          <ModalContent onSearchChange={() => {}}>
-            <ProfilesList />
-          </ModalContent>
-        </Popup>
+        {this.state.allProfilesPopupIsOpened && (
+          <Popup onClickClose={() => this.closeAllProfilesPopupPopup()}>
+            <ModalContent onSearchChange={() => {}} onClickClose={() => this.closeAllProfilesPopupPopup()}>
+              <ProfilesList />
+            </ModalContent>
+          </Popup>
+        )}
         <div className="content">
           <div className="content__inner">
             <div className="page-nav">
@@ -183,7 +194,7 @@ class HomePage extends PureComponent {
                         </div>
 
                         <div className="users-group__show-more">
-                          <a href="#">View All</a>
+                          <a href="#" onClick={() => this.openAllProfilesPopupPopup()}>View All</a>
                         </div>
                       </div>
                     </div>

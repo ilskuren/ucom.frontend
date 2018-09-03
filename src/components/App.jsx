@@ -9,6 +9,7 @@ import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import EditPost from '../pages/EditPost';
 import UserPage from '../pages/User';
+import NotFoundPage from '../pages/NotFoundPage';
 import { setUser } from '../actions';
 import { getToken } from '../utils/token';
 import { getMyself } from '../api';
@@ -73,8 +74,10 @@ class App extends PureComponent {
                 <Route exact path="/offer/new" component={CreateOffer} />
                 <Route exact path="/offer/:id/edit" component={CreateOffer} />
                 <Route exact path="/posts/:id" component={Post} />
+                <Route component={NotFoundPage} />
               </Switch>
             </Page>
+
           </Router>
         )}
       </Fragment>

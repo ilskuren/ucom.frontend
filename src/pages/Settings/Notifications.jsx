@@ -49,6 +49,10 @@ const events = [
 ];
 
 class SettingsNotificationsPage extends PureComponent {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="settings">

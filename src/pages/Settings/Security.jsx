@@ -21,6 +21,10 @@ const mapStateToProps = state => ({
 });
 
 class SettingsSecurityPage extends PureComponent {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="settings">

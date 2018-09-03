@@ -25,6 +25,10 @@ const mapStateToProps = state => ({
 });
 
 class SettingsAccountPage extends PureComponent {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="settings">

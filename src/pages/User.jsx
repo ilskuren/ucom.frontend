@@ -10,6 +10,7 @@ import IconLink from '../components/Icons/Link';
 import Post from '../components/Post';
 import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
+import FollowButton from '../components/FollowButton';
 import { getUser, getUserPosts } from '../api';
 import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -170,7 +171,10 @@ class UserPage extends PureComponent {
                           {this.props.user.id !== this.state.user.id && (
                             <div className="inline inline_large">
                               <div className="inline__item">
-                                <button className="button button_theme_transparent button_size_medium">Follow</button>
+                                <FollowButton
+                                  follow={this.state.user.myselfData && this.state.user.myselfData.follow}
+                                  userId={this.state.user.id}
+                                />
                               </div>
                               <div className="inline__item">
                                 <div className="inline inline_small">

@@ -21,11 +21,11 @@ const buyersAvatars = [
   },
 ];
 
-const renderRow = (renderButton) => {
+const renderRow = (renderButton, index) => {
   const randomNumber = Math.floor(Math.random() * 10000) + 1;
   const conditionForDemonstration = randomNumber % 2 === 0;
   return (
-    <div className="my-profile-items__row">
+    <div className="my-profile-items__row" key={index}>
       <div className="my-profile-items__row-left-side">
         <div className="my-profile-items__row-left-top-side">
           <div className="my-profile-items__avatar">
@@ -82,7 +82,7 @@ const renderRow = (renderButton) => {
 
 const MyProfileItems = ({ bottomLabel, renderButton }) => (
   <div className="my-profile-items">
-    {Array.from({ length: 5 }).map(() => renderRow(renderButton))}
+    {Array.from({ length: 5 }).map((_, index) => renderRow(renderButton, index))}
     <div className="my-profile-items__row my-profile-items__row_create-new">
       <span>{bottomLabel}</span>
     </div>

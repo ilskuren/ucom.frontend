@@ -20,4 +20,10 @@ export default {
   titleIsRequired: 'Title is required',
   leadingTextIsRequired: 'Leading text is required',
   descriptionIsRequired: 'Text is required',
+  typeIsRequired: 'Type is required',
+  actionButtonNameIsRequired: 'Action button name is required',
+  actionButtonLinkIsRequired: 'Action button link is required',
+  timeSaleDaysIsRequired: 'Time sale days is required',
+  timeSaleDaysNoZero: 'Time sale days must be greater than zero',
+  coverIsRequired: 'Cover is required',
 };

@@ -14,6 +14,7 @@
 }
 
 .button-icon_edit {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,4 +22,30 @@
   height: 48px;
   border-radius: 50%;
   background: #D8E8E8;
+}
+
+.button-icon_edit_transparent {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+
+  svg {
+    fill: #fff;
+  }
+}
+
+.button-icon_share {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  svg {
+    position: relative;
+    top: -2px;
+    fill: #fff;
+  }
 }

@@ -152,3 +152,45 @@ export const checkAccountName = accountName => (
   })
     .then(resp => resp.json())
 );
+
+export const createOffer = (data, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);
+
+export const updateOffer = (data, token, id) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);
+
+export const follow = (userId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);
+
+export const join = (postId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/join`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);

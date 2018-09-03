@@ -7,3 +7,19 @@ export const getFileUrl = (filename) => {
 
   return `${config.backend.httpEndpoint}/upload/${filename}`;
 };
+
+export const getBase64FromFile = file => (
+  new Promise((resolve) => {
+    if (!file) {
+      resolve(null);
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  })
+);

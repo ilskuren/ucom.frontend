@@ -8,8 +8,8 @@ import MyProfilePage from '../pages/MyProfile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import EditPost from '../pages/EditPost';
-import Posts from '../pages/Posts';
 import UserPage from '../pages/User';
+import NotFoundPage from '../pages/NotFoundPage';
 import { setUser } from '../actions';
 import { getToken } from '../utils/token';
 import { getMyself } from '../api';
@@ -17,6 +17,8 @@ import Loading from './Loading';
 import Header from './Header';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
+import CreateOffer from '../pages/CreateOffer';
+import Post from '../pages/Post';
 
 class App extends PureComponent {
   constructor(props) {
@@ -69,9 +71,13 @@ class App extends PureComponent {
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new" component={CreatePost} />
                 <Route path="/posts/edit" component={EditPost} />
-                <Route path="/posts" component={Posts} />
+                <Route exact path="/offer/new" component={CreateOffer} />
+                <Route exact path="/offer/:id/edit" component={CreateOffer} />
+                <Route exact path="/posts/:id" component={Post} />
+                <Route component={NotFoundPage} />
               </Switch>
             </Page>
+
           </Router>
         )}
       </Fragment>

@@ -26,22 +26,44 @@ const MyProfileEventsPage = () => (
         <EventTitle
           imgSrc={dunkirkImg}
           className="event-title_high event-title_no-footer"
-          text="See how Christopher Nolan filmed those incredible Dunkirk aerial sequences"
+          title="See how Christopher Nolan filmed those incredible Dunkirk aerial sequences"
+          tags={['story']}
+          rate={9200}
+          daysLeft={12}
         />
       </div>
       <div className="my-profile-list__sheet my-profile-list__sheet_shift_small">
         <EventTitle
           imgSrc={burgerImg}
           className="event-title_high"
-          text="Buy 2 burgers for the price of three, and get one for free! Or not one, maybe four, if i want"
-          buyers="8 923"
+          title="Buy 2 burgers for the price of three, and get one for free! Or not one, maybe four, if i want"
+          tags={['sale']}
+          rate={9200}
+          buyersCount={8923}
+          buyers={[
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+          ]}
+          team={[
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+            { avatar_filename: 'main_image_filename-1535642542960.png' },
+          ]}
+          userId={1}
+          actionButtonUrl="/main_image_filename-1535642542960.png"
+          actionButtonTitle="Buy now"
         />
       </div>
       <div className="my-profile-list__sheet my-profile-list__sheet_shift_medium">
         <EventTitle
           imgSrc={bladeRunner}
-          text="Why You're All Wrong And Blade Runner 2049 was Brilliant, Dammit"
+          title="Why You're All Wrong And Blade Runner 2049 was Brilliant, Dammit"
           className="event-title_no-footer"
+          tags={['story']}
+          rate={9200}
         />
       </div>
       <div className="my-profile-list__sheet my-profile-list__sheet_link">

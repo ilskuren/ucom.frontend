@@ -8,6 +8,7 @@ import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
 import OfferTitle from '../components/OfferTitle';
+import UserSearchInput from './UserSearchInput';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName } from '../utils/user';
@@ -168,7 +169,21 @@ class OfferForm extends PureComponent {
                     Add Team
                   </div>
                   <div className="field__input">
-                    <TextInput disabled placeholder="Find People" />
+                    <UserSearchInput
+                      isMulti
+                      isSearchable
+                      isClearable
+                      isUserOptions
+                      options={[{
+                        value: '1',
+                        label: 'Vasay Pupkin 1',
+                        avatar: getFileUrl(this.props.user.avatar_filename),
+                      }, {
+                        value: '2',
+                        label: 'Vasay Pupkin 2',
+                        avatar: getFileUrl(this.props.user.avatar_filename),
+                      }]}
+                    />
                   </div>
                 </div>
               </div>

@@ -38,7 +38,7 @@ class Header extends PureComponent {
 
   render() {
     return (
-      <div className="header">
+      <div className="header" id="top">
         <div className="header__side">
           {!this.props.user.id ? (
             <Fragment>
@@ -110,13 +110,15 @@ class Header extends PureComponent {
               <Link to="/" className="menu__link menu__link_upper">U.Community</Link>
             </div>
             {this.props.user.id && (
-              <div className="menu__item">
-                <Link to="/posts/new/story" className="menu__link menu__link_upper">Create Post</Link>
-              </div>
+              <Fragment>
+                <div className="menu__item">
+                  <Link to="/posts/new/1" className="menu__link menu__link_upper">Create Post</Link>
+                </div>
+                <div className="menu__item">
+                  <Link to="/posts/new/2" className="menu__link menu__link_upper">Create Event</Link>
+                </div>
+              </Fragment>
             )}
-            <div className="menu__item">
-              <a href="#" className="menu__link menu__link_upper">Create Event</a>
-            </div>
             <div className="menu__item">
               <a href="#" className="menu__link menu__link_upper">People</a>
             </div>

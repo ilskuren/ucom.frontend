@@ -1,20 +1,7 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+import user from './user';
+import post from './post';
 
-const getInitialState = () => ({
-  user: {},
-});
-
-const app = (state = getInitialState(), action) => {
-  switch (action.type) {
-    case 'SET_USER':
-      return Object.assign({}, state, {
-        user: Object.assign({}, state.user, action.data),
-      });
-    case 'REMOVE_USER':
-      return Object.assign({}, state, { user: {} });
-    default:
-      return state;
-  }
-};
+const app = combineReducers({ user, post });
 
 export default createStore(app);

@@ -20,4 +20,24 @@
 .field__input {
   flex: 1 1 auto;
   max-width: 400px;
+
+  @media (max-width: 767px) {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.field__item {
+  margin: 0 0 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.field__error {
+  margin: 12px 0 0;
+  line-height: 1.4;
+  font-size: 1.142rem;
+  color: @red;
 }

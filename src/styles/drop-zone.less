@@ -1,18 +1,13 @@
-.drop-zone {
-  border: 1px dashed @red;
-  cursor: pointer;
+.drop-zone__input {
   display: flex;
   justify-content: center;
   text-transform: uppercase;
+  border: 1px dashed @red;
   font-weight: bold;
   font-size: 1rem;
-  color: @red;
   border-radius: 4px;
-
-  &__text {
-    align-self: center;
-    padding: 2.42rem 0;
-  }
+  cursor: pointer;
+  color: @red;
 
   &:hover {
     border: 1px solid @red;
@@ -23,11 +18,18 @@
   }
 }
 
-.drop-zone_line {
-  border: none;
+.drop-zone__text {
+  align-self: center;
+  padding: 2.42rem 0;
+}
 
-  &:hover {
+.drop-zone_line {
+  .drop-zone__input {
     border: none;
+
+    &:hover {
+      border: none;
+    }
   }
 
   .drop-zone__text {

@@ -54,9 +54,10 @@ const Input = props => (
   </div>
 );
 
-const UserSearchInput = ({ onChange }) => (
+const UserSearchInput = ({ onChange, value }) => (
   <div className="dropdown">
     <AsyncSelect
+      value={value}
       isMulti
       isSearchable
       isClearable={false}

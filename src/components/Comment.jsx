@@ -23,7 +23,7 @@ class Comments extends PureComponent {
 
   render() {
     return (
-      <div className="comment">
+      <div className="comment" level="2">
         <div className="toolbar toolbar_top">
           <div className="toolbar__main">
             <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />

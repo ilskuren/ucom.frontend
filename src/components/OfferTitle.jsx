@@ -61,6 +61,9 @@ class OfferTitle extends PureComponent {
   }
 
   render() {
+    const team = this.props.team ? this.props.team.slice(0, 5) : null;
+    const otherTeamCount = team ? this.props.team.length - 5 : null;
+
     return (
       <div className="offer-title">
         <div className="offer-title__inner">
@@ -178,17 +181,19 @@ class OfferTitle extends PureComponent {
                   </div>
                 </div>
 
-                {(this.props.team && this.props.team.length > 0) && (
+                {(team && team.length > 0) && (
                   <div className="toolbar__side">
                     <div className="offer-title__footer-board">
                       <div className="avatars-list avatars-list_shifted">
-                        {this.props.team.map(item => (
-                          <div className="avatars-list__item">
-                            <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
+                        {team.map(item => (
+                          <div className="avatars-list__item" key={item.id}>
+                            <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
                           </div>
                         ))}
                       </div>
-                      {/* <span className="offer-title__board-more">+24</span> */}
+                      {otherTeamCount > 0 && (
+                        <span className="offer-title__board-more">+{otherTeamCount}</span>
+                      )}
                     </div>
                     <div className="offer-title__name">BOARD</div>
                   </div>

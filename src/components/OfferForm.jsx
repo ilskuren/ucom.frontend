@@ -174,7 +174,7 @@ class OfferForm extends PureComponent {
                       isSearchable
                       isClearable
                       isUserOptions
-                      options={this.props.post.data.post_users_team}
+                      value={this.props.post.data.post_users_team}
                       onChange={(post_users_team) => {
                         this.props.setPostData({ post_users_team });
                       }}
@@ -225,6 +225,7 @@ class OfferForm extends PureComponent {
                 actionButtonUrl={this.props.post.data.action_button_url}
                 actionDurationInDays={this.props.post.data.action_duration_in_days}
                 imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
+                team={this.props.post.data.post_users_team}
               />
             )}
 

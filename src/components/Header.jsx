@@ -112,10 +112,10 @@ class Header extends PureComponent {
             {this.props.user.id && (
               <Fragment>
                 <div className="menu__item">
-                  <Link to="/posts/new/story" className="menu__link menu__link_upper">Create Post</Link>
+                  <Link to="/posts/new/1" className="menu__link menu__link_upper">Create Post</Link>
                 </div>
                 <div className="menu__item">
-                  <Link to="/offer/new" className="menu__link menu__link_upper">Create Offer</Link>
+                  <Link to="/posts/new/2" className="menu__link menu__link_upper">Create Event</Link>
                 </div>
               </Fragment>
             )}

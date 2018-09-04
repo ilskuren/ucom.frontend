@@ -8,6 +8,7 @@ import MyProfilePage from '../pages/MyProfile';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
+import EventsPage from '../pages/Events';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser } from '../actions';
 import { getToken } from '../utils/token';
@@ -70,6 +71,7 @@ class App extends PureComponent {
                 <Route path="/posts/new/:postTypeId" component={CreatePost} />
                 <Route path="/posts/:id/edit" component={CreatePost} />
                 <Route exact path="/posts/:id" component={Post} />
+                <Route exact path="/events" component={EventsPage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Page>

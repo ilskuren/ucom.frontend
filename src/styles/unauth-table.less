@@ -1,0 +1,47 @@
+.unauth-table {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    & span {
+      font-weight: 700;
+      margin: 0 5px;
+    }
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+
+  &__title {
+    & > * {
+      padding-right: 35px;
+    }
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  
+  &__options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    & > div {
+      padding-left: 40px;
+    }
+    
+    @media (max-width: 767px) {
+      justify-content: flex-start;
+  
+      & > div {
+        padding-left: 0;
+      }
+    }
+  }
+}

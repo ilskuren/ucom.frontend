@@ -8,14 +8,6 @@ const $ = require('jquery');
 require('medium-editor-insert-plugin')($);
 
 class Medium extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: this.props.value,
-    };
-  }
-
   componentDidMount() {
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
@@ -36,15 +28,13 @@ class Medium extends PureComponent {
       },
     });
 
-    if (this.state.value) {
-      this.mediumEditor.setContent(this.state.value);
+    if (this.props.value) {
+      this.mediumEditor.setContent(this.props.value);
     }
 
     if (typeof this.props.onChange === 'function') {
-      this.mediumEditor.subscribe('editableInput', () => {
-        const { value } = this.mediumEditor.serialize()['element-0'];
-
-        this.props.onChange(value);
+      this.mediumEditor.subscribe('editableKeyup', () => {
+        this.props.onChange(this.getValue());
       });
     }
 
@@ -64,8 +54,18 @@ class Medium extends PureComponent {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.getValue()) {
+      this.mediumEditor.setContent(nextProps.value || '<p><br /></p>');
+    }
+  }
+
   componentWillUnmount() {
     this.mediumEditor.destroy();
+  }
+
+  getValue() {
+    return this.mediumEditor.serialize()['element-0'].value;
   }
 
   render() {

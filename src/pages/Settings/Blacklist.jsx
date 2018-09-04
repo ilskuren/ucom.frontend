@@ -11,7 +11,6 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     setSettingsBlacklistData: actions.setSettingsBlacklistData,
     resetSettingsBlacklist: actions.resetSettingsBlacklist,
-    validateSettingsBlacklist: actions.validateSettingsBlacklist,
     validateSettingsBlacklistField: actions.validateSettingsBlacklistField,
   }, dispatch);
 

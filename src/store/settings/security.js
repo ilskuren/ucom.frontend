@@ -2,12 +2,12 @@ import Validator from 'validatorjs';
 
 const getInitialState = () => ({
   data: {
-    auto_login: false,
-    two_fa: false,
+    autoLogin: false,
+    twoFa: false,
   },
   rules: {
-    auto_login: 'required|boolean',
-    two_fa: 'required|boolean',
+    autoLogin: 'required|boolean',
+    twoFa: 'required|boolean',
   },
   errors: {
   },
@@ -21,35 +21,19 @@ const security = (state = getInitialState(), action) => {
     }
 
     case 'SET_SETTINGS_SECURITY_DATA': {
+      const { item, checkValue } = action.payload;
+
       const data = Object.assign({}, state.data, action.payload);
       const validation = new Validator(data, state.rules);
 
-      return Object.assign({}, state, {
-        data,
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [item]: checkValue,
+        },
         isValid: validation.passes(),
-      });
-    }
-
-    case 'VALIDATE_SETTINGS_SECURITY': {
-      const validation = new Validator(state.data, state.rules);
-
-      validation.passes();
-
-      return Object.assign({}, state, {
-        errors: validation.errors.all(),
-      });
-    }
-
-    case 'VALIDATE_SETTINGS_SECURITY_FIELD': {
-      const validation = new Validator(state.data, state.rules);
-
-      validation.passes();
-
-      return Object.assign({}, state, {
-        errors: Object.assign({}, state.errors, {
-          [action.payload]: validation.errors.get(action.payload),
-        }),
-      });
+      };
     }
 
     default: {

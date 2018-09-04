@@ -10,7 +10,6 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     setSettingsSecurityData: actions.setSettingsSecurityData,
     resetSettingsSecurity: actions.resetSettingsSecurity,
-    validateSettingsSecurity: actions.validateSettingsSecurity,
     validateSettingsSecurityField: actions.validateSettingsSecurityField,
   }, dispatch);
 

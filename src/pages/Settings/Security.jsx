@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { bind } from 'decko';
 import PropTypes from 'prop-types';
 import Switcher from '../../components/Switcher';
 
@@ -10,8 +11,6 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     setSettingsSecurityData: actions.setSettingsSecurityData,
     resetSettingsSecurity: actions.resetSettingsSecurity,
-    validateSettingsSecurity: actions.validateSettingsSecurity,
-    validateSettingsSecurityField: actions.validateSettingsSecurityField,
   }, dispatch);
 
 
@@ -25,27 +24,31 @@ class SettingsSecurityPage extends PureComponent {
 
   }
 
+  @bind
+  handleCheckBoxToggle(checkValue, item) {
+    return this.props.setSettingsSecurityData({ item, checkValue });
+  }
+
   render() {
+    const { autoLogin, twoFa } = this.props.security.data;
     return (
       <div className="settings">
         <div className="form">
           <div className="form__block">
             <div className="form__label">Auto-login</div>
             <div className="form__input">
-              <Switcher onChange={(auto_login) => {
-                this.props.setSettingsSecurityData({ auto_login });
-                this.props.validateSettingsSecurityField('auto_login');
-                }}
+              <Switcher
+                onChange={checkValue => this.handleCheckBoxToggle(checkValue, 'autoLogin')}
+                isChecked={autoLogin}
               />
             </div>
           </div>
           <div className="form__block">
             <div className="form__label">2FA</div>
             <div className="form__input">
-              <Switcher onChange={(two_fa) => {
-                this.props.setSettingsSecurityData({ two_fa });
-                this.props.validateSettingsSecurityField('two_fa');
-                }}
+              <Switcher
+                onChange={checkValue => this.handleCheckBoxToggle(checkValue, 'twoFa')}
+                isChecked={twoFa}
               />
             </div>
           </div>
@@ -57,7 +60,6 @@ class SettingsSecurityPage extends PureComponent {
 
 SettingsSecurityPage.propTypes = {
   setSettingsSecurityData: PropTypes.func,
-  validateSettingsSecurityField: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatch)(SettingsSecurityPage);

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { bind } from 'decko';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import TextInput from '../../components/TextInput';
@@ -14,7 +15,6 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     setSettingsAccountData: actions.setSettingsAccountData,
     resetSettingsAccount: actions.resetSettingsAccount,
-    validateSettingsAccount: actions.validateSettingsAccount,
     validateSettingsAccountField: actions.validateSettingsAccountField,
   }, dispatch);
 
@@ -29,6 +29,12 @@ class SettingsAccountPage extends PureComponent {
 
   }
 
+  @bind
+  handleTextInputChange(inputName, value) {
+    this.props.setSettingsAccountData({ [inputName]: value });
+    this.props.validateSettingsAccountField(inputName);
+  }
+
   render() {
     return (
       <div className="settings">
@@ -39,10 +45,7 @@ class SettingsAccountPage extends PureComponent {
               <TextInput
                 value={this.props.account.data.email}
                 error={this.props.account.errors.email && this.props.account.errors.email[0]}
-                onChange={(email) => {
-                  this.props.setSettingsAccountData({ email });
-                  this.props.validateSettingsAccountField('email');
-                }}
+                onChange={value => this.handleTextInputChange('email', value)}
               />
             </div>
           </div>
@@ -53,10 +56,7 @@ class SettingsAccountPage extends PureComponent {
                 type="password"
                 value={this.props.account.data.password}
                 error={this.props.account.errors.password && this.props.account.errors.password[0]}
-                onChange={(password) => {
-                  this.props.setSettingsAccountData({ password });
-                  this.props.validateSettingsAccountField('password');
-                }}
+                onChange={value => this.handleTextInputChange('password', value)}
               />
               <div className="form__change-password-button">
                 <Link href="#">Change password</Link>
@@ -72,10 +72,7 @@ class SettingsAccountPage extends PureComponent {
                 subtext="You can change your profile URL once"
                 value={this.props.account.data.prefix_input}
                 error={this.props.account.errors.prefix_input && this.props.account.errors.prefix_input[0]}
-                onChange={(profile_link) => {
-                  this.props.setSettingsAccountData({ profile_link });
-                  this.props.validateSettingsAccountField('profile_link');
-                }}
+                onChange={value => this.handleTextInputChange('profileLink', value)}
               />
             </div>
           </div>

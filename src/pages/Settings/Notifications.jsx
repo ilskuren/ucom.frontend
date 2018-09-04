@@ -14,8 +14,6 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     setSettingsNotificationsData: actions.setSettingsNotificationsData,
     resetSettingsNotifications: actions.resetSettingsNotifications,
-    validateSettingsNotifications: actions.validateSettingsNotifications,
-    validateSettingsNotificationsField: actions.validateSettingsNotificationsField,
   }, dispatch);
 
 
@@ -24,30 +22,30 @@ const mapStateToProps = state => ({
   notifications: state.settings.notifications,
 });
 
-const alerts = [
-  { name: 'Platform notifications', value: true },
-  { name: 'Web push', value: false },
-  { name: 'E-mail Notifications', value: false },
-  { name: 'E-mail Newsletter', value: false },
-];
+const alertTitles = {
+  platformNotifications: { name: 'Platform notifications' },
+  webPush: { name: 'Web push' },
+  emailNotifications: { name: 'E-mail Notifications' },
+  emailNewsletter: { name: 'E-mail Newsletter' },
+};
 
-const account = [
-  { name: 'Upvote / downvote', value: true },
-  { name: 'Share', value: false },
-  { name: 'Comment', value: false },
-  { name: 'Feed Posts', value: false },
-  { name: 'Mentions / replies', value: false },
-  { name: 'Private messages', value: false },
-  { name: 'Participated in polls', value: false },
-];
+const accountTitles = {
+  vote: { name: 'Upvote / downvote' },
+  share: { name: 'Share' },
+  comment: { name: 'Comment' },
+  feedPosts: { name: 'Feed Posts' },
+  mentions: { name: 'Mentions / replies' },
+  privateMessages: { name: 'Private messages' },
+  participatedInPolls: { name: 'Participated in polls' },
+};
 
-const events = [
-  { name: 'Follow', value: true },
-  { name: 'Trust', value: false },
-  { name: 'Join (Custom CTA)', value: false },
-  { name: 'Board invitations', value: false },
-  { name: 'Upcoming events', value: false },
-];
+const eventTitles = {
+  follow: { name: 'Follow' },
+  trust: { name: 'Trust' },
+  join: { name: 'Join (Custom CTA)' },
+  boardInvitations: { name: 'Board invitations' },
+  upcomingEvents: { name: 'Upcoming events' },
+};
 
 class SettingsNotificationsPage extends PureComponent {
   componentDidMount() {
@@ -55,29 +53,28 @@ class SettingsNotificationsPage extends PureComponent {
   }
 
   @bind
-  checkboxOnchange(checkValue) {
-    console.log(checkValue);
+  handleCheckBoxToggle({ checkValue, item, type }) {
+    return this.props.setSettingsNotificationsData({ type, item, checkValue });
   }
 
   render() {
+    const { alerts, account, events } = this.props.notifications.data;
+
     return (
       <div className="settings">
         <div className="settings__container">
           <div className={classNames('settings__info-block', 'settings__info-block_alerts')}>
             <InfoBlock title="Alerts" size="small">
               {
-                alerts.map((item, index) => (
+                Object.keys(alertTitles).map((item, index) => (
                   <div className="settings__block" key={index}>
                     <div className="settings__label">
-                      {item.name}
+                      {alertTitles[item].name}
                     </div>
                     <div className="settings__switcher">
                       <Switcher
-                        isChecked={item.value}
-                        onChange={(checkValue) => {
-                          this.props.setSettingsNotificationsData({ [`${item.name}`]: checkValue });
-                          this.props.validateSettingsNotificationsField('alerts.----'); // TODO: ?? alerts.
-                        }}
+                        isChecked={alerts[item]}
+                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'alerts', item, checkValue })}
                       />
                     </div>
                   </div>
@@ -88,19 +85,16 @@ class SettingsNotificationsPage extends PureComponent {
           <div className={classNames('settings__info-block', 'settings__info-block_account')}>
             <InfoBlock title="Account" size="small">
               {
-                account.map((item, index) => (
+                Object.keys(accountTitles).map((item, index) => (
                   <div className="settings__checkbox inline" key={index}>
                     <div className="inline__item">
                       <Checkbox
-                        isChecked={item.value}
-                        onChange={(checkValue) => {
-                          this.props.setSettingsNotificationsData({ [`${item.name}`]: checkValue });
-                          this.props.validateSettingsNotificationsField('account.----'); // TODO: ?? account.
-                        }}
+                        isChecked={account[item]}
+                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'account', item, checkValue })}
                       />
                     </div>
                     <div className="inline__item">
-                      {item.name}
+                      {accountTitles[item].name}
                     </div>
                   </div>
                 ))
@@ -110,16 +104,16 @@ class SettingsNotificationsPage extends PureComponent {
           <div className={classNames('settings__info-block', 'settings__info-block_events')}>
             <InfoBlock title="Platform events" size="small">
               {
-                events.map((item, index) => (
+                Object.keys(eventTitles).map((item, index) => (
                   <div className="settings__checkbox inline" key={index}>
                     <div className="inline__item">
                       <Checkbox
-                        isChecked={item.value}
-                        onChange={this.checkboxOnchange}
+                        isChecked={events[item]}
+                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'events', item, checkValue })}
                       />
                     </div>
                     <div className="inline__item">
-                      {item.name}
+                      {eventTitles[item].name}
                     </div>
                   </div>
                 ))
@@ -134,7 +128,6 @@ class SettingsNotificationsPage extends PureComponent {
 
 SettingsNotificationsPage.propTypes = {
   setSettingsNotificationsData: PropTypes.func,
-  validateSettingsNotificationsField: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatch)(SettingsNotificationsPage);

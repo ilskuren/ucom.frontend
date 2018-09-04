@@ -7,6 +7,7 @@ const EventsPage = () => (
     <div className="content__inner">
       <UnAuthTable
         title="Events"
+        tableTitles={['views', 'comments', 'rate']}
         onFilterClick={() => true}
       />
 

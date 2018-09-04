@@ -28,7 +28,7 @@ const UserCard = (props) => {
         </div>
 
         {props.accountName && (
-          <div className="user-card__account">@{props.accountName}</div>
+          <div className="user-card__account">{props.sign || '@'}{props.accountName}</div>
         )}
       </div>
 
@@ -49,6 +49,7 @@ UserCard.propTypes = {
   profileLink: PropTypes.string,
   avatarUrl: PropTypes.string,
   avatarSize: PropTypes.string,
+  sign: PropTypes.string,
 };
 
 UserCard.defaultProps = {

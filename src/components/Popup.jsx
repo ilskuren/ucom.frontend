@@ -10,6 +10,7 @@ class Popup extends PureComponent {
     this.popup = document.createElement('div');
     this.popup.className = 'popup';
     document.body.appendChild(this.popup);
+    document.body.classList.add('no-scroll');
     this.renderPopup();
 
     setTimeout(() => this.popup.classList.add('popup_active'), 0);
@@ -25,6 +26,7 @@ class Popup extends PureComponent {
     setTimeout(() => {
       ReactDOM.unmountComponentAtNode(this.popup);
       document.body.removeChild(this.popup);
+      document.body.classList.remove('no-scroll');
     }, 300);
   }
 

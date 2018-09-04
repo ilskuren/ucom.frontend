@@ -11,6 +11,7 @@ const getInitialState = () => ({
     action_button_title: '',
     action_button_url: '',
     action_duration_in_days: '',
+    post_users_team: [],
   },
   errors: {},
   isValid: false,

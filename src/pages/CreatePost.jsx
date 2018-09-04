@@ -1,3 +1,4 @@
+import objectToFormData from 'object-to-formdata';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
@@ -8,7 +9,6 @@ import { setPostData, validatePost, resetPost } from '../actions';
 import { createPost, updatePost, getPost } from '../api';
 import { getPostUrl } from '../utils/posts';
 import { getToken } from '../utils/token';
-import { getFromDataFromObject } from '../utils/data';
 
 class CreatePost extends PureComponent {
   componentDidMount() {
@@ -49,7 +49,9 @@ class CreatePost extends PureComponent {
     }
 
     const saveFn = this.props.match.params.id ? updatePost : createPost;
-    const data = getFromDataFromObject(this.props.post.data);
+    const data = objectToFormData(this.props.post.data, {
+      indices: true,
+    });
 
     saveFn(data, getToken(), this.props.match.params.id)
       .then((data) => {

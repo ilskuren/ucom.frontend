@@ -174,15 +174,10 @@ class OfferForm extends PureComponent {
                       isSearchable
                       isClearable
                       isUserOptions
-                      options={[{
-                        value: '1',
-                        label: 'Vasay Pupkin 1',
-                        avatar: getFileUrl(this.props.user.avatar_filename),
-                      }, {
-                        value: '2',
-                        label: 'Vasay Pupkin 2',
-                        avatar: getFileUrl(this.props.user.avatar_filename),
-                      }]}
+                      options={this.props.post.data.post_users_team}
+                      onChange={(post_users_team) => {
+                        this.props.setPostData({ post_users_team });
+                      }}
                     />
                   </div>
                 </div>

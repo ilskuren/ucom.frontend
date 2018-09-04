@@ -1,27 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 import { components } from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 import UserOption from './UserOption';
 import Close from './Icons/Close';
-import { getUsers } from '../api';
+import { searchUsers } from '../api';
 import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
-
-const fetchUsers = () => (
-  getUsers().then(data => (
-    data.map(item => ({
-      value: item.id,
-      label: getUserName(item),
-      avatar: getFileUrl(item.avatar_filename),
-    }))
-  ))
-);
 
 const SelectUserOption = props => (
   <components.Option {...props}>
     <UserOption
-      name={props.label}
+      name={getUserName(props.data)}
       avatar={getFileUrl(props.data.avatar_filename)}
     />
   </components.Option>
@@ -57,7 +48,13 @@ const DropdownIndicator = props => (
   </components.DropdownIndicator>
 );
 
-const UserSearchInput = () => (
+const Input = props => (
+  <div className="dropdown__input-container">
+    <components.Input {...props} />
+  </div>
+);
+
+const UserSearchInput = ({ onChange }) => (
   <div className="dropdown">
     <AsyncSelect
       isMulti
@@ -66,15 +63,27 @@ const UserSearchInput = () => (
       placeholder="Find people"
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={fetchUsers}
+      loadOptions={searchUsers}
+      getOptionLabel={data => getUserName(data)}
+      getOptionValue={data => data.id}
       components={{
         MultiValueRemove: CloseButton,
         Control,
         DropdownIndicator,
         Option: SelectUserOption,
+        Input,
+      }}
+      onChange={(options) => {
+        if (typeof onChange === 'function') {
+          onChange(options);
+        }
       }}
     />
   </div>
 );
+
+UserSearchInput.propTypes = {
+  onChange: PropTypes.func,
+};
 
 export default UserSearchInput;

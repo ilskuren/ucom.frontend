@@ -128,6 +128,13 @@ class SettingsNotificationsPage extends PureComponent {
 
 SettingsNotificationsPage.propTypes = {
   setSettingsNotificationsData: PropTypes.func,
+  notifications: PropTypes.shape({
+    data: PropTypes.shape({
+      alerts: PropTypes.object,
+      account: PropTypes.object,
+      events: PropTypes.object,
+    }),
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatch)(SettingsNotificationsPage);

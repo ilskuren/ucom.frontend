@@ -60,6 +60,12 @@ class SettingsSecurityPage extends PureComponent {
 
 SettingsSecurityPage.propTypes = {
   setSettingsSecurityData: PropTypes.func,
+  security: PropTypes.shape({
+    data: PropTypes.shape({
+      autoLogin: PropTypes.bool,
+      twoFa: PropTypes.bool,
+    }),
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatch)(SettingsSecurityPage);

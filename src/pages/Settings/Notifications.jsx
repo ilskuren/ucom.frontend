@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { bind } from 'decko';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -51,6 +52,11 @@ const events = [
 class SettingsNotificationsPage extends PureComponent {
   componentDidMount() {
 
+  }
+
+  @bind
+  checkboxOnchange(checkValue) {
+    console.log(checkValue);
   }
 
   render() {
@@ -109,10 +115,7 @@ class SettingsNotificationsPage extends PureComponent {
                     <div className="inline__item">
                       <Checkbox
                         isChecked={item.value}
-                        onChange={(checkValue) => {
-                          this.props.setSettingsNotificationsData({ [`${item.name}`]: checkValue });
-                          this.props.validateSettingsNotificationsField('platform_events.----'); // TODO: ?? platform_events.
-                        }}
+                        onChange={this.checkboxOnchange}
                       />
                     </div>
                     <div className="inline__item">

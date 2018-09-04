@@ -1,6 +1,6 @@
 export const setUser = data => ({ data, type: 'SET_USER' });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
-export const setOfferData = data => ({ type: 'SET_OFFER_DATA', data });
-export const resetOffer = () => ({ type: 'RESET_OFFER' });
-export const validateOffer = () => ({ type: 'VALIDATE_OFFER' });
-export const validateOfferField = data => ({ type: 'VALIDATE_OFFER_FIELD', data });
+export const setPostData = data => ({ type: 'SET_POST_DATA', data });
+export const resetPost = () => ({ type: 'RESET_POST' });
+export const validatePost = () => ({ type: 'VALIDATE_POST' });
+export const validatePostField = data => ({ type: 'VALIDATE_POST_FIELD', data });

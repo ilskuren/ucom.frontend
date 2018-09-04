@@ -31,7 +31,7 @@ export const getOfferEditUrl = (offerId) => {
     return null;
   }
 
-  return `/offer/${offerId}/edit`;
+  return `/posts/${offerId}/edit`;
 };
 
 export const getDateLeft = (createdAt, durationInDays) => {

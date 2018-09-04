@@ -21,7 +21,7 @@ const security = (state = getInitialState(), action) => {
     }
 
     case 'SET_SETTINGS_SECURITY_DATA': {
-      const data = Object.assign({}, state.data, action.data);
+      const data = Object.assign({}, state.data, action.payload);
       const validation = new Validator(data, state.rules);
 
       return Object.assign({}, state, {
@@ -47,7 +47,7 @@ const security = (state = getInitialState(), action) => {
 
       return Object.assign({}, state, {
         errors: Object.assign({}, state.errors, {
-          [action.data]: validation.errors.get(action.data),
+          [action.payload]: validation.errors.get(action.payload),
         }),
       });
     }

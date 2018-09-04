@@ -25,8 +25,8 @@ class SettingsSecurityPage extends PureComponent {
   }
 
   @bind
-  handleCheckBoxToggle(checkValue, item) {
-    return this.props.setSettingsSecurityData({ item, checkValue });
+  makeHandleCheckBoxToggle(item) {
+    return checkValue => this.props.setSettingsSecurityData({ item, checkValue });
   }
 
   render() {
@@ -38,7 +38,7 @@ class SettingsSecurityPage extends PureComponent {
             <div className="form__label">Auto-login</div>
             <div className="form__input">
               <Switcher
-                onChange={checkValue => this.handleCheckBoxToggle(checkValue, 'autoLogin')}
+                onChange={this.makeHandleCheckBoxToggle('autoLogin')}
                 isChecked={autoLogin}
               />
             </div>
@@ -47,7 +47,7 @@ class SettingsSecurityPage extends PureComponent {
             <div className="form__label">2FA</div>
             <div className="form__input">
               <Switcher
-                onChange={checkValue => this.handleCheckBoxToggle(checkValue, 'twoFa')}
+                onChange={this.makeHandleCheckBoxToggle('twoFa')}
                 isChecked={twoFa}
               />
             </div>

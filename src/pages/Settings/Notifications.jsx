@@ -53,8 +53,8 @@ class SettingsNotificationsPage extends PureComponent {
   }
 
   @bind
-  handleCheckBoxToggle({ checkValue, item, type }) {
-    return this.props.setSettingsNotificationsData({ type, item, checkValue });
+  makeHandleCheckBoxToggle({ item, type }) {
+    return checkValue => this.props.setSettingsNotificationsData({ type, item, checkValue });
   }
 
   render() {
@@ -74,7 +74,7 @@ class SettingsNotificationsPage extends PureComponent {
                     <div className="settings__switcher">
                       <Switcher
                         isChecked={alerts[item]}
-                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'alerts', item, checkValue })}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'alerts', item })}
                       />
                     </div>
                   </div>

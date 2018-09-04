@@ -31,9 +31,10 @@ const referral = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errors: validation.errors.all(),
-      });
+      };
     }
 
     case 'VALIDATE_SETTINGS_REFERRAL_FIELD': {
@@ -41,11 +42,13 @@ const referral = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
-        errors: Object.assign({}, state.errors, {
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
           [action.payload]: validation.errors.get(action.payload),
-        }),
-      });
+        },
+      };
     }
 
     default: {

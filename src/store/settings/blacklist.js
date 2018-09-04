@@ -17,13 +17,18 @@ const blacklist = (state = getInitialState(), action) => {
     }
 
     case 'SET_SETTINGS_BLACKLIST_DATA': {
-      const data = Object.assign({}, state.data, action.payload);
+      const data = {
+        ...state.data,
+        ...action.payload,
+      };
+
       const validation = new Validator(data, state.rules);
 
-      return Object.assign({}, state, {
-        data,
+      return {
+        ...state,
+        ...data,
         isValid: validation.passes(),
-      });
+      };
     }
 
     case 'VALIDATE_SETTINGS_BLACKLIST': {
@@ -31,9 +36,10 @@ const blacklist = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errors: validation.errors.all(),
-      });
+      };
     }
 
     case 'VALIDATE_SETTINGS_BLACKLIST_FIELD': {
@@ -41,11 +47,13 @@ const blacklist = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
-        errors: Object.assign({}, state.errors, {
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
           [action.payload]: validation.errors.get(action.payload),
-        }),
-      });
+        },
+      };
     }
 
     default: {

@@ -32,13 +32,18 @@ const account = (state = getInitialState(), action) => {
     }
 
     case 'SET_SETTINGS_ACCOUNT_DATA': {
-      const data = Object.assign({}, state.data, action.payload);
+      const data = {
+        ...state.data,
+        ...action.payload,
+      };
+
       const validation = new Validator(data, state.rules);
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         data,
         isValid: validation.passes(),
-      });
+      };
     }
 
     case 'VALIDATE_SETTINGS_ACCOUNT': {
@@ -46,9 +51,10 @@ const account = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errors: validation.errors.all(),
-      });
+      };
     }
 
     case 'VALIDATE_SETTINGS_ACCOUNT_FIELD': {
@@ -56,11 +62,13 @@ const account = (state = getInitialState(), action) => {
 
       validation.passes();
 
-      return Object.assign({}, state, {
-        errors: Object.assign({}, state.errors, {
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
           [action.payload]: validation.errors.get(action.payload),
-        }),
-      });
+        },
+      };
     }
 
     default: {

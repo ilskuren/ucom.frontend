@@ -31,7 +31,7 @@ class Comments extends PureComponent {
           <div className="toolbar__side">
             <div className="comment__username">Ben Broud</div>
             <div className="comment__account">@deckbuilder</div>
-            <div className="comment__text">Robinhood is in a great position to eat into Coinbase and other exchange's market share for a more mainstream.</div>
+            <div className="comment__text">Robinhood is in a great position to eat into Coinbase and other exchange market share for a more mainstream.</div>
             <div className="comment__actions">
               <div className="inline">
                 <div className="inline__item">

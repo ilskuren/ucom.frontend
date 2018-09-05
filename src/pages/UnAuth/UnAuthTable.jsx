@@ -102,6 +102,7 @@ class UnAuthTable extends PureComponent {
           titles={this.props.tableTitles}
           promo={{ title: this.props.textInMiddle, link: '#' }}
           withPagination={this.props.withPagination}
+          isIndexed={this.props.isIndexed}
         />
       </div>
     );
@@ -118,6 +119,7 @@ UnAuthTable.propTypes = {
   tableData: PropTypes.arrayOf(PropTypes.object),
   stickyBottom: PropTypes.bool,
   withPagination: PropTypes.bool,
+  isIndexed: PropTypes.bool,
 };
 
 export default UnAuthTable;

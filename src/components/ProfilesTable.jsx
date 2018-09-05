@@ -11,13 +11,15 @@ const renderProfilesTableRow = ({
     accountName,
     avatarUrl,
     sign,
-  }, rate, views, comments, joined, followers, trustedBy,
-}, index) => (
+  }, rate, views, comments, joined, followers, trustedBy, index,
+}) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
-      <div className="followers-table__index">
-        <span>#</span>{index + 1}
-      </div>
+      {index && (
+        <div className="followers-table__index">
+          <span>#</span>{index}
+        </div>
+      )}
       <UserCard
         userName={profileName}
         accountName={accountName}
@@ -96,12 +98,14 @@ const renderPaginationRow = () => (
   </div>
 );
 
-const renderProfilesTableHeader = titles => (
+const renderProfilesTableHeader = (titles, isIndexed) => (
   <div className="followers-table__header">
     <div className="followers-table__user">
-      <div className="followers-table__index">
-        #
-      </div>
+      {isIndexed && (
+        <div className="followers-table__index">
+          #
+        </div>
+      )}
       <div className="followers-table__column-name">name</div>
     </div>
     <div className="followers-table__numbers followers-table__numbers_">
@@ -113,19 +117,19 @@ const renderProfilesTableHeader = titles => (
 );
 
 const ProfilesTable = ({
-  profiles,
-  titles,
-  promo,
-  withPagination,
-}) => (
-  <div className={cn('followers-table', 'followers-table_without-button')}>
-    {renderProfilesTableHeader(titles)}
-    {profiles.slice(0, 4).map(renderProfilesTableRow)}
-    {promo && renderPromoRow(promo)}
-    {profiles.slice(5).map(renderProfilesTableRow)}
-    {withPagination && renderPaginationRow()}
-  </div>
-);
+  profiles, titles, promo, withPagination, isIndexed,
+}) => {
+  const indexedProfiles = isIndexed ? profiles.map((profile, index) => Object.assign({}, profile, { index: index + 1 })) : profiles;
+  return (
+    <div className={cn('followers-table', 'followers-table_without-button')}>
+      {renderProfilesTableHeader(titles, isIndexed)}
+      {indexedProfiles.slice(0, 4).map(renderProfilesTableRow)}
+      {promo && renderPromoRow(promo)}
+      {indexedProfiles.slice(5).map(renderProfilesTableRow)}
+      {withPagination && renderPaginationRow()}
+    </div>
+  );
+};
 
 const profilesData = {
   profileCardData: PropTypes.shape({
@@ -140,6 +144,7 @@ const profilesData = {
   followers: PropTypes.number,
   trustedBy: PropTypes.number,
   joined: PropTypes.number,
+  index: PropTypes.number,
 };
 
 renderProfilesTableRow.propTypes = profilesData;
@@ -149,6 +154,7 @@ ProfilesTable.propTypes = {
   titles: PropTypes.arrayOf(PropTypes.string),
   promo: PropTypes.shape({ title: PropTypes.string, link: PropTypes.string }),
   withPagination: PropTypes.bool,
+  isIndexed: PropTypes.bool,
 };
 
 export default ProfilesTable;

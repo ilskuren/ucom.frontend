@@ -76,11 +76,13 @@ const renderProfilesTableRow = ({
 const renderPromoRow = promo => (
   <div className="followers-table__row followers-table__row_promo">
     <h3>{promo.title}</h3>
-    <Button
-      text="Learn more"
-      size="medium"
-      theme="transparent"
-    />
+    <div className="followers-table__promo-button">
+      <Button
+        text="Learn more"
+        size="medium"
+        theme="transparent"
+      />
+    </div>
   </div>
 );
 

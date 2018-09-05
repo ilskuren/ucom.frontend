@@ -118,11 +118,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        {this.state.user.nickname ? (
-                          <Fragment>@{this.state.user.nickname}</Fragment>
-                        ) : (
-                          <span className="blank">nickname</span>
-                        )}
+                        @{this.state.user.account_name}
                       </div>
 
                       <div className="user-header__info">

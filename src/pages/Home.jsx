@@ -185,7 +185,7 @@ class HomePage extends PureComponent {
                             <div className="users-group__item" key={user.id}>
                               <UserCard
                                 userName={getUserName(user)}
-                                accountName={user.nickname}
+                                accountName={user.account_name}
                                 profileLink={getUserUrl(user.id)}
                                 avatarUrl={getFileUrl(user.avatar_filename)}
                               />

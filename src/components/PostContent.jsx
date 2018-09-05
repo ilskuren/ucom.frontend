@@ -7,6 +7,7 @@ import PostViews from './PostViews';
 import EditIcon from './Icons/Edit';
 import Tags from './Tags';
 import Rate from './Rate';
+import Comments from './Comments';
 import { getPostEditUrl } from '../utils/posts';
 
 const PostContent = props => (
@@ -60,6 +61,10 @@ const PostContent = props => (
           {props.description && (
             <div className="posts__text" dangerouslySetInnerHTML={{ __html: props.description }} />
           )}
+        </div>
+
+        <div className="posts__comments">
+          <Comments />
         </div>
       </div>
 

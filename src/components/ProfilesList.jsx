@@ -4,59 +4,55 @@ import UserCard from './UserCard';
 import Button from './Button';
 import Rate from './Rate';
 
-const users = Array.from({ length: 7 }, () => (
-  {
-    userName: 'James Ambrose',
-    accountName: 'apple_inc',
-    avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-    rate: 10800,
-  }));
-
-// In production you should remove randomNumber
 const renderProfilesRow = ({
-  userName, accountName, avatarUrl, rate,
-}, index) => {
-  const conditionForDemonstration = false;
-  return (
-    <div className="profiles-list__row" key={index}>
-      <div className="profiles-list__user">
-        <UserCard
-          userName={userName}
-          accountName={accountName}
-          avatarUrl={avatarUrl}
-          className="user-card_text_left"
+  id, userName, accountName, avatarUrl, rate, profileLink,
+}) => (
+  <div className="profiles-list__row" key={id}>
+    <div className="profiles-list__user">
+      <UserCard
+        userName={userName}
+        accountName={accountName}
+        avatarUrl={avatarUrl}
+        profileLink={profileLink}
+        className="user-card_text_left"
+      />
+    </div>
+    <div className="profiles-list__info">
+      <Rate value={rate} className="rate_profile rate_right" />
+
+      <div className="profiles-list__button">
+        <Button
+          isStretched
+          withCheckedIcon={false}
+          text="Follow"
+          size="small"
+          theme="transparent"
         />
       </div>
-      <div className="profiles-list__info">
-        <Rate value={rate} className="rate_profile rate_right" />
-        <div className="profiles-list__button">
-          <Button
-            text={conditionForDemonstration ? 'Following' : 'Follow'}
-            size="small"
-            theme="transparent"
-            isStretched
-            withCheckedIcon={conditionForDemonstration}
-          />
-        </div>
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
-const ProfilesList = () => (
+const ProfilesList = props => (
   <div className="profiles-list">
     <div className="profiles-list__header">
       <h3>Followers</h3>
     </div>
-    {users.map(renderProfilesRow)}
+    {props.users.map(renderProfilesRow)}
   </div>
 );
 
 renderProfilesRow.propTypes = {
+  id: PropTypes.number,
   userName: PropTypes.string,
   accountName: PropTypes.string,
   avatarUrl: PropTypes.string,
   rate: PropTypes.string,
+  profileLink: PropTypes.string,
+};
+
+ProfilesList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ProfilesList;

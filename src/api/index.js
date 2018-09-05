@@ -92,6 +92,11 @@ export const getUsers = () => (
     .then(resp => resp.json())
 );
 
+export const searchUsers = query => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/search/?q=${query}`)
+    .then(resp => resp.json())
+);
+
 export const createPost = (data, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts`, {
     method: 'POST',

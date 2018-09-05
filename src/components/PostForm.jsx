@@ -87,7 +87,7 @@ class PostForm extends PureComponent {
                     <div className="editor__item">
                       <input
                         type="text"
-                        placeholder="Lead text"
+                        placeholder="Title"
                         className="editor__input"
                         value={this.props.post.data.title}
                         onChange={(e) => {

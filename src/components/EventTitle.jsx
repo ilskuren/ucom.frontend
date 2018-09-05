@@ -8,7 +8,11 @@ import IconShare from './Icons/Share';
 import EditIcon from './Icons/Edit';
 import Avatar from './Avatar';
 import Tags from './Tags';
+import ModalContent from './ModalContent';
+import Popup from './Popup';
+import ProfileList from './ProfilesList';
 import { getFileUrl } from '../utils/upload';
+import { getUserName, getUserUrl } from '../utils/user';
 import { getOfferEditUrl, getDateLeft } from '../utils/offer';
 import { join } from '../api';
 import { getToken } from '../utils/token';
@@ -18,9 +22,10 @@ class EventTitle extends PureComponent {
     super(props);
 
     this.state = {
-      daysLeft: '212',
-      timeLeft: '21212',
+      daysLeft: '',
+      timeLeft: '',
       join: this.props.join,
+      teamPopupVisible: false,
     };
   }
 
@@ -60,50 +65,88 @@ class EventTitle extends PureComponent {
     }
   }
 
-  render() {
-    return (
-      <div className={cn('event-title', this.props.className)}>
-        <div className="event-title__inner">
-          <div className="event-title__cover">
-            {this.props.imgSrc ? (
-              <img src={this.props.imgSrc} className="event-title__img" alt="" />
-            ) : (
-              <div className="event-title__img event-title__img_blank" />
-            )}
-          </div>
+  showTeamPopup() {
+    this.setState({ teamPopupVisible: true });
+  }
 
-          <div className="event-title__main">
-            <div className="toolbar">
-              <div className="toolbar__main">
-                <Tags tags={this.props.tags} />
-              </div>
-              <div className="toolbar__side">
-                {(typeof this.props.rate !== 'undefined') && (
-                  <Rate className="rate_medium" value={this.props.rate} />
-                )}
-              </div>
+  hideTeamPopup() {
+    this.setState({ teamPopupVisible: false });
+  }
+
+  render() {
+    const team = this.props.team ? this.props.team.slice(0, 5) : null;
+    const otherTeamCount = team ? this.props.team.length - 5 : null;
+
+    return (
+      <Fragment>
+        {this.state.teamPopupVisible && (
+          <Popup onClickClose={() => this.hideTeamPopup()}>
+            <ModalContent onClickClose={() => this.hideTeamPopup()}>
+              <ProfileList
+                users={team.map(item => ({
+                  id: item.id,
+                  userName: getUserName(item),
+                  accountName: item.account_name,
+                  avatarUrl: getFileUrl(item.avatar_filename),
+                  profileLink: getUserUrl(item.id),
+                  rate: 100,
+                }))}
+              />
+            </ModalContent>
+          </Popup>
+        )}
+
+        <div className={cn('event-title', this.props.className)}>
+          <div className="event-title__inner">
+            <div className="event-title__cover">
+              {this.props.imgSrc ? (
+                <img src={this.props.imgSrc} className="event-title__img" alt="" />
+              ) : (
+                <div className="event-title__img event-title__img_blank" />
+              )}
             </div>
 
-            <div className="toolbar toolbar_responsive">
-              <div className="toolbar__main">
-                <div className="event-title__text">
-                  {this.props.title}
+            <div className="event-title__main">
+              <div className="toolbar">
+                <div className="toolbar__main">
+                  <Tags tags={this.props.tags} />
+                </div>
+                <div className="toolbar__side">
+                  {(typeof this.props.rate !== 'undefined') && (
+                    <Rate className="rate_medium" value={this.props.rate} />
+                  )}
                 </div>
               </div>
-              <div className="toolbar__side">
-                <div className="inline">
-                  <div className="inline__item">
-                    <button className="button-icon button-icon_share">
-                      <IconShare />
-                    </button>
+
+              <div className="toolbar toolbar_responsive">
+                <div className="toolbar__main">
+                  <div className="event-title__text">
+                    {this.props.title}
                   </div>
-                  {(this.props.user.id && this.props.user.id === this.props.userId) && (
-                    <div className="inline__item">
-                      <Link to={getOfferEditUrl(this.props.user.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
-                        <EditIcon />
-                      </Link>
+                </div>
+
+                <div className="toolbar toolbar_responsive">
+                  <div className="toolbar__main">
+                    <div className="offer-title__text">
+                      {this.props.title}
                     </div>
-                  )}
+                  </div>
+                  <div className="toolbar__side">
+                    <div className="inline">
+                      <div className="inline__item">
+                        <button className="button-icon button-icon_share">
+                          <IconShare />
+                        </button>
+                      </div>
+                      {(this.props.user.id && this.props.user.id === this.props.userId) && (
+                        <div className="inline__item">
+                          <Link to={getOfferEditUrl(this.props.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
+                            <EditIcon />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,6 +201,7 @@ class EventTitle extends PureComponent {
                         )}
                       </div>
                     </div>
+
                     {this.state.daysLeft && this.state.timeLeft ? (
                       <Fragment>
                         <div className="inline__item">
@@ -182,13 +226,17 @@ class EventTitle extends PureComponent {
                   <div className="toolbar__side">
                     <div className="event-title__footer-board">
                       <div className="avatars-list avatars-list_shifted">
-                        {this.props.team.map((item, index) => (
-                          <div className="avatars-list__item" key={index}>
-                            <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
+                        {team.map(item => (
+                          <div className="avatars-list__item" key={item.id}>
+                            <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
                           </div>
                         ))}
                       </div>
-                      <span className="more-users">+24</span>
+                      {otherTeamCount > 0 && (
+                        <button className="button-clean" onClick={() => this.showTeamPopup()}>
+                          <span className="offer-title__board-more">+{otherTeamCount}</span>
+                        </button>
+                      )}
                     </div>
                     <div className="event-title__name">BOARD</div>
                   </div>
@@ -197,7 +245,7 @@ class EventTitle extends PureComponent {
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

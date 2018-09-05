@@ -23,7 +23,7 @@ class Comments extends PureComponent {
 
   render() {
     return (
-      <div className="comment">
+      <div className="comment" depth={this.props.depth}>
         <div className="toolbar toolbar_top">
           <div className="toolbar__side">
             <Avatar size="xsmall" src={this.props.avatar} />
@@ -73,6 +73,7 @@ Comments.propTypes = {
   description: PropTypes.string,
   created: PropTypes.string,
   onSubmit: PropTypes.func,
+  depth: PropTypes.string,
 };
 
 export default connect(state => ({

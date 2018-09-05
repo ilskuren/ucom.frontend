@@ -16,7 +16,7 @@ class Comments extends PureComponent {
   }
 
   render() {
-    const comments = sortBy(this.props.comments, i => i.path).reverse();
+    const comments = sortBy(this.props.comments, i => +i.path).reverse();
 
     return (
       <div className="comments">
@@ -38,6 +38,7 @@ class Comments extends PureComponent {
                 userName={getUserName(item.User)}
                 accountName={item.User ? item.User.account_name : null}
                 created={moment(item.created_at).fromNow()}
+                depth={item.depth}
                 onSubmit={description => this.createComment(description)}
               />
             ))}

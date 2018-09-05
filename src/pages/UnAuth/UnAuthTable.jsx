@@ -104,7 +104,12 @@ class UnAuthTable extends PureComponent {
             )}
           </div>
         </div>
-        <ProfilesTable profiles={events} titles={this.props.tableTitles} promo={{ title: 'How to create Event?', link: '#' }} />
+        <ProfilesTable
+          isIndexed={this.props.isIndexed}
+          profiles={events}
+          titles={this.props.tableTitles}
+          promo={{ title: 'How to create Event?', link: '#' }}
+        />
       </div>
     );
   }
@@ -115,6 +120,7 @@ UnAuthTable.propTypes = {
   onFilterClick: PropTypes.func,
   onSearchClick: PropTypes.func,
   tableTitles: PropTypes.arrayOf(PropTypes.string),
+  isIndexed: PropTypes.bool,
 };
 
 export default UnAuthTable;

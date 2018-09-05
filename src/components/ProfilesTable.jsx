@@ -6,13 +6,13 @@ import UserCard from '../components/UserCard';
 import Pagination from './Pagination';
 
 const renderProfilesTableRow = ({
-  profileCardData: { profileName, accountName, avatarUrl }, rate, views, comments, isIndexed,
-}, index) => (
+  profileCardData: { profileName, accountName, avatarUrl }, rate, views, comments, index,
+}) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
-      {isIndexed && (
+      {index && (
         <div className="followers-table__index">
-          <span>#</span>{index + 1}
+          <span>#</span>{index}
         </div>
       )}
       <UserCard
@@ -83,15 +83,18 @@ const renderProfilesTableHeader = (titles, isIndexed) => (
 
 const ProfilesTable = ({
   profiles, titles, promo, withPagination, isIndexed,
-}) => (
-  <div className={cn('followers-table', 'followers-table_without-button')}>
-    {renderProfilesTableHeader(titles, isIndexed)}
-    {profiles.slice(0, 4).map(renderProfilesTableRow)}
-    {promo && renderPromoRow(promo)}
-    {profiles.slice(5).map(renderProfilesTableRow)}
-    {withPagination && renderPaginationRow()}
-  </div>
-);
+}) => {
+  const indexedProfiles = isIndexed ? profiles.map((profile, index) => Object.assign({}, profile, { index: index + 1 })) : profiles;
+  return (
+    <div className={cn('followers-table', 'followers-table_without-button')}>
+      {renderProfilesTableHeader(titles, isIndexed)}
+      {indexedProfiles.slice(0, 4).map(renderProfilesTableRow)}
+      {promo && renderPromoRow(promo)}
+      {indexedProfiles.slice(5).map(renderProfilesTableRow)}
+      {withPagination && renderPaginationRow()}
+    </div>
+  );
+};
 
 const profilesData = {
   profileCardData: PropTypes.shape({
@@ -102,7 +105,7 @@ const profilesData = {
   views: PropTypes.number.isRequired,
   comments: PropTypes.number.isRequired,
   rate: PropTypes.number.isRequired,
-  isIndexed: PropTypes.bool,
+  index: PropTypes.number,
 };
 
 renderProfilesTableRow.propTypes = profilesData;

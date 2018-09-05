@@ -6,16 +6,16 @@ import ProfilesTable from '../../components/ProfilesTable';
 import FilterIcon from '../../components/Icons/Filter';
 import SearchIcon from '../../components/Icons/Search';
 
-const events = Array.from({ length: 5 }, () => (
+const events = Array.from({ length: 8 }, () => (
   {
     profileCardData: {
       profileName: 'No Country for Old Man, aren\'t it?',
       accountName: 'story',
       avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
     },
-    views: 8923,
-    comments: 8923,
-    rate: 10800,
+    views: 110231,
+    comments: 1322213,
+    rate: 12800,
   }));
 
 const UnAuthTable = props => (
@@ -72,7 +72,7 @@ const UnAuthTable = props => (
         )}
       </div>
     </div>
-    <ProfilesTable profiles={events} titles={props.tableTitles} />
+    <ProfilesTable profiles={events} titles={props.tableTitles} promo={{ title: 'How to create Event?', link: '#' }} />
   </div>
 );
 
@@ -80,7 +80,7 @@ UnAuthTable.propTypes = {
   title: PropTypes.string,
   onFilterClick: PropTypes.func,
   onSearchClick: PropTypes.func,
-  tableTitles: PropTypes.arrayOf(PropTypes.string)
+  tableTitles: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default UnAuthTable;

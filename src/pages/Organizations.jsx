@@ -111,6 +111,7 @@ const OrganizationsPage = () => (
         tableData={organizations}
         stickyBottom
         withPagination
+        isIndexed
       />
     </div>
   </div>

@@ -25,7 +25,6 @@ const EventsPage = () => (
         isShowMenu
         textInMiddle="How to create Event?"
         tableData={events}
-
       />
 
       <Footer />

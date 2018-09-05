@@ -111,6 +111,7 @@ const ProductsPage = () => (
         tableData={products}
         stickyBottom
         withPagination
+        isIndexed
       />
     </div>
   </div>

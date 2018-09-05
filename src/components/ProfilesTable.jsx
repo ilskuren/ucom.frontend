@@ -125,7 +125,7 @@ const ProfilesTable = ({
       {renderProfilesTableHeader(titles, isIndexed)}
       {indexedProfiles.slice(0, 4).map(renderProfilesTableRow)}
       {promo && renderPromoRow(promo)}
-      {indexedProfiles.slice(5).map(renderProfilesTableRow)}
+      {indexedProfiles.slice(4).map(renderProfilesTableRow)}
       {withPagination && renderPaginationRow()}
     </div>
   );

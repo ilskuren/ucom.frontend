@@ -123,10 +123,10 @@ class Header extends PureComponent {
               <a href="#" className="menu__link menu__link_upper">People</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link menu__link_upper">Organizations</a>
+              <a href="/organizations" className="menu__link menu__link_upper">Organizations</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link menu__link_upper">Products</a>
+              <a href="/products" className="menu__link menu__link_upper">Products</a>
             </div>
             <div className="menu__item">
               <a href="/events" className="menu__link menu__link_upper">Events</a>

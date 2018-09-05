@@ -21,7 +21,7 @@ class HomePage extends PureComponent {
       users: [],
       posts: [],
       userPosts: [],
-      allProfilesPopupIsOpened: false,
+      usersPopupVisible: false,
     };
   }
 
@@ -46,21 +46,30 @@ class HomePage extends PureComponent {
       });
   }
 
-  closeAllProfilesPopupPopup() {
-    this.setState({ allProfilesPopupIsOpened: false });
+  hideUsersPopup() {
+    this.setState({ usersPopupVisible: false });
   }
 
-  openAllProfilesPopupPopup() {
-    this.setState({ allProfilesPopupIsOpened: true });
+  showUsersPopup() {
+    this.setState({ usersPopupVisible: true });
   }
 
   render() {
     return (
       <Fragment>
-        {this.state.allProfilesPopupIsOpened && (
-          <Popup onClickClose={() => this.closeAllProfilesPopupPopup()}>
-            <ModalContent onClickClose={() => this.closeAllProfilesPopupPopup()}>
-              <ProfilesList />
+        {this.state.usersPopupVisible && (
+          <Popup onClickClose={() => this.hideUsersPopup()}>
+            <ModalContent onClickClose={() => this.hideUsersPopup()}>
+              <ProfilesList
+                users={this.state.users.map(item => ({
+                  id: item.id,
+                  userName: getUserName(item),
+                  accountName: item.account_name,
+                  avatarUrl: getFileUrl(item.avatar_filename),
+                  profileLink: getUserUrl(item.id),
+                  rate: 100,
+                }))}
+              />
             </ModalContent>
           </Popup>
         )}
@@ -157,7 +166,7 @@ class HomePage extends PureComponent {
 
               <div className="grid__item">
                 <div className="sidebar">
-                  <div className="sidebar__section">
+                  {/* <div className="sidebar__section">
                     <div className="users-group">
                       <h4 className="users-group__title">Organizations</h4>
 
@@ -173,7 +182,7 @@ class HomePage extends PureComponent {
                         <a href="#">View All</a>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {this.state.users.length > 0 && (
                     <div className="sidebar__section">
@@ -195,7 +204,12 @@ class HomePage extends PureComponent {
 
                         {this.state.users.length > 5 && (
                           <div className="users-group__show-more">
-                            <a href="#" onClick={() => this.openAllProfilesPopupPopup()}>View All</a>
+                            <button
+                              className="button-clean button-clean_link"
+                              onClick={() => this.showUsersPopup()}
+                            >
+                              View All
+                            </button>
                           </div>
                         )}
                       </div>

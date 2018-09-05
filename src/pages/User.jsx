@@ -63,22 +63,10 @@ class UserPage extends PureComponent {
           <div className="sheets">
             <div className="sheets__list">
               <div className="sheets__item">
-                <div className="sheets__inner">
-                  {this.state.user.id ? (
-                    <Fragment>10 Products</Fragment>
-                  ) : (
-                    <span className="blank">10 Products</span>
-                  )}
-                </div>
+                <div className="sheets__inner">10 Products</div>
               </div>
               <div className="sheets__item">
-                <div className="sheets__inner">
-                  {this.state.user.id ? (
-                    <Fragment>10 Products</Fragment>
-                  ) : (
-                    <span className="blank">104 Events</span>
-                  )}
-                </div>
+                <div className="sheets__inner">104 Events</div>
               </div>
             </div>
 

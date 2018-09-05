@@ -59,7 +59,7 @@ class HomePage extends PureComponent {
       <Fragment>
         {this.state.allProfilesPopupIsOpened && (
           <Popup onClickClose={() => this.closeAllProfilesPopupPopup()}>
-            <ModalContent onSearchChange={() => {}} onClickClose={() => this.closeAllProfilesPopupPopup()}>
+            <ModalContent onClickClose={() => this.closeAllProfilesPopupPopup()}>
               <ProfilesList />
             </ModalContent>
           </Popup>

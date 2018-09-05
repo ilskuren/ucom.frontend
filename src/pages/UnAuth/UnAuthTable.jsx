@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 import ProfilesTable from '../../components/ProfilesTable';
 import Tooltip from '../../components/Tooltip';
@@ -7,18 +8,6 @@ import FilterIcon from '../../components/Icons/Filter';
 import SearchIcon from '../../components/Icons/Search';
 
 const tooltipTags = ['story', 'challenge', 'poll', 'news', 'trading forecast', 'reviews', 'analytics', 'interview'];
-
-const events = Array.from({ length: 8 }, () => (
-  {
-    profileCardData: {
-      profileName: 'No Country for Old Man, aren\'t it?',
-      accountName: 'story',
-      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-    },
-    views: 110231,
-    comments: 1322213,
-    rate: 12800,
-  }));
 
 class UnAuthTable extends PureComponent {
   constructor(props) {
@@ -35,37 +24,39 @@ class UnAuthTable extends PureComponent {
 
   render() {
     return (
-      <div className="unauth-table">
+      <div className={cn('unauth-table', { 'unauth-table_without-margin-bottom': this.props.stickyBottom })}>
         <div className="unauth-table__header">
           <div className="unauth-table__title">
             <h1>{ this.props.title }</h1>
             <div className="toolbar">
               <div className="toolbar__main">
-                <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small menu_not-responsive">
-                  <div className="menu__item">
-                    <NavLink
-                      className="menu__link"
-                      activeClassName="menu__link_active"
-                      to="/events"
-                      isActive={() => true}
-                    >
-                      Media
-                    </NavLink>
-                  </div>
-                  <div className="menu__item">
-                    <NavLink
-                      className="menu__link"
-                      activeClassName="menu__link_active"
-                      to="/events"
-                    >
-                      Offers
-                    </NavLink>
-                  </div>
-                </div>
+                { this.props.isShowMenu &&
+                  (
+                    <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small menu_not-responsive">
+                      <div className="menu__item">
+                        <NavLink
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          to="/events"
+                          isActive={() => true}
+                        >
+                          Media
+                        </NavLink>
+                      </div>
+                      <div className="menu__item">
+                        <NavLink
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          to="/events"
+                        >
+                          Offers
+                        </NavLink>
+                      </div>
+                    </div>
+                  )
+                }
               </div>
             </div>
-            )
-          }
           </div>
           <div className="unauth-table__options">
             {this.props.onSearchClick && (
@@ -106,7 +97,7 @@ class UnAuthTable extends PureComponent {
             )}
           </div>
         </div>
-        <ProfilesTable profiles={events} titles={this.props.tableTitles} promo={{ title: 'How to create Event?', link: '#' }} />
+        <ProfilesTable profiles={this.props.tableData} titles={this.props.tableTitles} promo={{ title: this.props.textInMiddle, link: '#' }} />
       </div>
     );
   }
@@ -120,6 +111,7 @@ UnAuthTable.propTypes = {
   isShowMenu: PropTypes.bool,
   textInMiddle: PropTypes.string,
   tableData: PropTypes.arrayOf(PropTypes.object),
+  stickyBottom: PropTypes.bool,
 };
 
 export default UnAuthTable;

@@ -5,7 +5,12 @@ import Button from '../components/Button';
 import UserCard from '../components/UserCard';
 
 const renderProfilesTableRow = ({
-  profileCardData: { profileName, accountName, avatarUrl }, rate, views, comments,
+  profileCardData: {
+    profileName,
+    accountName,
+    avatarUrl,
+    sign,
+  }, rate, views, comments, joined, followers, trustedBy,
 }, index) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
@@ -14,24 +19,52 @@ const renderProfilesTableRow = ({
         accountName={accountName}
         avatarUrl={avatarUrl}
         squareAvatar
+        sign={sign}
       />
     </div>
-    <div className="followers-table__numbers followers-table__numbers_">
-      <div className="followers-table__number">
-        <div className="followers-table__column-name followers-table__column-name_in-row">views</div>{views}
-      </div>
-      <div className="followers-table__number">
-        <div className="followers-table__column-name followers-table__column-name_in-row">comments</div>{comments}
-      </div>
-      <div className="followers-table__number">
-        <div className="followers-table__column-name followers-table__column-name_in-row">rate</div>
-        <div className="rate">
-          <div className="rate__value followers-table__mobile-rate-value">
-            {rate}
-            <span className="rate__degree">°</span>
+    <div className="followers-table__numbers followers-table__numbers">
+      {views && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">views</div>{views}
+        </div>
+        )
+      }
+      {comments && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">comments</div>{comments}
+        </div>
+        )
+      }
+      {joined && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">joined</div>{joined}
+        </div>
+        )
+      }
+      {followers && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">followers</div>{followers}
+        </div>
+        )
+      }
+      {trustedBy && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">trusted by</div>{trustedBy}
+        </div>
+        )
+      }
+      {rate && (
+        <div className="followers-table__number">
+          <div className="followers-table__column-name followers-table__column-name_in-row">rate</div>
+          <div className="rate">
+            <div className="rate__value followers-table__mobile-rate-value">
+              {rate}
+              <span className="rate__degree">°</span>
+            </div>
           </div>
         </div>
-      </div>
+        )
+      }
     </div>
   </div>
 );
@@ -75,10 +108,14 @@ const profilesData = {
     eventName: PropTypes.string,
     accountName: PropTypes.string,
     avatarUrl: PropTypes.string,
+    sign: PropTypes.string,
   }).isRequired,
-  views: PropTypes.number.isRequired,
-  comments: PropTypes.number.isRequired,
-  rate: PropTypes.number.isRequired,
+  views: PropTypes.number,
+  comments: PropTypes.number,
+  rate: PropTypes.number,
+  followers: PropTypes.number,
+  trustedBy: PropTypes.number,
+  joined: PropTypes.number,
 };
 
 renderProfilesTableRow.propTypes = profilesData;

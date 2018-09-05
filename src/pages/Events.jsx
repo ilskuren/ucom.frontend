@@ -8,6 +8,7 @@ const events = Array.from({ length: 8 }, () => (
       profileName: 'No Country for Old Man, aren\'t it?',
       accountName: 'story',
       avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+      sign: '#',
     },
     views: 110231,
     comments: 1322213,

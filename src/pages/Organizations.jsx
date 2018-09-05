@@ -110,6 +110,7 @@ const OrganizationsPage = () => (
         textInMiddle="How to Create Organization?"
         tableData={organizations}
         stickyBottom
+        withPagination
       />
     </div>
   </div>

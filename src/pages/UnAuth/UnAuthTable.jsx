@@ -97,7 +97,12 @@ class UnAuthTable extends PureComponent {
             )}
           </div>
         </div>
-        <ProfilesTable profiles={this.props.tableData} titles={this.props.tableTitles} promo={{ title: this.props.textInMiddle, link: '#' }} />
+        <ProfilesTable
+          profiles={this.props.tableData}
+          titles={this.props.tableTitles}
+          promo={{ title: this.props.textInMiddle, link: '#' }}
+          withPagination={this.props.withPagination}
+        />
       </div>
     );
   }
@@ -112,6 +117,7 @@ UnAuthTable.propTypes = {
   textInMiddle: PropTypes.string,
   tableData: PropTypes.arrayOf(PropTypes.object),
   stickyBottom: PropTypes.bool,
+  withPagination: PropTypes.bool,
 };
 
 export default UnAuthTable;

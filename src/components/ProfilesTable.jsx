@@ -86,7 +86,7 @@ const renderPromoRow = promo => (
 
 const renderPaginationRow = () => (
   <div className="followers-table__row followers-table__row_load-more">
-    <div>Show more</div>
+    <div>Show More</div>
     <div className="followers-table__pagination">
       <Pagination />
     </div>
@@ -109,7 +109,12 @@ const renderProfilesTableHeader = titles => (
   </div>
 );
 
-const ProfilesTable = ({ profiles, titles, promo, withPagination }) => (
+const ProfilesTable = ({
+  profiles,
+  titles,
+  promo,
+  withPagination,
+}) => (
   <div className={cn('followers-table', 'followers-table_without-button')}>
     {renderProfilesTableHeader(titles)}
     {profiles.slice(0, 4).map(renderProfilesTableRow)}

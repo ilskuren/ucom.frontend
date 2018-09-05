@@ -110,6 +110,7 @@ const ProductsPage = () => (
         textInMiddle="How to Create Product?"
         tableData={products}
         stickyBottom
+        withPagination
       />
     </div>
   </div>

@@ -181,7 +181,7 @@ class HomePage extends PureComponent {
                         <h4 className="users-group__title">People</h4>
 
                         <div className="users-group__list">
-                          {this.state.users.map(user => (
+                          {this.state.users.slice(0, 5).map(user => (
                             <div className="users-group__item" key={user.id}>
                               <UserCard
                                 userName={getUserName(user)}
@@ -193,9 +193,11 @@ class HomePage extends PureComponent {
                           ))}
                         </div>
 
-                        <div className="users-group__show-more">
-                          <a href="#" onClick={() => this.openAllProfilesPopupPopup()}>View All</a>
-                        </div>
+                        {this.state.users.length > 5 && (
+                          <div className="users-group__show-more">
+                            <a href="#" onClick={() => this.openAllProfilesPopupPopup()}>View All</a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

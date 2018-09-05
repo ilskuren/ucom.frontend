@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Fragment, PureComponent } from 'react';
@@ -13,13 +13,13 @@ import { getOfferEditUrl, getDateLeft } from '../utils/offer';
 import { join } from '../api';
 import { getToken } from '../utils/token';
 
-class OfferTitle extends PureComponent {
+class EventTitle extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      daysLeft: '',
-      timeLeft: '',
+      daysLeft: '212',
+      timeLeft: '21212',
       join: this.props.join,
     };
   }
@@ -62,17 +62,17 @@ class OfferTitle extends PureComponent {
 
   render() {
     return (
-      <div className="offer-title">
-        <div className="offer-title__inner">
-          <div className="offer-title__cover">
+      <div className={cn('event-title', this.props.className)}>
+        <div className="event-title__inner">
+          <div className="event-title__cover">
             {this.props.imgSrc ? (
-              <img src={this.props.imgSrc} className="offer-title__img" alt="" />
+              <img src={this.props.imgSrc} className="event-title__img" alt="" />
             ) : (
-              <div className="offer-title__img offer-title__img_blank" />
+              <div className="event-title__img event-title__img_blank" />
             )}
           </div>
 
-          <div className="offer-title__main">
+          <div className="event-title__main">
             <div className="toolbar">
               <div className="toolbar__main">
                 <Tags tags={this.props.tags} />
@@ -86,7 +86,7 @@ class OfferTitle extends PureComponent {
 
             <div className="toolbar toolbar_responsive">
               <div className="toolbar__main">
-                <div className="offer-title__text">
+                <div className="event-title__text">
                   {this.props.title}
                 </div>
               </div>
@@ -99,7 +99,7 @@ class OfferTitle extends PureComponent {
                   </div>
                   {(this.props.user.id && this.props.user.id === this.props.userId) && (
                     <div className="inline__item">
-                      <Link to={getOfferEditUrl(this.props.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
+                      <Link to={getOfferEditUrl(this.props.user.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
                         <EditIcon />
                       </Link>
                     </div>
@@ -108,13 +108,13 @@ class OfferTitle extends PureComponent {
               </div>
             </div>
 
-            <div className="offer-title__buyers">
+            <div className="event-title__buyers">
               <div className="inline">
                 {(this.props.buyers && this.props.buyers.length > 0) && (
                   <div className="inline__item">
                     <div className="avatars-list avatars-list_shifted">
-                      {this.props.buyers.map(item => (
-                        <div className="avatars-list__item">
+                      {this.props.buyers.map((item, index) => (
+                        <div className="avatars-list__item" key={index}>
                           <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
                         </div>
                       ))}
@@ -136,16 +136,16 @@ class OfferTitle extends PureComponent {
               </div>
             </div>
 
-            <div className="offer-title__footer">
+            <div className="event-title__footer">
               <div className="toolbar toolbar_responsive">
                 <div className="toolbar__main">
                   <div className="inline inline_large">
                     <div className="inline__item">
-                      <div className="offer-title__button">
+                      <div className="event-title__button">
                         {this.props.actionButtonTitle && (
                           <a
                             href={`//${this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}`}
-                            className={classNames(
+                            className={cn(
                               'button button_theme_red button_size_medium button_stretched',
                               { 'button_disabled': this.state.join },
                             )}
@@ -161,16 +161,16 @@ class OfferTitle extends PureComponent {
                     {this.state.daysLeft && this.state.timeLeft ? (
                       <Fragment>
                         <div className="inline__item">
-                          <div className="offer-title__time">
-                            <div className="offer-title__value">{this.state.daysLeft}</div>
-                            <div className="offer-title__name">DAY</div>
+                          <div className="event-title__time">
+                            <div className="event-title__value">{this.state.daysLeft}</div>
+                            <div className="event-title__name">DAY</div>
                           </div>
                         </div>
 
                         <div className="inline__item">
-                          <div className="offer-title__time">
-                            <div className="offer-title__value">{this.state.timeLeft}</div>
-                            <div className="offer-title__name">HOURS</div>
+                          <div className="event-title__time">
+                            <div className="event-title__value">{this.state.timeLeft}</div>
+                            <div className="event-title__name">HOURS</div>
                           </div>
                         </div>
                       </Fragment>
@@ -180,17 +180,17 @@ class OfferTitle extends PureComponent {
 
                 {(this.props.team && this.props.team.length > 0) && (
                   <div className="toolbar__side">
-                    <div className="offer-title__footer-board">
+                    <div className="event-title__footer-board">
                       <div className="avatars-list avatars-list_shifted">
-                        {this.props.team.map(item => (
-                          <div className="avatars-list__item">
+                        {this.props.team.map((item, index) => (
+                          <div className="avatars-list__item" key={index}>
                             <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
                           </div>
                         ))}
                       </div>
-                      {/* <span className="offer-title__board-more">+24</span> */}
+                      <span className="more-users">+24</span>
                     </div>
-                    <div className="offer-title__name">BOARD</div>
+                    <div className="event-title__name">BOARD</div>
                   </div>
                 )}
               </div>
@@ -202,7 +202,8 @@ class OfferTitle extends PureComponent {
   }
 }
 
-OfferTitle.propTypes = {
+EventTitle.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.number,
   userId: PropTypes.number,
   imgSrc: PropTypes.string,
@@ -221,4 +222,4 @@ OfferTitle.propTypes = {
 
 export default connect(state => ({
   user: state.user,
-}))(OfferTitle);
+}))(EventTitle);

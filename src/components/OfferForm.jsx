@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import DropZone from '../components/DropZone';
+import EventTitle from '../components/EventTitle';
 import Medium from '../components/Medium';
 import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
-import OfferTitle from '../components/OfferTitle';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName } from '../utils/user';
@@ -207,8 +208,8 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            {(this.state.base64Cover || this.props.post.data.main_image_filename) && (
-              <OfferTitle
+            {(this.state.base64Cover || this.props.offer.data.main_image_filename) && (
+              <EventTitle
                 tags={['sale']}
                 title={this.props.post.data.title}
                 actionButtonTitle={this.props.post.data.action_button_title}
@@ -300,6 +301,14 @@ class OfferForm extends PureComponent {
     );
   }
 }
+
+OfferForm.propTypes = {
+  offer: PropTypes.objectOf(PropTypes.any),
+  post: PropTypes.objectOf(PropTypes.any),
+  onClickSave: PropTypes.func,
+  setPostData: PropTypes.func,
+  validatePostField: PropTypes.func,
+};
 
 export default connect(
   state => ({

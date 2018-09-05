@@ -3,7 +3,7 @@ import { getPost } from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import PostHeader from '../components/PostHeader';
-import OfferTitle from '../components/OfferTitle';
+import EventTitle from '../components/EventTitle';
 import PostContent from '../components/PostContent';
 import Footer from '../components/Footer';
 
@@ -46,7 +46,7 @@ class Offer extends PureComponent {
             </div>
 
             {this.state.post.post_type_id === 2 && (
-              <OfferTitle
+              <EventTitle
                 id={this.state.post.id}
                 userId={this.state.post.User && this.state.post.User.id}
                 imgSrc={getFileUrl(this.state.post.main_image_filename)}

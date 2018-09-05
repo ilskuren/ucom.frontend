@@ -164,7 +164,7 @@ class HomePage extends PureComponent {
                       <div className="users-group__list">
                         {[0, 0, 0, 0, 0].map((i, index) => (
                           <div className="users-group__item" key={index}>
-                            <UserCard squareAvatar />
+                            <UserCard roundedAvatar />
                           </div>
                         ))}
                       </div>

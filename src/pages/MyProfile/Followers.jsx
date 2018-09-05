@@ -14,20 +14,20 @@ const users = Array.from({ length: 5 }, () => (
     rate: 10800,
   }));
 
-const FollowersPage = () => (
-  <div className="followers-list">
-    <div className="followers-list__filters">
+const MyProfileFollowersPage = () => (
+  <div className="my-profile-list">
+    <div className="my-profile-list__filters">
       <div className={cn(
-        'followers-list__filters-element',
-        { 'followers-list__filters-element_active': true },
+        'my-profile-list__filters-element',
+        { 'my-profile-list__filters-element_active': true },
         )}
       >All
       </div>
-      <div className="followers-list__filters-element">Trusted</div>
-      <div className="followers-list__filters-element">Follow back</div>
+      <div className="my-profile-list__filters-element">Trusted</div>
+      <div className="my-profile-list__filters-element">Follow back</div>
     </div>
     <FollowersTable users={users} />
   </div>
 );
 
-export default FollowersPage;
+export default MyProfileFollowersPage;

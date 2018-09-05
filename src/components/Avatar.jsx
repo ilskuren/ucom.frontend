@@ -6,6 +6,7 @@ const Avatar = props => (
   <span
     className={classNames(
       'avatar',
+      { 'avatar_rounded': props.rounded },
       { 'avatar_square': props.square },
       { [`avatar_${props.size}`]: Boolean(props.size) },
       { 'avatar_border_white': props.borderWhite },
@@ -22,6 +23,7 @@ const Avatar = props => (
 
 Avatar.propTypes = {
   square: PropTypes.bool,
+  rounded: PropTypes.bool,
   size: PropTypes.string,
   src: PropTypes.string,
   alt: PropTypes.string,
@@ -30,6 +32,7 @@ Avatar.propTypes = {
 
 Avatar.defaultProps = {
   square: false,
+  rounded: false,
 };
 
 export default Avatar;

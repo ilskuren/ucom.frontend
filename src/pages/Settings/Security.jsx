@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Switcher from '../../components/Switcher';
 
 import * as actions from '../../actions/settings';
+import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -15,8 +16,7 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  security: state.settings.security,
+  security: selectors.selectSettingsSecurity(state),
 });
 
 class SettingsSecurityPage extends PureComponent {

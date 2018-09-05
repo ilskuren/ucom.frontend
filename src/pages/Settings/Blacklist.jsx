@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import UserList from '../../components/UserList';
 
 import * as actions from '../../actions/settings';
-
+import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -16,8 +16,7 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  blacklist: state.settings.blacklist,
+  blacklist: selectors.selectSettingsBlacklist(state),
 });
 
 class SettingsBlacklistPage extends PureComponent {

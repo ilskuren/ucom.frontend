@@ -9,6 +9,7 @@ import Switcher from '../../components/Switcher';
 import Checkbox from '../../components/Checkbox';
 
 import * as actions from '../../actions/settings';
+import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -18,8 +19,7 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  notifications: state.settings.notifications,
+  notifications: selectors.selectSettingsNotifications(state),
 });
 
 const alertTitles = {

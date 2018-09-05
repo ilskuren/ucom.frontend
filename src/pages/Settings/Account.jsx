@@ -10,6 +10,7 @@ import Link from '../../components/Link';
 import KYC from '../../components/KYC';
 
 import * as actions from '../../actions/settings';
+import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -20,8 +21,7 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  account: state.settings.account,
+  account: selectors.selectSettingsAccount(state),
 });
 
 class SettingsAccountPage extends PureComponent {

@@ -5,6 +5,7 @@ import InputWithCopy from '../../components/InputWithCopy';
 import Accordeon from '../../components/Accordeon';
 
 import * as actions from '../../actions/settings';
+import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -15,8 +16,7 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  security: state.settings.security,
+  referral: selectors.selectSettingsReferral(state),
 });
 
 class SettingsReferralPage extends PureComponent {

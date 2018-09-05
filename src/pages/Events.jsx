@@ -9,7 +9,6 @@ const EventsPage = () => (
         title="Events"
         tableTitles={['views', 'comments', 'rate']}
         onFilterClick={() => true}
-        isIndexed
       />
 
       <Footer />

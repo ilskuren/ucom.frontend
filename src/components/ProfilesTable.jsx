@@ -9,6 +9,9 @@ const renderProfilesTableRow = ({
 }, index) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
+      <div className="followers-table__index">
+        <span>#</span>{index + 1}
+      </div>
       <UserCard
         userName={profileName}
         accountName={accountName}
@@ -17,7 +20,7 @@ const renderProfilesTableRow = ({
         squareAvatar
       />
     </div>
-    <div className="followers-table__numbers followers-table__numbers_">
+    <div className="followers-table__numbers">
       <div className="followers-table__number">
         <div className="followers-table__column-name followers-table__column-name_in-row">views</div>{views}
       </div>
@@ -52,6 +55,9 @@ const renderPromoRow = promo => (
 const renderProfilesTableHeader = titles => (
   <div className="followers-table__header">
     <div className="followers-table__user">
+      <div className="followers-table__index">
+        #
+      </div>
       <div className="followers-table__column-name">name</div>
     </div>
     <div className="followers-table__numbers followers-table__numbers_">

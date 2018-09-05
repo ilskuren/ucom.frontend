@@ -30,8 +30,8 @@
       flex-direction: column;
       padding-top: 10px;
       padding-bottom: 27px;
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 3px;
+      padding-right: 3px;
       & > * {
         margin-top: 20px;
       }
@@ -147,8 +147,8 @@
     padding-right: 28%;
     margin-bottom: 20px;
     @media (max-width: 1024px) {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 3px;
+      padding-right: 3px;
       font-size: 1.1429rem;
       font-weight: bold;
     }
@@ -166,10 +166,36 @@
 }
 
 .followers-table_without-button {
+  & .followers-table__index {
+    position: absolute;
+    left: -75px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.714rem;
+
+    span {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      left: 0;
+      top: -20%;
+
+      span {
+        display: inline;
+      }
+    }
+  }
+  
+  .followers-table__user {
+    position: relative;
+  }
+
   @media (min-width: 1024px) {
     .followers-table__header,
     .followers-table__row {
-      padding-right: 9%;
+      padding-left: 100px;
+      padding-right: 100px;
     }
 
     .followers-table__user {

@@ -57,8 +57,12 @@
 
   &__tooltip-wrapper {
     position: absolute;
-    right: 0;
+    right: -13px;
     z-index: 10;
+
+    @media (max-width: 767px) {
+      left: -30px; 
+    }
   }
 
   &__icon {
@@ -69,6 +73,10 @@
     padding: 20px;
     background-color: @white;
     width: 360px;
+
+    @media (max-width: 767px) {
+      width: 170px; 
+    }
   }
 
   &__tooltip-tag {

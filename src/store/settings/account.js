@@ -46,17 +46,6 @@ const account = (state = getInitialState(), action) => {
       };
     }
 
-    case 'VALIDATE_SETTINGS_ACCOUNT': {
-      const validation = new Validator(state.data, state.rules);
-
-      validation.passes();
-
-      return {
-        ...state,
-        errors: validation.errors.all(),
-      };
-    }
-
     case 'VALIDATE_SETTINGS_ACCOUNT_FIELD': {
       const validation = new Validator(state.data, state.rules);
 

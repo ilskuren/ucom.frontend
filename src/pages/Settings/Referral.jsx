@@ -9,9 +9,7 @@ import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    setSettingsSecurityData: actions.setSettingsSecurityData,
     resetSettingsSecurity: actions.resetSettingsSecurity,
-    validateSettingsSecurityField: actions.validateSettingsSecurityField,
   }, dispatch);
 
 

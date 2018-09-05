@@ -1,4 +1,4 @@
-const getInitialState = () => ({});
+const getInitialState = () => ({ id: 1 });
 
 const user = (state = getInitialState(), action) => {
   switch (action.type) {

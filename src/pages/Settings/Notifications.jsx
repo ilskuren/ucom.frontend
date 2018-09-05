@@ -90,7 +90,7 @@ class SettingsNotificationsPage extends PureComponent {
                     <div className="inline__item">
                       <Checkbox
                         isChecked={account[item]}
-                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'account', item, checkValue })}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'account', item })}
                       />
                     </div>
                     <div className="inline__item">
@@ -109,7 +109,7 @@ class SettingsNotificationsPage extends PureComponent {
                     <div className="inline__item">
                       <Checkbox
                         isChecked={events[item]}
-                        onChange={checkValue => this.handleCheckBoxToggle({ type: 'events', item, checkValue })}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'events', item })}
                       />
                     </div>
                     <div className="inline__item">

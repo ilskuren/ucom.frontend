@@ -9,9 +9,7 @@ import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    setSettingsBlacklistData: actions.setSettingsBlacklistData,
     resetSettingsBlacklist: actions.resetSettingsBlacklist,
-    validateSettingsBlacklistField: actions.validateSettingsBlacklistField,
   }, dispatch);
 
 

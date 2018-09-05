@@ -6,13 +6,15 @@ import UserCard from '../components/UserCard';
 import Pagination from './Pagination';
 
 const renderProfilesTableRow = ({
-  profileCardData: { profileName, accountName, avatarUrl }, rate, views, comments,
+  profileCardData: { profileName, accountName, avatarUrl }, rate, views, comments, isIndexed,
 }, index) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
-      <div className="followers-table__index">
-        <span>#</span>{index + 1}
-      </div>
+      {isIndexed && (
+        <div className="followers-table__index">
+          <span>#</span>{index + 1}
+        </div>
+      )}
       <UserCard
         userName={profileName}
         accountName={accountName}
@@ -61,12 +63,14 @@ const renderPaginationRow = () => (
   </div>
 );
 
-const renderProfilesTableHeader = titles => (
+const renderProfilesTableHeader = (titles, isIndexed) => (
   <div className="followers-table__header">
     <div className="followers-table__user">
-      <div className="followers-table__index">
-        #
-      </div>
+      {isIndexed && (
+        <div className="followers-table__index">
+          #
+        </div>
+      )}
       <div className="followers-table__column-name">name</div>
     </div>
     <div className="followers-table__numbers followers-table__numbers_">
@@ -77,9 +81,11 @@ const renderProfilesTableHeader = titles => (
   </div>
 );
 
-const ProfilesTable = ({ profiles, titles, promo, withPagination }) => (
+const ProfilesTable = ({
+  profiles, titles, promo, withPagination, isIndexed,
+}) => (
   <div className={cn('followers-table', 'followers-table_without-button')}>
-    {renderProfilesTableHeader(titles)}
+    {renderProfilesTableHeader(titles, isIndexed)}
     {profiles.slice(0, 4).map(renderProfilesTableRow)}
     {promo && renderPromoRow(promo)}
     {profiles.slice(5).map(renderProfilesTableRow)}
@@ -96,6 +102,7 @@ const profilesData = {
   views: PropTypes.number.isRequired,
   comments: PropTypes.number.isRequired,
   rate: PropTypes.number.isRequired,
+  isIndexed: PropTypes.bool,
 };
 
 renderProfilesTableRow.propTypes = profilesData;
@@ -105,6 +112,7 @@ ProfilesTable.propTypes = {
   titles: PropTypes.arrayOf(PropTypes.string),
   promo: PropTypes.shape({ title: PropTypes.string, link: PropTypes.string }),
   withPagination: PropTypes.bool,
+  isIndexed: PropTypes.bool,
 };
 
 export default ProfilesTable;

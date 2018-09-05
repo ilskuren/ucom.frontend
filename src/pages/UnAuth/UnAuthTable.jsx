@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 // import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 import ProfilesTable from '../../components/ProfilesTable';
+// import Tooltip from '../../components/Tooltip';
 import FilterIcon from '../../components/Icons/Filter';
 import SearchIcon from '../../components/Icons/Search';
+
+// const tooltipTags = ['story', 'challenge', 'poll', 'news', 'trading forecast', 'reviews', 'analytics', 'interview'];
 
 const events = Array.from({ length: 8 }, () => (
   {
@@ -56,17 +59,31 @@ const UnAuthTable = props => (
               <SearchIcon />
             </div>
             <div className="inline__item">
-              <span>Search</span>
+              <span className="unauth-table__option-label">Search</span>
             </div>
           </div>
         )}
         {props.onFilterClick && (
           <div className="inline">
             <div className="inline__item">
-              <span>Filter</span>
+              <span className="unauth-table__option-label">Filter</span>
             </div>
             <div className="inline__item">
-              <FilterIcon />
+              <div className="unauth-table__icon">
+                <FilterIcon />
+                {/* <div className="unauth-table__tooltip-wrapper">
+                  <Tooltip>
+                    <div className="unauth-table__tooltip">
+                      <h4>Show media events</h4>
+                      <div className="unauth-table__tooltip-tags">
+                        {tooltipTags.map((tag, index) => (
+                          <span className="unauth-table__tooltip-tag" key={index}>#{tag} </span>
+                        ))}
+                      </div>
+                    </div>
+                  </Tooltip>
+                </div> */}
+              </div>
             </div>
           </div>
         )}

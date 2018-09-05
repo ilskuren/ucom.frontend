@@ -22,12 +22,13 @@ const events = Array.from({ length: 8 }, () => (
   }));
 
 const UnAuthTable = props => (
-  <div className="unauth-table">
+  <div className="unauth-table unauth-table_without-margin-bottom">
     <div className="unauth-table__header">
       <div className="unauth-table__title">
         <h1>{ props.title }</h1>
         <div className="toolbar">
           <div className="toolbar__main">
+            { props.isShowMenu && (
             <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_small menu_not-responsive">
               <div className="menu__item">
                 <NavLink
@@ -49,6 +50,8 @@ const UnAuthTable = props => (
                 </NavLink>
               </div>
             </div>
+            )
+          }
           </div>
         </div>
       </div>
@@ -89,7 +92,7 @@ const UnAuthTable = props => (
         )}
       </div>
     </div>
-    <ProfilesTable profiles={events} titles={props.tableTitles} promo={{ title: 'How to create Event?', link: '#' }} />
+    <ProfilesTable profiles={events} titles={props.tableTitles} promo={{ title: props.textInMiddle, link: '#' }} />
   </div>
 );
 
@@ -98,6 +101,8 @@ UnAuthTable.propTypes = {
   onFilterClick: PropTypes.func,
   onSearchClick: PropTypes.func,
   tableTitles: PropTypes.arrayOf(PropTypes.string),
+  isShowMenu: PropTypes.bool,
+  textInMiddle: PropTypes.string,
 };
 
 export default UnAuthTable;

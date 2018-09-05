@@ -9,6 +9,8 @@ import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
 import EventsPage from '../pages/Events';
+import ProductsPage from '../pages/Products';
+import OrganizationsPage from '../pages/Organizations';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser } from '../actions';
 import { getToken } from '../utils/token';
@@ -72,6 +74,8 @@ class App extends PureComponent {
                 <Route path="/posts/:id/edit" component={CreatePost} />
                 <Route exact path="/posts/:id" component={Post} />
                 <Route exact path="/events" component={EventsPage} />
+                <Route exact path="/products" component={ProductsPage} />
+                <Route exact path="/organizations" component={OrganizationsPage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Page>

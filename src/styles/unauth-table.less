@@ -3,6 +3,9 @@
   margin: 0 auto;
   margin-bottom: 20px;
   font-size: 1.142rem;
+  &_without-margin-bottom {
+    margin-bottom: 0;
+  }
 
   &__header {
     display: flex;
@@ -25,7 +28,7 @@
     align-items: baseline;
     flex-wrap: wrap;
   }
-  
+
   &__options {
     display: flex;
     justify-content: flex-end;
@@ -37,10 +40,10 @@
         cursor: pointer;
       }
     }
-    
+
     @media (max-width: 767px) {
       justify-content: flex-start;
-  
+
       & > div {
         padding-left: 0;
       }

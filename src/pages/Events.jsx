@@ -9,6 +9,8 @@ const EventsPage = () => (
         title="Events"
         tableTitles={['views', 'comments', 'rate']}
         onFilterClick={() => true}
+        isShowMenu
+        textInMiddle="How to create Event?"
       />
 
       <Footer />

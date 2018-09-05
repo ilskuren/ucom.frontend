@@ -129,7 +129,7 @@ class Header extends PureComponent {
               <a href="#" className="menu__link menu__link_upper">Products</a>
             </div>
             <div className="menu__item">
-              <a href="#" className="menu__link menu__link_upper">Events</a>
+              <a href="/events" className="menu__link menu__link_upper">Events</a>
             </div>
             <div className="menu__item">
               <button className="button-icon">

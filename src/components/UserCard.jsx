@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import Avatar from './Avatar';
 import Rate from './Rate';
 
@@ -9,7 +10,7 @@ const UserCard = (props) => {
   const LinkTag = props.profileLink ? Link : 'span';
 
   return (
-    <div className="user-card">
+    <div className={cn('user-card', props.className)}>
       <div className="user-card__avatar">
         {props.profileLink ? (
           <Link to={props.profileLink}>{avatar}</Link>
@@ -51,6 +52,7 @@ UserCard.propTypes = {
   avatarUrl: PropTypes.string,
   avatarSize: PropTypes.string,
   sign: PropTypes.string,
+  className: PropTypes.string,
 };
 
 UserCard.defaultProps = {

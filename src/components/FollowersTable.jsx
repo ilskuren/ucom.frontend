@@ -62,7 +62,7 @@ const FollowersTable = ({ users }) => (
     {renderFollowersTableHeader()}
     {users.map(renderFollowersTableRow)}
     <div className="followers-table__row followers-table__row_load-more">
-      load more
+      LOAD MORE
     </div>
   </div>
 );

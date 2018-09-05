@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Button from '../components/Button';
 import UserCard from '../components/UserCard';
+import Pagination from './Pagination';
 
 const renderProfilesTableRow = ({
   profileCardData: {
@@ -14,6 +15,9 @@ const renderProfilesTableRow = ({
 }, index) => (
   <div className="followers-table__row" key={index}>
     <div className="followers-table__user">
+      <div className="followers-table__index">
+        <span>#</span>{index + 1}
+      </div>
       <UserCard
         userName={profileName}
         accountName={accountName}
@@ -80,10 +84,21 @@ const renderPromoRow = promo => (
   </div>
 );
 
+const renderPaginationRow = () => (
+  <div className="followers-table__row followers-table__row_load-more">
+    <div>Show more</div>
+    <div className="followers-table__pagination">
+      <Pagination />
+    </div>
+  </div>
+);
 
 const renderProfilesTableHeader = titles => (
   <div className="followers-table__header">
     <div className="followers-table__user">
+      <div className="followers-table__index">
+        #
+      </div>
       <div className="followers-table__column-name">name</div>
     </div>
     <div className="followers-table__numbers followers-table__numbers_">
@@ -94,12 +109,13 @@ const renderProfilesTableHeader = titles => (
   </div>
 );
 
-const ProfilesTable = ({ profiles, titles, promo }) => (
+const ProfilesTable = ({ profiles, titles, promo, withPagination }) => (
   <div className={cn('followers-table', 'followers-table_without-button')}>
     {renderProfilesTableHeader(titles)}
     {profiles.slice(0, 4).map(renderProfilesTableRow)}
     {promo && renderPromoRow(promo)}
     {profiles.slice(5).map(renderProfilesTableRow)}
+    {withPagination && renderPaginationRow()}
   </div>
 );
 
@@ -124,6 +140,7 @@ ProfilesTable.propTypes = {
   profiles: PropTypes.arrayOf(PropTypes.shape(profilesData)),
   titles: PropTypes.arrayOf(PropTypes.string),
   promo: PropTypes.shape({ title: PropTypes.string, link: PropTypes.string }),
+  withPagination: PropTypes.bool,
 };
 
 export default ProfilesTable;

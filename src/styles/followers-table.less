@@ -16,6 +16,11 @@
       width: 80%;
     }
   }
+  &__promo-button {
+    max-width: 150px;
+    display: flex;
+    justify-content: flex-end;
+  }
   &__row {
     display: flex;
     align-items: center;
@@ -30,19 +35,22 @@
       flex-direction: column;
       padding-top: 10px;
       padding-bottom: 27px;
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 3px;
+      padding-right: 3px;
       & > * {
         margin-top: 20px;
       }
     }
     &_load-more {
-      text-transform: uppercase;
+      flex-direction: column;
       justify-content: center;
       text-align: center;
       font-size: 1.1429rem;
       font-weight: bold;
       cursor: pointer;
+    }
+    &_promo {
+      background-color: @gray-lighter;
     }
     &:before {
       display: block;
@@ -144,20 +152,89 @@
     padding-right: 28%;
     margin-bottom: 20px;
     @media (max-width: 1024px) {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 3px;
+      padding-right: 3px;
       font-size: 1.1429rem;
       font-weight: bold;
     }
-    & > *:last-child {
-      justify-content: flex-end;
-    }
+    // & > *:last-child {
+    //   justify-content: flex-end;
+    // }
     & > *:first-child {
       flex-grow: 12;
       @media (max-width: 1024px) {
         display: none;
         flex-grow: 0;
       }
+    }
+  }
+  &__pagination {
+    width: 100%;
+    margin-top: 62px;
+  }
+}
+
+.followers-table_without-button {
+  & .followers-table__index {
+    position: absolute;
+    left: -75px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.714rem;
+
+    span {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      left: 0;
+      top: -20%;
+
+      span {
+        display: inline;
+      }
+    }
+  }
+
+  .followers-table__user {
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .followers-table__header,
+    .followers-table__row {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+
+    .followers-table__user {
+      max-width: 40%;
+
+      .followers-table__column-name {
+        margin: 0;
+        justify-content: flex-start;
+      }
+    }
+
+    .followers-table__number,
+    .followers-table__column-name {
+      margin: 0;
+      margin-left: 15px;
+      width: 125px;
+      word-wrap: break-word;
+    }
+
+    .followers-table__numbers,
+    .followers-table__column-name {
+      justify-content: flex-end;
+    }
+
+    .followers-table__header {
+      justify-content: space-between;
+    }
+
+    .followers-table__number, {
+      text-align: right;
     }
   }
 }

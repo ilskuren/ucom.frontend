@@ -25,3 +25,20 @@
     border-radius: 4px;
   }
 }
+
+.tooltip_arrow_right {
+  .tooltip__arrow {
+    right: 25px;
+  }
+}
+
+.tooltip_arrow_right-to-left {
+  .tooltip__arrow {
+    left: 25px;
+
+    @media (min-width: 767px) {
+      left: initial;
+      right: 25px; 
+    }
+  }
+}

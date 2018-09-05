@@ -9,18 +9,6 @@ import SearchIcon from '../../components/Icons/Search';
 
 // const tooltipTags = ['story', 'challenge', 'poll', 'news', 'trading forecast', 'reviews', 'analytics', 'interview'];
 
-const events = Array.from({ length: 8 }, () => (
-  {
-    profileCardData: {
-      profileName: 'No Country for Old Man, aren\'t it?',
-      accountName: 'story',
-      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-    },
-    views: 110231,
-    comments: 1322213,
-    rate: 12800,
-  }));
-
 const UnAuthTable = props => (
   <div className="unauth-table unauth-table_without-margin-bottom">
     <div className="unauth-table__header">
@@ -92,7 +80,7 @@ const UnAuthTable = props => (
         )}
       </div>
     </div>
-    <ProfilesTable profiles={events} titles={props.tableTitles} promo={{ title: props.textInMiddle, link: '#' }} />
+    <ProfilesTable profiles={props.tableData} titles={props.tableTitles} promo={{ title: props.textInMiddle, link: '#' }} />
   </div>
 );
 
@@ -103,6 +91,7 @@ UnAuthTable.propTypes = {
   tableTitles: PropTypes.arrayOf(PropTypes.string),
   isShowMenu: PropTypes.bool,
   textInMiddle: PropTypes.string,
+  tableData: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default UnAuthTable;

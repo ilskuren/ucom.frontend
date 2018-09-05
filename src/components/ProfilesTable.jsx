@@ -13,7 +13,6 @@ const renderProfilesTableRow = ({
         userName={profileName}
         accountName={accountName}
         avatarUrl={avatarUrl}
-        sign="#"
         squareAvatar
       />
     </div>

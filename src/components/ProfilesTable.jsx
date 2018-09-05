@@ -81,6 +81,7 @@ const renderPromoRow = promo => (
         text="Learn more"
         size="medium"
         theme="transparent"
+        isStretched
       />
     </div>
   </div>

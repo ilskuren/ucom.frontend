@@ -64,7 +64,15 @@ const PostContent = props => (
         </div>
 
         <div className="posts__comments">
-          <Comments />
+          <Comments
+            postId={props.id}
+            comments={props.comments}
+            onSubmit={(data) => {
+              if (typeof props.onSubmitComment === 'function') {
+                props.onSubmitComment(data);
+              }
+            }}
+          />
         </div>
       </div>
 
@@ -97,6 +105,8 @@ PostContent.propTypes = {
   rating: PropTypes.number,
   сhoice: PropTypes.string,
   imgSrc: PropTypes.string,
+  comments: PropTypes.arrayOf(PropTypes.object),
+  onSubmitComment: PropTypes.func,
 };
 
 export default connect(state => ({

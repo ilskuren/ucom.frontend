@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import CommentForm from './CommentForm';
 import Avatar from './Avatar';
-import { getFileUrl } from '../utils/upload';
 
 class Comments extends PureComponent {
   constructor(props) {
@@ -25,13 +25,13 @@ class Comments extends PureComponent {
     return (
       <div className="comment">
         <div className="toolbar toolbar_top">
-          <div className="toolbar__main">
-            <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
-          </div>
           <div className="toolbar__side">
-            <div className="comment__username">Ben Broud</div>
-            <div className="comment__account">@deckbuilder</div>
-            <div className="comment__text">Robinhood is in a great position to eat into Coinbase and other exchange market share for a more mainstream.</div>
+            <Avatar size="xsmall" src={this.props.avatar} />
+          </div>
+          <div className="toolbar__main">
+            <div className="comment__username">{this.props.userName}</div>
+            <div className="comment__account">@{this.props.accountName}</div>
+            <div className="comment__text">{this.props.description}</div>
             <div className="comment__actions">
               <div className="inline">
                 <div className="inline__item">
@@ -43,7 +43,7 @@ class Comments extends PureComponent {
                   </button>
                 </div>
                 <div className="inline__item">
-                  <span className="comment__time">10 min ago</span>
+                  <span className="comment__time">{this.props.created}</span>
                 </div>
               </div>
             </div>
@@ -52,6 +52,10 @@ class Comments extends PureComponent {
                 <CommentForm
                   active
                   onReset={() => this.hideForm()}
+                  onSubmit={(description) => {
+                    this.props.onSubmit(description);
+                    this.hideForm();
+                  }}
                 />
               </div>
             )}
@@ -61,6 +65,15 @@ class Comments extends PureComponent {
     );
   }
 }
+
+Comments.propTypes = {
+  userName: PropTypes.string,
+  avatar: PropTypes.string,
+  accountName: PropTypes.string,
+  description: PropTypes.string,
+  created: PropTypes.string,
+  onSubmit: PropTypes.func,
+};
 
 export default connect(state => ({
   user: state.user,

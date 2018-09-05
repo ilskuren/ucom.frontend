@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { getPost } from '../api';
+import { getPost, createComment } from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
+import { getToken } from '../utils/token';
 import PostHeader from '../components/PostHeader';
 import EventTitle from '../components/EventTitle';
 import PostContent from '../components/PostContent';
@@ -23,6 +24,21 @@ class Offer extends PureComponent {
   getData() {
     getPost(this.props.match.params.id)
       .then((post) => {
+        this.setState({ post });
+      });
+  }
+
+  createComment(comment) {
+    return createComment(this.props.match.params.id, getToken(), comment)
+      .then((data) => {
+        if (data.errors) {
+          return;
+        }
+
+        const post = Object.assign({}, this.state.post, {
+          comments: [{ ...data, ...comment }].concat(this.state.post.comments),
+        });
+
         this.setState({ post });
       });
   }
@@ -74,6 +90,8 @@ class Offer extends PureComponent {
                 rate={+this.state.post.current_rate}
                 tags={['story']}
                 сhoice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
+                comments={this.state.post.comments}
+                onSubmitComment={data => this.createComment(data)}
               />
             </div>
           </div>

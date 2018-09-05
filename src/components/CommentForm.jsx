@@ -102,7 +102,7 @@ class CommentForm extends PureComponent {
 CommentForm.propTypes = {
   active: PropTypes.bool,
   onReset: PropTypes.func,
-  onSubmit: PropTypes.bool,
+  onSubmit: PropTypes.func,
 };
 
 export default connect(state => ({

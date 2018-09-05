@@ -314,7 +314,6 @@ class OfferForm extends PureComponent {
 }
 
 OfferForm.propTypes = {
-  offer: PropTypes.objectOf(PropTypes.any),
   post: PropTypes.objectOf(PropTypes.any),
   onClickSave: PropTypes.func,
   setPostData: PropTypes.func,

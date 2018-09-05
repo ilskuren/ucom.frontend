@@ -199,3 +199,16 @@ export const join = (postId, token) => (
   })
     .then(resp => resp.json())
 );
+
+export const createComment = (postId, token, data) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(resp => resp.json())
+);

@@ -208,7 +208,7 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            {(this.state.base64Cover || this.props.offer.data.main_image_filename) && (
+            {(this.state.base64Cover || this.props.post.data.main_image_filename) && (
               <EventTitle
                 tags={['sale']}
                 title={this.props.post.data.title}

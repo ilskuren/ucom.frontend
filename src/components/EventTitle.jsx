@@ -14,7 +14,7 @@ import ProfileList from './ProfilesList';
 import TimeCounter from './TimeCounter';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
-import { getOfferEditUrl, getDateLeft } from '../utils/offer';
+import { getOfferEditUrl } from '../utils/offer';
 import { join } from '../api';
 import { getToken } from '../utils/token';
 
@@ -23,34 +23,9 @@ class EventTitle extends PureComponent {
     super(props);
 
     this.state = {
-      daysLeft: '',
-      timeLeft: '',
       join: this.props.join,
       teamPopupVisible: false,
     };
-  }
-
-  componentDidMount() {
-    this.getDateLeft();
-
-    this.dateLeftInterval = setInterval(() => {
-      this.getDateLeft();
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.dateLeftInterval);
-  }
-
-  getDateLeft() {
-    const dateLeft = getDateLeft(this.props.createdAt, this.props.actionDurationInDays);
-
-    if (dateLeft) {
-      this.setState({
-        daysLeft: dateLeft.days,
-        timeLeft: dateLeft.time,
-      });
-    }
   }
 
   join() {
@@ -201,7 +176,7 @@ class EventTitle extends PureComponent {
 
                     {this.props.createdAt && this.props.actionDurationInDays && (
                       <div className="inline__item">
-                        <TimeCounter startTime={this.props.createdAt} durationInDays={this.props.actionDurationInDays} />
+                        <TimeCounter startTime={this.props.createdAt} durationInDays={555} />
                       </div>
                     )}
                   </div>

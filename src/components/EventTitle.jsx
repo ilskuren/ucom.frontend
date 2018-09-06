@@ -76,6 +76,7 @@ class EventTitle extends PureComponent {
   render() {
     const team = this.props.team ? this.props.team.slice(0, 5) : null;
     const otherTeamCount = team ? this.props.team.length - 5 : null;
+    const isBig = this.props.className === 'event-title_big';
 
     return (
       <Fragment>
@@ -126,11 +127,6 @@ class EventTitle extends PureComponent {
                 </div>
 
                 <div className="toolbar toolbar_responsive">
-                  <div className="toolbar__main">
-                    <div className="offer-title__text">
-                      {this.props.title}
-                    </div>
-                  </div>
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
@@ -203,21 +199,16 @@ class EventTitle extends PureComponent {
                     </div>
 
                     {this.state.daysLeft && this.state.timeLeft ? (
-                      <Fragment>
-                        <div className="inline__item">
-                          <div className="event-title__time">
-                            <div className="event-title__value">{this.state.daysLeft}</div>
-                            <div className="event-title__name">DAY</div>
-                          </div>
+                      <div className="inline__item">
+                        <div className="event-title__time">
+                          <div className="event-title__value">{this.state.daysLeft}</div>
+                          <div className="event-title__name">DAY</div>
                         </div>
-
-                        <div className="inline__item">
-                          <div className="event-title__time">
-                            <div className="event-title__value">{this.state.timeLeft}</div>
-                            <div className="event-title__name">HOURS</div>
-                          </div>
+                        <div className="event-title__time">
+                          <div className="event-title__value">{this.state.timeLeft}</div>
+                          <div className="event-title__name">HOURS</div>
                         </div>
-                      </Fragment>
+                      </div>
                     ) : null}
                   </div>
                 </div>
@@ -228,13 +219,13 @@ class EventTitle extends PureComponent {
                       <div className="avatars-list avatars-list_shifted">
                         {team.map(item => (
                           <div className="avatars-list__item" key={item.id}>
-                            <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
+                            <Avatar src={getFileUrl(item.avatar_filename)} size={!isBig ? 'msmall' : ''} />
                           </div>
                         ))}
                       </div>
                       {otherTeamCount > 0 && (
                         <button className="button-clean" onClick={() => this.showTeamPopup()}>
-                          <span className="offer-title__board-more">+{otherTeamCount}</span>
+                          <span className="event-title__board-more">+{otherTeamCount}</span>
                         </button>
                       )}
                     </div>

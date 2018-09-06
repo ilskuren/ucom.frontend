@@ -11,6 +11,7 @@ import Tags from './Tags';
 import ModalContent from './ModalContent';
 import Popup from './Popup';
 import ProfileList from './ProfilesList';
+import TimeCounter from './TimeCounter';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getOfferEditUrl, getDateLeft } from '../utils/offer';
@@ -198,18 +199,11 @@ class EventTitle extends PureComponent {
                       </div>
                     </div>
 
-                    {this.state.daysLeft && this.state.timeLeft ? (
+                    {this.props.createdAt && this.props.actionDurationInDays && (
                       <div className="inline__item">
-                        <div className="event-title__time">
-                          <div className="event-title__value">{this.state.daysLeft}</div>
-                          <div className="event-title__name">DAY</div>
-                        </div>
-                        <div className="event-title__time">
-                          <div className="event-title__value">{this.state.timeLeft}</div>
-                          <div className="event-title__name">HOURS</div>
-                        </div>
+                        <TimeCounter startTime={this.props.createdAt} durationInDays={this.props.actionDurationInDays} />
                       </div>
-                    ) : null}
+                    )}
                   </div>
                 </div>
 

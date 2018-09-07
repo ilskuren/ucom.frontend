@@ -11,6 +11,7 @@ import Post from '../components/Post';
 import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
+import Followers from '../components/Followers';
 import { getUser, getUserPosts } from '../api';
 import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -177,26 +178,18 @@ class UserPage extends PureComponent {
                         </div>
                         <div className="toolbar__side">
                           <div className="inline inline_large">
-                            {[0, 0, 0].map(() => (
-                              <div className="inline__item">
-                                <div className="follwers">
-                                  <div className="follwers__main">
-                                    <div className="follwers__count">8 923</div>
-                                    <div className="follwers__title">Following</div>
-                                  </div>
-                                  <div className="follwers__side">
-                                    <div className="avatars-list avatars-list_dual">
-                                      <div className="avatars-list__item">
-                                        <Avatar borderWhite size="xsmall" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
-                                      </div>
-                                      <div className="avatars-list__item">
-                                        <Avatar borderWhite size="xsmall" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
+                            <div className="inline__item">
+                              <Followers
+                                title="Following"
+                                users={this.state.user.followed_by}
+                              />
+                            </div>
+                            <div className="inline__item">
+                              <Followers
+                                title="Followers"
+                                users={this.state.user.I_follow}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>

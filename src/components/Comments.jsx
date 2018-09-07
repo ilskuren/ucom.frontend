@@ -9,14 +9,14 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 
 class Comments extends PureComponent {
-  createComment(description) {
+  createComment(description, commentId) {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit({ description });
+      this.props.onSubmit({ description }, commentId);
     }
   }
 
   render() {
-    const comments = sortBy(this.props.comments, i => +i.path).reverse();
+    const comments = sortBy(this.props.comments, i => i.path);
 
     return (
       <div className="comments">

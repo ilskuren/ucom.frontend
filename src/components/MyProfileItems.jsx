@@ -9,6 +9,9 @@ import FollowersAmount from '../components/FollowersAmount';
 const buyersAvatars = Array.from({ length: 8 }, () => (
   {
     avatar_filename: 'main_image_filename-1535704482892.jpg',
+    account_name: 'Katherine Moss',
+    id: 1,
+    rate: 2600,
   }));
 
 const renderRow = (renderButton, index) => {

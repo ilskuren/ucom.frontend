@@ -85,6 +85,7 @@ const UserSearchInput = ({ onChange, value }) => (
 
 UserSearchInput.propTypes = {
   onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default UserSearchInput;

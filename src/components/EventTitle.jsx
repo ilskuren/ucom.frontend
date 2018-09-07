@@ -75,14 +75,13 @@ class EventTitle extends PureComponent {
   }
 
   render() {
-
     return (
       <Fragment>
         {this.state.teamPopupVisible && (
           <Popup onClickClose={() => this.hideTeamPopup()}>
             <ModalContent onClickClose={() => this.hideTeamPopup()}>
               <ProfileList
-                users={team.map(item => ({
+                users={this.props.team.map(item => ({
                   id: item.id,
                   userName: getUserName(item),
                   accountName: item.account_name,
@@ -224,7 +223,7 @@ class EventTitle extends PureComponent {
                 {(this.props.team && this.props.team.length > 0) && (
                   <div className="toolbar__side">
                     <div className="event-title__footer-board">
-                      <Avatars list={this.props.team} orderStacking="fifo" distance="close" className="avatars_msmall" />
+                      <Avatars list={this.props.team} orderStacking="fifo" distance="close" size="msmall" />
                       {/* <div className="avatars-list avatars-list_shifted">
                         {team.map(item => (
                           <div className="avatars-list__item" key={item.id}>

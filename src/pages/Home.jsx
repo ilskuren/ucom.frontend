@@ -5,6 +5,9 @@ import Post from '../components/Post';
 import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
+import Popup from '../components/Popup';
+import ModalContent from '../components/ModalContent';
+import ProfilesList from '../components/ProfilesList';
 import { getUsers, getPosts, getUserPosts } from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -18,6 +21,7 @@ class HomePage extends PureComponent {
       users: [],
       posts: [],
       userPosts: [],
+      usersPopupVisible: false,
     };
   }
 
@@ -42,9 +46,33 @@ class HomePage extends PureComponent {
       });
   }
 
+  hideUsersPopup() {
+    this.setState({ usersPopupVisible: false });
+  }
+
+  showUsersPopup() {
+    this.setState({ usersPopupVisible: true });
+  }
+
   render() {
     return (
       <Fragment>
+        {this.state.usersPopupVisible && (
+          <Popup onClickClose={() => this.hideUsersPopup()}>
+            <ModalContent onClickClose={() => this.hideUsersPopup()}>
+              <ProfilesList
+                users={this.state.users.map(item => ({
+                  id: item.id,
+                  userName: getUserName(item),
+                  accountName: item.account_name,
+                  avatarUrl: getFileUrl(item.avatar_filename),
+                  profileLink: getUserUrl(item.id),
+                  rate: 100,
+                }))}
+              />
+            </ModalContent>
+          </Popup>
+        )}
         <div className="content">
           <div className="content__inner">
             <div className="page-nav">
@@ -138,14 +166,14 @@ class HomePage extends PureComponent {
 
               <div className="grid__item">
                 <div className="sidebar">
-                  <div className="sidebar__section">
+                  {/* <div className="sidebar__section">
                     <div className="users-group">
                       <h4 className="users-group__title">Organizations</h4>
 
                       <div className="users-group__list">
                         {[0, 0, 0, 0, 0].map((i, index) => (
                           <div className="users-group__item" key={index}>
-                            <UserCard squareAvatar />
+                            <UserCard roundedAvatar />
                           </div>
                         ))}
                       </div>
@@ -154,7 +182,7 @@ class HomePage extends PureComponent {
                         <a href="#">View All</a>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {this.state.users.length > 0 && (
                     <div className="sidebar__section">
@@ -162,11 +190,11 @@ class HomePage extends PureComponent {
                         <h4 className="users-group__title">People</h4>
 
                         <div className="users-group__list">
-                          {this.state.users.map(user => (
+                          {this.state.users.slice(0, 5).map(user => (
                             <div className="users-group__item" key={user.id}>
                               <UserCard
                                 userName={getUserName(user)}
-                                accountName={user.nickname}
+                                accountName={user.account_name}
                                 profileLink={getUserUrl(user.id)}
                                 avatarUrl={getFileUrl(user.avatar_filename)}
                               />
@@ -174,9 +202,16 @@ class HomePage extends PureComponent {
                           ))}
                         </div>
 
-                        <div className="users-group__show-more">
-                          <a href="#">View All</a>
-                        </div>
+                        {this.state.users.length > 5 && (
+                          <div className="users-group__show-more">
+                            <button
+                              className="button-clean button-clean_link"
+                              onClick={() => this.showUsersPopup()}
+                            >
+                              View All
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

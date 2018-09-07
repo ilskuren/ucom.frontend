@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import DropZone from '../components/DropZone';
 import IconClose from '../components/Icons/Close';
@@ -86,7 +87,7 @@ class PostForm extends PureComponent {
                     <div className="editor__item">
                       <input
                         type="text"
-                        placeholder="Lead text"
+                        placeholder="Title"
                         className="editor__input"
                         value={this.props.post.data.title}
                         onChange={(e) => {
@@ -213,6 +214,13 @@ class PostForm extends PureComponent {
     );
   }
 }
+
+PostForm.propTypes = {
+  post: PropTypes.objectOf(PropTypes.any),
+  onClickSave: PropTypes.func,
+  setPostData: PropTypes.func,
+  validatePostField: PropTypes.func,
+};
 
 export default connect(
   state => ({

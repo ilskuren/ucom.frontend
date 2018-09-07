@@ -16,7 +16,7 @@
     "api-path": "/api/v0/"
   },
   "backend": {
-    "httpEndpoint": "https://test-backend-unet.gravity.io"
+    "httpEndpoint": "https://backend.u.community"
   },
   "eosConfig": {
     "httpEndpoint": "http://136.243.131.83:8888"
@@ -67,6 +67,7 @@
     "medium-editor-insert-plugin": "^2.5.0",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
+    "object-to-formdata": "^1.5.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-copy-to-clipboard": "^5.0.1",

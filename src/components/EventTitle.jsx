@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Fragment, PureComponent } from 'react';
@@ -8,12 +8,16 @@ import IconShare from './Icons/Share';
 import EditIcon from './Icons/Edit';
 import Avatar from './Avatar';
 import Tags from './Tags';
+import ModalContent from './ModalContent';
+import Popup from './Popup';
+import ProfileList from './ProfilesList';
 import { getFileUrl } from '../utils/upload';
+import { getUserName, getUserUrl } from '../utils/user';
 import { getOfferEditUrl, getDateLeft } from '../utils/offer';
 import { join } from '../api';
 import { getToken } from '../utils/token';
 
-class OfferTitle extends PureComponent {
+class EventTitle extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -21,6 +25,7 @@ class OfferTitle extends PureComponent {
       daysLeft: '',
       timeLeft: '',
       join: this.props.join,
+      teamPopupVisible: false,
     };
   }
 
@@ -60,61 +65,99 @@ class OfferTitle extends PureComponent {
     }
   }
 
-  render() {
-    return (
-      <div className="offer-title">
-        <div className="offer-title__inner">
-          <div className="offer-title__cover">
-            {this.props.imgSrc ? (
-              <img src={this.props.imgSrc} className="offer-title__img" alt="" />
-            ) : (
-              <div className="offer-title__img offer-title__img_blank" />
-            )}
-          </div>
+  showTeamPopup() {
+    this.setState({ teamPopupVisible: true });
+  }
 
-          <div className="offer-title__main">
-            <div className="toolbar">
-              <div className="toolbar__main">
-                <Tags tags={this.props.tags} />
-              </div>
-              <div className="toolbar__side">
-                {(typeof this.props.rate !== 'undefined') && (
-                  <Rate className="rate_medium" value={this.props.rate} />
-                )}
-              </div>
+  hideTeamPopup() {
+    this.setState({ teamPopupVisible: false });
+  }
+
+  render() {
+    const team = this.props.team ? this.props.team.slice(0, 5) : null;
+    const otherTeamCount = team ? this.props.team.length - 5 : null;
+
+    return (
+      <Fragment>
+        {this.state.teamPopupVisible && (
+          <Popup onClickClose={() => this.hideTeamPopup()}>
+            <ModalContent onClickClose={() => this.hideTeamPopup()}>
+              <ProfileList
+                users={team.map(item => ({
+                  id: item.id,
+                  userName: getUserName(item),
+                  accountName: item.account_name,
+                  avatarUrl: getFileUrl(item.avatar_filename),
+                  profileLink: getUserUrl(item.id),
+                  rate: 100,
+                }))}
+              />
+            </ModalContent>
+          </Popup>
+        )}
+
+        <div className={cn('event-title', this.props.className)}>
+          <div className="event-title__inner">
+            <div className="event-title__cover">
+              {this.props.imgSrc ? (
+                <img src={this.props.imgSrc} className="event-title__img" alt="" />
+              ) : (
+                <div className="event-title__img event-title__img_blank" />
+              )}
             </div>
 
-            <div className="toolbar toolbar_responsive">
-              <div className="toolbar__main">
-                <div className="offer-title__text">
-                  {this.props.title}
+            <div className="event-title__main">
+              <div className="toolbar">
+                <div className="toolbar__main">
+                  <Tags tags={this.props.tags} />
                 </div>
-              </div>
-              <div className="toolbar__side">
-                <div className="inline">
-                  <div className="inline__item">
-                    <button className="button-icon button-icon_share">
-                      <IconShare />
-                    </button>
-                  </div>
-                  {(this.props.user.id && this.props.user.id === this.props.userId) && (
-                    <div className="inline__item">
-                      <Link to={getOfferEditUrl(this.props.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
-                        <EditIcon />
-                      </Link>
-                    </div>
+                <div className="toolbar__side">
+                  {(typeof this.props.rate !== 'undefined') && (
+                    <Rate className="rate_medium" value={this.props.rate} />
                   )}
                 </div>
               </div>
+
+              <div className="toolbar toolbar_responsive">
+                <div className="toolbar__main">
+                  <div className="event-title__text">
+                    {this.props.title}
+                  </div>
+                </div>
+
+                <div className="toolbar toolbar_responsive">
+                  <div className="toolbar__main">
+                    <div className="offer-title__text">
+                      {this.props.title}
+                    </div>
+                  </div>
+                  <div className="toolbar__side">
+                    <div className="inline">
+                      <div className="inline__item">
+                        <button className="button-icon button-icon_share">
+                          <IconShare />
+                        </button>
+                      </div>
+                      {(this.props.user.id && this.props.user.id === this.props.userId) && (
+                        <div className="inline__item">
+                          <Link to={getOfferEditUrl(this.props.id)} className="button-icon button-icon_edit button-icon_edit_transparent">
+                            <EditIcon />
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="offer-title__buyers">
+            <div className="event-title__buyers">
               <div className="inline">
                 {(this.props.buyers && this.props.buyers.length > 0) && (
                   <div className="inline__item">
                     <div className="avatars-list avatars-list_shifted">
-                      {this.props.buyers.map(item => (
-                        <div className="avatars-list__item">
+                      {this.props.buyers.map((item, index) => (
+                        <div className="avatars-list__item" key={index}>
                           <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
                         </div>
                       ))}
@@ -136,16 +179,16 @@ class OfferTitle extends PureComponent {
               </div>
             </div>
 
-            <div className="offer-title__footer">
+            <div className="event-title__footer">
               <div className="toolbar toolbar_responsive">
                 <div className="toolbar__main">
                   <div className="inline inline_large">
                     <div className="inline__item">
-                      <div className="offer-title__button">
+                      <div className="event-title__button">
                         {this.props.actionButtonTitle && (
                           <a
                             href={`//${this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}`}
-                            className={classNames(
+                            className={cn(
                               'button button_theme_red button_size_medium button_stretched',
                               { 'button_disabled': this.state.join },
                             )}
@@ -158,19 +201,20 @@ class OfferTitle extends PureComponent {
                         )}
                       </div>
                     </div>
+
                     {this.state.daysLeft && this.state.timeLeft ? (
                       <Fragment>
                         <div className="inline__item">
-                          <div className="offer-title__time">
-                            <div className="offer-title__value">{this.state.daysLeft}</div>
-                            <div className="offer-title__name">DAY</div>
+                          <div className="event-title__time">
+                            <div className="event-title__value">{this.state.daysLeft}</div>
+                            <div className="event-title__name">DAY</div>
                           </div>
                         </div>
 
                         <div className="inline__item">
-                          <div className="offer-title__time">
-                            <div className="offer-title__value">{this.state.timeLeft}</div>
-                            <div className="offer-title__name">HOURS</div>
+                          <div className="event-title__time">
+                            <div className="event-title__value">{this.state.timeLeft}</div>
+                            <div className="event-title__name">HOURS</div>
                           </div>
                         </div>
                       </Fragment>
@@ -180,29 +224,34 @@ class OfferTitle extends PureComponent {
 
                 {(this.props.team && this.props.team.length > 0) && (
                   <div className="toolbar__side">
-                    <div className="offer-title__footer-board">
+                    <div className="event-title__footer-board">
                       <div className="avatars-list avatars-list_shifted">
-                        {this.props.team.map(item => (
-                          <div className="avatars-list__item">
-                            <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
+                        {team.map(item => (
+                          <div className="avatars-list__item" key={item.id}>
+                            <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
                           </div>
                         ))}
                       </div>
-                      {/* <span className="offer-title__board-more">+24</span> */}
+                      {otherTeamCount > 0 && (
+                        <button className="button-clean" onClick={() => this.showTeamPopup()}>
+                          <span className="offer-title__board-more">+{otherTeamCount}</span>
+                        </button>
+                      )}
                     </div>
-                    <div className="offer-title__name">BOARD</div>
+                    <div className="event-title__name">BOARD</div>
                   </div>
                 )}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
 
-OfferTitle.propTypes = {
+EventTitle.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.number,
   userId: PropTypes.number,
   imgSrc: PropTypes.string,
@@ -221,4 +270,4 @@ OfferTitle.propTypes = {
 
 export default connect(state => ({
   user: state.user,
-}))(OfferTitle);
+}))(EventTitle);

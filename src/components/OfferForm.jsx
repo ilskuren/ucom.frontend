@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import DropZone from '../components/DropZone';
+import EventTitle from '../components/EventTitle';
 import Medium from '../components/Medium';
 import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
-import OfferTitle from '../components/OfferTitle';
+import UserSearchInput from './UserSearchInput';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName } from '../utils/user';
@@ -168,7 +170,16 @@ class OfferForm extends PureComponent {
                     Add Team
                   </div>
                   <div className="field__input">
-                    <TextInput disabled placeholder="Find People" />
+                    <UserSearchInput
+                      isMulti
+                      isSearchable
+                      isClearable
+                      isUserOptions
+                      value={this.props.post.data.post_users_team}
+                      onChange={(post_users_team) => {
+                        this.props.setPostData({ post_users_team });
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -208,13 +219,14 @@ class OfferForm extends PureComponent {
             </div>
 
             {(this.state.base64Cover || this.props.post.data.main_image_filename) && (
-              <OfferTitle
+              <EventTitle
                 tags={['sale']}
                 title={this.props.post.data.title}
                 actionButtonTitle={this.props.post.data.action_button_title}
                 actionButtonUrl={this.props.post.data.action_button_url}
                 actionDurationInDays={this.props.post.data.action_duration_in_days}
                 imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
+                team={this.props.post.data.post_users_team}
               />
             )}
 
@@ -300,6 +312,13 @@ class OfferForm extends PureComponent {
     );
   }
 }
+
+OfferForm.propTypes = {
+  post: PropTypes.objectOf(PropTypes.any),
+  onClickSave: PropTypes.func,
+  setPostData: PropTypes.func,
+  validatePostField: PropTypes.func,
+};
 
 export default connect(
   state => ({

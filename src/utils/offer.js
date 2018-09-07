@@ -14,16 +14,13 @@ export const OFFER_TYPES = [{
   description: 'Service',
 }, {
   id: 5,
-  description: 'Service',
+  description: 'Whitelist',
 }, {
   id: 6,
-  description: 'White List',
-}, {
-  id: 7,
   description: 'Charity',
 }, {
-  id: 8,
-  description: 'Give Away',
+  id: 7,
+  description: 'Giveaway',
 }];
 
 export const getOfferEditUrl = (offerId) => {

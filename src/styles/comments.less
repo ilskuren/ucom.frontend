@@ -1,99 +1,64 @@
-.comments {
-  border: 1px solid lighten(@gray, 10);
-  max-width: 600px;
-  & > *:last-child {
-    padding-bottom: 10px;
+.comment {
+  padding: 20px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #F9F9F9;
   }
-  &__user-comment {
-    border-bottom: 1px solid lighten(@gray, 10);
-    padding: 1.5714rem 2rem 1.5714rem 1.5714rem;
+
+  &[depth="1"] {
+    padding-left: 63px;
   }
-  &__input {
-    & > * {
-      border: none;
-      font-size: 1.14rem;
-      &:focus {
-        outline: none;
-      }
-    }
+
+  &[depth="2"] {
+    padding-left: 106px;
   }
-  &__replies {
-    & > *:first-child {
-      padding-top: 1.3rem;
-    }
+
+  &[depth="3"] {
+    padding-left: 149px;
   }
-  &__main-comment {
-    padding: 1.7rem 1.5rem 1.2rem 1.7rem;
-    &_reply {
-      padding-top: 1.5rem;
-      & > *:not(:first-child) {
-        margin-left: 3.5429rem;
-        @media (max-width: 424px) {
-          margin-left: 0;
-        }
-      }
-      & > *:first-child {
-        margin-left: 2.4rem;
-        @media (max-width: 424px) {
-          margin-left: 0;
-        }
-      }
-    }
-    &_user-comment {
-      background: @gray-lighter;
-    }
-  }
-  &__rating {
-    min-width: 75px;
-  }
-  &__comment-text {
-    padding-left: 43px;
-    padding-right: 43px;
-    padding-top: 14px;
-    font-size: 1.14rem;
-    line-height: 23px;
-    @media (max-width: 320px) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  &__user-link {
-    color: @red;
-  }
-  &__menu {
-    display: block;
-    padding-left: 43px;
-    padding-top: 15px;
-    @media (max-width: 320px) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  &__reply, &__delete {
+
+  &__username {
+    margin: 0 0 2px;
+    font-size: 15px;
     font-weight: bold;
-    font-size: 1rem;
-    &:hover {
-      cursor: pointer;
-    }
   }
+
+  &__account {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+  }
+
+  &__text {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  &__reply {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
   &__time {
-    padding-left: 10px;
-    font-size: 0.8571rem;
-    color: fade(@black, 60);
-    line-height: 1.7;
+    font-size: 12px;
+    color: rgba(0,0,0,0.6);
   }
-  &__hide-replies {
-    width: 90%;
-    padding-bottom: 13px;
-    font-size: 0.8571rem;
-    border-bottom: 1px solid lighten(@gray, 10);
-    color: fade(@black, 60);
-    margin: 0 auto;
-    &:hover {
-      cursor: pointer;
-    }
-    & > *:first-child {
-      padding: 0 10px;
+
+  &__form {
+    margin: 0 -20px -20px;
+  }
+}
+
+.comments {
+  border: 1px solid #E1E1E1;
+
+  &__form {
+    border-bottom: 1px solid #E1E1E1;
+
+    &:last-child {
+      border-bottom: none;
     }
   }
 }

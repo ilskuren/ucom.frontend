@@ -27,13 +27,15 @@ const UserOption = ({
             </span>
           </div>
         </div>
-        <div className="toolbar__side">
-          <span className="inline__item">
-            <a className={linkClass}>
-              {linkText}
-            </a>
-          </span>
-        </div>
+        {linkText && (
+          <div className="toolbar__side">
+            <span className="inline__item">
+              <a className={linkClass}>
+                {linkText}
+              </a>
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

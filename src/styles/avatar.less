@@ -14,9 +14,31 @@
   height: 32px;
 }
 
+.avatar_msmall {
+  width: 40px;
+  height: 40px;
+}
+
 .avatar_small {
   width: 60px;
   height: 60px;
+}
+
+
+//TODO: Ask about avatar sizes
+.avatar_xxsmall {
+  width: 22px;
+  height: 22px;
+}
+
+.avatar_80px {
+  width: 80px;
+  height: 80px;
+  &.avatar_square {
+    .avatar__img {
+      border-radius: 5px;
+    }
+  }
 }
 
 .avatar_medium {
@@ -44,6 +66,12 @@
 }
 
 .avatar_square {
+  .avatar__img {
+    border-radius: 0;
+  }
+}
+
+.avatar_rounded {
   .avatar__img {
     border-radius: 20%;
   }

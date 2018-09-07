@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import { getPost } from '../api';
+import { getPost, createComment } from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
+import { getToken } from '../utils/token';
 import PostHeader from '../components/PostHeader';
-import OfferTitle from '../components/OfferTitle';
+import EventTitle from '../components/EventTitle';
 import PostContent from '../components/PostContent';
 import Footer from '../components/Footer';
 
@@ -27,6 +28,21 @@ class Offer extends PureComponent {
       });
   }
 
+  createComment(comment) {
+    return createComment(this.props.match.params.id, getToken(), comment)
+      .then((data) => {
+        if (data.errors) {
+          return;
+        }
+
+        const post = Object.assign({}, this.state.post, {
+          comments: [{ ...data, ...comment }].concat(this.state.post.comments),
+        });
+
+        this.setState({ post });
+      });
+  }
+
   render() {
     return (
       <div className="content">
@@ -46,7 +62,7 @@ class Offer extends PureComponent {
             </div>
 
             {this.state.post.post_type_id === 2 && (
-              <OfferTitle
+              <EventTitle
                 id={this.state.post.id}
                 userId={this.state.post.User && this.state.post.User.id}
                 imgSrc={getFileUrl(this.state.post.main_image_filename)}
@@ -58,6 +74,7 @@ class Offer extends PureComponent {
                 actionButtonUrl={this.state.post.action_button_url}
                 createdAt={this.state.post.created_at}
                 join={this.state.post.myselfData && this.state.post.myselfData.join}
+                team={this.state.post.post_users_team}
               />
             )}
 
@@ -73,6 +90,8 @@ class Offer extends PureComponent {
                 rate={+this.state.post.current_rate}
                 tags={['story']}
                 сhoice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
+                comments={this.state.post.comments}
+                onSubmitComment={data => this.createComment(data)}
               />
             </div>
           </div>

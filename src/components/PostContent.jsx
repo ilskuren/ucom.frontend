@@ -7,6 +7,7 @@ import PostViews from './PostViews';
 import EditIcon from './Icons/Edit';
 import Tags from './Tags';
 import Rate from './Rate';
+import Comments from './Comments';
 import { getPostEditUrl } from '../utils/posts';
 
 const PostContent = props => (
@@ -61,6 +62,18 @@ const PostContent = props => (
             <div className="posts__text" dangerouslySetInnerHTML={{ __html: props.description }} />
           )}
         </div>
+
+        <div className="posts__comments">
+          <Comments
+            postId={props.id}
+            comments={props.comments}
+            onSubmit={(data) => {
+              if (typeof props.onSubmitComment === 'function') {
+                props.onSubmitComment(data);
+              }
+            }}
+          />
+        </div>
       </div>
 
       <div className="grid__item">
@@ -92,6 +105,8 @@ PostContent.propTypes = {
   rating: PropTypes.number,
   сhoice: PropTypes.string,
   imgSrc: PropTypes.string,
+  comments: PropTypes.arrayOf(PropTypes.object),
+  onSubmitComment: PropTypes.func,
 };
 
 export default connect(state => ({

@@ -46,6 +46,12 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
+  getErrorMessage(index) {
+    const { errors } = this.props;
+    return errors.websiteUrls.results[index] && errors.websiteUrls.results[index].isInvalidUrl && errors.websiteUrls.results[index].message;
+  }
+
+  @bind
   makeRemoveSiteClickHandler(index) {
     return () => this.props.removeSite(index);
   }
@@ -136,7 +142,7 @@ class ProfileContactsPage extends PureComponent {
                     label="Your website"
                     value={websiteUrls[0]}
                     onChange={value => this.handleSiteValueChange(0, value)}
-                    error={errors.websiteUrls && errors.websiteUrls[0]}
+                    error={this.getErrorMessage(0)}
                   />
                 </div>
                 <div className="list__item">
@@ -147,7 +153,7 @@ class ProfileContactsPage extends PureComponent {
                           label="Your website"
                           value={websiteUrls[index + paddingFromFirstInput]}
                           onChange={value => this.handleSiteValueChange(index + paddingFromFirstInput, value)}
-                          error={errors.websiteUrls && errors.websiteUrls[index + paddingFromFirstInput]}
+                          error={this.getErrorMessage(index + paddingFromFirstInput)}
                         />
                       </div>
                       <div className="profile__block">

@@ -1,8 +1,8 @@
 import Validator from 'validatorjs';
 import * as rules from '../../utils/validators/';
+import { validateArrayUrls } from '../../utils/validators/custom';
 
-rules.registerArrayUrls.rule(Validator);
-rules.registerPhoneNumber.rule(Validator);
+rules.registerPhoneNumber.rule(Validator, /^\d{4}-\d{4}$/);
 
 const getInitialState = () => ({
   data: {
@@ -13,12 +13,14 @@ const getInitialState = () => ({
   rules: {
     email: 'required|email',
     phoneNumber: `required|${rules.registerPhoneNumber.name}`,
-    websiteUrls: rules.registerArrayUrls.name,
   },
   errors: {
     email: null,
     phoneNumber: null,
-    websiteUrls: [null],
+    websiteUrls: {
+      isErrorExists: false,
+      results: [],
+    },
   },
   isValid: false,
 });
@@ -99,28 +101,13 @@ const contacts = (state = getInitialState(), action) => {
 
       const validation = new Validator(data, state.rules);
 
-      const returnWebSiteUrlsErrors = () => {
-        if (Array.isArray(state.errors.websiteUrls)) {
-          if (index > state.errors.websiteUrls.length) {
-            return [...state.errors.websiteUrls, validation.errors.get('websiteUrls')];
-          }
-          return state.errors.websiteUrls.map((error, innerIndex) => {
-            if (index !== innerIndex) {
-              return error;
-            }
-            return validation.errors.get('websiteUrls');
-          });
-        }
-        return [validation.errors.get('websiteUrls')];
-      };
-
       return {
         ...state,
         data,
         isValid: validation.passes(),
         errors: {
           ...state.errors,
-          websiteUrls: returnWebSiteUrlsErrors(),
+          websiteUrls: validateArrayUrls(data.websiteUrls),
         },
       };
     }
@@ -134,10 +121,6 @@ const contacts = (state = getInitialState(), action) => {
         },
         errors: {
           ...state.errors,
-          websiteUrls: [
-            ...state.errors.websiteUrls,
-            null,
-          ],
         },
       };
     }
@@ -156,9 +139,12 @@ const contacts = (state = getInitialState(), action) => {
         },
         errors: {
           ...state.errors,
-          websiteUrls: [
-            ...state.errors.websiteUrls.slice(0, -1),
-          ],
+          websiteUrls: {
+            ...state.errors.websiteUrls,
+            results: [
+              ...state.errors.websiteUrls.results.slice(0, -1),
+            ],
+          },
         },
       };
     }

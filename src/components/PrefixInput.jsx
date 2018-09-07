@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PrefixInput = ({
-  value, error, label, placeholder, subtext, inputWidth, isRequired, type, prefix,
+  value, error, label, placeholder, subtext, inputWidth, onChange, isRequired, type, prefix,
 }) => (
   <div className="prefix-input">
     <label>
@@ -21,6 +21,11 @@ const PrefixInput = ({
           className="prefix-input__input"
           type={type}
           placeholder={placeholder}
+          onChange={(e) => {
+              if (typeof onChange === 'function') {
+                onChange(e.target.value);
+              }
+            }}
         />
       </div>
     </label>
@@ -37,6 +42,7 @@ PrefixInput.propTypes = {
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
   error: PropTypes.string,
+  onChange: PropTypes.func,
   isRequired: PropTypes.bool,
   inputWidth: PropTypes.number,
 };

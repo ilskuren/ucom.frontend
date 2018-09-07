@@ -374,7 +374,7 @@ class UserPage extends PureComponent {
                                   </span>
                                 </span>
                                 <span className="inline__item">
-                                  <a href={item.source_url} target="blank">{extractHostname(item.source_url)}</a>
+                                  <a href={item.sourceUrl} target="blank">{extractHostname(item.sourceUrl)}</a>
                                 </span>
                               </span>
                             </li>
@@ -391,17 +391,17 @@ class UserPage extends PureComponent {
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.users_jobs.map(item => (
+                          {this.state.user.usersJobs.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
                                   <div className="toolbar__main">
                                     <div className="experience__name">{item.title}</div>
                                   </div>
-                                  {item.start_date && (
+                                  {item.startDate && (
                                     <div className="toolbar__side">
                                       <div className="experience__state">
-                                        {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                        {getYearOfDate(item.startDate)} – {item.endDate ? getYearOfDate(item.endDate) : 'Now'}
                                       </div>
                                     </div>
                                   )}
@@ -432,7 +432,7 @@ class UserPage extends PureComponent {
                                   {item.start_date && (
                                     <div className="toolbar__side">
                                       <div className="experience__state">
-                                        {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                        {getYearOfDate(item.startDate)} – {item.endDate ? getYearOfDate(item.endDate) : 'Now'}
                                       </div>
                                     </div>
                                   )}

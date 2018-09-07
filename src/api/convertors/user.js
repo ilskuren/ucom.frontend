@@ -1,3 +1,117 @@
+function convertServerFollow(followInfo) {
+  if (followInfo.length === 0) { return []; }
+  return followInfo.map(follow => ({
+    id: follow.id,
+    userIdFrom: follow.user_id_from,
+    userIdTo: follow.user_id_to,
+    activityTypeId: follow.activity_type_id,
+    blockchainStatus: follow.blockchain_status,
+    createdAt: follow.created_at,
+    updatedAt: follow.updated_at,
+  }));
+}
+
+function convertClientFollow(followInfo) {
+  if (followInfo.length === 0) { return []; }
+  return followInfo.map(follow => ({
+    id: follow.id,
+    user_id_from: follow.userIdFrom,
+    user_id_to: follow.userIdTo,
+    activity_type_id: follow.activityTypeId,
+    blockchain_status: follow.blockchainStatus,
+    created_at: follow.createdAt,
+    updated_at: follow.updatedAt,
+  }));
+}
+
+function convertServerUsersEducation(educationInfo) {
+  if (educationInfo.length === 0) { return []; }
+  return educationInfo.map(education => ({
+    id: education.id,
+    userId: education.user_id,
+    title: education.title,
+    speciality: education.speciality,
+    createdAt: education.created_at,
+    updatedAt: education.updated_at,
+    startDate: education.start_date,
+    endDate: education.end_date,
+    degree: education.degree,
+    isCurrent: education.is_current,
+  }));
+}
+
+function convertClientUsersEducation(educationInfo) {
+  if (educationInfo.length === 0) { return []; }
+  return educationInfo.map(education => ({
+    id: education.id,
+    user_id: education.user_id,
+    title: education.title,
+    speciality: education.speciality,
+    createdAt: education.created_at,
+    updatedAt: education.updated_at,
+    startDate: education.start_date,
+    endDate: education.end_date,
+    degree: education.degree,
+    isCurrent: education.is_current,
+  }));
+}
+
+function convertServerUsersLobs(jobsInfo) {
+  if (jobsInfo.length === 0) { return []; }
+  return jobsInfo.map(job => ({
+    id: job.id,
+    userId: job.user_id,
+    title: job.title,
+    startDate: job.start_date,
+    endDate: job.end_date,
+    createdAt: job.created_at,
+    updatedAt: job.updated_at,
+    position: job.position,
+    isCurrent: job.is_current,
+  }));
+}
+
+function convertClientUsersLobs(jobsInfo) {
+  if (jobsInfo.length === 0) { return []; }
+  return jobsInfo.map(job => ({
+    id: job.id,
+    user_id: job.userId,
+    title: job.title,
+    start_date: job.startDate,
+    end_date: job.endDate,
+    created_at: job.createdAt,
+    updated_at: job.updatedAt,
+    position: job.position,
+    is_current: job.isCurrent,
+  }));
+}
+
+function convertServerUsersSources(sourcesInfo) {
+  if (sourcesInfo.length === 0) { return []; }
+  return sourcesInfo.map(source => ({
+    id: source.id,
+    userId: source.user_id,
+    sourceTypeId: source.source_type_id,
+    createdAt: source.created_at,
+    updatedAt: source.updated_at,
+    sourceUrl: source.source_url,
+    isOfficial: source.is_official,
+  }));
+}
+
+function convertClientUsersSources(sourcesInfo) {
+  if (sourcesInfo.length === 0) { return []; }
+  return sourcesInfo.map(source => ({
+    id: source.id,
+    user_id: source.userId,
+    source_type_id: source.sourceTypeId,
+    created_at: source.createdAt,
+    updated_at: source.updatedAt,
+    source_url: source.sourceUrl,
+    is_official: source.isOfficial,
+  }));
+}
+
 export function convertServerUser(response) {
   return {
     id: response.id,
@@ -26,11 +140,11 @@ export function convertServerUser(response) {
     blockchainRegistrationStatus: response.blockchain_registration_status,
     createdAt: response.created_at,
     updatedAt: response.updated_at,
-    usersEducation: response.users_education,
-    usersJobs: response.users_jobs,
-    usersSources: response.users_sources,
-    iFollow: response.I_follow,
-    followedBy: response.followed_by,
+    usersEducation: convertServerUsersEducation(response.users_education),
+    usersJobs: convertServerUsersLobs(response.users_jobs),
+    usersSources: convertServerUsersSources(response.users_sources),
+    iFollow: convertServerFollow(response.I_follow),
+    followedBy: convertServerFollow(response.followed_by),
   };
 }
 
@@ -62,10 +176,10 @@ export function convertClientUser(userData) {
     blockchain_registration_status: userData.blockchainRegistrationStatus,
     created_at: userData.createdAt,
     updated_at: userData.updatedAt,
-    users_education: userData.usersEducation,
-    users_jobs: userData.usersJobs,
-    users_sources: userData.usersSources,
-    I_follow: userData.iFollow,
-    followed_by: userData.followedBy,
+    users_education: convertClientUsersEducation(userData.usersEducation),
+    users_jobs: convertClientUsersLobs(userData.usersJobs),
+    users_sources: convertClientUsersSources(userData.usersSources),
+    I_follow: convertClientFollow(userData.iFollow),
+    followed_by: convertClientFollow(userData.followedBy),
   };
 }

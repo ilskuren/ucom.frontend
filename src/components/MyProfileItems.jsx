@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import UserCard from '../components/UserCard';
 import Button from '../components/Button';
 import Avatar from '../components/Avatar';
 import Avatars from '../components/Avatars';

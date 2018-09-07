@@ -38,6 +38,7 @@ const contacts = (state = getInitialState(), action) => {
       return {
         ...state,
         data,
+        isValid: validation.passes(),
         errors: {
           ...state.errors,
           email: validation.errors.get('email'),
@@ -58,6 +59,7 @@ const contacts = (state = getInitialState(), action) => {
       return {
         ...state,
         data,
+        isValid: validation.passes(),
         errors: {
           ...state.errors,
           phoneNumber: validation.errors.get('phoneNumber'),
@@ -71,6 +73,7 @@ const contacts = (state = getInitialState(), action) => {
 
       return {
         ...state,
+        isValid: validation.passes(),
         errors: {
           ...validation.errors.all(),
           websiteUrls: state.errors.websiteUrls,
@@ -110,12 +113,6 @@ const contacts = (state = getInitialState(), action) => {
         }
         return [validation.errors.get('websiteUrls')];
       };
-
-      // const returnWebSiteUrlsErrors = () => {
-      //   return data.websiteUrls.map((webSiteUrl, webSiteIndex) => {
-      //     return validation.errors.get('websiteUrls')
-      //   })
-      // };
 
       return {
         ...state,

@@ -39,21 +39,23 @@ class UserPage extends PureComponent {
   }
 
   getData(userId) {
-    Promise.all([
-      getUser(userId),
-      getUserPosts(userId),
-    ])
-      .then((result) => {
-        let posts = result[1];
+    this.setState({ user: {} }, () => {
+      Promise.all([
+        getUser(userId),
+        getUserPosts(userId),
+      ])
+        .then((result) => {
+          let posts = result[1];
 
-        posts = sortBy(posts, item => new Date(item.updated_at).getTime())
-          .reverse();
+          posts = sortBy(posts, item => new Date(item.updated_at).getTime())
+            .reverse();
 
-        this.setState({
-          posts,
-          user: result[0],
+          this.setState({
+            posts,
+            user: result[0],
+          });
         });
-      });
+    });
   }
 
   render() {

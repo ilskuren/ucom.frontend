@@ -20,15 +20,15 @@ class ProfileGeneralInfoPage extends PureComponent {
     super(props);
 
     this.state = {
-      firstName: this.props.user.first_name || '',
-      lastName: this.props.user.last_name || '',
+      firstName: this.props.user.firstName || '',
+      lastName: this.props.user.lastName || '',
       nickname: this.props.user.nickname || '',
       about: this.props.user.about || '',
       birthday: this.props.user.birthday || '',
       country: this.props.user.country || '',
       city: this.props.user.city || '',
       address: this.props.user.address || '',
-      currencyToShow: this.props.user.currency_to_show || '',
+      currencyToShow: this.props.user.currencyToShow || '',
       loading: false,
       avatarLoading: false,
     };
@@ -37,15 +37,15 @@ class ProfileGeneralInfoPage extends PureComponent {
   save() {
     const token = getToken();
     const data = {
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       nickname: this.state.nickname,
       about: this.state.about,
       birthday: this.state.birthday,
       country: this.state.country,
       city: this.state.city,
       address: this.state.address,
-      currency_to_show: this.state.currencyToShow,
+      currencyToShow: this.state.currencyToShow,
     };
 
     this.setState({ loading: true });
@@ -62,7 +62,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
     const data = new FormData();
 
-    data.append('avatar_filename', file);
+    data.append('avatarFilename', file);
 
     patchMyselfFormData(data, getToken())
       .then((data) => {
@@ -97,7 +97,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                   <div className="profile__block profile__block_avatar">
                     <Avatar
-                      src={getFileUrl(this.props.user.avatar_filename)}
+                      src={getFileUrl(this.props.user.avatarFilename)}
                       size="big"
                       alt="Avatar"
                     />

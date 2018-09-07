@@ -16,20 +16,20 @@ class ProfileWorkAndEducationPage extends PureComponent {
     super(props);
 
     this.state = {
-      first_currency: this.props.user.first_currency || '',
-      first_currency_year: this.props.user.first_currency_year || '',
-      users_jobs: this.props.user.users_jobs || [],
-      users_education: this.props.user.users_education || [],
+      firstCurrency: this.props.user.firstCurrency || '',
+      firstCurrencyYear: this.props.user.firstCurrencyYear || '',
+      usersJobs: this.props.user.usersJobs || [],
+      usersEducation: this.props.user.usersEducation || [],
       loading: false,
     };
   }
 
   componentDidMount() {
-    if (this.state.users_jobs.length === 0) {
+    if (this.state.usersJobs.length === 0) {
       this.addEmptyJobItem();
     }
 
-    if (this.state.users_education.length === 0) {
+    if (this.state.usersEducation.length === 0) {
       this.addEmptyEducationItem();
     }
   }
@@ -38,10 +38,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
     const token = getToken();
 
     const data = {
-      first_currency: this.state.first_currency,
-      first_currency_year: this.state.first_currency_year,
-      users_jobs: this.state.users_jobs,
-      users_education: this.state.users_education,
+      firstCurrency: this.state.firstCurrency,
+      firstCurrencyYear: this.state.firstCurrencyYear,
+      usersJobs: this.state.usersJobs,
+      usersEducation: this.state.usersEducation,
     };
 
     this.setState({ loading: true });
@@ -55,10 +55,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
   addEmptyEducationItem() {
     this.setState(prevState => ({
-      users_education: prevState.users_education.concat({
-        end_date: null,
-        start_date: null,
-        is_current: false,
+      usersEducation: prevState.usersEducation.concat({
+        endDate: null,
+        startDate: null,
+        isCurrent: false,
         degree: '',
         speciality: '',
         title: '',
@@ -68,27 +68,27 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
   changeEducationItem(index, data) {
     this.setState((prevState) => {
-      const { users_education } = prevState;
+      const { usersEducation } = prevState;
 
-      users_education[index] = Object.assign({}, prevState.users_education[index], data);
+      usersEducation[index] = Object.assign({}, prevState.usersEducation[index], data);
 
       return {
-        users_education: [].concat(users_education),
+        usersEducation: [].concat(usersEducation),
       };
     });
   }
 
   removeEducationItem(index) {
     this.setState((prevState) => {
-      const { users_education } = prevState;
+      const { usersEducation } = prevState;
 
-      users_education.splice(index, 1);
+      usersEducation.splice(index, 1);
 
       return {
-        users_education: [].concat(users_education),
+        usersEducation: [].concat(usersEducation),
       };
     }, () => {
-      if (this.state.users_education.length === 0) {
+      if (this.state.usersEducation.length === 0) {
         this.addEmptyEducationItem();
       }
     });
@@ -96,10 +96,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
   addEmptyJobItem() {
     this.setState(prevState => ({
-      users_jobs: prevState.users_jobs.concat({
-        end_date: null,
-        start_date: null,
-        is_current: false,
+      usersJobs: prevState.usersJobs.concat({
+        endDate: null,
+        startDate: null,
+        isCurrent: false,
         title: '',
         position: '',
       }),
@@ -108,27 +108,27 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
   changeJobItem(index, data) {
     this.setState((prevState) => {
-      const { users_jobs } = prevState;
+      const { usersJobs } = prevState;
 
-      users_jobs[index] = Object.assign({}, prevState.users_jobs[index], data);
+      usersJobs[index] = Object.assign({}, prevState.usersJobs[index], data);
 
       return {
-        users_jobs: [].concat(users_jobs),
+        usersJobs: [].concat(usersJobs),
       };
     });
   }
 
   removeJobItem(index) {
     this.setState((prevState) => {
-      const { users_jobs } = prevState;
+      const { usersJobs } = prevState;
 
-      users_jobs.splice(index, 1);
+      usersJobs.splice(index, 1);
 
       return {
-        users_jobs: [].concat(users_jobs),
+        usersJobs: [].concat(usersJobs),
       };
     }, () => {
-      if (this.state.users_jobs.length === 0) {
+      if (this.state.usersJobs.length === 0) {
         this.addEmptyJobItem();
       }
     });
@@ -159,8 +159,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <TextInput
                     label="Your first asset"
                     placeholder="Example Kickcoin"
-                    value={this.state.first_currency}
-                    onChange={first_currency => this.setState({ first_currency })}
+                    value={this.state.firstCurrency}
+                    onChange={firstCurrency => this.setState({ firstCurrency })}
                   />
                 </div>
 
@@ -168,8 +168,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <TextInput
                     label="Year of purchase"
                     inputWidth={100}
-                    value={this.state.first_currency_year}
-                    onChange={first_currency_year => this.setState({ first_currency_year })}
+                    value={this.state.firstCurrencyYear}
+                    onChange={firstCurrencyYear => this.setState({ firstCurrencyYear })}
                   />
                 </div>
               </InfoBlock>
@@ -178,7 +178,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             <div className="profile__info-block">
               <InfoBlock title="Work">
                 <div className="list">
-                  {this.state.users_jobs.map((item, index) => (
+                  {this.state.usersJobs.map((item, index) => (
                     <div className="list__item" key={index}>
                       <div className="profile__block">
                         <TextInput
@@ -197,15 +197,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
                       <div className="profile__block">
                         <DateInput
                           label="Started date"
-                          value={item.start_date}
-                          onChange={(start_date) => { this.changeJobItem(index, { start_date }); }}
+                          value={item.startDate}
+                          onChange={(startDate) => { this.changeJobItem(index, { startDate }); }}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Ended date"
-                          value={item.end_date}
-                          onChange={(end_date) => { this.changeJobItem(index, { end_date }); }}
+                          value={item.endDate}
+                          onChange={(endDate) => { this.changeJobItem(index, { endDate }); }}
                         />
                       </div>
                       <div className="profile__block">
@@ -235,7 +235,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             <div className="profile__info-block">
               <InfoBlock title="Education">
                 <div className="list">
-                  {this.state.users_education.map((item, index) => (
+                  {this.state.usersEducation.map((item, index) => (
                     <div className="list__item" key={index}>
                       <div className="profile__block">
                         <TextInput
@@ -261,15 +261,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
                       <div className="profile__block">
                         <DateInput
                           label="Started date"
-                          value={item.start_date}
-                          onChange={(start_date) => { this.changeEducationItem(index, { start_date }); }}
+                          value={item.startDate}
+                          onChange={(startDate) => { this.changeEducationItem(index, { startDate }); }}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Ended date"
-                          value={item.end_date}
-                          onChange={(end_date) => { this.changeEducationItem(index, { end_date }); }}
+                          value={item.endDate}
+                          onChange={(endDate) => { this.changeEducationItem(index, { endDate }); }}
                         />
                       </div>
                       <div className="profile__block">

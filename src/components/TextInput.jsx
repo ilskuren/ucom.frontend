@@ -9,12 +9,13 @@ import Eye from '../components/Icons/Eye';
 const TextInput = ({
   value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid,
 }) => {
+  const parsedError = Array.isArray(error) ? error[0] : error;
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
 
   if (isSearch) {
     icon = <div className="text-input__icon"><IconSearch /></div>;
-  } else if (error) {
+  } else if (parsedError) {
     icon = <div className="text-input__icon"><InputErrorIcon /></div>;
   } else if (isValid) {
     icon = <div className="text-input__icon"><InputCompleteIcon /></div>;
@@ -38,7 +39,7 @@ const TextInput = ({
             maxLength={maxLength}
             value={value}
             className={classNames('text-input__input', {
-              'text-input__input_error': Boolean(error),
+              'text-input__input_error': Boolean(parsedError),
               'text-input__input_with-icon': Boolean(isIconExist),
             })}
             type={type || 'text'}
@@ -55,7 +56,7 @@ const TextInput = ({
         </div>
       </label>
       { subtext && <div className="text-input__subtext">{subtext}</div> }
-      { error && <div className="text-input__error">{error}</div> }
+      { parsedError && <div className="text-input__error">{parsedError}</div> }
     </div>
   );
 };
@@ -66,7 +67,7 @@ TextInput.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   isSearch: PropTypes.bool,
   isRequired: PropTypes.bool,
   inputWidth: PropTypes.number,

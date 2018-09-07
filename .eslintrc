@@ -12,6 +12,7 @@
     "jsx-a11y/label-has-for": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "no-useless-escape": "off",
     "no-param-reassign": "off",
     "max-len": "off",
     "no-plusplus": "off",

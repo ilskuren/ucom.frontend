@@ -10,6 +10,7 @@ import Avatar from './Avatar';
 import Tags from './Tags';
 import ModalContent from './ModalContent';
 import Popup from './Popup';
+import Avatars from './Avatars';
 import ProfileList from './ProfilesList';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
@@ -74,8 +75,6 @@ class EventTitle extends PureComponent {
   }
 
   render() {
-    const team = this.props.team ? this.props.team.slice(0, 5) : null;
-    const otherTeamCount = team ? this.props.team.length - 5 : null;
 
     return (
       <Fragment>
@@ -225,7 +224,8 @@ class EventTitle extends PureComponent {
                 {(this.props.team && this.props.team.length > 0) && (
                   <div className="toolbar__side">
                     <div className="event-title__footer-board">
-                      <div className="avatars-list avatars-list_shifted">
+                      <Avatars list={this.props.team} orderStacking="fifo" distance="close" className="avatars_msmall" />
+                      {/* <div className="avatars-list avatars-list_shifted">
                         {team.map(item => (
                           <div className="avatars-list__item" key={item.id}>
                             <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
@@ -236,7 +236,7 @@ class EventTitle extends PureComponent {
                         <button className="button-clean" onClick={() => this.showTeamPopup()}>
                           <span className="offer-title__board-more">+{otherTeamCount}</span>
                         </button>
-                      )}
+                      )} */}
                     </div>
                     <div className="event-title__name">BOARD</div>
                   </div>

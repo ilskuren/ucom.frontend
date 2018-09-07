@@ -9,9 +9,9 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 
 class Comments extends PureComponent {
-  createComment(description, parent_id) {
+  createComment(description) {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit({ description, parent_id });
+      this.props.onSubmit({ description });
     }
   }
 
@@ -32,6 +32,7 @@ class Comments extends PureComponent {
           <div className="comments__list">
             {comments.map(item => (
               <Comment
+                key={item.id}
                 id={item.id}
                 description={item.description}
                 avatar={item.User ? getFileUrl(item.User.avatar_filename) : null}
@@ -39,7 +40,7 @@ class Comments extends PureComponent {
                 accountName={item.User ? item.User.account_name : null}
                 created={moment(item.created_at).fromNow()}
                 depth={item.depth}
-                onSubmit={description => this.createComment(description)}
+                onSubmit={description => this.createComment(description, item.id)}
               />
             ))}
           </div>

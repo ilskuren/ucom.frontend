@@ -28,15 +28,15 @@ class Offer extends PureComponent {
       });
   }
 
-  createComment(comment) {
-    return createComment(this.props.match.params.id, getToken(), comment)
+  createComment(commentData, commentId) {
+    return createComment(getToken(), commentData, this.props.match.params.id, commentId)
       .then((data) => {
         if (data.errors) {
           return;
         }
 
         const post = Object.assign({}, this.state.post, {
-          comments: [{ ...data, ...comment }].concat(this.state.post.comments),
+          comments: [{ ...data, ...commentData }].concat(this.state.post.comments),
         });
 
         this.setState({ post });

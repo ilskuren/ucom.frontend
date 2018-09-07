@@ -200,8 +200,14 @@ export const join = (postId, token) => (
     .then(resp => resp.json())
 );
 
-export const createComment = (postId, token, data) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`, {
+export const createComment = (token, data, postId, commentId) => {
+  let url = `${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`;
+
+  if (commentId) {
+    url = `${url}/${commentId}/comments`;
+  }
+
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -210,5 +216,5 @@ export const createComment = (postId, token, data) => (
     },
     body: JSON.stringify(data),
   })
-    .then(resp => resp.json())
-);
+    .then(resp => resp.json());
+};

@@ -55,6 +55,7 @@ class CommentForm extends PureComponent {
 
           <div className="toolbar__main">
             <textarea
+              autoFocus={this.props.autoFocus} //eslint-disable-line
               value={this.state.comment}
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"

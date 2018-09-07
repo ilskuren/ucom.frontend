@@ -51,6 +51,7 @@ class Comments extends PureComponent {
               <div className="comment__form">
                 <CommentForm
                   active
+                  autoFocus
                   onReset={() => this.hideForm()}
                   onSubmit={(description) => {
                     this.props.onSubmit(description);

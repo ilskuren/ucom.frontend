@@ -73,7 +73,7 @@ Comments.propTypes = {
   description: PropTypes.string,
   created: PropTypes.string,
   onSubmit: PropTypes.func,
-  depth: PropTypes.string,
+  depth: PropTypes.number,
 };
 
 export default connect(state => ({

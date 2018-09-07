@@ -1,3 +1,4 @@
+import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
@@ -62,6 +63,11 @@ class CommentForm extends PureComponent {
               onBlur={() => this.hide()}
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === KEY_RETURN) {
+                  this.submit();
+                }
               }}
             />
 

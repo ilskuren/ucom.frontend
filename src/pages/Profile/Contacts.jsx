@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
   email: selectors.selectProfileContacts(state).data.email,
   phoneNumber: selectors.selectProfileContacts(state).data.phoneNumber,
   websiteUrls: selectors.selectProfileContacts(state).data.websiteUrls,
-  errors: state.profile.contacts.errors,
+  errors: selectors.selectProfileContacts(state).errors,
   isValid: selectors.selectProfileContacts(state).isValid,
 });
 

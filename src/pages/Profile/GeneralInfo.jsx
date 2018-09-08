@@ -1,5 +1,7 @@
-import { connect } from 'react-redux';
 import React, { PureComponent, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { bind } from 'decko';
 import classNames from 'classnames';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
@@ -15,37 +17,56 @@ import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
 
+import * as actions from '../../actions/profile';
+import * as selectors from '../../utils/selectors/profile';
+import generalInfo from '../../store/profile/generalInfo';
+
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    changeTextInputValue: actions.changeTextInputValue,
+  }, dispatch);
+
+
+const mapStateToProps = state => ({
+  firstName: selectors.selectSettingsGeneralInfo(state).data.firstName,
+  lastName: selectors.selectSettingsGeneralInfo(state).data.lastName,
+  nickname: selectors.selectSettingsGeneralInfo(state).data.nickname,
+  about: selectors.selectSettingsGeneralInfo(state).data.about,
+  birthday: selectors.selectSettingsGeneralInfo(state).data.birthday,
+  country: selectors.selectSettingsGeneralInfo(state).data.country,
+  city: selectors.selectSettingsGeneralInfo(state).data.city,
+  address: selectors.selectSettingsGeneralInfo(state).data.address,
+  currencyToShow: selectors.selectSettingsGeneralInfo(state).data.currencyToShow,
+});
+
+
 class ProfileGeneralInfoPage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: this.props.user.firstName || '',
-      lastName: this.props.user.lastName || '',
-      nickname: this.props.user.nickname || '',
-      about: this.props.user.about || '',
-      birthday: this.props.user.birthday || '',
-      country: this.props.user.country || '',
-      city: this.props.user.city || '',
-      address: this.props.user.address || '',
-      currencyToShow: this.props.user.currencyToShow || '',
       loading: false,
       avatarLoading: false,
     };
   }
 
+  @bind
+  makeChangeTextInputValueHandler(field, value) {
+    return
+  }
+
   save() {
     const token = getToken();
     const data = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      nickname: this.state.nickname,
-      about: this.state.about,
-      birthday: this.state.birthday,
-      country: this.state.country,
-      city: this.state.city,
-      address: this.state.address,
-      currencyToShow: this.state.currencyToShow,
+      firstName: this.props.firstName,
+      lastName: this.props.lastName,
+      nickname: this.props.nickname,
+      about: this.props.about,
+      birthday: this.props.birthday,
+      country: this.props.country,
+      city: this.props.city,
+      address: this.props.address,
+      currencyToShow: this.props.currencyToShow,
     };
 
     this.setState({ loading: true });
@@ -111,7 +132,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       />
 
                       <div className="profile__text-block">
-                        You can upload an image  in JPG or PNG format.
+                        You can upload an image in JPG or PNG format.
                         Size is not more than 10 mb.
                       </div>
                     </div>
@@ -120,16 +141,16 @@ class ProfileGeneralInfoPage extends PureComponent {
                   <div className="profile__block">
                     <TextInput
                       label="First name"
-                      value={this.state.firstName}
-                      onChange={firstName => this.setState({ firstName })}
+                      value={this.props.firstName}
+                      onChange={value => this.makeChangeTextInputValueHandler('firstName', value)}
                     />
                   </div>
 
                   <div className="profile__block">
                     <TextInput
                       label="Second name"
-                      value={this.state.lastName}
-                      onChange={lastName => this.setState({ lastName })}
+                      value={this.props.lastName}
+                      onChange={value => this.makeChangeTextInputValueHandler('lastName', value)}
                     />
                   </div>
 
@@ -137,8 +158,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Nickname"
                       placeholder="@nickname"
-                      value={this.state.nickname}
-                      onChange={nickname => this.setState({ nickname })}
+                      value={this.props.nickname}
+                      onChange={value => this.makeChangeTextInputValueHandler('nickname', value)}
                     />
                   </div>
 
@@ -146,15 +167,15 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Asset to show"
                       placeholder="Example Kickcoin"
-                      value={this.state.currencyToShow}
-                      onChange={currencyToShow => this.setState({ currencyToShow })}
+                      value={this.props.currencyToShow}
+                      onChange={value => this.makeChangeTextInputValueHandler('currencyToShow', value)}
                     />
                   </div>
 
                   <div className="profile__block">
                     <DateInput
                       label="Birthday"
-                      value={this.state.birthday}
+                      value={this.props.birthday}
                       onChange={birthday => this.setState({ birthday })}
                     />
                   </div>
@@ -164,7 +185,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       rows={6}
                       label="About me"
                       placeholder="Type something..."
-                      value={this.state.about}
+                      value={this.props.about}
                       onChange={about => this.setState({ about })}
                     />
                   </div>
@@ -176,16 +197,16 @@ class ProfileGeneralInfoPage extends PureComponent {
                   <div className="profile__block">
                     <TextInput
                       label="Country"
-                      value={this.state.country}
-                      onChange={country => this.setState({ country })}
+                      value={this.props.country}
+                      onChange={value => this.makeChangeTextInputValueHandler('country', value)}
                     />
                   </div>
 
                   <div className="profile__block">
                     <TextInput
                       label="City"
-                      value={this.state.city}
-                      onChange={city => this.setState({ city })}
+                      value={this.props.city}
+                      onChange={value => this.makeChangeTextInputValueHandler('city', value)}
                     />
                   </div>
 
@@ -193,8 +214,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Address"
                       subtext="Actual address. Example: One Apple Park Way, Cupertino"
-                      value={this.state.address}
-                      onChange={address => this.setState({ address })}
+                      value={this.props.address}
+                      onChange={value => this.makeChangeTextInputValueHandler('address', value)}
                     />
                   </div>
                 </InfoBlock>
@@ -211,11 +232,13 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 }
 
-export default connect(
-  state => ({
-    user: state.user,
-  }),
-  dispatch => ({
-    setUser: data => dispatch(setUser(data)),
-  }),
-)(ProfileGeneralInfoPage);
+// export default connect(
+//   state => ({
+//     user: state.user,
+//   }),
+//   dispatch => ({
+//     setUser: data => dispatch(setUser(data)),
+//   }),
+// )(ProfileGeneralInfoPage);
+
+export default connect(mapStateToProps, mapDispatch)(ProfileGeneralInfoPage);

@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
@@ -12,7 +13,6 @@ import Avatar from '../../components/Avatar';
 import Textarea from '../../components/Textarea';
 import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
-import { setUser } from '../../actions';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
@@ -28,17 +28,17 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  firstName: selectors.selectSettingsGeneralInfo(state).data.firstName,
-  lastName: selectors.selectSettingsGeneralInfo(state).data.lastName,
-  nickname: selectors.selectSettingsGeneralInfo(state).data.nickname,
-  about: selectors.selectSettingsGeneralInfo(state).data.about,
-  birthday: selectors.selectSettingsGeneralInfo(state).data.birthday,
-  country: selectors.selectSettingsGeneralInfo(state).data.country,
-  city: selectors.selectSettingsGeneralInfo(state).data.city,
-  address: selectors.selectSettingsGeneralInfo(state).data.address,
-  currencyToShow: selectors.selectSettingsGeneralInfo(state).data.currencyToShow,
-  avatarFilename: selectors.selectSettingsGeneralInfo(state).data.avatarFilename,
-  errors: selectors.selectSettingsGeneralInfo(state).errors,
+  firstName: selectors.selectProfileGeneralInfo(state).data.firstName,
+  lastName: selectors.selectProfileGeneralInfo(state).data.lastName,
+  nickname: selectors.selectProfileGeneralInfo(state).data.nickname,
+  about: selectors.selectProfileGeneralInfo(state).data.about,
+  birthday: selectors.selectProfileGeneralInfo(state).data.birthday,
+  country: selectors.selectProfileGeneralInfo(state).data.country,
+  city: selectors.selectProfileGeneralInfo(state).data.city,
+  address: selectors.selectProfileGeneralInfo(state).data.address,
+  currencyToShow: selectors.selectProfileGeneralInfo(state).data.currencyToShow,
+  avatarFilename: selectors.selectProfileGeneralInfo(state).data.avatarFilename,
+  errors: selectors.selectProfileGeneralInfo(state).errors,
 });
 
 
@@ -251,5 +251,31 @@ class ProfileGeneralInfoPage extends PureComponent {
     );
   }
 }
+
+ProfileGeneralInfoPage.propTypes = {
+  changeInputValue: PropTypes.func,
+  validateGeneralInfo: PropTypes.func,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  nickname: PropTypes.string,
+  about: PropTypes.string,
+  birthday: PropTypes.string,
+  country: PropTypes.string,
+  city: PropTypes.string,
+  address: PropTypes.string,
+  currencyToShow: PropTypes.string,
+  avatarFilename: PropTypes.string,
+  isValid: PropTypes.bool,
+  errors: PropTypes.shape({
+    firstName: PropTypes.array,
+    lastName: PropTypes.array,
+    nickname: PropTypes.array,
+    about: PropTypes.array,
+    birthday: PropTypes.array,
+    country: PropTypes.array,
+    city: PropTypes.array,
+    address: PropTypes.array,
+  }),
+};
 
 export default connect(mapStateToProps, mapDispatch)(ProfileGeneralInfoPage);

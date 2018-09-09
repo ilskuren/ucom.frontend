@@ -1,8 +1,8 @@
-export const changeTextInput = payload => ({ type: 'PROFILE_CONTACTS:CHANGE_TEXT_VALUE', payload });
-export const changeNumberInput = payload => ({ type: 'PROFILE_CONTACTS:CHANGE_NUMBER_VALUE', payload });
 
-export const changePhoneValue = payload => ({ type: 'PROFILE_CONTACTS:CHANGE_PHONE_VALUE', payload });
-export const changeSiteValue = payload => ({ type: 'PROFILE_CONTACTS:CHANGE_SITE_VALUE', payload });
-export const addSite = () => ({ type: 'PROFILE_CONTACTS:ADD_SITE' });
-export const removeSite = payload => ({ type: 'PROFILE_CONTACTS:REMOVE_SITE', payload });
-export const validateContacts = () => ({ type: 'PROFILE_CONTACTS:VALIDATE_CONTACTS' });
+export const addEmptyEducationItem = () => ({ type: 'PROFILE_WORK-AND-EDUCATION:ADD_EMPTY_EDUCATION_ITEM' });
+export const changeEducationItem = payload => ({ type: 'PROFILE_WORK-AND-EDUCATION:CHANGE_EDUCATION_ITEM', payload });
+export const removeEducationItem = payload => ({ type: 'PROFILE_WORK-AND-EDUCATION:REMOVE_EDUCATION_ITEM', payload });
+export const addEmptyJobItem = () => ({ type: 'PROFILE_WORK-AND-EDUCATION:ADD_EMPTY_JOB_ITEM' });
+export const changeJobItem = payload => ({ type: 'PROFILE_WORK-AND-EDUCATION:CHANGE_JOB_ITEM', payload });
+export const removeJobItem = payload => ({ type: 'PROFILE_WORK-AND-EDUCATION:REMOVE_JOB_ITEM', payload });
+export const validateWorkAndEducation = () => ({ type: 'PROFILE_WORK-AND-EDUCATION:VALIDATE_FORM' });

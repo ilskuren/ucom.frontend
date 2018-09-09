@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
+import { bind } from 'decko';
+import PropTypes from 'prop-types';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -7,29 +10,49 @@ import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
-import { setUser } from '../../actions';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+
+import * as actions from '../../actions/profile';
+import * as selectors from '../../utils/selectors/profile';
+
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    addEmptyEducationItem: actions.addEmptyEducationItem,
+    changeEducationItem: actions.changeEducationItem,
+    removeEducationItem: actions.removeEducationItem,
+    addEmptyJobItem: actions.addEmptyJobItem,
+    changeJobItem: actions.changeJobItem,
+    removeJobItem: actions.removeJobItem,
+    changeInputValue: actions.changeInputValue,
+    validateWorkAndEducation: actions.validateWorkAndEducation,
+  }, dispatch);
+
+
+const mapStateToProps = state => ({
+  firstCurrency: selectors.selectProfileWorkAndEducations(state).data.firstCurrency,
+  firstCurrencyYear: selectors.selectProfileWorkAndEducations(state).data.firstCurrencyYear,
+  userJobs: selectors.selectProfileWorkAndEducations(state).data.userJobs,
+  userEducations: selectors.selectProfileWorkAndEducations(state).data.userEducations,
+  errors: selectors.selectProfileWorkAndEducations(state).errors,
+});
+
 
 class ProfileWorkAndEducationPage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstCurrency: this.props.user.firstCurrency || '',
-      firstCurrencyYear: this.props.user.firstCurrencyYear || '',
-      usersJobs: this.props.user.usersJobs || [],
-      usersEducation: this.props.user.usersEducation || [],
       loading: false,
     };
   }
 
   componentDidMount() {
-    if (this.state.usersJobs.length === 0) {
+    if (this.props.userJobs.length === 0) {
       this.addEmptyJobItem();
     }
 
-    if (this.state.usersEducation.length === 0) {
+    if (this.props.userEducations.length === 0) {
       this.addEmptyEducationItem();
     }
   }
@@ -38,10 +61,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
     const token = getToken();
 
     const data = {
-      firstCurrency: this.state.firstCurrency,
-      firstCurrencyYear: this.state.firstCurrencyYear,
-      usersJobs: this.state.usersJobs,
-      usersEducation: this.state.usersEducation,
+      firstCurrency: this.props.firstCurrency,
+      firstCurrencyYear: this.props.firstCurrencyYear,
+      userJobs: this.props.userJobs,
+      userEducations: this.props.userEducations,
     };
 
     this.setState({ loading: true });
@@ -53,90 +76,56 @@ class ProfileWorkAndEducationPage extends PureComponent {
       });
   }
 
+  @bind
+  makeChangeInputValueHandler(field, value) {
+    return this.props.changeInputValue({ field, value });
+  }
+
+  @bind
   addEmptyEducationItem() {
-    this.setState(prevState => ({
-      usersEducation: prevState.usersEducation.concat({
-        endDate: null,
-        startDate: null,
-        isCurrent: false,
-        degree: '',
-        speciality: '',
-        title: '',
-      }),
-    }));
+    return this.props.addEmptyEducationItem();
   }
 
-  changeEducationItem(index, data) {
-    this.setState((prevState) => {
-      const { usersEducation } = prevState;
-
-      usersEducation[index] = Object.assign({}, prevState.usersEducation[index], data);
-
-      return {
-        usersEducation: [].concat(usersEducation),
-      };
-    });
+  @bind
+  changeEducationItem(index, value) {
+    return this.props.changeEducationItem({ index, value });
   }
 
+  @bind
   removeEducationItem(index) {
-    this.setState((prevState) => {
-      const { usersEducation } = prevState;
-
-      usersEducation.splice(index, 1);
-
-      return {
-        usersEducation: [].concat(usersEducation),
-      };
-    }, () => {
-      if (this.state.usersEducation.length === 0) {
-        this.addEmptyEducationItem();
-      }
-    });
+    return this.props.removeEducationItem(index);
   }
 
+  @bind
   addEmptyJobItem() {
-    this.setState(prevState => ({
-      usersJobs: prevState.usersJobs.concat({
-        endDate: null,
-        startDate: null,
-        isCurrent: false,
-        title: '',
-        position: '',
-      }),
-    }));
+    return this.props.addEmptyJobItem();
   }
 
-  changeJobItem(index, data) {
-    this.setState((prevState) => {
-      const { usersJobs } = prevState;
-
-      usersJobs[index] = Object.assign({}, prevState.usersJobs[index], data);
-
-      return {
-        usersJobs: [].concat(usersJobs),
-      };
-    });
+  @bind
+  changeJobItem(index, value) {
+    return this.props.changeJobItem({ index, value });
   }
 
+  @bind
   removeJobItem(index) {
-    this.setState((prevState) => {
-      const { usersJobs } = prevState;
+    return this.props.removeJobItem(index);
+  }
 
-      usersJobs.splice(index, 1);
-
-      return {
-        usersJobs: [].concat(usersJobs),
-      };
-    }, () => {
-      if (this.state.usersJobs.length === 0) {
-        this.addEmptyJobItem();
-      }
-    });
+  @bind
+  handleSubmit(e) {
+    this.props.validateWorkAndEducation();
+    const { isValid } = this.props;
+    if (!isValid) {
+      e.preventDefault();
+    } else {
+      e.preventDefault();
+      this.save();
+    }
   }
 
   render() {
+    const { errors } = this.props;
     return (
-
       <div className="grid grid_profile">
         <div className="grid__item">
           <VerticalMenu
@@ -146,10 +135,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
         <div className="grid__item">
           <form
             className="person-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              this.save();
-            }}
+            onSubmit={this.handleSubmit}
           >
             <Loading loading={this.state.loading} className="loading_block" />
 
@@ -159,8 +145,9 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <TextInput
                     label="Your first asset"
                     placeholder="Example Kickcoin"
-                    value={this.state.firstCurrency}
-                    onChange={firstCurrency => this.setState({ firstCurrency })}
+                    value={this.props.firstCurrency}
+                    onChange={value => this.makeChangeInputValueHandler('firstCurrency', value)}
+                    error={errors.firstCurrency && errors.firstCurrency[0]}
                   />
                 </div>
 
@@ -168,8 +155,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <TextInput
                     label="Year of purchase"
                     inputWidth={100}
-                    value={this.state.firstCurrencyYear}
-                    onChange={firstCurrencyYear => this.setState({ firstCurrencyYear })}
+                    value={this.props.firstCurrencyYear}
+                    onChange={value => this.makeChangeInputValueHandler('firstCurrencyYear', value)}
+                    error={errors.firstCurrencyYear && errors.firstCurrencyYear[0]}
+
                   />
                 </div>
               </InfoBlock>
@@ -178,7 +167,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             <div className="profile__info-block">
               <InfoBlock title="Work">
                 <div className="list">
-                  {this.state.usersJobs.map((item, index) => (
+                  {this.props.userJobs.map((item, index) => (
                     <div className="list__item" key={index}>
                       <div className="profile__block">
                         <TextInput
@@ -208,15 +197,17 @@ class ProfileWorkAndEducationPage extends PureComponent {
                           onChange={(endDate) => { this.changeJobItem(index, { endDate }); }}
                         />
                       </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={() => this.removeJobItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      {index !== 0 && (
+                        <div className="profile__block">
+                          <button
+                            type="button"
+                            className="button button_theme_transparent button_size_small"
+                            onClick={() => this.removeJobItem(index)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
 
@@ -224,7 +215,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     <button
                       type="button"
                       className="button button_theme_transparent button_size_small"
-                      onClick={() => this.addEmptyJobItem()}
+                      onClick={this.addEmptyJobItem}
                     >
                       Add another
                     </button>
@@ -235,7 +226,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             <div className="profile__info-block">
               <InfoBlock title="Education">
                 <div className="list">
-                  {this.state.usersEducation.map((item, index) => (
+                  {this.props.userEducations.map((item, index) => (
                     <div className="list__item" key={index}>
                       <div className="profile__block">
                         <TextInput
@@ -272,15 +263,17 @@ class ProfileWorkAndEducationPage extends PureComponent {
                           onChange={(endDate) => { this.changeEducationItem(index, { endDate }); }}
                         />
                       </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={() => this.removeEducationItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      {index !== 0 && (
+                        <div className="profile__block">
+                          <button
+                            type="button"
+                            className="button button_theme_transparent button_size_small"
+                            onClick={() => this.removeEducationItem(index)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -289,7 +282,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <button
                     type="button"
                     className="button button_theme_transparent button_size_small"
-                    onClick={() => this.addEmptyEducationItem()}
+                    onClick={this.addEmptyEducationItem}
                   >
                     Add another
                   </button>
@@ -311,11 +304,27 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 }
 
-export default connect(
-  state => ({
-    user: state.user,
+ProfileWorkAndEducationPage.propTypes = {
+  userJobs: PropTypes.arrayOf(PropTypes.object),
+  userEducations: PropTypes.arrayOf(PropTypes.object),
+  firstCurrency: PropTypes.string,
+  firstCurrencyYear: PropTypes.string,
+  changeInputValue: PropTypes.func,
+  addEmptyEducationItem: PropTypes.func,
+  changeEducationItem: PropTypes.func,
+  removeEducationItem: PropTypes.func,
+  addEmptyJobItem: PropTypes.func,
+  changeJobItem: PropTypes.func,
+  removeJobItem: PropTypes.func,
+  validateWorkAndEducation: PropTypes.func,
+  isValid: PropTypes.bool,
+  errors: PropTypes.shape({
+    firstCurrency: PropTypes.array,
+    firstCurrencyYear: PropTypes.array,
+    userJobs: PropTypes.arrayOf(PropTypes.array),
+    userEducations: PropTypes.arrayOf(PropTypes.array),
   }),
-  dispatch => ({
-    setUser: data => dispatch(setUser(data)),
-  }),
-)(ProfileWorkAndEducationPage);
+};
+
+
+export default connect(mapStateToProps, mapDispatch)(ProfileWorkAndEducationPage);

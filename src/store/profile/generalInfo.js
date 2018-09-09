@@ -39,7 +39,7 @@ const getInitialState = () => ({
 
 const generalInfo = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'PROFILE_GENERAL-INFO:CHANGE_INPUT_VALUE': {
+    case 'PROFILE:CHANGE_INPUT_VALUE': {
       const { field, value } = action.payload;
 
       const data = {

@@ -2,10 +2,10 @@
 import { combineReducers } from 'redux';
 import contacts from './contacts';
 import generalInfo from './generalInfo';
-import worksAndEducations from './worksAndEducations';
+import workAndEducation from './workAndEducation';
 
 export default combineReducers({
   contacts,
   generalInfo,
-  worksAndEducations,
+  workAndEducation,
 });

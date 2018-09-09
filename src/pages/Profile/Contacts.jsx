@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import Button from '../../components/Button';
@@ -25,7 +26,6 @@ const mapDispatch = dispatch =>
     validateContacts: actions.validateContacts,
     setUser,
   }, dispatch);
-
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -194,5 +194,26 @@ class ProfileContactsPage extends PureComponent {
     );
   }
 }
+
+ProfileContactsPage.propTypes = {
+  changeEmailValue: PropTypes.func,
+  removeSite: PropTypes.func,
+  changeSiteValue: PropTypes.func,
+  changePhoneValue: PropTypes.func,
+  validateContacts: PropTypes.func,
+  addSite: PropTypes.func,
+  phoneNumber: PropTypes.string,
+  email: PropTypes.string,
+  isValid: PropTypes.bool,
+  websiteUrls: PropTypes.arrayOf(PropTypes.string),
+  errors: PropTypes.shape({
+    email: PropTypes.array,
+    phoneNumber: PropTypes.array,
+    websiteUrls: PropTypes.shape({
+      isErrorExists: PropTypes.bool,
+      results: PropTypes.arrayOf(PropTypes.bool),
+    }),
+  }),
+};
 
 export default connect(mapStateToProps, mapDispatch)(ProfileContactsPage);

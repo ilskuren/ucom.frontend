@@ -19,11 +19,11 @@ import { getFileUrl } from '../../utils/upload';
 
 import * as actions from '../../actions/profile';
 import * as selectors from '../../utils/selectors/profile';
-import generalInfo from '../../store/profile/generalInfo';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    changeTextInputValue: actions.changeTextInputValue,
+    changeInputValue: actions.changeInputValue,
+    validateGeneralInfo: actions.validateGeneralInfo,
   }, dispatch);
 
 
@@ -37,6 +37,8 @@ const mapStateToProps = state => ({
   city: selectors.selectSettingsGeneralInfo(state).data.city,
   address: selectors.selectSettingsGeneralInfo(state).data.address,
   currencyToShow: selectors.selectSettingsGeneralInfo(state).data.currencyToShow,
+  avatarFilename: selectors.selectSettingsGeneralInfo(state).data.avatarFilename,
+  errors: selectors.selectSettingsGeneralInfo(state).errors,
 });
 
 
@@ -51,8 +53,20 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   @bind
-  makeChangeTextInputValueHandler(field, value) {
-    return
+  makeChangeInputValueHandler(field, value) {
+    return this.props.changeInputValue({ field, value });
+  }
+
+  @bind
+  handleSubmit(e) {
+    this.props.validateGeneralInfo();
+    const { isValid } = this.props;
+    if (!isValid) {
+      e.preventDefault();
+    } else {
+      e.preventDefault();
+      this.save();
+    }
   }
 
   save() {
@@ -67,6 +81,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       city: this.props.city,
       address: this.props.address,
       currencyToShow: this.props.currencyToShow,
+      avatarFilename: this.props.avatarFilename,
     };
 
     this.setState({ loading: true });
@@ -93,6 +108,7 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   render() {
+    const { errors } = this.props;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -104,10 +120,7 @@ class ProfileGeneralInfoPage extends PureComponent {
           <div className="grid__item">
             <form
               className="person-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                this.save();
-              }}
+              onSubmit={this.handleSubmit}
             >
               <Loading loading={this.state.loading} className="loading_block" />
 
@@ -118,7 +131,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                   <div className="profile__block profile__block_avatar">
                     <Avatar
-                      src={getFileUrl(this.props.user.avatarFilename)}
+                      src={getFileUrl(this.props.avatarFilename)}
                       size="big"
                       alt="Avatar"
                     />
@@ -142,7 +155,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="First name"
                       value={this.props.firstName}
-                      onChange={value => this.makeChangeTextInputValueHandler('firstName', value)}
+                      onChange={value => this.makeChangeInputValueHandler('firstName', value)}
+                      error={errors.firstName && errors.firstName[0]}
                     />
                   </div>
 
@@ -150,7 +164,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Second name"
                       value={this.props.lastName}
-                      onChange={value => this.makeChangeTextInputValueHandler('lastName', value)}
+                      onChange={value => this.makeChangeInputValueHandler('lastName', value)}
+                      error={errors.lastName && errors.lastName[0]}
                     />
                   </div>
 
@@ -159,7 +174,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Nickname"
                       placeholder="@nickname"
                       value={this.props.nickname}
-                      onChange={value => this.makeChangeTextInputValueHandler('nickname', value)}
+                      onChange={value => this.makeChangeInputValueHandler('nickname', value)}
+                      error={errors.nickname && errors.nickname[0]}
                     />
                   </div>
 
@@ -168,7 +184,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Asset to show"
                       placeholder="Example Kickcoin"
                       value={this.props.currencyToShow}
-                      onChange={value => this.makeChangeTextInputValueHandler('currencyToShow', value)}
+                      onChange={value => this.makeChangeInputValueHandler('currencyToShow', value)}
+                      error={errors.currencyToShow && errors.currencyToShow[0]}
                     />
                   </div>
 
@@ -176,7 +193,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <DateInput
                       label="Birthday"
                       value={this.props.birthday}
-                      onChange={birthday => this.setState({ birthday })}
+                      onChange={value => this.makeChangeInputValueHandler('birthday', value)}
                     />
                   </div>
 
@@ -186,7 +203,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="About me"
                       placeholder="Type something..."
                       value={this.props.about}
-                      onChange={about => this.setState({ about })}
+                      onChange={value => this.makeChangeInputValueHandler('about', value)}
                     />
                   </div>
                 </InfoBlock>
@@ -198,7 +215,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Country"
                       value={this.props.country}
-                      onChange={value => this.makeChangeTextInputValueHandler('country', value)}
+                      onChange={value => this.makeChangeInputValueHandler('country', value)}
+                      error={errors.country && errors.country[0]}
                     />
                   </div>
 
@@ -206,7 +224,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="City"
                       value={this.props.city}
-                      onChange={value => this.makeChangeTextInputValueHandler('city', value)}
+                      onChange={value => this.makeChangeInputValueHandler('city', value)}
+                      error={errors.city && errors.city[0]}
                     />
                   </div>
 
@@ -215,7 +234,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Address"
                       subtext="Actual address. Example: One Apple Park Way, Cupertino"
                       value={this.props.address}
-                      onChange={value => this.makeChangeTextInputValueHandler('address', value)}
+                      onChange={value => this.makeChangeInputValueHandler('address', value)}
+                      error={errors.address && errors.address[0]}
                     />
                   </div>
                 </InfoBlock>
@@ -231,14 +251,5 @@ class ProfileGeneralInfoPage extends PureComponent {
     );
   }
 }
-
-// export default connect(
-//   state => ({
-//     user: state.user,
-//   }),
-//   dispatch => ({
-//     setUser: data => dispatch(setUser(data)),
-//   }),
-// )(ProfileGeneralInfoPage);
 
 export default connect(mapStateToProps, mapDispatch)(ProfileGeneralInfoPage);

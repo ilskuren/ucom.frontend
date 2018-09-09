@@ -70,7 +70,7 @@ const contacts = (state = getInitialState(), action) => {
     }
 
 
-    case 'PROFILE_CONTACTS:VALIDATE_CONTACTS': {
+    case 'PROFILE_CONTACTS:VALIDATE_FORM': {
       const validation = new Validator(state.data, state.rules);
 
       return {

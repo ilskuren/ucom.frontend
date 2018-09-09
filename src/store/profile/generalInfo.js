@@ -11,6 +11,7 @@ const getInitialState = () => ({
     city: '',
     address: '',
     currencyToShow: '',
+    avatarFilename: '',
   },
   rules: {
     firstName: 'required|string',
@@ -38,7 +39,7 @@ const getInitialState = () => ({
 
 const generalInfo = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'PROFILE_GENERAL-INFO:CHANGE_TEXT-INPUT_VALUE': {
+    case 'PROFILE_GENERAL-INFO:CHANGE_INPUT_VALUE': {
       const { field, value } = action.payload;
 
       const data = {
@@ -55,6 +56,18 @@ const generalInfo = (state = getInitialState(), action) => {
         errors: {
           ...state.errors,
           [field]: validation.errors.get([field]),
+        },
+      };
+    }
+
+    case 'PROFILE_GENERAL-INFO:VALIDATE_FORM': {
+      const validation = new Validator(state.data, state.rules);
+
+      return {
+        ...state,
+        isValid: validation.passes(),
+        errors: {
+          ...validation.errors.all(),
         },
       };
     }

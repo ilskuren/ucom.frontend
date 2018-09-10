@@ -14,9 +14,9 @@ const Shared = props => (
         </div>
       )}
       <div className="inline__item">
-        <div className="shared__button">
+        <button className="button-icon button-icon_edit button-icon_edit_transparent">
           <ShareIcon />
-        </div>
+        </button>
       </div>
     </div>
   </div>

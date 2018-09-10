@@ -1,5 +1,5 @@
 import config from '../../package.json';
-import { convertServerUser } from './convertors';
+import { convertServerUser, convertServerUserLogin } from './convertors';
 
 const Eos = require('eosjs');
 
@@ -23,7 +23,7 @@ export const login = ({ brainkey, account_name }) => {
       public_key: publicKey,
     }),
   })
-    .then(resp => resp.json());
+    .then(resp => resp.json().then(data => convertServerUserLogin(data)));
 };
 
 export const register = ({ brainkey, accountName }) => {

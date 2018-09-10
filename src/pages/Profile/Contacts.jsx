@@ -47,9 +47,13 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
-  getErrorMessage(index) {
+  getWebSiteUrlErrorMessage(index) {
     const { errors } = this.props;
-    return errors.websiteUrls.results[index] && errors.websiteUrls.results[index].isInvalidUrl && errors.websiteUrls.results[index].message;
+    console.log(errors.websiteUrls.results);
+    return errors.websiteUrls.results &&
+      errors.websiteUrls.results[index] &&
+        errors.websiteUrls.results[index].isInvalidUrl &&
+          errors.websiteUrls.results[index].message;
   }
 
   @bind
@@ -146,7 +150,7 @@ class ProfileContactsPage extends PureComponent {
                             label="Your website"
                             value={websiteUrls[index]}
                             onChange={this.makeSiteValueChangeHandler(index)}
-                            error={this.getErrorMessage(index)}
+                            error={this.getWebSiteUrlErrorMessage(index)}
                           />
                         </div>
                         {websiteUrls.length !== 1 && (

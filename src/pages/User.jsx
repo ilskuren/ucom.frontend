@@ -73,7 +73,7 @@ class UserPage extends PureComponent {
             <div className="sheets__content">
               <div className="user-header">
                 <div className="user-header__main">
-                  <Avatar size="medium" src={getFileUrl(this.state.user.avatar_filename)} />
+                  <Avatar size="medium" src={getFileUrl(this.state.user.avatarFilename)} />
                 </div>
 
                 <div className="user-header__side">
@@ -84,8 +84,8 @@ class UserPage extends PureComponent {
                           <div className="inline">
                             {this.state.user.id ? (
                               <Fragment>
-                                {(this.state.user.first_name || this.state.user.last_name) && (
-                                  <div className="inline__item">{this.state.user.first_name} {this.state.user.last_name}</div>
+                                {(this.state.user.firstName || this.state.user.lastName) && (
+                                  <div className="inline__item">{this.state.user.firstName} {this.state.user.lastName}</div>
                                 )}
                               </Fragment>
                             ) : (
@@ -106,7 +106,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        @{this.state.user.account_name}
+                        @{this.state.user.accounName}
                       </div>
 
                       <div className="user-header__info">
@@ -130,9 +130,9 @@ class UserPage extends PureComponent {
                         </div>
                       ) : (
                         <Fragment>
-                          {this.state.user.mood_message && (
+                          {this.state.user.moodMessage && (
                             <div className="user-header__status">
-                              {this.state.user.mood_message}
+                              {this.state.user.moodMessage}
                             </div>
                           )}
                         </Fragment>
@@ -142,7 +142,7 @@ class UserPage extends PureComponent {
                       <div className="user-header__rate">
                         <Rate
                           className="rate_big"
-                          value={this.state.user.current_rate}
+                          value={this.state.user.currentRate}
                         />
                       </div>
                     </div>
@@ -177,8 +177,8 @@ class UserPage extends PureComponent {
                         </div>
                         <div className="toolbar__side">
                           <div className="inline inline_large">
-                            {[0, 0, 0].map(() => (
-                              <div className="inline__item">
+                            {[0, 0, 0].map((_, index) => (
+                              <div key={index} className="inline__item">
                                 <div className="follwers">
                                   <div className="follwers__main">
                                     <div className="follwers__count">8 923</div>
@@ -245,8 +245,8 @@ class UserPage extends PureComponent {
 
                       <div className="user-section__organization">
                         <ul className="app-list">
-                          {[0, 0, 0, 0, 0, 0].map(() => (
-                            <li className="app-list__item">
+                          {[0, 0, 0, 0, 0, 0].map((_, index) => (
+                            <li key={index} className="app-list__item">
                               <div className="app-list__avatar">
                                 <Avatar square size="small" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
                               </div>
@@ -265,16 +265,16 @@ class UserPage extends PureComponent {
                       </div>
                     )}
                     <div className="post-list">
-                      {(!this.state.user.id ? [{}, {}, {}] : this.state.posts).map(item => (
-                        <div className="post-list__item" key={item.id}>
+                      {(!this.state.user.id ? [{}, {}, {}] : this.state.posts).map((item, index) => (
+                        <div className="post-list__item" key={index}>
                           <Post
                             postId={item.id}
                             updatedAt={item.updated_at}
                             rating={item.current_vote}
                             userName={getUserName(this.state.user)}
-                            accountName={this.state.user.account_name}
+                            accountName={this.state.user.accountName}
                             profileLink={getUserUrl(this.state.user.id)}
-                            avatarUrl={getFileUrl(this.state.user.avatar_filename)}
+                            avatarUrl={getFileUrl(this.state.user.avatarFileName)}
                             title={item.title}
                             url={getPostUrl(item.id)}
                             leadingText={item.leading_text}
@@ -298,7 +298,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.first_currency && (
+                  {this.state.user.firstCurrency && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">In Blockchain since</h3>
@@ -306,11 +306,11 @@ class UserPage extends PureComponent {
                       <div className="user-section__content">
                         <div className="toolbar">
                           <div className="toolbar__main">
-                            {this.state.user.first_currency}
+                            {this.state.user.firstCurrency}
                           </div>
-                          {this.state.user.first_currency_year && (
+                          {this.state.user.firstCurrencyYear && (
                             <div className="toolbar__side">
-                              {this.state.user.first_currency_year}
+                              {this.state.user.firstCurrencyYear}
                             </div>
                           )}
                         </div>
@@ -318,16 +318,16 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {(this.state.user.phone_number || this.state.user.email) && (
+                  {(this.state.user.phoneNumber || this.state.user.email) && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Networks</h3>
                       </div>
                       <div className="user-section__content">
                         <div className="data">
-                          {this.state.user.phone_number && (
+                          {this.state.user.phoneNumber && (
                             <div className="data__item">
-                              <div className="data__value">{this.state.user.phone_number}</div>
+                              <div className="data__value">{this.state.user.phoneNumber}</div>
                               <div className="data__label">Phone</div>
                             </div>
                           )}
@@ -342,15 +342,15 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_sources && this.state.user.users_sources.length > 0 && (
+                  {this.state.user.usersSources && this.state.user.usersSources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="links">
-                          {this.state.user.users_sources.map(item => (
-                            <li className="links__item">
+                          {this.state.user.usersSources.map((item, index) => (
+                            <li key={index} className="links__item">
                               <span className="inline">
                                 <span className="inline__item">
                                   <span className="icon">
@@ -358,7 +358,7 @@ class UserPage extends PureComponent {
                                   </span>
                                 </span>
                                 <span className="inline__item">
-                                  <a href={item.source_url} target="blank">{extractHostname(item.source_url)}</a>
+                                  <a href={item.sourceUrl} target="blank">{extractHostname(item.sourceUrl)}</a>
                                 </span>
                               </span>
                             </li>
@@ -368,24 +368,24 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_jobs && this.state.user.users_jobs.length > 0 && (
+                  {this.state.user.usersJobs && this.state.user.usersJobs.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Work Experience</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.users_jobs.map(item => (
+                          {this.state.user.usersJobs.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
                                   <div className="toolbar__main">
                                     <div className="experience__name">{item.title}</div>
                                   </div>
-                                  {item.start_date && (
+                                  {item.startDate && (
                                     <div className="toolbar__side">
                                       <div className="experience__state">
-                                        {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                        {getYearOfDate(item.startDate)} – {item.endDate ? getYearOfDate(item.endDate) : 'Now'}
                                       </div>
                                     </div>
                                   )}
@@ -399,14 +399,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.users_education && this.state.user.users_education.length > 0 && (
+                  {this.state.user.usersEducation && this.state.user.usersEducation.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Education</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.users_education.map(item => (
+                          {this.state.user.usersEducation.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
@@ -416,7 +416,7 @@ class UserPage extends PureComponent {
                                   {item.start_date && (
                                     <div className="toolbar__side">
                                       <div className="experience__state">
-                                        {getYearOfDate(item.start_date)} – {item.end_date ? getYearOfDate(item.end_date) : 'Now'}
+                                        {getYearOfDate(item.startDate)} – {item.endDate ? getYearOfDate(item.endDate) : 'Now'}
                                       </div>
                                     </div>
                                   )}
@@ -430,13 +430,13 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.created_at && (
+                  {this.state.user.createdAt && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Created</h3>
                       </div>
                       <div className="user-section__content">
-                        {moment(this.state.user.created_at).format('D MMM YYYY')}
+                        {moment(this.state.user.createdAt).format('D MMM YYYY')}
                       </div>
                     </div>
                   )}

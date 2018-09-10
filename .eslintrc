@@ -19,6 +19,7 @@
     "no-shadow": "off",
     "quote-props": "off",
     "react/prop-types": [1, {"ignore": ["location", "user", "setUser", "match", "history", "children"]}],
-    "camelcase": "off"
+    "camelcase": "off",
+    "class-methods-use-this": "off"
   }
 }

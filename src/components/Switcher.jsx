@@ -14,6 +14,7 @@ const Switcher = ({
         type="checkbox"
         className="switcher__input"
         value={isChecked}
+        checked={isChecked}
         onChange={(e) => {
           if (typeof onChange === 'function') {
             onChange(e.target.checked);

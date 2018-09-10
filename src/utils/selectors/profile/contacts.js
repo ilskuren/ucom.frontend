@@ -5,7 +5,7 @@ export function selectEmail(state) {
 }
 
 export function selectPhoneNumber(state) {
-  return selectProfileContacts(state).data.email;
+  return selectProfileContacts(state).data.phoneNumber;
 }
 
 export function selectWebsiteUrls(state) {

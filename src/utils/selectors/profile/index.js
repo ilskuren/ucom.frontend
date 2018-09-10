@@ -14,7 +14,6 @@ export function selectProfileGeneralInfo(state) {
   return selectProfile(state).generalInfo;
 }
 
-
 export * from './contacts';
 export * from './workAndEducations';
 export * from './generalInfo';

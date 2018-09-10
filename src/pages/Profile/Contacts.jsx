@@ -30,11 +30,11 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 const mapStateToProps = state => ({
-  email: selectors.selectProfileContacts(state).data.email,
-  phoneNumber: selectors.selectProfileContacts(state).data.phoneNumber,
-  websiteUrls: selectors.selectProfileContacts(state).data.websiteUrls,
-  errors: selectors.selectProfileContacts(state).errors,
-  isValid: selectors.selectProfileContacts(state).isValid,
+  email: selectors.selectEmail(state),
+  phoneNumber: selectors.selectPhoneNumber(state),
+  websiteUrls: selectors.selectWebsiteUrls(state),
+  isValid: selectors.selectContactsValidity(state),
+  errors: selectors.selectContactsErrors(state),
 });
 
 class ProfileContactsPage extends PureComponent {
@@ -122,7 +122,7 @@ class ProfileContactsPage extends PureComponent {
                   <div
                     className={classNames(
                       'profile__block',
-                      'profile__block_email',
+                      'profile__block_phone-number',
                     )}
                   >
                     <TextInput

@@ -63,6 +63,7 @@ class Offer extends PureComponent {
 
             {this.state.post.post_type_id === 2 && (
               <EventTitle
+                className="event-title_big"
                 id={this.state.post.id}
                 userId={this.state.post.User && this.state.post.User.id}
                 imgSrc={getFileUrl(this.state.post.main_image_filename)}

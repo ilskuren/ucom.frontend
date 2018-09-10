@@ -13,6 +13,7 @@ import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { scrollAnimation } from '../../utils/constants';
 
 import * as actions from '../../actions/profile';
 import * as selectors from '../../utils/selectors/profile';
@@ -131,9 +132,9 @@ class ProfileWorkAndEducationPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-            { type: 'blockchain', percents: '0', onClick: () => scroller.scrollTo('Blockchain') },
-            { type: 'work', percents: '0', onClick: () => scroller.scrollTo('Work') },
-            { type: 'education', percents: '0', onClick: () => scroller.scrollTo('Education') },
+            { type: 'blockchain', percents: '0', onClick: () => scroller.scrollTo('Blockchain', scrollAnimation) },
+            { type: 'work', percents: '0', onClick: () => scroller.scrollTo('Work', scrollAnimation) },
+            { type: 'education', percents: '0', onClick: () => scroller.scrollTo('Education', scrollAnimation) },
           ]}
           />
         </div>

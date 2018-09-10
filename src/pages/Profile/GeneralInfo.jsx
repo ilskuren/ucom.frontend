@@ -17,6 +17,7 @@ import Loading from '../../components/Loading';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
+import { scrollAnimation } from '../../utils/constants';
 
 import * as actions from '../../actions/profile';
 import * as selectors from '../../utils/selectors/profile';
@@ -115,8 +116,8 @@ class ProfileGeneralInfoPage extends PureComponent {
           <div className="grid__item">
             <VerticalMenu
               sections={[
-                { type: 'personal info', percents: '25', onClick: () => scroller.scrollTo('PersonalInfo') },
-                { type: 'location', percents: '0', onClick: () => scroller.scrollTo('Location') },
+                { type: 'personal info', percents: '25', onClick: () => scroller.scrollTo('PersonalInfo', scrollAnimation) },
+                { type: 'location', percents: '0', onClick: () => scroller.scrollTo('Location', scrollAnimation) },
               ]}
             />
           </div>

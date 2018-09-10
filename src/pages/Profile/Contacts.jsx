@@ -13,6 +13,7 @@ import Loading from '../../components/Loading';
 import { setUser } from '../../actions';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { scrollAnimation } from '../../utils/constants';
 
 import * as actions from '../../actions/profile';
 import * as selectors from '../../utils/selectors/profile';
@@ -95,8 +96,8 @@ class ProfileContactsPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts') },
-              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks') },
+              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts', scrollAnimation) },
+              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks', scrollAnimation) },
             ]}
           />
         </div>

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
+import { scroller, Element } from 'react-scroll';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -28,7 +29,6 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 const mapStateToProps = state => ({
-  user: state.user,
   email: selectors.selectProfileContacts(state).data.email,
   phoneNumber: selectors.selectProfileContacts(state).data.phoneNumber,
   websiteUrls: selectors.selectProfileContacts(state).data.websiteUrls,
@@ -57,18 +57,16 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
-  handleSiteValueChange(index, value) {
-    this.props.changeSiteValue({ index, value });
+  makeSiteValueChangeHandler(index) {
+    return value => this.props.changeSiteValue({ index, value });
   }
 
   @bind
   handleSubmit(e) {
     this.props.validateContacts();
     const { isValid } = this.props;
-    if (!isValid) {
-      e.preventDefault();
-    } else {
-      e.preventDefault();
+    e.preventDefault();
+    if (isValid) {
       this.save();
     }
   }
@@ -92,14 +90,13 @@ class ProfileContactsPage extends PureComponent {
 
   render() {
     const { websiteUrls, errors } = this.props;
-    const paddingFromFirstInput = 1;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
           <VerticalMenu
             sections={[
-              { type: 'personal contacts', percents: '0' },
-              { type: 'social networks', percents: '0' },
+              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts') },
+              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks') },
             ]}
           />
         </div>
@@ -111,73 +108,69 @@ class ProfileContactsPage extends PureComponent {
             <Loading loading={this.state.loading} className="loading_block" />
 
             <div className="profile__info-block">
-              <InfoBlock title="Contacts">
-                <div className="profile__block">
-                  <TextInput
-                    label="Email"
-                    value={this.props.email}
-                    onChange={this.props.changeEmailValue}
-                    error={errors.email && errors.email[0]}
-                  />
-                </div>
-                <div
-                  className={classNames(
-                    'profile__block',
-                    'profile__block_email',
-                  )}
-                >
-                  <TextInput
-                    label="Phone number"
-                    value={this.props.phoneNumber}
-                    onChange={this.props.changePhoneValue}
-                    error={errors.phoneNumber && errors.phoneNumber[0]}
-                  />
-                </div>
-              </InfoBlock>
+              <Element name="Contacts">
+                <InfoBlock title="Contacts">
+                  <div className="profile__block">
+                    <TextInput
+                      label="Email"
+                      value={this.props.email}
+                      onChange={this.props.changeEmailValue}
+                      error={errors.email && errors.email[0]}
+                    />
+                  </div>
+                  <div
+                    className={classNames(
+                      'profile__block',
+                      'profile__block_email',
+                    )}
+                  >
+                    <TextInput
+                      label="Phone number"
+                      value={this.props.phoneNumber}
+                      onChange={this.props.changePhoneValue}
+                      error={errors.phoneNumber && errors.phoneNumber[0]}
+                    />
+                  </div>
+                </InfoBlock>
+              </Element>
             </div>
             <div className="profile__info-block">
-              <InfoBlock title="Social networks">
-                <div className="profile__block">
-                  <TextInput
-                    label="Your website"
-                    value={websiteUrls[0]}
-                    onChange={value => this.handleSiteValueChange(0, value)}
-                    error={this.getErrorMessage(0)}
-                  />
-                </div>
-                <div className="list__item">
-                  {!websiteUrls.length !== 0 && websiteUrls.slice(1).map((item, index) => (
-                    <div className="profile__block" key={index}>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Your website"
-                          value={websiteUrls[index + paddingFromFirstInput]}
-                          onChange={value => this.handleSiteValueChange(index + paddingFromFirstInput, value)}
-                          error={this.getErrorMessage(index + paddingFromFirstInput)}
-                        />
+              <Element name="SocialNetworks">
+                <InfoBlock title="Social networks">
+                  <div className="list__item">
+                    {websiteUrls.map((item, index) => (
+                      <div className="profile__block" key={index}>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Your website"
+                            value={websiteUrls[index]}
+                            onChange={this.makeSiteValueChangeHandler(index)}
+                            error={this.getErrorMessage(index)}
+                          />
+                        </div>
+                        {websiteUrls.length !== 1 && (
+                          <div className="profile__block">
+                            <Button
+                              size="small"
+                              theme="transparent"
+                              text="Remove"
+                              onClick={this.makeRemoveSiteClickHandler(index)}
+                            />
+                          </div>
+                        )}
                       </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={this.makeRemoveSiteClickHandler(index + paddingFromFirstInput)}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                    ))}
+                    <div className="profile__block">
+                      <Button
+                        size="small"
+                        theme="transparent"
+                        text="Add another"
+                        onClick={this.props.addSite}
+                      />
                     </div>
-                  ))}
-                  <div className="profile__block">
-                    <button
-                      type="button"
-                      className="button button_theme_transparent button_size_small"
-                      onClick={this.props.addSite}
-                    >
-                      Add another
-                    </button>
                   </div>
-                </div>
-              </InfoBlock>
+                </InfoBlock>
+              </Element>
               <div className="profile__block">
                 <Button
                   type="submit"
@@ -211,7 +204,7 @@ ProfileContactsPage.propTypes = {
     phoneNumber: PropTypes.array,
     websiteUrls: PropTypes.shape({
       isErrorExists: PropTypes.bool,
-      results: PropTypes.arrayOf(PropTypes.bool),
+      results: PropTypes.arrayOf(PropTypes.object),
     }),
   }),
 };

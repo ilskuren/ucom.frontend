@@ -13,6 +13,7 @@ class PostsTable extends PureComponent {
 
     this.state = {
       posts: [],
+      hasMore: true,
     };
 
     this.params = {
@@ -31,6 +32,7 @@ class PostsTable extends PureComponent {
       .then((data) => {
         this.setState(prevState => ({
           posts: prevState.posts.concat(data.data),
+          hasMore: data.metadata.hasMore,
         }));
       });
   }
@@ -94,14 +96,16 @@ class PostsTable extends PureComponent {
           </table>
         </div>
 
-        <div className="table-content__showmore">
-          <button
-            className="button-clean button-clean_link"
-            onClick={() => this.showMore()}
-          >
-            Show More
-          </button>
-        </div>
+        {this.state.hasMore && (
+          <div className="table-content__showmore">
+            <button
+              className="button-clean button-clean_link"
+              onClick={() => this.showMore()}
+            >
+              Show More
+            </button>
+          </div>
+        )}
       </div>
     );
   }

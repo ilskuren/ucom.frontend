@@ -201,6 +201,8 @@ class OfferForm extends PureComponent {
                             this.setState({ base64Cover });
                           });
                         }}
+                        minHeight={530}
+                        minWidth={1200}
                       />
 
                       {this.props.post.errors.main_image_filename && this.props.post.errors.main_image_filename.length > 0 ? (

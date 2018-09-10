@@ -18,6 +18,10 @@ class FollowButton extends PureComponent {
   }
 
   follow() {
+    if (this.state.follow) {
+      return;
+    }
+
     follow(this.props.userId, getToken())
       .then((data) => {
         if (data.errors) {
@@ -32,7 +36,7 @@ class FollowButton extends PureComponent {
     return (
       <Button
         isStretched
-        isDisabled={this.state.follow}
+        withCheckedIcon={this.state.follow}
         text={this.state.follow ? 'Following' : 'Follow'}
         size="medium"
         theme="transparent"

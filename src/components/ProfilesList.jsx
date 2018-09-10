@@ -33,14 +33,18 @@ const renderProfilesRow = ({
   </div>
 );
 
-const ProfilesList = props => (
-  <div className="profiles-list">
-    <div className="profiles-list__header">
-      <h3>Followers</h3>
+const ProfilesList = (props) => {
+  console.log(props);
+
+  return (
+    <div className="profiles-list">
+      <div className="profiles-list__header">
+        <h3>{props.title}</h3>
+      </div>
+      {props.users.map(renderProfilesRow)}
     </div>
-    {props.users.map(renderProfilesRow)}
-  </div>
-);
+  );
+};
 
 renderProfilesRow.propTypes = {
   id: PropTypes.number,
@@ -52,7 +56,12 @@ renderProfilesRow.propTypes = {
 };
 
 ProfilesList.propTypes = {
+  title: PropTypes.string,
   users: PropTypes.arrayOf(PropTypes.object),
+};
+
+ProfilesList.defaultTypes = {
+  title: 'Followers',
 };
 
 export default ProfilesList;

@@ -67,9 +67,9 @@ const PostContent = props => (
           <Comments
             postId={props.id}
             comments={props.comments}
-            onSubmit={(data) => {
+            onSubmit={(data, commentId) => {
               if (typeof props.onSubmitComment === 'function') {
-                props.onSubmitComment(data);
+                props.onSubmitComment(data, commentId);
               }
             }}
           />

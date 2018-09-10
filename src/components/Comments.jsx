@@ -1,6 +1,5 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { sortBy } from 'lodash';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import CommentForm from './CommentForm';
@@ -9,14 +8,25 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 
 class Comments extends PureComponent {
-  createComment(description, parent_id) {
+  createComment(description, commentId) {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit({ description, parent_id });
+      this.props.onSubmit({ description }, commentId);
     }
   }
 
   render() {
-    const comments = sortBy(this.props.comments, i => +i.path).reverse();
+    const comments = (this.props.comments || []).sort((commentA, commentB) => { // eslint-disable-line
+      const a = commentA.path;
+      const b = commentB.path;
+
+      const iterationAmount = a.length > b.length ? a.length : b.length;
+
+      for (let i = 0; i < iterationAmount; i++) {
+        if (b[i] === undefined) return 1;
+        if (a[i] === undefined) return -1;
+        if (a[i] !== b[i]) return a[i] - b[i];
+      }
+    });
 
     return (
       <div className="comments">
@@ -32,6 +42,7 @@ class Comments extends PureComponent {
           <div className="comments__list">
             {comments.map(item => (
               <Comment
+                key={item.id}
                 id={item.id}
                 description={item.description}
                 avatar={item.User ? getFileUrl(item.User.avatar_filename) : null}
@@ -39,7 +50,7 @@ class Comments extends PureComponent {
                 accountName={item.User ? item.User.account_name : null}
                 created={moment(item.created_at).fromNow()}
                 depth={item.depth}
-                onSubmit={description => this.createComment(description)}
+                onSubmit={description => this.createComment(description, item.id)}
               />
             ))}
           </div>

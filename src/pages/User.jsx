@@ -269,7 +269,7 @@ class UserPage extends PureComponent {
                             userName={getUserName(this.state.user)}
                             accountName={this.state.user.accountName}
                             profileLink={getUserUrl(this.state.user.id)}
-                            avatarUrl={getFileUrl(this.state.user.avatarFileName)}
+                            avatarUrl={getFileUrl(this.state.user.avatarFilename)}
                             title={item.title}
                             url={getPostUrl(item.id)}
                             leadingText={item.leading_text}

@@ -28,7 +28,6 @@ class Followers extends PureComponent {
   }
 
   render() {
-    console.log(this.props.users);
     const avatarUsers = this.props.users.slice(0, 2);
 
     return (

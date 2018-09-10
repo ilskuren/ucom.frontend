@@ -1,87 +1,140 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { bind } from 'decko';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import InfoBlock from '../../components/InfoBlock';
 import Switcher from '../../components/Switcher';
 import Checkbox from '../../components/Checkbox';
 
-const alerts = [
-  { name: 'Platform notifications', value: true },
-  { name: 'Web push', value: false },
-  { name: 'E-mail Notifications', value: false },
-  { name: 'E-mail Newsletter', value: false },
-];
+import * as actions from '../../actions/settings';
+import * as selectors from '../../utils/selectors/settings';
 
-const account = [
-  { name: 'Upvote / downvote', value: true },
-  { name: 'Share', value: false },
-  { name: 'Comment', value: false },
-  { name: 'Feed Posts', value: false },
-  { name: 'Mentions / replies', value: false },
-  { name: 'Private messages', value: false },
-  { name: 'Participated in polls', value: false },
-];
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    setSettingsNotificationsData: actions.setSettingsNotificationsData,
+    resetSettingsNotifications: actions.resetSettingsNotifications,
+  }, dispatch);
 
-const events = [
-  { name: 'Follow', value: true },
-  { name: 'Trust', value: false },
-  { name: 'Join (Custom CTA)', value: false },
-  { name: 'Board invitations', value: false },
-  { name: 'Upcoming events', value: false },
-];
 
-const SettingsNotificationsPage = () => (
-  <div className="settings">
-    <div className="settings__container">
-      <div className={classNames('settings__info-block', 'settings__info-block_alerts')}>
-        <InfoBlock title="Alerts" size="small">
-          {
-            alerts.map((item, index) => (
-              <div className="settings__block" key={index}>
-                <div className="settings__label">
-                  {item.name}
-                </div>
-                <div className="settings__switcher">
-                  <Switcher isChecked={item.value} />
-                </div>
-              </div>
-            ))
-          }
-        </InfoBlock>
+const mapStateToProps = state => ({
+  notifications: selectors.selectSettingsNotifications(state),
+});
+
+const alertTitles = {
+  platformNotifications: { name: 'Platform notifications' },
+  webPush: { name: 'Web push' },
+  emailNotifications: { name: 'E-mail Notifications' },
+  emailNewsletter: { name: 'E-mail Newsletter' },
+};
+
+const accountTitles = {
+  vote: { name: 'Upvote / downvote' },
+  share: { name: 'Share' },
+  comment: { name: 'Comment' },
+  feedPosts: { name: 'Feed Posts' },
+  mentions: { name: 'Mentions / replies' },
+  privateMessages: { name: 'Private messages' },
+  participatedInPolls: { name: 'Participated in polls' },
+};
+
+const eventTitles = {
+  follow: { name: 'Follow' },
+  trust: { name: 'Trust' },
+  join: { name: 'Join (Custom CTA)' },
+  boardInvitations: { name: 'Board invitations' },
+  upcomingEvents: { name: 'Upcoming events' },
+};
+
+class SettingsNotificationsPage extends PureComponent {
+  componentDidMount() {
+
+  }
+
+  @bind
+  makeHandleCheckBoxToggle({ item, type }) {
+    return checkValue => this.props.setSettingsNotificationsData({ type, item, checkValue });
+  }
+
+  render() {
+    const { alerts, account, events } = this.props.notifications.data;
+
+    return (
+      <div className="settings">
+        <div className="settings__container">
+          <div className={classNames('settings__info-block', 'settings__info-block_alerts')}>
+            <InfoBlock title="Alerts" size="small">
+              {
+                Object.keys(alertTitles).map((item, index) => (
+                  <div className="settings__block" key={index}>
+                    <div className="settings__label">
+                      {alertTitles[item].name}
+                    </div>
+                    <div className="settings__switcher">
+                      <Switcher
+                        isChecked={alerts[item]}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'alerts', item })}
+                      />
+                    </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
+          </div>
+          <div className={classNames('settings__info-block', 'settings__info-block_account')}>
+            <InfoBlock title="Account" size="small">
+              {
+                Object.keys(accountTitles).map((item, index) => (
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox
+                        isChecked={account[item]}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'account', item })}
+                      />
+                    </div>
+                    <div className="inline__item">
+                      {accountTitles[item].name}
+                    </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
+          </div>
+          <div className={classNames('settings__info-block', 'settings__info-block_events')}>
+            <InfoBlock title="Platform events" size="small">
+              {
+                Object.keys(eventTitles).map((item, index) => (
+                  <div className="settings__checkbox inline" key={index}>
+                    <div className="inline__item">
+                      <Checkbox
+                        isChecked={events[item]}
+                        onChange={this.makeHandleCheckBoxToggle({ type: 'events', item })}
+                      />
+                    </div>
+                    <div className="inline__item">
+                      {eventTitles[item].name}
+                    </div>
+                  </div>
+                ))
+              }
+            </InfoBlock>
+          </div>
+        </div>
       </div>
-      <div className={classNames('settings__info-block', 'settings__info-block_account')}>
-        <InfoBlock title="Account" size="small">
-          {
-            account.map((item, index) => (
-              <div className="settings__checkbox inline" key={index}>
-                <div className="inline__item">
-                  <Checkbox isChecked={item.value} />
-                </div>
-                <div className="inline__item">
-                  {item.name}
-                </div>
-              </div>
-            ))
-          }
-        </InfoBlock>
-      </div>
-      <div className={classNames('settings__info-block', 'settings__info-block_events')}>
-        <InfoBlock title="Platform events" size="small">
-          {
-            events.map((item, index) => (
-              <div className="settings__checkbox inline" key={index}>
-                <div className="inline__item">
-                  <Checkbox isChecked={item.value} />
-                </div>
-                <div className="inline__item">
-                  {item.name}
-                </div>
-              </div>
-            ))
-          }
-        </InfoBlock>
-      </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
-export default SettingsNotificationsPage;
+SettingsNotificationsPage.propTypes = {
+  setSettingsNotificationsData: PropTypes.func,
+  notifications: PropTypes.shape({
+    data: PropTypes.shape({
+      alerts: PropTypes.object,
+      account: PropTypes.object,
+      events: PropTypes.object,
+    }),
+  }),
+};
+
+export default connect(mapStateToProps, mapDispatch)(SettingsNotificationsPage);

@@ -1,4 +1,5 @@
 import config from '../../package.json';
+import { convertServerUser } from './convertors';
 
 const Eos = require('eosjs');
 
@@ -84,7 +85,7 @@ export const patchMyselfFormData = (data, token) => (
 
 export const getUser = id => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}`)
-    .then(resp => resp.json())
+    .then(resp => resp.json().then(data => convertServerUser(data)))
 );
 
 export const getUsers = () => (

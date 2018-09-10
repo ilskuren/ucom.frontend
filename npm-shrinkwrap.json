@@ -6312,6 +6312,11 @@
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz",
       "integrity": "sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg=="
     },
+    "jquery-param": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/jquery-param/-/jquery-param-1.0.1.tgz",
+      "integrity": "sha512-7HN1dLvfweR7lNDtajA8FfhghN+SKsKz/ME7D/PAPQ8eDUr2ub42WqeyrZptWEdslckrpKpp+ZGGiKjE+r7iuQ=="
+    },
     "jquery-sortable": {
       "version": "0.9.13",
       "resolved": "https://registry.npmjs.org/jquery-sortable/-/jquery-sortable-0.9.13.tgz",

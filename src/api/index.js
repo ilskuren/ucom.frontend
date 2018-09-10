@@ -1,3 +1,4 @@
+import param from 'jquery-param';
 import config from '../../package.json';
 import { convertServerUser } from './convertors';
 
@@ -130,8 +131,8 @@ export const getUserPosts = id => (
     .then(resp => resp.json())
 );
 
-export const getPosts = () => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts`)
+export const getPosts = params => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`)
     .then(resp => resp.json())
 );
 

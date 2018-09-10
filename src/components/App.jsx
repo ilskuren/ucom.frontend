@@ -73,7 +73,7 @@ class App extends PureComponent {
                 <Route path="/posts/new/:postTypeId" component={CreatePost} />
                 <Route path="/posts/:id/edit" component={CreatePost} />
                 <Route exact path="/posts/:id" component={Post} />
-                <Route exact path="/events" component={EventsPage} />
+                <Route path="/events" component={EventsPage} />
                 <Route exact path="/products" component={ProductsPage} />
                 <Route exact path="/organizations" component={OrganizationsPage} />
                 <Route component={NotFoundPage} />

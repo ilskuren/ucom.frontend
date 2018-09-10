@@ -140,11 +140,11 @@ export function convertServerUser(response) {
     blockchainRegistrationStatus: response.blockchain_registration_status,
     createdAt: response.created_at,
     updatedAt: response.updated_at,
-    usersEducation: convertServerUsersEducation(response.users_education),
-    usersJobs: convertServerUsersLobs(response.users_jobs),
-    usersSources: convertServerUsersSources(response.users_sources),
-    iFollow: convertServerFollow(response.I_follow),
-    followedBy: convertServerFollow(response.followed_by),
+    usersEducation: response.users_education ? convertServerUsersEducation(response.users_education) : [],
+    usersJobs: response.users_jobs ? convertServerUsersLobs(response.users_jobs) : [],
+    usersSources: response.users_sources ? convertServerUsersSources(response.users_sources) : [],
+    iFollow: response.I_follow ? convertServerFollow(response.I_follow) : [],
+    followedBy: response.followed_by ? convertServerFollow(response.followed_by) : [],
   };
 }
 
@@ -181,5 +181,13 @@ export function convertClientUser(userData) {
     users_sources: convertClientUsersSources(userData.usersSources),
     I_follow: convertClientFollow(userData.iFollow),
     followed_by: convertClientFollow(userData.followedBy),
+  };
+}
+
+export function convertServerUserLogin(loginData) {
+  return {
+    success: loginData.success,
+    token: loginData.token,
+    user: convertServerUser(loginData.user),
   };
 }

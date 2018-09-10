@@ -81,7 +81,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       city: this.props.city,
       address: this.props.address,
       currencyToShow: this.props.currencyToShow,
-      avatarFilename: this.props.avatarFilename,
+      avatarFilename: this.props.avatarFileName,
     };
 
     this.setState({ loading: true });
@@ -131,7 +131,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                   </div>
                   <div className="profile__block profile__block_avatar">
                     <Avatar
-                      src={getFileUrl(this.props.avatarFilename)}
+                      src={getFileUrl(this.props.avatarFileName)}
                       size="big"
                       alt="Avatar"
                     />
@@ -264,7 +264,7 @@ ProfileGeneralInfoPage.propTypes = {
   city: PropTypes.string,
   address: PropTypes.string,
   currencyToShow: PropTypes.string,
-  avatarFilename: PropTypes.string,
+  avatarFileName: PropTypes.string,
   isValid: PropTypes.bool,
   errors: PropTypes.shape({
     firstName: PropTypes.array,

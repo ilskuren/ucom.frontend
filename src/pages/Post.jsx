@@ -75,7 +75,15 @@ class Offer extends PureComponent {
                 actionButtonUrl={this.state.post.action_button_url}
                 createdAt={this.state.post.created_at}
                 join={this.state.post.myselfData && this.state.post.myselfData.join}
-                team={this.state.post.post_users_team}
+                // team={this.state.post.post_users_team}
+                team={[
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                  { avatar_filename: 'main_image_filename-1535642542960.png' },
+                ]}
               />
             )}
 

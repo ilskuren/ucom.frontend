@@ -28,17 +28,18 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  firstName: selectors.selectProfileGeneralInfo(state).data.firstName,
-  lastName: selectors.selectProfileGeneralInfo(state).data.lastName,
-  nickname: selectors.selectProfileGeneralInfo(state).data.nickname,
-  about: selectors.selectProfileGeneralInfo(state).data.about,
-  birthday: selectors.selectProfileGeneralInfo(state).data.birthday,
-  country: selectors.selectProfileGeneralInfo(state).data.country,
-  city: selectors.selectProfileGeneralInfo(state).data.city,
-  address: selectors.selectProfileGeneralInfo(state).data.address,
-  currencyToShow: selectors.selectProfileGeneralInfo(state).data.currencyToShow,
-  avatarFilename: selectors.selectProfileGeneralInfo(state).data.avatarFilename,
-  errors: selectors.selectProfileGeneralInfo(state).errors,
+  firstName: selectors.selectFirstName(state),
+  lastName: selectors.selectLastName(state),
+  nickname: selectors.selectNickname(state),
+  about: selectors.selectAbout(state),
+  birthday: selectors.selectBirthday(state),
+  country: selectors.selectCountry(state),
+  city: selectors.selectCity(state),
+  address: selectors.selectAddress(state),
+  currencyToShow: selectors.selectCurrencyToShow(state),
+  avatarFilename: selectors.selectAvatarFilename(state),
+  isValid: selectors.selectGeneralInfoValidity(state),
+  errors: selectors.selectGeneralInfoErrors(state),
 });
 
 
@@ -53,18 +54,16 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   @bind
-  makeChangeInputValueHandler(field, value) {
-    return this.props.changeInputValue({ field, value });
+  makeChangeInputValueHandler(field) {
+    return value => this.props.changeInputValue({ field, value });
   }
 
   @bind
   handleSubmit(e) {
     this.props.validateGeneralInfo();
     const { isValid } = this.props;
-    if (!isValid) {
-      e.preventDefault();
-    } else {
-      e.preventDefault();
+    e.preventDefault();
+    if (isValid) {
       this.save();
     }
   }
@@ -155,7 +154,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="First name"
                       value={this.props.firstName}
-                      onChange={value => this.makeChangeInputValueHandler('firstName', value)}
+                      onChange={this.makeChangeInputValueHandler('firstName')}
                       error={errors.firstName && errors.firstName[0]}
                     />
                   </div>
@@ -164,7 +163,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Second name"
                       value={this.props.lastName}
-                      onChange={value => this.makeChangeInputValueHandler('lastName', value)}
+                      onChange={this.makeChangeInputValueHandler('lastName')}
                       error={errors.lastName && errors.lastName[0]}
                     />
                   </div>
@@ -174,7 +173,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Nickname"
                       placeholder="@nickname"
                       value={this.props.nickname}
-                      onChange={value => this.makeChangeInputValueHandler('nickname', value)}
+                      onChange={this.makeChangeInputValueHandler('nickname')}
                       error={errors.nickname && errors.nickname[0]}
                     />
                   </div>
@@ -184,7 +183,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Asset to show"
                       placeholder="Example Kickcoin"
                       value={this.props.currencyToShow}
-                      onChange={value => this.makeChangeInputValueHandler('currencyToShow', value)}
+                      onChange={this.makeChangeInputValueHandler('currencyToShow')}
                       error={errors.currencyToShow && errors.currencyToShow[0]}
                     />
                   </div>
@@ -193,7 +192,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <DateInput
                       label="Birthday"
                       value={this.props.birthday}
-                      onChange={value => this.makeChangeInputValueHandler('birthday', value)}
+                      onChange={this.makeChangeInputValueHandler('birthday')}
                     />
                   </div>
 
@@ -203,7 +202,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="About me"
                       placeholder="Type something..."
                       value={this.props.about}
-                      onChange={value => this.makeChangeInputValueHandler('about', value)}
+                      onChange={this.makeChangeInputValueHandler('about')}
                     />
                   </div>
                 </InfoBlock>
@@ -215,7 +214,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="Country"
                       value={this.props.country}
-                      onChange={value => this.makeChangeInputValueHandler('country', value)}
+                      onChange={this.makeChangeInputValueHandler('country')}
                       error={errors.country && errors.country[0]}
                     />
                   </div>
@@ -224,7 +223,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <TextInput
                       label="City"
                       value={this.props.city}
-                      onChange={value => this.makeChangeInputValueHandler('city', value)}
+                      onChange={this.makeChangeInputValueHandler('city')}
                       error={errors.city && errors.city[0]}
                     />
                   </div>
@@ -234,7 +233,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       label="Address"
                       subtext="Actual address. Example: One Apple Park Way, Cupertino"
                       value={this.props.address}
-                      onChange={value => this.makeChangeInputValueHandler('address', value)}
+                      onChange={this.makeChangeInputValueHandler('address')}
                       error={errors.address && errors.address[0]}
                     />
                   </div>

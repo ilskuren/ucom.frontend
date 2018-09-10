@@ -17,7 +17,6 @@ const getInitialState = () => ({
     firstName: 'required|string',
     lastName: 'required|string',
     nickname: 'required|string',
-    about: 'required|string',
     birthday: 'required|string',
     country: 'required|string',
     city: 'required|string',

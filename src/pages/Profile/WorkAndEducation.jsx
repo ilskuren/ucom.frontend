@@ -30,11 +30,12 @@ const mapDispatch = dispatch =>
 
 
 const mapStateToProps = state => ({
-  firstCurrency: selectors.selectProfileWorkAndEducations(state).data.firstCurrency,
-  firstCurrencyYear: selectors.selectProfileWorkAndEducations(state).data.firstCurrencyYear,
-  userJobs: selectors.selectProfileWorkAndEducations(state).data.userJobs,
-  userEducations: selectors.selectProfileWorkAndEducations(state).data.userEducations,
-  errors: selectors.selectProfileWorkAndEducations(state).errors,
+  firstCurrency: selectors.selectFirstCurrency(state),
+  firstCurrencyYear: selectors.selectFirstCurrencyYear(state),
+  userJobs: selectors.selectUserJobs(state),
+  userEducations: selectors.selectUserEducations(state),
+  isValid: selectors.selectWorkAndEducationValidity(state),
+  errors: selectors.selectWorkAndEducationErrors(state),
 });
 
 
@@ -77,8 +78,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   @bind
-  makeChangeInputValueHandler(field, value) {
-    return this.props.changeInputValue({ field, value });
+  makeChangeInputValueHandler(field) {
+    return value => this.props.changeInputValue({ field, value });
   }
 
   @bind
@@ -87,13 +88,14 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   @bind
-  changeEducationItem(index, value) {
-    return this.props.changeEducationItem({ index, value });
+  makeChangeEducationItemHandler(field, index) {
+    return value => this.props.changeEducationItem({ index, [field]: value });
   }
 
+
   @bind
-  removeEducationItem(index) {
-    return this.props.removeEducationItem(index);
+  makeRemoveEducationItemHandler(index) {
+    return () => this.props.removeEducationItem(index);
   }
 
   @bind
@@ -102,29 +104,27 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   @bind
-  changeJobItem(index, value) {
-    return this.props.changeJobItem({ index, value });
+  makeChangeJobItemHandler(field, index) {
+    return value => this.props.changeJobItem({ index, [field]: value });
   }
 
   @bind
-  removeJobItem(index) {
-    return this.props.removeJobItem(index);
+  makeRemoveJobItemHandler(index) {
+    return () => this.props.removeJobItem(index);
   }
 
   @bind
   handleSubmit(e) {
     this.props.validateWorkAndEducation();
     const { isValid } = this.props;
-    if (!isValid) {
-      e.preventDefault();
-    } else {
-      e.preventDefault();
+    e.preventDefault();
+    if (isValid) {
       this.save();
     }
   }
 
   render() {
-    const { errors } = this.props;
+    const { errors, userEducations, userJobs } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -146,7 +146,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     label="Your first asset"
                     placeholder="Example Kickcoin"
                     value={this.props.firstCurrency}
-                    onChange={value => this.makeChangeInputValueHandler('firstCurrency', value)}
+                    onChange={this.makeChangeInputValueHandler('firstCurrency')}
                     error={errors.firstCurrency && errors.firstCurrency[0]}
                   />
                 </div>
@@ -156,7 +156,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     label="Year of purchase"
                     inputWidth={100}
                     value={this.props.firstCurrencyYear}
-                    onChange={value => this.makeChangeInputValueHandler('firstCurrencyYear', value)}
+                    onChange={this.makeChangeInputValueHandler('firstCurrencyYear')}
                     error={errors.firstCurrencyYear && errors.firstCurrencyYear[0]}
 
                   />
@@ -167,42 +167,42 @@ class ProfileWorkAndEducationPage extends PureComponent {
             <div className="profile__info-block">
               <InfoBlock title="Work">
                 <div className="list">
-                  {this.props.userJobs.map((item, index) => (
+                  {userJobs.map((item, index) => (
                     <div className="list__item" key={index}>
                       <div className="profile__block">
                         <TextInput
                           label="Work place"
                           value={item.title}
-                          onChange={(title) => { this.changeJobItem(index, { title }); }}
+                          onChange={this.makeChangeJobItemHandler('title', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <TextInput
                           label="Position"
                           value={item.position}
-                          onChange={(position) => { this.changeJobItem(index, { position }); }}
+                          onChange={this.makeChangeJobItemHandler('position', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Started date"
                           value={item.startDate}
-                          onChange={(startDate) => { this.changeJobItem(index, { startDate }); }}
+                          onChange={this.makeChangeJobItemHandler('startDate', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Ended date"
                           value={item.endDate}
-                          onChange={(endDate) => { this.changeJobItem(index, { endDate }); }}
+                          onChange={this.makeChangeJobItemHandler('endDate', index)}
                         />
                       </div>
-                      {index !== 0 && (
+                      {this.props.userJobs.length !== 1 && (
                         <div className="profile__block">
                           <button
                             type="button"
                             className="button button_theme_transparent button_size_small"
-                            onClick={() => this.removeJobItem(index)}
+                            onClick={this.makeRemoveJobItemHandler(index)}
                           >
                             Remove
                           </button>
@@ -232,46 +232,45 @@ class ProfileWorkAndEducationPage extends PureComponent {
                         <TextInput
                           label="Education"
                           value={item.title}
-                          onChange={(title) => { this.changeEducationItem(index, { title }); }}
+                          onChange={this.makeChangeEducationItemHandler('title', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <TextInput
                           label="Spec"
                           value={item.speciality}
-                          onChange={(speciality) => { this.changeEducationItem(index, { speciality }); }}
+                          onChange={this.makeChangeEducationItemHandler('speciality', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <TextInput
                           label="Level"
                           value={item.degree}
-                          onChange={(degree) => { this.changeEducationItem(index, { degree }); }}
+                          onChange={this.makeChangeEducationItemHandler('degree', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Started date"
                           value={item.startDate}
-                          onChange={(startDate) => { this.changeEducationItem(index, { startDate }); }}
+                          onChange={this.makeChangeEducationItemHandler('startDate', index)}
                         />
                       </div>
                       <div className="profile__block">
                         <DateInput
                           label="Ended date"
                           value={item.endDate}
-                          onChange={(endDate) => { this.changeEducationItem(index, { endDate }); }}
+                          onChange={this.makeChangeEducationItemHandler('endDate', index)}
                         />
                       </div>
-                      {index !== 0 && (
+                      {userEducations.length !== 1 && (
                         <div className="profile__block">
-                          <button
-                            type="button"
-                            className="button button_theme_transparent button_size_small"
-                            onClick={() => this.removeEducationItem(index)}
-                          >
-                            Remove
-                          </button>
+                          <Button
+                            theme="transparent"
+                            size="small"
+                            text="Remove"
+                            onClick={this.makeRemoveEducationItemHandler(index)}
+                          />
                         </div>
                       )}
                     </div>
@@ -279,13 +278,12 @@ class ProfileWorkAndEducationPage extends PureComponent {
                 </div>
 
                 <div className="profile__block">
-                  <button
-                    type="button"
-                    className="button button_theme_transparent button_size_small"
+                  <Button
+                    theme="transparent"
+                    size="small"
+                    text="Add another"
                     onClick={this.addEmptyEducationItem}
-                  >
-                    Add another
-                  </button>
+                  />
                 </div>
 
                 <div className="profile__block">

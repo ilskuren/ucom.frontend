@@ -128,14 +128,26 @@ const contacts = (state = getInitialState(), action) => {
     case 'PROFILE_CONTACTS:REMOVE_SITE': {
       const index = action.payload;
 
+      const returnWebSiteUrls = () => {
+        const possibleNewWebSiteUrls = [
+          ...state.data.websiteUrls.slice(0, index),
+          ...state.data.websiteUrls.slice(index + 1),
+        ];
+
+        if (possibleNewWebSiteUrls.length !== 0) {
+          return possibleNewWebSiteUrls;
+        }
+        return [
+          ...state.data.websiteUrls.slice(0, index),
+          ...state.data.websiteUrls.slice(index + 1),
+        ].concat('');
+      };
+
       return {
         ...state,
         data: {
           ...state.data,
-          websiteUrls: [
-            ...state.data.websiteUrls.slice(0, index),
-            ...state.data.websiteUrls.slice(index + 1),
-          ],
+          websiteUrls: returnWebSiteUrls(),
         },
         errors: {
           ...state.errors,

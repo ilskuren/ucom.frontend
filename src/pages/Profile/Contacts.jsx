@@ -28,7 +28,6 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 const mapStateToProps = state => ({
-  user: state.user,
   email: selectors.selectProfileContacts(state).data.email,
   phoneNumber: selectors.selectProfileContacts(state).data.phoneNumber,
   websiteUrls: selectors.selectProfileContacts(state).data.websiteUrls,
@@ -57,18 +56,16 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
-  handleSiteValueChange(index, value) {
-    this.props.changeSiteValue({ index, value });
+  makeSiteValueChangeHandler(index) {
+    return value => this.props.changeSiteValue({ index, value });
   }
 
   @bind
   handleSubmit(e) {
     this.props.validateContacts();
     const { isValid } = this.props;
-    if (!isValid) {
-      e.preventDefault();
-    } else {
-      e.preventDefault();
+    e.preventDefault();
+    if (isValid) {
       this.save();
     }
   }
@@ -92,7 +89,6 @@ class ProfileContactsPage extends PureComponent {
 
   render() {
     const { websiteUrls, errors } = this.props;
-    const paddingFromFirstInput = 1;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -137,44 +133,36 @@ class ProfileContactsPage extends PureComponent {
             </div>
             <div className="profile__info-block">
               <InfoBlock title="Social networks">
-                <div className="profile__block">
-                  <TextInput
-                    label="Your website"
-                    value={websiteUrls[0]}
-                    onChange={value => this.handleSiteValueChange(0, value)}
-                    error={this.getErrorMessage(0)}
-                  />
-                </div>
                 <div className="list__item">
-                  {!websiteUrls.length !== 0 && websiteUrls.slice(1).map((item, index) => (
+                  {websiteUrls.map((item, index) => (
                     <div className="profile__block" key={index}>
                       <div className="profile__block">
                         <TextInput
                           label="Your website"
-                          value={websiteUrls[index + paddingFromFirstInput]}
-                          onChange={value => this.handleSiteValueChange(index + paddingFromFirstInput, value)}
-                          error={this.getErrorMessage(index + paddingFromFirstInput)}
+                          value={websiteUrls[index]}
+                          onChange={this.makeSiteValueChangeHandler(index)}
+                          error={this.getErrorMessage(index)}
                         />
                       </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={this.makeRemoveSiteClickHandler(index + paddingFromFirstInput)}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      {websiteUrls.length !== 1 && (
+                        <div className="profile__block">
+                          <Button
+                            size="small"
+                            theme="transparent"
+                            text="Remove"
+                            onClick={this.makeRemoveSiteClickHandler(index)}
+                          />
+                        </div>
+                      )}
                     </div>
                   ))}
                   <div className="profile__block">
-                    <button
-                      type="button"
-                      className="button button_theme_transparent button_size_small"
+                    <Button
+                      size="small"
+                      theme="transparent"
+                      text="Add another"
                       onClick={this.props.addSite}
-                    >
-                      Add another
-                    </button>
+                    />
                   </div>
                 </div>
               </InfoBlock>
@@ -211,7 +199,7 @@ ProfileContactsPage.propTypes = {
     phoneNumber: PropTypes.array,
     websiteUrls: PropTypes.shape({
       isErrorExists: PropTypes.bool,
-      results: PropTypes.arrayOf(PropTypes.bool),
+      results: PropTypes.arrayOf(PropTypes.object),
     }),
   }),
 };

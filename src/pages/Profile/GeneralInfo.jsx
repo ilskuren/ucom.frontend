@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
+import { scroller, Element } from 'react-scroll';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -113,7 +114,10 @@ class ProfileGeneralInfoPage extends PureComponent {
         <div className="grid grid_profile">
           <div className="grid__item">
             <VerticalMenu
-              sections={[{ type: 'personal info', percents: '25' }, { type: 'location', percents: '0' }]}
+              sections={[
+                { type: 'personal info', percents: '25', onClick: () => scroller.scrollTo('PersonalInfo') },
+                { type: 'location', percents: '0', onClick: () => scroller.scrollTo('Location') },
+              ]}
             />
           </div>
           <div className="grid__item">
@@ -124,121 +128,124 @@ class ProfileGeneralInfoPage extends PureComponent {
               <Loading loading={this.state.loading} className="loading_block" />
 
               <div className="profile__info-block">
-                <InfoBlock title="Personal info">
-                  <div className="profile__text-block">
-                    Userpic Preview
-                  </div>
-                  <div className="profile__block profile__block_avatar">
-                    <Avatar
-                      src={getFileUrl(this.props.avatarFilename)}
-                      size="big"
-                      alt="Avatar"
-                    />
-
-                    <div className="profile__drop-zone">
-                      <DropZone
-                        text="add or drag img"
-                        accept="image/jpeg, image/png"
-                        onDrop={files => this.uploadAvatar(files[0])}
-                        loading={this.state.avatarLoading}
+                <Element name="PersonalInfo">
+                  <InfoBlock title="Personal info">
+                    <div className="profile__text-block">
+                      Userpic Preview
+                    </div>
+                    <div className="profile__block profile__block_avatar">
+                      <Avatar
+                        src={getFileUrl(this.props.avatarFilename)}
+                        size="big"
+                        alt="Avatar"
                       />
 
-                      <div className="profile__text-block">
-                        You can upload an image in JPG or PNG format.
-                        Size is not more than 10 mb.
+                      <div className="profile__drop-zone">
+                        <DropZone
+                          text="add or drag img"
+                          accept="image/jpeg, image/png"
+                          onDrop={files => this.uploadAvatar(files[0])}
+                          loading={this.state.avatarLoading}
+                        />
+
+                        <div className="profile__text-block">
+                          You can upload an image in JPG or PNG format.
+                          Size is not more than 10 mb.
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="First name"
-                      value={this.props.firstName}
-                      onChange={this.makeChangeInputValueHandler('firstName')}
-                      error={errors.firstName && errors.firstName[0]}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="First name"
+                        value={this.props.firstName}
+                        onChange={this.makeChangeInputValueHandler('firstName')}
+                        error={errors.firstName && errors.firstName[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="Second name"
-                      value={this.props.lastName}
-                      onChange={this.makeChangeInputValueHandler('lastName')}
-                      error={errors.lastName && errors.lastName[0]}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Second name"
+                        value={this.props.lastName}
+                        onChange={this.makeChangeInputValueHandler('lastName')}
+                        error={errors.lastName && errors.lastName[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="Nickname"
-                      placeholder="@nickname"
-                      value={this.props.nickname}
-                      onChange={this.makeChangeInputValueHandler('nickname')}
-                      error={errors.nickname && errors.nickname[0]}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Nickname"
+                        placeholder="@nickname"
+                        value={this.props.nickname}
+                        onChange={this.makeChangeInputValueHandler('nickname')}
+                        error={errors.nickname && errors.nickname[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="Asset to show"
-                      placeholder="Example Kickcoin"
-                      value={this.props.currencyToShow}
-                      onChange={this.makeChangeInputValueHandler('currencyToShow')}
-                      error={errors.currencyToShow && errors.currencyToShow[0]}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Asset to show"
+                        placeholder="Example Kickcoin"
+                        value={this.props.currencyToShow}
+                        onChange={this.makeChangeInputValueHandler('currencyToShow')}
+                        error={errors.currencyToShow && errors.currencyToShow[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <DateInput
-                      label="Birthday"
-                      value={this.props.birthday}
-                      onChange={this.makeChangeInputValueHandler('birthday')}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <DateInput
+                        label="Birthday"
+                        value={this.props.birthday}
+                        onChange={this.makeChangeInputValueHandler('birthday')}
+                      />
+                    </div>
 
-                  <div className={classNames('profile__block', 'profile__block_textarea')}>
-                    <Textarea
-                      rows={6}
-                      label="About me"
-                      placeholder="Type something..."
-                      value={this.props.about}
-                      onChange={this.makeChangeInputValueHandler('about')}
-                    />
-                  </div>
-                </InfoBlock>
+                    <div className={classNames('profile__block', 'profile__block_textarea')}>
+                      <Textarea
+                        rows={6}
+                        label="About me"
+                        placeholder="Type something..."
+                        value={this.props.about}
+                        onChange={this.makeChangeInputValueHandler('about')}
+                      />
+                    </div>
+                  </InfoBlock>
+                </Element>
               </div>
 
               <div className="profile__info-block">
-                <InfoBlock title="Location">
-                  <div className="profile__block">
-                    <TextInput
-                      label="Country"
-                      value={this.props.country}
-                      onChange={this.makeChangeInputValueHandler('country')}
-                      error={errors.country && errors.country[0]}
-                    />
-                  </div>
+                <Element name="Location">
+                  <InfoBlock title="Location">
+                    <div className="profile__block">
+                      <TextInput
+                        label="Country"
+                        value={this.props.country}
+                        onChange={this.makeChangeInputValueHandler('country')}
+                        error={errors.country && errors.country[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="City"
-                      value={this.props.city}
-                      onChange={this.makeChangeInputValueHandler('city')}
-                      error={errors.city && errors.city[0]}
-                    />
-                  </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="City"
+                        value={this.props.city}
+                        onChange={this.makeChangeInputValueHandler('city')}
+                        error={errors.city && errors.city[0]}
+                      />
+                    </div>
 
-                  <div className="profile__block">
-                    <TextInput
-                      label="Address"
-                      subtext="Actual address. Example: One Apple Park Way, Cupertino"
-                      value={this.props.address}
-                      onChange={this.makeChangeInputValueHandler('address')}
-                      error={errors.address && errors.address[0]}
-                    />
-                  </div>
-                </InfoBlock>
-
+                    <div className="profile__block">
+                      <TextInput
+                        label="Address"
+                        subtext="Actual address. Example: One Apple Park Way, Cupertino"
+                        value={this.props.address}
+                        onChange={this.makeChangeInputValueHandler('address')}
+                        error={errors.address && errors.address[0]}
+                      />
+                    </div>
+                  </InfoBlock>
+                </Element>
                 <div className="profile__block">
                   <Button type="submit" text="PROCEED" theme="red" size="big" isStretched />
                 </div>

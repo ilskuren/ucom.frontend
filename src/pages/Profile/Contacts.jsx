@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
+import { scroller, Element } from 'react-scroll';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -94,8 +95,8 @@ class ProfileContactsPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-              { type: 'personal contacts', percents: '0' },
-              { type: 'social networks', percents: '0' },
+              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts') },
+              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks') },
             ]}
           />
         </div>
@@ -107,65 +108,69 @@ class ProfileContactsPage extends PureComponent {
             <Loading loading={this.state.loading} className="loading_block" />
 
             <div className="profile__info-block">
-              <InfoBlock title="Contacts">
-                <div className="profile__block">
-                  <TextInput
-                    label="Email"
-                    value={this.props.email}
-                    onChange={this.props.changeEmailValue}
-                    error={errors.email && errors.email[0]}
-                  />
-                </div>
-                <div
-                  className={classNames(
-                    'profile__block',
-                    'profile__block_email',
-                  )}
-                >
-                  <TextInput
-                    label="Phone number"
-                    value={this.props.phoneNumber}
-                    onChange={this.props.changePhoneValue}
-                    error={errors.phoneNumber && errors.phoneNumber[0]}
-                  />
-                </div>
-              </InfoBlock>
-            </div>
-            <div className="profile__info-block">
-              <InfoBlock title="Social networks">
-                <div className="list__item">
-                  {websiteUrls.map((item, index) => (
-                    <div className="profile__block" key={index}>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Your website"
-                          value={websiteUrls[index]}
-                          onChange={this.makeSiteValueChangeHandler(index)}
-                          error={this.getErrorMessage(index)}
-                        />
-                      </div>
-                      {websiteUrls.length !== 1 && (
-                        <div className="profile__block">
-                          <Button
-                            size="small"
-                            theme="transparent"
-                            text="Remove"
-                            onClick={this.makeRemoveSiteClickHandler(index)}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  ))}
+              <Element name="Contacts">
+                <InfoBlock title="Contacts">
                   <div className="profile__block">
-                    <Button
-                      size="small"
-                      theme="transparent"
-                      text="Add another"
-                      onClick={this.props.addSite}
+                    <TextInput
+                      label="Email"
+                      value={this.props.email}
+                      onChange={this.props.changeEmailValue}
+                      error={errors.email && errors.email[0]}
                     />
                   </div>
-                </div>
-              </InfoBlock>
+                  <div
+                    className={classNames(
+                      'profile__block',
+                      'profile__block_email',
+                    )}
+                  >
+                    <TextInput
+                      label="Phone number"
+                      value={this.props.phoneNumber}
+                      onChange={this.props.changePhoneValue}
+                      error={errors.phoneNumber && errors.phoneNumber[0]}
+                    />
+                  </div>
+                </InfoBlock>
+              </Element>
+            </div>
+            <div className="profile__info-block">
+              <Element name="SocialNetworks">
+                <InfoBlock title="Social networks">
+                  <div className="list__item">
+                    {websiteUrls.map((item, index) => (
+                      <div className="profile__block" key={index}>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Your website"
+                            value={websiteUrls[index]}
+                            onChange={this.makeSiteValueChangeHandler(index)}
+                            error={this.getErrorMessage(index)}
+                          />
+                        </div>
+                        {websiteUrls.length !== 1 && (
+                          <div className="profile__block">
+                            <Button
+                              size="small"
+                              theme="transparent"
+                              text="Remove"
+                              onClick={this.makeRemoveSiteClickHandler(index)}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <div className="profile__block">
+                      <Button
+                        size="small"
+                        theme="transparent"
+                        text="Add another"
+                        onClick={this.props.addSite}
+                      />
+                    </div>
+                  </div>
+                </InfoBlock>
+              </Element>
               <div className="profile__block">
                 <Button
                   type="submit"

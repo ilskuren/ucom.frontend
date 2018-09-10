@@ -49,7 +49,6 @@ class ProfileContactsPage extends PureComponent {
   @bind
   getWebSiteUrlErrorMessage(index) {
     const { errors } = this.props;
-    console.log(errors.websiteUrls.results);
     return errors.websiteUrls.results &&
       errors.websiteUrls.results[index] &&
         errors.websiteUrls.results[index].isInvalidUrl &&

@@ -183,13 +183,13 @@ class UserPage extends PureComponent {
                             <div className="inline__item">
                               <Followers
                                 title="Followers"
-                                users={this.state.user.followed_by}
+                                users={this.state.user.followedBy}
                               />
                             </div>
                             <div className="inline__item">
                               <Followers
                                 title="Following"
-                                users={this.state.user.I_follow}
+                                users={this.state.user.iFollow}
                               />
                             </div>
                           </div>

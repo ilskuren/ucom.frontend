@@ -1,27 +1,13 @@
+import humps from 'lodash-humps';
+
 function convertServerFollow(followInfo) {
   if (followInfo.length === 0) { return []; }
-  return followInfo.map(follow => ({
-    id: follow.id,
-    userIdFrom: follow.user_id_from,
-    userIdTo: follow.user_id_to,
-    activityTypeId: follow.activity_type_id,
-    blockchainStatus: follow.blockchain_status,
-    createdAt: follow.created_at,
-    updatedAt: follow.updated_at,
-  }));
+  return followInfo.map(humps);
 }
 
 function convertClientFollow(followInfo) {
   if (followInfo.length === 0) { return []; }
-  return followInfo.map(follow => ({
-    id: follow.id,
-    user_id_from: follow.userIdFrom,
-    user_id_to: follow.userIdTo,
-    activity_type_id: follow.activityTypeId,
-    blockchain_status: follow.blockchainStatus,
-    created_at: follow.createdAt,
-    updated_at: follow.updatedAt,
-  }));
+  return followInfo.map(humps);
 }
 
 function convertServerUsersEducation(educationInfo) {

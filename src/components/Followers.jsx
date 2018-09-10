@@ -28,6 +28,7 @@ class Followers extends PureComponent {
   }
 
   render() {
+    console.log(this.props.users);
     const avatarUsers = this.props.users.slice(0, 2);
 
     return (
@@ -40,10 +41,10 @@ class Followers extends PureComponent {
                 users={this.props.users.map(item => ({
                   id: item.id,
                   userName: getUserName(item),
-                  accountName: item.account_name,
-                  avatarUrl: getFileUrl(item.avatar_filename),
+                  accountName: item.accountName,
+                  avatarUrl: getFileUrl(item.avatarFilename),
                   profileLink: getUserUrl(item.id),
-                  rate: item.current_rate,
+                  rate: item.currentRate,
                 }))}
               />
             </ModalContent>
@@ -94,12 +95,13 @@ class Followers extends PureComponent {
 }
 
 Followers.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
 };
 
-Followers.defaultTypes = {
+Followers.defaultProps = {
   title: 'Following',
+  // users: [],
 };
 
 export default Followers;

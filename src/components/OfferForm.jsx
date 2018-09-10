@@ -218,17 +218,16 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            {(this.state.base64Cover || this.props.post.data.main_image_filename) && (
-              <EventTitle
-                tags={['sale']}
-                title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title}
-                actionButtonUrl={this.props.post.data.action_button_url}
-                actionDurationInDays={this.props.post.data.action_duration_in_days}
-                imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-                team={this.props.post.data.post_users_team}
-              />
-            )}
+            <EventTitle
+              className="event-title_big"
+              tags={['sale']}
+              title={this.props.post.data.title}
+              actionButtonTitle={this.props.post.data.action_button_title}
+              actionButtonUrl={this.props.post.data.action_button_url}
+              actionDurationInDays={this.props.post.data.action_duration_in_days}
+              imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
+              team={this.props.post.data.post_users_team}
+            />
 
             <div className="post-form__item">
               <div

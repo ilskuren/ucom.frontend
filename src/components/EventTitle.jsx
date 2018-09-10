@@ -11,9 +11,10 @@ import Tags from './Tags';
 import ModalContent from './ModalContent';
 import Popup from './Popup';
 import ProfileList from './ProfilesList';
+import TimeCounter from './TimeCounter';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
-import { getOfferEditUrl, getDateLeft } from '../utils/offer';
+import { getOfferEditUrl } from '../utils/offer';
 import { join } from '../api';
 import { getToken } from '../utils/token';
 
@@ -22,34 +23,9 @@ class EventTitle extends PureComponent {
     super(props);
 
     this.state = {
-      daysLeft: '',
-      timeLeft: '',
       join: this.props.join,
       teamPopupVisible: false,
     };
-  }
-
-  componentDidMount() {
-    this.getDateLeft();
-
-    this.dateLeftInterval = setInterval(() => {
-      this.getDateLeft();
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.dateLeftInterval);
-  }
-
-  getDateLeft() {
-    const dateLeft = getDateLeft(this.props.createdAt, this.props.actionDurationInDays);
-
-    if (dateLeft) {
-      this.setState({
-        daysLeft: dateLeft.days,
-        timeLeft: dateLeft.time,
-      });
-    }
   }
 
   join() {
@@ -76,6 +52,7 @@ class EventTitle extends PureComponent {
   render() {
     const team = this.props.team ? this.props.team.slice(0, 5) : null;
     const otherTeamCount = team ? this.props.team.length - 5 : null;
+    const isBig = this.props.className === 'event-title_big';
 
     return (
       <Fragment>
@@ -126,11 +103,6 @@ class EventTitle extends PureComponent {
                 </div>
 
                 <div className="toolbar toolbar_responsive">
-                  <div className="toolbar__main">
-                    <div className="offer-title__text">
-                      {this.props.title}
-                    </div>
-                  </div>
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
@@ -202,23 +174,11 @@ class EventTitle extends PureComponent {
                       </div>
                     </div>
 
-                    {this.state.daysLeft && this.state.timeLeft ? (
-                      <Fragment>
-                        <div className="inline__item">
-                          <div className="event-title__time">
-                            <div className="event-title__value">{this.state.daysLeft}</div>
-                            <div className="event-title__name">DAY</div>
-                          </div>
-                        </div>
-
-                        <div className="inline__item">
-                          <div className="event-title__time">
-                            <div className="event-title__value">{this.state.timeLeft}</div>
-                            <div className="event-title__name">HOURS</div>
-                          </div>
-                        </div>
-                      </Fragment>
-                    ) : null}
+                    {this.props.createdAt && this.props.actionDurationInDays && (
+                      <div className="inline__item">
+                        <TimeCounter startTime={this.props.createdAt} durationInDays={555} />
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -228,13 +188,13 @@ class EventTitle extends PureComponent {
                       <div className="avatars-list avatars-list_shifted">
                         {team.map(item => (
                           <div className="avatars-list__item" key={item.id}>
-                            <Avatar src={getFileUrl(item.avatar_filename)} size="msmall" />
+                            <Avatar src={getFileUrl(item.avatar_filename)} size={!isBig ? 'msmall' : ''} />
                           </div>
                         ))}
                       </div>
                       {otherTeamCount > 0 && (
                         <button className="button-clean" onClick={() => this.showTeamPopup()}>
-                          <span className="offer-title__board-more">+{otherTeamCount}</span>
+                          <span className="event-title__board-more">+{otherTeamCount}</span>
                         </button>
                       )}
                     </div>

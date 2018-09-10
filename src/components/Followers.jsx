@@ -43,7 +43,7 @@ class Followers extends PureComponent {
                   accountName: item.account_name,
                   avatarUrl: getFileUrl(item.avatar_filename),
                   profileLink: getUserUrl(item.id),
-                  rate: 100,
+                  rate: item.current_rate,
                 }))}
               />
             </ModalContent>

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Rate from './Rate';
-import IconShare from './Icons/Share';
 import EditIcon from './Icons/Edit';
 import Avatar from './Avatar';
 import Tags from './Tags';
@@ -12,6 +11,7 @@ import ModalContent from './ModalContent';
 import Popup from './Popup';
 import ProfileList from './ProfilesList';
 import TimeCounter from './TimeCounter';
+import Shared from './Shared';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getOfferEditUrl } from '../utils/offer';
@@ -106,9 +106,7 @@ class EventTitle extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <button className="button-icon button-icon_share">
-                          <IconShare />
-                        </button>
+                        <Shared />
                       </div>
                       {(this.props.user.id && this.props.user.id === this.props.userId) && (
                         <div className="inline__item">

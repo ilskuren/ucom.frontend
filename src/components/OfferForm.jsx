@@ -38,7 +38,7 @@ class OfferForm extends PureComponent {
                     </div>
                     <div className="toolbar__side">
                       <button
-                        className="button button_theme_red button_size_small button_stretched button_capitalized"
+                        className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
                         onClick={() => {
                           if (typeof this.props.onClickSave === 'function') {
                             this.props.onClickSave();
@@ -292,7 +292,7 @@ class OfferForm extends PureComponent {
                       </span>
                       <span className="inline__item">
                         <button
-                          className="button button_theme_red button_size_small button_stretched button_capitalized"
+                          className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
                           onClick={() => {
                             if (typeof this.props.onClickSave === 'function') {
                               this.props.onClickSave();

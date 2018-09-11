@@ -92,7 +92,7 @@ class PostsTable extends PureComponent {
                       'list-table__cell',
                       { 'list-table__cell_sortable': item.sortable },
                     )}
-                    onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '+' : '-'}${item.name}`)}
+                    onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '' : '-'}${item.name}`)}
                   >
                     <div className="inline inline_small">
                       <div className="inline__item">{item.title}</div>

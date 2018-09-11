@@ -187,7 +187,7 @@ class HomePage extends PureComponent {
                     </div>
                   </div> */}
 
-                  {this.state.users.length > 0 && (
+                  {user.iFollow && user.iFollow.length > 0 && (
                     <div className="sidebar__section">
                       <div className="users-group">
                         <h4 className="users-group__title">People</h4>

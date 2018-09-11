@@ -34,6 +34,12 @@ class TimeCounter extends PureComponent {
         daysLeft: dateLeft.days,
         timeLeft: dateLeft.time,
       });
+    } else {
+      this.setState({
+        yearsLeft: 0,
+        daysLeft: 0,
+        timeLeft: '',
+      });
     }
   }
 
@@ -41,28 +47,30 @@ class TimeCounter extends PureComponent {
     const { yearsLeft, daysLeft, timeLeft } = this.state;
     return (
       <div className="time-counter inline inline_large">
-        <div className="inline__item">
-          {yearsLeft > 0 && (
+        {yearsLeft > 0 && (
+          <div className="inline__item">
             <div className="time-counter__time">
               <div className="time-counter__value">{yearsLeft}</div>
               <div className="time-counter__name">{yearsLeft === 1 ? 'year' : 'years'}</div>
             </div>
-          )}
-        </div>
-        <div className="inline__item">
-          {daysLeft > 0 && (
+          </div>
+        )}
+        {daysLeft > 0 && (
+          <div className="inline__item">
             <div className="time-counter__time">
               <div className="time-counter__value">{daysLeft}</div>
               <div className="time-counter__name">{daysLeft === 1 ? 'day' : 'days'}</div>
             </div>
-          )}
-        </div>
-        <div className="inline__item">
-          <div className="time-counter__time">
-            <div className="time-counter__value">{timeLeft}</div>
-            <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
           </div>
-        </div>
+        )}
+        {timeLeft && (
+          <div className="inline__item">
+            <div className="time-counter__time">
+              <div className="time-counter__value">{timeLeft}</div>
+              <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

@@ -40,6 +40,9 @@ export const getDateLeft = (createdAt, durationInDays) => {
   const startDate = moment(createdAt);
   const endDate = startDate.add(durationInDays, 'days');
   const diff = endDate.diff(nowDate);
+  if (diff < 0) {
+    return null;
+  }
   const duration = moment.duration(diff);
 
   return {

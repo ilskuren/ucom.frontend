@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
+import { scroller, Element } from 'react-scroll';
+import { bind } from 'decko';
+import PropTypes from 'prop-types';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -7,29 +11,51 @@ import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
-import { setUser } from '../../actions';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { scrollAnimation } from '../../utils/constants';
+
+import * as actions from '../../actions/profile';
+import * as selectors from '../../utils/selectors/profile';
+
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    addEmptyEducationItem: actions.addEmptyEducationItem,
+    changeEducationItem: actions.changeEducationItem,
+    removeEducationItem: actions.removeEducationItem,
+    addEmptyJobItem: actions.addEmptyJobItem,
+    changeJobItem: actions.changeJobItem,
+    removeJobItem: actions.removeJobItem,
+    changeInputValue: actions.changeInputValue,
+    validateWorkAndEducation: actions.validateWorkAndEducation,
+  }, dispatch);
+
+
+const mapStateToProps = state => ({
+  firstCurrency: selectors.selectFirstCurrency(state),
+  firstCurrencyYear: selectors.selectFirstCurrencyYear(state),
+  userJobs: selectors.selectUserJobs(state),
+  userEducations: selectors.selectUserEducations(state),
+  isValid: selectors.selectWorkAndEducationValidity(state),
+  errors: selectors.selectWorkAndEducationErrors(state),
+});
+
 
 class ProfileWorkAndEducationPage extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      first_currency: this.props.user.first_currency || '',
-      first_currency_year: this.props.user.first_currency_year || '',
-      users_jobs: this.props.user.users_jobs || [],
-      users_education: this.props.user.users_education || [],
       loading: false,
     };
   }
 
   componentDidMount() {
-    if (this.state.users_jobs.length === 0) {
+    if (this.props.userJobs.length === 0) {
       this.addEmptyJobItem();
     }
 
-    if (this.state.users_education.length === 0) {
+    if (this.props.userEducations.length === 0) {
       this.addEmptyEducationItem();
     }
   }
@@ -38,10 +64,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
     const token = getToken();
 
     const data = {
-      first_currency: this.state.first_currency,
-      first_currency_year: this.state.first_currency_year,
-      users_jobs: this.state.users_jobs,
-      users_education: this.state.users_education,
+      firstCurrency: this.props.firstCurrency,
+      firstCurrencyYear: this.props.firstCurrencyYear,
+      userJobs: this.props.userJobs,
+      userEducations: this.props.userEducations,
     };
 
     this.setState({ loading: true });
@@ -53,253 +79,229 @@ class ProfileWorkAndEducationPage extends PureComponent {
       });
   }
 
+  @bind
+  makeChangeInputValueHandler(field) {
+    return value => this.props.changeInputValue({ field, value });
+  }
+
+  @bind
   addEmptyEducationItem() {
-    this.setState(prevState => ({
-      users_education: prevState.users_education.concat({
-        end_date: null,
-        start_date: null,
-        is_current: false,
-        degree: '',
-        speciality: '',
-        title: '',
-      }),
-    }));
+    return this.props.addEmptyEducationItem();
   }
 
-  changeEducationItem(index, data) {
-    this.setState((prevState) => {
-      const { users_education } = prevState;
-
-      users_education[index] = Object.assign({}, prevState.users_education[index], data);
-
-      return {
-        users_education: [].concat(users_education),
-      };
-    });
+  @bind
+  makeChangeEducationItemHandler(field, index) {
+    return value => this.props.changeEducationItem({ index, [field]: value });
   }
 
-  removeEducationItem(index) {
-    this.setState((prevState) => {
-      const { users_education } = prevState;
 
-      users_education.splice(index, 1);
-
-      return {
-        users_education: [].concat(users_education),
-      };
-    }, () => {
-      if (this.state.users_education.length === 0) {
-        this.addEmptyEducationItem();
-      }
-    });
+  @bind
+  makeRemoveEducationItemHandler(index) {
+    return () => this.props.removeEducationItem(index);
   }
 
+  @bind
   addEmptyJobItem() {
-    this.setState(prevState => ({
-      users_jobs: prevState.users_jobs.concat({
-        end_date: null,
-        start_date: null,
-        is_current: false,
-        title: '',
-        position: '',
-      }),
-    }));
+    return this.props.addEmptyJobItem();
   }
 
-  changeJobItem(index, data) {
-    this.setState((prevState) => {
-      const { users_jobs } = prevState;
-
-      users_jobs[index] = Object.assign({}, prevState.users_jobs[index], data);
-
-      return {
-        users_jobs: [].concat(users_jobs),
-      };
-    });
+  @bind
+  makeChangeJobItemHandler(field, index) {
+    return value => this.props.changeJobItem({ index, [field]: value });
   }
 
-  removeJobItem(index) {
-    this.setState((prevState) => {
-      const { users_jobs } = prevState;
+  @bind
+  makeRemoveJobItemHandler(index) {
+    return () => this.props.removeJobItem(index);
+  }
 
-      users_jobs.splice(index, 1);
-
-      return {
-        users_jobs: [].concat(users_jobs),
-      };
-    }, () => {
-      if (this.state.users_jobs.length === 0) {
-        this.addEmptyJobItem();
-      }
-    });
+  @bind
+  handleSubmit(e) {
+    this.props.validateWorkAndEducation();
+    const { isValid } = this.props;
+    e.preventDefault();
+    if (isValid) {
+      this.save();
+    }
   }
 
   render() {
+    const { errors, userEducations, userJobs } = this.props;
     return (
-
       <div className="grid grid_profile">
         <div className="grid__item">
           <VerticalMenu
-            sections={[{ type: 'blockchain', percents: '0' }, { type: 'work', percents: '0' }, { type: 'education', percents: '0' }]}
+            sections={[
+            { type: 'blockchain', percents: '0', onClick: () => scroller.scrollTo('Blockchain', scrollAnimation) },
+            { type: 'work', percents: '0', onClick: () => scroller.scrollTo('Work', scrollAnimation) },
+            { type: 'education', percents: '0', onClick: () => scroller.scrollTo('Education', scrollAnimation) },
+          ]}
           />
         </div>
         <div className="grid__item">
           <form
             className="person-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              this.save();
-            }}
+            onSubmit={this.handleSubmit}
           >
             <Loading loading={this.state.loading} className="loading_block" />
 
             <div className="profile__info-block">
-              <InfoBlock title="Blockchain">
-                <div className="profile__block">
-                  <TextInput
-                    label="Your first asset"
-                    placeholder="Example Kickcoin"
-                    value={this.state.first_currency}
-                    onChange={first_currency => this.setState({ first_currency })}
-                  />
-                </div>
-
-                <div className="profile__block">
-                  <TextInput
-                    label="Year of purchase"
-                    inputWidth={100}
-                    value={this.state.first_currency_year}
-                    onChange={first_currency_year => this.setState({ first_currency_year })}
-                  />
-                </div>
-              </InfoBlock>
-            </div>
-
-            <div className="profile__info-block">
-              <InfoBlock title="Work">
-                <div className="list">
-                  {this.state.users_jobs.map((item, index) => (
-                    <div className="list__item" key={index}>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Work place"
-                          value={item.title}
-                          onChange={(title) => { this.changeJobItem(index, { title }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Position"
-                          value={item.position}
-                          onChange={(position) => { this.changeJobItem(index, { position }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <DateInput
-                          label="Started date"
-                          value={item.start_date}
-                          onChange={(start_date) => { this.changeJobItem(index, { start_date }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <DateInput
-                          label="Ended date"
-                          value={item.end_date}
-                          onChange={(end_date) => { this.changeJobItem(index, { end_date }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={() => this.removeJobItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+              <Element name="Blockchain">
+                <InfoBlock title="Blockchain">
+                  <div className="profile__block">
+                    <TextInput
+                      label="Your first asset"
+                      placeholder="Example Kickcoin"
+                      value={this.props.firstCurrency}
+                      onChange={this.makeChangeInputValueHandler('firstCurrency')}
+                      error={errors.firstCurrency && errors.firstCurrency[0]}
+                    />
+                  </div>
 
                   <div className="profile__block">
-                    <button
-                      type="button"
-                      className="button button_theme_transparent button_size_small"
-                      onClick={() => this.addEmptyJobItem()}
-                    >
-                      Add another
-                    </button>
+                    <TextInput
+                      label="Year of purchase"
+                      inputWidth={100}
+                      value={this.props.firstCurrencyYear}
+                      onChange={this.makeChangeInputValueHandler('firstCurrencyYear')}
+                      error={errors.firstCurrencyYear && errors.firstCurrencyYear[0]}
+
+                    />
                   </div>
-                </div>
-              </InfoBlock>
+                </InfoBlock>
+              </Element>
+            </div>
+
+            <div className="profile__info-block">
+              <Element name="Work">
+                <InfoBlock title="Work">
+                  <div className="list">
+                    {userJobs.map((item, index) => (
+                      <div className="list__item" key={index}>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Work place"
+                            value={item.title}
+                            onChange={this.makeChangeJobItemHandler('title', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Position"
+                            value={item.position}
+                            onChange={this.makeChangeJobItemHandler('position', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <DateInput
+                            label="Started date"
+                            value={item.startDate}
+                            onChange={this.makeChangeJobItemHandler('startDate', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <DateInput
+                            label="Ended date"
+                            value={item.endDate}
+                            onChange={this.makeChangeJobItemHandler('endDate', index)}
+                          />
+                        </div>
+                        {this.props.userJobs.length !== 1 && (
+                          <div className="profile__block">
+                            <Button
+                              theme="transparent"
+                              size="small"
+                              onClick={this.makeRemoveJobItemHandler(index)}
+                              text="Remove"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+
+                    <div className="profile__block">
+                      <button
+                        type="button"
+                        className="button button_theme_transparent button_size_small"
+                        onClick={this.addEmptyJobItem}
+                      >
+                        Add another
+                      </button>
+                    </div>
+                  </div>
+                </InfoBlock>
+              </Element>
             </div>
             <div className="profile__info-block">
-              <InfoBlock title="Education">
-                <div className="list">
-                  {this.state.users_education.map((item, index) => (
-                    <div className="list__item" key={index}>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Education"
-                          value={item.title}
-                          onChange={(title) => { this.changeEducationItem(index, { title }); }}
-                        />
+              <Element name="Education">
+                <InfoBlock title="Education">
+                  <div className="list">
+                    {this.props.userEducations.map((item, index) => (
+                      <div className="list__item" key={index}>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Education"
+                            value={item.title}
+                            onChange={this.makeChangeEducationItemHandler('title', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Spec"
+                            value={item.speciality}
+                            onChange={this.makeChangeEducationItemHandler('speciality', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <TextInput
+                            label="Level"
+                            value={item.degree}
+                            onChange={this.makeChangeEducationItemHandler('degree', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <DateInput
+                            label="Started date"
+                            value={item.startDate}
+                            onChange={this.makeChangeEducationItemHandler('startDate', index)}
+                          />
+                        </div>
+                        <div className="profile__block">
+                          <DateInput
+                            label="Ended date"
+                            value={item.endDate}
+                            onChange={this.makeChangeEducationItemHandler('endDate', index)}
+                          />
+                        </div>
+                        {userEducations.length !== 1 && (
+                          <div className="profile__block">
+                            <Button
+                              theme="transparent"
+                              size="small"
+                              text="Remove"
+                              onClick={this.makeRemoveEducationItemHandler(index)}
+                            />
+                          </div>
+                        )}
                       </div>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Spec"
-                          value={item.speciality}
-                          onChange={(speciality) => { this.changeEducationItem(index, { speciality }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <TextInput
-                          label="Level"
-                          value={item.degree}
-                          onChange={(degree) => { this.changeEducationItem(index, { degree }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <DateInput
-                          label="Started date"
-                          value={item.start_date}
-                          onChange={(start_date) => { this.changeEducationItem(index, { start_date }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <DateInput
-                          label="Ended date"
-                          value={item.end_date}
-                          onChange={(end_date) => { this.changeEducationItem(index, { end_date }); }}
-                        />
-                      </div>
-                      <div className="profile__block">
-                        <button
-                          type="button"
-                          className="button button_theme_transparent button_size_small"
-                          onClick={() => this.removeEducationItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                <div className="profile__block">
-                  <button
-                    type="button"
-                    className="button button_theme_transparent button_size_small"
-                    onClick={() => this.addEmptyEducationItem()}
-                  >
-                    Add another
-                  </button>
-                </div>
+                  <div className="profile__block">
+                    <Button
+                      theme="transparent"
+                      size="small"
+                      text="Add another"
+                      onClick={this.addEmptyEducationItem}
+                    />
+                  </div>
 
-                <div className="profile__block">
-                  <span className="profile__text">Achievements</span>
-                  <DropZone text="add or drag file" />
-                </div>
-              </InfoBlock>
+                  <div className="profile__block">
+                    <span className="profile__text">Achievements</span>
+                    <DropZone text="add or drag file" />
+                  </div>
+                </InfoBlock>
+              </Element>
               <div className="profile__block">
                 <Button type="submit" text="PROCEED" theme="red" size="big" isStretched />
               </div>
@@ -311,11 +313,27 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 }
 
-export default connect(
-  state => ({
-    user: state.user,
+ProfileWorkAndEducationPage.propTypes = {
+  userJobs: PropTypes.arrayOf(PropTypes.object),
+  userEducations: PropTypes.arrayOf(PropTypes.object),
+  firstCurrency: PropTypes.string,
+  firstCurrencyYear: PropTypes.string,
+  changeInputValue: PropTypes.func,
+  addEmptyEducationItem: PropTypes.func,
+  changeEducationItem: PropTypes.func,
+  removeEducationItem: PropTypes.func,
+  addEmptyJobItem: PropTypes.func,
+  changeJobItem: PropTypes.func,
+  removeJobItem: PropTypes.func,
+  validateWorkAndEducation: PropTypes.func,
+  isValid: PropTypes.bool,
+  errors: PropTypes.shape({
+    firstCurrency: PropTypes.array,
+    firstCurrencyYear: PropTypes.array,
+    userJobs: PropTypes.arrayOf(PropTypes.array),
+    userEducations: PropTypes.arrayOf(PropTypes.array),
   }),
-  dispatch => ({
-    setUser: data => dispatch(setUser(data)),
-  }),
-)(ProfileWorkAndEducationPage);
+};
+
+
+export default connect(mapStateToProps, mapDispatch)(ProfileWorkAndEducationPage);

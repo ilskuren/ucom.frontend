@@ -21,11 +21,7 @@ const UserCard = (props) => {
 
       <div className="user-card__info">
         <div className="user-card__name">
-          <LinkTag to={props.profileLink}>
-            {props.userName || (
-              <span className="blank">Lorem, ipsum.</span>
-            )}
-          </LinkTag>
+          <LinkTag to={props.profileLink}>{props.userName}</LinkTag>
         </div>
 
         {props.accountName && (

@@ -64,3 +64,12 @@ export const getRulesByPostTypeId = (postTypeId) => {
       };
   }
 };
+
+export const getPostTypeById = (postTypeId) => {
+  switch (postTypeId) {
+    case 2:
+      return 'offer';
+    default:
+      return 'story';
+  }
+};

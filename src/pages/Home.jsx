@@ -39,7 +39,7 @@ class HomePage extends PureComponent {
     Promise.all(promises)
       .then((result) => {
         this.setState({
-          posts: result[1],
+          posts: result[1].data,
           users: result[0],
           userPosts: result[2] || [],
         });

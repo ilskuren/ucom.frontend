@@ -9,6 +9,8 @@ const VerticalMenu = (props) => {
       'vertical-menu__section_active': true,
       })}
       key={i}
+      onClick={section.onClick}
+      role="presentation"
     >
       <span className="vertical-menu__type">{section.type}</span>
       {/* <span className="vertical-menu__percents">{`${section.percents}%`}</span> */}
@@ -25,6 +27,7 @@ VerticalMenu.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string.isRequired,
     percents: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
   })).isRequired,
 };
 

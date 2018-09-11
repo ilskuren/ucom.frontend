@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Rate from './Rate';
-import IconShare from './Icons/Share';
 import EditIcon from './Icons/Edit';
 import Avatar from './Avatar';
 import Tags from './Tags';
 import Avatars from './Avatars';
 import TimeCounter from './TimeCounter';
+import Share from './Share';
 import { getFileUrl } from '../utils/upload';
 import { getOfferEditUrl } from '../utils/offer';
 import { join } from '../api';
@@ -72,9 +72,7 @@ class EventTitle extends PureComponent {
                 <div className="toolbar__side">
                   <div className="inline">
                     <div className="inline__item">
-                      <button className="button-icon button-icon_share">
-                        <IconShare />
-                      </button>
+                      <Share isRounded />
                     </div>
                     {(this.props.user.id && this.props.user.id === this.props.userId) && (
                       <div className="inline__item">
@@ -142,7 +140,7 @@ class EventTitle extends PureComponent {
 
                   {this.props.createdAt && this.props.actionDurationInDays && (
                     <div className="inline__item">
-                      <TimeCounter startTime={this.props.createdAt} durationInDays={555} />
+                      <TimeCounter startTime={this.props.createdAt} durationInDays={this.props.actionDurationInDays} />
                     </div>
                   )}
                 </div>

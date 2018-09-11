@@ -288,7 +288,8 @@ const user = (state = getInitialState(), action) => {
             personalWebsitesUrls: state.errors.personalWebsitesUrls,
           },
         };
-      };
+      }
+
       return {
         ...state,
         isValid: passes,

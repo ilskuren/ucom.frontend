@@ -17,7 +17,7 @@ const PrefixInput = ({
       <div className="prefix-input__input-wrapper" style={{ width: inputWidth }}>
         <span className="prefix-input__prefix">{prefix}</span>
         <input
-          value={value}
+          value={value === null ? undefined : value}
           className="prefix-input__input"
           type={type}
           placeholder={placeholder}

@@ -21,7 +21,7 @@ export const validateArrayUrls = (values) => {
   result.isValid = values.every(isValidUrl);
   result.results = values.map(value => ({
     isInvalidUrl: !isValidUrl(value),
-    message: 'Invalid url',
+    message: 'The field name url format is invalid.',
   }));
   return result;
 };

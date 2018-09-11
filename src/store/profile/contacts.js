@@ -2,17 +2,17 @@ import Validator from 'validatorjs';
 import * as rules from '../../utils/validators/';
 import { validateArrayUrls } from '../../utils/validators/custom';
 
-rules.registerPhoneNumber.rule(Validator, /^\d{4}-\d{4}$/);
+rules.registerPhoneNumber.rule(Validator, /^[\d -]*$/);
 
-const getInitialState = () => ({
+export const getContactsInitialState = () => ({
   data: {
     email: '',
     phoneNumber: '',
     websiteUrls: [''],
   },
   rules: {
-    email: 'required|email',
-    phoneNumber: `required|${rules.registerPhoneNumber.name}`,
+    email: 'email',
+    phoneNumber: `${rules.registerPhoneNumber.name}`,
   },
   errors: {
     email: null,
@@ -25,7 +25,7 @@ const getInitialState = () => ({
   isValid: false,
 });
 
-const contacts = (state = getInitialState(), action) => {
+const contacts = (state = getContactsInitialState(), action) => {
   switch (action.type) {
     case 'PROFILE_CONTACTS:CHANGE_EMAIL_VALUE': {
       const value = action.payload;

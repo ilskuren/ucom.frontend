@@ -1,6 +1,6 @@
 import Validator from 'validatorjs';
 
-const getInitialState = () => ({
+export const getGeneralInfoInitialState = () => ({
   data: {
     firstName: '',
     lastName: '',
@@ -14,13 +14,13 @@ const getInitialState = () => ({
     avatarFilename: '',
   },
   rules: {
-    firstName: 'required|string',
-    lastName: 'required|string',
-    nickname: 'required|string',
-    birthday: 'required|string',
-    country: 'required|string',
-    city: 'required|string',
-    address: 'required|string',
+    firstName: 'string',
+    lastName: 'string',
+    nickname: 'string',
+    birthday: 'string',
+    country: 'string',
+    city: 'string',
+    address: 'string',
   },
   errors: {
     firstName: null,
@@ -36,7 +36,7 @@ const getInitialState = () => ({
 });
 
 
-const generalInfo = (state = getInitialState(), action) => {
+const generalInfo = (state = getGeneralInfoInitialState(), action) => {
   switch (action.type) {
     case 'PROFILE:CHANGE_INPUT_VALUE': {
       const { field, value } = action.payload;

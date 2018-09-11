@@ -21,6 +21,7 @@ import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
 import * as actions from '../../actions/profile';
+import { selectGeneralInfoErrors } from '../../utils/selectors/profile';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
@@ -31,6 +32,7 @@ const mapDispatch = dispatch =>
 
 const mapStateToProps = state => ({
   user: selectUser(state),
+  errors: selectGeneralInfoErrors(state),
 });
 
 
@@ -72,7 +74,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       city: user.city,
       address: user.address,
       currencyToShow: user.currencyToShow,
-      avatarFilename: user.avatarFileName,
+      avatarFilename: user.avatarFilename,
     };
 
     this.setState({ loading: true });
@@ -89,7 +91,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
     const data = new FormData();
 
-    data.append('avatarFilename', file);
+    data.append('avatar_filename', file);
 
     patchMyselfFormData(data, getToken())
       .then((data) => {
@@ -126,7 +128,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
                     <div className="profile__block profile__block_avatar">
                       <Avatar
-                        src={getFileUrl(user.avatarFileName)}
+                        src={getFileUrl(user.avatar_filename)}
                         size="big"
                         alt="Avatar"
                       />
@@ -262,7 +264,7 @@ ProfileGeneralInfoPage.propTypes = {
     city: PropTypes.string,
     address: PropTypes.string,
     currencyToShow: PropTypes.string,
-    avatarFileName: PropTypes.string,
+    avatarFilename: PropTypes.string,
   }),
   isValid: PropTypes.bool,
   errors: PropTypes.shape({

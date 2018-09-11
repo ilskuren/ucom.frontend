@@ -1,6 +1,6 @@
 import Validator from 'validatorjs';
 
-const getInitialState = () => ({
+export const getWorkAndEducationInitialState = () => ({
   data: {
     firstCurrency: '',
     firstCurrencyYear: '',
@@ -21,8 +21,8 @@ const getInitialState = () => ({
     }],
   },
   rules: {
-    firstCurrency: 'required|numeric',
-    firstCurrencyYear: 'required|numeric',
+    firstCurrency: 'string',
+    firstCurrencyYear: 'string',
     userJobs: 'array',
     userEducations: 'array',
   },
@@ -35,7 +35,7 @@ const getInitialState = () => ({
   isValid: false,
 });
 
-const workAndEducation = (state = getInitialState(), action) => {
+const workAndEducation = (state = getWorkAndEducationInitialState(), action) => {
   switch (action.type) {
     case 'PROFILE_WORK-AND-EDUCATION:ADD_EMPTY_EDUCATION_ITEM': {
       return {

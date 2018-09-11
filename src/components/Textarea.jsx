@@ -8,7 +8,7 @@ const Textarea = ({
     { label && <label className="textarea__label">{label}</label> }
     <textarea
       className="textarea__text"
-      value={value}
+      value={value === null ? undefined : value}
       rows={rows}
       placeholder={placeholder}
       onChange={(e) => {

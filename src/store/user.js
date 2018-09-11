@@ -1,4 +1,15 @@
-const getInitialState = () => ({});
+import { getContactsInitialState } from './profile/contacts';
+import { getGeneralInfoInitialState } from './profile/generalInfo';
+import { getWorkAndEducationInitialState } from './profile/workAndEducation';
+
+const getInitialState = () => ({
+  id: 1,
+  profile: {
+    contacts: getContactsInitialState(),
+    generalInfo: getGeneralInfoInitialState(),
+    workAndEducation: getWorkAndEducationInitialState(),
+  },
+});
 
 const user = (state = getInitialState(), action) => {
   switch (action.type) {

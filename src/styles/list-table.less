@@ -13,7 +13,7 @@
   line-height: 12px;
 
   .list-table__cell {
-    padding: 20px;
+    padding: 20px 32px;
   }
 }
 
@@ -166,5 +166,26 @@
         }
       }
     }
+  }
+}
+
+.list-table_indexed {
+  .list-table__cell {
+    &:first-child {
+      min-width: 68px;
+      padding-left: 32px;
+      padding-right: 0;
+
+      @media (max-width: 1023px) {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .list-table__cell_index {
+    font-size: 10px;
+    color: rgba(0,0,0,0.6);
   }
 }

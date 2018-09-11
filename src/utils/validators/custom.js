@@ -6,7 +6,7 @@ const isValidUrl = (url) => {
 
 export const validateArrayUrls = (values) => {
   const result = {
-    isErrorExists: null,
+    isValid: null,
     results: [{
       isInvalidUrl: null,
       message: null,

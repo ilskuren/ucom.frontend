@@ -39,14 +39,16 @@ class Comments extends PureComponent {
             <div className="comment__text">{this.props.description}</div>
             <div className="comment__actions">
               <div className="inline">
-                <div className="inline__item">
-                  <button
-                    className="button-clean button-clean_link"
-                    onClick={() => this.showForm()}
-                  >
-                    <div className="comment__reply">Reply</div>
-                  </button>
-                </div>
+                {this.props.user.id && (
+                  <div className="inline__item">
+                    <button
+                      className="button-clean button-clean_link"
+                      onClick={() => this.showForm()}
+                    >
+                      <div className="comment__reply">Reply</div>
+                    </button>
+                  </div>
+                )}
                 <div className="inline__item">
                   <span className="comment__time">{this.props.created}</span>
                 </div>

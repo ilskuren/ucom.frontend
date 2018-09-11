@@ -75,7 +75,6 @@ class ProfileContactsPage extends PureComponent {
     this.props.validateProfileForm('contactsRules');
     const { isValid } = this.props.user;
     e.preventDefault();
-    debugger;
     if (isValid) {
       this.save();
     }

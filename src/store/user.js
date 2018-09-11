@@ -106,8 +106,6 @@ const user = (state = getInitialState(), action) => {
         personalWebsitesUrls: returnWebSitesUrls(),
       };
 
-      const validation = new Validator(data, validatorRules.user.contactsRules);
-
       return {
         ...state,
         ...data,
@@ -280,7 +278,6 @@ const user = (state = getInitialState(), action) => {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
       const validUrls = state.errors.personalWebsitesUrls.isValid;
-      debugger;
       return {
         ...state,
         isValid: passes && validUrls,

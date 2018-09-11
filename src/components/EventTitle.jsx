@@ -140,7 +140,7 @@ class EventTitle extends PureComponent {
 
                   {this.props.createdAt && this.props.actionDurationInDays && (
                     <div className="inline__item">
-                      <TimeCounter startTime={this.props.createdAt} durationInDays={555} />
+                      <TimeCounter startTime={this.props.createdAt} durationInDays={this.props.actionDurationInDays} />
                     </div>
                   )}
                 </div>

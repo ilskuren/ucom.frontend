@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import PostInput from '../components/PostInput';
@@ -92,7 +93,7 @@ class HomePage extends PureComponent {
               </div>
             </div>
 
-            <PostsGroup posts={this.state.posts} />
+            <PostsGroup posts={humps(this.state.posts)} />
           </div>
         </div>
 

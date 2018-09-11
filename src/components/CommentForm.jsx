@@ -1,3 +1,4 @@
+import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
@@ -54,6 +55,7 @@ class CommentForm extends PureComponent {
 
           <div className="toolbar__main">
             <textarea
+              autoFocus={this.props.autoFocus} //eslint-disable-line
               value={this.state.comment}
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"
@@ -62,6 +64,11 @@ class CommentForm extends PureComponent {
               onBlur={() => this.hide()}
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
+              }}
+              onKeyDown={(e) => {
+                if (e.keyCode === KEY_RETURN) {
+                  this.submit();
+                }
               }}
             />
 

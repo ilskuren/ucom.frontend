@@ -66,7 +66,7 @@ TextInput.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.any, PropTypes.arrayOf(PropTypes.string)]),
   isSearch: PropTypes.bool,
   isRequired: PropTypes.bool,
   inputWidth: PropTypes.number,

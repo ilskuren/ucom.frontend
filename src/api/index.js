@@ -1,5 +1,6 @@
+import param from 'jquery-param';
 import config from '../../package.json';
-import { convertServerUser } from './convertors';
+import { convertServerUser, convertServerUserLogin } from './convertors';
 
 const Eos = require('eosjs');
 
@@ -23,7 +24,7 @@ export const login = ({ brainkey, account_name }) => {
       public_key: publicKey,
     }),
   })
-    .then(resp => resp.json());
+    .then(resp => resp.json().then(data => convertServerUserLogin(data)));
 };
 
 export const register = ({ brainkey, accountName }) => {
@@ -130,8 +131,8 @@ export const getUserPosts = id => (
     .then(resp => resp.json())
 );
 
-export const getPosts = () => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts`)
+export const getPosts = params => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`)
     .then(resp => resp.json())
 );
 
@@ -201,8 +202,14 @@ export const join = (postId, token) => (
     .then(resp => resp.json())
 );
 
-export const createComment = (postId, token, data) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`, {
+export const createComment = (token, data, postId, commentId) => {
+  let url = `${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`;
+
+  if (commentId) {
+    url = `${url}/${commentId}/comments`;
+  }
+
+  return fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -211,5 +218,5 @@ export const createComment = (postId, token, data) => (
     },
     body: JSON.stringify(data),
   })
-    .then(resp => resp.json())
-);
+    .then(resp => resp.json());
+};

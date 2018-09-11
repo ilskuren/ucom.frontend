@@ -28,15 +28,15 @@ class Offer extends PureComponent {
       });
   }
 
-  createComment(comment) {
-    return createComment(this.props.match.params.id, getToken(), comment)
+  createComment(commentData, commentId) {
+    return createComment(getToken(), commentData, this.props.match.params.id, commentId)
       .then((data) => {
         if (data.errors) {
           return;
         }
 
         const post = Object.assign({}, this.state.post, {
-          comments: [{ ...data, ...comment }].concat(this.state.post.comments),
+          comments: [{ ...data, ...commentData }].concat(this.state.post.comments),
         });
 
         this.setState({ post });
@@ -92,7 +92,7 @@ class Offer extends PureComponent {
                 tags={['story']}
                 сhoice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
                 comments={this.state.post.comments}
-                onSubmitComment={data => this.createComment(data)}
+                onSubmitComment={(data, commentId) => this.createComment(data, commentId)}
               />
             </div>
           </div>

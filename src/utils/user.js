@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import dict from './dict';
 
 export const getYearsFromBirthday = (value) => {
@@ -33,13 +34,15 @@ export const getUserName = (user) => {
     return null;
   }
 
-  if (user.first_name && user.last_name) {
-    return `${user.first_name} ${user.last_name}`;
-  } else if (user.first_name) {
-    return user.first_name;
+  const userData = humps(user);
+
+  if (userData.firstName && userData.lastName) {
+    return `${userData.firstName} ${userData.lastName}`;
+  } else if (userData.firstName) {
+    return userData.firstName;
   }
 
-  return user.account_name;
+  return userData.accountName;
 };
 
 export const validateAuth = (fields = {}) => {

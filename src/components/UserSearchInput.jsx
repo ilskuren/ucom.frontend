@@ -86,6 +86,10 @@ const UserSearchInput = ({ onChange, value }) => (
 UserSearchInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   onChange: PropTypes.func,
+  value: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+  }),
 };
 
 export default UserSearchInput;

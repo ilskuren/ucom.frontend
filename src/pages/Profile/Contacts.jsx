@@ -12,6 +12,7 @@ import VerticalMenu from '../../components/VerticalMenu';
 import Loading from '../../components/Loading';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
@@ -84,11 +85,7 @@ class ProfileContactsPage extends PureComponent {
     const { user } = this.props;
     const token = getToken();
 
-    const data = {
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      personalWebsitesUrls: user.personalWebsitesUrls,
-    };
+    const data = convertClientUser(user);
 
     this.setState({ loading: true });
 

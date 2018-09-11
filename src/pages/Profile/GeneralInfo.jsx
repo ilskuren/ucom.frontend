@@ -17,7 +17,7 @@ import Loading from '../../components/Loading';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
-import { convertServerUser } from '../../api/convertors';
+import { convertServerUser, convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
@@ -67,18 +67,7 @@ class ProfileGeneralInfoPage extends PureComponent {
   save() {
     const token = getToken();
     const { user } = this.props;
-    const data = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      nickName: user.nickName,
-      about: user.about,
-      birthday: user.birthday,
-      country: user.country,
-      city: user.city,
-      address: user.address,
-      currencyToShow: user.currencyToShow,
-      avatarFilename: user.avatarFilename,
-    };
+    const data = convertClientUser(user);
 
     this.setState({ loading: true });
 

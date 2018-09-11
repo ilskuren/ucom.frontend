@@ -174,7 +174,7 @@ EventTitle.propTypes = {
   title: PropTypes.string,
   team: PropTypes.arrayOf(PropTypes.object),
   actionButtonTitle: PropTypes.string,
-  actionDurationInDays: PropTypes.string,
+  actionDurationInDays: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   actionButtonUrl: PropTypes.string,
   buyers: PropTypes.arrayOf(PropTypes.object),
   buyersCount: PropTypes.number,

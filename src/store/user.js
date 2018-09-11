@@ -277,7 +277,7 @@ const user = (state = getInitialState(), action) => {
     case 'VALIDATE_PROFILE_FORM': {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
-      const shouldValidateWebsitesUrls = action.payload !== 'contactsRules';
+      const shouldValidateWebsitesUrls = action.payload === 'contactsRules';
       if (shouldValidateWebsitesUrls) {
         const validUrls = state.errors.personalWebsitesUrls && state.errors.personalWebsitesUrls.isValid;
         return {
@@ -289,7 +289,6 @@ const user = (state = getInitialState(), action) => {
           },
         };
       }
-
       return {
         ...state,
         isValid: passes,

@@ -174,7 +174,6 @@ class ProfileWorkAndEducationPage extends PureComponent {
                       value={firstCurrencyYear}
                       onChange={this.makeChangeUserFieldHandler('firstCurrencyYear')}
                       error={errors.firstCurrencyYear && errors.firstCurrencyYear[0]}
-
                     />
                   </div>
                 </InfoBlock>

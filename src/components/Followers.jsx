@@ -1,3 +1,5 @@
+import humps from 'lodash-humps';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Fragment, PureComponent } from 'react';
@@ -6,7 +8,7 @@ import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import ProfilesList from '../components/ProfilesList';
 import { getFileUrl } from '../utils/upload';
-import { getUserName, getUserUrl } from '../utils/user';
+import { getUserName, getUserUrl, userIsFollowed } from '../utils/user';
 
 class Followers extends PureComponent {
   constructor(props) {
@@ -29,6 +31,7 @@ class Followers extends PureComponent {
 
   render() {
     const avatarUsers = this.props.users.slice(0, 2);
+    const user = humps(this.props.user);
 
     return (
       <Fragment>
@@ -44,6 +47,7 @@ class Followers extends PureComponent {
                   avatarUrl: getFileUrl(item.avatarFilename),
                   profileLink: getUserUrl(item.id),
                   rate: item.currentRate,
+                  follow: userIsFollowed(user.iFollow, item.id),
                 }))}
               />
             </ModalContent>
@@ -100,7 +104,8 @@ Followers.propTypes = {
 
 Followers.defaultProps = {
   title: 'Following',
-  // users: [],
 };
 
-export default Followers;
+export default connect(state => ({
+  user: state.user,
+}))(Followers);

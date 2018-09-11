@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
@@ -26,10 +27,14 @@ class Comments extends PureComponent {
       <div className="comment" depth={this.props.depth}>
         <div className="toolbar toolbar_top">
           <div className="toolbar__side">
-            <Avatar size="xsmall" src={this.props.avatar} />
+            <Link to={this.props.userUrl}>
+              <Avatar size="xsmall" src={this.props.avatar} />
+            </Link>
           </div>
           <div className="toolbar__main">
-            <div className="comment__username">{this.props.userName}</div>
+            <div className="comment__username">
+              <Link to={this.props.userUrl}>{this.props.userName}</Link>
+            </div>
             <div className="comment__account">@{this.props.accountName}</div>
             <div className="comment__text">{this.props.description}</div>
             <div className="comment__actions">

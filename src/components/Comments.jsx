@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import { getFileUrl } from '../utils/upload';
-import { getUserName } from '../utils/user';
+import { getUserName, getUserUrl } from '../utils/user';
 
 class Comments extends PureComponent {
   createComment(description, commentId) {
@@ -47,6 +47,7 @@ class Comments extends PureComponent {
                 description={item.description}
                 avatar={item.User ? getFileUrl(item.User.avatar_filename) : null}
                 userName={getUserName(item.User)}
+                userUrl={getUserUrl(item.User.id)}
                 accountName={item.User ? item.User.account_name : null}
                 created={moment(item.created_at).fromNow()}
                 depth={item.depth}

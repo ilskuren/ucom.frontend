@@ -277,10 +277,21 @@ const user = (state = getInitialState(), action) => {
     case 'VALIDATE_PROFILE_FORM': {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
-      const validUrls = state.errors.personalWebsitesUrls.isValid;
+      const shouldValidateWebsitesUrls = action.payload !== 'contactsRules';
+      if (shouldValidateWebsitesUrls) {
+        const validUrls = state.errors.personalWebsitesUrls && state.errors.personalWebsitesUrls.isValid;
+        return {
+          ...state,
+          isValid: passes && validUrls,
+          errors: {
+            ...validation.errors.all(),
+            personalWebsitesUrls: state.errors.personalWebsitesUrls,
+          },
+        };
+      };
       return {
         ...state,
-        isValid: passes && validUrls,
+        isValid: passes,
         errors: {
           ...validation.errors.all(),
           personalWebsitesUrls: state.errors.personalWebsitesUrls,

@@ -31,11 +31,9 @@ const mapDispatch = dispatch =>
     validateProfileForm: actions.validateProfileForm,
   }, dispatch);
 
-
 const mapStateToProps = state => ({
   user: selectUser(state),
 });
-
 
 class ProfileGeneralInfoPage extends PureComponent {
   constructor(props) {

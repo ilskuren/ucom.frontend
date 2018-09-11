@@ -31,7 +31,6 @@ const mapDispatch = dispatch =>
     clearErrors: actions.clearErrors,
   }, dispatch);
 
-
 const mapStateToProps = state => ({
   user: selectUser(state),
 });
@@ -185,42 +184,82 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Work">
                 <InfoBlock title="Work">
                   <div className="list">
-                    {userJobs.map((item, index) => (
-                      <div className="list__item" key={index}>
+                  <div className="list__item" key={0}>
+                      <div className="profile__block">
+                        <TextInput
+                          label="Work place"
+                          value={userJobs[0].title}
+                          onChange={this.makeChangeJobItemHandler('title', 0)}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <TextInput
+                          label="Position"
+                          value={userJobs[0].position}
+                          onChange={this.makeChangeJobItemHandler('position', 0)}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <DateInput
+                          label="Started date"
+                          value={userJobs[0].startDate}
+                          onChange={this.makeChangeJobItemHandler('startDate', 0)}
+                        />
+                      </div>
+                      <div className="profile__block">
+                        <DateInput
+                          label="Ended date"
+                          value={userJobs[0].endDate}
+                          onChange={this.makeChangeJobItemHandler('endDate', 0)}
+                        />
+                      </div>
+                      {Array.isArray(userJobs) && userJobs.length > 1 && (
+                        <div className="profile__block">
+                          <Button
+                            theme="transparent"
+                            size="small"
+                            onClick={this.makeRemoveJobItemHandler(0)}
+                            text="Remove"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {Array.isArray(userJobs) && userJobs.slice(1).map((item, index) => (
+                      <div className="list__item" key={index + 1}>
                         <div className="profile__block">
                           <TextInput
                             label="Work place"
                             value={item.title}
-                            onChange={this.makeChangeJobItemHandler('title', index)}
+                            onChange={this.makeChangeJobItemHandler('title', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <TextInput
                             label="Position"
                             value={item.position}
-                            onChange={this.makeChangeJobItemHandler('position', index)}
+                            onChange={this.makeChangeJobItemHandler('position', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <DateInput
                             label="Started date"
                             value={item.startDate}
-                            onChange={this.makeChangeJobItemHandler('startDate', index)}
+                            onChange={this.makeChangeJobItemHandler('startDate', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <DateInput
                             label="Ended date"
                             value={item.endDate}
-                            onChange={this.makeChangeJobItemHandler('endDate', index)}
+                            onChange={this.makeChangeJobItemHandler('endDate', index + 1)}
                           />
                         </div>
-                        {userJobs.length !== 1 && (
+                        {Array.isArray(userJobs) && (
                           <div className="profile__block">
                             <Button
                               theme="transparent"
                               size="small"
-                              onClick={this.makeRemoveJobItemHandler(index)}
+                              onClick={this.makeRemoveJobItemHandler(index + 1)}
                               text="Remove"
                             />
                           </div>
@@ -245,41 +284,88 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Education">
                 <InfoBlock title="Education">
                   <div className="list">
-                    {userEducations.map((item, index) => (
-                      <div className="list__item" key={index}>
+                  <div className="list__item" key={0}>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Education"
+                        value={userEducations[0].title}
+                        onChange={this.makeChangeEducationItemHandler('title', 0)}
+                      />
+                    </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Spec"
+                        value={userEducations[0].speciality}
+                        onChange={this.makeChangeEducationItemHandler('speciality', 0)}
+                      />
+                    </div>
+                    <div className="profile__block">
+                      <TextInput
+                        label="Level"
+                        value={userEducations[0].degree}
+                        onChange={this.makeChangeEducationItemHandler('degree', 0)}
+                      />
+                    </div>
+                    <div className="profile__block">
+                      <DateInput
+                        label="Started date"
+                        value={userEducations[0].startDate}
+                        onChange={this.makeChangeEducationItemHandler('startDate', 0)}
+                      />
+                    </div>
+                    <div className="profile__block">
+                      <DateInput
+                        label="Ended date"
+                        value={userEducations[0].endDate}
+                        onChange={this.makeChangeEducationItemHandler('endDate', 0)}
+                      />
+                    </div>
+                    {Array.isArray(userEducations) && (
+                      <div className="profile__block">
+                        <Button
+                          theme="transparent"
+                          size="small"
+                          text="Remove"
+                          onClick={this.makeRemoveEducationItemHandler(0)}
+                        />
+                      </div>
+                    )}
+                    </div>
+                    {userEducations.slice(1).map((item, index) => (
+                      <div className="list__item" key={index + 1}>
                         <div className="profile__block">
                           <TextInput
                             label="Education"
                             value={item.title}
-                            onChange={this.makeChangeEducationItemHandler('title', index)}
+                            onChange={this.makeChangeEducationItemHandler('title', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <TextInput
                             label="Spec"
                             value={item.speciality}
-                            onChange={this.makeChangeEducationItemHandler('speciality', index)}
+                            onChange={this.makeChangeEducationItemHandler('speciality', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <TextInput
                             label="Level"
                             value={item.degree}
-                            onChange={this.makeChangeEducationItemHandler('degree', index)}
+                            onChange={this.makeChangeEducationItemHandler('degree', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <DateInput
                             label="Started date"
                             value={item.startDate}
-                            onChange={this.makeChangeEducationItemHandler('startDate', index)}
+                            onChange={this.makeChangeEducationItemHandler('startDate', index + 1)}
                           />
                         </div>
                         <div className="profile__block">
                           <DateInput
                             label="Ended date"
                             value={item.endDate}
-                            onChange={this.makeChangeEducationItemHandler('endDate', index)}
+                            onChange={this.makeChangeEducationItemHandler('endDate', index + 1)}
                           />
                         </div>
                         {userEducations.length !== 1 && (
@@ -288,7 +374,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
                               theme="transparent"
                               size="small"
                               text="Remove"
-                              onClick={this.makeRemoveEducationItemHandler(index)}
+                              onClick={this.makeRemoveEducationItemHandler(index + 1)}
                             />
                           </div>
                         )}
@@ -335,6 +421,5 @@ ProfileWorkAndEducationPage.propTypes = {
   removeUserJobItem: PropTypes.func,
   validateProfileForm: PropTypes.func,
 };
-
 
 export default connect(mapStateToProps, mapDispatch)(ProfileWorkAndEducationPage);

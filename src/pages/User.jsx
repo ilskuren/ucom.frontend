@@ -13,7 +13,7 @@ import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import { getUser, getUserPosts } from '../api';
-import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl } from '../utils/user';
+import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import { getPostUrl } from '../utils/posts';
@@ -159,7 +159,7 @@ class UserPage extends PureComponent {
                             <div className="inline inline_large">
                               <div className="inline__item">
                                 <FollowButton
-                                  follow={this.state.user.myselfData && this.state.user.myselfData.follow}
+                                  follow={this.state.user.myselfData ? this.state.user.myselfData.follow : userIsFollowed(this.state.user.followedBy, this.props.user.id)}
                                   userId={this.state.user.id}
                                 />
                               </div>

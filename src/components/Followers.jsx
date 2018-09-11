@@ -81,7 +81,7 @@ class Followers extends PureComponent {
               <div className="avatars-list avatars-list_dual">
                 {avatarUsers.map(item => (
                   <div className="avatars-list__item" key={item.id}>
-                    <Avatar borderWhite size="xsmall" src={getFileUrl(item.avatar_filename)} />
+                    <Avatar borderWhite size="xsmall" src={getFileUrl(item.avatarFilename)} />
                   </div>
                 ))}
               </div>

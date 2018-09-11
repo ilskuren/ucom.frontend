@@ -109,7 +109,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        @{this.state.user.accounName}
+                        @{this.state.user.accountName}
                       </div>
 
                       <div className="user-header__info">
@@ -243,9 +243,9 @@ class UserPage extends PureComponent {
                           {[0, 0, 0, 0, 0, 0].map((_, index) => (
                             <li key={index} className="app-list__item">
                               <div className="app-list__avatar">
-                                <Avatar square size="small" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+                                <Avatar rounded square size="small" />
                               </div>
-                              <div className="app-list__name">Dribbble</div>
+                              <div className="app-list__name"><span className="blank">Loremi1a</span></div>
                             </li>
                           ))}
                         </ul>

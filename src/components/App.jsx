@@ -9,7 +9,7 @@ import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
 import EventsPage from '../pages/Events';
-import UsersPage from '../pages/UsersPage';
+import UsersPage from '../pages/Users';
 import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
 import NotFoundPage from '../pages/NotFoundPage';

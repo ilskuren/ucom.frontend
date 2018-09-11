@@ -74,12 +74,12 @@ class PostsTable extends PureComponent {
                   sortable: true,
                 }, {
                   title: 'Views',
-                  name: 'views',
+                  name: 'views_count',
                   sortable: false,
                 }, {
                   title: 'Comments',
                   name: 'comments_count',
-                  sortable: true,
+                  sortable: false,
                 }, {
                   title: 'Rate',
                   name: 'current_rate',
@@ -130,7 +130,7 @@ class PostsTable extends PureComponent {
                       sign="#"
                     />
                   </td>
-                  <td className="list-table__cell" data-title="Views">{item.views || '—'}</td>
+                  <td className="list-table__cell" data-title="Views">{item.viewsCount || '—'}</td>
                   <td className="list-table__cell" data-title="Comments">{item.commentsCount || '—'}</td>
                   <td className="list-table__cell" data-title="Rate">
                     <span className="title title_xsmall title_light">{item.currentRate}°</span>

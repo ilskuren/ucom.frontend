@@ -50,7 +50,7 @@ class EventsPage extends PureComponent {
                 <tbody className="list-table__body">
                   {this.state.users.map((item, index) => (
                     <tr className="list-table__row" key={item.id}>
-                      <td className="list-table__cell list-table__cell_index">{index}</td>
+                      <td className="list-table__cell list-table__cell_index">{index + 1}</td>
                       <td className="list-table__cell list-table__cell_name" data-title="Name">
                         <UserCard
                           squareAvatar

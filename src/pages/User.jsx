@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import moment from 'moment';
 import { sortBy } from 'lodash';
 import { connect } from 'react-redux';
@@ -59,6 +60,8 @@ class UserPage extends PureComponent {
   }
 
   render() {
+    const user = humps(this.props.user);
+
     return (
       <div className="content">
         <div className="content__inner">
@@ -163,18 +166,21 @@ class UserPage extends PureComponent {
                                   userId={this.state.user.id}
                                 />
                               </div>
-                              <div className="inline__item">
-                                <div className="inline inline_small">
-                                  <div className="inline__item">
-                                    Trusted you
-                                  </div>
-                                  <div className="inline__item">
-                                    <span className="icon">
-                                      <IconInfo />
-                                    </span>
+
+                              {userIsFollowed(user.iFollow, this.state.user.id) && userIsFollowed(this.state.user.iFollow, user.id) ? (
+                                <div className="inline__item">
+                                  <div className="inline inline_small">
+                                    <div className="inline__item">
+                                      Trusted you
+                                    </div>
+                                    <div className="inline__item">
+                                      <span className="icon">
+                                        <IconInfo />
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
+                              ) : null}
                             </div>
                           )}
                         </div>

@@ -79,7 +79,7 @@ class PostsTable extends PureComponent {
                 }, {
                   title: 'Comments',
                   name: 'comments_count',
-                  sortable: false,
+                  sortable: true,
                 }, {
                   title: 'Rate',
                   name: 'current_rate',

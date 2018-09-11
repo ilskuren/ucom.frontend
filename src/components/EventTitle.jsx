@@ -9,7 +9,7 @@ import Avatar from './Avatar';
 import Tags from './Tags';
 import Avatars from './Avatars';
 import TimeCounter from './TimeCounter';
-import Shared from './Shared';
+import Share from './Share';
 import { getFileUrl } from '../utils/upload';
 import { getOfferEditUrl } from '../utils/offer';
 import { join } from '../api';
@@ -72,7 +72,7 @@ class EventTitle extends PureComponent {
                 <div className="toolbar__side">
                   <div className="inline">
                     <div className="inline__item">
-                      <Shared />
+                      <Share isRounded />
                     </div>
                     {(this.props.user.id && this.props.user.id === this.props.userId) && (
                       <div className="inline__item">

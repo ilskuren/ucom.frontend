@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import humps from 'lodash-humps';
 import React, { PureComponent } from 'react';
@@ -12,39 +13,51 @@ class PostsTable extends PureComponent {
     super(props);
 
     this.state = {
-      posts: [],
+      page: 0,
       hasMore: true,
-    };
-
-    this.params = {
-      page: 1,
-      post_type_id: this.props.postTypeId,
+      sortBy: '-current_rate',
+      posts: [],
     };
   }
 
   componentDidMount() {
-    this.loadMore(this.params);
+    this.loadMore();
   }
 
-  loadMore(params) {
-    return getPosts(params)
+  loadMore() {
+    const params = {
+      page: this.state.page + 1,
+      post_type_id: this.props.postTypeId,
+      sort_by: this.state.sortBy,
+    };
+
+    getPosts(params)
       .then(humps)
       .then((data) => {
         this.setState(prevState => ({
           posts: prevState.posts.concat(data.data),
           hasMore: data.metadata.hasMore,
+          page: params.page,
         }));
       });
   }
 
-  showMore() {
-    const params = Object.assign({}, this.params, {
-      page: this.params.page + 1,
-    });
+  changeSort(sortBy) {
+    const params = {
+      page: 1,
+      post_type_id: this.props.postTypeId,
+      sort_by: sortBy,
+    };
 
-    this.loadMore(params)
-      .then(() => {
-        this.params = params;
+    getPosts(params)
+      .then(humps)
+      .then((data) => {
+        this.setState({
+          posts: data.data,
+          hasMore: data.metadata.hasMore,
+          sortBy,
+          page: 1,
+        });
       });
   }
 
@@ -55,19 +68,53 @@ class PostsTable extends PureComponent {
           <table className="list-table list-table_evetns list-table_responsive">
             <thead className="list-table__head">
               <tr className="list-table__row">
-                <td className="list-table__cell list-table__cell_sortable">
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      Name
+                {[{
+                  title: 'Name',
+                  name: 'title',
+                  sortable: true,
+                }, {
+                  title: 'Views',
+                  name: 'views',
+                  sortable: false,
+                }, {
+                  title: 'Comments',
+                  name: 'comments_count',
+                  sortable: true,
+                }, {
+                  title: 'Rate',
+                  name: 'current_rate',
+                  sortable: true,
+                }].map(item => (
+                  <td
+                    key={item.name}
+                    role="presentation"
+                    className={classNames(
+                      'list-table__cell',
+                      { 'list-table__cell_sortable': item.sortable },
+                    )}
+                    onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '+' : '-'}${item.name}`)}
+                  >
+                    <div className="inline inline_small">
+                      <div className="inline__item">{item.title}</div>
+
+                      {this.state.sortBy === `-${item.name}` && (
+                        <div className="inline__item">
+                          <div className="list-table__sort-icon">
+                            <IconTableTriangle />
+                          </div>
+                        </div>
+                      )}
+
+                      {this.state.sortBy === `+${item.name}` && (
+                        <div className="inline__item">
+                          <div className="list-table__sort-icon list-table__sort-icon_flip">
+                            <IconTableTriangle />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div className="inline__item">
-                      <IconTableTriangle />
-                    </div>
-                  </div>
-                </td>
-                <td className="list-table__cell">Views</td>
-                <td className="list-table__cell">Comments</td>
-                <td className="list-table__cell">Rate</td>
+                  </td>
+                ))}
               </tr>
             </thead>
             <tbody className="list-table__body">
@@ -83,10 +130,8 @@ class PostsTable extends PureComponent {
                       sign="#"
                     />
                   </td>
-                  <td className="list-table__cell" data-title="Views">
-                    —
-                  </td>
-                  <td className="list-table__cell" data-title="Comments">123212</td>
+                  <td className="list-table__cell" data-title="Views">{item.views || '—'}</td>
+                  <td className="list-table__cell" data-title="Comments">{item.commentsCount || '—'}</td>
                   <td className="list-table__cell" data-title="Rate">
                     <span className="title title_xsmall title_light">{item.currentRate}°</span>
                   </td>
@@ -100,7 +145,7 @@ class PostsTable extends PureComponent {
           <div className="table-content__showmore">
             <button
               className="button-clean button-clean_link"
-              onClick={() => this.showMore()}
+              onClick={() => this.loadMore()}
             >
               Show More
             </button>

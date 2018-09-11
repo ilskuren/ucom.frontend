@@ -130,8 +130,8 @@ class PostsTable extends PureComponent {
                       sign="#"
                     />
                   </td>
-                  <td className="list-table__cell" data-title="Views">{item.viewsCount || '—'}</td>
-                  <td className="list-table__cell" data-title="Comments">{item.commentsCount || '—'}</td>
+                  <td className="list-table__cell" data-title="Views">{(item.postStats && item.postStats.viewsCount) || '—'}</td>
+                  <td className="list-table__cell" data-title="Comments">{(item.postStats && item.postStats.commentsCount) || '—'}</td>
                   <td className="list-table__cell" data-title="Rate">
                     <span className="title title_xsmall title_light">{item.currentRate}°</span>
                   </td>

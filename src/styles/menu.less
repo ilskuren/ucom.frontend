@@ -154,3 +154,15 @@
     display: flex;
   }
 }
+
+.menu_header {
+  .menu__link {
+    transition: color 0.2s ease;
+
+    &:hover,
+    &_active, {
+      color: @red;
+      text-decoration: none;
+    }
+  }
+}

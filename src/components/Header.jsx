@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -48,7 +49,7 @@ class Header extends PureComponent {
                 </Popup>
               )}
 
-              <nav className="menu menu_responsive">
+              <nav className="menu menu_responsive menu_header">
                 <div className="menu__item">
                   <a href="/" className="menu__link">
                     <IconLogo />
@@ -71,9 +72,11 @@ class Header extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <button className="button-clean button-clean_link" onClick={() => this.logout()}>
-                  <strong>Logout</strong>
-                </button>
+                <nav className="menu menu_responsive menu_header">
+                  <div className="menu__item">
+                    <button className="menu__link menu__link_upper" onClick={() => this.logout()}>Logout</button>
+                  </div>
+                </nav>
               </div>
 
               <div className="inline__item">
@@ -105,31 +108,80 @@ class Header extends PureComponent {
         </div>
 
         <div className="header__main">
-          <nav className="menu menu_responsive">
+          <nav className="menu menu_responsive menu_header">
             <div className="menu__item">
-              <Link to="/" className="menu__link menu__link_upper">U.Community</Link>
+              <NavLink
+                to="/"
+                className="menu__link menu__link_upper"
+                activeClassName="menu__link_active"
+                isActive={() => this.props.location.pathname === '/'}
+              >
+                U.Community
+              </NavLink>
             </div>
             {this.props.user.id && (
               <Fragment>
                 <div className="menu__item">
-                  <Link to="/posts/new/1" className="menu__link menu__link_upper">Create Post</Link>
+                  <NavLink
+                    to="/posts/new/1"
+                    className="menu__link menu__link_upper"
+                    activeClassName="menu__link_active"
+                    isActive={() => this.props.location.pathname === '/posts/new/1'}
+                  >
+                    Create Post
+                  </NavLink>
                 </div>
                 <div className="menu__item">
-                  <Link to="/posts/new/2" className="menu__link menu__link_upper">Create Event</Link>
+                  <NavLink
+                    to="/posts/new/2"
+                    className="menu__link menu__link_upper"
+                    activeClassName="menu__link_active"
+                    isActive={() => this.props.location.pathname === '/posts/new/2'}
+                  >
+                    Create Event
+                  </NavLink>
                 </div>
               </Fragment>
             )}
             <div className="menu__item">
-              <Link to="/users" className="menu__link menu__link_upper">People</Link>
+              <NavLink
+                to="/users"
+                className="menu__link menu__link_upper"
+                activeClassName="menu__link_active"
+                isActive={() => this.props.location.pathname === '/users'}
+              >
+                People
+              </NavLink>
             </div>
             <div className="menu__item">
-              <Link to="/organizations" className="menu__link menu__link_upper">Organizations</Link>
+              <NavLink
+                to="/organizations"
+                className="menu__link menu__link_upper"
+                activeClassName="menu__link_active"
+                isActive={() => this.props.location.pathname === '/organizations'}
+              >
+                Organizations
+              </NavLink>
             </div>
             <div className="menu__item">
-              <Link to="/products" className="menu__link menu__link_upper">Products</Link>
+              <NavLink
+                to="/products"
+                className="menu__link menu__link_upper"
+                activeClassName="menu__link_active"
+                isActive={() => this.props.location.pathname === '/products'}
+              >
+                Products
+              </NavLink>
             </div>
             <div className="menu__item">
-              <Link to="/events/media" className="menu__link menu__link_upper">Events</Link>
+              <NavLink
+                to="/events/media"
+                className="menu__link menu__link_upper"
+                activeClassName="menu__link_active"
+                isActive={() => this.props.location.pathname.indexOf('/events') === 0}
+              >
+                Events
+              </NavLink>
             </div>
             <div className="menu__item">
               <button className="button-icon">
@@ -148,11 +200,11 @@ Header.propTypes = {
   removeUser: PropTypes.func,
 };
 
-export default connect(
+export default withRouter(connect(
   state => ({
     user: state.user,
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
   }),
-)(Header);
+)(Header));

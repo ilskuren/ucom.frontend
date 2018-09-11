@@ -13,6 +13,7 @@ import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { convertClientUsersEducation, convertClientUsersJobs } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
@@ -29,6 +30,7 @@ const mapDispatch = dispatch =>
     changeUserField: actions.changeUserField,
     validateProfileForm: actions.validateProfileForm,
     clearErrors: actions.clearErrors,
+    setUser: actions.setUser,
   }, dispatch);
 
 
@@ -64,12 +66,11 @@ class ProfileWorkAndEducationPage extends PureComponent {
   save() {
     const token = getToken();
     const { user } = this.props;
-
     const data = {
-      firstCurrency: user.firstCurrency,
-      firstCurrencyYear: user.firstCurrencyYear,
-      userJobs: user.userJobs,
-      userEducations: user.userEducations,
+      first_currency: user.firstCurrency,
+      first_currency_year: user.firstCurrencyYear,
+      users_jobs: convertClientUsersJobs(user.userJobs),
+      users_education: convertClientUsersEducation(user.userEducations),
     };
 
     this.setState({ loading: true });

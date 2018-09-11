@@ -26,23 +26,23 @@ function convertServerUsersEducation(educationInfo) {
   }));
 }
 
-function convertClientUsersEducation(educationInfo) {
+export function convertClientUsersEducation(educationInfo) {
   if (educationInfo.length === 0) { return []; }
   return educationInfo.map(education => ({
     id: education.id,
-    user_id: education.user_id,
+    user_id: education.userId,
     title: education.title,
     speciality: education.speciality,
-    createdAt: education.created_at,
-    updatedAt: education.updated_at,
-    startDate: education.start_date,
-    endDate: education.end_date,
+    created_at: education.createdAt,
+    updated_at: education.updatedAt,
+    start_date: education.startDate,
+    end_date: education.endDate,
     degree: education.degree,
-    isCurrent: education.is_current,
+    is_current: education.isCurrent,
   }));
 }
 
-function convertServerUsersLobs(jobsInfo) {
+export function convertServerUsersJobs(jobsInfo) {
   if (jobsInfo.length === 0) { return []; }
   return jobsInfo.map(job => ({
     id: job.id,
@@ -57,7 +57,7 @@ function convertServerUsersLobs(jobsInfo) {
   }));
 }
 
-function convertClientUsersLobs(jobsInfo) {
+export function convertClientUsersJobs(jobsInfo) {
   if (jobsInfo.length === 0) { return []; }
   return jobsInfo.map(job => ({
     id: job.id,
@@ -127,7 +127,7 @@ export function convertServerUser(response) {
     createdAt: response.created_at,
     updatedAt: response.updated_at,
     userEducations: response.users_education ? convertServerUsersEducation(response.users_education) : [],
-    userJobs: response.users_jobs ? convertServerUsersLobs(response.users_jobs) : [],
+    userJobs: response.users_jobs ? convertServerUsersJobs(response.users_jobs) : [],
     usersSources: response.users_sources ? convertServerUsersSources(response.users_sources) : [],
     iFollow: response.I_follow ? convertServerFollow(response.I_follow) : [],
     followedBy: response.followed_by ? convertServerFollow(response.followed_by) : [],
@@ -163,7 +163,7 @@ export function convertClientUser(userData) {
     created_at: userData.createdAt,
     updated_at: userData.updatedAt,
     users_education: convertClientUsersEducation(userData.userEducations),
-    users_jobs: convertClientUsersLobs(userData.userJobs),
+    users_jobs: convertClientUsersJobs(userData.userJobs),
     users_sources: convertClientUsersSources(userData.usersSources),
     I_follow: convertClientFollow(userData.iFollow),
     followed_by: convertClientFollow(userData.followedBy),

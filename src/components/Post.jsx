@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import IconComment from './Icons/Comment';
-import IconShare from './Icons/Share';
+import Share from './Share';
 import Rating from './Rating';
 import UserCard from './UserCard';
 
@@ -91,7 +91,7 @@ const Post = props => (
       </div>
     </div> */}
 
-    {props.postId && (
+    {true && (
       <div className="post__footer">
         <div className="toolbar">
           <div className="toolbar__main">
@@ -107,16 +107,7 @@ const Post = props => (
             </button>
           </div>
           <div className="toolbar__side">
-            <button className="button-clean">
-              <span className="inline inline_small">
-                <span className="inline__item">
-                  <span className="post__icon">
-                    <IconShare />
-                  </span>
-                </span>
-                <span className="inline__item">Share</span>
-              </span>
-            </button>
+            <Share />
           </div>
         </div>
       </div>

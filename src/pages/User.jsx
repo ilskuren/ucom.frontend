@@ -109,7 +109,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        @{this.state.user.accounName}
+                        @{this.state.user.accountName}
                       </div>
 
                       <div className="user-header__info">

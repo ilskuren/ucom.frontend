@@ -152,9 +152,9 @@ class EventTitle extends PureComponent {
                   <div className="inline">
                     <div className="inline__item">
                       <div className="event-title__footer-board">
-                        <Avatars list={this.props.team} orderStacking="fifo" distance="close" size="msmall" />
+                        <Avatars list={this.props.team} orderStacking="fifo" distance="close" />
+                        <div className="event-title__avatar-name">BOARD</div>
                       </div>
-                      <div className="event-title__name">BOARD</div>
                     </div>
                   </div>
                 </div>

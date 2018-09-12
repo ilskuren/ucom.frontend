@@ -130,7 +130,7 @@ class Auth extends PureComponent {
             <div className="auth__action">
               <button
                 type="submit"
-                className="button button_theme_red button_size_big button_stretched"
+                className="button button_upper button_theme_red button_size_big button_stretched"
                 disabled={this.state.loading}
               >
                 Log in

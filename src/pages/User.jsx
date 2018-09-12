@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import moment from 'moment';
 import { sortBy } from 'lodash';
 import { connect } from 'react-redux';
@@ -13,7 +14,7 @@ import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import { getUser, getUserPosts } from '../api';
-import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl } from '../utils/user';
+import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import { getPostUrl } from '../utils/posts';
@@ -59,6 +60,8 @@ class UserPage extends PureComponent {
   }
 
   render() {
+    const user = humps(this.props.user);
+
     return (
       <div className="content">
         <div className="content__inner">
@@ -109,7 +112,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        @{this.state.user.accounName}
+                        @{this.state.user.accountName}
                       </div>
 
                       <div className="user-header__info">
@@ -159,22 +162,25 @@ class UserPage extends PureComponent {
                             <div className="inline inline_large">
                               <div className="inline__item">
                                 <FollowButton
-                                  follow={this.state.user.myselfData && this.state.user.myselfData.follow}
+                                  follow={this.state.user.myselfData ? this.state.user.myselfData.follow : userIsFollowed(this.state.user.followedBy, this.props.user.id)}
                                   userId={this.state.user.id}
                                 />
                               </div>
-                              <div className="inline__item">
-                                <div className="inline inline_small">
-                                  <div className="inline__item">
-                                    Trusted you
-                                  </div>
-                                  <div className="inline__item">
-                                    <span className="icon">
-                                      <IconInfo />
-                                    </span>
+
+                              {userIsFollowed(user.iFollow, this.state.user.id) && userIsFollowed(this.state.user.iFollow, user.id) ? (
+                                <div className="inline__item">
+                                  <div className="inline inline_small">
+                                    <div className="inline__item">
+                                      Trusted you
+                                    </div>
+                                    <div className="inline__item">
+                                      <span className="icon">
+                                        <IconInfo />
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
+                              ) : null}
                             </div>
                           )}
                         </div>
@@ -243,9 +249,9 @@ class UserPage extends PureComponent {
                           {[0, 0, 0, 0, 0, 0].map((_, index) => (
                             <li key={index} className="app-list__item">
                               <div className="app-list__avatar">
-                                <Avatar square size="small" src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" />
+                                <Avatar rounded square size="small" />
                               </div>
-                              <div className="app-list__name">Dribbble</div>
+                              <div className="app-list__name"><span className="blank">Loremi1a</span></div>
                             </li>
                           ))}
                         </ul>

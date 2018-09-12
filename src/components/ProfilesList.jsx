@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserCard from './UserCard';
-import Button from './Button';
 import Rate from './Rate';
+import FollowButton from './FollowButton';
 
 const renderProfilesRow = ({
-  id, userName, accountName, avatarUrl, rate, profileLink,
+  id, userName, accountName, avatarUrl, rate, profileLink, follow,
 }) => (
   <div className="profiles-list__row" key={id}>
     <div className="profiles-list__user">
@@ -21,12 +21,9 @@ const renderProfilesRow = ({
       <Rate value={rate} className="rate_profile rate_right rate_color_black" />
 
       <div className="profiles-list__button">
-        <Button
-          isStretched
-          withCheckedIcon={false}
-          text="Follow"
-          size="small"
-          theme="transparent"
+        <FollowButton
+          follow={follow}
+          userId={id}
         />
       </div>
     </div>

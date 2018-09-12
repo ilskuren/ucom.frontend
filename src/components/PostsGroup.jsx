@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import PostCard from './PostCard';
 import PostItem from './PostItem';
-import { getPostUrl } from '../utils/posts';
+import { getPostUrl, getPostTypeById } from '../utils/posts';
 import { getFileUrl } from '../utils/upload';
-import { getUserUrl } from '../utils/user';
+import { getUserUrl, getUserName } from '../utils/user';
 
 const PostsGroup = (props) => {
   let { posts } = props;
@@ -21,13 +21,16 @@ const PostsGroup = (props) => {
         <div className="grid grid_main-post">
           <div className="grid__item">
             <PostCard
-              coverUrl={getFileUrl(mainPost.main_image_filename)}
-              rate={mainPost.current_rate}
+              coverUrl={getFileUrl(mainPost.mainImageFilename)}
+              rate={mainPost.currentRate}
               title={mainPost.title}
               url={getPostUrl(mainPost.id)}
-              userUrl={getUserUrl(mainPost.User && mainPost.User.id)}
-              userImageUrl={getFileUrl(mainPost.User && mainPost.User.avatar_filename)}
-              tags={mainPost.id ? ['story'] : null}
+              userUrl={getUserUrl(mainPost.user && mainPost.user.id)}
+              userImageUrl={getFileUrl(mainPost.user && mainPost.user.avatarFilename)}
+              userName={getUserName(mainPost.user)}
+              accountName={mainPost.user && mainPost.user.accountName}
+              tags={[getPostTypeById(mainPost.postTypeId)]}
+              commentsCount={mainPost.commentsCount}
             />
           </div>
 
@@ -35,9 +38,9 @@ const PostsGroup = (props) => {
             <div className="grid__item" key={post.id || index}>
               <PostItem
                 title={post.title}
-                rate={post.current_rate}
+                rate={post.currentRate}
                 url={getPostUrl(post.id)}
-                tags={post.id ? ['story'] : null}
+                tags={[getPostTypeById(post.postTypeId)]}
               />
             </div>
           ))}
@@ -50,10 +53,10 @@ const PostsGroup = (props) => {
             <div className="grid__item" key={post.id || index}>
               <PostItem
                 title={post.title}
-                rate={post.current_rate}
+                rate={post.currentRate}
                 url={getPostUrl(post.id)}
-                coverImg={getFileUrl(post.main_image_filename)}
-                tags={post.id ? ['story'] : null}
+                coverImg={getFileUrl(post.mainImageFilename)}
+                tags={[getPostTypeById(post.postTypeId)]}
               />
             </div>
           ))}

@@ -13,7 +13,6 @@ import { getUsers, getPosts, getUserPosts } from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl } from '../utils/posts';
-import { getToken } from '../utils/token';
 
 class HomePage extends PureComponent {
   constructor(props) {
@@ -34,7 +33,7 @@ class HomePage extends PureComponent {
   getData() {
     const promises = [
       getUsers(),
-      getPosts(undefined, getToken()),
+      getPosts(),
       this.props.user.id ? getUserPosts(this.props.user.id) : null,
     ];
 

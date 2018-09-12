@@ -135,12 +135,8 @@ export const getUserPosts = id => (
     .then(resp => resp.json())
 );
 
-export const getPosts = (params, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
+export const getPosts = params => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`)
     .then(resp => resp.json())
 );
 

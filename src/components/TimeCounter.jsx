@@ -46,7 +46,7 @@ class TimeCounter extends PureComponent {
   render() {
     const { yearsLeft, daysLeft, timeLeft } = this.state;
     return (
-      <div className="time-counter inline inline_large">
+      <div className="time-counter inline">
         {yearsLeft > 0 && (
           <div className="inline__item">
             <div className="time-counter__time">
@@ -66,7 +66,7 @@ class TimeCounter extends PureComponent {
         {timeLeft && (
           <div className="inline__item">
             <div className="time-counter__time">
-              <div className="time-counter__value">{timeLeft}</div>
+              <div className="time-counter__value time-counter__value_wide">{timeLeft}</div>
               <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
             </div>
           </div>

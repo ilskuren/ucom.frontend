@@ -12,28 +12,16 @@
     opacity: 0.6;
   }
 
-  &:after {
-    content: '';
-    display: block;
-    padding-top: 320px;
-    @media (max-width: 767px) {
-      padding-top: 480px;
-    }
-  }
-
   &__inner {
-    position: absolute;
     z-index: 0;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 18px;
+    padding-bottom: 10px;
 
     @media (max-width: 1023px) {
       padding-left: 60px;
@@ -100,7 +88,9 @@
   &__text {
     font-size: 2rem;
     font-weight: bold;
+    word-break: break-word;
     line-height: 1.22;
+    padding-bottom: 10px;
     @media (max-width: 767px) {
       font-size: 1.6rem;
     }
@@ -122,7 +112,8 @@
     }
   }
 
-  &__name {
+  &__avatar-name {
+    margin-top: 10px;
     font-size: 0.714rem;
     opacity: 0.6;
   }
@@ -144,15 +135,14 @@
 
   &__button {
     min-width: 160px;
+    margin: 0 16px 0 0;
     @media (max-width: 767px) {
-      margin-top: 0;
       max-width: 160px;
     }
   }
 
   &__footer-board {
-    margin-bottom: 0.5rem;
-    display: flex;
+    margin: 16px 0;
   }
 
   &__board-more {
@@ -176,6 +166,7 @@
   }
 
   &_high {
+    padding-bottom: 50px;
     &:after {
       padding-bottom: 40px;
     }
@@ -186,20 +177,19 @@
       position: absolute;
       background-color: #000;
       opacity: 0.6;
-      top: 75%;
+      top: calc(100% - 110px);
       left: 0;
       width: 100%;
       height: 100%;
-    }
 
-    @media (max-width: 767px) {
-      .event-title__inner {
-        height: 100%;
+      @media (max-width: 767px) {
+        top: calc(100% - 185px);
       }
     }
   }
 
   &_no-footer {
+    padding-bottom: 85px;
     &:after {
       @media (max-width: 767px) {
         padding-top: 320px;
@@ -209,21 +199,11 @@
     .event-title__footer {
       display: none;
     }
-
-    .event-title__cover {
-      height: calc(100% - 40px);
-    }
-
-    @media (max-width: 767px) {
-      .event-title__inner {
-        height: 100%;
-      }
-    }
   }
 
   &_big {
     @media (min-width: 767px) {
-      height: 600px;
+      min-height: 600px;
   
       & .event-title {
         &__inner {

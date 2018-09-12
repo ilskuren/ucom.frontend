@@ -18,7 +18,7 @@ const renderProfilesRow = ({
       />
     </div>
     <div className="profiles-list__info">
-      <Rate value={rate} className="rate_profile rate_right" />
+      <Rate value={rate} className="rate_profile rate_right rate_color_black" />
 
       <div className="profiles-list__button">
         <FollowButton
@@ -46,6 +46,7 @@ renderProfilesRow.propTypes = {
   avatarUrl: PropTypes.string,
   rate: PropTypes.string,
   profileLink: PropTypes.string,
+  follow: PropTypes.bool,
 };
 
 ProfilesList.propTypes = {

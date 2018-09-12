@@ -25,14 +25,14 @@ const MyProfileEventsPage = () => (
       <div className="my-profile-list__sheet my-profile-list__sheet_shift_large">
         <EventTitle
           imgSrc={dunkirkImg}
-          className="event-title_high event-title_no-footer"
+          className="event-title_no-footer"
           title="See how Christopher Nolan filmed those incredible Dunkirk aerial sequences"
           tags={['story']}
           rate={9200}
           daysLeft={12}
         />
       </div>
-      <div className="my-profile-list__sheet my-profile-list__sheet_shift_small">
+      <div className="my-profile-list__sheet my-profile-list__sheet_shift">
         <EventTitle
           imgSrc={burgerImg}
           className="event-title_high"
@@ -57,7 +57,7 @@ const MyProfileEventsPage = () => (
           actionButtonTitle="Buy now"
         />
       </div>
-      <div className="my-profile-list__sheet my-profile-list__sheet_shift_medium">
+      <div className="my-profile-list__sheet my-profile-list__sheet_shift_large">
         <EventTitle
           imgSrc={bladeRunner}
           title="Why You're All Wrong And Blade Runner 2049 was Brilliant, Dammit"

@@ -92,6 +92,7 @@ class Comments extends PureComponent {
 Comments.propTypes = {
   id: PropTypes.number,
   userName: PropTypes.string,
+  userUrl: PropTypes.string,
   avatar: PropTypes.string,
   accountName: PropTypes.string,
   description: PropTypes.string,

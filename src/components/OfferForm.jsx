@@ -232,12 +232,7 @@ class OfferForm extends PureComponent {
             />
 
             <div className="post-form__item">
-              <div
-                className={classNames(
-                  'post-form__editor',
-                  { 'post-form__editor_offer': this.state.base64Cover || this.props.post.data.main_image_filename },
-                )}
-              >
+              <div className="post-form__editor post-form__editor_offer">
                 <div className="post-form__content post-form__content_wide">
                   <div className="editor">
                     <div className="editor__item">

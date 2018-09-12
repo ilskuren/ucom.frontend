@@ -52,7 +52,7 @@ class PostForm extends PureComponent {
                     <span className="post-form__light">By</span>
                   </div>
                   <div className="inline__item">
-                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                   </div>
                   <div className="inline__item">
                     <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
@@ -186,7 +186,7 @@ class PostForm extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                       </div>
                       <span className="inline__item">
                         <span className="create-post__author-name">{getUserName(this.props.user)}</span>

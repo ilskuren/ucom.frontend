@@ -1,13 +1,13 @@
 import Validator from 'validatorjs';
 import * as rules from './../utils/validators/';
-import { validateArrayUrls } from './../utils/validators/custom';
+import { validateArrayUrls, isEmptyStrings } from './../utils/validators/custom';
 import { validatorRules } from './../utils/constants';
 
 rules.registerPhoneNumber.rule(Validator, /^[\d -]*$/);
 
 const getInitialState = () => ({
   errors: {
-    personalWebsitesUrls: {
+    userSources: {
       isValid: false,
       results: [],
     },
@@ -43,46 +43,50 @@ const user = (state = getInitialState(), action) => {
     }
 
     case 'ADD_USER_PERSONAL_SITE': {
-      const { personalWebsitesUrls } = state;
-      if (!Array.isArray(personalWebsitesUrls)) {
+      const { userSources } = state;
+      if (!Array.isArray(userSources)) {
         return {
           ...state,
-          personalWebsitesUrls: [personalWebsitesUrls].concat(''),
+          userSources: [userSources].concat({
+            sourceUrl: '',
+          }),
         };
       }
       return {
         ...state,
-        personalWebsitesUrls: state.personalWebsitesUrls.concat(''),
+        userSources: state.userSources.concat({
+          sourceUrl: '',
+        }),
       };
     }
 
     case 'REMOVE_USER_PERSONAL_SITE': {
       const index = action.payload;
 
-      const returnWebSitesUrls = () => {
-        const possibleNewWebSitesUrls = [
-          ...state.personalWebsitesUrls.slice(0, index),
-          ...state.personalWebsitesUrls.slice(index + 1),
+      const returnSources = () => {
+        const possibleNewSources = [
+          ...state.userSources.slice(0, index),
+          ...state.userSources.slice(index + 1),
         ];
 
-        if (possibleNewWebSitesUrls.length !== 0) {
-          return possibleNewWebSitesUrls;
+        if (possibleNewSources.length !== 0) {
+          return possibleNewSources;
         }
         return [
-          ...state.personalWebsitesUrls.slice(0, index),
-          ...state.personalWebsitesUrls.slice(index + 1),
+          ...state.userSources.slice(0, index),
+          ...state.userSources.slice(index + 1),
         ].concat('');
       };
 
       return {
         ...state,
-        personalWebsitesUrls: returnWebSitesUrls(),
+        userSources: returnSources(),
         errors: {
           ...state.errors,
-          personalWebsitesUrls: {
-            ...state.errors.personalWebsitesUrls,
+          userSources: {
+            ...state.errors.userSources,
             results: [
-              ...state.errors.personalWebsitesUrls.results.slice(0, -1),
+              ...state.errors.userSources.results.slice(0, -1),
             ],
           },
         },
@@ -91,27 +95,30 @@ const user = (state = getInitialState(), action) => {
 
     case 'CHANGE_USER_PERSONAL_SITE': {
       const { index, value } = action.payload;
-      const { personalWebsitesUrls } = state;
-      const returnWebSitesUrls = () => {
-        if (!Array.isArray(personalWebsitesUrls)) {
-          return [value];
+      const { userSources } = state;
+
+      const returnSources = () => {
+        if (!Array.isArray(userSources)) {
+          return [{ sourceUrl: value }];
         }
-        if (index > personalWebsitesUrls.length) {
-          return [...personalWebsitesUrls, value];
+        if (index > userSources.length) {
+          return [...userSources, { sourceUrl: value }];
         }
-        return personalWebsitesUrls.map((webSiteUrl, webSiteIndex) => (webSiteIndex === index ? value : webSiteUrl));
+        return userSources.map((source, sourceIndex) => (sourceIndex === index ? { ...source, sourceUrl: value } : source));
       };
 
       const data = {
-        personalWebsitesUrls: returnWebSitesUrls(),
+        userSources: returnSources(),
       };
+
+      const sourcesUrls = data.userSources.map(source => source.sourceUrl);
 
       return {
         ...state,
         ...data,
         errors: {
           ...state.errors,
-          personalWebsitesUrls: validateArrayUrls(data.personalWebsitesUrls),
+          userSources: isEmptyStrings(sourcesUrls) ? undefined : validateArrayUrls(sourcesUrls),
         },
       };
     }
@@ -277,15 +284,17 @@ const user = (state = getInitialState(), action) => {
     case 'VALIDATE_PROFILE_FORM': {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
-      const shouldValidateWebsitesUrls = action.payload === 'contactsRules';
-      if (shouldValidateWebsitesUrls) {
-        const validUrls = state.errors.personalWebsitesUrls && state.errors.personalWebsitesUrls.isValid;
+      const shouldValidateSources = action.payload === 'contactsRules';
+      if (shouldValidateSources) {
+        const sourcesUrls = state.userSources.map(source => source.sourceUrl);
+        const validUrls = state.errors.userSources
+          && (validateArrayUrls(sourcesUrls).isValid || isEmptyStrings(sourcesUrls));
         return {
           ...state,
           isValid: passes && validUrls,
           errors: {
             ...validation.errors.all(),
-            personalWebsitesUrls: state.errors.personalWebsitesUrls,
+            userSources: state.errors.userSources,
           },
         };
       }
@@ -294,7 +303,7 @@ const user = (state = getInitialState(), action) => {
         isValid: passes,
         errors: {
           ...validation.errors.all(),
-          personalWebsitesUrls: state.errors.personalWebsitesUrls,
+          userSources: state.errors.userSources,
         },
       };
     }

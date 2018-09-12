@@ -49,11 +49,11 @@ class ProfileContactsPage extends PureComponent {
   @bind
   getWebSiteUrlErrorMessage(index) {
     const { errors } = this.props.user;
-    return errors.personalWebsitesUrls &&
-      errors.personalWebsitesUrls.results &&
-        errors.personalWebsitesUrls.results[index] &&
-          errors.personalWebsitesUrls.results[index].isInvalidUrl &&
-            errors.personalWebsitesUrls.results[index].message;
+    return errors.userSources &&
+      errors.userSources.results &&
+        errors.userSources.results[index] &&
+          errors.userSources.results[index].isInvalidUrl &&
+            errors.userSources.results[index].message;
   }
 
   @bind
@@ -96,7 +96,7 @@ class ProfileContactsPage extends PureComponent {
   }
 
   render() {
-    const { personalWebsitesUrls, errors } = this.props.user;
+    const { userSources, errors } = this.props.user;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -138,6 +138,13 @@ class ProfileContactsPage extends PureComponent {
                       error={errors.phoneNumber && errors.phoneNumber[0]}
                     />
                   </div>
+                  <div className="profile__block">
+                    <TextInput
+                      label="Your website"
+                      value={this.props.user.personalWebsiteUrl}
+                      onChange={this.makeChangeUserFieldHandler('personalWebsiteUrl')}
+                    />
+                  </div>
                 </InfoBlock>
               </Element>
             </div>
@@ -148,12 +155,12 @@ class ProfileContactsPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="Your website"
-                        value={Array.isArray(personalWebsitesUrls) ? personalWebsitesUrls[0] : ''}
+                        value={Array.isArray(userSources) && userSources.length !== 0 ? userSources[0].sourceUrl : ''}
                         onChange={this.makeSiteValueChangeHandler(0)}
                         error={this.getWebSiteUrlErrorMessage(0)}
                       />
                     </div>
-                    {Array.isArray(personalWebsitesUrls) && personalWebsitesUrls.length !== 1 && (
+                    {Array.isArray(userSources) && userSources.length !== 1 && (
                       <div className="profile__block">
                         <Button
                           size="small"
@@ -163,17 +170,17 @@ class ProfileContactsPage extends PureComponent {
                         />
                       </div>
                     )}
-                    {Array.isArray(personalWebsitesUrls) && personalWebsitesUrls.slice(1).map((item, index) => (
+                    {Array.isArray(userSources) && userSources.slice(1).map((item, index) => (
                       <div className="profile__block" key={index + 1}>
                         <div className="profile__block">
                           <TextInput
                             label="Your website"
-                            value={personalWebsitesUrls[index + 1]}
+                            value={userSources[index + 1].sourceUrl || ''}
                             onChange={this.makeSiteValueChangeHandler(index + 1)}
                             error={this.getWebSiteUrlErrorMessage(index + 1)}
                           />
                         </div>
-                        {Array.isArray(personalWebsitesUrls) && personalWebsitesUrls.length !== 1 && (
+                        {Array.isArray(userSources) && userSources.length !== 1 && (
                           <div className="profile__block">
                             <Button
                               size="small"
@@ -223,7 +230,7 @@ ProfileContactsPage.propTypes = {
   user: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,
-    personalWebsitesUrls: PropTypes.arrayOf(PropTypes.string),
+    userSources: PropTypes.arrayOf(PropTypes.object),
   }),
 };
 

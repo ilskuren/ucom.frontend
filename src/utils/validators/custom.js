@@ -25,3 +25,11 @@ export const validateArrayUrls = (values) => {
   }));
   return result;
 };
+
+export const isEmptyStrings = (strings) => {
+  if (!Array.isArray(strings)) {
+    return strings === '';
+  } else {
+    return strings.every(string => string === '');
+  }
+}

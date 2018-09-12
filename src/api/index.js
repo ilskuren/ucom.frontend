@@ -127,7 +127,7 @@ export const getPost = (id, token) => {
   };
 
   if (token) {
-    param.headers.Authorization = `Bearer ${token}`;
+    params.headers.Authorization = `Bearer ${token}`;
   }
 
   return fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, params)

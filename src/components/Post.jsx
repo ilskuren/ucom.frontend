@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
@@ -10,9 +9,7 @@ import UserCard from './UserCard';
 
 const Post = props => (
   <div className="post">
-    <div className="post__type">
-      <span className={classNames({ blank: !props.postId })}>Story</span>
-    </div>
+    <div className="post__type">{props.postType}</div>
 
     <div className="post__header">
       <div className="toolbar">

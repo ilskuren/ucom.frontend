@@ -88,11 +88,11 @@ class Avatars extends PureComponent {
 
 Avatars.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    avatar_filename: PropTypes.string.isRequired,
+    avatar_filename: PropTypes.string,
     alt: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     account_name: PropTypes.string,
-    rate: PropTypes.string,
+    rate: PropTypes.number,
   })).isRequired,
   square: PropTypes.bool,
   borderWhite: PropTypes.bool,

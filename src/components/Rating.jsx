@@ -6,7 +6,7 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import { vote } from '../api';
 import { getToken } from '../utils/token';
-import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
+import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -91,7 +91,7 @@ Rating.propTypes = {
   postId: PropTypes.number,
   commentId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS]),
+  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
 };
 
 Rating.defaultProps = {

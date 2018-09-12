@@ -82,7 +82,7 @@ class ProfileContactsPage extends PureComponent {
           this.save();
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err.message));
   }
 
   @bind
@@ -147,6 +147,7 @@ class ProfileContactsPage extends PureComponent {
                       label="Your website"
                       value={this.props.user.personalWebsiteUrl}
                       onChange={this.makeChangeUserFieldHandler('personalWebsiteUrl')}
+                      error={errors.personalWebsiteUrl && errors.personalWebsiteUrl[0]}
                     />
                   </div>
                 </InfoBlock>
@@ -156,15 +157,15 @@ class ProfileContactsPage extends PureComponent {
               <Element name="SocialNetworks">
                 <InfoBlock title="Social networks">
                   <div className="list__item">
-                    <div className="profile__block">
+                    <div className="profile__block" key={0}>
                       <TextInput
                         label="Your website"
-                        value={Array.isArray(userSources) && userSources.length !== 0 ? userSources[0].sourceUrl : ''}
+                        value={Array.isArray(userSources) && userSources.length !== 0 ? userSources[0].sourceUrl : undefined}
                         onChange={this.makeSiteValueChangeHandler(0)}
                         error={this.getWebSiteUrlErrorMessage(0)}
                       />
                     </div>
-                    {Array.isArray(userSources) && userSources.length !== 1 && (
+                    {Array.isArray(userSources) && userSources.length > 1 && (
                       <div className="profile__block">
                         <Button
                           size="small"
@@ -179,12 +180,12 @@ class ProfileContactsPage extends PureComponent {
                         <div className="profile__block">
                           <TextInput
                             label="Your website"
-                            value={userSources[index + 1].sourceUrl || ''}
+                            value={userSources[index + 1].sourceUrl || undefined}
                             onChange={this.makeSiteValueChangeHandler(index + 1)}
                             error={this.getWebSiteUrlErrorMessage(index + 1)}
                           />
                         </div>
-                        {Array.isArray(userSources) && userSources.length !== 1 && (
+                        {Array.isArray(userSources) && userSources.length > 1 && (
                           <div className="profile__block">
                             <Button
                               size="small"

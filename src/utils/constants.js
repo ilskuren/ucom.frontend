@@ -19,11 +19,12 @@ export const validatorRules = {
     },
     contactsRules: {
       email: 'email',
+      personalWebsiteUrl: `${rules.registerUrl.name}`,
       phoneNumber: `${rules.registerPhoneNumber.name}`,
     },
     workAndEducationRules: {
       firstCurrency: 'string',
-      firstCurrencyYear: 'string',
+      firstCurrencyYear: 'regex:/^[0-9]*$/',
       userJobs: 'array',
       userEducations: 'array',
     },

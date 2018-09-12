@@ -62,7 +62,7 @@ class ProfileGeneralInfoPage extends PureComponent {
       if (isValid) {
         this.save();
       }
-    })
+    });
   }
 
   save() {

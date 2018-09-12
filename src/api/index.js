@@ -46,7 +46,7 @@ export const register = ({ brainkey, accountName }) => {
       public_key: publicKey,
     }),
   })
-    .then(resp => resp.json());
+    .then(resp => resp.json().then(data => convertServerUser(data)));
 };
 
 
@@ -70,7 +70,7 @@ export const patchMyself = (data, token) => (
     },
     body: JSON.stringify(data),
   })
-    .then(resp => resp.json())
+    .then(resp => resp.json().then(data => convertServerUser(data)))
 );
 
 export const patchMyselfFormData = (data, token) => (

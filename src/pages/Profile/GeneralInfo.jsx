@@ -17,33 +17,23 @@ import Loading from '../../components/Loading';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
+import { convertServerUser, convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
-import * as actions from '../../actions/profile';
-import * as selectors from '../../utils/selectors/profile';
+import { selectUser } from '../../utils/selectors/user';
+import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    changeInputValue: actions.changeInputValue,
-    validateGeneralInfo: actions.validateGeneralInfo,
+    changeUserField: actions.changeUserField,
+    clearErrors: actions.clearErrors,
+    setUser: actions.setUser,
+    validateProfileForm: actions.validateProfileForm,
   }, dispatch);
 
-
 const mapStateToProps = state => ({
-  firstName: selectors.selectFirstName(state),
-  lastName: selectors.selectLastName(state),
-  nickname: selectors.selectNickname(state),
-  about: selectors.selectAbout(state),
-  birthday: selectors.selectBirthday(state),
-  country: selectors.selectCountry(state),
-  city: selectors.selectCity(state),
-  address: selectors.selectAddress(state),
-  currencyToShow: selectors.selectCurrencyToShow(state),
-  avatarFilename: selectors.selectAvatarFilename(state),
-  isValid: selectors.selectGeneralInfoValidity(state),
-  errors: selectors.selectGeneralInfoErrors(state),
+  user: selectUser(state),
 });
-
 
 class ProfileGeneralInfoPage extends PureComponent {
   constructor(props) {
@@ -55,35 +45,34 @@ class ProfileGeneralInfoPage extends PureComponent {
     };
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   @bind
-  makeChangeInputValueHandler(field) {
-    return value => this.props.changeInputValue({ field, value });
+  makeChangeUserFieldHandler(field) {
+    return value => this.props.changeUserField({ field, value, validationRules: 'generalInfoRules' });
   }
 
   @bind
   handleSubmit(e) {
-    this.props.validateGeneralInfo();
-    const { isValid } = this.props;
     e.preventDefault();
-    if (isValid) {
-      this.save();
-    }
+    Promise.resolve()
+      .then(this.props.validateProfileForm('generalInfoRules'))
+      .then(() => {
+        const { isValid } = this.props.user;
+        if (isValid) {
+          this.save();
+        }
+      })
+      .catch(err => console.error(err));
   }
 
+  @bind
   save() {
     const token = getToken();
-    const data = {
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
-      nickname: this.props.nickname,
-      about: this.props.about,
-      birthday: this.props.birthday,
-      country: this.props.country,
-      city: this.props.city,
-      address: this.props.address,
-      currencyToShow: this.props.currencyToShow,
-      avatarFilename: this.props.avatarFileName,
-    };
+    const { user } = this.props;
+    const data = convertClientUser(user);
 
     this.setState({ loading: true });
 
@@ -99,17 +88,19 @@ class ProfileGeneralInfoPage extends PureComponent {
 
     const data = new FormData();
 
-    data.append('avatarFilename', file);
+    data.append('avatar_filename', file);
 
     patchMyselfFormData(data, getToken())
       .then((data) => {
-        this.props.setUser(data);
+        const convertedData = convertServerUser(data);
+        this.props.setUser(convertedData);
         this.setState({ avatarLoading: false });
       });
   }
 
   render() {
-    const { errors } = this.props;
+    const { user } = this.props;
+    const { errors } = user;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -136,7 +127,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
                     <div className="profile__block profile__block_avatar">
                       <Avatar
-                        src={getFileUrl(this.props.avatarFileName)}
+                        src={getFileUrl(user.avatarFilename)}
                         size="big"
                         alt="Avatar"
                       />
@@ -159,8 +150,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="First name"
-                        value={this.props.firstName}
-                        onChange={this.makeChangeInputValueHandler('firstName')}
+                        value={user.firstName}
+                        onChange={this.makeChangeUserFieldHandler('firstName')}
                         error={errors.firstName && errors.firstName[0]}
                       />
                     </div>
@@ -168,8 +159,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="Second name"
-                        value={this.props.lastName}
-                        onChange={this.makeChangeInputValueHandler('lastName')}
+                        value={user.lastName}
+                        onChange={this.makeChangeUserFieldHandler('lastName')}
                         error={errors.lastName && errors.lastName[0]}
                       />
                     </div>
@@ -178,9 +169,9 @@ class ProfileGeneralInfoPage extends PureComponent {
                       <TextInput
                         label="Nickname"
                         placeholder="@nickname"
-                        value={this.props.nickname}
-                        onChange={this.makeChangeInputValueHandler('nickname')}
-                        error={errors.nickname && errors.nickname[0]}
+                        value={user.nickName}
+                        onChange={this.makeChangeUserFieldHandler('nickName')}
+                        error={errors.nickName && errors.nickName[0]}
                       />
                     </div>
 
@@ -188,8 +179,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                       <TextInput
                         label="Asset to show"
                         placeholder="Example Kickcoin"
-                        value={this.props.currencyToShow}
-                        onChange={this.makeChangeInputValueHandler('currencyToShow')}
+                        value={user.currencyToShow}
+                        onChange={this.makeChangeUserFieldHandler('currencyToShow')}
                         error={errors.currencyToShow && errors.currencyToShow[0]}
                       />
                     </div>
@@ -197,8 +188,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <DateInput
                         label="Birthday"
-                        value={this.props.birthday}
-                        onChange={this.makeChangeInputValueHandler('birthday')}
+                        value={user.birthday}
+                        onChange={this.makeChangeUserFieldHandler('birthday')}
                       />
                     </div>
 
@@ -207,8 +198,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                         rows={6}
                         label="About me"
                         placeholder="Type something..."
-                        value={this.props.about}
-                        onChange={this.makeChangeInputValueHandler('about')}
+                        value={user.about}
+                        onChange={this.makeChangeUserFieldHandler('about')}
                       />
                     </div>
                   </InfoBlock>
@@ -221,8 +212,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="Country"
-                        value={this.props.country}
-                        onChange={this.makeChangeInputValueHandler('country')}
+                        value={user.country}
+                        onChange={this.makeChangeUserFieldHandler('country')}
                         error={errors.country && errors.country[0]}
                       />
                     </div>
@@ -230,8 +221,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="City"
-                        value={this.props.city}
-                        onChange={this.makeChangeInputValueHandler('city')}
+                        value={user.city}
+                        onChange={this.makeChangeUserFieldHandler('city')}
                         error={errors.city && errors.city[0]}
                       />
                     </div>
@@ -240,8 +231,8 @@ class ProfileGeneralInfoPage extends PureComponent {
                       <TextInput
                         label="Address"
                         subtext="Actual address. Example: One Apple Park Way, Cupertino"
-                        value={this.props.address}
-                        onChange={this.makeChangeInputValueHandler('address')}
+                        value={user.address}
+                        onChange={this.makeChangeUserFieldHandler('address')}
                         error={errors.address && errors.address[0]}
                       />
                     </div>
@@ -260,28 +251,20 @@ class ProfileGeneralInfoPage extends PureComponent {
 }
 
 ProfileGeneralInfoPage.propTypes = {
-  changeInputValue: PropTypes.func,
-  validateGeneralInfo: PropTypes.func,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  nickname: PropTypes.string,
-  about: PropTypes.string,
-  birthday: PropTypes.string,
-  country: PropTypes.string,
-  city: PropTypes.string,
-  address: PropTypes.string,
-  currencyToShow: PropTypes.string,
-  avatarFileName: PropTypes.string,
-  isValid: PropTypes.bool,
-  errors: PropTypes.shape({
-    firstName: PropTypes.array,
-    lastName: PropTypes.array,
-    nickname: PropTypes.array,
-    about: PropTypes.array,
-    birthday: PropTypes.array,
-    country: PropTypes.array,
-    city: PropTypes.array,
-    address: PropTypes.array,
+  changeUserField: PropTypes.func,
+  validateProfileForm: PropTypes.func,
+  clearErrors: PropTypes.func,
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    nickName: PropTypes.string,
+    about: PropTypes.string,
+    birthday: PropTypes.string,
+    country: PropTypes.string,
+    city: PropTypes.string,
+    address: PropTypes.string,
+    currencyToShow: PropTypes.string,
+    avatarFilename: PropTypes.string,
   }),
 };
 

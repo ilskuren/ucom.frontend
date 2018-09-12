@@ -36,7 +36,7 @@ const TextInput = ({
         <div className="text-input__input-wrapper" style={{ width: inputWidth }}>
           <input
             maxLength={maxLength}
-            value={value}
+            value={value === null ? '' : value}
             className={classNames('text-input__input', {
               'text-input__input_error': Boolean(error),
               'text-input__input_with-icon': Boolean(isIconExist),

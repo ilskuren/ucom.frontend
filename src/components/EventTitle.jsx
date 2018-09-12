@@ -40,15 +40,14 @@ class EventTitle extends PureComponent {
   render() {
     return (
       <div className={cn('event-title', this.props.className)}>
+        <div className="event-title__cover">
+          {this.props.imgSrc ? (
+            <img src={this.props.imgSrc} className="event-title__img" alt="" />
+          ) : (
+            <div className="event-title__img event-title__img_blank" />
+          )}
+        </div>
         <div className="event-title__inner">
-          <div className="event-title__cover">
-            {this.props.imgSrc ? (
-              <img src={this.props.imgSrc} className="event-title__img" alt="" />
-            ) : (
-              <div className="event-title__img event-title__img_blank" />
-            )}
-          </div>
-
           <div className="event-title__main">
             <div className="toolbar">
               <div className="toolbar__main">
@@ -116,7 +115,7 @@ class EventTitle extends PureComponent {
           </div>
 
           <div className="event-title__footer">
-            <div className="toolbar toolbar_responsive">
+            <div className="toolbar">
               <div className="toolbar__main">
                 <div className="inline">
                   <div className="inline__item">
@@ -148,12 +147,16 @@ class EventTitle extends PureComponent {
             </div>
 
             {(this.props.team && this.props.team.length > 0) && (
-              <div className="toolbar">
-                <div className="toolbar__side">
-                  <div className="event-title__footer-board">
-                    <Avatars list={this.props.team} orderStacking="fifo" distance="close" size="msmall" />
+              <div className="toolbar toolbar_responsive">
+                <div className="toolbar__main">
+                  <div className="inline">
+                    <div className="inline__item">
+                      <div className="event-title__footer-board">
+                        <Avatars list={this.props.team} orderStacking="fifo" distance="close" size="msmall" />
+                      </div>
+                      <div className="event-title__name">BOARD</div>
+                    </div>
                   </div>
-                  <div className="event-title__name">BOARD</div>
                 </div>
               </div>
             )}

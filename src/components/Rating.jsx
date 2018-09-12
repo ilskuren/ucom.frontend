@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
-import { postUpVote } from '../api';
+import { vote } from '../api';
 import { getToken } from '../utils/token';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 
@@ -18,12 +18,20 @@ class Rating extends PureComponent {
     };
   }
 
-  upvote() {
+  componentWillReceiveProps(props) {
+    if (this.state.rating !== props.rating) {
+      this.setState({
+        rating: props.rating,
+      });
+    }
+  }
+
+  vote() {
     if (!this.props.user.id) {
       return;
     }
 
-    postUpVote(this.props.postId, getToken())
+    vote(getToken(), true, this.props.postId, this.props.commentId)
       .then((data) => {
         if (data.errors) {
           return;
@@ -39,14 +47,15 @@ class Rating extends PureComponent {
   render() {
     return (
       <div className="rating">
-        <div
+        <button
+          onClick={() => this.vote(false)}
           className={cn(
             'rating__icon',
             { 'rating__icon_red': this.state.choice === DOWNVOTE_STATUS },
           )}
         >
           <IconArrowDown />
-        </div>
+        </button>
 
         <div
           className={cn(
@@ -59,7 +68,7 @@ class Rating extends PureComponent {
         </div>
 
         <button
-          onClick={() => this.upvote()}
+          onClick={() => this.vote(true)}
           className={cn(
             'rating__icon',
             { 'rating__icon_green': this.state.choice === UPVOTE_STATUS },
@@ -74,6 +83,7 @@ class Rating extends PureComponent {
 
 Rating.propTypes = {
   postId: PropTypes.number,
+  commentId: PropTypes.number,
   rating: PropTypes.number,
   choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS]),
 };

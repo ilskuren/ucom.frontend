@@ -146,6 +146,24 @@ export const postUpVote = (postId, token) => (
     .then(resp => resp.json())
 );
 
+export const vote = (token, isUp, postId, commentId) => {
+  let url = `${config.backend.httpEndpoint}/api/v1/posts/${postId}`;
+
+  if (commentId) {
+    url = `${url}/comments/${commentId}`;
+  }
+
+  url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json());
+};
+
 export const checkAccountName = accountName => (
   fetch(`${config.backend.httpEndpoint}/api/v1/auth/registration/validate-account-name`, {
     method: 'POST',

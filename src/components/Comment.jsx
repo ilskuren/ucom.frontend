@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import CommentForm from './CommentForm';
 import Avatar from './Avatar';
+import Rating from './Rating';
 
 class Comments extends PureComponent {
   constructor(props) {
@@ -32,10 +33,24 @@ class Comments extends PureComponent {
             </Link>
           </div>
           <div className="toolbar__main">
-            <div className="comment__username">
-              <Link to={this.props.userUrl}>{this.props.userName}</Link>
+            <div className="comment__header">
+              <div className="toolbar">
+                <div className="toolbar__main">
+                  <div className="comment__username">
+                    <Link to={this.props.userUrl}>{this.props.userName}</Link>
+                  </div>
+                  <div className="comment__account">@{this.props.accountName}</div>
+                </div>
+                <div className="toolbar__side">
+                  <Rating
+                    postId={this.props.postId}
+                    commentId={this.props.id}
+                    rating={this.props.rating}
+                    choice={this.props.choice}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="comment__account">@{this.props.accountName}</div>
             <div className="comment__text">{this.props.description}</div>
             <div className="comment__actions">
               <div className="inline">
@@ -75,6 +90,7 @@ class Comments extends PureComponent {
 }
 
 Comments.propTypes = {
+  id: PropTypes.number,
   userName: PropTypes.string,
   avatar: PropTypes.string,
   accountName: PropTypes.string,
@@ -82,6 +98,10 @@ Comments.propTypes = {
   created: PropTypes.string,
   onSubmit: PropTypes.func,
   depth: PropTypes.number,
+  postId: PropTypes.number,
+  rating: PropTypes.number,
+  userUrl: PropTypes.string,
+  choice: PropTypes.string,
 };
 
 export default connect(state => ({

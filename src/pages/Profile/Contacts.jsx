@@ -73,9 +73,9 @@ class ProfileContactsPage extends PureComponent {
 
   @bind
   handleSubmit(e) {
+    e.preventDefault();
     Promise.resolve(this.props.validateProfileForm('contactsRules')).then(() => {
       const { isValid } = this.props.user;
-      e.preventDefault();
       if (isValid) {
         this.save();
       }

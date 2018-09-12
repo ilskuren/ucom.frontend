@@ -114,12 +114,13 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
   @bind
   handleSubmit(e) {
-    this.props.validateProfileForm('workAndEducationRules');
-    const { isValid } = this.props.user;
-    e.preventDefault();
-    if (isValid) {
-      this.save();
-    }
+    Promise.resolve(this.props.validateProfileForm('workAndEducationRules')).then(() => {
+      const { isValid } = this.props.user;
+      e.preventDefault();
+      if (isValid) {
+        this.save();
+      }
+    });
   }
 
   @bind

@@ -56,12 +56,13 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   @bind
   handleSubmit(e) {
-    this.props.validateProfileForm('generalInfoRules');
-    const { isValid } = this.props.user;
-    e.preventDefault();
-    if (isValid) {
-      this.save();
-    }
+    Promise.resolve(this.props.validateProfileForm('generalInfoRules')).then(() => {
+      const { isValid } = this.props.user;
+      e.preventDefault();
+      if (isValid) {
+        this.save();
+      }
+    })
   }
 
   save() {

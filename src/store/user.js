@@ -34,7 +34,6 @@ const user = (state = getInitialState(), action) => {
       return {
         ...state,
         ...data,
-        isValid: validation.passes(),
         errors: {
           ...state.errors,
           [field]: validation.errors.get([field]),

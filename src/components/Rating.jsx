@@ -24,6 +24,12 @@ class Rating extends PureComponent {
         rating: props.rating,
       });
     }
+
+    if (this.state.choice !== props.choice) {
+      this.setState({
+        choice: props.choice,
+      });
+    }
   }
 
   vote() {

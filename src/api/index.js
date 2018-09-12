@@ -121,8 +121,12 @@ export const updatePost = (data, token, id) => (
     .then(resp => resp.json())
 );
 
-export const getPost = id => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`)
+export const getPost = (id, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
     .then(resp => resp.json())
 );
 
@@ -131,8 +135,12 @@ export const getUserPosts = id => (
     .then(resp => resp.json())
 );
 
-export const getPosts = params => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`)
+export const getPosts = (params, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
     .then(resp => resp.json())
 );
 

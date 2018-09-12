@@ -32,12 +32,12 @@ class Rating extends PureComponent {
     }
   }
 
-  vote() {
+  vote(isUp) {
     if (!this.props.user.id) {
       return;
     }
 
-    vote(getToken(), true, this.props.postId, this.props.commentId)
+    vote(getToken(), isUp, this.props.postId, this.props.commentId)
       .then((data) => {
         if (data.errors) {
           return;

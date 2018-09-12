@@ -45,7 +45,7 @@ class Rating extends PureComponent {
 
         this.setState({
           rating: data.current_vote,
-          choice: UPVOTE_STATUS,
+          choice: isUp ? UPVOTE_STATUS : DOWNVOTE_STATUS,
         });
       });
   }

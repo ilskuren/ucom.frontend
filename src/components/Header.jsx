@@ -68,7 +68,7 @@ class Header extends PureComponent {
               <div className="inline inline_large">
                 <div className="inline__item">
                   <Link to={getUserUrl(this.props.user.id)}>
-                    <Avatar src={getFileUrl(this.props.user.avatar_filename)} />
+                    <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
                   </Link>
                 </div>
 

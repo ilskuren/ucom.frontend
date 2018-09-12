@@ -101,7 +101,6 @@ Comments.propTypes = {
   depth: PropTypes.number,
   postId: PropTypes.number,
   rating: PropTypes.number,
-  userUrl: PropTypes.string,
   choice: PropTypes.string,
 };
 

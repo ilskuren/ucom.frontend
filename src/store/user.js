@@ -285,7 +285,6 @@ const user = (state = getInitialState(), action) => {
     case 'VALIDATE_PROFILE_FORM': {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
-      console.log(passes);
       const shouldValidateSources = action.payload === 'contactsRules';
       if (shouldValidateSources) {
         const sourcesUrls = state.userSources.map(source => source.sourceUrl);

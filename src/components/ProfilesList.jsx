@@ -46,6 +46,7 @@ renderProfilesRow.propTypes = {
   avatarUrl: PropTypes.string,
   rate: PropTypes.string,
   profileLink: PropTypes.string,
+  follow: PropTypes.bool,
 };
 
 ProfilesList.propTypes = {

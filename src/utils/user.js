@@ -64,3 +64,11 @@ export const validateAuth = (fields = {}) => {
 
   return errors;
 };
+
+export const userIsFollowed = (followers, userId) => {
+  if (!followers || !followers.length || !userId) {
+    return false;
+  }
+
+  return !!followers.find(i => +i.id === +userId);
+};

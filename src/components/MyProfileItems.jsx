@@ -1,25 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import UserCard from '../components/UserCard';
 import Button from '../components/Button';
 import Avatar from '../components/Avatar';
 import Avatars from '../components/Avatars';
 import FollowersAmount from '../components/FollowersAmount';
 
-const buyersAvatars = [
+const buyersAvatars = Array.from({ length: 8 }, () => (
   {
-    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-  },
-  {
-    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-  },
-  {
-    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-  },
-  {
-    src: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-  },
-];
+    avatar_filename: 'main_image_filename-1535704482892.jpg',
+    account_name: 'Katherine Moss',
+    id: 1,
+    rate: 2600,
+  }));
 
 const renderRow = (renderButton, index) => {
   const randomNumber = Math.floor(Math.random() * 10000) + 1;
@@ -45,21 +37,16 @@ const renderRow = (renderButton, index) => {
           </div>
         </div>
         <div className="my-profile-items__row-left-bottom-side">
-          { renderButton &&
-            <div className="my-profile-items__following-button">
-              <Button
-                text={conditionForDemonstration ? 'Following' : 'Follow'}
-                size="medium"
-                theme="transparent"
-                isStretched
-                withCheckedIcon={conditionForDemonstration}
-              />
-            </div>
-          }
-          <div className="my-profile-items__users">
-            <Avatars list={buyersAvatars} orderStacking="fifo" distance="close" />
+          <div className="my-profile-items__following-button">
+            <Button
+              text={conditionForDemonstration ? 'Following' : 'Follow'}
+              size="medium"
+              theme="transparent"
+              isStretched
+              withCheckedIcon={conditionForDemonstration}
+            />
           </div>
-          <div className="more-users">+24</div>
+          <Avatars list={buyersAvatars} orderStacking="fifo" distance="close" size="msmall" />
         </div>
       </div>
       <div className="my-profile-items__row-right-side">

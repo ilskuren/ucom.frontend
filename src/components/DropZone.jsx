@@ -1,26 +1,66 @@
+import React, { PureComponent } from 'react';
+import { bind } from 'decko';
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
-import React from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
 
-const DropZone = props => (
-  <div className={classNames('drop-zone', props.className)}>
-    <Dropzone
-      multiple={props.multiple}
-      accept={props.accept}
-      className="drop-zone__input"
-      onDrop={(files) => {
-        if (typeof props.onDrop === 'function') {
-          props.onDrop(files);
+class DropZone extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      error: '',
+    };
+  }
+
+  @bind
+  onDropHandler(files) {
+    const { minWidth, minHeight, onDrop } = this.props;
+    this.fr = new FileReader();
+    this.fr.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        if (typeof onDrop === 'function') {
+          if (minWidth && img.width < minWidth) {
+            this.changeErrorText(`Width of image should be at least ${minWidth} pixels`);
+          } else if (minHeight && img.height < minHeight) {
+            this.changeErrorText(`Height of image should be at least ${minHeight} pixels`);
+          } else {
+            this.changeErrorText('');
+            onDrop(files);
+          }
         }
-      }}
-    >
-      <Loading className="loading_small" loading={props.loading} />
-      <span className="drop-zone__text">{props.text}</span>
-    </Dropzone>
-  </div>
-);
+      };
+      img.src = this.fr.result;
+    };
+    this.fr.readAsDataURL(files[0]);
+  }
+
+  changeErrorText(error) {
+    this.setState({ error });
+  }
+
+  render() {
+    return (
+      <div className={classNames('drop-zone', this.props.className)}>
+        <Dropzone
+          multiple={this.props.multiple}
+          accept={this.props.accept}
+          className="drop-zone__input"
+          onDrop={this.onDropHandler}
+        >
+          <Loading className="loading_small" loading={this.props.loading} />
+          <span className="drop-zone__text">{this.props.text}</span>
+        </Dropzone>
+        {this.state.error && (
+          <div className="drop-zone__error">
+            {this.state.error}
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 DropZone.propTypes = {
   text: PropTypes.string.isRequired,
@@ -29,6 +69,8 @@ DropZone.propTypes = {
   loading: PropTypes.bool,
   className: PropTypes.string,
   multiple: PropTypes.bool,
+  minWidth: PropTypes.number,
+  minHeight: PropTypes.number,
 };
 
 export default DropZone;

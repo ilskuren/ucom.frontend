@@ -13,31 +13,28 @@ import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
+import { convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
-import * as actions from '../../actions/profile';
-import * as selectors from '../../utils/selectors/profile';
+import { selectUser } from '../../utils/selectors/user';
+import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    addEmptyEducationItem: actions.addEmptyEducationItem,
-    changeEducationItem: actions.changeEducationItem,
-    removeEducationItem: actions.removeEducationItem,
-    addEmptyJobItem: actions.addEmptyJobItem,
-    changeJobItem: actions.changeJobItem,
-    removeJobItem: actions.removeJobItem,
-    changeInputValue: actions.changeInputValue,
-    validateWorkAndEducation: actions.validateWorkAndEducation,
+    addUserEducationItem: actions.addUserEducationItem,
+    changeUserEducationItem: actions.changeUserEducationItem,
+    removeUserEducationItem: actions.removeUserEducationItem,
+    addUserJobItem: actions.addUserJobItem,
+    changeUserJobItem: actions.changeUserJobItem,
+    removeUserJobItem: actions.removeUserJobItem,
+    changeUserField: actions.changeUserField,
+    validateProfileForm: actions.validateProfileForm,
+    clearErrors: actions.clearErrors,
+    setUser: actions.setUser,
   }, dispatch);
 
-
 const mapStateToProps = state => ({
-  firstCurrency: selectors.selectFirstCurrency(state),
-  firstCurrencyYear: selectors.selectFirstCurrencyYear(state),
-  userJobs: selectors.selectUserJobs(state),
-  userEducations: selectors.selectUserEducations(state),
-  isValid: selectors.selectWorkAndEducationValidity(state),
-  errors: selectors.selectWorkAndEducationErrors(state),
+  user: selectUser(state),
 });
 
 
@@ -51,24 +48,24 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.userJobs.length === 0) {
-      this.addEmptyJobItem();
+    const { userJobs, userEducations } = this.props.user;
+    if (userJobs.length === 0) {
+      this.addUserJobItem();
     }
 
-    if (this.props.userEducations.length === 0) {
-      this.addEmptyEducationItem();
+    if (userEducations.length === 0) {
+      this.addUserEducationItem();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   save() {
     const token = getToken();
-
-    const data = {
-      firstCurrency: this.props.firstCurrency,
-      firstCurrencyYear: this.props.firstCurrencyYear,
-      userJobs: this.props.userJobs,
-      userEducations: this.props.userEducations,
-    };
+    const { user } = this.props;
+    const data = convertClientUser(user);
 
     this.setState({ loading: true });
 
@@ -80,53 +77,166 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   @bind
-  makeChangeInputValueHandler(field) {
-    return value => this.props.changeInputValue({ field, value });
+  makeChangeUserFieldHandler(field) {
+    return value => this.props.changeUserField({ field, value, validationRules: 'workAndEducationRules' });
   }
 
   @bind
-  addEmptyEducationItem() {
-    return this.props.addEmptyEducationItem();
+  addUserEducationItem() {
+    return this.props.addUserEducationItem();
   }
 
   @bind
   makeChangeEducationItemHandler(field, index) {
-    return value => this.props.changeEducationItem({ index, [field]: value });
+    return value => this.props.changeUserEducationItem({ index, [field]: value });
   }
 
 
   @bind
   makeRemoveEducationItemHandler(index) {
-    return () => this.props.removeEducationItem(index);
+    return () => this.props.removeUserEducationItem(index);
   }
 
   @bind
-  addEmptyJobItem() {
-    return this.props.addEmptyJobItem();
+  addUserJobItem() {
+    return this.props.addUserJobItem();
   }
 
   @bind
   makeChangeJobItemHandler(field, index) {
-    return value => this.props.changeJobItem({ index, [field]: value });
+    return value => this.props.changeUserJobItem({ index, [field]: value });
   }
 
   @bind
   makeRemoveJobItemHandler(index) {
-    return () => this.props.removeJobItem(index);
+    return () => this.props.removeUserJobItem(index);
   }
 
   @bind
   handleSubmit(e) {
-    this.props.validateWorkAndEducation();
-    const { isValid } = this.props;
     e.preventDefault();
-    if (isValid) {
-      this.save();
-    }
+    Promise.resolve(this.props.validateProfileForm('workAndEducationRules')).then(() => {
+      const { isValid } = this.props.user;
+      if (isValid) {
+        this.save();
+      }
+    });
+  }
+
+  @bind
+  renderJobItem(index) {
+    const { userJobs } = this.props.user;
+    const isExistingNotEmptyArray = Array.isArray(userJobs) && userJobs.length === 0;
+    const getValueFor = name => (isExistingNotEmptyArray ? undefined : userJobs[index][name]);
+    return (
+      <div className="list__item" key={index}>
+        <div className="profile__block">
+          <TextInput
+            label="Work place"
+            value={getValueFor('title')}
+            onChange={this.makeChangeJobItemHandler('title', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <TextInput
+            label="Position"
+            value={getValueFor('position')}
+            onChange={this.makeChangeJobItemHandler('position', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <DateInput
+            label="Started date"
+            value={getValueFor('startDate')}
+            onChange={this.makeChangeJobItemHandler('startDate', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <DateInput
+            label="Ended date"
+            value={getValueFor('endDate')}
+            onChange={this.makeChangeJobItemHandler('endDate', index)}
+          />
+        </div>
+        {Array.isArray(userJobs) && userJobs.length > 1 && (
+          <div className="profile__block">
+            <Button
+              theme="transparent"
+              size="small"
+              onClick={this.makeRemoveJobItemHandler(index)}
+              text="Remove"
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  @bind
+  renderEducationItem(index) {
+    const { userEducations } = this.props.user;
+    const isExistingNotEmptyArray = Array.isArray(userEducations) && userEducations.length === 0;
+    const getValueFor = name => (isExistingNotEmptyArray ? undefined : userEducations[index][name]);
+    return (
+      <div className="list__item" key={index}>
+        <div className="profile__block">
+          <TextInput
+            label="Education"
+            value={getValueFor('title')}
+            onChange={this.makeChangeEducationItemHandler('title', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <TextInput
+            label="Spec"
+            value={getValueFor('speciality')}
+            onChange={this.makeChangeEducationItemHandler('speciality', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <TextInput
+            label="Level"
+            value={getValueFor('degree')}
+            onChange={this.makeChangeEducationItemHandler('degree', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <DateInput
+            label="Started date"
+            value={getValueFor('startDate')}
+            onChange={this.makeChangeEducationItemHandler('startDate', index)}
+          />
+        </div>
+        <div className="profile__block">
+          <DateInput
+            label="Ended date"
+            value={getValueFor('endDate')}
+            onChange={this.makeChangeEducationItemHandler('endDate', index)}
+          />
+        </div>
+        {Array.isArray(userEducations) && userEducations.length > 1 && (
+          <div className="profile__block">
+            <Button
+              theme="transparent"
+              size="small"
+              text="Remove"
+              onClick={this.makeRemoveEducationItemHandler(index)}
+            />
+          </div>
+        )}
+      </div>
+    );
   }
 
   render() {
-    const { errors, userEducations, userJobs } = this.props;
+    const { user } = this.props;
+    const { errors } = user;
+    const {
+      userEducations,
+      userJobs,
+      firstCurrency,
+      firstCurrencyYear,
+    } = user;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -152,8 +262,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     <TextInput
                       label="Your first asset"
                       placeholder="Example Kickcoin"
-                      value={this.props.firstCurrency}
-                      onChange={this.makeChangeInputValueHandler('firstCurrency')}
+                      value={firstCurrency}
+                      onChange={this.makeChangeUserFieldHandler('firstCurrency')}
                       error={errors.firstCurrency && errors.firstCurrency[0]}
                     />
                   </div>
@@ -162,10 +272,9 @@ class ProfileWorkAndEducationPage extends PureComponent {
                     <TextInput
                       label="Year of purchase"
                       inputWidth={100}
-                      value={this.props.firstCurrencyYear}
-                      onChange={this.makeChangeInputValueHandler('firstCurrencyYear')}
+                      value={firstCurrencyYear}
+                      onChange={this.makeChangeUserFieldHandler('firstCurrencyYear')}
                       error={errors.firstCurrencyYear && errors.firstCurrencyYear[0]}
-
                     />
                   </div>
                 </InfoBlock>
@@ -176,57 +285,16 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Work">
                 <InfoBlock title="Work">
                   <div className="list">
-                    {userJobs.map((item, index) => (
-                      <div className="list__item" key={index}>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Work place"
-                            value={item.title}
-                            onChange={this.makeChangeJobItemHandler('title', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Position"
-                            value={item.position}
-                            onChange={this.makeChangeJobItemHandler('position', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <DateInput
-                            label="Started date"
-                            value={item.startDate}
-                            onChange={this.makeChangeJobItemHandler('startDate', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <DateInput
-                            label="Ended date"
-                            value={item.endDate}
-                            onChange={this.makeChangeJobItemHandler('endDate', index)}
-                          />
-                        </div>
-                        {this.props.userJobs.length !== 1 && (
-                          <div className="profile__block">
-                            <Button
-                              theme="transparent"
-                              size="small"
-                              onClick={this.makeRemoveJobItemHandler(index)}
-                              text="Remove"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-
+                    {this.renderJobItem(0)}
+                    {Array.isArray(userJobs) && userJobs.slice(1).map((_, index) => this.renderJobItem(index + 1))}
                     <div className="profile__block">
-                      <button
+                      <Button
                         type="button"
-                        className="button button_theme_transparent button_size_small"
-                        onClick={this.addEmptyJobItem}
-                      >
-                        Add another
-                      </button>
+                        theme="transparent"
+                        size="small"
+                        onClick={this.addUserJobItem}
+                        text="Add another"
+                      />
                     </div>
                   </div>
                 </InfoBlock>
@@ -236,63 +304,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Education">
                 <InfoBlock title="Education">
                   <div className="list">
-                    {this.props.userEducations.map((item, index) => (
-                      <div className="list__item" key={index}>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Education"
-                            value={item.title}
-                            onChange={this.makeChangeEducationItemHandler('title', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Spec"
-                            value={item.speciality}
-                            onChange={this.makeChangeEducationItemHandler('speciality', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Level"
-                            value={item.degree}
-                            onChange={this.makeChangeEducationItemHandler('degree', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <DateInput
-                            label="Started date"
-                            value={item.startDate}
-                            onChange={this.makeChangeEducationItemHandler('startDate', index)}
-                          />
-                        </div>
-                        <div className="profile__block">
-                          <DateInput
-                            label="Ended date"
-                            value={item.endDate}
-                            onChange={this.makeChangeEducationItemHandler('endDate', index)}
-                          />
-                        </div>
-                        {userEducations.length !== 1 && (
-                          <div className="profile__block">
-                            <Button
-                              theme="transparent"
-                              size="small"
-                              text="Remove"
-                              onClick={this.makeRemoveEducationItemHandler(index)}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                    {this.renderEducationItem(0)}
+                    {userEducations.slice(1).map((_, index) => this.renderEducationItem(index + 1))}
                   </div>
-
                   <div className="profile__block">
                     <Button
                       theme="transparent"
                       size="small"
                       text="Add another"
-                      onClick={this.addEmptyEducationItem}
+                      onClick={this.addUserEducationItem}
                     />
                   </div>
 
@@ -316,24 +336,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
 ProfileWorkAndEducationPage.propTypes = {
   userJobs: PropTypes.arrayOf(PropTypes.object),
   userEducations: PropTypes.arrayOf(PropTypes.object),
-  firstCurrency: PropTypes.string,
-  firstCurrencyYear: PropTypes.string,
-  changeInputValue: PropTypes.func,
-  addEmptyEducationItem: PropTypes.func,
-  changeEducationItem: PropTypes.func,
-  removeEducationItem: PropTypes.func,
-  addEmptyJobItem: PropTypes.func,
-  changeJobItem: PropTypes.func,
-  removeJobItem: PropTypes.func,
-  validateWorkAndEducation: PropTypes.func,
-  isValid: PropTypes.bool,
-  errors: PropTypes.shape({
-    firstCurrency: PropTypes.array,
-    firstCurrencyYear: PropTypes.array,
-    userJobs: PropTypes.arrayOf(PropTypes.array),
-    userEducations: PropTypes.arrayOf(PropTypes.array),
-  }),
+  changeUserField: PropTypes.func,
+  clearErrors: PropTypes.func,
+  addUserEducationItem: PropTypes.func,
+  changeUserEducationItem: PropTypes.func,
+  removeUserEducationItem: PropTypes.func,
+  addUserJobItem: PropTypes.func,
+  changeUserJobItem: PropTypes.func,
+  removeUserJobItem: PropTypes.func,
+  validateProfileForm: PropTypes.func,
 };
-
 
 export default connect(mapStateToProps, mapDispatch)(ProfileWorkAndEducationPage);

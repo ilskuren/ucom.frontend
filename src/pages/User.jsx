@@ -109,7 +109,7 @@ class UserPage extends PureComponent {
                       </div>
 
                       <div className="user-header__account-name">
-                        @{this.state.user.accounName}
+                        @{this.state.user.accountName}
                       </div>
 
                       <div className="user-header__info">
@@ -363,14 +363,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.usersJobs && this.state.user.usersJobs.length > 0 && (
+                  {this.state.user.userJobs && this.state.user.userJobs.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Work Experience</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.usersJobs.map(item => (
+                          {this.state.user.userJobs.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
@@ -394,14 +394,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.usersEducation && this.state.user.usersEducation.length > 0 && (
+                  {this.state.user.userEducations && this.state.user.userEducations.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Education</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.usersEducation.map(item => (
+                          {this.state.user.userEducations.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">

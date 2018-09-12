@@ -1,4 +1,5 @@
 import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format'; // eslint-disable-line no-unused-vars
 
 export const OFFER_TYPES = [{
   id: 1,
@@ -43,11 +44,10 @@ export const getDateLeft = (createdAt, durationInDays) => {
   if (diff < 0) {
     return null;
   }
-  const duration = moment.duration(diff);
-
+  const duration = moment.duration(diff).format('y d h:mm:ss', { stopTrim: 'y d' }).split(' ');
   return {
-    years: duration.years(),
-    days: duration.days(),
-    time: `${duration.hours()}:${duration.minutes()}:${duration.seconds()}`,
+    years: duration[0],
+    days: duration[1],
+    time: duration[2],
   };
 };

@@ -66,7 +66,7 @@ class TimeCounter extends PureComponent {
         {timeLeft && (
           <div className="inline__item">
             <div className="time-counter__time">
-              <div className="time-counter__value">{timeLeft}</div>
+              <div className="time-counter__value time-counter__value_wide">{timeLeft}</div>
               <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
             </div>
           </div>

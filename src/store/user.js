@@ -310,8 +310,7 @@ const user = (state = getInitialState(), action) => {
     case 'CLEAR_PROFILE_FORM_ERRORS': {
       return {
         ...state,
-        errors: {
-        },
+        ...getInitialState(),
       };
     }
 

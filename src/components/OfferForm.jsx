@@ -38,7 +38,7 @@ class OfferForm extends PureComponent {
                     </div>
                     <div className="toolbar__side">
                       <button
-                        className="button button_theme_red button_size_small button_stretched button_capitalized"
+                        className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
                         onClick={() => {
                           if (typeof this.props.onClickSave === 'function') {
                             this.props.onClickSave();
@@ -201,6 +201,8 @@ class OfferForm extends PureComponent {
                             this.setState({ base64Cover });
                           });
                         }}
+                        minHeight={530}
+                        minWidth={1200}
                       />
 
                       {this.props.post.errors.main_image_filename && this.props.post.errors.main_image_filename.length > 0 ? (
@@ -218,17 +220,16 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            {(this.state.base64Cover || this.props.post.data.main_image_filename) && (
-              <EventTitle
-                tags={['sale']}
-                title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title}
-                actionButtonUrl={this.props.post.data.action_button_url}
-                actionDurationInDays={this.props.post.data.action_duration_in_days}
-                imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-                team={this.props.post.data.post_users_team}
-              />
-            )}
+            <EventTitle
+              className="event-title_big"
+              tags={['sale']}
+              title={this.props.post.data.title}
+              actionButtonTitle={this.props.post.data.action_button_title}
+              actionButtonUrl={this.props.post.data.action_button_url}
+              actionDurationInDays={this.props.post.data.action_duration_in_days}
+              imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
+              team={this.props.post.data.post_users_team}
+            />
 
             <div className="post-form__item">
               <div
@@ -291,7 +292,7 @@ class OfferForm extends PureComponent {
                       </span>
                       <span className="inline__item">
                         <button
-                          className="button button_theme_red button_size_small button_stretched button_capitalized"
+                          className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
                           onClick={() => {
                             if (typeof this.props.onClickSave === 'function') {
                               this.props.onClickSave();

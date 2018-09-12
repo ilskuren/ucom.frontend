@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import PostInput from '../components/PostInput';
@@ -55,19 +56,21 @@ class HomePage extends PureComponent {
   }
 
   render() {
+    const user = humps(this.props.user);
+
     return (
       <Fragment>
         {this.state.usersPopupVisible && (
           <Popup onClickClose={() => this.hideUsersPopup()}>
             <ModalContent onClickClose={() => this.hideUsersPopup()}>
               <ProfilesList
-                users={this.state.users.map(item => ({
+                users={user.iFollow && user.iFollow.map(item => ({
                   id: item.id,
+                  rate: item.currentRate,
                   userName: getUserName(item),
-                  accountName: item.account_name,
-                  avatarUrl: getFileUrl(item.avatar_filename),
+                  accountName: item.accountName,
+                  avatarUrl: getFileUrl(item.avatarFilename),
                   profileLink: getUserUrl(item.id),
-                  rate: 100,
                 }))}
               />
             </ModalContent>
@@ -92,7 +95,7 @@ class HomePage extends PureComponent {
               </div>
             </div>
 
-            <PostsGroup posts={this.state.posts} />
+            <PostsGroup posts={humps(this.state.posts)} />
           </div>
         </div>
 
@@ -184,19 +187,19 @@ class HomePage extends PureComponent {
                     </div>
                   </div> */}
 
-                  {this.state.users.length > 0 && (
+                  {user.iFollow && user.iFollow.length > 0 && (
                     <div className="sidebar__section">
                       <div className="users-group">
                         <h4 className="users-group__title">People</h4>
 
                         <div className="users-group__list">
-                          {this.state.users.slice(0, 5).map(user => (
+                          {user.iFollow && user.iFollow.slice(0, 5).map(user => (
                             <div className="users-group__item" key={user.id}>
                               <UserCard
                                 userName={getUserName(user)}
-                                accountName={user.account_name}
+                                accountName={user.accountName}
                                 profileLink={getUserUrl(user.id)}
-                                avatarUrl={getFileUrl(user.avatar_filename)}
+                                avatarUrl={getFileUrl(user.avatarFilename)}
                               />
                             </div>
                           ))}

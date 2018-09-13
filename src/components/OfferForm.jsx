@@ -221,7 +221,6 @@ class OfferForm extends PureComponent {
             </div>
 
             <EventTitle
-              className="event-title_big"
               tags={['sale']}
               title={this.props.post.data.title}
               actionButtonTitle={this.props.post.data.action_button_title}

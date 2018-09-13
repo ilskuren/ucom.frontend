@@ -20,8 +20,10 @@
     width: 100%;
     padding-left: 100px;
     padding-right: 100px;
-    padding-top: 18px;
+    padding-top: 25px;
     padding-bottom: 10px;
+    min-height: 320px;
+    justify-content: space-between;
 
     @media (max-width: 1023px) {
       padding-left: 60px;
@@ -113,7 +115,6 @@
   }
 
   &__avatar-name {
-    margin-top: 10px;
     font-size: 0.714rem;
     opacity: 0.6;
   }
@@ -121,15 +122,12 @@
   &__footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
-    margin-bottom: 10px;
     @media (max-width: 1024px) {
       margin-top: 20px;
     }
     @media (max-width: 767px) {
       flex-direction: column;
       margin-top: 20px;
-      margin-bottom: 20px;
     }
   }
 
@@ -196,29 +194,31 @@
       }
     }
 
-    .event-title__footer {
+    .event-title__inner {
+      min-height: 200px;
+    }
+
+    .event-title__footer,
+    .event-title__buyers {
       display: none;
     }
   }
 
   &_big {
     @media (min-width: 767px) {
-      min-height: 600px;
   
       & .event-title {
         &__inner {
-          padding-top: 30px;
+          padding-top: 25px;
+          padding-bottom: 25px;
+          min-height: 600px;
         }
 
         &__text {
           font-size: 3.43rem;
           margin-top: 35px;
         }
-    
-        &__main {
-          min-height: 400px;
-        }
-    
+
         &__board-more {
           width: 48px;
           height: 48px;
@@ -231,6 +231,10 @@
         &__button a {
           min-height: 60px;
           font-size: 1.167rem;
+        }
+
+        &__avatar-name {
+          margin-top: 0;
         }
       }
     }

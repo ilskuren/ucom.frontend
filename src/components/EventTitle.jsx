@@ -84,33 +84,33 @@ class EventTitle extends PureComponent {
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="event-title__buyers">
-            <div className="inline">
-              {(this.props.buyers && this.props.buyers.length > 0) && (
-                <div className="inline__item">
-                  <div className="avatars-list avatars-list_shifted">
-                    {this.props.buyers.map((item, index) => (
-                      <div className="avatars-list__item" key={index}>
-                        <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
-                      </div>
-                    ))}
+            <div className="event-title__buyers">
+              <div className="inline">
+                {(this.props.buyers && this.props.buyers.length > 0) && (
+                  <div className="inline__item">
+                    <div className="avatars-list avatars-list_shifted">
+                      {this.props.buyers.map((item, index) => (
+                        <div className="avatars-list__item" key={index}>
+                          <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {this.props.buyersCount && (
-                <div className="inline__item">
-                  <strong>{this.props.buyersCount}</strong>
-                </div>
-              )}
+                {this.props.buyersCount && (
+                  <div className="inline__item">
+                    <strong>{this.props.buyersCount}</strong>
+                  </div>
+                )}
 
-              {this.props.buyersCount && (
-                <div className="inline__item">
-                  <em>BUYERS</em>
-                </div>
-              )}
+                {this.props.buyersCount && (
+                  <div className="inline__item">
+                    <em>BUYERS</em>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -152,7 +152,12 @@ class EventTitle extends PureComponent {
                   <div className="inline">
                     <div className="inline__item">
                       <div className="event-title__footer-board">
-                        <Avatars list={this.props.team} orderStacking="fifo" distance="close" />
+                        <Avatars
+                          list={this.props.team}
+                          orderStacking="fifo"
+                          distance="close"
+                          size={this.props.className === 'event-title_big' ? 'initial' : 'msmall'}
+                        />
                         <div className="event-title__avatar-name">BOARD</div>
                       </div>
                     </div>

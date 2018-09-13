@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PostFormEditor from './PostFormEditor';
@@ -51,6 +52,10 @@ class PromoEditor extends PureComponent {
 
         <div className="promo-editor__editor">
           <PostFormEditor />
+        </div>
+
+        <div className="promo-editor__action">
+          <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Publish</Link>
         </div>
       </div>
     );

@@ -240,10 +240,21 @@
   }
 
   &__editor {
+    margin: 0 0 40px;
     padding: 40px 200px 70px;
     text-align: initial;
     box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
     border-radius: 16px;
+
+    @media (max-width: 1023px) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+
+  &__action {
+    max-width: 300px;
+    margin: 0 auto;
   }
 }
 

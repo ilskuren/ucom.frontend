@@ -1,6 +1,5 @@
 import humps from 'lodash-humps';
 import moment from 'moment';
-import { sortBy } from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
@@ -13,7 +12,7 @@ import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import Feed from '../components/Feed';
-import { getUser, getUserPosts } from '../api';
+import { getUser } from '../api';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';

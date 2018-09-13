@@ -81,14 +81,14 @@ class ProfileGeneralInfoPage extends PureComponent {
         this.setState({ loading: true });
 
 
-        patchMyself(data, token)
+        return patchMyself(data, token)
           .then((data) => {
             this.props.setUser(data);
             this.setState({ loading: false });
           })
-          .then(() => history.push('work-and-education'))
           .catch(err => console.error(err.message));
       })
+      .then(() => history.push('work-and-education'))
       .catch(err => console.error(err.message));
   }
 

@@ -70,17 +70,26 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   @bind
   save() {
-    const token = getToken();
-    const { user } = this.props;
-    const data = convertClientUser(user);
+    const { history } = this.props;
+    Promise
+      .resolve()
+      .then(() => {
+        const token = getToken();
+        const { user } = this.props;
+        const data = convertClientUser(user);
 
-    this.setState({ loading: true });
+        this.setState({ loading: true });
 
-    patchMyself(data, token)
-      .then((data) => {
-        this.props.setUser(data);
-        this.setState({ loading: false });
-      });
+
+        patchMyself(data, token)
+          .then((data) => {
+            this.props.setUser(data);
+            this.setState({ loading: false });
+          })
+          .then(() => history.push('work-and-education'))
+          .catch(err => console.error(err.message));
+      })
+      .catch(err => console.error(err.message));
   }
 
   uploadAvatar(file) {

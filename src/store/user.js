@@ -3,7 +3,8 @@ import * as rules from './../utils/validators/';
 import { validateArrayUrls, isEmptyStrings } from './../utils/validators/custom';
 import { validatorRules } from './../utils/constants';
 
-rules.registerPhoneNumber.rule(Validator, /^[\d -]*$/);
+rules.registerPhoneNumber.rule(Validator, /^[\d +-]*$/);
+rules.registerUrl.rule(Validator);
 
 const getInitialState = () => ({
   errors: {
@@ -97,9 +98,8 @@ const user = (state = getInitialState(), action) => {
     case 'CHANGE_USER_PERSONAL_SITE': {
       const { index, value } = action.payload;
       const { userSources } = state;
-
       const returnSources = () => {
-        if (!Array.isArray(userSources)) {
+        if (!Array.isArray(userSources) || userSources.length === 0) {
           return [{ sourceUrl: value }];
         }
         if (index > userSources.length) {
@@ -293,6 +293,7 @@ const user = (state = getInitialState(), action) => {
         return {
           ...state,
           isValid: passes && validUrls,
+          userSources: state.userSources.filter(source => source.sourceUrl !== ''),
           errors: {
             ...validation.errors.all(),
             userSources: state.errors.userSources,

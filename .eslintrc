@@ -21,6 +21,7 @@
     "quote-props": "off",
     "react/prop-types": [1, {"ignore": ["location", "user", "setUser", "match", "history", "children"]}],
     "camelcase": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-console": [1, {"allow": ["error"] }]
   }
 }

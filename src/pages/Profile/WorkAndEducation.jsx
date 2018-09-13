@@ -63,17 +63,22 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   save() {
-    const token = getToken();
-    const { user } = this.props;
-    const data = convertClientUser(user);
-
-    this.setState({ loading: true });
-
-    patchMyself(data, token)
+    const { history } = this.props;
+    Promise
+      .resolve()
+      .then(() => {
+        const token = getToken();
+        const { user } = this.props;
+        const data = convertClientUser(user);
+        this.setState({ loading: true });
+        return patchMyself(data, token);
+      })
       .then((data) => {
         this.props.setUser(data);
         this.setState({ loading: false });
-      });
+      })
+      .then(() => history.push('contacts'))
+      .catch(err => console.error(err.message));
   }
 
   @bind
@@ -123,7 +128,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
           this.save();
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err.message));
   }
 
   @bind

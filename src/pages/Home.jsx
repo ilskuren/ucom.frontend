@@ -1,18 +1,16 @@
 import humps from 'lodash-humps';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
-import PostInput from '../components/PostInput';
-import Post from '../components/Post';
 import UserCard from '../components/UserCard';
 import Footer from '../components/Footer';
 import PostsGroup from '../components/PostsGroup';
 import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import ProfilesList from '../components/ProfilesList';
+import Feed from '../components/Feed';
 import { getUsers, getPosts, getUserPosts } from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
-import { getPostUrl } from '../utils/posts';
 
 class HomePage extends PureComponent {
   constructor(props) {
@@ -21,7 +19,6 @@ class HomePage extends PureComponent {
     this.state = {
       users: [],
       posts: [],
-      userPosts: [],
       usersPopupVisible: false,
     };
   }
@@ -42,7 +39,6 @@ class HomePage extends PureComponent {
         this.setState({
           posts: result[1].data,
           users: result[0],
-          userPosts: result[2] || [],
         });
       });
   }
@@ -105,65 +101,7 @@ class HomePage extends PureComponent {
             <div className="grid grid_content">
               <div className="grid__item">
                 {this.props.user.id && (
-                  <div className="feed">
-                    <div className="feed__title">
-                      <h1 className="title title_small">Ur News Feed</h1>
-                    </div>
-
-                    <div className="feed__post-form">
-                      <PostInput />
-                    </div>
-
-                    <div className="feed__toolbar">
-                      <div className="toolbar">
-                        <div className="toolbar__main">
-                          <div className="menu menu_nav menu_responsive">
-                            <div className="menu__item menu__item_active">
-                              <button className="menu__link">All</button>
-                            </div>
-                            <div className="menu__item">
-                              <button className="menu__link">Call</button>
-                            </div>
-                            <div className="menu__item">
-                              <button className="menu__link">Poll</button>
-                            </div>
-                            <div className="menu__item">
-                              <button className="menu__link">Appeal</button>
-                            </div>
-                            <div className="menu__item">
-                              <button className="menu__link">Promote</button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="toolbar__side">
-                          Sort by
-                        </div>
-                      </div>
-                    </div>
-
-                    {this.props.user && (
-                      <div className="feed__list">
-                        {this.state.userPosts.map(item => (
-                          <div className="feed__item" key={item.id}>
-                            <Post
-                              postId={item.id}
-                              updatedAt={item.updated_at}
-                              rating={item.current_vote}
-                              userName={getUserName(this.props.user)}
-                              accountName={this.props.user.account_name}
-                              profileLink={getUserUrl(this.props.user.id)}
-                              avatarUrl={getFileUrl(this.props.user.avatarFilename)}
-                              title={item.title}
-                              url={getPostUrl(item.id)}
-                              leadingText={item.leading_text}
-                              coverUrl={getFileUrl(item.main_image_filename)}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Feed userId={this.props.user.id} />
                 )}
               </div>
 

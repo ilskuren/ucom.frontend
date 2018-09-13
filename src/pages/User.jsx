@@ -8,16 +8,15 @@ import Avatar from '../components/Avatar';
 import IconInfo from '../components/Icons/Info';
 import Rate from '../components/Rate';
 import IconLink from '../components/Icons/Link';
-import Post from '../components/Post';
 import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
+import Feed from '../components/Feed';
 import { getUser, getUserPosts } from '../api';
-import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl, userIsFollowed } from '../utils/user';
+import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
-import { getPostUrl, getPostTypeById } from '../utils/posts';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -25,7 +24,6 @@ class UserPage extends PureComponent {
 
     this.state = {
       user: {},
-      posts: [],
     };
   }
 
@@ -41,20 +39,9 @@ class UserPage extends PureComponent {
 
   getData(userId) {
     this.setState({ user: {} }, () => {
-      Promise.all([
-        getUser(userId),
-        getUserPosts(userId),
-      ])
-        .then((result) => {
-          let posts = result[1];
-
-          posts = sortBy(posts, item => new Date(item.updated_at).getTime())
-            .reverse();
-
-          this.setState({
-            posts,
-            user: result[0],
-          });
+      getUser(userId)
+        .then((user) => {
+          this.setState({ user });
         });
     });
   }
@@ -260,31 +247,10 @@ class UserPage extends PureComponent {
                   )}
 
                   <div className="user-section">
-                    {this.state.posts.length > 0 && (
-                      <div className="user-section__title">
-                        <h2 className="title title_xsmall title_light">Feed</h2>
-                      </div>
-                    )}
-                    <div className="post-list">
-                      {(!this.state.user.id ? [{}, {}, {}] : this.state.posts).map((item, index) => (
-                        <div className="post-list__item" key={index}>
-                          <Post
-                            postId={item.id}
-                            updatedAt={item.updated_at}
-                            postType={getPostTypeById(item.post_type_id)}
-                            rating={item.current_vote}
-                            userName={getUserName(this.state.user)}
-                            accountName={this.state.user.accountName}
-                            profileLink={getUserUrl(this.state.user.id)}
-                            avatarUrl={getFileUrl(this.state.user.avatarFilename)}
-                            title={item.title}
-                            url={getPostUrl(item.id)}
-                            leadingText={item.leading_text}
-                            coverUrl={getFileUrl(item.main_image_filename)}
-                          />
-                        </div>
-                      ))}
-                    </div>
+                    <Feed
+                      title="Feed"
+                      userId={this.props.match.params.id}
+                    />
                   </div>
                 </div>
 

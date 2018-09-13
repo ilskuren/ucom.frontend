@@ -1,5 +1,6 @@
 export const UPVOTE_STATUS = 'upvote';
 export const DOWNVOTE_STATUS = 'downvote';
+export const NOVOTE_STATUS = 'no_vote';
 
 export const POST_TYPES = [{
   id: 1,

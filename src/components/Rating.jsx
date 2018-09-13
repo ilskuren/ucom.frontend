@@ -6,7 +6,7 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import { vote } from '../api';
 import { getToken } from '../utils/token';
-import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
+import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -24,14 +24,20 @@ class Rating extends PureComponent {
         rating: props.rating,
       });
     }
+
+    if (this.state.choice !== props.choice) {
+      this.setState({
+        choice: props.choice,
+      });
+    }
   }
 
-  vote() {
+  vote(isUp) {
     if (!this.props.user.id) {
       return;
     }
 
-    vote(getToken(), true, this.props.postId, this.props.commentId)
+    vote(getToken(), isUp, this.props.postId, this.props.commentId)
       .then((data) => {
         if (data.errors) {
           return;
@@ -39,7 +45,7 @@ class Rating extends PureComponent {
 
         this.setState({
           rating: data.current_vote,
-          choice: UPVOTE_STATUS,
+          choice: isUp ? UPVOTE_STATUS : DOWNVOTE_STATUS,
         });
       });
   }
@@ -85,7 +91,7 @@ Rating.propTypes = {
   postId: PropTypes.number,
   commentId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS]),
+  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
 };
 
 Rating.defaultProps = {

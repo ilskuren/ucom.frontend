@@ -40,15 +40,14 @@ class EventTitle extends PureComponent {
   render() {
     return (
       <div className={cn('event-title', this.props.className)}>
+        <div className="event-title__cover">
+          {this.props.imgSrc ? (
+            <img src={this.props.imgSrc} className="event-title__img" alt="" />
+          ) : (
+            <div className="event-title__img event-title__img_blank" />
+          )}
+        </div>
         <div className="event-title__inner">
-          <div className="event-title__cover">
-            {this.props.imgSrc ? (
-              <img src={this.props.imgSrc} className="event-title__img" alt="" />
-            ) : (
-              <div className="event-title__img event-title__img_blank" />
-            )}
-          </div>
-
           <div className="event-title__main">
             <div className="toolbar">
               <div className="toolbar__main">
@@ -94,7 +93,7 @@ class EventTitle extends PureComponent {
                   <div className="avatars-list avatars-list_shifted">
                     {this.props.buyers.map((item, index) => (
                       <div className="avatars-list__item" key={index}>
-                        <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
+                        <Avatar src={getFileUrl(item.avatarFilename)} size="xxsmall" />
                       </div>
                     ))}
                   </div>
@@ -116,7 +115,7 @@ class EventTitle extends PureComponent {
           </div>
 
           <div className="event-title__footer">
-            <div className="toolbar toolbar_responsive">
+            <div className="toolbar">
               <div className="toolbar__main">
                 <div className="inline">
                   <div className="inline__item">
@@ -125,7 +124,7 @@ class EventTitle extends PureComponent {
                         <a
                           href={`//${this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}`}
                           className={cn(
-                            'button button_theme_red button_size_medium button_stretched',
+                            'button button_theme_red button_size_medium button_stretched button_upper',
                             { 'button_disabled': this.state.join },
                           )}
                           target="_blank"
@@ -148,12 +147,16 @@ class EventTitle extends PureComponent {
             </div>
 
             {(this.props.team && this.props.team.length > 0) && (
-              <div className="toolbar">
-                <div className="toolbar__side">
-                  <div className="event-title__footer-board">
-                    <Avatars list={this.props.team} orderStacking="fifo" distance="close" size="msmall" />
+              <div className="toolbar toolbar_responsive">
+                <div className="toolbar__main">
+                  <div className="inline">
+                    <div className="inline__item">
+                      <div className="event-title__footer-board">
+                        <Avatars list={this.props.team} orderStacking="fifo" distance="close" />
+                        <div className="event-title__avatar-name">BOARD</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="event-title__name">BOARD</div>
                 </div>
               </div>
             )}

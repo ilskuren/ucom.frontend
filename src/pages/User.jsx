@@ -17,7 +17,7 @@ import { getUser, getUserPosts } from '../api';
 import { getYearsFromBirthday, getYearOfDate, getUserName, getUserUrl, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
-import { getPostUrl } from '../utils/posts';
+import { getPostUrl, getPostTypeById } from '../utils/posts';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -271,6 +271,7 @@ class UserPage extends PureComponent {
                           <Post
                             postId={item.id}
                             updatedAt={item.updated_at}
+                            postType={getPostTypeById(item.post_type_id)}
                             rating={item.current_vote}
                             userName={getUserName(this.state.user)}
                             accountName={this.state.user.accountName}

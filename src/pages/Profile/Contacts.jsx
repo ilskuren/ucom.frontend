@@ -95,15 +95,12 @@ class ProfileContactsPage extends PureComponent {
         const { user } = this.props;
         const token = getToken();
         const data = convertClientUser(user);
-
         this.setState({ loading: true });
-
-        return patchMyself(data, token)
-          .then((data) => {
-            this.props.setUser(data);
-            this.setState({ loading: false });
-          })
-          .catch(err => console.error(err.message));
+        return patchMyself(data, token);
+      })
+      .then((data) => {
+        this.props.setUser(data);
+        this.setState({ loading: false });
       })
       .then(() => history.push(`/user/${id}`))
       .catch(err => console.error(err.message));

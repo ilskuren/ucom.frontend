@@ -21,6 +21,7 @@ import Header from './Header';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
+import { convertServerUser } from '../api/convertors';
 
 class App extends PureComponent {
   constructor(props) {
@@ -43,7 +44,8 @@ class App extends PureComponent {
     if (token) {
       getMyself(token)
         .then((data) => {
-          this.props.setUser(data);
+          const convertData = convertServerUser(data);
+          this.props.setUser(convertData);
           this.setState({ loading: false });
         })
         .catch(() => {

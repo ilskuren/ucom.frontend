@@ -153,7 +153,7 @@ class HomePage extends PureComponent {
                               userName={getUserName(this.props.user)}
                               accountName={this.props.user.account_name}
                               profileLink={getUserUrl(this.props.user.id)}
-                              avatarUrl={getFileUrl(this.props.user.avatar_filename)}
+                              avatarUrl={getFileUrl(this.props.user.avatarFilename)}
                               title={item.title}
                               url={getPostUrl(item.id)}
                               leadingText={item.leading_text}

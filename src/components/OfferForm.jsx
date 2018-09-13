@@ -56,7 +56,7 @@ class OfferForm extends PureComponent {
                     <span className="post-form__light">By</span>
                   </div>
                   <div className="inline__item">
-                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                   </div>
                   <div className="inline__item">
                     <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
@@ -231,12 +231,7 @@ class OfferForm extends PureComponent {
             />
 
             <div className="post-form__item">
-              <div
-                className={classNames(
-                  'post-form__editor',
-                  { 'post-form__editor_offer': this.state.base64Cover || this.props.post.data.main_image_filename },
-                )}
-              >
+              <div className="post-form__editor post-form__editor_offer">
                 <div className="post-form__content post-form__content_wide">
                   <div className="editor">
                     <div className="editor__item">
@@ -284,7 +279,7 @@ class OfferForm extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                       </div>
                       <span className="inline__item">
                         <span className="create-post__author-name">{getUserName(this.props.user)}</span>

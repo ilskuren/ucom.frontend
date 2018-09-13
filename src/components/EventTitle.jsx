@@ -124,7 +124,7 @@ class EventTitle extends PureComponent {
                         <a
                           href={`//${this.props.actionButtonUrl.replace(/^(?:\/\/|[^/]+)*\//, '')}`}
                           className={cn(
-                            'button button_theme_red button_size_medium button_stretched',
+                            'button button_theme_red button_size_medium button_stretched button_upper',
                             { 'button_disabled': this.state.join },
                           )}
                           target="_blank"

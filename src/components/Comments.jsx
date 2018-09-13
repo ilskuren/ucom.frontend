@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import CommentForm from './CommentForm';
 import Comment from './Comment';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
+import { sortComments } from '../utils/comments';
 
 class Comments extends PureComponent {
   createComment(description, commentId) {
@@ -15,18 +17,7 @@ class Comments extends PureComponent {
   }
 
   render() {
-    const comments = (this.props.comments || []).sort((commentA, commentB) => { // eslint-disable-line
-      const a = commentA.path;
-      const b = commentB.path;
-
-      const iterationAmount = a.length > b.length ? a.length : b.length;
-
-      for (let i = 0; i < iterationAmount; i++) {
-        if (b[i] === undefined) return 1;
-        if (a[i] === undefined) return -1;
-        if (a[i] !== b[i]) return a[i] - b[i];
-      }
-    });
+    const comments = humps(sortComments(this.props.comments));
 
     return (
       <div className="comments">
@@ -38,19 +29,22 @@ class Comments extends PureComponent {
           </div>
         )}
 
-        {comments.length > 0 && (
+        {comments && comments.length > 0 && (
           <div className="comments__list">
             {comments.map(item => (
               <Comment
                 key={item.id}
                 id={item.id}
-                description={item.description}
-                avatar={item.User ? getFileUrl(item.User.avatar_filename) : null}
-                userName={getUserName(item.User)}
-                userUrl={getUserUrl(item.User.id)}
-                accountName={item.User ? item.User.account_name : null}
-                created={moment(item.created_at).fromNow()}
                 depth={item.depth}
+                choice={item.myselfData && item.myselfData.myselfVote}
+                rating={item.currentVote}
+                postId={this.props.postId}
+                description={item.description}
+                avatar={item.user ? getFileUrl(item.user.avatarFilename) : null}
+                userName={getUserName(item.user)}
+                userUrl={getUserUrl(item.user.id)}
+                accountName={item.user ? item.user.accountName : null}
+                created={moment(item.createdAt).fromNow()}
                 onSubmit={description => this.createComment(description, item.id)}
               />
             ))}
@@ -64,6 +58,7 @@ class Comments extends PureComponent {
 Comments.propTypes = {
   onSubmit: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
+  postId: PropTypes.number,
 };
 
 export default connect(state => ({

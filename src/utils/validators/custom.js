@@ -6,7 +6,7 @@ const isValidUrl = (url) => {
 
 export const validateArrayUrls = (values) => {
   const result = {
-    isErrorExists: null,
+    isValid: null,
     results: [{
       isInvalidUrl: null,
       message: null,
@@ -21,7 +21,14 @@ export const validateArrayUrls = (values) => {
   result.isValid = values.every(isValidUrl);
   result.results = values.map(value => ({
     isInvalidUrl: !isValidUrl(value),
-    message: 'Invalid url',
+    message: 'The field name url format is invalid.',
   }));
   return result;
+};
+
+export const isEmptyStrings = (strings) => {
+  if (!Array.isArray(strings)) {
+    return strings === '';
+  }
+  return strings.every(string => string === '');
 };

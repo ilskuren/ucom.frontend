@@ -9,9 +9,9 @@ export const getFileUrl = (filename) => {
 };
 
 export const getBase64FromFile = file => (
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     if (!file) {
-      resolve(null);
+      reject(new Error('Error: Can\'t get base 64 from file'));
     }
 
     const reader = new FileReader();

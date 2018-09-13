@@ -53,7 +53,6 @@ class EventsPage extends PureComponent {
                       <td className="list-table__cell list-table__cell_index">{index + 1}</td>
                       <td className="list-table__cell list-table__cell_name" data-title="Name">
                         <UserCard
-                          squareAvatar
                           profileLink={getUserUrl(item.id)}
                           avatarUrl={getFileUrl(item.avatarFilename)}
                           userName={getUserName(item)}

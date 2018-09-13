@@ -23,7 +23,7 @@ class Offer extends PureComponent {
   }
 
   getData() {
-    getPost(this.props.match.params.id)
+    getPost(this.props.match.params.id, getToken())
       .then((post) => {
         this.setState({ post });
       });

@@ -6,6 +6,6 @@ export const registerPhoneNumber = {
         return false;
       }
       return value.match(regex);
-    }, 'The phone number is not in the format XXXX-XXXX.');
+    }, 'The phone number format is invalid.');
   },
 };

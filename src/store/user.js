@@ -285,29 +285,59 @@ const user = (state = getInitialState(), action) => {
     case 'VALIDATE_PROFILE_FORM': {
       const validation = new Validator(state, validatorRules.user[action.payload]);
       const passes = validation.passes();
-      const shouldValidateSources = action.payload === 'contactsRules';
-      if (shouldValidateSources) {
-        const sourcesUrls = state.userSources.map(source => source.sourceUrl);
-        const validUrls = state.errors.userSources
-          && (validateArrayUrls(sourcesUrls).isValid || isEmptyStrings(sourcesUrls));
-        return {
-          ...state,
-          isValid: passes && validUrls,
-          userSources: state.userSources.filter(source => source.sourceUrl !== ''),
-          errors: {
-            ...validation.errors.all(),
-            userSources: state.errors.userSources,
-          },
-        };
+
+      const filterStateByRule = (prop, callback) => state[prop].filter(callback);
+
+      const formRules = action.payload;
+
+      switch (formRules) {
+        case 'contactsRules': {
+          const isNotEmptySourceUrl = source => source.sourceUrl !== '';
+          const userSources = filterStateByRule('userSources', isNotEmptySourceUrl);
+          const sourcesUrls = state.userSources.map(source => source.sourceUrl);
+          const validUrls = state.errors.userSources
+            && (validateArrayUrls(sourcesUrls).isValid || isEmptyStrings(sourcesUrls));
+          return {
+            ...state,
+            isValid: passes && validUrls,
+            userSources,
+            errors: {
+              ...validation.errors.all(),
+              userSources: state.errors.userSources,
+            },
+          };
+        }
+
+        case 'workAndEducationRules': {
+          const isNotEmptyJob = job => job.title !== '' || job.position !== '';
+          const isNotEmptyEducation = educ => educ.title !== '' || educ.speciality !== '' || educ.degree !== '';
+          const userJobs = filterStateByRule('userJobs', isNotEmptyJob);
+          const userEducations = filterStateByRule('userEducations', isNotEmptyEducation);
+          return {
+            ...state,
+            userJobs,
+            userEducations,
+            isValid: passes,
+            errors: {
+              ...validation.errors.all(),
+            },
+          };
+        }
+
+        case 'generalInfoRules': {
+          return {
+            ...state,
+            isValid: passes,
+            errors: {
+              ...validation.errors.all(),
+            },
+          };
+        }
+
+        default: {
+          throw new Error('Unreachable code', formRules);
+        }
       }
-      return {
-        ...state,
-        isValid: passes,
-        errors: {
-          ...validation.errors.all(),
-          userSources: state.errors.userSources,
-        },
-      };
     }
 
     case 'CLEAR_PROFILE_FORM_ERRORS': {

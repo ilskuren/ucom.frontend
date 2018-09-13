@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
+import { Field, reduxForm } from 'redux-form';
+
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -239,4 +241,7 @@ ProfileContactsPage.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps, mapDispatch)(ProfileContactsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatch,
+)(reduxForm({ form: 'contacts' })(ProfileContactsPage));

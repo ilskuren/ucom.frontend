@@ -69,7 +69,7 @@ class EventTitle extends PureComponent {
 
               <div className="toolbar toolbar_responsive">
                 <div className="toolbar__side">
-                  <div className="inline">
+                  <div className="inline inline_without-margin">
                     <div className="inline__item">
                       <Share isRounded />
                     </div>

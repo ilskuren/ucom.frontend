@@ -55,7 +55,7 @@ class PromoEditor extends PureComponent {
     super(props);
 
     this.state = {
-      activeTabId: TABS[1].id,
+      activeTabId: TABS[0].id,
     };
   }
 

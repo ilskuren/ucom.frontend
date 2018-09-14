@@ -21,7 +21,7 @@
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 25px;
-    padding-bottom: 18px;
+    padding-bottom: 32px;
     min-height: 320px;
     justify-content: space-between;
 
@@ -139,6 +139,23 @@
     }
   }
 
+  &__input {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    background: transparent;
+    color: inherit;
+    outline: none;
+    width: 100%;
+
+    &::placeholder {
+      opacity: 1;
+      color: inherit;
+    }
+  }
+
   &__footer-board {
     margin: 8px 0;
   }
@@ -236,6 +253,16 @@
           margin-top: 0;
         }
       }
+    }
+  }
+
+  &_black {
+    .event-title__img_blank {
+      background: #000;
+    }
+
+    svg {
+      fill: #fff;
     }
   }
 }

@@ -38,6 +38,8 @@ class Header extends PureComponent {
   }
 
   render() {
+    console.log(this.props.user);
+
     return (
       <div className="header" id="top">
         <div className="header__inner">

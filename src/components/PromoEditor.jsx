@@ -21,7 +21,7 @@ class PromoEditor extends PureComponent {
     super(props);
 
     this.state = {
-      activeTabId: TABS[0].id,
+      activeTabId: TABS[1].id,
     };
   }
 
@@ -63,12 +63,16 @@ class PromoEditor extends PureComponent {
           <Fragment>
             <div className="promo-editor__event-title">
               <EventTitle
-                className="event-title_big"
+                black
+                editableTitle
+                editableCover
+                rate={9200}
                 tags={['sale']}
                 title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title}
+                actionButtonTitle={this.props.post.data.action_button_title || "Buy now"}
                 actionButtonUrl={this.props.post.data.action_button_url}
-                actionDurationInDays={this.props.post.data.action_duration_in_days}
+                actionDurationInDays={this.props.post.data.action_duration_in_days || 10}
+                createdAt={(new Date()).getTime()}
                 imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
                 team={this.props.post.data.post_users_team}
               />
@@ -95,6 +99,3 @@ export default connect(
     setPostData: data => dispatch(setPostData(data)),
   }),
 )(PromoEditor);
-
-
-// export default PromoEditor;

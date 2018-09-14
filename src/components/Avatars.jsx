@@ -5,8 +5,6 @@ import Avatar from './Avatar';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
 import ProfilesList from './ProfilesList';
-import { getFileUrl } from '../utils/upload';
-import { getUserUrl, getUserName } from '../utils/user';
 
 class Avatars extends PureComponent {
   constructor(props) {
@@ -26,7 +24,7 @@ class Avatars extends PureComponent {
   }
 
   renderAvatar = (avatar, options) => {
-    const { avatar_filename, alt } = avatar;
+    const { avatarUrl, alt } = avatar;
 
     const {
       number, orderStacking, size, borderWhite, square,
@@ -38,7 +36,7 @@ class Avatars extends PureComponent {
         style={{ zIndex: orderStacking === 'fifo' ? number : '' }}
         key={number}
       >
-        <Avatar square={square} src={getFileUrl(avatar_filename)} size={size} alt={alt} borderWhite={borderWhite} />
+        <Avatar square={square} src={avatarUrl} size={size} alt={alt} borderWhite={borderWhite} />
       </span>
     );
   };
@@ -68,16 +66,7 @@ class Avatars extends PureComponent {
         {this.state.popupIsVisible && (
           <Popup onClickClose={() => this.hidePopup()}>
             <ModalContent onClickClose={() => this.hidePopup()}>
-              <ProfilesList
-                users={list.map(item => ({
-                  id: item.id,
-                  userName: getUserName(item),
-                  accountName: item.account_name,
-                  avatarUrl: getFileUrl(item.avatar_filename),
-                  profileLink: getUserUrl(item.id),
-                  rate: item.current_rate,
-                }))}
-              />
+              <ProfilesList users={list} />
             </ModalContent>
           </Popup>
         )}
@@ -88,11 +77,13 @@ class Avatars extends PureComponent {
 
 Avatars.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    avatar_filename: PropTypes.string,
-    alt: PropTypes.string,
     id: PropTypes.number,
-    account_name: PropTypes.string,
+    alt: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    accountName: PropTypes.string,
     rate: PropTypes.number,
+    profileLink: PropTypes.string,
+    userName: PropTypes.string,
   })).isRequired,
   square: PropTypes.bool,
   borderWhite: PropTypes.bool,

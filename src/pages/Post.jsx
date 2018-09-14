@@ -76,7 +76,14 @@ class Offer extends PureComponent {
                 actionButtonUrl={this.state.post.action_button_url}
                 createdAt={this.state.post.created_at}
                 join={this.state.post.myselfData && this.state.post.myselfData.join}
-                team={this.state.post.post_users_team}
+                team={this.state.post.post_users_team && this.state.post.post_users_team.map(item => ({
+                  id: item.id,
+                  avatarUrl: getFileUrl(item.avatar_filename),
+                  accountName: item.account_name,
+                  rate: +item.current_rate,
+                  profileLink: getUserUrl(item.id),
+                  userName: getUserName(item),
+                }))}
               />
             )}
 

@@ -14,9 +14,6 @@
     font-weight: 900;
     line-height: 1;
 
-    @media (min-width: 767px) {
-      margin-bottom: 8px;
-    }
 
     @media (max-width: 424px) {
       font-size: 1.85rem;
@@ -29,7 +26,12 @@
 
   &__name {
     font-size: 0.7143rem;
+    font-weight: 600;
     opacity: .6;
     text-transform: uppercase;
+
+    @media (min-width: 767px) {
+      margin-top: 8px;
+    }
   }
 }

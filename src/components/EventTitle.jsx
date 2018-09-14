@@ -109,38 +109,10 @@ class EventTitle extends PureComponent {
                 </div>
               </div>
             </div>
-
-            {/* <div className="event-title__buyers">
-              <div className="inline">
-                {(this.props.buyers && this.props.buyers.length > 0) && (
-                  <div className="inline__item">
-                    <div className="avatars-list avatars-list_shifted">
-                      {this.props.buyers.map((item, index) => (
-                        <div className="avatars-list__item" key={index}>
-                          <Avatar src={getFileUrl(item.avatar_filename)} size="xxsmall" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {this.props.buyersCount && (
-                  <div className="inline__item">
-                    <strong>{this.props.buyersCount}</strong>
-                  </div>
-                )}
-
-                {this.props.buyersCount && (
-                  <div className="inline__item">
-                    <em>BUYERS</em>
-                  </div>
-                )}
-              </div>
-            </div> */}
           </div>
 
           <div className="event-title__footer">
-            <div className="toolbar">
+            <div className="toolbar toolbar_responsive">
               <div className="toolbar__main">
                 <div className="inline">
                   <div className="inline__item">
@@ -164,32 +136,52 @@ class EventTitle extends PureComponent {
 
                   {this.props.createdAt && this.props.actionDurationInDays && (
                     <div className="inline__item">
-                      <TimeCounter startTime={this.props.createdAt} durationInDays={this.props.actionDurationInDays} />
+                      <TimeCounter
+                        hideLabel={!!this.props.timerTitle}
+                        startTime={this.props.createdAt}
+                        durationInDays={this.props.actionDurationInDays}
+                      />
+                      {this.props.timerTitle && (
+                        <div className="event-title__avatar-name">{this.props.timerTitle}</div>
+                      )}
+                    </div>
+                  )}
+
+                  {this.props.buyers && (
+                    <div className="inline__item">
+                      <div className="inline">
+                        <div className="inline__item">
+                          <Avatars
+                            list={this.props.buyers}
+                            orderStacking="fifo"
+                            distance="close"
+                            size="xxsmall"
+                          />
+                        </div>
+                        {this.props.buyersCount && (
+                          <div className="inline__item">
+                            <span className="event-title__users-count">{this.props.buyersCount}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="event-title__avatar-name">{this.props.buyersTitle}</div>
                     </div>
                   )}
                 </div>
               </div>
-            </div>
 
-            {(this.props.team && this.props.team.length > 0) && (
-              <div className="toolbar toolbar_responsive">
-                <div className="toolbar__main">
-                  <div className="inline">
-                    <div className="inline__item">
-                      <div className="event-title__footer-board">
-                        <Avatars
-                          list={this.props.team}
-                          orderStacking="fifo"
-                          distance="close"
-                          size={this.props.big ? 'initial' : 'msmall'}
-                        />
-                        <div className="event-title__avatar-name">BOARD</div>
-                      </div>
-                    </div>
-                  </div>
+              {(this.props.team && this.props.team.length > 0) && (
+                <div className="toolbar__side">
+                  <Avatars
+                    list={this.props.team}
+                    orderStacking="fifo"
+                    distance="close"
+                    size={this.props.big ? 'initial' : 'msmall'}
+                  />
+                  <div className="event-title__avatar-name">{this.props.teamTitle}</div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -205,15 +197,24 @@ EventTitle.propTypes = {
   rate: PropTypes.number,
   title: PropTypes.string,
   team: PropTypes.arrayOf(PropTypes.object),
+  buyers: PropTypes.arrayOf(PropTypes.object),
   actionButtonTitle: PropTypes.string,
   actionDurationInDays: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   actionButtonUrl: PropTypes.string,
-  createdAt: PropTypes.string,
+  createdAt: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   join: PropTypes.bool,
   big: PropTypes.bool,
   black: PropTypes.bool,
   editableTitle: PropTypes.bool,
   editableCover: PropTypes.bool,
+  teamTitle: PropTypes.string,
+  buyersTitle: PropTypes.string,
+  buyersCount: PropTypes.number,
+};
+
+EventTitle.defaultProps = {
+  teamTitle: 'Board',
+  buyersTitle: 'Buyers',
 };
 
 export default connect(state => ({

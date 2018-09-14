@@ -195,7 +195,6 @@ ProfileContactsPage.propTypes = {
   changeUserField: PropTypes.func,
   clearErrors: PropTypes.func,
   initialize: PropTypes.func,
-  addUserPersonalWebSite: PropTypes.func,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
   validateProfileForm: PropTypes.func,

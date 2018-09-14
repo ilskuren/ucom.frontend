@@ -41,9 +41,9 @@ class SocialNetworks extends PureComponent {
   }
 }
 
-SocialNetworks.propTypes = {
-  userSources: PropTypes.arrayOf(PropTypes.object),
-};
+// SocialNetworks.propTypes = {
+//   fields: PropTypes.arrayOf(PropTypes.object),
+// };
 
 export default SocialNetworks;
 

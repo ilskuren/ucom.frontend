@@ -23,7 +23,7 @@ const user = (state = getInitialState(), action) => {
     case 'REMOVE_USER':
       return getInitialState();
 
-    case 'USER:SAVE_USER_COMPLETED': {
+    case 'USER:EDIT_USER_COMPLETED': {
       return {
         ...state,
         ...action.payload,

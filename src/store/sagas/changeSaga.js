@@ -6,7 +6,7 @@ import { patchMyself } from '../../api';
 function* saveUserSaga(action) {
   try {
     const token = getToken();
-
+    
     const test = yield call(patchMyself, action.payload, token);
     console.log('save ENTER', test);
     yield put({ type: 'USER:SAVE_USER_COMPLETED', payload: action.payload });

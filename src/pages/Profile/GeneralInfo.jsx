@@ -57,8 +57,8 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   @bind
   handleSubmit(e) {
-    const { saveUser } = this.props;
     e.preventDefault();
+    const { saveUser } = this.props;
     saveUser({ fieldName: 'firstName', value: 'test' });
     // Promise.resolve()
     //   .then(this.props.validateProfileForm('generalInfoRules'))
@@ -68,22 +68,27 @@ class ProfileGeneralInfoPage extends PureComponent {
     //       this.save();
     //     }
     //   })
-    //   .catch(err => console.error(err));
+    //   .catch(err => console.error(err.message));
   }
 
   @bind
   save() {
-    const token = getToken();
-    const { user } = this.props;
-    const data = convertClientUser(user);
-
-    this.setState({ loading: true });
-
-    patchMyself(data, token)
+    const { history } = this.props;
+    Promise
+      .resolve()
+      .then(() => {
+        const token = getToken();
+        const { user } = this.props;
+        const data = convertClientUser(user);
+        this.setState({ loading: true });
+        return patchMyself(data, token);
+      })
       .then((data) => {
         this.props.setUser(data);
         this.setState({ loading: false });
-      });
+      })
+      .then(() => history.push('work-and-education'))
+      .catch(err => console.error(err.message));
   }
 
   uploadAvatar(file) {

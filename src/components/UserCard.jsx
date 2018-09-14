@@ -6,7 +6,7 @@ import Avatar from './Avatar';
 import Rate from './Rate';
 
 const UserCard = (props) => {
-  const avatar = <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
+  const avatar = props.icon || <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
   const LinkTag = props.profileLink ? Link : 'span';
 
   return (
@@ -25,7 +25,7 @@ const UserCard = (props) => {
         </div>
 
         {props.accountName && (
-          <div className="user-card__account">{props.sign || '@'}{props.accountName}</div>
+          <div className="user-card__account">{props.sign}{props.accountName}</div>
         )}
       </div>
 
@@ -49,6 +49,7 @@ UserCard.propTypes = {
   avatarSize: PropTypes.string,
   sign: PropTypes.string,
   className: PropTypes.string,
+  icon: PropTypes.element,
 };
 
 UserCard.defaultProps = {

@@ -58,6 +58,7 @@ const PostCard = (props) => {
               accountName={props.accountName}
               profileLink={props.userUrl}
               avatarUrl={props.userImageUrl}
+              sign="@"
             />
           </div>
 

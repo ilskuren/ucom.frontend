@@ -1,0 +1,30 @@
+.notification {
+  background-color: darken(@gray-lighter, 5);
+  padding: 20px;
+
+  &__bell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border: 10px solid @black;
+    border-radius: 50%;
+
+    & svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__text {
+    margin-top: 20px;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+  }
+}

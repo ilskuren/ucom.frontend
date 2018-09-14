@@ -8,7 +8,7 @@ const TABS = [{
   title: 'Media-posts',
 }, {
   id: 2,
-  title: 'Offers'
+  title: 'Offers',
 }];
 
 class PromoEditor extends PureComponent {

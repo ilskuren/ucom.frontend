@@ -26,9 +26,7 @@ const PostHeader = ({
                   {name || <span className="blank">Lorem, ipsum.</span>}
                 </UserLinkTag>
               </div>
-              <div className="post-header__user-rate">
-                {rating ? `${rating}°` : <span className="blank">1 000</span>}
-              </div>
+              <div className="post-header__user-rate">{rating}°</div>
             </div>
           </div>
         </div>

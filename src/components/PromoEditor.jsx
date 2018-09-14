@@ -69,7 +69,7 @@ class PromoEditor extends PureComponent {
                 rate={9200}
                 tags={['sale']}
                 title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title || "Buy now"}
+                actionButtonTitle={this.props.post.data.action_button_title || 'Buy now'}
                 actionButtonUrl={this.props.post.data.action_button_url}
                 actionDurationInDays={this.props.post.data.action_duration_in_days || 10}
                 createdAt={(new Date()).getTime()}

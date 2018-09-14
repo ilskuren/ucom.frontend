@@ -34,7 +34,7 @@ class Comments extends PureComponent {
           </div>
           <div className="toolbar__main">
             <div className="comment__header">
-              <div className="toolbar">
+              <div className="toolbar toolbar_responsive">
                 <div className="toolbar__main">
                   <div className="comment__username">
                     <Link to={this.props.userUrl}>{this.props.userName}</Link>

@@ -28,7 +28,7 @@ class EventTitle extends PureComponent {
   changeCover(file) {
     getBase64FromFile(file)
       .then((base64Cover) => {
-        this.setState({ base64Cover })
+        this.setState({ base64Cover });
       });
   }
 

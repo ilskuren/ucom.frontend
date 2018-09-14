@@ -11,3 +11,7 @@ export function selectUserContacts(state) {
     userSources: user.userSources,
   };
 }
+
+export function selectUserId(state) {
+  return state.user.id;
+}

@@ -5,20 +5,20 @@ import { convertClientUserContacts } from '../../api/convertors';
 import { selectUser } from '../../utils/selectors/user';
 
 
-function* saveUserSaga(action) {
+function* editUserSaga(action) {
   try {
     const token = getToken();
     const user = yield select(selectUser);
     const convertedUser = { ...convertClientUserContacts(action.payload), id: user.id };
     yield call(patchMyself, convertedUser, token);
-    yield put({ type: 'USER:SAVE_USER_COMPLETED', payload: action.payload });
+    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: action.payload });
   } catch (e) {
-    yield put({ type: 'SET_USER_FAILED', message: e.message });
+    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
   }
 }
 
-function* changeSaga() {
-  yield takeLatest('USER:SAVE_USER', saveUserSaga);
+function* userSaga() {
+  yield takeLatest('USER:EDIT_USER', editUserSaga);
 }
 
-export default changeSaga;
+export default userSaga;

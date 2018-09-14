@@ -15,12 +15,9 @@ import Loading from '../../components/Loading';
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
 
-import { getToken } from '../../utils/token';
-import { patchMyself } from '../../api';
-import { convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
-import { selectUserContacts } from '../../utils/selectors/user';
+import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
@@ -32,10 +29,11 @@ const mapDispatch = dispatch =>
     removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
     validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
-    saveUser: actions.saveUser,
+    editUser: actions.editUser,
   }, dispatch);
 
 const mapStateToProps = state => ({
+  userId: selectUserId(state),
   userContacts: selectUserContacts(state),
 });
 
@@ -58,16 +56,6 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
-  getWebSiteUrlErrorMessage(index) {
-    // const { errors } = this.props.user;
-    // return errors.userSources &&
-    //   errors.userSources.results &&
-    //     errors.userSources.results[index] &&
-    //       errors.userSources.results[index].isInvalidUrl &&
-    //         errors.userSources.results[index].message;
-  }
-
-  @bind
   makeRemoveSiteClickHandler(index) {
     return () => this.props.removeUserPersonalWebSite(index);
   }
@@ -84,31 +72,16 @@ class ProfileContactsPage extends PureComponent {
 
   @bind
   handleSubmit(event) {
-    const { handleSubmit, saveUser } = this.props;
+    const {
+      handleSubmit,
+      editUser,
+      userId,
+      history,
+    } = this.props;
     handleSubmit((profile) => {
-      saveUser(profile);
+      editUser(profile);
     })(event);
-  }
-
-  @bind
-  save() {
-    const { history } = this.props;
-    const { id } = this.props.user;
-    Promise
-      .resolve()
-      .then(() => {
-        const { user } = this.props;
-        const token = getToken();
-        const data = convertClientUser(user);
-        this.setState({ loading: true });
-        return patchMyself(data, token);
-      })
-      .then((data) => {
-        this.props.setUser(data);
-        this.setState({ loading: false });
-      })
-      .then(() => history.push(`/user/${id}`))
-      .catch(err => console.error(err.message));
+    history.push(`/user/${userId}`);
   }
 
   render() {
@@ -193,7 +166,9 @@ ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
-  // validateProfileForm: PropTypes.func,
+  editUser: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  userId: PropTypes.number,
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,

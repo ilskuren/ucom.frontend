@@ -260,7 +260,6 @@ class ProfileGeneralInfoPage extends PureComponent {
 
 ProfileGeneralInfoPage.propTypes = {
   changeUserField: PropTypes.func,
-  validateProfileForm: PropTypes.func,
   clearErrors: PropTypes.func,
   saveUser: PropTypes.func,
   user: PropTypes.shape({

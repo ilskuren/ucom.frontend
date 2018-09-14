@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import DropZone from '../components/DropZone';
 import EventTitle from '../components/EventTitle';
-import Medium from '../components/Medium';
+import OfferFormEditor from '../components/OfferFormEditor';
 import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
@@ -56,7 +56,7 @@ class OfferForm extends PureComponent {
                     <span className="post-form__light">By</span>
                   </div>
                   <div className="inline__item">
-                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                   </div>
                   <div className="inline__item">
                     <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
@@ -221,7 +221,6 @@ class OfferForm extends PureComponent {
             </div>
 
             <EventTitle
-              className="event-title_big"
               tags={['sale']}
               title={this.props.post.data.title}
               actionButtonTitle={this.props.post.data.action_button_title}
@@ -232,46 +231,9 @@ class OfferForm extends PureComponent {
             />
 
             <div className="post-form__item">
-              <div
-                className={classNames(
-                  'post-form__editor',
-                  { 'post-form__editor_offer': this.state.base64Cover || this.props.post.data.main_image_filename },
-                )}
-              >
+              <div className="post-form__editor post-form__editor_offer">
                 <div className="post-form__content post-form__content_wide">
-                  <div className="editor">
-                    <div className="editor__item">
-                      <input
-                        type="text"
-                        placeholder="Lead text"
-                        className="editor__input editor__input_medium"
-                        value={this.props.post.data.leading_text}
-                        onChange={(e) => {
-                          this.props.setPostData({ leading_text: e.target.value });
-                          this.props.validatePostField('leading_text');
-                        }}
-                      />
-                      {this.props.post.errors.leading_text && this.props.post.errors.leading_text.length > 0 ? (
-                        <div className="editor__error">{this.props.post.errors.leading_text[0]}</div>
-                      ) : null}
-                    </div>
-
-                    <div className="editor__item">
-                      <div className="editor__body">
-                        <Medium
-                          value={this.props.post.data.description}
-                          onChange={(description) => {
-                            this.props.setPostData({ description });
-                            this.props.validatePostField('description');
-                          }}
-                        />
-                      </div>
-
-                      {this.props.post.errors.description && this.props.post.errors.description.length > 0 ? (
-                        <div className="editor__error">{this.props.post.errors.description[0]}</div>
-                      ) : null}
-                    </div>
-                  </div>
+                  <OfferFormEditor />
                 </div>
               </div>
             </div>
@@ -285,7 +247,7 @@ class OfferForm extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatar_filename)} />
+                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                       </div>
                       <span className="inline__item">
                         <span className="create-post__author-name">{getUserName(this.props.user)}</span>

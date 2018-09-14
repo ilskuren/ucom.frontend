@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Button from './Button';
-import { follow } from '../api';
+import { follow, unfollow } from '../api';
 import { getToken } from '../utils/token';
 
 class FollowButton extends PureComponent {
@@ -17,18 +17,16 @@ class FollowButton extends PureComponent {
     this.setState({ follow });
   }
 
-  follow() {
-    if (this.state.follow) {
-      return;
-    }
-
-    follow(this.props.userId, getToken())
+  toggleFollow() {
+    (this.state.follow ? unfollow : follow)(this.props.userId, getToken())
       .then((data) => {
         if (data.errors) {
           return;
         }
 
-        this.setState({ follow: true });
+        this.setState(prevState => ({
+          follow: !prevState.follow,
+        }));
       });
   }
 
@@ -40,7 +38,7 @@ class FollowButton extends PureComponent {
         text={this.state.follow ? 'Following' : 'Follow'}
         size="medium"
         theme="transparent"
-        onClick={() => this.follow()}
+        onClick={() => this.toggleFollow()}
       />
     );
   }

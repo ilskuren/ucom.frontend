@@ -121,10 +121,18 @@ export const updatePost = (data, token, id) => (
     .then(resp => resp.json())
 );
 
-export const getPost = id => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`)
-    .then(resp => resp.json())
-);
+export const getPost = (id, token) => {
+  const params = {
+    headers: {},
+  };
+
+  if (token) {
+    params.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, params)
+    .then(resp => resp.json());
+};
 
 export const getUserPosts = id => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}/posts`)
@@ -202,6 +210,16 @@ export const updateOffer = (data, token, id) => (
 
 export const follow = (userId, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);
+
+export const unfollow = (userId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/unfollow`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,

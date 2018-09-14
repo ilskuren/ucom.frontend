@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import cn from 'classnames';
 import { getPost, createComment } from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
@@ -22,7 +23,7 @@ class Offer extends PureComponent {
   }
 
   getData() {
-    getPost(this.props.match.params.id)
+    getPost(this.props.match.params.id, getToken())
       .then((post) => {
         this.setState({ post });
       });
@@ -79,7 +80,13 @@ class Offer extends PureComponent {
               />
             )}
 
-            <div className="sheets__content sheets__content_posts">
+            <div
+              className={cn(
+                'sheets__content',
+                'sheets__content_posts',
+                { 'sheets__content_no-radius': this.state.post.post_type_id === 2 },
+              )}
+            >
               <PostContent
                 id={this.state.post.id}
                 userId={this.state.post.User && this.state.post.User.id}

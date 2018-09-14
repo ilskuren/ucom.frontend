@@ -49,6 +49,7 @@ class Avatars extends PureComponent {
     } = this.props;
     const listHead = list.slice(0, maxAvatarsAmount);
     const count = list.length - maxAvatarsAmount;
+
     return (
       <Fragment>
         <div className={cn('avatars', { [`avatars_${size}`]: Boolean(size) })}>
@@ -74,7 +75,7 @@ class Avatars extends PureComponent {
                   accountName: item.account_name,
                   avatarUrl: getFileUrl(item.avatar_filename),
                   profileLink: getUserUrl(item.id),
-                  rate: item.rate,
+                  rate: item.current_rate,
                 }))}
               />
             </ModalContent>
@@ -87,11 +88,11 @@ class Avatars extends PureComponent {
 
 Avatars.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    avatar_filename: PropTypes.string.isRequired,
+    avatar_filename: PropTypes.string,
     alt: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     account_name: PropTypes.string,
-    rate: PropTypes.string,
+    rate: PropTypes.number,
   })).isRequired,
   square: PropTypes.bool,
   borderWhite: PropTypes.bool,

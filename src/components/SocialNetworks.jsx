@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import TextInputField from './Field/TextInputField';
 import Button from './Button';
 
+
+function formatValue(value, name) {
+  if (typeof value === 'object') {
+    return value.sourceUrl;
+  }
+  return value;
+}
+
 class SocialNetworks extends PureComponent {
   render() {
     const { fields } = this.props;
@@ -14,6 +22,7 @@ class SocialNetworks extends PureComponent {
               <TextInputField
                 label="Your website"
                 name={name}
+                formatter={formatValue}
               />
             </div>
             {fields.length > 1 && (
@@ -33,7 +42,7 @@ class SocialNetworks extends PureComponent {
             size="small"
             theme="transparent"
             text="Add another"
-            onClick={() => fields.push()}
+            onClick={() => fields.push({ sourceUrl: '' })}
           />
         </div>
       </div>

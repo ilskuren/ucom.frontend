@@ -177,3 +177,13 @@ export function convertServerUserLogin(loginData) {
     user: convertServerUser(loginData.user),
   };
 }
+
+export function convertClientUserContacts(userContacts) {
+  return {
+    email: userContacts.email,
+    phone_number: userContacts.phoneNumber,
+    personal_website_url: userContacts.personalWebsiteUrl,
+    user_sources: convertClientUsersSources(userContacts.userSources),
+    user_id: 62,
+  };
+}

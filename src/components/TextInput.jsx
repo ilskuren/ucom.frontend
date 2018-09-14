@@ -11,7 +11,6 @@ const TextInput = ({
 }) => {
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
-
   if (isSearch) {
     icon = <div className="text-input__icon"><IconSearch /></div>;
   } else if (error) {

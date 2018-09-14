@@ -1,34 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
+import cn from 'classnames';
 import moment from 'moment';
 import UserCard from './UserCard';
 import Button from './Button';
 import KYC from './KYC';
-import BellIcon from './Icons/Bell';
-
-const Bell = () => (
-  <div className="notification__bell">
-    <BellIcon />
-  </div>
-);
+import NotificationSign from './NotificationSign';
 
 const Notification = props => (
-  <div className="notification">
-    <UserCard
-      userName={props.title}
-      accountName={moment.duration(props.createdAt).humanize()}
-      avatarUrl={props.avatarUrl}
-      className="user-card_text_left"
-      icon={props.type === 'verification' && <Bell />}
-    />
-    <div className="notification__text">{props.text}</div>
+  <div className={cn('notification', { [`notification_${props.type}`]: Boolean(props.type) })}>
+    <div className="notification__main">
+      <UserCard
+        userName={props.title}
+        accountName={props.createdAt && moment.duration(props.createdAt).humanize()}
+        avatarUrl={props.avatarUrl}
+        className="user-card_text_left"
+        icon={props.type !== 'message' && <NotificationSign type={props.type} />}
+      />
+      <div className="notification__text">{props.text}</div>
+    </div>
     {(props.buttonText || props.status) ? (
       <div className="notification__control">
-        <div className="notification__button">
-          <Button text={props.buttonText} onClick={props.onButtonClick} size="small" theme="white" />
-        </div>
-        <KYC title={`Status: ${props.status}`} />
+        {props.buttonText && (
+          <div className="notification__button">
+            <Button
+              text={props.buttonText}
+              onClick={props.onButtonClick}
+              size="small"
+              theme={props.type === 'verification' ? 'white' : 'gray'}
+            />
+          </div>
+        )}
+        {props.status && (
+          <div className="notification__kyc">
+            <KYC title={`Status: ${props.status}`} className="kyc_align_right" />
+          </div>
+        )}
       </div>
     ) : null}
   </div>

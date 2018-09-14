@@ -9,6 +9,7 @@ const NotificationsList = props => (
       <div key={index} className="notifications-list__notification">
         <Notification
           type={item.type}
+          style={item.style}
           title={item.title}
           avatarUrl={item.avatarUrl}
           createdAt={item.createdAt}
@@ -33,12 +34,29 @@ export default connect(state => ({
       type: 'verification',
       title: 'Account verification',
       createdAt: 12312432,
-      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
       text: 'Pass the KYC to create an event with custom cta.',
       status: 'Not verified',
       buttonText: 'Proceed to verification',
       onButtonClick: () => false,
-      onClose: () => false,
+    },
+    {
+      type: 'black',
+      title: 'Account verification',
+      createdAt: 12312432,
+      text: 'Pass the KYC to create an event with custom cta.',
+      onButtonClick: () => false,
+    },
+    {
+      type: 'notification',
+      title: 'Text notification',
+      text: 'Checkout the real pixels and tell me what you think  of it. Also dont forget to follow Degordian team and stay updated for more shot.',
+    },
+    {
+      type: 'message',
+      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+      text: 'We use cookies in order to offer you the best and the most relevant experience. Please accept cookies for optimal performance',
+      buttonText: 'I accept Cookies',
+      onButtonClick: () => false,
     },
   ],
 }))(NotificationsList);

@@ -4,7 +4,8 @@ import createSagaMiddleware from 'redux-saga';
 import user from './user';
 import settings from './settings';
 import post from './post';
-import mySaga from './sagas/mySaga';
+import rootSaga from './sagas/mySaga';
+import changeSaga from './sagas/changeSaga';
 
 const app = combineReducers({
   user,
@@ -14,6 +15,7 @@ const app = combineReducers({
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(app, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(changeSaga);
 
 export default store;

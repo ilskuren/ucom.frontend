@@ -22,6 +22,14 @@ const user = (state = getInitialState(), action) => {
     case 'REMOVE_USER':
       return getInitialState();
 
+    case 'USER:SAVE_USER_COMPLETED': {
+      console.log('`reducer', action.payload);
+      return {
+        ...state,
+        [action.payload.fieldName]: action.payload.value,
+      };
+    }
+
     case 'CHANGE_USER_FIELD': {
       const { field, value, validationRules } = action.payload;
       const data = {

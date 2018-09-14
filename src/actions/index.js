@@ -1,6 +1,9 @@
 export const setUser = payload => ({ payload, type: 'SET_USER' });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
 
+export const saveUser = payload => ({ type: 'USER:SAVE_USER', payload });
+export const saveUserCompleted = payload => ({ type: 'USER:SAVE_USER_COMPLETED', payload });
+export const saveUserFail = payload => ({ type: 'USER:SAVE_USER_FAIL', payload });
 // General
 
 export const changeUserField = payload => ({ type: 'CHANGE_USER_FIELD', payload });

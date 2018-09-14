@@ -12,13 +12,6 @@ class TextInputFieldWrapper extends PureComponent {
   }
 }
 
-function formatValue(value, name) {
-  if (typeof value === 'object') {
-    return value.sourceUrl;
-  }
-  return value;
-}
-
 export default function TextInputField(props) {
-  return <Field {...props} component={TextInputFieldWrapper} format={formatValue} />;
+  return <Field {...props} component={TextInputFieldWrapper} format={props.formatter} />;
 }

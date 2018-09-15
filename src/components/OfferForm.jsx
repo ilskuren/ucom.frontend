@@ -12,7 +12,7 @@ import InputErrorIcon from '../components/Icons/InputError';
 import UserSearchInput from './UserSearchInput';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
-import { getUserName } from '../utils/user';
+import { getUserName, getUserUrl } from '../utils/user';
 import { OFFER_TYPES } from '../utils/offer';
 
 class OfferForm extends PureComponent {
@@ -25,6 +25,8 @@ class OfferForm extends PureComponent {
   }
 
   render() {
+    console.log(this.props.post);
+
     return (
       <div className="content">
         <div className="content__inner">
@@ -227,7 +229,14 @@ class OfferForm extends PureComponent {
               actionButtonUrl={this.props.post.data.action_button_url}
               actionDurationInDays={this.props.post.data.action_duration_in_days}
               imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-              team={this.props.post.data.post_users_team}
+              team={this.props.post.data.post_users_team && this.props.post.data.post_users_team.map(item => ({
+                id: item.id,
+                avatarUrl: getFileUrl(item.avatar_filename),
+                accountName: item.account_name,
+                rate: +item.current_rate,
+                profileLink: getUserUrl(item.id),
+                userName: getUserName(item),
+              }))}
             />
 
             <div className="post-form__item">

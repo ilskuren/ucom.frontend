@@ -8,6 +8,40 @@ import EventTitle from './EventTitle';
 import { getFileUrl } from '../utils/upload';
 import { setPostData } from '../actions';
 
+import user1Image from '../static/promo_team/1.png';
+import user2Image from '../static/promo_team/2.jpeg';
+import user3Image from '../static/promo_team/3.png';
+import user4Image from '../static/promo_team/4.png';
+
+import buyer1Image from '../static/promo_buyers/1.jpeg';
+import buyer2Image from '../static/promo_buyers/2.jpeg';
+import buyer3Image from '../static/promo_buyers/3.jpeg';
+
+const TEAM = [{
+  avatarUrl: user1Image,
+  id: 1,
+}, {
+  avatarUrl: user2Image,
+  id: 2,
+}, {
+  avatarUrl: user3Image,
+  id: 3,
+}, {
+  avatarUrl: user4Image,
+  id: 4,
+}];
+
+const BUYERS = [{
+  avatarUrl: buyer1Image,
+  id: 1,
+}, {
+  avatarUrl: buyer2Image,
+  id: 2,
+}, {
+  avatarUrl: buyer3Image,
+  id: 3,
+}];
+
 const TABS = [{
   id: 1,
   title: 'Media-posts',
@@ -63,17 +97,26 @@ class PromoEditor extends PureComponent {
           <Fragment>
             <div className="promo-editor__event-title">
               <EventTitle
-                className="event-title_big"
+                black
+                editableTitle
+                editableCover
+                rate={9200}
                 tags={['sale']}
                 title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title}
+                actionButtonTitle={this.props.post.data.action_button_title || 'Buy now'}
                 actionButtonUrl={this.props.post.data.action_button_url}
-                actionDurationInDays={this.props.post.data.action_duration_in_days}
+                actionDurationInDays={this.props.post.data.action_duration_in_days || 1}
+                createdAt={(new Date()).getTime() - 10000}
                 imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-                team={this.props.post.data.post_users_team}
+                team={TEAM}
+                teamTitle="Invite your Partners"
+                buyers={BUYERS}
+                buyersCount={8923}
+                buyersTitle="See your Buyers"
+                timerTitle="Set countdown"
               />
             </div>
-            <div className="promo-editor__editor">
+            <div className="promo-editor__editor promo-editor__editor_offer">
               <OfferFormEditor />
             </div>
           </Fragment>
@@ -95,6 +138,3 @@ export default connect(
     setPostData: data => dispatch(setPostData(data)),
   }),
 )(PromoEditor);
-
-
-// export default PromoEditor;

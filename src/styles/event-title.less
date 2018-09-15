@@ -21,7 +21,7 @@
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 25px;
-    padding-bottom: 18px;
+    padding-bottom: 32px;
     min-height: 320px;
     justify-content: space-between;
 
@@ -115,20 +115,11 @@
   }
 
   &__avatar-name {
+    margin: 7px 0 0;
+    text-transform: uppercase;
     font-size: 0.714rem;
+    font-weight: 600;
     opacity: 0.6;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    @media (max-width: 1024px) {
-      margin-top: 20px;
-    }
-    @media (max-width: 767px) {
-      flex-direction: column;
-      margin-top: 20px;
-    }
   }
 
   &__button {
@@ -136,6 +127,23 @@
     margin: 0 20px 0 0;
     @media (max-width: 767px) {
       max-width: 160px;
+    }
+  }
+
+  &__input {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    background: transparent;
+    color: inherit;
+    outline: none;
+    width: 100%;
+
+    &::placeholder {
+      opacity: 1;
+      color: inherit;
     }
   }
 
@@ -154,6 +162,11 @@
     background: @white;
     color: @black;
     cursor: pointer;
+  }
+
+  &__users-count {
+    font-size: 18px;
+    font-weight: 600;
   }
 
   &_responsive-footer {
@@ -188,6 +201,7 @@
 
   &_no-footer {
     padding-bottom: 85px;
+
     &:after {
       @media (max-width: 767px) {
         padding-top: 320px;
@@ -236,6 +250,16 @@
           margin-top: 0;
         }
       }
+    }
+  }
+
+  &_black {
+    .event-title__img_blank {
+      background: #000;
+    }
+
+    svg {
+      fill: #fff;
     }
   }
 }

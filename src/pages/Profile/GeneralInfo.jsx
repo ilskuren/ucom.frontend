@@ -14,10 +14,10 @@ import Avatar from '../../components/Avatar';
 import Textarea from '../../components/Textarea';
 import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
-import { patchMyself, patchMyselfFormData } from '../../api';
+import { patchMyself } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
-import { convertServerUser, convertClientUser } from '../../api/convertors';
+import { convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
@@ -30,6 +30,7 @@ const mapDispatch = dispatch =>
     setUser: actions.setUser,
     validateProfileForm: actions.validateProfileForm,
     saveUser: actions.saveUser,
+    uploadUserAvatar: actions.uploadUserAvatar,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -92,18 +93,10 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   uploadAvatar(file) {
+    const { uploadUserAvatar } = this.props;
     this.setState({ avatarLoading: true });
-
-    const data = new FormData();
-
-    data.append('avatar_filename', file);
-
-    patchMyselfFormData(data, getToken())
-      .then((data) => {
-        const convertedData = convertServerUser(data);
-        this.props.setUser(convertedData);
-        this.setState({ avatarLoading: false });
-      });
+    uploadUserAvatar(file);
+    this.setState({ avatarLoading: false });
   }
 
   render() {
@@ -262,6 +255,7 @@ ProfileGeneralInfoPage.propTypes = {
   changeUserField: PropTypes.func,
   clearErrors: PropTypes.func,
   saveUser: PropTypes.func,
+  uploadUserAvatar: PropTypes.func,
   user: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,

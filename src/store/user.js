@@ -30,6 +30,13 @@ const user = (state = getInitialState(), action) => {
       };
     }
 
+    case 'USER:UPLOAD_AVATAR_COMPLETED': {
+      return {
+        ...state,
+        avatarFilename: action.payload,
+      };
+    }
+
     case 'CHANGE_USER_FIELD': {
       const { field, value, validationRules } = action.payload;
       const data = {

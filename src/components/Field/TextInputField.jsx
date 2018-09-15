@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bind } from 'decko';
 import { Field } from 'redux-form';
 import TextInput from '../TextInput';
 

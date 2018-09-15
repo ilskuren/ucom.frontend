@@ -43,7 +43,7 @@ UserCard.propTypes = {
   roundedAvatar: PropTypes.bool,
   isRated: PropTypes.bool,
   userName: PropTypes.string,
-  accountName: PropTypes.string,
+  accountName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   profileLink: PropTypes.string,
   avatarUrl: PropTypes.string,
   avatarSize: PropTypes.string,

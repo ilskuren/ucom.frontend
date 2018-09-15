@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import moment from 'moment';
+import TimeDiff from './TimeDiff';
 import UserCard from './UserCard';
 import Button from './Button';
 import KYC from './KYC';
@@ -12,17 +12,17 @@ const Notification = props => (
     <div className="notification__main">
       <UserCard
         userName={props.title}
-        accountName={props.createdAt && moment.duration(props.createdAt).humanize()}
+        accountName={props.createdAt && <TimeDiff startTime={props.createdAt} />}
         avatarUrl={props.avatarUrl}
         className="user-card_text_left"
-        icon={props.type !== 'message' && <NotificationSign type={props.type} />}
+        icon={props.type !== 'message' ? <NotificationSign type={props.type} /> : null}
       />
       <div className="notification__text">{props.text}</div>
     </div>
     {(props.buttonText || props.status) ? (
-      <div className="notification__control">
+      <div className="notification__control inline">
         {props.buttonText && (
-          <div className="notification__button">
+          <div className="inline__item">
             <Button
               text={props.buttonText}
               onClick={props.onButtonClick}
@@ -32,7 +32,7 @@ const Notification = props => (
           </div>
         )}
         {props.status && (
-          <div className="notification__kyc">
+          <div className="inline__item">
             <KYC title={`Status: ${props.status}`} className="kyc_align_right" />
           </div>
         )}

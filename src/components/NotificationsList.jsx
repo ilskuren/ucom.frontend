@@ -33,7 +33,7 @@ export default connect(state => ({
     {
       type: 'verification',
       title: 'Account verification',
-      createdAt: 12312432,
+      createdAt: 1536988900000,
       text: 'Pass the KYC to create an event with custom cta.',
       status: 'Not verified',
       buttonText: 'Proceed to verification',
@@ -42,8 +42,10 @@ export default connect(state => ({
     {
       type: 'black',
       title: 'Account verification',
-      createdAt: 12312432,
+      createdAt: 1536969600000,
       text: 'Pass the KYC to create an event with custom cta.',
+      status: 'Not verified',
+      buttonText: 'Proceed to verification',
       onButtonClick: () => false,
     },
     {

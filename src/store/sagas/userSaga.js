@@ -11,12 +11,10 @@ function* editUserSaga(action) {
     const userSourceUrlsClient = action.payload.userSources;
     const userSourcesServer = yield select(selectUserContacts);
 
-    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => {
-      return {
-        ...userSourcesServer.userSources[i],
-        sourceUrl: userSource,
-      }
-    });
+    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
+      ...userSourcesServer.userSources[i],
+      sourceUrl: userSource,
+    }));
 
     const payload = {
       ...action.payload,
@@ -24,8 +22,6 @@ function* editUserSaga(action) {
     };
 
     const convertedUser = convertClientUserContacts(payload);
-    console.log(convertedUser);
-    debugger;
     yield call(patchMyself, convertedUser, token);
     yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: action.payload });
   } catch (e) {

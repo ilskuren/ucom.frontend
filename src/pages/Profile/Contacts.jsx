@@ -47,8 +47,11 @@ class ProfileContactsPage extends PureComponent {
   }
 
   componentDidMount() {
-    const { initialize, userContacts } = this.props;
+    const { initialize, array, userContacts } = this.props;
     initialize(userContacts);
+    if (userContacts.userSources.length === 0) {
+      array.push('userSources', '');
+    }
   }
 
   componentWillUnmount() {
@@ -173,6 +176,9 @@ ProfileContactsPage.propTypes = {
     phoneNumber: PropTypes.string,
     email: PropTypes.string,
     userSources: PropTypes.arrayOf(PropTypes.object),
+  }),
+  array: PropTypes.shape({
+    push: PropTypes.func,
   }),
 };
 

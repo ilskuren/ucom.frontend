@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { bind } from 'decko';
 import TextInputField from './Field/TextInputField';
 import Button from './Button';
 
@@ -9,6 +10,18 @@ class SocialNetworks extends PureComponent {
       return value.sourceUrl;
     }
     return value;
+  }
+
+  @bind
+  removeField(index) {
+    const { fields } = this.props;
+    return () => fields.remove(index);
+  }
+
+  @bind
+  addField() {
+    const { fields } = this.props;
+    fields.push('');
   }
 
   render() {
@@ -30,7 +43,7 @@ class SocialNetworks extends PureComponent {
                   size="small"
                   theme="transparent"
                   text="Remove"
-                  onClick={() => fields.remove(index)}
+                  onClick={this.removeField(index)}
                 />
               </div>
             )}
@@ -41,7 +54,7 @@ class SocialNetworks extends PureComponent {
             size="small"
             theme="transparent"
             text="Add another"
-            onClick={() => fields.push({ sourceUrl: '' })}
+            onClick={this.addField}
           />
         </div>
       </div>
@@ -50,7 +63,9 @@ class SocialNetworks extends PureComponent {
 }
 
 SocialNetworks.propTypes = {
-  fields: PropTypes.shape(PropTypes.any),
+  fields: PropTypes.shape({
+    length: PropTypes.number,
+  }),
 };
 
 export default SocialNetworks;

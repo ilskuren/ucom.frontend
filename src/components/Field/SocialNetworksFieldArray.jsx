@@ -4,7 +4,6 @@ import SocialNetworks from '../../components/SocialNetworks';
 
 class SocialNetworksFieldArrayWrapper extends PureComponent {
   render() {
-    const { meta: { error } } = this.props;
     return (
       <SocialNetworks {...this.props} />
     );

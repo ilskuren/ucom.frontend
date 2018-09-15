@@ -183,6 +183,6 @@ export function convertClientUserContacts(userContacts) {
     email: userContacts.email,
     phone_number: userContacts.phoneNumber,
     personal_website_url: userContacts.personalWebsiteUrl,
-    user_sources: convertClientUsersSources(userContacts.userSources),
+    users_sources: convertClientUsersSources(userContacts.userSources),
   };
 }

@@ -29,7 +29,7 @@ const mapDispatch = dispatch =>
     removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
     validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
-    editUser: actions.editUser,
+    editUserContacts: actions.editUserContacts,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -77,14 +77,14 @@ class ProfileContactsPage extends PureComponent {
   handleSubmit(event) {
     const {
       handleSubmit,
-      editUser,
+      editUserContacts,
       userId,
       history,
     } = this.props;
     handleSubmit((profile) => {
-      editUser(profile);
+      editUserContacts(profile);
     })(event);
-    history.push(`/user/${userId}`);
+    // history.push(`/user/${userId}`);
   }
 
   render() {
@@ -169,7 +169,7 @@ ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
-  editUser: PropTypes.func,
+  editUserContacts: PropTypes.func,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   userContacts: PropTypes.shape({

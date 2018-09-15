@@ -4,28 +4,33 @@ import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts } from '../../api/convertors';
 import { selectUserContacts } from '../../utils/selectors/user';
 
-function* editUserSaga(action) {
+function* editUserSaga(userData) {
   try {
     const token = getToken();
+    yield call(patchMyself, userData, token);
+    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: userData });
+  } catch (e) {
+    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
+  }
+}
 
+function* editUserContactsSaga(action) {
+  try {
     const userSourceUrlsClient = action.payload.userSources;
     const userSourcesServer = yield select(selectUserContacts);
-
     const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
       ...userSourcesServer.userSources[i],
       sourceUrl: userSource,
     }));
 
-    const payload = {
+    const payload = convertClientUserContacts({
       ...action.payload,
       userSources: mergeUserSources,
-    };
-
-    const convertedUser = convertClientUserContacts(payload);
-    yield call(patchMyself, convertedUser, token);
-    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: action.payload });
+    });
+    debugger
+    yield* editUserSaga(payload);
   } catch (e) {
-    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
+    yield put({ type: 'USER:EDIT_CONTACTS_FAIL', message: e.message });
   }
 }
 
@@ -43,6 +48,7 @@ function* loadUserAvatarSaga(action) {
 
 function* userSaga() {
   yield takeLatest('USER:EDIT_USER', editUserSaga);
+  yield takeLatest('USER:EDIT_CONTACTS', editUserContactsSaga);
   yield takeLatest('USER:UPLOAD_AVATAR', loadUserAvatarSaga);
 }
 

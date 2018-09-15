@@ -124,7 +124,7 @@ Post.propTypes = {
   leadingText: PropTypes.string,
   coverUrl: PropTypes.string,
   url: PropTypes.string,
-  postType: PropTypes.number,
+  postType: PropTypes.string,
 };
 
 export default Post;

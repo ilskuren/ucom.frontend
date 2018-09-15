@@ -18,6 +18,8 @@ import SocialNetworksFieldArray from '../../components/Field/SocialNetworksField
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
+import { urlRegex, emailRegex, phoneNumberRegex } from '../../utils/validators/constants';
+import { validateArrayUrls } from '../../utils/validators/custom';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
@@ -182,7 +184,33 @@ ProfileContactsPage.propTypes = {
   }),
 };
 
+const validate = (values) => {
+  const errors = {};
+  if (!emailRegex.test(values.email)) {
+    errors.email = 'The field name email format is invalid.';
+  }
+  if (!urlRegex.test(values.personalWebsiteUrl)) {
+    errors.personalWebsiteUrl = 'The field name url format is invalid.';
+  }
+  if (!phoneNumberRegex.test(values.phoneNumber)) {
+    errors.phoneNumber = 'The field name url format is invalid.';
+  }
+  if (values.userSources) {
+    const resultsOfValidateUrlsArray = validateArrayUrls(values.userSources.map(x => (x.sourceUrl ? x.sourceUrl : x)));
+    if (!resultsOfValidateUrlsArray.isValid) {
+      errors.userSources = values.userSources.map((x, i) => {
+        const currentUrlValidationResult = resultsOfValidateUrlsArray.results[i];
+        if (currentUrlValidationResult.isInvalidUrl) {
+          return currentUrlValidationResult.message;
+        }
+        return undefined;
+      });
+    }
+  }
+  return errors;
+};
+
 export default connect(
   mapStateToProps,
   mapDispatch,
-)(reduxForm({ form: 'contacts' })(ProfileContactsPage));
+)(reduxForm({ form: 'contacts', validate })(ProfileContactsPage));

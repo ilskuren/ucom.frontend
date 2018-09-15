@@ -5,7 +5,6 @@ const isValidUrl = (url) => {
   return typeof url === 'string' && url !== '' && regexUrl.test(url);
 };
 
-
 export const validateArrayUrls = (values) => {
   const result = {
     isValid: null,

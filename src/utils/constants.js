@@ -1,5 +1,4 @@
 import * as rules from './validators/';
-// import { makeReduxFormEntry } from '../utils/makeReduxFormEntry';
 
 export const scrollAnimation = {
   duration: 1500,
@@ -31,7 +30,3 @@ export const validatorRules = {
     },
   },
 };
-
-// profileContactsFormEntry = makeReduxFormEntry()()
-
-// 'contacts', ['nickName', 'fullName', 'email', 'about', 'twitter', 'telegram', 'facebook'],

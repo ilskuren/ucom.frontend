@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import TextInputField from './Field/TextInputField';
 import Button from './Button';
 
-
-function formatValue(value, name) {
-  if (typeof value === 'object') {
-    return value.sourceUrl;
-  }
-  return value;
-}
-
 class SocialNetworks extends PureComponent {
+  formatValue(value) {
+    if (typeof value === 'object') {
+      return value.sourceUrl;
+    }
+    return value;
+  }
+
   render() {
     const { fields } = this.props;
     return (
@@ -22,7 +21,7 @@ class SocialNetworks extends PureComponent {
               <TextInputField
                 label="Your website"
                 name={name}
-                formatter={formatValue}
+                formatter={this.formatValue}
               />
             </div>
             {fields.length > 1 && (
@@ -50,30 +49,8 @@ class SocialNetworks extends PureComponent {
   }
 }
 
-// SocialNetworks.propTypes = {
-//   fields: PropTypes.arrayOf(PropTypes.object),
-// };
+SocialNetworks.propTypes = {
+  fields: PropTypes.shape(PropTypes.any),
+};
 
 export default SocialNetworks;
-
-
-// {Array.isArray(userSources) && userSources.map((item, index) => (
-//   <div className="social-networks__block" key={index}>
-//     <div className="social-networks__block">
-//       <TextInputField
-//         label="Your website"
-//         name={`sourceUrl ${index}`}
-//       />
-//     </div>
-//     {Array.isArray(userSources) && userSources.length > 1 && (
-//       <div className="social-networks__block">
-//         <Button
-//           size="small"
-//           theme="transparent"
-//           text="Remove"
-//           onClick={this.makeRemoveSiteClickHandler(index)}
-//         />
-//       </div>
-//     )}
-//   </div>
-// ))}

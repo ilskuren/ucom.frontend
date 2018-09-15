@@ -1,12 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
+import { reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
 import Button from '../../components/Button';
-import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
@@ -18,9 +18,11 @@ import { patchMyself } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
 import { convertClientUser } from '../../api/convertors';
+import TextInputField from '../../components/Field/TextInputField';
+
 import { scrollAnimation } from '../../utils/constants';
 
-import { selectUser } from '../../utils/selectors/user';
+import { selectUser, selectUserGeneralInfo } from '../../utils/selectors/user';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
@@ -31,10 +33,12 @@ const mapDispatch = dispatch =>
     validateProfileForm: actions.validateProfileForm,
     saveUser: actions.saveUser,
     uploadUserAvatar: actions.uploadUserAvatar,
+    editUser: actions.editUser,
   }, dispatch);
 
 const mapStateToProps = state => ({
   user: selectUser(state),
+  userGeneralInfo: selectUserGeneralInfo(state),
 });
 
 class ProfileGeneralInfoPage extends PureComponent {
@@ -47,6 +51,11 @@ class ProfileGeneralInfoPage extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    const { initialize, userGeneralInfo } = this.props;
+    initialize(userGeneralInfo);
+  }
+
   componentWillUnmount() {
     this.props.clearErrors();
   }
@@ -57,10 +66,12 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   @bind
-  handleSubmit(e) {
-    e.preventDefault();
-    const { saveUser } = this.props;
-    saveUser({ fieldName: 'firstName', value: 'test' });
+  handleSubmit(event) {
+    event.preventDefault();
+    const { handleSubmit, editUser } = this.props;
+    handleSubmit((profile) => {
+      editUser(profile);
+    })(event);
     // Promise.resolve()
     //   .then(this.props.validateProfileForm('generalInfoRules'))
     //   .then(() => {
@@ -101,7 +112,6 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   render() {
     const { user } = this.props;
-    const { errors } = user;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -149,40 +159,32 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="First name"
-                        value={user.firstName}
-                        onChange={this.makeChangeUserFieldHandler('firstName')}
-                        error={errors.firstName && errors.firstName[0]}
+                        name="firstName"
                       />
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="Second name"
-                        value={user.lastName}
-                        onChange={this.makeChangeUserFieldHandler('lastName')}
-                        error={errors.lastName && errors.lastName[0]}
+                        name="lastName"
                       />
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="Nickname"
+                        name="nickName"
                         placeholder="@nickname"
-                        value={user.nickName}
-                        onChange={this.makeChangeUserFieldHandler('nickName')}
-                        error={errors.nickName && errors.nickName[0]}
                       />
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="Asset to show"
+                        name="currencyToShow"
                         placeholder="Example Kickcoin"
-                        value={user.currencyToShow}
-                        onChange={this.makeChangeUserFieldHandler('currencyToShow')}
-                        error={errors.currencyToShow && errors.currencyToShow[0]}
                       />
                     </div>
 
@@ -211,30 +213,24 @@ class ProfileGeneralInfoPage extends PureComponent {
                 <Element name="Location">
                   <InfoBlock title="Location">
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="Country"
-                        value={user.country}
-                        onChange={this.makeChangeUserFieldHandler('country')}
-                        error={errors.country && errors.country[0]}
+                        name="country"
                       />
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="City"
-                        value={user.city}
-                        onChange={this.makeChangeUserFieldHandler('city')}
-                        error={errors.city && errors.city[0]}
+                        name="city"
                       />
                     </div>
 
                     <div className="profile__block">
-                      <TextInput
+                      <TextInputField
                         label="Address"
                         subtext="Actual address. Example: One Apple Park Way, Cupertino"
-                        value={user.address}
-                        onChange={this.makeChangeUserFieldHandler('address')}
-                        error={errors.address && errors.address[0]}
+                        name="address"
                       />
                     </div>
                   </InfoBlock>
@@ -270,4 +266,7 @@ ProfileGeneralInfoPage.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps, mapDispatch)(ProfileGeneralInfoPage);
+export default connect(
+  mapStateToProps,
+  mapDispatch,
+)(reduxForm({ form: 'generalInfo' })(ProfileGeneralInfoPage));

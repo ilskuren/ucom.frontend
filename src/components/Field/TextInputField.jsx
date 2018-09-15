@@ -4,9 +4,9 @@ import TextInput from '../TextInput';
 
 class TextInputFieldWrapper extends PureComponent {
   render() {
-    const { input } = this.props;
+    const { input, subtext } = this.props;
     return (
-      <TextInput {...input} label={this.props.label} />
+      <TextInput {...input} label={this.props.label} subtext={subtext} />
     );
   }
 }

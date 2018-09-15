@@ -23,6 +23,20 @@ const user = (state = getInitialState(), action) => {
     case 'REMOVE_USER':
       return getInitialState();
 
+    case 'USER:EDIT_USER_COMPLETED': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
+    case 'USER:UPLOAD_AVATAR_COMPLETED': {
+      return {
+        ...state,
+        avatarFilename: action.payload,
+      };
+    }
+
     case 'CHANGE_USER_FIELD': {
       const { field, value, validationRules } = action.payload;
       const data = {

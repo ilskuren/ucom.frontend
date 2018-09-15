@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import param from 'jquery-param';
 import config from '../../package.json';
 import { convertServerUser, convertServerUserLogin } from './convertors';
@@ -46,7 +47,8 @@ export const register = ({ brainkey, accountName }) => {
       public_key: publicKey,
     }),
   })
-    .then(resp => resp.json().then(data => convertServerUser(data)));
+    .then(resp => resp.json())
+    .then(humps);
 };
 
 

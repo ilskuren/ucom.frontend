@@ -1,5 +1,15 @@
 .header {
+  background: #fff;
   border-bottom: 1px solid #eee;
+
+  @media (min-width: 1024px) {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
 }
 
 .header__inner {

@@ -12,20 +12,30 @@
 
   &[depth="1"] {
     padding-left: 63px;
+    @media (max-width: 424px) {
+      padding-left: 63px / 2;
+    }
   }
 
   &[depth="2"] {
     padding-left: 106px;
+    @media (max-width: 424px) {
+      padding-left: 106px / 2;
+    }
   }
 
   &[depth="3"] {
     padding-left: 149px;
+    @media (max-width: 424px) {
+      padding-left: 149px / 2;
+    }
   }
 
   &__username {
     margin: 0 0 2px;
     font-size: 15px;
     font-weight: bold;
+    word-break: break-word;
   }
 
   &__account {

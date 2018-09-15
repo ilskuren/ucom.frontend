@@ -1,12 +1,27 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts } from '../../api/convertors';
+import { selectUserContacts } from '../../utils/selectors/user';
 
 function* editUserSaga(action) {
   try {
     const token = getToken();
-    const convertedUser = convertClientUserContacts(action.payload);
+
+    const userSourceUrlsClient = action.payload.userSources;
+    const userSourcesServer = yield select(selectUserContacts);
+
+    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
+      ...userSourcesServer.userSources[i],
+      sourceUrl: userSource,
+    }));
+
+    const payload = {
+      ...action.payload,
+      userSources: mergeUserSources,
+    };
+
+    const convertedUser = convertClientUserContacts(payload);
     yield call(patchMyself, convertedUser, token);
     yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: action.payload });
   } catch (e) {

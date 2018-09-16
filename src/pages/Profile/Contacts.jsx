@@ -15,21 +15,22 @@ import Loading from '../../components/Loading';
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
 
-import { scrollAnimation } from '../../utils/constants';
+import { scrollAnimation, emptyValues } from '../../utils/constants';
 
 import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
+import { validate } from '../../utils/validators/contacts';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     changeUserField: actions.changeUserField,
-    clearErrors: actions.clearErrors,
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
     addUserPersonalWebSite: actions.addUserPersonalWebSite,
     removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
     validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
     editUser: actions.editUser,
+    redirectTo: actions.redirectTo,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -48,15 +49,37 @@ class ProfileContactsPage extends PureComponent {
 
   componentDidMount() {
     const { initialize, array, userContacts } = this.props;
-    initialize(userContacts);
+    initialize(this.formatUserContacts(userContacts));
     if (userContacts.userSources.length === 0) {
       array.push('userSources', '');
     }
   }
 
-  componentWillUnmount() {
-    this.props.clearErrors();
+  @bind
+  getSourceUrls() {
+    const { userSources } = this.props.userContacts;
+    const sourceUrls = userSources.map(this.formatUserSource);
+    return sourceUrls;
   }
+
+  removeEmptyWebsiteFields(sourceUrl) {
+    return !emptyValues.includes(sourceUrl);
+  }
+
+  formatUserSource(userSource) {
+    return userSource.sourceUrl ? userSource.sourceUrl : userSource;
+  }
+
+  @bind
+  formatUserContacts(userContacts) {
+    return {
+      ...userContacts,
+      userSources: userContacts.userSources
+        .map(this.formatUserSource)
+        .filter(this.removeEmptyWebsiteFields),
+    };
+  }
+
 
   @bind
   makeRemoveSiteClickHandler(index) {
@@ -74,21 +97,23 @@ class ProfileContactsPage extends PureComponent {
   }
 
   @bind
-  handleSubmit(event) {
+  async handleSubmit(event) {
     const {
       handleSubmit,
       editUser,
       userId,
       history,
     } = this.props;
+
     handleSubmit((profile) => {
-      editUser(profile);
+      Promise.resolve()
+        .then(() => editUser(profile))
+        .then(() => history.push(`/user/${userId}`));
     })(event);
-    history.push(`/user/${userId}`);
   }
 
   render() {
-    const { userSources } = this.props.userContacts;
+    const sourceUrls = this.getSourceUrls();
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -140,7 +165,7 @@ class ProfileContactsPage extends PureComponent {
                 <InfoBlock title="Social networks">
                   <div className="list__item">
                     <SocialNetworksFieldArray
-                      userSources={userSources}
+                      sourceUrls={sourceUrls}
                       name="userSources"
                     />
                   </div>
@@ -165,7 +190,6 @@ class ProfileContactsPage extends PureComponent {
 
 ProfileContactsPage.propTypes = {
   changeUserField: PropTypes.func,
-  clearErrors: PropTypes.func,
   initialize: PropTypes.func,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
@@ -175,7 +199,7 @@ ProfileContactsPage.propTypes = {
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,
-    userSources: PropTypes.arrayOf(PropTypes.object),
+    userSources: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
   }),
   array: PropTypes.shape({
     push: PropTypes.func,
@@ -185,4 +209,4 @@ ProfileContactsPage.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatch,
-)(reduxForm({ form: 'contacts' })(ProfileContactsPage));
+)(reduxForm({ form: 'contacts', validate, touchOnChange: true })(ProfileContactsPage));

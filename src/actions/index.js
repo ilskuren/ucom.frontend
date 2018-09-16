@@ -8,6 +8,7 @@ export const editUserFail = payload => ({ type: 'USER:SEDIT_USER_FAIL', payload 
 export const uploadUserAvatar = payload => ({ type: 'USER:UPLOAD_AVATAR', payload });
 export const uploadUserAvatarCompleted = payload => ({ type: 'USER:UPLOAD_AVATAR_COMPLETED', payload });
 export const uploadUserAvatarFail = payload => ({ type: 'USER:UPLOAD_AVATAR_FAIL', payload });
+
 // General
 
 export const changeUserField = payload => ({ type: 'CHANGE_USER_FIELD', payload });

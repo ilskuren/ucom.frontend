@@ -11,10 +11,27 @@ function* editUserSaga(action) {
     const userSourceUrlsClient = action.payload.userSources;
     const userSourcesServer = yield select(selectUserContacts);
 
+    const getUserSource = (userSource) => {
+      if (typeof userSource === 'string') {
+        return userSource;
+      }
+      return userSource.sourceUrl;
+    };
+
+    const removeEmptySources = (userSource) => {
+      if (typeof userSource === 'string' && userSource === '') {
+        return false;
+      }
+      if (typeof userSource === 'object' && userSource.sourceUrl === '') {
+        return false;
+      }
+      return true;
+    };
+
     const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
       ...userSourcesServer.userSources[i],
-      sourceUrl: userSource,
-    }));
+      sourceUrl: getUserSource(userSource),
+    })).filter(removeEmptySources);
 
     const payload = {
       ...action.payload,

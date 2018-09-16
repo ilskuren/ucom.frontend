@@ -1,14 +1,15 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
+import humps from 'lodash-humps';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
-import { convertClientUserContacts } from '../../api/convertors';
+import { convertClientUserContacts, convertClientGeneralInfo } from '../../api/convertors';
 import { selectUserContacts } from '../../utils/selectors/user';
 
 function* editUserSaga(userData) {
   try {
     const token = getToken();
     yield call(patchMyself, userData, token);
-    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: userData });
+    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: humps(userData) });
   } catch (e) {
     yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
   }
@@ -27,12 +28,21 @@ function* editUserContactsSaga(action) {
       ...action.payload,
       userSources: mergeUserSources,
     });
-    debugger
     yield* editUserSaga(payload);
   } catch (e) {
     yield put({ type: 'USER:EDIT_CONTACTS_FAIL', message: e.message });
   }
 }
+
+function* editUserGeneralInfoSaga(action) {
+  try {
+    const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
+    yield* editUserSaga(convertedGeneralInfo);
+  } catch (e) {
+    yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
+  }
+}
+
 
 function* loadUserAvatarSaga(action) {
   try {
@@ -47,7 +57,7 @@ function* loadUserAvatarSaga(action) {
 }
 
 function* userSaga() {
-  yield takeLatest('USER:EDIT_USER', editUserSaga);
+  yield takeLatest('USER:EDIT_GENERAL_INFO', editUserGeneralInfoSaga);
   yield takeLatest('USER:EDIT_CONTACTS', editUserContactsSaga);
   yield takeLatest('USER:UPLOAD_AVATAR', loadUserAvatarSaga);
 }

@@ -84,7 +84,7 @@ class ProfileContactsPage extends PureComponent {
     handleSubmit((profile) => {
       editUserContacts(profile);
     })(event);
-    // history.push(`/user/${userId}`);
+    history.push(`/user/${userId}`);
   }
 
   render() {

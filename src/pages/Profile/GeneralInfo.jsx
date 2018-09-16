@@ -33,7 +33,7 @@ const mapDispatch = dispatch =>
     validateProfileForm: actions.validateProfileForm,
     saveUser: actions.saveUser,
     uploadUserAvatar: actions.uploadUserAvatar,
-    editUser: actions.editUser,
+    editUserGeneralInfo: actions.editUserGeneralInfo,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -68,19 +68,10 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUser } = this.props;
+    const { handleSubmit, editUserGeneralInfo } = this.props;
     handleSubmit((profile) => {
-      editUser(profile);
+      editUserGeneralInfo(profile);
     })(event);
-    // Promise.resolve()
-    //   .then(this.props.validateProfileForm('generalInfoRules'))
-    //   .then(() => {
-    //     const { isValid } = this.props.user;
-    //     if (isValid) {
-    //       this.save();
-    //     }
-    //   })
-    //   .catch(err => console.error(err.message));
   }
 
   @bind
@@ -250,8 +241,11 @@ class ProfileGeneralInfoPage extends PureComponent {
 ProfileGeneralInfoPage.propTypes = {
   changeUserField: PropTypes.func,
   clearErrors: PropTypes.func,
+  initialize: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
-  user: PropTypes.shape({
+  userGeneralInfo: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     nickName: PropTypes.string,

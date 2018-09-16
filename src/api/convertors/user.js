@@ -186,3 +186,15 @@ export function convertClientUserContacts(userContacts) {
     users_sources: convertClientUsersSources(userContacts.userSources),
   };
 }
+
+export function convertClientGeneralInfo(userGeneralInfo) {
+  return {
+    address: userGeneralInfo.address,
+    city: userGeneralInfo.city,
+    country: userGeneralInfo.country,
+    currency_to_show: userGeneralInfo.currencyToShow,
+    first_name: userGeneralInfo.firstName,
+    last_name: userGeneralInfo.lastName,
+    nickname: userGeneralInfo.nickName,
+  };
+}

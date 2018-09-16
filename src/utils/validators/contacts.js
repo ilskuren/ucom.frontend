@@ -18,7 +18,7 @@ export const validate = (values) => {
     if (!resultsOfValidateUrlsArray.isValid) {
       errors.userSources = values.userSources.map((_, i, src) => {
         const currentUrlValidationResult = resultsOfValidateUrlsArray.results[i];
-        const isNotEmptyCurrentString = src[i] !== '';
+        const isNotEmptyCurrentString = !emptyValues.includes(src[i]);
         if (
           currentUrlValidationResult &&
           currentUrlValidationResult.isInvalidUrl &&

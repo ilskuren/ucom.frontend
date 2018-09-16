@@ -15,7 +15,7 @@ import Loading from '../../components/Loading';
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
 
-import { scrollAnimation } from '../../utils/constants';
+import { scrollAnimation, emptyValues } from '../../utils/constants';
 
 import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
 import { validate } from '../../utils/validators/contacts';
@@ -38,16 +38,6 @@ const mapStateToProps = state => ({
   userContacts: selectUserContacts(state),
 });
 
-const removeEmptyWebsiteFields = sourceUrl => sourceUrl !== '';
-
-const formatUserContacts = userContacts => ({
-  ...userContacts,
-  userSources: userContacts.userSources
-    .map(userSource => (userSource.sourceUrl ? userSource.sourceUrl : userSource))
-    .filter(removeEmptyWebsiteFields),
-});
-
-
 class ProfileContactsPage extends PureComponent {
   constructor(props) {
     super(props);
@@ -59,7 +49,7 @@ class ProfileContactsPage extends PureComponent {
 
   componentDidMount() {
     const { initialize, array, userContacts } = this.props;
-    initialize(formatUserContacts(userContacts));
+    initialize(this.formatUserContacts(userContacts));
     if (userContacts.userSources.length === 0) {
       array.push('userSources', '');
     }
@@ -68,9 +58,28 @@ class ProfileContactsPage extends PureComponent {
   @bind
   getSourceUrls() {
     const { userSources } = this.props.userContacts;
-    const sourceUrls = userSources.map(userSource => (userSource.sourceUrl ? userSource.sourceUrl : userSource));
+    const sourceUrls = userSources.map(this.formatUserSource);
     return sourceUrls;
   }
+
+  removeEmptyWebsiteFields(sourceUrl) {
+    return !emptyValues.includes(sourceUrl);
+  }
+
+  formatUserSource(userSource) {
+    return userSource.sourceUrl ? userSource.sourceUrl : userSource;
+  }
+
+  @bind
+  formatUserContacts(userContacts) {
+    return {
+      ...userContacts,
+      userSources: userContacts.userSources
+        .map(this.formatUserSource)
+        .filter(this.removeEmptyWebsiteFields),
+    };
+  }
+
 
   @bind
   makeRemoveSiteClickHandler(index) {

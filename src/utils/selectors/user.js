@@ -7,11 +7,13 @@ export function selectUserGeneralInfo(state) {
   return {
     firstName: user.firstName,
     lastName: user.lastName,
-    nickName: user.nickName,
+    nickname: user.nickname,
     currencyToShow: user.currencyToShow,
     country: user.country,
     city: user.city,
     address: user.address,
+    about: user.about,
+    birthday: user.birthday,
   };
 }
 

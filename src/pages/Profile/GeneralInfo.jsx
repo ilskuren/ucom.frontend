@@ -11,14 +11,14 @@ import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import Avatar from '../../components/Avatar';
-import Textarea from '../../components/Textarea';
-import DateInput from '../../components/DateInput';
 import Loading from '../../components/Loading';
 import { patchMyself } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
 import { convertClientUser } from '../../api/convertors';
 import TextInputField from '../../components/Field/TextInputField';
+import TextAreaField from '../../components/Field/TextAreaField';
+import DateInputField from '../../components/Field/DateInputField';
 
 import { scrollAnimation } from '../../utils/constants';
 
@@ -166,7 +166,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInputField
                         label="Nickname"
-                        name="nickName"
+                        name="nickname"
                         placeholder="@nickname"
                       />
                     </div>
@@ -180,20 +180,18 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
 
                     <div className="profile__block">
-                      <DateInput
+                      <DateInputField
+                        name="birthday"
                         label="Birthday"
-                        value={user.birthday}
-                        onChange={this.makeChangeUserFieldHandler('birthday')}
                       />
                     </div>
 
                     <div className={classNames('profile__block', 'profile__block_textarea')}>
-                      <Textarea
+                      <TextAreaField
+                        name="about"
                         rows={6}
                         label="About me"
                         placeholder="Type something..."
-                        value={user.about}
-                        onChange={this.makeChangeUserFieldHandler('about')}
                       />
                     </div>
                   </InfoBlock>
@@ -248,7 +246,7 @@ ProfileGeneralInfoPage.propTypes = {
   userGeneralInfo: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    nickName: PropTypes.string,
+    nickname: PropTypes.string,
     about: PropTypes.string,
     birthday: PropTypes.string,
     country: PropTypes.string,

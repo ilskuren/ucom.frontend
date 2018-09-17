@@ -28,7 +28,7 @@ const Notification = props => (
               text={props.buttonText}
               onClick={props.onButtonClick}
               size={props.type === 'message' ? 'medium' : 'small'}
-              theme={props.theme === 'gray' ? 'white' : props.theme}
+              theme={(props.theme === 'gray' ? 'white' : props.theme) || 'blue-green'}
             />
           </div>
         )}

@@ -3,3 +3,5 @@ export const urlRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z
 export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 export const phoneNumberRegex = /^[\d +-]*$/;
+
+export const notContainNumbers = /^([^0-9]*)$/;

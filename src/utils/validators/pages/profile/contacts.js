@@ -1,6 +1,6 @@
-import { emptyValues } from '../constants';
-import { urlRegex, emailRegex, phoneNumberRegex } from './constants';
-import { validateArrayUrls } from './custom';
+import { emptyValues } from '../../../constants';
+import { urlRegex, emailRegex, phoneNumberRegex } from '../../constants';
+import { validateArrayUrls } from '../../custom';
 
 export const validate = (values) => {
   const errors = {};
@@ -11,7 +11,7 @@ export const validate = (values) => {
     errors.personalWebsiteUrl = 'The field name url format is invalid.';
   }
   if (!phoneNumberRegex.test(values.phoneNumber) && !emptyValues.includes(values.phoneNumber)) {
-    errors.phoneNumber = 'The field name url format is invalid.';
+    errors.phoneNumber = 'The field name phone number format is invalid.';
   }
   if (values.userSources) {
     const resultsOfValidateUrlsArray = validateArrayUrls(values.userSources);

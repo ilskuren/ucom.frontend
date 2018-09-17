@@ -20,6 +20,7 @@ import DateInputField from '../../components/Field/DateInputField';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser, selectUserGeneralInfo } from '../../utils/selectors/user';
+import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
@@ -239,4 +240,4 @@ ProfileGeneralInfoPage.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatch,
-)(reduxForm({ form: 'generalInfo' })(ProfileGeneralInfoPage));
+)(reduxForm({ form: 'generalInfo', validate, touchOnChange: true })(ProfileGeneralInfoPage));

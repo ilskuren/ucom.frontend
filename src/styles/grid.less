@@ -29,11 +29,21 @@
 }
 
 .grid_content {
-  grid-column-gap: 100px;
-  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 0;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas: 'a b b b b b b c d d d e';
 
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
+    grid-template-areas: 'd' 'b';
+  }
+
+  .grid__item_main {
+    grid-area: b;
+  }
+
+  .grid__item_side {
+    grid-area: d;
   }
 }
 

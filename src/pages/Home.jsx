@@ -23,11 +23,11 @@ class HomePage extends PureComponent {
           {this.props.user.id ? (
             <div className="content__inner">
               <div className="grid grid_content">
-                <div className="grid__item">
+                <div className="grid__item grid__item_main">
                   <Feed userId={this.props.user.id} />
                 </div>
 
-                <div className="grid__item">
+                <div className="grid__item grid__item_side">
                   <div className="sidebar">
                     {user.iFollow && user.iFollow.length > 0 && (
                       <div className="sidebar__section">

@@ -18,7 +18,7 @@ import SocialNetworksFieldArray from '../../components/Field/SocialNetworksField
 import { scrollAnimation, emptyValues } from '../../utils/constants';
 
 import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/contacts';
+import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import Rate from './Rate';
@@ -9,34 +10,54 @@ const PostCard = (props) => {
   const PostLink = props.url ? Link : 'span';
 
   return (
-    <div className="post-card">
-      <PostLink to={props.url} className="post-card__cover">
-        <img className="post-card__img" src={props.coverUrl} alt="cover" />
-      </PostLink>
+    <div
+      className={classNames(
+        'post-card',
+        { 'post-card_with-cover': props.coverUrl && props.coverUrl.length > 0 },
+      )}
+    >
+      {props.coverUrl && props.coverUrl.length > 0 && (
+        <PostLink to={props.url} className="post-card__cover">
+          <img className="post-card__img" src={props.coverUrl} alt="" />
+        </PostLink>
+      )}
 
-      <div className="post-card__rate">
-        <Rate value={props.rate} />
-      </div>
+      {props.rate !== undefined && (
+        <div className="post-card__rate">
+          <Rate value={props.rate} />
+        </div>
+      )}
 
-      <div className="post-card__tags">
-        <Tags tags={props.tags} />
-      </div>
+      {props.tags && (
+        <div className="post-card__tags">
+          <Tags tags={props.tags} />
+        </div>
+      )}
 
-      <div className="post-card__title">
-        <h1 className="title title_light">
-          <PostLink to={props.url}>{props.title}</PostLink>
-        </h1>
-      </div>
+      {props.title && (
+        <div className="post-card__title">
+          <h1 className="title title_light">
+            <PostLink to={props.url}>{props.title}</PostLink>
+          </h1>
+        </div>
+      )}
 
       <div className="post-card__users">
         <div className="toolbar">
           <div className="toolbar__main">
-            <UserCard
-              userName={props.userName}
-              accountName={props.accountName}
-              profileLink={props.userUrl}
-              avatarUrl={props.userImageUrl}
-            />
+            {props.userName && (
+              <div className="inline">
+                <div className="inline__item">
+                  <UserCard
+                    userName={props.userName}
+                    accountName={props.accountName}
+                    profileLink={props.userUrl}
+                    avatarUrl={props.userImageUrl}
+                    rate={1000}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="toolbar__side">

@@ -9,7 +9,7 @@ const NotificationsList = props => (
       <div key={index} className="notifications-list__notification">
         <Notification
           type={item.type}
-          style={item.style}
+          theme={item.theme}
           title={item.title}
           avatarUrl={item.avatarUrl}
           createdAt={item.createdAt}
@@ -32,6 +32,7 @@ export default connect(state => ({
   notifications: [
     {
       type: 'verification',
+      theme: 'gray',
       title: 'Account verification',
       createdAt: 1536988900000,
       text: 'Pass the KYC to create an event with custom cta.',
@@ -40,7 +41,8 @@ export default connect(state => ({
       onButtonClick: () => false,
     },
     {
-      type: 'black',
+      type: 'verification',
+      theme: 'black',
       title: 'Account verification',
       createdAt: 1536969600000,
       text: 'Pass the KYC to create an event with custom cta.',
@@ -50,6 +52,7 @@ export default connect(state => ({
     },
     {
       type: 'notification',
+      theme: 'red',
       title: 'Text notification',
       text: 'Checkout the real pixels and tell me what you think  of it. Also dont forget to follow Degordian team and stay updated for more shot.',
     },

@@ -26,6 +26,13 @@ const user = (state = getInitialState(), action) => {
       };
     }
 
+    case 'USER:AVATAR_LOADING': {
+      return {
+        ...state,
+        avatarLoading: action.payload,
+      };
+    }
+
     case 'USER:EDIT_WORK_AND_EDUCATION_COMPLETED': {
       return {
         ...state,

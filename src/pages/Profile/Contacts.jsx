@@ -51,7 +51,6 @@ class ProfileContactsPage extends PureComponent {
     }
   }
 
-
   @bind
   getSourceUrls() {
     const { userSources } = this.props.userContacts;

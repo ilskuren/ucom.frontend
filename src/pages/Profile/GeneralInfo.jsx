@@ -19,7 +19,7 @@ import DateInputField from '../../components/Field/DateInputField';
 
 import { scrollAnimation } from '../../utils/constants';
 
-import { selectUser, selectUserGeneralInfo, selectUserLoading } from '../../utils/selectors/user';
+import { selectUser, selectUserGeneralInfo, selectUserLoading, selectUserAvatarLoading } from '../../utils/selectors/user';
 import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
@@ -34,17 +34,10 @@ const mapStateToProps = state => ({
   user: selectUser(state),
   userGeneralInfo: selectUserGeneralInfo(state),
   loading: selectUserLoading(state),
+  avatarLoading: selectUserAvatarLoading(state),
 });
 
 class ProfileGeneralInfoPage extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      avatarLoading: false,
-    };
-  }
-
   componentDidMount() {
     this.props.setLoading(false);
     const { initialize, userGeneralInfo } = this.props;
@@ -69,9 +62,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   uploadAvatar(file) {
     const { uploadUserAvatar } = this.props;
-    this.setState({ avatarLoading: true });
     uploadUserAvatar(file);
-    this.setState({ avatarLoading: false });
   }
 
   render() {
@@ -112,7 +103,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                           text="add or drag img"
                           accept="image/jpeg, image/png"
                           onDrop={files => this.uploadAvatar(files[0])}
-                          loading={this.state.avatarLoading}
+                          loading={this.props.avatarLoading}
                         />
 
                         <div className="profile__text-block">
@@ -214,6 +205,7 @@ ProfileGeneralInfoPage.propTypes = {
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   loading: PropTypes.bool,
+  avatarLoading: PropTypes.bool,
   setLoading: PropTypes.func,
   editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,

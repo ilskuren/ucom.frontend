@@ -42,6 +42,10 @@ export function selectUserLoading(state) {
   return state.user.loading;
 }
 
+export function selectUserAvatarLoading(state) {
+  return state.user.avatarLoading;
+}
+
 export function selectUserId(state) {
   return state.user.id;
 }

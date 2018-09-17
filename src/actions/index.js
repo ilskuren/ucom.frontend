@@ -2,9 +2,11 @@ export const setUser = payload => ({ type: 'SET_USER', payload });
 export const setLoading = payload => ({ type: 'SET_LOADING', payload });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
 
+export const setAvatarLoading = payload => ({ type: 'USER:AVATAR_LOADING', payload });
+
 export const editUser = payload => ({ type: 'USER:EDIT_USER', payload });
 export const editUserCompleted = payload => ({ type: 'USER:EDIT_USER_COMPLETED', payload });
-export const editUserFail = payload => ({ type: 'USER:SEDIT_USER_FAIL', payload });
+export const editUserFail = payload => ({ type: 'USER:EDIT_USER_FAIL', payload });
 
 export const editUserGeneralInfo = payload => ({ type: 'USER:EDIT_GENERAL_INFO', payload });
 export const editUserGeneralInfoCompleted = payload => ({ type: 'USER:EDIT_GENERAL_INFO_COMPLETED', payload });

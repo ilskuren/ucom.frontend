@@ -3,7 +3,7 @@ import * as rules from './../utils/validators/';
 import { validateArrayUrls, isEmptyStrings } from './../utils/validators/custom';
 import { validatorRules } from './../utils/constants';
 
-rules.registerPhoneNumber.rule(Validator, /^[\d -+]*$/);
+rules.registerPhoneNumber.rule(Validator, /^[\d +-]*$/);
 rules.registerUrl.rule(Validator);
 
 const getInitialState = () => ({

@@ -20,8 +20,10 @@
     width: 100%;
     padding-left: 100px;
     padding-right: 100px;
-    padding-top: 18px;
-    padding-bottom: 10px;
+    padding-top: 25px;
+    padding-bottom: 32px;
+    min-height: 320px;
+    justify-content: space-between;
 
     @media (max-width: 1023px) {
       padding-left: 60px;
@@ -113,36 +115,40 @@
   }
 
   &__avatar-name {
-    margin-top: 10px;
+    margin: 7px 0 0;
+    text-transform: uppercase;
     font-size: 0.714rem;
+    font-weight: 600;
     opacity: 0.6;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    @media (max-width: 1024px) {
-      margin-top: 20px;
-    }
-    @media (max-width: 767px) {
-      flex-direction: column;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
   }
 
   &__button {
     min-width: 160px;
-    margin: 0 16px 0 0;
+    margin: 0 20px 0 0;
     @media (max-width: 767px) {
       max-width: 160px;
     }
   }
 
+  &__input {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    background: transparent;
+    color: inherit;
+    outline: none;
+    width: 100%;
+
+    &::placeholder {
+      opacity: 1;
+      color: inherit;
+    }
+  }
+
   &__footer-board {
-    margin: 16px 0;
+    margin: 8px 0;
   }
 
   &__board-more {
@@ -156,6 +162,11 @@
     background: @white;
     color: @black;
     cursor: pointer;
+  }
+
+  &__users-count {
+    font-size: 18px;
+    font-weight: 600;
   }
 
   &_responsive-footer {
@@ -190,49 +201,65 @@
 
   &_no-footer {
     padding-bottom: 85px;
+
     &:after {
       @media (max-width: 767px) {
         padding-top: 320px;
       }
     }
 
-    .event-title__footer {
+    .event-title__inner {
+      min-height: 200px;
+    }
+
+    .event-title__footer,
+    .event-title__buyers {
       display: none;
     }
   }
 
   &_big {
     @media (min-width: 767px) {
-      min-height: 600px;
-  
       & .event-title {
         &__inner {
-          padding-top: 30px;
+          padding-top: 25px;
+          padding-bottom: 40px;
+          min-height: 600px;
         }
 
         &__text {
           font-size: 3.43rem;
           margin-top: 35px;
         }
-    
-        &__main {
-          min-height: 400px;
-        }
-    
+
         &__board-more {
           width: 48px;
           height: 48px;
         }
-    
+
         &__value {
           font-size: 2.571rem;
         }
-  
+
         &__button a {
           min-height: 60px;
           font-size: 1.167rem;
         }
+
+        &__avatar-name {
+          margin-top: 0;
+        }
       }
+    }
+  }
+
+  &_black {
+    .event-title__img_blank {
+      background: #000;
+    }
+
+    svg {
+      fill: #fff;
     }
   }
 }

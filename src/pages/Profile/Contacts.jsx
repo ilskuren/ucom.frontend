@@ -18,7 +18,7 @@ import SocialNetworksFieldArray from '../../components/Field/SocialNetworksField
 import { scrollAnimation, emptyValues } from '../../utils/constants';
 
 import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/contacts';
+import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
@@ -53,6 +53,14 @@ class ProfileContactsPage extends PureComponent {
       array.push('userSources', '');
     }
   }
+
+  componentDidUpdate() {
+    const { userId, submitSucceeded, history } = this.props;
+    if (submitSucceeded) {
+      history.push(`/user/${userId}`);
+    }
+  }
+
 
   @bind
   getSourceUrls() {
@@ -100,14 +108,9 @@ class ProfileContactsPage extends PureComponent {
     const {
       handleSubmit,
       editUserContacts,
-      userId,
-      history,
     } = this.props;
-
     handleSubmit((profile) => {
-      Promise.resolve()
-        .then(() => editUserContacts(profile))
-        .then(() => history.push(`/user/${userId}`));
+      editUserContacts(profile);
     })(event);
   }
 
@@ -190,6 +193,7 @@ class ProfileContactsPage extends PureComponent {
 ProfileContactsPage.propTypes = {
   changeUserField: PropTypes.func,
   initialize: PropTypes.func,
+  submitSucceeded: PropTypes.bool,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
   editUserContacts: PropTypes.func,

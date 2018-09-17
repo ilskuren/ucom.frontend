@@ -20,6 +20,7 @@ import DateInputField from '../../components/Field/DateInputField';
 import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser, selectUserGeneralInfo } from '../../utils/selectors/user';
+import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
@@ -52,6 +53,13 @@ class ProfileGeneralInfoPage extends PureComponent {
     initialize(userGeneralInfo);
   }
 
+  componentDidUpdate() {
+    const { submitSucceeded, history } = this.props;
+    if (submitSucceeded) {
+      history.push('/profile/work-and-education');
+    }
+  }
+
   componentWillUnmount() {
     this.props.clearErrors();
   }
@@ -64,12 +72,9 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUserGeneralInfo, history } = this.props;
+    const { handleSubmit, editUserGeneralInfo } = this.props;
     handleSubmit((profile) => {
       editUserGeneralInfo(profile);
-      Promise.resolve()
-        .then(() => editUserGeneralInfo(profile))
-        .then(() => history.push('/profile/work-and-education'));
     })(event);
   }
 
@@ -220,6 +225,7 @@ ProfileGeneralInfoPage.propTypes = {
   clearErrors: PropTypes.func,
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
+  submitSucceeded: PropTypes.bool,
   editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({
@@ -239,4 +245,4 @@ ProfileGeneralInfoPage.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatch,
-)(reduxForm({ form: 'generalInfo' })(ProfileGeneralInfoPage));
+)(reduxForm({ form: 'generalInfo', validate, touchOnChange: true })(ProfileGeneralInfoPage));

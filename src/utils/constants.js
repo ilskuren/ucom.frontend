@@ -6,29 +6,4 @@ export const scrollAnimation = {
   smooth: true,
 };
 
-export const validatorRules = {
-  user: {
-    generalInfoRules: {
-      firstName: 'string',
-      lastName: 'string',
-      nickname: 'string',
-      birthday: 'string',
-      country: 'string',
-      city: 'string',
-      address: 'string',
-    },
-    contactsRules: {
-      email: 'email',
-      personalWebsiteUrl: `${rules.registerUrl.name}`,
-      phoneNumber: `${rules.registerPhoneNumber.name}`,
-    },
-    workAndEducationRules: {
-      firstCurrency: 'string',
-      firstCurrencyYear: 'regex:/^[0-9]*$/',
-      userJobs: 'array',
-      userEducations: 'array',
-    },
-  },
-};
-
 export const emptyValues = [null, '', undefined];

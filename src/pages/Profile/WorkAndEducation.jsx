@@ -16,6 +16,7 @@ import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
 
 import { selectUserWorkAndEducation } from '../../utils/selectors/user';
+import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
@@ -154,4 +155,4 @@ ProfileWorkAndEducationPage.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatch,
-)(reduxForm({ form: 'workAndEducation' })(ProfileWorkAndEducationPage));
+)(reduxForm({ form: 'workAndEducation', touchOnChange: true, validate })(ProfileWorkAndEducationPage));

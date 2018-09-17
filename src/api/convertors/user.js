@@ -102,7 +102,7 @@ export function convertServerUser(response) {
   return {
     id: response.id,
     accountName: response.account_name,
-    nickName: response.nickname,
+    nickname: response.nickname,
     firstName: response.first_name,
     lastName: response.last_name,
     email: response.email,
@@ -138,7 +138,7 @@ export function convertClientUser(userData) {
   return {
     id: userData.id,
     account_name: userData.accountName,
-    nickname: userData.nickName,
+    nickname: userData.nickname,
     first_name: userData.firstName,
     last_name: userData.lastName,
     email: userData.email,
@@ -184,5 +184,19 @@ export function convertClientUserContacts(userContacts) {
     phone_number: userContacts.phoneNumber,
     personal_website_url: userContacts.personalWebsiteUrl,
     users_sources: convertClientUsersSources(userContacts.userSources),
+  };
+}
+
+export function convertClientGeneralInfo(userGeneralInfo) {
+  return {
+    address: userGeneralInfo.address,
+    city: userGeneralInfo.city,
+    country: userGeneralInfo.country,
+    birthday: userGeneralInfo.birthday,
+    about: userGeneralInfo.about,
+    currency_to_show: userGeneralInfo.currencyToShow,
+    first_name: userGeneralInfo.firstName,
+    last_name: userGeneralInfo.lastName,
+    nickname: userGeneralInfo.nickname,
   };
 }

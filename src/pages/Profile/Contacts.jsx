@@ -29,8 +29,7 @@ const mapDispatch = dispatch =>
     removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
     validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
-    editUser: actions.editUser,
-    redirectTo: actions.redirectTo,
+    editUserContacts: actions.editUserContacts,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -100,14 +99,14 @@ class ProfileContactsPage extends PureComponent {
   async handleSubmit(event) {
     const {
       handleSubmit,
-      editUser,
+      editUserContacts,
       userId,
       history,
     } = this.props;
 
     handleSubmit((profile) => {
       Promise.resolve()
-        .then(() => editUser(profile))
+        .then(() => editUserContacts(profile))
         .then(() => history.push(`/user/${userId}`));
     })(event);
   }
@@ -193,7 +192,7 @@ ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
-  editUser: PropTypes.func,
+  editUserContacts: PropTypes.func,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   userContacts: PropTypes.shape({

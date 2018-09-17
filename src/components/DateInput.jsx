@@ -7,14 +7,18 @@ import dict from '../utils/dict';
 class DateInput extends PureComponent {
   constructor(props) {
     super(props);
-
-    const date = props.value ? props.value.split('-') : null;
-
     this.state = {
-      day: date ? date[2] : '',
-      month: date ? date[1] : '',
-      year: date ? date[0] : '',
+      day: '',
+      month: '',
+      year: '',
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { value } = this.props;
+    if (value !== prevProps.value) {
+      this.setDateValues();
+    }
   }
 
   onChange() {
@@ -25,6 +29,16 @@ class DateInput extends PureComponent {
     if (this.state.day && this.state.month && this.state.year) {
       this.props.onChange(`${this.state.year}-${this.state.month}-${this.state.day}`);
     }
+  }
+
+  setDateValues() {
+    const { value } = this.props;
+    const date = value ? value.split('-') : null;
+    this.setState({
+      day: date ? date[2] : '',
+      month: date ? date[1] : '',
+      year: date ? date[0] : '',
+    });
   }
 
   render() {

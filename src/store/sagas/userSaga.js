@@ -1,10 +1,22 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
-import { convertClientUserContacts } from '../../api/convertors';
+import { convertClientUserContacts, convertClientGeneralInfo } from '../../api/convertors';
 import { selectUserContacts } from '../../utils/selectors/user';
 
-function* editUserSaga(action) {
+function* editUserGeneralInfoSaga(action) {
+  try {
+    const token = getToken();
+    const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
+    yield call(patchMyself, convertedGeneralInfo, token);
+
+    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
+  } catch (e) {
+    yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
+  }
+}
+
+function* editUserContactsSaga(action) {
   try {
     const token = getToken();
 
@@ -40,7 +52,7 @@ function* editUserSaga(action) {
 
     const convertedUser = convertClientUserContacts(payload);
     yield call(patchMyself, convertedUser, token);
-    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: action.payload });
+    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
   }
@@ -59,7 +71,8 @@ function* loadUserAvatarSaga(action) {
 }
 
 function* userSaga() {
-  yield takeLatest('USER:EDIT_USER', editUserSaga);
+  yield takeLatest('USER:EDIT_GENERAL_INFO', editUserGeneralInfoSaga);
+  yield takeLatest('USER:EDIT_CONTACTS', editUserContactsSaga);
   yield takeLatest('USER:UPLOAD_AVATAR', loadUserAvatarSaga);
 }
 

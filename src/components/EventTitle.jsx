@@ -210,6 +210,7 @@ EventTitle.propTypes = {
   teamTitle: PropTypes.string,
   buyersTitle: PropTypes.string,
   buyersCount: PropTypes.number,
+  timerTitle: PropTypes.string,
 };
 
 EventTitle.defaultProps = {

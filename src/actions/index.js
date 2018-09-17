@@ -5,6 +5,14 @@ export const editUser = payload => ({ type: 'USER:EDIT_USER', payload });
 export const editUserCompleted = payload => ({ type: 'USER:EDIT_USER_COMPLETED', payload });
 export const editUserFail = payload => ({ type: 'USER:SEDIT_USER_FAIL', payload });
 
+export const editUserContacts = payload => ({ type: 'USER:EDIT_CONTACTS', payload });
+export const editUserContactsCompleted = payload => ({ type: 'USER:EDIT_CONTACTS_COMPLITED', payload });
+export const editUserContactsFail = payload => ({ type: 'USER:EDIT_CONTACTS_FAIL', payload });
+
+export const editUserGeneralInfo = payload => ({ type: 'USER:EDIT_GENERAL_INFO', payload });
+export const editUserGeneralInfoCompleted = payload => ({ type: 'USER:EDIT_GENERAL_INFO_COMPLITED', payload });
+export const editUserGeneralInfoFail = payload => ({ type: 'USER:EDIT_GENERAL_INFO_FAIL', payload });
+
 export const uploadUserAvatar = payload => ({ type: 'USER:UPLOAD_AVATAR', payload });
 export const uploadUserAvatarCompleted = payload => ({ type: 'USER:UPLOAD_AVATAR_COMPLETED', payload });
 export const uploadUserAvatarFail = payload => ({ type: 'USER:UPLOAD_AVATAR_FAIL', payload });

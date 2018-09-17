@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
+import { reduxForm } from 'redux-form';
 import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
@@ -15,6 +16,8 @@ import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
 import { convertClientUser } from '../../api/convertors';
 import { scrollAnimation } from '../../utils/constants';
+
+import WorkAndEducationFieldsArray from '../../components/Field/WorkAndEducationFieldsArray';
 
 import { selectUser } from '../../utils/selectors/user';
 import * as actions from '../../actions';
@@ -180,67 +183,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
     );
   }
 
-  @bind
-  renderEducationItem(index) {
-    const { userEducations } = this.props.user;
-    const isExistingNotEmptyArray = Array.isArray(userEducations) && userEducations.length === 0;
-    const getValueFor = name => (isExistingNotEmptyArray ? undefined : userEducations[index][name]);
-    return (
-      <div className="list__item" key={index}>
-        <div className="profile__block">
-          <TextInput
-            label="Education"
-            value={getValueFor('title')}
-            onChange={this.makeChangeEducationItemHandler('title', index)}
-          />
-        </div>
-        <div className="profile__block">
-          <TextInput
-            label="Spec"
-            value={getValueFor('speciality')}
-            onChange={this.makeChangeEducationItemHandler('speciality', index)}
-          />
-        </div>
-        <div className="profile__block">
-          <TextInput
-            label="Level"
-            value={getValueFor('degree')}
-            onChange={this.makeChangeEducationItemHandler('degree', index)}
-          />
-        </div>
-        <div className="profile__block">
-          <DateInput
-            label="Started date"
-            value={getValueFor('startDate')}
-            onChange={this.makeChangeEducationItemHandler('startDate', index)}
-          />
-        </div>
-        <div className="profile__block">
-          <DateInput
-            label="Ended date"
-            value={getValueFor('endDate')}
-            onChange={this.makeChangeEducationItemHandler('endDate', index)}
-          />
-        </div>
-        {Array.isArray(userEducations) && userEducations.length > 1 && (
-          <div className="profile__block">
-            <Button
-              theme="transparent"
-              size="small"
-              text="Remove"
-              onClick={this.makeRemoveEducationItemHandler(index)}
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
-
   render() {
     const { user } = this.props;
     const { errors } = user;
     const {
-      userEducations,
       userJobs,
       firstCurrency,
       firstCurrencyYear,
@@ -312,8 +258,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Education">
                 <InfoBlock title="Education">
                   <div className="list">
-                    {this.renderEducationItem(0)}
-                    {userEducations.slice(1).map((_, index) => this.renderEducationItem(index + 1))}
+                    <WorkAndEducationFieldsArray name="education" />
                   </div>
                   <div className="profile__block">
                     <Button
@@ -355,4 +300,7 @@ ProfileWorkAndEducationPage.propTypes = {
   validateProfileForm: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatch)(ProfileWorkAndEducationPage);
+export default connect(
+  mapStateToProps,
+  mapDispatch,
+)(reduxForm({ form: 'workAndEducation' })(ProfileWorkAndEducationPage));

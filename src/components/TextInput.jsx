@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cn from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className,
 }) => {
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
@@ -23,7 +23,7 @@ const TextInput = ({
   }
 
   return (
-    <div className="text-input">
+    <div className={cn('text-input', className)}>
       <label>
         {
           (isRequired || label) && (
@@ -37,7 +37,7 @@ const TextInput = ({
           <input
             maxLength={maxLength}
             value={value === null ? '' : value}
-            className={classNames('text-input__input', {
+            className={cn('text-input__input', {
               'text-input__input_error': Boolean(error),
               'text-input__input_with-icon': Boolean(isIconExist),
             })}
@@ -64,6 +64,7 @@ TextInput.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.any, PropTypes.arrayOf(PropTypes.string)]),

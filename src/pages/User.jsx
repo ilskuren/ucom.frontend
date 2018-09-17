@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import Feed from '../components/Feed';
+import Status from '../components/Status';
 import { getUser } from '../api';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -122,10 +123,11 @@ class UserPage extends PureComponent {
                         </div>
                       ) : (
                         <Fragment>
-                          {this.state.user.moodMessage && (
-                            <div className="user-header__status">
-                              {this.state.user.moodMessage}
-                            </div>
+                          {(this.state.user.moodMessage || this.props.user.id === this.state.user.id) && (
+                            <Status
+                              text={this.state.user.moodMessage || 'your status'}
+                              isEditable={this.props.user.id === this.state.user.id}
+                            />
                           )}
                         </Fragment>
                       )}

@@ -29,7 +29,7 @@ class MyProfilePage extends PureComponent {
               <ProfileHeader
                 name="James Franco"
                 nickname="kames_franko"
-                status="My status or messege"
+                status={this.props.user.moodMessage || 'your status'}
                 userRatePosition={123}
                 userRate="12 293"
               />

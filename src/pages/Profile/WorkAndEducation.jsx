@@ -32,10 +32,6 @@ const mapStateToProps = state => ({
 
 
 class ProfileWorkAndEducationPage extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.setLoading(false);
     const { initialize, userWorkAndEducation } = this.props;

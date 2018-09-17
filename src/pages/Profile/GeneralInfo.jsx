@@ -31,7 +31,6 @@ const mapDispatch = dispatch =>
     clearErrors: actions.clearErrors,
     setUser: actions.setUser,
     validateProfileForm: actions.validateProfileForm,
-    saveUser: actions.saveUser,
     uploadUserAvatar: actions.uploadUserAvatar,
     editUserGeneralInfo: actions.editUserGeneralInfo,
   }, dispatch);
@@ -75,26 +74,6 @@ class ProfileGeneralInfoPage extends PureComponent {
         .then(() => editUserGeneralInfo(profile))
         .then(() => history.push('/profile/work-and-education'));
     })(event);
-  }
-
-  @bind
-  save() {
-    const { history } = this.props;
-    Promise
-      .resolve()
-      .then(() => {
-        const token = getToken();
-        const { user } = this.props;
-        const data = convertClientUser(user);
-        this.setState({ loading: true });
-        return patchMyself(data, token);
-      })
-      .then((data) => {
-        this.props.setUser(data);
-        this.setState({ loading: false });
-      })
-      .then(() => history.push('work-and-education'))
-      .catch(err => console.error(err.message));
   }
 
   uploadAvatar(file) {

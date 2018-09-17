@@ -7,31 +7,13 @@ import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
 import IconSearch from './Icons/Search';
 import IconLogo from './Icons/Logo';
-import Popup from './Popup';
-import Auth from './Auth';
 import Avatar from './Avatar';
 import { removeToken } from '../utils/token';
-import { removeUser } from '../actions';
+import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
 
 class Header extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showAuthPopup: false,
-    };
-  }
-
-  closeAuthPopup() {
-    this.setState({ showAuthPopup: false });
-  }
-
-  openAuthPopup() {
-    this.setState({ showAuthPopup: true });
-  }
-
   logout() {
     removeToken();
     this.props.removeUser();
@@ -43,27 +25,19 @@ class Header extends PureComponent {
         <div className="header__inner">
           <div className="header__side">
             {!this.props.user.id ? (
-              <Fragment>
-                {this.state.showAuthPopup && (
-                  <Popup onClickClose={() => this.closeAuthPopup()}>
-                    <Auth onClickClose={() => this.closeAuthPopup()} />
-                  </Popup>
-                )}
-
-                <nav className="menu menu_responsive menu_header">
-                  <div className="menu__item">
-                    <a href="/" className="menu__link">
-                      <IconLogo />
-                    </a>
-                  </div>
-                  <div className="menu__item">
-                    <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
-                  </div>
-                  <div className="menu__item">
-                    <Link to="/signup" className="menu__link menu__link_upper">Signup</Link>
-                  </div>
-                </nav>
-              </Fragment>
+              <nav className="menu menu_responsive menu_header">
+                <div className="menu__item">
+                  <a href="/" className="menu__link">
+                    <IconLogo />
+                  </a>
+                </div>
+                <div className="menu__item">
+                  <button className="menu__link menu__link_upper" onClick={() => this.props.showAuthPopup()}>Login</button>
+                </div>
+                <div className="menu__item">
+                  <Link to="/signup" className="menu__link menu__link_upper">Signup</Link>
+                </div>
+              </nav>
             ) : (
               <div className="inline inline_large">
                 <div className="inline__item">
@@ -208,5 +182,6 @@ export default withRouter(connect(
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
+    showAuthPopup: () => dispatch(showAuthPopup()),
   }),
 )(Header));

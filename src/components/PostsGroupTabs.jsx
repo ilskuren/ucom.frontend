@@ -7,6 +7,10 @@ const POSTS_TYPES = [{
   name: 'Community Media',
   enabled: true,
 }, {
+  id: 2,
+  name: 'People Offers',
+  enabled: true,
+}, {
   id: 3,
   name: 'Editorial Media',
   enabled: false,
@@ -14,10 +18,6 @@ const POSTS_TYPES = [{
   id: 4,
   name: 'Organizations Offers',
   enabled: false,
-}, {
-  id: 2,
-  name: 'People Offers',
-  enabled: true,
 }];
 
 class PostsGroupTabs extends PureComponent {
@@ -47,7 +47,7 @@ class PostsGroupTabs extends PureComponent {
                     { 'menu__link_active': this.state.activePostTypeId === item.id },
                   )}
                   role="presentation"
-                  onClick={() => this.changePostType(item.id)}
+                  onClick={() => item.enabled && this.changePostType(item.id)}
                 >
                   {item.name}
                 </div>

@@ -26,7 +26,7 @@ class Jobs extends PureComponent {
           <div className="work-and-education__item" key={index}>
             <div className="work-and-education__block">
               <TextInputField
-                label="Education"
+                label="Work place"
                 name={`${name}.title`}
               />
             </div>

@@ -17,6 +17,17 @@ export function selectUserGeneralInfo(state) {
   };
 }
 
+export function selectUserWorkAndEducation(state) {
+  const { user } = state;
+  return {
+    firstCurrency: user.firstCurrency,
+    firstCurrencyYear: user.firstCurrencyYear,
+    userJobs: user.userJobs,
+    userEducations: user.userEducations,
+  };
+}
+
+
 export function selectUserContacts(state) {
   const { user } = state;
   return {

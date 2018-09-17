@@ -1,7 +1,7 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
-import { convertClientUserContacts, convertClientGeneralInfo } from '../../api/convertors';
+import { convertClientUserContacts, convertClientGeneralInfo, convertClientWorkAndEducation } from '../../api/convertors';
 import { selectUserContacts } from '../../utils/selectors/user';
 
 function* editUserGeneralInfoSaga(action) {
@@ -10,9 +10,21 @@ function* editUserGeneralInfoSaga(action) {
     const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
     yield call(patchMyself, convertedGeneralInfo, token);
 
-    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
+    yield put({ type: 'USER:EDIT_GENERAL_INFO_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
+  }
+}
+
+function* editUserWorkAndEducationSaga(action) {
+  try {
+    const token = getToken();
+    const convertedWorkAndEducation = convertClientWorkAndEducation(action.payload);
+    yield call(patchMyself, convertedWorkAndEducation, token);
+
+    yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_COMPLETED', payload: action.payload });
+  } catch (e) {
+    yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_FAIL', message: e.message });
   }
 }
 
@@ -72,6 +84,7 @@ function* loadUserAvatarSaga(action) {
 
 function* userSaga() {
   yield takeLatest('USER:EDIT_GENERAL_INFO', editUserGeneralInfoSaga);
+  yield takeLatest('USER:EDIT_WORK_AND_EDUCATION', editUserWorkAndEducationSaga);
   yield takeLatest('USER:EDIT_CONTACTS', editUserContactsSaga);
   yield takeLatest('USER:UPLOAD_AVATAR', loadUserAvatarSaga);
 }

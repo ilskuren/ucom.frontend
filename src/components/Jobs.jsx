@@ -5,7 +5,7 @@ import Button from './Button';
 import TextInputField from './Field/TextInputField';
 import DateInputField from './Field/DateInputField';
 
-class Education extends PureComponent {
+class Jobs extends PureComponent {
   @bind
   removeField(index) {
     const { fields } = this.props;
@@ -32,14 +32,8 @@ class Education extends PureComponent {
             </div>
             <div className="work-and-education__block">
               <TextInputField
-                label="Spec"
-                name={`${name}.speciality`}
-              />
-            </div>
-            <div className="work-and-education__block">
-              <TextInputField
-                label="Level"
-                name={`${name}.degree`}
+                label="Position"
+                name={`${name}.position`}
               />
             </div>
             <div className="work-and-education__block">
@@ -79,10 +73,10 @@ class Education extends PureComponent {
   }
 }
 
-Education.propTypes = {
+Jobs.propTypes = {
   fields: PropTypes.shape({
     length: PropTypes.number,
   }),
 };
 
-export default Education;
+export default Jobs;

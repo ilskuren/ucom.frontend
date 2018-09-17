@@ -200,3 +200,12 @@ export function convertClientGeneralInfo(userGeneralInfo) {
     nickname: userGeneralInfo.nickname,
   };
 }
+
+export function convertClientWorkAndEducation(userWorkAndEducation) {
+  return {
+    first_currency: userWorkAndEducation.firstCurrency,
+    first_currency_year: userWorkAndEducation.firstCurrencyYear,
+    users_jobs: convertClientUsersJobs(userWorkAndEducation.userJobs),
+    users_education: convertClientUsersEducation(userWorkAndEducation.userEducations),
+  };
+}

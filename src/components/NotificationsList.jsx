@@ -20,7 +20,7 @@ const NotificationsList = ({ notifications }) => (
         />
       </div>
     ))}
-    <div key={-1} className="notifications-list__notification notifications-list__notification_wide">
+    <div className="notifications-list__notification notifications-list__notification_wide">
       <Notification
         type={notifications[0].type}
         theme={notifications[0].theme}

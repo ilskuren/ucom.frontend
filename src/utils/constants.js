@@ -1,5 +1,3 @@
-import * as rules from './validators/';
-
 export const scrollAnimation = {
   duration: 1500,
   delay: 100,

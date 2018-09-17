@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -22,6 +24,18 @@ class Auth extends PureComponent {
       showError: false,
       errors: null,
     };
+  }
+
+  componentWillReceiveProps(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.close();
+    }
+  }
+
+  close() {
+    if (typeof this.props.onClickClose === 'function') {
+      this.props.onClickClose();
+    }
   }
 
   login() {
@@ -59,9 +73,7 @@ class Auth extends PureComponent {
             saveToken(data.token);
           }
 
-          if (typeof this.props.onClickClose === 'function') {
-            this.props.onClickClose();
-          }
+          this.close();
         })
         .catch(() => {
           this.setState({
@@ -80,11 +92,7 @@ class Auth extends PureComponent {
         <div className="layer__close">
           <button
             className="button-clean button-clean_close"
-            onClick={() => {
-              if (typeof this.props.onClickClose === 'function') {
-                this.props.onClickClose();
-              }
-            }}
+            onClick={() => this.close()}
           >
             <IconClose />
           </button>
@@ -136,6 +144,12 @@ class Auth extends PureComponent {
                 Log in
               </button>
             </div>
+            <div className="auth__footer">
+              <div className="inline">
+                <span className="inline__item">No account?</span>
+                <span><Link className="auth__link" to="/signup">Create one</Link></span>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -148,11 +162,11 @@ Auth.propTypes = {
   setUser: PropTypes.func,
 };
 
-export default connect(
+export default withRouter(connect(
   state => ({
     user: state.user,
   }),
   dispatch => ({
     setUser: data => dispatch(setUser(data)),
   }),
-)(Auth);
+)(Auth));

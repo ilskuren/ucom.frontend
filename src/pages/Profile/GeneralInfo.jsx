@@ -19,7 +19,7 @@ import DateInputField from '../../components/Field/DateInputField';
 
 import { scrollAnimation } from '../../utils/constants';
 
-import { selectUser, selectUserGeneralInfo } from '../../utils/selectors/user';
+import { selectUser, selectUserGeneralInfo, selectUserLoading } from '../../utils/selectors/user';
 import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
@@ -27,11 +27,13 @@ const mapDispatch = dispatch =>
   bindActionCreators({
     uploadUserAvatar: actions.uploadUserAvatar,
     editUserGeneralInfo: actions.editUserGeneralInfo,
+    setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
   user: selectUser(state),
   userGeneralInfo: selectUserGeneralInfo(state),
+  loading: selectUserLoading(state),
 });
 
 class ProfileGeneralInfoPage extends PureComponent {
@@ -39,12 +41,12 @@ class ProfileGeneralInfoPage extends PureComponent {
     super(props);
 
     this.state = {
-      loading: false,
       avatarLoading: false,
     };
   }
 
   componentDidMount() {
+    this.props.setLoading(false);
     const { initialize, userGeneralInfo } = this.props;
     initialize(userGeneralInfo);
   }
@@ -90,7 +92,7 @@ class ProfileGeneralInfoPage extends PureComponent {
               className="person-form"
               onSubmit={this.handleSubmit}
             >
-              <Loading loading={this.state.loading} className="loading_block" />
+              <Loading loading={this.props.loading} className="loading_block" />
 
               <div className="profile__info-block">
                 <Element name="PersonalInfo">
@@ -211,6 +213,8 @@ ProfileGeneralInfoPage.propTypes = {
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
   editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({

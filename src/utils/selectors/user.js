@@ -38,6 +38,10 @@ export function selectUserContacts(state) {
   };
 }
 
+export function selectUserLoading(state) {
+  return state.user.loading;
+}
+
 export function selectUserId(state) {
   return state.user.id;
 }

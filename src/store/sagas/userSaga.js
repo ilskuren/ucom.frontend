@@ -7,9 +7,10 @@ import { selectUserContacts } from '../../utils/selectors/user';
 function* editUserGeneralInfoSaga(action) {
   try {
     const token = getToken();
+    yield put({ type: 'SET_LOADING', payload: true });
     const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
     yield call(patchMyself, convertedGeneralInfo, token);
-
+    yield put({ type: 'SET_LOADING', payload: false });
     yield put({ type: 'USER:EDIT_GENERAL_INFO_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
@@ -19,9 +20,10 @@ function* editUserGeneralInfoSaga(action) {
 function* editUserWorkAndEducationSaga(action) {
   try {
     const token = getToken();
+    yield put({ type: 'SET_LOADING', payload: true });
     const convertedWorkAndEducation = convertClientWorkAndEducation(action.payload);
     yield call(patchMyself, convertedWorkAndEducation, token);
-
+    yield put({ type: 'SET_LOADING', payload: false });
     yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_FAIL', message: e.message });
@@ -62,8 +64,10 @@ function* editUserContactsSaga(action) {
       userSources: mergeUserSources,
     };
 
+    yield put({ type: 'SET_LOADING', payload: true });
     const convertedUser = convertClientUserContacts(payload);
     yield call(patchMyself, convertedUser, token);
+    yield put({ type: 'SET_LOADING', payload: false });
     yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });

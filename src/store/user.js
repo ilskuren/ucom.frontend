@@ -1,17 +1,13 @@
-const getInitialState = () => ({
-  errors: {
-    userSources: {
-      isValid: false,
-      results: [],
-    },
-  },
-  isValid: false,
-});
+const getInitialState = () => ({});
 
 const user = (state = getInitialState(), action) => {
   switch (action.type) {
     case 'SET_USER':
-      return Object.assign({}, state, action.payload);
+      return {
+        ...state,
+        ...action.payload,
+        loading: false,
+      };
 
     case 'REMOVE_USER':
       return getInitialState();
@@ -20,6 +16,13 @@ const user = (state = getInitialState(), action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    }
+
+    case 'SET_LOADING': {
+      return {
+        ...state,
+        loading: action.payload,
       };
     }
 

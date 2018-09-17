@@ -1,4 +1,5 @@
-export const setUser = payload => ({ payload, type: 'SET_USER' });
+export const setUser = payload => ({ type: 'SET_USER', payload });
+export const setLoading = payload => ({ type: 'SET_LOADING', payload });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
 
 export const editUser = payload => ({ type: 'USER:EDIT_USER', payload });

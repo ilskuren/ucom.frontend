@@ -15,30 +15,29 @@ import { scrollAnimation } from '../../utils/constants';
 import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
 
-import { selectUserWorkAndEducation } from '../../utils/selectors/user';
+import { selectUserWorkAndEducation, selectUserLoading } from '../../utils/selectors/user';
 import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     editUserWorkAndEducation: actions.editUserWorkAndEducation,
+    setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userWorkAndEducation: selectUserWorkAndEducation(state),
+  loading: selectUserLoading(state),
 });
 
 
 class ProfileWorkAndEducationPage extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      loading: false,
-    };
   }
 
   componentDidMount() {
+    this.props.setLoading(false);
     const { initialize, userWorkAndEducation } = this.props;
     const { userJobs, userEducations } = userWorkAndEducation;
     const preInitializedUserWorkAndEducation = {
@@ -84,7 +83,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.state.loading} className="loading_block" />
+            <Loading loading={this.props.loading} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Blockchain">
@@ -148,6 +147,8 @@ ProfileWorkAndEducationPage.propTypes = {
   }),
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   editUserWorkAndEducation: PropTypes.func,
 };

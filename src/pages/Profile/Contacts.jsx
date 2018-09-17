@@ -17,32 +17,26 @@ import SocialNetworksFieldArray from '../../components/Field/SocialNetworksField
 
 import { scrollAnimation, emptyValues } from '../../utils/constants';
 
-import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
+import { selectUserContacts, selectUserId, selectUserLoading } from '../../utils/selectors/user';
 import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
-    setUser: actions.setUser,
     editUserContacts: actions.editUserContacts,
+    setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userId: selectUserId(state),
   userContacts: selectUserContacts(state),
+  loading: selectUserLoading(state),
 });
 
 class ProfileContactsPage extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-    };
-  }
-
   componentDidMount() {
+    this.props.setLoading(false);
     const { initialize, array, userContacts } = this.props;
     initialize(this.formatUserContacts(userContacts));
     if (userContacts.userSources.length === 0) {
@@ -111,7 +105,7 @@ class ProfileContactsPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.state.loading} className="loading_block" />
+            <Loading loading={this.props.loading} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Contacts">
@@ -176,6 +170,8 @@ ProfileContactsPage.propTypes = {
   editUserContacts: PropTypes.func,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,

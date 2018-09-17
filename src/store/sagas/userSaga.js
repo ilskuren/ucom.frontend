@@ -1,48 +1,62 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
-import humps from 'lodash-humps';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts, convertClientGeneralInfo } from '../../api/convertors';
 import { selectUserContacts } from '../../utils/selectors/user';
 
-function* editUserSaga(userData) {
-  try {
-    const token = getToken();
-    yield call(patchMyself, userData, token);
-    yield put({ type: 'USER:EDIT_USER_COMPLETED', payload: humps(userData) });
-  } catch (e) {
-    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
-  }
-}
-
-function* editUserContactsSaga(action) {
-  try {
-    const userSourceUrlsClient = action.payload.userSources;
-    const userSourcesServer = yield select(selectUserContacts);
-    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
-      ...userSourcesServer.userSources[i],
-      sourceUrl: userSource,
-    }));
-
-    const payload = convertClientUserContacts({
-      ...action.payload,
-      userSources: mergeUserSources,
-    });
-    yield* editUserSaga(payload);
-  } catch (e) {
-    yield put({ type: 'USER:EDIT_CONTACTS_FAIL', message: e.message });
-  }
-}
-
 function* editUserGeneralInfoSaga(action) {
   try {
+    const token = getToken();
     const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
-    yield* editUserSaga(convertedGeneralInfo);
+    yield call(patchMyself, convertedGeneralInfo, token);
+
+    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
   } catch (e) {
     yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
   }
 }
 
+function* editUserContactsSaga(action) {
+  try {
+    const token = getToken();
+
+    const userSourceUrlsClient = action.payload.userSources;
+    const userSourcesServer = yield select(selectUserContacts);
+
+    const getUserSource = (userSource) => {
+      if (typeof userSource === 'string') {
+        return userSource;
+      }
+      return userSource.sourceUrl;
+    };
+
+    const removeEmptySources = (userSource) => {
+      if (typeof userSource === 'string' && userSource === '') {
+        return false;
+      }
+      if (typeof userSource === 'object' && userSource.sourceUrl === '') {
+        return false;
+      }
+      return true;
+    };
+
+    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
+      ...userSourcesServer.userSources[i],
+      sourceUrl: getUserSource(userSource),
+    })).filter(removeEmptySources);
+
+    const payload = {
+      ...action.payload,
+      userSources: mergeUserSources,
+    };
+
+    const convertedUser = convertClientUserContacts(payload);
+    yield call(patchMyself, convertedUser, token);
+    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
+  } catch (e) {
+    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
+  }
+}
 
 function* loadUserAvatarSaga(action) {
   try {

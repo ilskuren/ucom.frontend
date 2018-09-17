@@ -30,3 +30,5 @@ export const validatorRules = {
     },
   },
 };
+
+export const emptyValues = [null, '', undefined];

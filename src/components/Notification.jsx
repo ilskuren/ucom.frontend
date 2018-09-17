@@ -14,7 +14,7 @@ const Notification = props => (
         userName={props.title}
         accountName={props.createdAt && <TimeDiff startTime={props.createdAt} />}
         avatarUrl={props.avatarUrl}
-        className="user-card_text_left"
+        className="user-card_text_left user-card_no-text-transform"
         icon={props.type !== 'message' ? <NotificationSign theme={props.theme} /> : null}
       />
       {(props.theme !== 'black' && props.theme !== 'gray') && <div className="notification__line" />}
@@ -27,7 +27,7 @@ const Notification = props => (
             <Button
               text={props.buttonText}
               onClick={props.onButtonClick}
-              size="small"
+              size={props.type === 'message' ? 'medium' : 'small'}
               theme={props.theme === 'gray' ? 'white' : props.theme}
             />
           </div>

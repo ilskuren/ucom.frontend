@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Notification from './Notification';
 
-const NotificationsList = props => (
+const NotificationsList = ({ notifications }) => (
   <div className="notifications-list">
-    {props.notifications.map((item, index) => (
+    {notifications.slice(1).map((item, index) => (
       <div key={index} className="notifications-list__notification">
         <Notification
           type={item.type}
@@ -20,6 +20,19 @@ const NotificationsList = props => (
         />
       </div>
     ))}
+    <div key={-1} className="notifications-list__notification notifications-list__notification_wide">
+      <Notification
+        type={notifications[0].type}
+        theme={notifications[0].theme}
+        title={notifications[0].title}
+        avatarUrl={notifications[0].avatarUrl}
+        createdAt={notifications[0].createdAt}
+        text={notifications[0].text}
+        status={notifications[0].status}
+        buttonText={notifications[0].buttonText}
+        onClick={notifications[0].onClick}
+      />
+    </div>
   </div>
 );
 
@@ -30,6 +43,13 @@ NotificationsList.propTypes = {
 export default connect(state => ({
   user: state.user,
   notifications: [
+    {
+      type: 'message',
+      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
+      title: 'We use cookies in order to offer you the best and the most relevant experience. Please accept cookies for optimal performance',
+      buttonText: 'I accept Cookies',
+      onButtonClick: () => false,
+    },
     {
       type: 'verification',
       theme: 'gray',
@@ -55,13 +75,6 @@ export default connect(state => ({
       theme: 'red',
       title: 'Text notification',
       text: 'Checkout the real pixels and tell me what you think  of it. Also dont forget to follow Degordian team and stay updated for more shot.',
-    },
-    {
-      type: 'message',
-      avatarUrl: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-      text: 'We use cookies in order to offer you the best and the most relevant experience. Please accept cookies for optimal performance',
-      buttonText: 'I accept Cookies',
-      onButtonClick: () => false,
     },
   ],
 }))(NotificationsList);

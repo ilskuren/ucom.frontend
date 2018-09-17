@@ -52,6 +52,13 @@ class ProfileGeneralInfoPage extends PureComponent {
     initialize(userGeneralInfo);
   }
 
+  componentDidUpdate() {
+    const { submitSucceeded, history } = this.props;
+    if (submitSucceeded) {
+      history.push('/profile/work-and-education');
+    }
+  }
+
   componentWillUnmount() {
     this.props.clearErrors();
   }
@@ -64,12 +71,9 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUserGeneralInfo, history } = this.props;
+    const { handleSubmit, editUserGeneralInfo } = this.props;
     handleSubmit((profile) => {
       editUserGeneralInfo(profile);
-      Promise.resolve()
-        .then(() => editUserGeneralInfo(profile))
-        .then(() => history.push('/profile/work-and-education'));
     })(event);
   }
 
@@ -220,6 +224,7 @@ ProfileGeneralInfoPage.propTypes = {
   clearErrors: PropTypes.func,
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
+  submitSucceeded: PropTypes.bool,
   editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({

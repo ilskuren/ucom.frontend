@@ -54,6 +54,14 @@ class ProfileContactsPage extends PureComponent {
     }
   }
 
+  componentDidUpdate() {
+    const { userId, submitSucceeded, history } = this.props;
+    if (submitSucceeded) {
+      history.push(`/user/${userId}`);
+    }
+  }
+
+
   @bind
   getSourceUrls() {
     const { userSources } = this.props.userContacts;
@@ -100,14 +108,9 @@ class ProfileContactsPage extends PureComponent {
     const {
       handleSubmit,
       editUserContacts,
-      userId,
-      history,
     } = this.props;
-
     handleSubmit((profile) => {
-      Promise.resolve()
-        .then(() => editUserContacts(profile))
-        .then(() => history.push(`/user/${userId}`));
+      editUserContacts(profile);
     })(event);
   }
 
@@ -190,6 +193,7 @@ class ProfileContactsPage extends PureComponent {
 ProfileContactsPage.propTypes = {
   changeUserField: PropTypes.func,
   initialize: PropTypes.func,
+  submitSucceeded: PropTypes.bool,
   removeUserPersonalWebSite: PropTypes.func,
   changeUserPersonalWebSiteUrl: PropTypes.func,
   editUserContacts: PropTypes.func,

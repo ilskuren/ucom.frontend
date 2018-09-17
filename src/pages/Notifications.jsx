@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import Footer from '../components/Footer';
 import NotificationsList from '../components/NotificationsList';
 
-class SettingsPage extends PureComponent {
+class NotificationsPage extends PureComponent {
   componentDidMount() {
 
   }
 
   render() {
-    return this.props.user.id ? (
+    return (
       <Fragment>
         <div className="content content_separated">
           <div className="content__inner">
@@ -62,7 +61,7 @@ class SettingsPage extends PureComponent {
           </div>
         </div>
 
-        <div className="content content_narrow">
+        <div className="content">
           <div className="content__inner">
             <Fragment>
               <Route exact path="/notifications/all" component={NotificationsList} />
@@ -73,16 +72,10 @@ class SettingsPage extends PureComponent {
           </div>
         </div>
       </Fragment>
-    ) : (
-      <Redirect to="/" />
     );
   }
 }
 
-SettingsPage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
-};
-
 export default connect(state => ({
   user: state.user,
-}), null)(SettingsPage);
+}), null)(NotificationsPage);

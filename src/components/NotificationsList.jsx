@@ -40,8 +40,7 @@ NotificationsList.propTypes = {
   notifications: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default connect(state => ({
-  user: state.user,
+export default connect(() => ({
   notifications: [
     {
       type: 'message',

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import React, { PureComponent, Fragment } from 'react';
 import classNames from 'classnames';
 import PostFormEditor from './PostFormEditor';
@@ -129,6 +130,12 @@ class PromoEditor extends PureComponent {
     );
   }
 }
+
+PromoEditor.propTypes = {
+  post: {
+    data: PropTypes.object,
+  },
+};
 
 export default connect(
   state => ({

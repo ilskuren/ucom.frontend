@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import DropZone from '../components/DropZone';
 import EventTitle from '../components/EventTitle';
-import Medium from '../components/Medium';
+import OfferFormEditor from '../components/OfferFormEditor';
 import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
 import UserSearchInput from './UserSearchInput';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
-import { getUserName } from '../utils/user';
+import { getUserName, getUserUrl } from '../utils/user';
 import { OFFER_TYPES } from '../utils/offer';
 
 class OfferForm extends PureComponent {
@@ -25,6 +25,8 @@ class OfferForm extends PureComponent {
   }
 
   render() {
+    console.log(this.props.post);
+
     return (
       <div className="content">
         <div className="content__inner">
@@ -221,52 +223,26 @@ class OfferForm extends PureComponent {
             </div>
 
             <EventTitle
-              className="event-title_big"
               tags={['sale']}
               title={this.props.post.data.title}
               actionButtonTitle={this.props.post.data.action_button_title}
               actionButtonUrl={this.props.post.data.action_button_url}
               actionDurationInDays={this.props.post.data.action_duration_in_days}
               imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-              team={this.props.post.data.post_users_team}
+              team={this.props.post.data.post_users_team && this.props.post.data.post_users_team.map(item => ({
+                id: item.id,
+                avatarUrl: getFileUrl(item.avatar_filename),
+                accountName: item.account_name,
+                rate: +item.current_rate,
+                profileLink: getUserUrl(item.id),
+                userName: getUserName(item),
+              }))}
             />
 
             <div className="post-form__item">
               <div className="post-form__editor post-form__editor_offer">
                 <div className="post-form__content post-form__content_wide">
-                  <div className="editor">
-                    <div className="editor__item">
-                      <input
-                        type="text"
-                        placeholder="Lead text"
-                        className="editor__input editor__input_medium"
-                        value={this.props.post.data.leading_text}
-                        onChange={(e) => {
-                          this.props.setPostData({ leading_text: e.target.value });
-                          this.props.validatePostField('leading_text');
-                        }}
-                      />
-                      {this.props.post.errors.leading_text && this.props.post.errors.leading_text.length > 0 ? (
-                        <div className="editor__error">{this.props.post.errors.leading_text[0]}</div>
-                      ) : null}
-                    </div>
-
-                    <div className="editor__item">
-                      <div className="editor__body">
-                        <Medium
-                          value={this.props.post.data.description}
-                          onChange={(description) => {
-                            this.props.setPostData({ description });
-                            this.props.validatePostField('description');
-                          }}
-                        />
-                      </div>
-
-                      {this.props.post.errors.description && this.props.post.errors.description.length > 0 ? (
-                        <div className="editor__error">{this.props.post.errors.description[0]}</div>
-                      ) : null}
-                    </div>
-                  </div>
+                  <OfferFormEditor />
                 </div>
               </div>
             </div>

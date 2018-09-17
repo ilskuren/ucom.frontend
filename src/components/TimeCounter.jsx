@@ -51,7 +51,9 @@ class TimeCounter extends PureComponent {
           <div className="inline__item">
             <div className="time-counter__time">
               <div className="time-counter__value">{yearsLeft}</div>
-              <div className="time-counter__name">{yearsLeft === 1 ? 'year' : 'years'}</div>
+              {!this.props.hideLabel && (
+                <div className="time-counter__name">{yearsLeft === 1 ? 'year' : 'years'}</div>
+              )}
             </div>
           </div>
         )}
@@ -59,7 +61,9 @@ class TimeCounter extends PureComponent {
           <div className="inline__item">
             <div className="time-counter__time">
               <div className="time-counter__value">{daysLeft}</div>
-              <div className="time-counter__name">{daysLeft === 1 ? 'day' : 'days'}</div>
+              {!this.props.hideLabel && (
+                <div className="time-counter__name">{daysLeft === 1 ? 'day' : 'days'}</div>
+              )}
             </div>
           </div>
         )}
@@ -67,7 +71,9 @@ class TimeCounter extends PureComponent {
           <div className="inline__item">
             <div className="time-counter__time">
               <div className="time-counter__value time-counter__value_wide">{timeLeft}</div>
-              <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
+              {!this.props.hideLabel && (
+                <div className="time-counter__name">{timeLeft === 1 ? 'hour' : 'hours'}</div>
+              )}
             </div>
           </div>
         )}
@@ -77,8 +83,9 @@ class TimeCounter extends PureComponent {
 }
 
 TimeCounter.propTypes = {
-  startTime: PropTypes.string,
+  startTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   durationInDays: PropTypes.number,
+  hideLabel: PropTypes.bool,
 };
 
 export default TimeCounter;

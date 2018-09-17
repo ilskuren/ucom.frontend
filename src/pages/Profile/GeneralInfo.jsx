@@ -68,9 +68,12 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUserGeneralInfo } = this.props;
+    const { handleSubmit, editUserGeneralInfo, history } = this.props;
     handleSubmit((profile) => {
       editUserGeneralInfo(profile);
+      Promise.resolve()
+        .then(() => editUserGeneralInfo(profile))
+        .then(() => history.push('/profile/work-and-education'));
     })(event);
   }
 

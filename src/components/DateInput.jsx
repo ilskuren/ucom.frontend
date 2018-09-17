@@ -14,6 +14,10 @@ class DateInput extends PureComponent {
     };
   }
 
+  componentWillMount() {
+    this.setDateValues();
+  }
+
   componentDidUpdate(prevProps) {
     const { value } = this.props;
     if (value !== prevProps.value) {

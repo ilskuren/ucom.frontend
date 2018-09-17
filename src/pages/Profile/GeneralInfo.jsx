@@ -25,10 +25,6 @@ import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    changeUserField: actions.changeUserField,
-    clearErrors: actions.clearErrors,
-    setUser: actions.setUser,
-    validateProfileForm: actions.validateProfileForm,
     uploadUserAvatar: actions.uploadUserAvatar,
     editUserGeneralInfo: actions.editUserGeneralInfo,
   }, dispatch);
@@ -58,15 +54,6 @@ class ProfileGeneralInfoPage extends PureComponent {
     if (submitSucceeded) {
       history.push('/profile/work-and-education');
     }
-  }
-
-  componentWillUnmount() {
-    this.props.clearErrors();
-  }
-
-  @bind
-  makeChangeUserFieldHandler(field) {
-    return value => this.props.changeUserField({ field, value, validationRules: 'generalInfoRules' });
   }
 
   @bind
@@ -221,8 +208,6 @@ class ProfileGeneralInfoPage extends PureComponent {
 }
 
 ProfileGeneralInfoPage.propTypes = {
-  changeUserField: PropTypes.func,
-  clearErrors: PropTypes.func,
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,

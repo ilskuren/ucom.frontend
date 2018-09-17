@@ -23,11 +23,7 @@ import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    changeUserField: actions.changeUserField,
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
-    addUserPersonalWebSite: actions.addUserPersonalWebSite,
-    removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
-    validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
     editUserContacts: actions.editUserContacts,
   }, dispatch);
@@ -87,24 +83,8 @@ class ProfileContactsPage extends PureComponent {
     };
   }
 
-
   @bind
-  makeRemoveSiteClickHandler(index) {
-    return () => this.props.removeUserPersonalWebSite(index);
-  }
-
-  @bind
-  makeSiteValueChangeHandler(index) {
-    return value => this.props.changeUserPersonalWebSiteUrl({ index, value });
-  }
-
-  @bind
-  makeChangeUserFieldHandler(field) {
-    return value => this.props.changeUserField({ field, value, validationRules: 'contactsRules' });
-  }
-
-  @bind
-  async handleSubmit(event) {
+  handleSubmit(event) {
     const {
       handleSubmit,
       editUserContacts,
@@ -191,11 +171,8 @@ class ProfileContactsPage extends PureComponent {
 }
 
 ProfileContactsPage.propTypes = {
-  changeUserField: PropTypes.func,
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  removeUserPersonalWebSite: PropTypes.func,
-  changeUserPersonalWebSiteUrl: PropTypes.func,
   editUserContacts: PropTypes.func,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,

@@ -57,6 +57,7 @@ class EventsPage extends PureComponent {
                           avatarUrl={getFileUrl(item.avatarFilename)}
                           userName={getUserName(item)}
                           accountName={item.accountName}
+                          sign="@"
                         />
                       </td>
                       <td className="list-table__cell" data-title="Views">{item.views || '—'}</td>

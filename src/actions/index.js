@@ -28,3 +28,6 @@ export const setPostData = payload => ({ type: 'SET_POST_DATA', payload });
 export const resetPost = () => ({ type: 'RESET_POST' });
 export const validatePost = () => ({ type: 'VALIDATE_POST' });
 export const validatePostField = payload => ({ type: 'VALIDATE_POST_FIELD', payload });
+
+export const showAuthPopup = () => ({ type: 'SHOW_AUTH_POPUP' });
+export const hideAuthPopup = () => ({ type: 'HIDE_AUTH_POPUP' });

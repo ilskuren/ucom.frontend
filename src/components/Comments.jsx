@@ -21,13 +21,11 @@ class Comments extends PureComponent {
 
     return (
       <div className="comments">
-        {this.props.user.id && (
-          <div className="comments__form">
-            <CommentForm
-              onSubmit={description => this.createComment(description)}
-            />
-          </div>
-        )}
+        <div className="comments__form">
+          <CommentForm
+            onSubmit={description => this.createComment(description)}
+          />
+        </div>
 
         {comments && comments.length > 0 && (
           <div className="comments__list">

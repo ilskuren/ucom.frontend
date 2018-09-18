@@ -11,6 +11,14 @@ import { getPostUrl } from '../utils/posts';
 import { getToken } from '../utils/token';
 
 class CreatePost extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+    };
+  }
+
   componentDidMount() {
     this.props.setPostData({ post_type_id: +this.props.match.params.postTypeId || 1 });
 
@@ -53,10 +61,13 @@ class CreatePost extends PureComponent {
       indices: true,
     });
 
-    saveFn(data, getToken(), this.props.match.params.id)
-      .then((data) => {
-        this.props.history.push(getPostUrl(data.id || data.post_id));
-      });
+    this.setState({ loading: true }, () => {
+      saveFn(data, getToken(), this.props.match.params.id)
+        .then((data) => {
+          this.setState({ loading: false });
+          this.props.history.push(getPostUrl(data.id || data.post_id));
+        });
+    });
   }
 
   render() {
@@ -66,9 +77,19 @@ class CreatePost extends PureComponent {
 
     switch (this.props.post.data.post_type_id) {
       case 2:
-        return <OfferForm onClickSave={() => this.save()} />;
+        return (
+          <OfferForm
+            onClickSave={() => this.save()}
+            loading={this.state.loading}
+          />
+        );
       default:
-        return <PostForm onClickSave={() => this.save()} />;
+        return (
+          <PostForm
+            onClickSave={() => this.save()}
+            loading={this.state.loading}
+          />
+        );
     }
   }
 }

@@ -10,6 +10,7 @@ const Button = (props) => {
     button_disabled: props.isDisabled,
     button_stretched: props.isStretched,
     button_rounded: props.isRounded,
+    button_upper: props.isUpper,
   });
 
   const renderCheckedIcon = () => (
@@ -30,7 +31,7 @@ const Button = (props) => {
       }}
     >
       { props.withCheckedIcon && renderCheckedIcon() }
-      { props.text }
+      { props.text || props.children }
     </button>
   );
 };
@@ -41,6 +42,7 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   isStretched: PropTypes.bool,
   isRounded: PropTypes.bool,
+  isUpper: PropTypes.bool,
   withCheckedIcon: PropTypes.bool,
   text: PropTypes.string,
   onClick: PropTypes.func,

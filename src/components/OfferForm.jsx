@@ -10,6 +10,7 @@ import TextInput from '../components/TextInput';
 import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
 import UserSearchInput from './UserSearchInput';
+import Button from './Button';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
@@ -37,16 +38,19 @@ class OfferForm extends PureComponent {
                       <h1 className="title">{this.props.post.data.id ? 'Edit' : 'Create'} Offer</h1>
                     </div>
                     <div className="toolbar__side">
-                      <button
-                        className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
+                      <Button
+                        isStretched
+                        isUpper
+                        theme="red"
+                        size="small"
+                        text="Post"
+                        isDisabled={this.props.loading}
                         onClick={() => {
                           if (typeof this.props.onClickSave === 'function') {
                             this.props.onClickSave();
                           }
                         }}
-                      >
-                        Post
-                      </button>
+                      />
                     </div>
                   </div>
                 </div>
@@ -260,16 +264,19 @@ class OfferForm extends PureComponent {
                         <span className="create-post__author-name">{getUserName(this.props.user)}</span>
                       </span>
                       <span className="inline__item">
-                        <button
-                          className="button button_upper button_theme_red button_size_small button_stretched button_capitalized"
+                        <Button
+                          isStretched
+                          isUpper
+                          theme="red"
+                          size="small"
+                          text="Post"
+                          isDisabled={this.props.loading}
                           onClick={() => {
                             if (typeof this.props.onClickSave === 'function') {
                               this.props.onClickSave();
                             }
                           }}
-                        >
-                          Post
-                        </button>
+                        />
                       </span>
                     </div>
                   </div>

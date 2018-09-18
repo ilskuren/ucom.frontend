@@ -5,6 +5,8 @@ import cn from 'classnames';
 import Input from './TextInput';
 import Button from './Button';
 import Tooltip from './Tooltip';
+import { patchMyself } from '../api';
+import { getToken } from '../utils/token';
 
 class Status extends PureComponent {
   constructor() {
@@ -21,6 +23,22 @@ class Status extends PureComponent {
     });
   }
 
+  @bind
+  handleSubmit(e) {
+    e.preventDefault();
+    const { target: { status: { value } } } = e;
+    Promise.resolve()
+      .then(() => {
+        const token = getToken();
+        return patchMyself({ mood_message: value }, token);
+      })
+      .then((data) => {
+        this.props.setUser(data);
+        this.toggleForm();
+      })
+      .catch(err => console.error(err.message));
+  }
+
   render() {
     return (
       <div className={cn('status', { status_open: Boolean(this.state.isOpened) })}>
@@ -31,19 +49,18 @@ class Status extends PureComponent {
           <div className="status__tooltip-wrapper">
             {this.state.isOpened && (
               <Tooltip className="tooltip_arrow_none">
-                <form className="status__form">
+                <form className="status__form" onSubmit={this.handleSubmit}>
                   <Input
                     className="text-input_transparent"
                     placeholder="change status"
-                    value={this.props.text}
-                    onChange={this.props.onChange}
+                    name="status"
                   />
                   <div className="status__control">
                     <div className="status__button">
                       <Button text="Cancel" size="small" onClick={this.toggleForm} />
                     </div>
                     <div className="status__button">
-                      <Button text="Post" size="small" />
+                      <Button text="Post" type="submit" size="small" />
                     </div>
                   </div>
                 </form>
@@ -59,7 +76,7 @@ class Status extends PureComponent {
 Status.propTypes = {
   text: PropTypes.string,
   isEditable: PropTypes.bool,
-  onChange: PropTypes.func,
+  setUser: PropTypes.func,
 };
 
 export default Status;

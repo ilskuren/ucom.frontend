@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -10,10 +11,11 @@ import MyProfileOrganizationsPage from './MyProfile/Organizations';
 import MyProfileProductsPage from './MyProfile/Products';
 import MyProfileEventsPage from './MyProfile/Events';
 
-
 import Footer from '../components/Footer';
 import FollowersAmount from '../components/FollowersAmount';
 import ProfileHeader from '../components/ProfileHeader';
+
+import * as actions from '../actions';
 
 class MyProfilePage extends PureComponent {
   componentDidMount() {
@@ -30,6 +32,7 @@ class MyProfilePage extends PureComponent {
                 name="James Franco"
                 nickname="kames_franko"
                 status={this.props.user.moodMessage || 'your status'}
+                setUser={this.props.setUser}
                 userRatePosition={123}
                 userRate="12 293"
               />
@@ -164,8 +167,14 @@ class MyProfilePage extends PureComponent {
 
 MyProfilePage.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
+  setUser: PropTypes.func,
 };
+
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    setUser: actions.setUser,
+  }, dispatch);
 
 export default connect(state => ({
   user: state.user,
-}), null)(MyProfilePage);
+}), mapDispatch)(MyProfilePage);

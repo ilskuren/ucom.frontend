@@ -1,8 +1,9 @@
+import React, { PureComponent, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import humps from 'lodash-humps';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { PureComponent, Fragment } from 'react';
 import Avatar from '../components/Avatar';
 import IconInfo from '../components/Icons/Info';
 import Rate from '../components/Rate';
@@ -17,6 +18,7 @@ import { getUser } from '../api';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
+import * as actions from '../actions';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -125,8 +127,9 @@ class UserPage extends PureComponent {
                         <Fragment>
                           {(this.state.user.moodMessage || this.props.user.id === this.state.user.id) && (
                             <Status
-                              text={this.state.user.moodMessage || 'your status'}
+                              text={this.props.user.moodMessage || 'your status'}
                               isEditable={this.props.user.id === this.state.user.id}
+                              setUser={this.props.setUser}
                             />
                           )}
                         </Fragment>
@@ -427,6 +430,11 @@ class UserPage extends PureComponent {
   }
 }
 
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    setUser: actions.setUser,
+  }, dispatch);
+
 export default connect(state => ({
   user: state.user,
-}))(UserPage);
+}), mapDispatch)(UserPage);

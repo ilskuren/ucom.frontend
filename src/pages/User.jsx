@@ -314,14 +314,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.usersSources && this.state.user.usersSources.length > 0 && (
+                  {this.state.user.userSources && this.state.user.userSources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="links">
-                          {this.state.user.usersSources.map((item, index) => (
+                          {this.state.user.userSources.map((item, index) => (
                             <li key={index} className="links__item">
                               <span className="inline">
                                 <span className="inline__item">

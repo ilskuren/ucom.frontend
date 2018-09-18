@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
@@ -174,6 +174,7 @@ class Header extends PureComponent {
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
+  showAuthPopup: PropTypes.func,
 };
 
 export default withRouter(connect(

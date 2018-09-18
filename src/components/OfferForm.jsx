@@ -299,6 +299,7 @@ OfferForm.propTypes = {
   onClickSave: PropTypes.func,
   setPostData: PropTypes.func,
   validatePostField: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default connect(

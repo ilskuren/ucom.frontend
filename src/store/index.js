@@ -3,11 +3,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import settings from './settings';
 import post from './post';
+import auth from './auth';
 
 const app = combineReducers({
   user,
   post,
   settings,
+  auth,
 });
 const middlewares = [];
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import UserIcon from './Icons/User';
 
 const Avatar = props => (
   <span
@@ -16,7 +17,7 @@ const Avatar = props => (
     {props.src ? (
       <img className="avatar__img" src={props.src} alt={props.alt} />
     ) : (
-      <span className="avatar__img avatar__img_blank" />
+      <UserIcon />
     )}
   </span>
 );

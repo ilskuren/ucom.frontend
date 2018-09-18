@@ -1,8 +1,9 @@
+import React, { PureComponent, Fragment } from 'react';
+import { bindActionCreators } from 'redux';
 import humps from 'lodash-humps';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { PureComponent, Fragment } from 'react';
 import Avatar from '../components/Avatar';
 import IconInfo from '../components/Icons/Info';
 import Rate from '../components/Rate';
@@ -12,10 +13,12 @@ import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import Feed from '../components/Feed';
+import Status from '../components/Status';
 import { getUser } from '../api';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
+import * as actions from '../actions';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -122,10 +125,12 @@ class UserPage extends PureComponent {
                         </div>
                       ) : (
                         <Fragment>
-                          {this.state.user.moodMessage && (
-                            <div className="user-header__status">
-                              {this.state.user.moodMessage}
-                            </div>
+                          {(this.state.user.moodMessage || this.props.user.id === this.state.user.id) && (
+                            <Status
+                              text={this.props.user.moodMessage}
+                              isEditable={this.props.user.id === this.state.user.id}
+                              setUser={this.props.setUser}
+                            />
                           )}
                         </Fragment>
                       )}
@@ -309,14 +314,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.usersSources && this.state.user.usersSources.length > 0 && (
+                  {this.state.user.userSources && this.state.user.userSources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="links">
-                          {this.state.user.usersSources.map((item, index) => (
+                          {this.state.user.userSources.map((item, index) => (
                             <li key={index} className="links__item">
                               <span className="inline">
                                 <span className="inline__item">
@@ -425,6 +430,11 @@ class UserPage extends PureComponent {
   }
 }
 
+const mapDispatch = dispatch =>
+  bindActionCreators({
+    setUser: actions.setUser,
+  }, dispatch);
+
 export default connect(state => ({
   user: state.user,
-}))(UserPage);
+}), mapDispatch)(UserPage);

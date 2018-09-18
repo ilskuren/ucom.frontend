@@ -209,6 +209,7 @@ EventTitle.propTypes = {
   editableCover: PropTypes.bool,
   teamTitle: PropTypes.string,
   buyersTitle: PropTypes.string,
+  timerTitle: PropTypes.string,
   buyersCount: PropTypes.number,
 };
 

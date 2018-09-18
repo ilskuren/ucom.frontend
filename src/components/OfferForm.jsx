@@ -25,8 +25,6 @@ class OfferForm extends PureComponent {
   }
 
   render() {
-    console.log(this.props.post);
-
     return (
       <div className="content">
         <div className="content__inner">

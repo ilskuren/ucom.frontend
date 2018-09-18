@@ -80,7 +80,7 @@ class SettingsAccountPage extends PureComponent {
           </div>
           <div className="form__block">
             <div className="form__label">KYC</div>
-            <div className="form__input"><KYC /></div>
+            <div className="form__input"><KYC title="Not verified" link="#" /></div>
           </div>
           <div className="form__block">
             <div className="form__label">Timezone</div>

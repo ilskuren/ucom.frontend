@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Avatar from './Avatar';
 
 const UserCard = (props) => {
-  const avatar = <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
+  const avatar = props.icon || <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
   const LinkTag = props.profileLink ? Link : 'span';
 
   return (
@@ -35,12 +35,13 @@ UserCard.propTypes = {
   squareAvatar: PropTypes.bool,
   roundedAvatar: PropTypes.bool,
   userName: PropTypes.string,
-  accountName: PropTypes.string,
+  accountName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   profileLink: PropTypes.string,
   avatarUrl: PropTypes.string,
   avatarSize: PropTypes.string,
   sign: PropTypes.string,
   className: PropTypes.string,
+  icon: PropTypes.element,
   rate: PropTypes.number,
 };
 

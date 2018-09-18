@@ -10,7 +10,7 @@ const UserList = () => (
             <div className="toolbar">
               <div className="toolbar__main">
                 <div className="user-list__user">
-                  <UserCard />
+                  <UserCard sign="@" />
                 </div>
               </div>
               <div className="toolbar__side">

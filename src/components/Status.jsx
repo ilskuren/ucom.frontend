@@ -13,15 +13,24 @@ class Status extends PureComponent {
     super();
     this.state = {
       isOpened: false,
+      text: '',
     };
+  }
+
+  componentDidMount() {
+    this.setState({ text: this.props.text || '' });
+  }
+
+  @bind
+  onChangeStatus(value) {
+    this.setState({ text: value });
   }
 
   @bind
   toggleForm() {
-    this.setState({
-      isOpened: !this.state.isOpened,
-    });
+    this.setState({ isOpened: !this.state.isOpened });
   }
+
 
   @bind
   handleSubmit(e) {
@@ -43,24 +52,32 @@ class Status extends PureComponent {
     return (
       <div className={cn('status', { status_open: Boolean(this.state.isOpened) })}>
         <div className="status__text" role="presentation" onClick={this.toggleForm}>
-          {this.props.text}
+          {this.props.text || 'My status or message'}
         </div>
         {this.props.isEditable && (
           <div className="status__tooltip-wrapper">
             {this.state.isOpened && (
               <Tooltip className="tooltip_arrow_none">
-                <form className="status__form" onSubmit={this.handleSubmit}>
+                <form className="status__form" onSubmit={this.handleSubmit} autoComplete="off">
                   <Input
                     className="text-input_transparent"
                     placeholder="change status"
                     name="status"
+                    onChange={this.onChangeStatus}
+                    value={this.state.text}
                   />
                   <div className="status__control">
                     <div className="status__button">
                       <Button text="Cancel" size="small" onClick={this.toggleForm} />
                     </div>
                     <div className="status__button">
-                      <Button text="Post" type="submit" size="small" />
+                      <Button
+                        text="Post"
+                        type="submit"
+                        size="small"
+                        theme="red"
+                        isDisabled={this.state.text === (this.props.text || '')}
+                      />
                     </div>
                   </div>
                 </form>

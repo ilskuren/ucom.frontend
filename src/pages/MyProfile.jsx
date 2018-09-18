@@ -31,7 +31,7 @@ class MyProfilePage extends PureComponent {
               <ProfileHeader
                 name="James Franco"
                 nickname="kames_franko"
-                status={this.props.user.moodMessage || 'your status'}
+                status={this.props.user.moodMessage}
                 setUser={this.props.setUser}
                 userRatePosition={123}
                 userRate="12 293"

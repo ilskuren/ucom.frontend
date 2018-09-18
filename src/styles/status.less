@@ -4,34 +4,27 @@
   line-height: 20px;
 
   &__form {
-    position: absolute;
-    padding: 10px;
     background-color: white;
-    box-shadow: @baseShadow;    
-    width: 320px;
-    @media (max-width: 424px) {
-      width: 260px;
+    border: 1px solid @gray;
+    border-radius: 4px;
+    
+    &:focus-within {
+      border-color: @gray-darker;
     }
   }
 
   &__control {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin: 5px;
+    margin-top: 0;
   }
 
   &__button {
     margin-left: 10px;
   }
 
-  &__tooltip-wrapper {
-    position: absolute;
-    z-index: 100;
-    top: 5px;
-    left: 0;
-  }
-
-  &:hover {
-    cursor: pointer;
+  &__text {
+    white-space: pre-wrap;
   }
 }

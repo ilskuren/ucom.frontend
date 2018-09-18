@@ -15,7 +15,7 @@ const ProfileHeader = ({
       <div className="profile-header__user-info">
         <div>
           <h2 className="profile-header__name" title={name}>{name}</h2>
-          <div className="profile-header__edit" />
+          <div className="edit" />
         </div>
         <div className="profile-header__nickname">@{nickname}</div>
         <Status text={status} isEditable setUser={setUser} />

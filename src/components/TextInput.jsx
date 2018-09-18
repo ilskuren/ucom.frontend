@@ -7,7 +7,7 @@ import InputCompleteIcon from '../components/Icons/InputComplete';
 import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, name,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, ...rest
 }) => {
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
@@ -44,12 +44,12 @@ const TextInput = ({
             type={type || 'text'}
             disabled={disabled}
             placeholder={placeholder}
-            name={name}
             onChange={(e) => {
               if (typeof onChange === 'function') {
                 onChange(e.target.value);
               }
             }}
+            {...rest}
           />
 
           {icon}

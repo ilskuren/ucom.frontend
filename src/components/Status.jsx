@@ -18,7 +18,7 @@ class Status extends PureComponent {
   }
 
   componentDidMount() {
-    this.setState({ text: this.props.text || '' });
+    this.setState({ text: this.props.text || '' });  //eslint-disable-line
   }
 
   @bind
@@ -65,6 +65,7 @@ class Status extends PureComponent {
                     name="status"
                     onChange={this.onChangeStatus}
                     value={this.state.text}
+                    autoFocus
                   />
                   <div className="status__control">
                     <div className="status__button">

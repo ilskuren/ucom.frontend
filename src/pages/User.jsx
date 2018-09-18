@@ -50,6 +50,8 @@ class UserPage extends PureComponent {
 
   render() {
     const user = humps(this.props.user);
+    const userYears = getYearsFromBirthday(this.state.user.birthday);
+    const userJob = this.state.user.userJobs && this.state.user.userJobs[this.state.user.userJobs.length - 1];
 
     return (
       <div className="content">
@@ -104,20 +106,22 @@ class UserPage extends PureComponent {
                         @{this.state.user.accountName}
                       </div>
 
-                      <div className="user-header__info">
-                        {this.state.user.id ? (
+                      {((userJob && userJob.position) || userYears) && (
+                        <div className="user-header__info">
                           <div className="inline">
-                            <div className="inline__item">
-                              Product designer
-                            </div>
-                            <div className="inline__item">
-                              {getYearsFromBirthday(this.state.user.birthday)} y.o.
-                            </div>
+                            {userJob && userJob.position && (
+                              <div className="inline__item">
+                                {userJob.position}
+                              </div>
+                            )}
+                            {userYears && (
+                              <div className="inline__item">
+                                {userYears} y.o.
+                              </div>
+                            )}
                           </div>
-                        ) : (
-                          <span className="blank">Lorem, ipsum.</span>
-                        )}
-                      </div>
+                        </div>
+                      )}
 
                       {!this.state.user.id ? (
                         <div className="user-header__status">
@@ -253,7 +257,7 @@ class UserPage extends PureComponent {
                   <div className="user-section">
                     <Feed
                       title="Feed"
-                      userId={this.props.match.params.id}
+                      userId={+this.props.match.params.id}
                     />
                   </div>
                 </div>

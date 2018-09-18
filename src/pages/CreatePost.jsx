@@ -1,11 +1,10 @@
 import objectToFormData from 'object-to-formdata';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 import OfferForm from '../components/OfferForm';
-import { setPostData, validatePost, resetPost } from '../actions';
+import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
 import { createPost, updatePost, getPost } from '../api';
 import { getPostUrl } from '../utils/posts';
 import { getToken } from '../utils/token';
@@ -51,6 +50,11 @@ class CreatePost extends PureComponent {
   }
 
   save() {
+    if (!this.props.user.id) {
+      this.props.showAuthPopup();
+      return;
+    }
+
     if (!this.props.post.isValid) {
       this.props.validatePost();
       return;
@@ -71,10 +75,6 @@ class CreatePost extends PureComponent {
   }
 
   render() {
-    if (!this.props.user.id) {
-      return <Redirect to="/" />;
-    }
-
     switch (this.props.post.data.post_type_id) {
       case 2:
         return (
@@ -110,5 +110,6 @@ export default connect(
     resetPost: () => dispatch(resetPost()),
     setPostData: data => dispatch(setPostData(data)),
     validatePost: () => dispatch(validatePost()),
+    showAuthPopup: () => dispatch(showAuthPopup()),
   }),
 )(CreatePost);

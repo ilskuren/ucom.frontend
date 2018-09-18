@@ -94,30 +94,30 @@ class Header extends PureComponent {
                   U.Community
                 </NavLink>
               </div>
+
               {this.props.user.id && (
-                <Fragment>
-                  <div className="menu__item">
-                    <NavLink
-                      to="/posts/new/1"
-                      className="menu__link menu__link_upper"
-                      activeClassName="menu__link_active"
-                      isActive={() => this.props.location.pathname === '/posts/new/1'}
-                    >
-                      Create Post
-                    </NavLink>
-                  </div>
-                  <div className="menu__item">
-                    <NavLink
-                      to="/posts/new/2"
-                      className="menu__link menu__link_upper"
-                      activeClassName="menu__link_active"
-                      isActive={() => this.props.location.pathname === '/posts/new/2'}
-                    >
-                      Create Event
-                    </NavLink>
-                  </div>
-                </Fragment>
+                <div className="menu__item">
+                  <NavLink
+                    to="/posts/new/1"
+                    className="menu__link menu__link_upper"
+                    activeClassName="menu__link_active"
+                    isActive={() => this.props.location.pathname === '/posts/new/1'}
+                  >
+                    Create Post
+                  </NavLink>
+                </div>
               )}
+
+              <div className="menu__item">
+                <NavLink
+                  to="/posts/new/2"
+                  className="menu__link menu__link_upper"
+                  activeClassName="menu__link_active"
+                  isActive={() => this.props.location.pathname === '/posts/new/2'}
+                >
+                  Create Event
+                </NavLink>
+              </div>
               <div className="menu__item">
                 <NavLink
                   to="/users"

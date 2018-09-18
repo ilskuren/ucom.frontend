@@ -40,17 +40,19 @@ class PostForm extends PureComponent {
                   </div>
                 </div>
 
-                <div className="inline inline_small">
-                  <div className="inline__item">
-                    <span className="post-form__light">By</span>
+                {this.props.user.id && (
+                  <div className="inline inline_small">
+                    <div className="inline__item">
+                      <span className="post-form__light">By</span>
+                    </div>
+                    <div className="inline__item">
+                      <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
+                    </div>
+                    <div className="inline__item">
+                      <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
+                    </div>
                   </div>
-                  <div className="inline__item">
-                    <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                  </div>
-                  <div className="inline__item">
-                    <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -92,9 +94,11 @@ class PostForm extends PureComponent {
                       <div className="inline__item">
                         <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
                       </div>
-                      <span className="inline__item">
-                        <span className="create-post__author-name">{getUserName(this.props.user)}</span>
-                      </span>
+                      {this.props.user.id && (
+                        <span className="inline__item">
+                          <span className="create-post__author-name">{getUserName(this.props.user)}</span>
+                        </span>
+                      )}
                       <span className="inline__item">
                         <Button
                           isStretched

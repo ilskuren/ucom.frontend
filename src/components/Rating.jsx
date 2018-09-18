@@ -7,6 +7,7 @@ import IconArrowDown from '../components/Icons/ArrowDown';
 import { vote } from '../api';
 import { getToken } from '../utils/token';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
+import { showAuthPopup } from '../actions';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -34,6 +35,7 @@ class Rating extends PureComponent {
 
   vote(isUp) {
     if (!this.props.user.id) {
+      this.props.showAuthPopup();
       return;
     }
 
@@ -98,6 +100,11 @@ Rating.defaultProps = {
   rating: 0,
 };
 
-export default connect(state => ({
-  user: state.user,
-}))(Rating);
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    showAuthPopup: () => dispatch(showAuthPopup()),
+  }),
+)(Rating);

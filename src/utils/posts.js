@@ -70,7 +70,9 @@ export const getPostTypeById = (postTypeId) => {
   switch (postTypeId) {
     case 2:
       return 'offer';
-    default:
+    case 1:
       return 'story';
+    default:
+      return null;
   }
 };

@@ -1,8 +1,10 @@
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Button from './Button';
 import { follow, unfollow } from '../api';
 import { getToken } from '../utils/token';
+import { showAuthPopup } from '../actions';
 
 class FollowButton extends PureComponent {
   constructor(props) {
@@ -18,6 +20,11 @@ class FollowButton extends PureComponent {
   }
 
   toggleFollow() {
+    if (!this.props.user.id) {
+      this.props.showAuthPopup();
+      return;
+    }
+
     (this.state.follow ? unfollow : follow)(this.props.userId, getToken())
       .then((data) => {
         if (data.errors) {
@@ -49,4 +56,11 @@ FollowButton.propTypes = {
   userId: PropTypes.number,
 };
 
-export default FollowButton;
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    showAuthPopup: () => dispatch(showAuthPopup()),
+  }),
+)(FollowButton);

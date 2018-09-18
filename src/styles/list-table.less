@@ -18,6 +18,11 @@
   }
 }
 
+.list-table__title {
+  display: inline-block;
+  position: relative;
+}
+
 .list-table__body {
   .list-table__row {
     &:last-child {
@@ -96,6 +101,16 @@
 
 .list-table__cell_sortable {
   cursor: pointer;
+
+  .list-table__title {
+    padding-right: 15px;
+  }
+}
+
+.list-table__sort-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .list-table__sort-icon_flip {
@@ -155,8 +170,13 @@
 }
 
 .list-table_evetns {
-  .list-table__cell_name {
-    width: 100%;
+  .list-table__cell_rate {
+    width: 200px;
+  }
+
+  .list-table__cell_comments,
+  .list-table__cell_views {
+    width: 100px;
   }
 
   &.list-table_responsive {

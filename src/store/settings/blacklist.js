@@ -1,3 +1,5 @@
+import { SETTINGS } from 'utils/actionTypes';
+
 const getInitialState = () => ({
   data: {
   },
@@ -8,7 +10,7 @@ const getInitialState = () => ({
 
 const blacklist = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_SETTINGS_BLACKLIST': {
+    case SETTINGS.RESET_BLACKLIST: {
       return getInitialState();
     }
 

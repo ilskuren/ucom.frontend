@@ -16,6 +16,7 @@ const renderFollowersTableRow = ({
           userName={userName}
           accountName={accountName}
           avatarUrl={avatarUrl}
+          sign="@"
         />
       </div>
       <div className="followers-table__numbers">

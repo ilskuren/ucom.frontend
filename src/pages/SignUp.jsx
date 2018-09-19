@@ -31,6 +31,7 @@ class SignUp extends React.PureComponent {
       passphraseIsValid: false,
       termsAccpeted: false,
       errors: [],
+      loading: false,
     };
   }
 
@@ -65,26 +66,31 @@ class SignUp extends React.PureComponent {
   }
 
   register() {
-    register({
-      accountName: this.state.accountName,
-      brainkey: this.state.passphrase.join(' '),
-    })
-      .then((data) => {
-        if (data.errors) {
-          this.setState({
-            errors: data.errors,
-          });
-          return;
-        }
+    this.setState({
+      loading: true,
+    }, () => {
+      register({
+        accountName: this.state.accountName,
+        brainkey: this.state.passphrase.join(' '),
+      })
+        .then((data) => {
+          if (data.errors) {
+            this.setState({
+              errors: data.errors,
+              loading: false,
+            });
+            return;
+          }
 
-        if (data.user) {
-          this.props.setUser(data.user);
-        }
+          if (data.user) {
+            this.props.setUser(data.user);
+          }
 
-        if (data.token) {
-          saveToken(data.token);
-        }
-      });
+          if (data.token) {
+            saveToken(data.token);
+          }
+        });
+    });
   }
 
   render() {
@@ -209,7 +215,7 @@ class SignUp extends React.PureComponent {
                     size="big"
                     theme="red"
                     text="FINISH"
-                    isDisabled={!this.state.passphraseIsValid || !this.state.termsAccpeted}
+                    isDisabled={!this.state.passphraseIsValid || !this.state.termsAccpeted || this.state.loading}
                     onClick={() => this.register()}
                   />
                 </div>

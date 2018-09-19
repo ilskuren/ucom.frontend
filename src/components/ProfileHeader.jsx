@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
+import Status from '../components/Status';
 import HordeIco from '../static/img/horde_ico.png';
 
 const ProfileHeader = ({
-  name, nickname, status, userRatePosition, userRate,
+  name, nickname, status, userRatePosition, userRate, setUser,
 }) => (
   <div className="profile-header">
     <div className="profile-header__user">
@@ -17,7 +18,7 @@ const ProfileHeader = ({
           <div className="profile-header__edit" />
         </div>
         <div className="profile-header__nickname">@{nickname}</div>
-        <div className="profile-header__status">{status}</div>
+        <Status text={status} isEditable setUser={setUser} />
       </div>
     </div>
     <div className="profile-header__user-rating">

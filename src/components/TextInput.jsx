@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cn from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, touched,
+  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ...rest
 }) => {
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
@@ -22,7 +22,7 @@ const TextInput = ({
   }
 
   return (
-    <div className="text-input">
+    <div className={cn('text-input', className)}>
       <label>
         {
           (isRequired || label) && (
@@ -36,7 +36,7 @@ const TextInput = ({
           <input
             maxLength={maxLength}
             value={value === null || value === undefined ? '' : value}
-            className={classNames('text-input__input', {
+            className={cn('text-input__input', {
               'text-input__input_error': Boolean(touched && error),
               'text-input__input_with-icon': Boolean(isIconExist),
             })}
@@ -48,6 +48,7 @@ const TextInput = ({
                 onChange(e.target.value);
               }
             }}
+            {...rest}
           />
 
           {icon}
@@ -63,6 +64,8 @@ TextInput.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   type: PropTypes.string,
+  name: PropTypes.string,
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   subtext: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.any, PropTypes.arrayOf(PropTypes.string)]),

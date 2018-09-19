@@ -12,6 +12,7 @@ import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
 import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
+import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser, hideAuthPopup } from '../actions';
 import { getToken } from '../utils/token';
@@ -74,6 +75,7 @@ class App extends PureComponent {
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
+                <Route path="/notifications" component={NotificationsPage} />
                 <Route path="/user/:id" component={UserPage} />
                 <Route path="/posts/new/:postTypeId" component={CreatePost} />
                 <Route path="/posts/:id/edit" component={CreatePost} />
@@ -100,7 +102,11 @@ class App extends PureComponent {
 
 App.propTypes = {
   history: PropTypes.objectOf(PropTypes.any),
+  auth: PropTypes.objectOf({
+    showPopup: PropTypes.func,
+  }),
   setUser: PropTypes.func,
+  hideAuthPopup: PropTypes.func,
 };
 
 export default connect(

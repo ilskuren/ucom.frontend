@@ -250,10 +250,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-            { type: 'blockchain', percents: '0', onClick: () => scroller.scrollTo('Blockchain', scrollAnimation) },
-            { type: 'work', percents: '0', onClick: () => scroller.scrollTo('Work', scrollAnimation) },
-            { type: 'education', percents: '0', onClick: () => scroller.scrollTo('Education', scrollAnimation) },
-          ]}
+              { title: 'blockchain', name: 'Blockchain' },
+              { title: 'work', name: 'Work' },
+              { title: 'education', name: 'Education' },
+            ]}
           />
         </div>
         <div className="grid__item">

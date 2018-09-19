@@ -31,3 +31,5 @@ export const validatePostField = payload => ({ type: 'VALIDATE_POST_FIELD', payl
 
 export const showAuthPopup = () => ({ type: 'SHOW_AUTH_POPUP' });
 export const hideAuthPopup = () => ({ type: 'HIDE_AUTH_POPUP' });
+
+export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });

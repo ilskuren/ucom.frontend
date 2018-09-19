@@ -91,3 +91,32 @@
     grid-template-columns: 1fr;
   }
 }
+
+.grid_settings {
+  grid-column-gap: 0;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas: 'a b b c d d d d d d d e';
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'd' 'b';
+  }
+
+  .grid__item_main {
+    grid-area: d;
+  }
+
+  .grid__item_side {
+    grid-area: b;
+  }
+}
+
+.grid_settins-head {
+  grid-column-gap: 0;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas: 'a b b b b b b b b b b c';
+
+  .grid__item_main {
+    grid-area: b;
+  }
+}

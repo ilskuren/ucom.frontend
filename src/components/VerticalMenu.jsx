@@ -1,33 +1,50 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { scroller } from 'react-scroll';
+import { scrollAnimation } from '../utils/constants';
 
-const VerticalMenu = (props) => {
-  const sections = props.sections.map((section, i) => (
-    <li
-      className={classNames('vertical-menu__section', {
-      'vertical-menu__section_active': true,
-      })}
-      key={i}
-      onClick={section.onClick}
-      role="presentation"
-    >
-      <span className="vertical-menu__type">{section.type}</span>
-      {/* <span className="vertical-menu__percents">{`${section.percents}%`}</span> */}
-    </li>));
+class VerticalMenu extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <ul className="vertical-menu">
-      {sections}
-    </ul>
-  );
-};
+    this.state = {
+      activeSectionName: this.props.sections[0].name,
+    };
+  }
+
+  changeActiveSection(sectionName) {
+    scroller.scrollTo(sectionName, scrollAnimation);
+    this.setState({
+      activeSectionName: sectionName,
+    });
+  }
+
+  render() {
+    return (
+      <ul className="vertical-menu">
+        {this.props.sections.map(section => (
+          <li
+            key={section.name}
+            className={classNames(
+              'vertical-menu__section',
+              { 'vertical-menu__section_active': section.name === this.state.activeSectionName },
+            )}
+            onClick={() => this.changeActiveSection(section.name)}
+            role="presentation"
+          >
+            <span className="vertical-menu__type">{section.title}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
 
 VerticalMenu.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    percents: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
+    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   })).isRequired,
 };
 

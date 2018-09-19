@@ -4,12 +4,14 @@ import user from './user';
 import settings from './settings';
 import post from './post';
 import auth from './auth';
+import organization from './organization';
 
 const app = combineReducers({
   user,
   post,
   settings,
   auth,
+  organization,
 });
 const middlewares = [];
 

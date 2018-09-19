@@ -113,8 +113,8 @@ class ProfileContactsPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts', scrollAnimation) },
-              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks', scrollAnimation) },
+              { title: 'Personal Contacts', name: 'Contacts' },
+              { title: 'Social Networks', name: 'SocialNetworks' },
             ]}
           />
         </div>

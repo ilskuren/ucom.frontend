@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
-import { scroller, Element } from 'react-scroll';
+import { Element } from 'react-scroll';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
@@ -112,8 +112,8 @@ class ProfileGeneralInfoPage extends PureComponent {
           <div className="grid__item">
             <VerticalMenu
               sections={[
-                { type: 'personal info', percents: '25', onClick: () => scroller.scrollTo('PersonalInfo', scrollAnimation) },
-                { type: 'location', percents: '0', onClick: () => scroller.scrollTo('Location', scrollAnimation) },
+                { title: 'Personal Info', name: 'PersonalInfo' },
+                { title: 'Location', name: 'Location' },
               ]}
             />
           </div>

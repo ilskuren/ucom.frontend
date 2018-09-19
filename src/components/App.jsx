@@ -25,6 +25,7 @@ import Post from '../pages/Post';
 import { convertServerUser } from '../api/convertors';
 import Popup from './Popup';
 import Auth from './Auth';
+import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 
 class App extends PureComponent {
   constructor(props) {
@@ -84,6 +85,7 @@ class App extends PureComponent {
                 <Route path="/users" component={UsersPage} />
                 <Route exact path="/products" component={ProductsPage} />
                 <Route exact path="/organizations" component={OrganizationsPage} />
+                <Route exact path="/organizations/create" component={OrganizationsCreatePage} />
                 <Route component={NotFoundPage} />
               </Switch>
 
@@ -103,9 +105,7 @@ class App extends PureComponent {
 App.propTypes = {
   history: PropTypes.objectOf(PropTypes.any),
   setUser: PropTypes.func,
-  auth: {
-    showAuthPopup: PropTypes.func,
-  },
+  auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
 };
 

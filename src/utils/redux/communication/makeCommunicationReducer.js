@@ -7,9 +7,9 @@ export default function makeCommunicationReducer(
   return (state = initial, action) => {
     switch (action.type) {
       case executeType:
-        return { error: "", isRequesting: true };
+        return { error: '', isRequesting: true };
       case completedType:
-        return { error: "", isRequesting: false };
+        return { error: '', isRequesting: false };
       case failedType:
         return { error: action.error, isRequesting: false };
       default:

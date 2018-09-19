@@ -7,6 +7,11 @@ import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
 
+import { scrollAnimation, emptyValues } from 'utils/constants';
+
+import { selectUserContacts, selectUserId, selectUserLoading } from 'utils/selectors/user';
+import { validate } from 'utils/validators/pages/profile/contacts';
+
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -15,17 +20,14 @@ import Loading from '../../components/Loading';
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
 
-import { scrollAnimation, emptyValues } from '../../utils/constants';
-
-import { selectUserContacts, selectUserId, selectUserLoading } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
+
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
     editUserContacts: actions.editUserContacts,
-    setLoading: actions.setLoading,
+    // setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -36,7 +38,7 @@ const mapStateToProps = state => ({
 
 class ProfileContactsPage extends PureComponent {
   componentDidMount() {
-    this.props.setLoading(false);
+    // this.props.setLoading(false);
     const { initialize, array, userContacts } = this.props;
     initialize(this.formatUserContacts(userContacts));
     if (userContacts.userSources.length === 0) {
@@ -170,7 +172,6 @@ ProfileContactsPage.propTypes = {
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   loading: PropTypes.bool,
-  setLoading: PropTypes.func,
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,

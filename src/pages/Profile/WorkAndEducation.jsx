@@ -5,24 +5,25 @@ import { reduxForm } from 'redux-form';
 import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
+
+import { selectUserWorkAndEducation, selectUserLoading } from 'utils/selectors/user';
+import { validate } from 'utils/validators/pages/profile/workAndEducation';
+
+import { scrollAnimation } from 'utils/constants';
+
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import Loading from '../../components/Loading';
-import { scrollAnimation } from '../../utils/constants';
-
 import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
-
-import { selectUserWorkAndEducation, selectUserLoading } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     editUserWorkAndEducation: actions.editUserWorkAndEducation,
-    setLoading: actions.setLoading,
+    // setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -33,7 +34,7 @@ const mapStateToProps = state => ({
 
 class ProfileWorkAndEducationPage extends PureComponent {
   componentDidMount() {
-    this.props.setLoading(false);
+    // this.props.setLoading(false);
     const { initialize, userWorkAndEducation } = this.props;
     const { userJobs, userEducations } = userWorkAndEducation;
     const preInitializedUserWorkAndEducation = {
@@ -144,7 +145,7 @@ ProfileWorkAndEducationPage.propTypes = {
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
   loading: PropTypes.bool,
-  setLoading: PropTypes.func,
+  // setLoading: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   editUserWorkAndEducation: PropTypes.func,
 };

@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
+
+import { selectUser, selectUserGeneralInfo, selectUserLoading, selectUserAvatarLoading } from 'utils/selectors/user';
+import { validate } from 'utils/validators/pages/profile/generalInfo';
+
+import { scrollAnimation } from 'utils/constants';
+
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -17,17 +23,13 @@ import TextInputField from '../../components/Field/TextInputField';
 import TextAreaField from '../../components/Field/TextAreaField';
 import DateInputField from '../../components/Field/DateInputField';
 
-import { scrollAnimation } from '../../utils/constants';
-
-import { selectUser, selectUserGeneralInfo, selectUserLoading, selectUserAvatarLoading } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     uploadUserAvatar: actions.uploadUserAvatar,
     editUserGeneralInfo: actions.editUserGeneralInfo,
-    setLoading: actions.setLoading,
+    // setLoading: actions.setLoading,
   }, dispatch);
 
 const mapStateToProps = state => ({
@@ -39,7 +41,7 @@ const mapStateToProps = state => ({
 
 class ProfileGeneralInfoPage extends PureComponent {
   componentDidMount() {
-    this.props.setLoading(false);
+    // this.props.setLoading(false);
     const { initialize, userGeneralInfo } = this.props;
     initialize(userGeneralInfo);
   }
@@ -206,7 +208,7 @@ ProfileGeneralInfoPage.propTypes = {
   submitSucceeded: PropTypes.bool,
   loading: PropTypes.bool,
   avatarLoading: PropTypes.bool,
-  setLoading: PropTypes.func,
+  // setLoading: PropTypes.func,
   editUserGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({

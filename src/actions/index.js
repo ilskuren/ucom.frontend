@@ -1,4 +1,5 @@
 import { USER } from 'utils/actionTypes';
+import { makeCommunicationActionCreators } from 'utils/redux/communication';
 
 export const setUser = payload => ({ payload, type: USER.SET_USER });
 export const removeUser = () => ({ type: USER.REMOVE_USER });
@@ -7,7 +8,9 @@ export const editUser = payload => ({ type: USER.EDIT_USER, payload });
 export const editUserCompleted = payload => ({ type: USER.EDIT_USER_COMPLETED, payload });
 export const editUserFail = payload => ({ type: USER.EDIT_USER_FAIL, payload });
 
-export const editUserGeneralInfo = payload => ({ type: USER.EDIT_GENERAL_INFO, payload });
+export const { execute: editGeneralInfo, completed: editGeneralInfoCompleted, failed: editGeneralInfoFail } =
+  makeCommunicationActionCreators(USER.EDIT_GENERAL_INFO, USER.EDIT_GENERAL_INFO_COMPLETED, USER.EDIT_CONTACTS_FAIL);
+// export const editUserGeneralInfo = payload => ({ type: USER.EDIT_GENERAL_INFO, payload });
 export const editUserGeneralInfoCompleted = payload => ({ type: USER.EDIT_GENERAL_INFO_COMPLETED, payload });
 export const editUserGeneralInfoFail = payload => ({ type: USER.EDIT_GENERAL_INFO_FAIL, payload });
 

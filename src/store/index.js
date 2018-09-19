@@ -7,6 +7,7 @@ import settings from './settings';
 import post from './post';
 import userSaga from './sagas/userSaga';
 import auth from './auth';
+import { reducer as profile } from './profile';
 
 const app = combineReducers({
   user,
@@ -14,6 +15,7 @@ const app = combineReducers({
   settings,
   auth,
   form: formReducer,
+  profile,
 });
 const sagaMiddleware = createSagaMiddleware();
 

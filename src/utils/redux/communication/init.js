@@ -5,4 +5,4 @@ export function initCommunicationFields(fieldNames) {
     ...communicationFields,
     [fieldName]: initialCommunicationField,
   }), {});
-};
+}

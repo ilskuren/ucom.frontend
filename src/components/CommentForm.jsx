@@ -116,6 +116,7 @@ CommentForm.propTypes = {
   active: PropTypes.bool,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
+  showAuthPopup: PropTypes.func,
 };
 
 export default connect(

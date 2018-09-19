@@ -54,6 +54,7 @@ class FollowButton extends PureComponent {
 FollowButton.propTypes = {
   follow: PropTypes.bool,
   userId: PropTypes.number,
+  showAuthPopup: PropTypes.func,
 };
 
 export default connect(

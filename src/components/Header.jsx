@@ -173,6 +173,7 @@ class Header extends PureComponent {
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
+  showAuthPopup: PropTypes.func,
 };
 
 export default withRouter(connect(

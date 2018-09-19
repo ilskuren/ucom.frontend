@@ -98,6 +98,7 @@ CreatePost.propTypes = {
   resetPost: PropTypes.func,
   setPostData: PropTypes.func,
   validatePost: PropTypes.func,
+  showAuthPopup: PropTypes.func,
   post: PropTypes.objectOf(PropTypes.any),
 };
 

@@ -2,9 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import cn from 'classnames';
-import Input from './TextInput';
+import Textarea from './Textarea';
 import Button from './Button';
-import Tooltip from './Tooltip';
 import { patchMyself } from '../api';
 import { getToken } from '../utils/token';
 
@@ -12,13 +11,13 @@ class Status extends PureComponent {
   constructor() {
     super();
     this.state = {
-      isOpened: false,
+      isActive: false,
       text: '',
     };
   }
 
   componentDidMount() {
-    this.setState({ text: this.props.text || '' });  //eslint-disable-line
+    this.setInitialText();
   }
 
   @bind
@@ -26,9 +25,19 @@ class Status extends PureComponent {
     this.setState({ text: value });
   }
 
+  setInitialText() {
+    this.setState({ text: this.props.text || '' });
+  }
+
   @bind
   toggleForm() {
-    this.setState({ isOpened: !this.state.isOpened });
+    this.setState({ isActive: !this.state.isActive });
+  }
+
+  @bind
+  cancelSubmit() {
+    this.setInitialText();
+    this.toggleForm();
   }
 
 
@@ -50,40 +59,39 @@ class Status extends PureComponent {
 
   render() {
     return (
-      <div className={cn('status', { status_open: Boolean(this.state.isOpened) })}>
-        <div className="status__text" role="presentation" onClick={this.toggleForm}>
-          {this.props.text || 'My status or message'}
-        </div>
-        {this.props.isEditable && (
-          <div className="status__tooltip-wrapper">
-            {this.state.isOpened && (
-              <Tooltip className="tooltip_arrow_none">
-                <form className="status__form" onSubmit={this.handleSubmit} autoComplete="off">
-                  <Input
-                    className="text-input_transparent"
-                    placeholder="change status"
-                    name="status"
-                    onChange={this.onChangeStatus}
-                    value={this.state.text}
-                    autoFocus
-                  />
-                  <div className="status__control">
-                    <div className="status__button">
-                      <Button text="Cancel" size="small" onClick={this.toggleForm} />
-                    </div>
-                    <div className="status__button">
-                      <Button
-                        text="Post"
-                        type="submit"
-                        size="small"
-                        theme="red"
-                        isDisabled={this.state.text === (this.props.text || '')}
-                      />
-                    </div>
-                  </div>
-                </form>
-              </Tooltip>
-            )}
+      <div className={cn('status', { status_open: Boolean(this.state.isActive) })}>
+        {this.props.isEditable && this.state.isActive ? (
+          <form className="status__form" onSubmit={this.handleSubmit} autoComplete="off">
+            <Textarea
+              className="textarea_border_none"
+              placeholder="Change status"
+              name="status"
+              onChange={this.onChangeStatus}
+              value={this.state.text}
+              autoFocus
+              rows={6}
+            />
+            <div className="status__control">
+              <div className="status__button">
+                <Button text="Cancel" size="small" onClick={this.cancelSubmit} />
+              </div>
+              <div className="status__button">
+                <Button
+                  text="Save"
+                  type="submit"
+                  size="small"
+                  theme="red"
+                  isDisabled={this.state.text === (this.props.text || '')}
+                />
+              </div>
+            </div>
+          </form>
+        ) : (
+          <div className="status__text inline">
+            <div className="inline__item">
+              {this.props.text || 'My status or message'}
+            </div>
+            <div className="edit edit_xsmall inline__item" role="presentation" onClick={this.toggleForm} />
           </div>
         )}
       </div>

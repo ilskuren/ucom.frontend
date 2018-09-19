@@ -47,7 +47,7 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   componentDidUpdate() {
-    const { submitSucceeded, history, editingGeneralInfo } = this.props;
+    const { submitSucceeded, history } = this.props;
     if (submitSucceeded) {
       history.push('/profile/work-and-education');
     }

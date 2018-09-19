@@ -9,7 +9,7 @@ import { reduxForm } from 'redux-form';
 
 import { scrollAnimation, emptyValues } from 'utils/constants';
 
-import { selectUserContacts, selectUserId, selectUserLoading } from 'utils/redux/selectors';
+import { selectUserContacts, selectUserId } from 'utils/redux/selectors';
 import { Communication } from 'utils/GlobalPropTypes';
 import { selectCommunication } from 'utils/redux/selectors/communication/profile';
 

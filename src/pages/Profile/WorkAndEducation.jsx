@@ -6,7 +6,7 @@ import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
 
-import { selectUserWorkAndEducation, selectUserLoading } from 'utils/redux/selectors/user';
+import { selectUserWorkAndEducation } from 'utils/redux/selectors/user';
 import { Communication } from 'utils/GlobalPropTypes';
 import { selectCommunication } from 'utils/redux/selectors/communication/profile';
 
@@ -142,12 +142,11 @@ ProfileWorkAndEducationPage.propTypes = {
     userJobs: PropTypes.arrayOf(PropTypes.object),
     userEducations: PropTypes.arrayOf(PropTypes.object),
     firstCurrency: PropTypes.string,
-    editingWorkAndEducation: Communication,
     firstCurrencyYear: PropTypes.string,
   }),
+  editingWorkAndEducation: Communication,
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
-  loading: PropTypes.bool,
   submitSucceeded: PropTypes.bool,
   editWorkAndEducation: PropTypes.func,
 };

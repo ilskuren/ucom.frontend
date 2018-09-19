@@ -1,1 +1,3 @@
-export const resetSettingsBlacklist = () => ({ type: 'RESET_SETTINGS_BLACKLIST' });
+import { SETTINGS } from 'utils/actionTypes';
+
+export const resetSettingsBlacklist = () => ({ type: SETTINGS.RESET_BLACKLIST });

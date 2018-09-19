@@ -38,6 +38,7 @@ const Post = props => (
         accountName={props.accountName}
         profileLink={props.profileLink}
         avatarUrl={props.avatarUrl}
+        sign="@"
       />
     </div>
 
@@ -115,6 +116,7 @@ const Post = props => (
 Post.propTypes = {
   rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  postType: PropTypes.string,
   updatedAt: PropTypes.string,
   userName: PropTypes.string,
   accountName: PropTypes.string,
@@ -124,7 +126,6 @@ Post.propTypes = {
   leadingText: PropTypes.string,
   coverUrl: PropTypes.string,
   url: PropTypes.string,
-  postType: PropTypes.string,
 };
 
 export default Post;

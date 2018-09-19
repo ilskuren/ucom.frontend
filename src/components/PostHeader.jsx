@@ -30,7 +30,7 @@ const PostHeader = ({
             </div>
           </div>
         </div>
-        {user.id && userId && user.id !== userId ? (
+        {!user.id || (user.id !== userId) ? (
           <div className="toolbar__side">
             <div className="post-header__follow-button">
               <FollowButton

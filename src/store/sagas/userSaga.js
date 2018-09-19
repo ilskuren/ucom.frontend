@@ -1,4 +1,5 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { USER } from 'utils/actionTypes';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts, convertClientGeneralInfo, convertClientWorkAndEducation } from '../../api/convertors';
@@ -11,9 +12,10 @@ function* editUserGeneralInfoSaga(action) {
     const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
     yield call(patchMyself, convertedGeneralInfo, token);
     yield put({ type: 'SET_LOADING', payload: false });
-    yield put({ type: 'USER:EDIT_GENERAL_INFO_COMPLETED', payload: action.payload });
+
+    yield put({ type: USER.EDIT_GENERAL_INFO_COMPLETED, payload: action.payload });
   } catch (e) {
-    yield put({ type: 'USER:EDIT_GENERAL_INFO_FAIL', message: e.message });
+    yield put({ type: USER.EDIT_GENERAL_INFO_FAIL, message: e.message });
   }
 }
 
@@ -24,9 +26,10 @@ function* editUserWorkAndEducationSaga(action) {
     const convertedWorkAndEducation = convertClientWorkAndEducation(action.payload);
     yield call(patchMyself, convertedWorkAndEducation, token);
     yield put({ type: 'SET_LOADING', payload: false });
-    yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_COMPLETED', payload: action.payload });
+
+    yield put({ type: USER.EDIT_WORK_AND_EDUCATION_COMPLETED, payload: action.payload });
   } catch (e) {
-    yield put({ type: 'USER:EDIT_WORK_AND_EDUCATION_FAIL', message: e.message });
+    yield put({ type: USER.EDIT_WORK_AND_EDUCATION_FAIL, message: e.message });
   }
 }
 
@@ -68,9 +71,9 @@ function* editUserContactsSaga(action) {
     const convertedUser = convertClientUserContacts(payload);
     yield call(patchMyself, convertedUser, token);
     yield put({ type: 'SET_LOADING', payload: false });
-    yield put({ type: 'USER:EDIT_CONTACTS_COMPLETED', payload: action.payload });
+    yield put({ type: USER.EDIT_CONTACTS_COMPLETED, payload: action.payload });
   } catch (e) {
-    yield put({ type: 'USER:EDIT_USER_FAILED', message: e.message });
+    yield put({ type: USER.EDIT_USER_FAILED, message: e.message });
   }
 }
 
@@ -82,17 +85,17 @@ function* loadUserAvatarSaga(action) {
     yield put({ type: 'USER:AVATAR_LOADING', payload: true });
     const newUser = yield call(patchMyselfFormData, avatarData, token);
     yield put({ type: 'USER:AVATAR_LOADING', payload: false });
-    yield put({ type: 'USER:UPLOAD_AVATAR_COMPLETED', payload: newUser.avatar_filename });
+    yield put({ type: USER.UPLOAD_AVATAR_COMPLETED, payload: newUser.avatar_filename });
   } catch (e) {
-    yield put({ type: 'USER:UPLOAD_AVATAR_FAIL', message: e.message });
+    yield put({ type: USER.UPLOAD_AVATAR_FAIL, message: e.message });
   }
 }
 
 function* userSaga() {
-  yield takeLatest('USER:EDIT_GENERAL_INFO', editUserGeneralInfoSaga);
-  yield takeLatest('USER:EDIT_WORK_AND_EDUCATION', editUserWorkAndEducationSaga);
-  yield takeLatest('USER:EDIT_CONTACTS', editUserContactsSaga);
-  yield takeLatest('USER:UPLOAD_AVATAR', loadUserAvatarSaga);
+  yield takeLatest(USER.EDIT_GENERAL_INFO, editUserGeneralInfoSaga);
+  yield takeLatest(USER.EDIT_WORK_AND_EDUCATION, editUserWorkAndEducationSaga);
+  yield takeLatest(USER.EDIT_CONTACTS, editUserContactsSaga);
+  yield takeLatest(USER.UPLOAD_AVATAR, loadUserAvatarSaga);
 }
 
 export default userSaga;

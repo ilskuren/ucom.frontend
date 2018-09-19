@@ -1,10 +1,11 @@
+import { connect } from 'react-redux';
 import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import Avatar from './Avatar';
 import Button from './Button';
 import { getFileUrl } from '../utils/upload';
+import { showAuthPopup } from '../actions';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -17,6 +18,11 @@ class CommentForm extends PureComponent {
   }
 
   show() {
+    if (!this.props.user.id) {
+      this.props.showAuthPopup();
+      return;
+    }
+
     this.setState({ active: true });
   }
 
@@ -110,8 +116,14 @@ CommentForm.propTypes = {
   active: PropTypes.bool,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
+  showAuthPopup: PropTypes.func,
 };
 
-export default connect(state => ({
-  user: state.user,
-}))(CommentForm);
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  dispatch => ({
+    showAuthPopup: () => dispatch(showAuthPopup()),
+  }),
+)(CommentForm);

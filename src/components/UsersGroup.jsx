@@ -57,6 +57,7 @@ class UsersGroup extends PureComponent {
                   accountName={user.accountName}
                   profileLink={getUserUrl(user.id)}
                   avatarUrl={getFileUrl(user.avatarFilename)}
+                  sign="@"
                 />
               </div>
             ))}

@@ -1,37 +1,19 @@
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
 import IconSearch from './Icons/Search';
 import IconLogo from './Icons/Logo';
-import Popup from './Popup';
-import Auth from './Auth';
 import Avatar from './Avatar';
 import { removeToken } from '../utils/token';
-import { removeUser } from '../actions';
+import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
 
 class Header extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showAuthPopup: false,
-    };
-  }
-
-  closeAuthPopup() {
-    this.setState({ showAuthPopup: false });
-  }
-
-  openAuthPopup() {
-    this.setState({ showAuthPopup: true });
-  }
-
   logout() {
     removeToken();
     this.props.removeUser();
@@ -43,27 +25,16 @@ class Header extends PureComponent {
         <div className="header__inner">
           <div className="header__side">
             {!this.props.user.id ? (
-              <Fragment>
-                {this.state.showAuthPopup && (
-                  <Popup onClickClose={() => this.closeAuthPopup()}>
-                    <Auth onClickClose={() => this.closeAuthPopup()} />
-                  </Popup>
-                )}
-
-                <nav className="menu menu_responsive menu_header">
-                  <div className="menu__item">
-                    <a href="/" className="menu__link">
-                      <IconLogo />
-                    </a>
-                  </div>
-                  <div className="menu__item">
-                    <button className="menu__link menu__link_upper" onClick={() => this.openAuthPopup()}>Login</button>
-                  </div>
-                  <div className="menu__item">
-                    <Link to="/signup" className="menu__link menu__link_upper">Signup</Link>
-                  </div>
-                </nav>
-              </Fragment>
+              <nav className="menu menu_responsive menu_header">
+                <div className="menu__item">
+                  <Link to="/" className="menu__link">
+                    <IconLogo />
+                  </Link>
+                </div>
+                <div className="menu__item">
+                  <button className="menu__link menu__link_upper" onClick={() => this.props.showAuthPopup()}>SIGN in</button>
+                </div>
+              </nav>
             ) : (
               <div className="inline inline_large">
                 <div className="inline__item">
@@ -110,40 +81,42 @@ class Header extends PureComponent {
 
           <div className="header__main">
             <nav className="menu menu_responsive menu_header">
+              {this.props.user.id && (
+                <div className="menu__item">
+                  <NavLink
+                    to="/"
+                    className="menu__link menu__link_upper"
+                    activeClassName="menu__link_active"
+                    isActive={() => this.props.location.pathname === '/'}
+                  >
+                    U.Community
+                  </NavLink>
+                </div>
+              )}
+
+              {this.props.user.id && (
+                <div className="menu__item">
+                  <NavLink
+                    to="/posts/new/1"
+                    className="menu__link menu__link_upper"
+                    activeClassName="menu__link_active"
+                    isActive={() => this.props.location.pathname === '/posts/new/1'}
+                  >
+                    Create Post
+                  </NavLink>
+                </div>
+              )}
+
               <div className="menu__item">
                 <NavLink
-                  to="/"
+                  to="/posts/new/2"
                   className="menu__link menu__link_upper"
                   activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname === '/'}
+                  isActive={() => this.props.location.pathname === '/posts/new/2'}
                 >
-                  U.Community
+                  Create Event
                 </NavLink>
               </div>
-              {this.props.user.id && (
-                <Fragment>
-                  <div className="menu__item">
-                    <NavLink
-                      to="/posts/new/1"
-                      className="menu__link menu__link_upper"
-                      activeClassName="menu__link_active"
-                      isActive={() => this.props.location.pathname === '/posts/new/1'}
-                    >
-                      Create Post
-                    </NavLink>
-                  </div>
-                  <div className="menu__item">
-                    <NavLink
-                      to="/posts/new/2"
-                      className="menu__link menu__link_upper"
-                      activeClassName="menu__link_active"
-                      isActive={() => this.props.location.pathname === '/posts/new/2'}
-                    >
-                      Create Event
-                    </NavLink>
-                  </div>
-                </Fragment>
-              )}
               <div className="menu__item">
                 <NavLink
                   to="/users"
@@ -200,6 +173,7 @@ class Header extends PureComponent {
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
+  showAuthPopup: PropTypes.func,
 };
 
 export default withRouter(connect(
@@ -208,5 +182,6 @@ export default withRouter(connect(
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
+    showAuthPopup: () => dispatch(showAuthPopup()),
   }),
 )(Header));

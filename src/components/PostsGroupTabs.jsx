@@ -41,13 +41,17 @@ class PostsGroupTabs extends PureComponent {
             {POSTS_TYPES.map(item => (
               <div className="menu__item" key={item.id}>
                 <div
+                  role="presentation"
                   className={classNames(
                     'menu__link',
                     { 'menu__link_disabled': !item.enabled },
                     { 'menu__link_active': this.state.activePostTypeId === item.id },
                   )}
-                  role="presentation"
-                  onClick={() => item.enabled && this.changePostType(item.id)}
+                  onClick={() => {
+                    if (item.enabled) {
+                      this.changePostType(item.id);
+                    }
+                  }}
                 >
                   {item.name}
                 </div>

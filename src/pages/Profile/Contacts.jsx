@@ -9,7 +9,10 @@ import { reduxForm } from 'redux-form';
 
 import { scrollAnimation, emptyValues } from 'utils/constants';
 
-import { selectUserContacts, selectUserId, selectUserLoading } from 'utils/selectors/user';
+import { selectUserContacts, selectUserId, selectUserLoading } from 'utils/redux/selectors';
+import { Communication } from 'utils/GlobalPropTypes';
+import { selectCommunication } from 'utils/redux/selectors/communication/profile';
+
 import { validate } from 'utils/validators/pages/profile/contacts';
 
 import Button from '../../components/Button';
@@ -26,19 +29,17 @@ import * as actions from '../../actions/';
 const mapDispatch = dispatch =>
   bindActionCreators({
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
-    editUserContacts: actions.editUserContacts,
-    // setLoading: actions.setLoading,
+    editContacts: actions.editContacts,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userId: selectUserId(state),
   userContacts: selectUserContacts(state),
-  loading: selectUserLoading(state),
+  editingContacts: selectCommunication(state, 'editingContacts'),
 });
 
 class ProfileContactsPage extends PureComponent {
   componentDidMount() {
-    // this.props.setLoading(false);
     const { initialize, array, userContacts } = this.props;
     initialize(this.formatUserContacts(userContacts));
     if (userContacts.userSources.length === 0) {
@@ -82,15 +83,16 @@ class ProfileContactsPage extends PureComponent {
   handleSubmit(event) {
     const {
       handleSubmit,
-      editUserContacts,
+      editContacts,
     } = this.props;
     handleSubmit((profile) => {
-      editUserContacts(profile);
+      editContacts(profile);
     })(event);
   }
 
   render() {
     const sourceUrls = this.getSourceUrls();
+    const { editingContacts } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -106,7 +108,7 @@ class ProfileContactsPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.props.loading} className="loading_block" />
+            <Loading loading={editingContacts.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Contacts">
@@ -168,10 +170,10 @@ class ProfileContactsPage extends PureComponent {
 ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  editUserContacts: PropTypes.func,
+  editContacts: PropTypes.func,
+  editingContacts: Communication,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
-  loading: PropTypes.bool,
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,

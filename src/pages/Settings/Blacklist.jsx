@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as selectors from 'utils/redux/selectors/settings';
 import Button from '../../components/Button';
 import UserList from '../../components/UserList';
 
 import * as actions from '../../actions/settings';
-import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({

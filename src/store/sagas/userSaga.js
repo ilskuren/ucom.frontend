@@ -1,17 +1,15 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { USER } from 'utils/actionTypes';
+import { selectUserContacts } from 'utils/redux/selectors/user';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts, convertClientGeneralInfo, convertClientWorkAndEducation } from '../../api/convertors';
-import { selectUserContacts } from '../../utils/selectors/user';
 
 function* editUserGeneralInfoSaga(action) {
   try {
     const token = getToken();
-    // yield put({ type: 'SET_LOADING', payload: true });
     const convertedGeneralInfo = convertClientGeneralInfo(action.payload);
     yield call(patchMyself, convertedGeneralInfo, token);
-    // yield put({ type: 'SET_LOADING', payload: false });
 
     yield put({ type: USER.EDIT_GENERAL_INFO_COMPLETED, payload: action.payload });
   } catch (e) {
@@ -22,10 +20,8 @@ function* editUserGeneralInfoSaga(action) {
 function* editUserWorkAndEducationSaga(action) {
   try {
     const token = getToken();
-    // yield put({ type: 'SET_LOADING', payload: true });
     const convertedWorkAndEducation = convertClientWorkAndEducation(action.payload);
     yield call(patchMyself, convertedWorkAndEducation, token);
-    // yield put({ type: 'SET_LOADING', payload: false });
 
     yield put({ type: USER.EDIT_WORK_AND_EDUCATION_COMPLETED, payload: action.payload });
   } catch (e) {
@@ -67,10 +63,8 @@ function* editUserContactsSaga(action) {
       userSources: mergeUserSources,
     };
 
-    // yield put({ type: 'SET_LOADING', payload: true });
     const convertedUser = convertClientUserContacts(payload);
     yield call(patchMyself, convertedUser, token);
-    // yield put({ type: 'SET_LOADING', payload: false });
     yield put({ type: USER.EDIT_CONTACTS_COMPLETED, payload: action.payload });
   } catch (e) {
     yield put({ type: USER.EDIT_USER_FAILED, message: e.message });
@@ -82,9 +76,7 @@ function* loadUserAvatarSaga(action) {
     const token = getToken();
     const avatarData = new FormData();
     avatarData.append('avatar_filename', action.payload);
-    // yield put({ type: 'USER:AVATAR_LOADING', payload: true });
     const newUser = yield call(patchMyselfFormData, avatarData, token);
-    // yield put({ type: 'USER:AVATAR_LOADING', payload: false });
     yield put({ type: USER.UPLOAD_AVATAR_COMPLETED, payload: newUser.avatar_filename });
   } catch (e) {
     yield put({ type: USER.UPLOAD_AVATAR_FAIL, message: e.message });

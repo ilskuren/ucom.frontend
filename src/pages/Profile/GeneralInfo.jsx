@@ -7,7 +7,9 @@ import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
 
-import { selectUser, selectUserGeneralInfo, selectUserLoading, selectUserAvatarLoading } from 'utils/selectors/user';
+import { selectUser, selectUserGeneralInfo } from 'utils/redux/selectors';
+import { Communication } from 'utils/GlobalPropTypes';
+import { selectCommunication } from 'utils/redux/selectors/communication/profile';
 import { validate } from 'utils/validators/pages/profile/generalInfo';
 
 import { scrollAnimation } from 'utils/constants';
@@ -28,26 +30,24 @@ import * as actions from '../../actions';
 const mapDispatch = dispatch =>
   bindActionCreators({
     uploadUserAvatar: actions.uploadUserAvatar,
-    editUserGeneralInfo: actions.editUserGeneralInfo,
-    // setLoading: actions.setLoading,
+    editGeneralInfo: actions.editGeneralInfo,
   }, dispatch);
 
 const mapStateToProps = state => ({
   user: selectUser(state),
   userGeneralInfo: selectUserGeneralInfo(state),
-  loading: selectUserLoading(state),
-  avatarLoading: selectUserAvatarLoading(state),
+  uploadingAvatar: selectCommunication(state, 'uploadingAvatar'),
+  editingGeneralInfo: selectCommunication(state, 'editingGeneralInfo'),
 });
 
 class ProfileGeneralInfoPage extends PureComponent {
   componentDidMount() {
-    // this.props.setLoading(false);
     const { initialize, userGeneralInfo } = this.props;
     initialize(userGeneralInfo);
   }
 
   componentDidUpdate() {
-    const { submitSucceeded, history } = this.props;
+    const { submitSucceeded, history, editingGeneralInfo } = this.props;
     if (submitSucceeded) {
       history.push('/profile/work-and-education');
     }
@@ -56,9 +56,9 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUserGeneralInfo } = this.props;
+    const { handleSubmit, editGeneralInfo } = this.props;
     handleSubmit((profile) => {
-      editUserGeneralInfo(profile);
+      editGeneralInfo(profile);
     })(event);
   }
 
@@ -69,6 +69,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   render() {
     const { user } = this.props;
+    const { editingGeneralInfo, uploadingAvatar } = this.props;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -85,7 +86,7 @@ class ProfileGeneralInfoPage extends PureComponent {
               className="person-form"
               onSubmit={this.handleSubmit}
             >
-              <Loading loading={this.props.loading} className="loading_block" />
+              <Loading loading={editingGeneralInfo.isRequesting} className="loading_block" />
 
               <div className="profile__info-block">
                 <Element name="PersonalInfo">
@@ -105,7 +106,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                           text="add or drag img"
                           accept="image/jpeg, image/png"
                           onDrop={files => this.uploadAvatar(files[0])}
-                          loading={this.props.avatarLoading}
+                          loading={uploadingAvatar.isRequesting}
                         />
 
                         <div className="profile__text-block">
@@ -206,10 +207,9 @@ ProfileGeneralInfoPage.propTypes = {
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  loading: PropTypes.bool,
-  avatarLoading: PropTypes.bool,
-  // setLoading: PropTypes.func,
-  editUserGeneralInfo: PropTypes.func,
+  uploadingAvatar: Communication,
+  editingGeneralInfo: Communication,
+  editGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({
     firstName: PropTypes.string,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bind } from 'decko';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import * as selectors from 'utils/redux/selectors/settings';
 import TextInput from '../../components/TextInput';
 import Dropdown from '../../components/Dropdown';
 import PrefixInput from '../../components/PrefixInput';
@@ -10,7 +11,6 @@ import Link from '../../components/Link';
 import KYC from '../../components/KYC';
 
 import * as actions from '../../actions/settings';
-import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({

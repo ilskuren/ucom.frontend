@@ -6,7 +6,10 @@ import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
 
-import { selectUserWorkAndEducation, selectUserLoading } from 'utils/selectors/user';
+import { selectUserWorkAndEducation, selectUserLoading } from 'utils/redux/selectors/user';
+import { Communication } from 'utils/GlobalPropTypes';
+import { selectCommunication } from 'utils/redux/selectors/communication/profile';
+
 import { validate } from 'utils/validators/pages/profile/workAndEducation';
 
 import { scrollAnimation } from 'utils/constants';
@@ -22,19 +25,17 @@ import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    editUserWorkAndEducation: actions.editUserWorkAndEducation,
-    // setLoading: actions.setLoading,
+    editWorkAndEducation: actions.editWorkAndEducation,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userWorkAndEducation: selectUserWorkAndEducation(state),
-  loading: selectUserLoading(state),
+  editingWorkAndEducation: selectCommunication(state, 'editingWorkAndEducation'),
 });
 
 
 class ProfileWorkAndEducationPage extends PureComponent {
   componentDidMount() {
-    // this.props.setLoading(false);
     const { initialize, userWorkAndEducation } = this.props;
     const { userJobs, userEducations } = userWorkAndEducation;
     const preInitializedUserWorkAndEducation = {
@@ -56,14 +57,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
   handleSubmit(event) {
     const {
       handleSubmit,
-      editUserWorkAndEducation,
+      editWorkAndEducation,
     } = this.props;
     handleSubmit((profile) => {
-      editUserWorkAndEducation(profile);
+      editWorkAndEducation(profile);
     })(event);
   }
 
   render() {
+    const { editingWorkAndEducation } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -80,7 +82,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.props.loading} className="loading_block" />
+            <Loading loading={editingWorkAndEducation.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Blockchain">
@@ -140,14 +142,14 @@ ProfileWorkAndEducationPage.propTypes = {
     userJobs: PropTypes.arrayOf(PropTypes.object),
     userEducations: PropTypes.arrayOf(PropTypes.object),
     firstCurrency: PropTypes.string,
+    editingWorkAndEducation: Communication,
     firstCurrencyYear: PropTypes.string,
   }),
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
   loading: PropTypes.bool,
-  // setLoading: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  editUserWorkAndEducation: PropTypes.func,
+  editWorkAndEducation: PropTypes.func,
 };
 
 export default connect(

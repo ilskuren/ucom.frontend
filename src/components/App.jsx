@@ -65,6 +65,7 @@ class App extends PureComponent {
       <Fragment>
         <Loading loading={this.state.loading} appear />
 
+        <div id="portal-root" />
         {!this.state.loading && (
           <Router history={this.props.history}>
             <Page>

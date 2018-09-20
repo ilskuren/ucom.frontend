@@ -7,7 +7,6 @@ import ModalContent from './ModalContent';
 import InfoBlock from './InfoBlock';
 import UserCard from './UserCard';
 import Avatar from './Avatar';
-import Rate from './Rate';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
@@ -80,7 +79,9 @@ class MenuPopup extends PureComponent {
                     </div>
 
                     <div className="inline__item">
-                      <Rate value={this.props.user.currentRate} label="" className="rate_small rate_no-label" />
+                      <div className="menu-popup__rate">
+                        {this.props.user.currentRate}°
+                      </div>
                     </div>
 
                     <div className="inline__item">

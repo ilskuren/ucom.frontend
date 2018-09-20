@@ -18,14 +18,14 @@
 
   &__content {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
     padding: 0 20px;
     flex-grow: 1;
-    
+
     @media (max-width: 1023px) {
       display: block;
     }
-    
+
     @media (max-width: 424px) {
       padding: 0;
     }
@@ -78,7 +78,7 @@
     color: @gray;
     font-size: 15px;
     font-weight: 100;
-    
+
     &_new {
       font-size: 35px;
       border: 1px dashed @gray;
@@ -109,8 +109,8 @@
   }
 
   &__arrow {
-    height: 12px;
-    width: 12px;
+    height: 8px;
+    width: 8px;
     border: 2px @black solid;
     border-bottom: transparent;
     border-right: transparent;
@@ -121,5 +121,10 @@
     &_red {
       border-color: @red;
     }
+  }
+
+  &__rate {
+    font-weight: 600;
+    font-size: 14px;
   }
 }

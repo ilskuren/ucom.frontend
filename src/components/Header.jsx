@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
-import Rate from './Rate';
 import MenuPopup from './MenuPopup';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
@@ -38,20 +37,15 @@ class Header extends PureComponent {
                 </div>
               </nav>
             ) : (
-              <div className="inline inline_large">
+              <div className="inline">
                 <div className="inline__item">
                   <Link to="/">
                     <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
                   </Link>
                 </div>
                 <div className="inline__item">
-                  <nav className="menu menu_responsive menu_header">
-                    <div className="menu__item">
-                      <Rate value={this.props.user.currentRate} label="" className="rate_no-label" />
-                    </div>
-                  </nav>
+                  <div className="header__rate">{this.props.user.currentRate}°</div>
                 </div>
-
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
                     <div className="menu__item">

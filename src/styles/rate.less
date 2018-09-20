@@ -1,4 +1,5 @@
 .rate__value {
+  position: relative;
   font-size: 18px;
   font-weight: 900;
   white-space: nowrap;
@@ -71,4 +72,11 @@
 
 .rate_color_black {
   color: @black;
+}
+
+.rate_no-label {
+  .rate__value,
+  .rate__label {
+    margin-bottom: 0;
+  }
 }

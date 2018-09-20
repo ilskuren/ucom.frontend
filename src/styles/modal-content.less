@@ -8,12 +8,21 @@
 
   &__close {
     position: absolute;
-    top: 35px;
-    right: 45px;
+    top: 30px;
+    right: 40px;
+    padding: 5px;
     z-index: 10;
+    font-size: 1.142rem;
+    background-color: @white;
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  &__close-text {
+    @media (max-width: 767px) {
+      display: none;
     }
   }
 
@@ -40,9 +49,5 @@
   &__main {
     overflow-y: auto;
     max-height: calc(80vh - 90px);
-  }
-
-  &__main_no-search {
-    padding-top: 50px;
   }
 }

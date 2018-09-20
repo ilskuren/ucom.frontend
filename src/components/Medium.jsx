@@ -51,7 +51,7 @@ class Medium extends PureComponent {
           },
         },
         embeds: {
-          oembedProxy: null,
+          oembedProxy: 'http://iframely.u.community:8061/iframely?',
         },
       },
     });

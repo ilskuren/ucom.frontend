@@ -3,17 +3,20 @@ import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { bind } from 'decko';
 import IconBell from './Icons/Bell';
 import IconNotification from './Icons/Notification';
 import IconSearch from './Icons/Search';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
+import MenuPopup from './MenuPopup';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
 
 class Header extends PureComponent {
+  @bind
   logout() {
     removeToken();
     this.props.removeUser();
@@ -46,7 +49,15 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
                     <div className="menu__item">
-                      <button className="menu__link menu__link_upper" onClick={() => this.logout()}>Logout</button>
+                      <button className="menu__link menu__link_upper" onClick={this.logout}>Logout</button>
+                    </div>
+                  </nav>
+                </div>
+
+                <div className="inline__item">
+                  <nav className="menu menu_responsive menu_header">
+                    <div className="menu__item">
+                      <MenuPopup logout={this.logout} />
                     </div>
                   </nav>
                 </div>

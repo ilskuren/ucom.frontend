@@ -7,7 +7,7 @@ import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, user, follow, theme,
+  avatar, name, rating, userId, userUrl, user, follow, userAccountName, theme
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
   return (
@@ -37,6 +37,7 @@ const PostHeader = ({
                 follow={follow}
                 userId={userId}
                 isStretched
+                userAccountName={userAccountName}
               />
             </div>
           </div>
@@ -49,11 +50,12 @@ const PostHeader = ({
 PostHeader.propTypes = {
   avatar: PropTypes.string,
   name: PropTypes.string,
-  rating: PropTypes.string,
+  rating: PropTypes.number,
   userId: PropTypes.number,
   userUrl: PropTypes.string,
   theme: PropTypes.string,
   follow: PropTypes.bool,
+  userAccountName: PropTypes.string,
 };
 
 export default connect(state => ({

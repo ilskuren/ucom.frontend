@@ -39,6 +39,7 @@ const ProfilesList = props => (
                 <FollowButton
                   follow={follow}
                   userId={id}
+                  userAccountName={accountName}
                   isStretched
                 />
               </div>)

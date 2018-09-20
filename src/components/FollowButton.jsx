@@ -25,7 +25,12 @@ class FollowButton extends PureComponent {
       return;
     }
 
-    (this.state.follow ? unfollow : follow)(this.props.userId, getToken())
+    (this.state.follow ? unfollow : follow)(
+      this.props.userId,
+      getToken(),
+      this.props.user.accountName,
+      this.props.userAccountName,
+    )
       .then((data) => {
         if (data.errors) {
           return;
@@ -56,6 +61,7 @@ FollowButton.propTypes = {
   isStretched: PropTypes.bool,
   userId: PropTypes.number,
   showAuthPopup: PropTypes.func,
+  userAccountName: PropTypes.string,
 };
 
 export default connect(

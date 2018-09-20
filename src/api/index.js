@@ -2,8 +2,8 @@ import humps from 'lodash-humps';
 import param from 'jquery-param';
 import config from '../../package.json';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-import { getActivePrivateKey } from '../utils/keys';
-import { getBrainkey } from '../utils/brainkey';
+// import { getActivePrivateKey } from '../utils/keys';
+// import { getBrainkey } from '../utils/brainkey';
 
 const AppTransaction = require('uos-app-transaction');
 

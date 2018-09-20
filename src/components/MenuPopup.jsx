@@ -33,6 +33,21 @@ const products = [
     accountName: 'apple_inc',
     avatarUrl: av3,
   },
+  {
+    profileName: 'Walmart',
+    accountName: 'apple_inc',
+    avatarUrl: av1,
+  },
+  {
+    profileName: 'Exxon Mobil',
+    accountName: 'apple_inc',
+    avatarUrl: av2,
+  },
+  {
+    profileName: 'Berkshire Hathaway',
+    accountName: 'apple_inc',
+    avatarUrl: av3,
+  },
 ];
 
 class MenuPopup extends PureComponent {
@@ -145,7 +160,7 @@ class MenuPopup extends PureComponent {
                   <div className="menu-popup__content">
                     <div className="menu-popup__content-block">
                       <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
-                        {products.map((item, index) => (
+                        {products.slice(0, 2).map((item, index) => (
                           <div className="menu-popup__content-item" key={index}>
                             <UserCard
                               className="user-card_text_left"
@@ -158,20 +173,24 @@ class MenuPopup extends PureComponent {
                           </div>
                         ))}
                         <div className="menu-popup__content-item">
-                          <div className="menu-popup__add">
+                          <NavLink
+                            className="menu-popup__add"
+                            to="/organizations/new"
+                            onClick={this.hidePopup}
+                          >
                             <div className="menu-popup__add-icon menu-popup__add-icon_new">
                               +
                             </div>
                             <div className="menu-popup__add-text">
-                              Create new organization
+                                Create new organization
                             </div>
-                          </div>
+                          </NavLink>
                         </div>
                       </InfoBlock>
                     </div>
                     <div className="menu-popup__content-block">
                       <InfoBlock title="Products" size="small" align="left" line="gray-lighter">
-                        {products.map((item, index) => (
+                        {products.slice(0, 2).map((item, index) => (
                           <div className="menu-popup__content-item" key={index}>
                             <UserCard
                               className="user-card_text_left"
@@ -184,14 +203,18 @@ class MenuPopup extends PureComponent {
                           </div>
                         ))}
                         <div className="menu-popup__content-item">
-                          <div className="menu-popup__add">
+                          <NavLink
+                            className="menu-popup__add"
+                            to="#"
+                            onClick={this.hidePopup}
+                          >
                             <div className="menu-popup__add-icon menu-popup__add-icon_new">
                               +
                             </div>
                             <div className="menu-popup__add-text">
                               Create new product
                             </div>
-                          </div>
+                          </NavLink>
                         </div>
                       </InfoBlock>
                     </div>
@@ -220,14 +243,18 @@ class MenuPopup extends PureComponent {
                           </div>
                         </div>
                         <div className="menu-popup__content-item">
-                          <div className="menu-popup__add">
+                          <NavLink
+                            className="menu-popup__add"
+                            to="#"
+                            onClick={this.hidePopup}
+                          >
                             <div className="menu-popup__add-icon menu-popup__add-icon_new">
                               +
                             </div>
                             <div className="menu-popup__add-text">
                               Create new event
                             </div>
-                          </div>
+                          </NavLink>
                         </div>
                       </InfoBlock>
                     </div>

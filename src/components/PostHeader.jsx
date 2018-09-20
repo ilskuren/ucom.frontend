@@ -6,7 +6,7 @@ import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, user, follow,
+  avatar, name, rating, userId, userUrl, user, follow, userAccountName,
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
 
@@ -36,6 +36,7 @@ const PostHeader = ({
               <FollowButton
                 follow={follow}
                 userId={userId}
+                userAccountName={userAccountName}
               />
             </div>
           </div>
@@ -48,10 +49,11 @@ const PostHeader = ({
 PostHeader.propTypes = {
   avatar: PropTypes.string,
   name: PropTypes.string,
-  rating: PropTypes.string,
+  rating: PropTypes.number,
   userId: PropTypes.number,
   userUrl: PropTypes.string,
   follow: PropTypes.bool,
+  userAccountName: PropTypes.string,
 };
 
 export default connect(state => ({

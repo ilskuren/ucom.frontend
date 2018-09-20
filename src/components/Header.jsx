@@ -12,10 +12,12 @@ import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
+import { removeBrainkey } from '../utils/brainkey';
 
 class Header extends PureComponent {
   logout() {
     removeToken();
+    removeBrainkey();
     this.props.removeUser();
   }
 

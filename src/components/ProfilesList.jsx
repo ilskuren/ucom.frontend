@@ -25,6 +25,7 @@ const renderProfilesRow = ({
         <FollowButton
           follow={follow}
           userId={id}
+          userAccountName={accountName}
         />
       </div>
     </div>

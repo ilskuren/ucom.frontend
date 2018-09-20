@@ -1,6 +1,7 @@
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -66,6 +67,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
       hash: true,
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'test',
     }),
   ],
   resolve: {

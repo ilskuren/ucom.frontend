@@ -159,6 +159,7 @@ class UserPage extends PureComponent {
                                 <FollowButton
                                   follow={this.state.user.myselfData ? this.state.user.myselfData.follow : userIsFollowed(this.state.user.followedBy, this.props.user.id)}
                                   userId={this.state.user.id}
+                                  userAccountName={this.state.user.accountName}
                                 />
                               </div>
 

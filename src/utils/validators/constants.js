@@ -6,4 +6,4 @@ export const phoneNumberRegex = /^[\d +-]*$/;
 
 export const notContainNumbers = /^([^0-9]*)$/;
 
-export const onlyNumbers = /^[0-9]*$/;
+export const onlyInteger = /^[0-9]*$/;

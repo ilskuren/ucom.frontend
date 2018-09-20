@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
 import MyProfilePage from '../pages/MyProfile';
+import OrganizationPage from '../pages/Organization';
 import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
@@ -84,6 +85,7 @@ class App extends PureComponent {
                 <Route path="/users" component={UsersPage} />
                 <Route exact path="/products" component={ProductsPage} />
                 <Route exact path="/organizations" component={OrganizationsPage} />
+                <Route path="/organizations/:id" component={OrganizationPage} />
                 <Route component={NotFoundPage} />
               </Switch>
 

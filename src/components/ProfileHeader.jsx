@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
+import Avatars from '../components/Avatars';
 import Status from '../components/Status';
 import HordeIco from '../static/img/horde_ico.png';
 
 const ProfileHeader = ({
-  name, nickname, status, userRatePosition, userRate, setUser,
+  name, nickname, status, userRatePosition, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus,
 }) => (
   <div className="profile-header">
     <div className="profile-header__user">
       <div className="profile-header__avatar">
-        <Avatar src={HordeIco} alt={name} size="medium" />
+        <Avatar src={HordeIco} alt={name} size="medium" square={squareAvatar} />
       </div>
       <div className="profile-header__user-info">
         <div>
@@ -18,7 +19,22 @@ const ProfileHeader = ({
           <div className="edit" />
         </div>
         <div className="profile-header__nickname">@{nickname}</div>
-        <Status text={status} isEditable setUser={setUser} />
+        {poweredBy && (
+          <div className="profile-header__powered-by">
+            <div className="profile-header__powered-by-image">
+              <Avatar src={poweredBy.avatar_filename} size="xxsmall" />
+            </div>
+           Powered by {poweredBy.name}
+          </div>)}
+        {users && <Avatars
+          list={users}
+          orderStacking="fifo"
+          distance="far"
+          size="msmall"
+          maxAvatarsAmount={8}
+        />}
+        {users && <div className="profile-header__board">board</div>}
+        <Status text={status} isEditable={isEditableStatus} setUser={setUser} isBoldText={isBoldTextInStatus} />
       </div>
     </div>
     <div className="profile-header__user-rating">
@@ -30,11 +46,16 @@ const ProfileHeader = ({
 );
 
 ProfileHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  nickname: PropTypes.string,
   status: PropTypes.string,
-  userRatePosition: PropTypes.number.isRequired,
-  userRate: PropTypes.string.isRequired,
+  userRatePosition: PropTypes.number,
+  userRate: PropTypes.string,
+  squareAvatar: PropTypes.bool,
+  users: PropTypes.arrayOf(PropTypes.object),
+  isEditableStatus: PropTypes.bool,
+  isBoldTextInStatus: PropTypes.bool,
+  poweredBy: PropTypes.string,
 };
 
 ProfileHeader.defaultProps = {

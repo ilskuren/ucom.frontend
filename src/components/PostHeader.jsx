@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, user, follow,
+  avatar, name, rating, userId, userUrl, user, follow, theme,
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
-
   return (
-    <div className="post-header">
+    <div className={cn('post-header', { [`post-header_theme_${theme}`]: Boolean(theme) })}>
       <div className="toolbar">
         <div className="toolbar__main">
           <div className="inline">
@@ -21,12 +21,12 @@ const PostHeader = ({
               </UserLinkTag>
             </div>
             <div className="inline__item">
-              <div className="post-header__user-name">
+              <div className={cn('post-header__user-name', { [`post-header__user-name_theme_${theme}`]: Boolean(theme) })} >
                 <UserLinkTag to={userUrl}>
                   {name || <span className="blank">Lorem, ipsum.</span>}
                 </UserLinkTag>
               </div>
-              <div className="post-header__user-rate">{rating}°</div>
+              <div className={cn('post-header__user-rate', { [`post-header__user-rate_theme_${theme}`]: Boolean(theme) })} >{rating}°</div>
             </div>
           </div>
         </div>
@@ -36,6 +36,7 @@ const PostHeader = ({
               <FollowButton
                 follow={follow}
                 userId={userId}
+                isStretched
               />
             </div>
           </div>
@@ -51,6 +52,7 @@ PostHeader.propTypes = {
   rating: PropTypes.string,
   userId: PropTypes.number,
   userUrl: PropTypes.string,
+  theme: PropTypes.string,
   follow: PropTypes.bool,
 };
 

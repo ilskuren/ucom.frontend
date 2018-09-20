@@ -1,3 +1,4 @@
+import { compact } from 'lodash';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -19,9 +20,11 @@ const PostItem = (props) => {
       )}
 
       <div className="post-item__main">
-        <div className="post-item__tags">
-          <Tags tags={props.tags} />
-        </div>
+        {compact(props.tags).length > 0 && (
+          <div className="post-item__tags">
+            <Tags tags={props.tags} />
+          </div>
+        )}
 
         <div className="post-item__text">
           {props.editUrl && (
@@ -41,9 +44,11 @@ const PostItem = (props) => {
       </div>
 
       <div className="post-item__side">
-        <div className="post-item__rate">
-          <Rate value={props.rate} />
-        </div>
+        {props.rate && (
+          <div className="post-item__rate">
+            <Rate value={props.rate} />
+          </div>
+        )}
       </div>
     </div>
   );

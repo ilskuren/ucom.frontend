@@ -94,22 +94,18 @@ class PostsTable extends PureComponent {
                     )}
                     onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '' : '-'}${item.name}`)}
                   >
-                    <div className="inline inline_small">
-                      <div className="inline__item">{item.title}</div>
+                    <div className="list-table__title">
+                      {item.title}
 
                       {this.state.sortBy === `-${item.name}` && (
-                        <div className="inline__item">
-                          <div className="list-table__sort-icon">
-                            <IconTableTriangle />
-                          </div>
+                        <div className="list-table__sort-icon">
+                          <IconTableTriangle />
                         </div>
                       )}
 
-                      {this.state.sortBy === `+${item.name}` && (
-                        <div className="inline__item">
-                          <div className="list-table__sort-icon list-table__sort-icon_flip">
-                            <IconTableTriangle />
-                          </div>
+                      {this.state.sortBy === `${item.name}` && (
+                        <div className="list-table__sort-icon list-table__sort-icon_flip">
+                          <IconTableTriangle />
                         </div>
                       )}
                     </div>
@@ -130,9 +126,9 @@ class PostsTable extends PureComponent {
                       sign="#"
                     />
                   </td>
-                  <td className="list-table__cell" data-title="Views">{Number.isInteger(item.postStats && item.postStats.viewsCount) ? item.postStats.viewsCount : '—'}</td>
-                  <td className="list-table__cell" data-title="Comments">{Number.isInteger(item.postStats && item.postStats.commentsCount) ? item.postStats.commentsCount : '—'}</td>
-                  <td className="list-table__cell" data-title="Rate">
+                  <td className="list-table__cell list-table__cell_views" data-title="Views">{Number.isInteger(item.postStats && item.postStats.viewsCount) ? item.postStats.viewsCount : '—'}</td>
+                  <td className="list-table__cell list-table__cell_comments" data-title="Comments">{Number.isInteger(item.postStats && item.postStats.commentsCount) ? item.postStats.commentsCount : '—'}</td>
+                  <td className="list-table__cell list-table__cell_rate" data-title="Rate">
                     <span className="title title_xsmall title_light">{item.currentRate}°</span>
                   </td>
                 </tr>

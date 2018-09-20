@@ -1,0 +1,30 @@
+.status {
+  position: relative;
+  font-size: 1.142rem;
+  line-height: 20px;
+
+  &__form {
+    background-color: white;
+    border: 1px solid @gray;
+    border-radius: 4px;
+    
+    &:focus-within {
+      border-color: @gray-darker;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px;
+    margin-top: 0;
+  }
+
+  &__button {
+    margin-left: 10px;
+  }
+
+  &__text {
+    white-space: pre-wrap;
+  }
+}

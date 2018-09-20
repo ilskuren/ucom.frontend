@@ -15,6 +15,7 @@ const renderProfilesRow = ({
         avatarUrl={avatarUrl}
         profileLink={profileLink}
         className="user-card_text_left"
+        sign="@"
       />
     </div>
     <div className="profiles-list__info">

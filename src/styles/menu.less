@@ -31,6 +31,7 @@
   color: @red;
 
   .menu__link {
+    text-decoration: none;
     color: @red;
     cursor: default;
   }
@@ -49,6 +50,11 @@
   cursor: pointer;
 }
 
+.menu__link_disabled {
+  opacity: 0.15;
+  cursor: default;
+}
+
 .menu__link_upper {
   text-transform: uppercase;
 }
@@ -59,13 +65,16 @@
 
   .menu__link {
     color: fade(@black, 60);
-  }
 
-  .menu__item_active {
-    color: @black;
-
-    .menu__link {
+    &:hover,
+    &_active {
       color: @black;
+    }
+
+    &_disabled {
+      &:hover {
+        color: fade(@black, 60);
+      }
     }
   }
 }

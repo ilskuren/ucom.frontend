@@ -14,7 +14,7 @@
 }
 
 .grid_post {
-  padding: 0 100px 0 200px;
+  padding: 0 60px 0 160px;
   grid-template-columns: 7fr 2fr;
   grid-column-gap: 0;
   grid-row-gap: 40px;
@@ -29,11 +29,21 @@
 }
 
 .grid_content {
-  grid-column-gap: 100px;
-  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 0;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas: 'a b b b b b b c d d d e';
 
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
+    grid-template-areas: 'd' 'b';
+  }
+
+  .grid__item_main {
+    grid-area: b;
+  }
+
+  .grid__item_side {
+    grid-area: d;
   }
 }
 

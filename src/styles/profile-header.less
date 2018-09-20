@@ -11,7 +11,7 @@
     max-width: 100%;
     flex-shrink: 1;
     white-space: nowrap;
-    overflow: hidden;
+    // overflow: hidden;
     padding-right: 10px;
 
     @media (max-width: 570px) {
@@ -21,7 +21,7 @@
 
   &__user-info {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     width: calc(100% - 124px);
 
     @media (max-width: 570px) {
@@ -31,7 +31,7 @@
 
   &__avatar {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     margin-right: 24px;
   }
 
@@ -48,28 +48,10 @@
     }
   }
 
-  &__edit {
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-    background-color: @blue-green;
-    background-image: url('../static/img/pen.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
-
   &__nickname {
     font-size: 1rem;
     color: #767676;
     margin-bottom: 16px;
-  }
-
-  &__status {
-    font-size: 1.142rem;
-    line-height: 20px;
   }
 
   &__user-rating {

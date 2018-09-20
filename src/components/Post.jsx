@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
-import IconComment from './Icons/Comment';
-import Share from './Share';
+// import IconComment from './Icons/Comment';
+// import Share from './Share';
 import Rating from './Rating';
 import UserCard from './UserCard';
 

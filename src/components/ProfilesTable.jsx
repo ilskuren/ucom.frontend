@@ -110,7 +110,10 @@ const renderProfilesTableHeader = (titles, isIndexed) => (
     </div>
     <div className="followers-table__numbers followers-table__numbers_">
       {titles.map((title, index) => (
-        <div key={index} className="followers-table__column-name">{title}<div className="followers-table__triangle" /></div>
+        <div key={index} className="followers-table__column-name">
+          {title}
+          {/* <div className="followers-table__triangle" /> */}
+        </div>
       ))}
     </div>
   </div>

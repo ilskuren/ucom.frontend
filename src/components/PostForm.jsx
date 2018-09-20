@@ -129,7 +129,7 @@ class PostForm extends PureComponent {
 PostForm.propTypes = {
   post: PropTypes.objectOf(PropTypes.any),
   onClickSave: PropTypes.func,
-  loading: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default connect(state => ({

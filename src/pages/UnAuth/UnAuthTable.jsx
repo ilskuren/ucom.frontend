@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 import ProfilesTable from '../../components/ProfilesTable';
-import Tooltip from '../../components/Tooltip';
-import FilterIcon from '../../components/Icons/Filter';
+// import Tooltip from '../../components/Tooltip';
+// import FilterIcon from '../../components/Icons/Filter';
 import SearchIcon from '../../components/Icons/Search';
 
-const tooltipTags = ['story', 'challenge', 'poll', 'news', 'trading forecast', 'reviews', 'analytics', 'interview'];
+// const tooltipTags = ['story', 'challenge', 'poll', 'news', 'trading forecast', 'reviews', 'analytics', 'interview'];
 
 class UnAuthTable extends PureComponent {
   constructor(props) {
@@ -69,7 +69,7 @@ class UnAuthTable extends PureComponent {
                 </div>
               </div>
             )}
-            {this.props.onFilterClick && (
+            {/* {this.props.onFilterClick && (
               <div className="inline">
                 <div className="inline__item">
                   <span className="unauth-table__option-label">Filter</span>
@@ -94,14 +94,14 @@ class UnAuthTable extends PureComponent {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <ProfilesTable
           profiles={this.props.tableData}
           titles={this.props.tableTitles}
           promo={{ title: this.props.textInMiddle, link: '#' }}
-          withPagination={this.props.withPagination}
+          // withPagination={this.props.withPagination}
           isIndexed={this.props.isIndexed}
         />
       </div>
@@ -111,14 +111,14 @@ class UnAuthTable extends PureComponent {
 
 UnAuthTable.propTypes = {
   title: PropTypes.string,
-  onFilterClick: PropTypes.func,
+  // onFilterClick: PropTypes.func,
   onSearchClick: PropTypes.func,
   tableTitles: PropTypes.arrayOf(PropTypes.string),
   isShowMenu: PropTypes.bool,
   textInMiddle: PropTypes.string,
   tableData: PropTypes.arrayOf(PropTypes.object),
   stickyBottom: PropTypes.bool,
-  withPagination: PropTypes.bool,
+  // withPagination: PropTypes.bool,
   isIndexed: PropTypes.bool,
 };
 

@@ -17,6 +17,10 @@ const UserCard = (props) => {
       <div className="user-card__info">
         <div className="user-card__name">
           <LinkTag to={props.profileLink}>{props.userName}</LinkTag>
+
+          {props.userPosition && (
+            <span className="user-card__position">{props.userPosition}</span>
+          )}
         </div>
 
         {props.rate && (
@@ -43,6 +47,7 @@ UserCard.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.element,
   rate: PropTypes.number,
+  userPosition: PropTypes.string,
 };
 
 UserCard.defaultProps = {

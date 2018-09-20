@@ -1,5 +1,7 @@
 const getInitialState = () => ({
   data: {},
+  errors: {},
+  isValid: false,
   steps: [{
     id: 1,
     name: 'General info',

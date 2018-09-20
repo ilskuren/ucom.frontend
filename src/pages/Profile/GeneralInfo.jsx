@@ -183,7 +183,6 @@ class ProfileGeneralInfoPage extends PureComponent {
                     <div className="profile__block">
                       <TextInput
                         label="Asset to show"
-                        placeholder="Example Kickcoin"
                         value={user.currencyToShow}
                         onChange={this.makeChangeUserFieldHandler('currencyToShow')}
                         error={errors.currencyToShow && errors.currencyToShow[0]}

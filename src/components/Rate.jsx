@@ -5,7 +5,8 @@ import classNames from 'classnames';
 const Rate = props => (
   <div className={classNames('rate', props.className)}>
     <div className="rate__value">
-      {(+props.value).toLocaleString()}{props.dimension}
+      {(+props.value).toLocaleString()}
+      <span className="rate__degree">{props.dimension}</span>
     </div>
     <div className="rate__label">{props.label}</div>
   </div>

@@ -59,7 +59,6 @@ class MenuPopup extends PureComponent {
     this.hidePopup();
   }
 
-
   render() {
     return (
       <Fragment>
@@ -111,7 +110,7 @@ class MenuPopup extends PureComponent {
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
-                          to="/my-profile"
+                          to={`/user/${this.props.user.id}`}
                           onClick={this.hidePopup}
                         >
                           My profile

@@ -146,7 +146,7 @@ class MenuPopup extends PureComponent {
                     </div>
                   </div>
                   <div className="menu-popup__content">
-                    <div className="menu-popup__content-block">
+                    {/* <div className="menu-popup__content-block">
                       <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
                         {this.props.organizations || products.map((item, index) => (
                           <div className="menu-popup__content-item" key={index}>
@@ -160,7 +160,7 @@ class MenuPopup extends PureComponent {
                             />
                           </div>
                         ))}
-                        {/* <div className="menu-popup__content-item">
+                        <div className="menu-popup__content-item">
                           <NavLink
                             className="menu-popup__add"
                             to="/organizations/new"
@@ -173,9 +173,9 @@ class MenuPopup extends PureComponent {
                                 Create new organization
                             </div>
                           </NavLink>
-                        </div> */}
+                        </div>
                       </InfoBlock>
-                    </div>
+                    </div> */}
                     {this.props.products && (
                       <div className="menu-popup__content-block">
                         <InfoBlock title="Products" size="small" align="left" line="gray-lighter">

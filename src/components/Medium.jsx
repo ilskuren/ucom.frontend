@@ -34,6 +34,7 @@ class Medium extends PureComponent {
 
     if (typeof this.props.onChange === 'function') {
       this.mediumEditor.subscribe('editableKeyup', () => {
+        console.log(this.getValue());
         this.props.onChange(this.getValue());
       });
     }

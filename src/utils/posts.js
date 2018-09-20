@@ -62,7 +62,6 @@ export const getRulesByPostTypeId = (postTypeId) => {
         title: 'required',
         leading_text: 'required',
         description: 'required',
-        main_image_filename: 'required',
       };
   }
 };

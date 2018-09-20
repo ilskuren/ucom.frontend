@@ -57,7 +57,7 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
                     <div className="menu__item">
-                      <MenuPopup logout={this.logout} />
+                      <MenuPopup logout={this.logout} user={this.props.user} />
                     </div>
                   </nav>
                 </div>

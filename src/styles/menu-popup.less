@@ -1,5 +1,10 @@
 .menu-popup {
-  
+  &__head {
+    padding: 20px 40px;
+    text-align: left;
+    border-bottom: 1px solid @gray-lighter;
+  }
+
   &__main {
     display: flex;
     justify-content: space-between;
@@ -27,6 +32,10 @@
 
   &__side {
     min-width: 140px;
+  }
+
+  &__content-block {
+    padding: 0 5px;
   }
 
   &__content-item {
@@ -72,6 +81,8 @@
   &__add-text {
     display: flex;
     align-items: center;
+    text-align: left;
+    flex-shrink: 1;
   }
 
   &__arrow {

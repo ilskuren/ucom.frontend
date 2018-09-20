@@ -224,26 +224,36 @@ export const updateOffer = (data, token, id) => (
     .then(resp => resp.json())
 );
 
-export const follow = (userId, token, senderAccountName, recipientAccountName) => {
-  const brainkey = getBrainkey();
-  const senderActivePrivateKey = getActivePrivateKey(brainkey);
+// export const follow = (userId, token, senderAccountName, recipientAccountName) => {
+//   const brainkey = getBrainkey();
+//   const senderActivePrivateKey = getActivePrivateKey(brainkey);
 
-  return TransactionFactory.getSignedUserFollowsUser(
-    senderAccountName,
-    senderActivePrivateKey,
-    recipientAccountName,
-  )
-    .then(signed => (
-      fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(signed),
-      })
-        .then(resp => resp.json())
-    ));
-};
+//   return TransactionFactory.getSignedUserFollowsUser(
+//     senderAccountName,
+//     senderActivePrivateKey,
+//     recipientAccountName,
+//   )
+//     .then(signed => (
+//       fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+//         method: 'POST',
+//         headers: {
+//           'Authorization': `Bearer ${token}`,
+//         },
+//         body: JSON.stringify(signed),
+//       })
+//         .then(resp => resp.json())
+//     ));
+// };
+
+export const follow = (userId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);
 
 export const unfollow = (userId, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/unfollow`, {

@@ -159,6 +159,7 @@ class UserPage extends PureComponent {
                                 <FollowButton
                                   follow={this.state.user.myselfData ? this.state.user.myselfData.follow : userIsFollowed(this.state.user.followedBy, this.props.user.id)}
                                   userId={this.state.user.id}
+                                  userAccountName={this.state.user.accountName}
                                 />
                               </div>
 
@@ -216,7 +217,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.id && (
+                  {/* {this.state.user.id && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h2 className="title title_xsmall title_light">Organization</h2>
@@ -252,7 +253,7 @@ class UserPage extends PureComponent {
                         </ul>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   <div className="user-section">
                     <Feed
@@ -417,11 +418,11 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.id && (
+                  {/* {this.state.user.id && (
                     <div className="user-section">
                       <button className="button button_theme_transparent button_size_medium">Share this profile</button>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

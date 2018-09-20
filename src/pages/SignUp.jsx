@@ -13,6 +13,7 @@ import { checkAccountName, register } from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
+import { saveBrainkey } from '../utils/brainkey';
 
 class SignUp extends React.PureComponent {
   constructor(props) {
@@ -69,9 +70,11 @@ class SignUp extends React.PureComponent {
     this.setState({
       loading: true,
     }, () => {
+      const brainkey = this.state.passphrase.join(' ');
+
       register({
+        brainkey,
         accountName: this.state.accountName,
-        brainkey: this.state.passphrase.join(' '),
       })
         .then((data) => {
           if (data.errors) {
@@ -88,6 +91,7 @@ class SignUp extends React.PureComponent {
 
           if (data.token) {
             saveToken(data.token);
+            saveBrainkey(brainkey);
           }
         });
     });

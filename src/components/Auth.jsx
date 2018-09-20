@@ -12,6 +12,7 @@ import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
 import { validateAuth } from '../utils/user';
+import { saveBrainkey } from '../utils/brainkey';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -71,6 +72,7 @@ class Auth extends PureComponent {
 
           if (data.token) {
             saveToken(data.token);
+            saveBrainkey(this.state.brainkey);
           }
 
           this.close();

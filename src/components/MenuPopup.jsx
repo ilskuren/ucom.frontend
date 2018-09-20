@@ -143,7 +143,7 @@ class MenuPopup extends PureComponent {
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
-                          to="/settings/account"
+                          to="/profile/general-info"
                           onClick={this.hidePopup}
                         >
                           Settings

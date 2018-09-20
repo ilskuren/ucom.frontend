@@ -262,7 +262,7 @@ class MenuPopup extends PureComponent {
 }
 
 MenuPopup.propTypes = {
-  organizations: PropTypes.arrayOf(PropTypes.object),
+  // organizations: PropTypes.arrayOf(PropTypes.object),
   products: PropTypes.arrayOf(PropTypes.object),
   offers: PropTypes.arrayOf(PropTypes.object),
   logout: PropTypes.func,

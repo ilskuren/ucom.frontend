@@ -92,20 +92,31 @@
     flex-shrink: 1;
   }
 
+  &__arrow-wrapper {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+
+      .menu-popup__arrow {
+        border-color: @red;
+      }
+    }
+  }
+
   &__arrow {
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 12px;
     border: 2px @black solid;
     border-bottom: transparent;
     border-right: transparent;
     transform: rotate(225deg);
-    transform-origin: 33% 33%;
+    transform-origin: 44% 33%;
     margin: 0;
-
-    &:hover {
-      cursor: pointer;
-      border-color: @red;
-    }
 
     &_red {
       border-color: @red;

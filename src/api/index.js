@@ -9,12 +9,14 @@ const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
 
-if (process.env.NODE_ENV === 'production') {
-  TransactionFactory.initForProductionEnv();
-} else {
-  TransactionFactory.initForProductionEnv();
-  // TransactionFactory.initForTestEnv();
-}
+TransactionFactory.initForProductionEnv();
+
+// TODO: process.env.NODE_ENV fix for production
+// if (process.env.NODE_ENV === 'production') {
+//   TransactionFactory.initForProductionEnv();
+// } else {
+//   TransactionFactory.initForTestEnv();
+// }
 
 const Eos = require('eosjs');
 

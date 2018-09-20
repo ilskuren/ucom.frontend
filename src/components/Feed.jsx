@@ -50,15 +50,15 @@ class Feed extends PureComponent {
           <h1 className="title title_small">{this.props.title}</h1>
         </div>
 
-        {this.props.user.id && this.state.user && this.state.user.id === this.props.user.id && (
+        {/* {this.props.user.id && this.state.user && this.state.user.id === this.props.user.id && (
           <div className="feed__post-form">
             <PostInput />
           </div>
-        )}
+        )} */}
 
-        <div className="feed__toolbar">
+        {/* <div className="feed__toolbar">
           <FeedToolbar />
-        </div>
+        </div> */}
 
         {this.state.posts.length > 0 && (
           <div className="feed__list">

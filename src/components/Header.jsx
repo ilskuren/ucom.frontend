@@ -53,7 +53,7 @@ class Header extends PureComponent {
                   </nav>
                 </div>
 
-                <div className="inline__item">
+                {/* <div className="inline__item">
                   <div className="inline inline_small">
                     <div className="inline__item">
                       <div className="icon-counter">
@@ -76,7 +76,7 @@ class Header extends PureComponent {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -159,11 +159,11 @@ class Header extends PureComponent {
                   Events
                 </NavLink>
               </div>
-              <div className="menu__item">
+              {/* <div className="menu__item">
                 <button className="button-icon">
                   <IconSearch />
                 </button>
-              </div>
+              </div> */}
             </nav>
           </div>
         </div>

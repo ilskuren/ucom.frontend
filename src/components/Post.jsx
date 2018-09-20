@@ -89,27 +89,25 @@ const Post = props => (
       </div>
     </div> */}
 
-    {true && (
-      <div className="post__footer">
-        <div className="toolbar">
-          <div className="toolbar__main">
-            <button className="button-clean">
-              <span className="inline inline_small">
-                <span className="inline__item">
-                  <span className="post__icon">
-                    <IconComment />
-                  </span>
+    {/* <div className="post__footer">
+      <div className="toolbar">
+        <div className="toolbar__main">
+          <button className="button-clean">
+            <span className="inline inline_small">
+              <span className="inline__item">
+                <span className="post__icon">
+                  <IconComment />
                 </span>
-                <span className="inline__item">0</span>
               </span>
-            </button>
-          </div>
-          <div className="toolbar__side">
-            <Share />
-          </div>
+              <span className="inline__item">0</span>
+            </span>
+          </button>
+        </div>
+        <div className="toolbar__side">
+          <Share />
         </div>
       </div>
-    )}
+    </div> */}
   </div>
 );
 

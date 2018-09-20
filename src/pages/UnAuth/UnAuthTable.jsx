@@ -69,7 +69,7 @@ class UnAuthTable extends PureComponent {
                 </div>
               </div>
             )}
-            {this.props.onFilterClick && (
+            {/* {this.props.onFilterClick && (
               <div className="inline">
                 <div className="inline__item">
                   <span className="unauth-table__option-label">Filter</span>
@@ -94,14 +94,14 @@ class UnAuthTable extends PureComponent {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <ProfilesTable
           profiles={this.props.tableData}
           titles={this.props.tableTitles}
           promo={{ title: this.props.textInMiddle, link: '#' }}
-          withPagination={this.props.withPagination}
+          // withPagination={this.props.withPagination}
           isIndexed={this.props.isIndexed}
         />
       </div>

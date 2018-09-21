@@ -58,6 +58,7 @@ class Status extends PureComponent {
   }
 
   render() {
+    const { isBoldText } = this.props;
     return (
       <div className={cn('status', { status_open: Boolean(this.state.isActive) })}>
         {this.props.isEditable && this.state.isActive ? (
@@ -70,6 +71,7 @@ class Status extends PureComponent {
               value={this.state.text}
               autoFocus
               rows={6}
+              isBoldText={isBoldText}
             />
             <div className="status__control">
               <div className="status__button">
@@ -87,11 +89,11 @@ class Status extends PureComponent {
             </div>
           </form>
         ) : (
-          <div className="status__text inline">
+          <div className={cn('status__text', 'inline', { status__text_bold: isBoldText })}>
             <div className="inline__item">
               {this.props.text || 'My status or message'}
             </div>
-            <div className="edit edit_xsmall inline__item" role="presentation" onClick={this.toggleForm} />
+            {this.props.isEditable && <div className="edit edit_xsmall inline__item" role="presentation" onClick={this.toggleForm} />}
           </div>
         )}
       </div>
@@ -102,6 +104,7 @@ class Status extends PureComponent {
 Status.propTypes = {
   text: PropTypes.string,
   isEditable: PropTypes.bool,
+  isBoldText: PropTypes.bool,
   setUser: PropTypes.func,
 };
 

@@ -86,6 +86,7 @@ class OrganizationPage extends PureComponent {
                     userRate={organization.rate}
                     users={organization.users}
                     poweredBy={organization.poweredBy}
+                    statusTheme="organization"
                     squareAvatar
                     isBoldTextInStatus
                   />

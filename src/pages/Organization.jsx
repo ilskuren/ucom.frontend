@@ -95,10 +95,13 @@ class OrganizationPage extends PureComponent {
                     <div className="organization__menu">
                       <div className="toolbar toolbar_responsive">
                         <div className="toolbar__main">
-                          <FollowButton
-                            follow={organization.followData.followOrganization}
-                            userId={organization.followData.followUserId}
-                          />
+                          <div className="organization__follow-button">
+                            <FollowButton
+                              follow={organization.followData.followOrganization}
+                              userId={organization.followData.followUserId}
+                              isStretched
+                            />
+                          </div>
                         </div>
                         <div className="toolbar__side">
                           <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">

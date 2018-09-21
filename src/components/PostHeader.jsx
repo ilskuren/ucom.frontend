@@ -7,7 +7,7 @@ import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
 
 const PostHeader = ({
-  avatar, name, rating, userId, userUrl, user, follow, userAccountName, theme
+  avatar, name, rating, userId, userUrl, user, follow, userAccountName, theme,
 }) => {
   const UserLinkTag = userUrl ? Link : 'span';
   return (

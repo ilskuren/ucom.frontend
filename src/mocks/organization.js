@@ -15,7 +15,7 @@ export default [
     owner: {
       id: 2,
       avatarFilename: encodeURI('avatar_filename-1535446210449.jpg'),
-      currentRate: '10293',
+      currentRate: 10293,
       rank: '123',
       firstName: 'Andrey Sakharidze',
       myselfData: {
@@ -90,7 +90,7 @@ export default [
       id: 1,
       depth: 1,
       rating: 0,
-      description: 'fff',
+      description: 'Comment',
       avatar: 'https://backend.u.community/upload/avatar_filename-1535446210449.jpg',
     }],
     events: [

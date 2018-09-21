@@ -93,7 +93,7 @@ class Status extends PureComponent {
             <div className="inline__item">
               {this.props.text || 'My status or message'}
             </div>
-            <div className="edit edit_xsmall inline__item" role="presentation" onClick={this.toggleForm} />
+            {this.props.isEditable && <div className="edit edit_xsmall inline__item" role="presentation" onClick={this.toggleForm} />}
           </div>
         )}
       </div>

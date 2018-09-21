@@ -9,7 +9,7 @@ const ProfilesList = props => (
     <div className="profiles-list__header">
       <h3>{props.title}</h3>
     </div>
-    {props.users.map((user, userKey) => {
+    {props.users.map((user) => {
       const {
       userName,
       accountName,
@@ -20,7 +20,7 @@ const ProfilesList = props => (
       id,
       } = user;
       return (
-        <div className="profiles-list__row" key={id || userKey}>
+        <div className="profiles-list__row" key={id}>
           <div className="profiles-list__user">
             <UserCard
               userName={userName}

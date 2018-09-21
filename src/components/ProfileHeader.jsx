@@ -16,13 +16,13 @@ const ProfileHeader = ({
       <div className="profile-header__user-info">
         <div>
           <h2 className="profile-header__name" title={name}>{name}</h2>
-          <div className="edit" />
+          {isEditableStatus && <div className="edit" />}
         </div>
         <div className="profile-header__nickname">@{nickname}</div>
         {poweredBy && (
           <div className="profile-header__powered-by">
             <div className="profile-header__powered-by-image">
-              <Avatar src={poweredBy.avatar_filename} size="xxsmall" />
+              <Avatar src={poweredBy.avatarFilename} size="xxsmall" />
             </div>
            Powered by {poweredBy.name}
           </div>)}
@@ -55,7 +55,10 @@ ProfileHeader.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object),
   isEditableStatus: PropTypes.bool,
   isBoldTextInStatus: PropTypes.bool,
-  poweredBy: PropTypes.string,
+  poweredBy: PropTypes.shape({
+    name: PropTypes.string,
+    avatarFilename: PropTypes.string,
+  }),
 };
 
 ProfileHeader.defaultProps = {

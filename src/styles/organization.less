@@ -1,10 +1,10 @@
 .organization {
   &__header {
+    position: relative;
     &::after {
       content: "";
-      width: calc(100% - 150px);
       height: 1px;
-      width: 100%;
+      width: calc(100% + 200px);
       margin-left: -100px;
       max-width: 1200px;
       background: rgba(184, 184, 184, 0.25);
@@ -20,9 +20,16 @@
   }
   &__content {
     margin-top: 50px;
+    @media (max-width: 1023px) {
+      margin-top: 200px;
+    }
   }
   &__text {
     line-height: 1.8;
     font-size: 1.1429rem;
+  }
+  &__media {
+    max-width: 100%;
+    height: auto;
   }
 }

@@ -172,6 +172,7 @@ class OrganizationPage extends PureComponent {
                             <img
                               src={organization.content.media}
                               alt="vitalik"
+                              className="organization__media"
                             />
                           </div>
                         </div>

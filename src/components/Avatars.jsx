@@ -55,7 +55,7 @@ class Avatars extends PureComponent {
 
     return (
       <Fragment>
-        <div className={cn('avatars', { [`avatars_${size}`]: Boolean(size) })}>
+        <div data-avatars={maxAvatarsAmount} className={cn('avatars', { [`avatars_${size}`]: Boolean(size) })}>
           <div className="avatars__list">
             {
               listHead.map((avatar, avatarIndex, arr) =>

@@ -5,11 +5,11 @@ import { convertServerUser, convertServerUserLogin } from './convertors';
 // import { getActivePrivateKey } from '../utils/keys';
 // import { getBrainkey } from '../utils/brainkey';
 
-// const AppTransaction = require('uos-app-transaction');
+const AppTransaction = require('uos-app-transaction');
 
-// const { TransactionFactory } = AppTransaction;
+const { TransactionFactory } = AppTransaction;
 
-// TransactionFactory.initForProductionEnv();
+TransactionFactory.initForProductionEnv();
 
 // TODO: process.env.NODE_ENV fix for production
 // if (process.env.NODE_ENV === 'production') {

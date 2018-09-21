@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import humps from 'lodash-humps';
 import React, { PureComponent } from 'react';
-import FeedToolbar from './FeedToolbar';
+// import FeedToolbar from './FeedToolbar';
 import Post from './Post';
-import PostInput from './PostInput';
+// import PostInput from './PostInput';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
@@ -50,15 +50,15 @@ class Feed extends PureComponent {
           <h1 className="title title_small">{this.props.title}</h1>
         </div>
 
-        {this.props.user.id && this.state.user && this.state.user.id === this.props.user.id && (
+        {/* {this.props.user.id && this.state.user && this.state.user.id === this.props.user.id && (
           <div className="feed__post-form">
             <PostInput />
           </div>
-        )}
+        )} */}
 
-        <div className="feed__toolbar">
+        {/* <div className="feed__toolbar">
           <FeedToolbar />
-        </div>
+        </div> */}
 
         {this.state.posts.length > 0 && (
           <div className="feed__list">

@@ -51,7 +51,7 @@
 }
 
 .menu__link_disabled {
-  opacity: 0.5;
+  opacity: 0.15;
   cursor: default;
 }
 
@@ -155,12 +155,29 @@
 .menu_simple-tabs_medium {
   .menu__link {
     padding: 12px 0;
+
+    &_double-padding {
+      padding: 24px 0;
+    }
   }
 }
 
 .menu_not-responsive {
   @media (max-width: 1023px) {
     display: flex;
+  }
+}
+
+.menu_vertical {
+  display: block;
+
+  .menu__item {
+    text-align: left;
+    font-size: 16px;
+
+    @media (min-width: 768px) {
+      margin-bottom: 20px;
+    }
   }
 }
 

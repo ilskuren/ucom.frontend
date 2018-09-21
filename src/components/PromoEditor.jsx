@@ -132,9 +132,7 @@ class PromoEditor extends PureComponent {
 }
 
 PromoEditor.propTypes = {
-  post: {
-    data: PropTypes.object,
-  },
+  post: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import Avatar from '../components/Avatar';
 import FollowersAmount from '../components/FollowersAmount';
 import IconLink from '../components/Icons/Link';
+import Footer from '../components/Footer';
 import Comments from '../components/Comments';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
@@ -331,6 +332,7 @@ class OrganizationPage extends PureComponent {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     );

@@ -1,4 +1,3 @@
-import flag from '../static/img/flag_ru.jpg';
 import vitalik from '../static/img/vitalik.jpg';
 
 function importAll(context) {
@@ -58,7 +57,6 @@ export default [
     location: {
       city: 'Moscow',
       country: 'Russia',
-      flag,
     },
     partners: [
       { userName: 'Apple', accountName: 'Decenralized Exchange', avatarUrl: images['apple.jpg'] },

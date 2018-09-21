@@ -242,13 +242,6 @@ class OrganizationPage extends PureComponent {
                         <div className="user-section__content">
                           <div className="inline">
                             <div className="inline__item">
-                              <Avatar
-                                src={organization.location.flag}
-                                square
-                                size="flag"
-                              />
-                            </div>
-                            <div className="inline__item">
                               {organization.location.city}{organization.location.country && `, ${organization.location.country}`}
                             </div>
                           </div>

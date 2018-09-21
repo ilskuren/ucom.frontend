@@ -1,9 +1,9 @@
 import flag from '../static/img/flag_ru.jpg';
 import vitalik from '../static/img/vitalik.jpg';
 
-function importAll(r) {
+function importAll(context) {
   const images = {};
-  r.keys().forEach((item) => { images[item.replace('./', '')] = r(item); });
+  context.keys().forEach((item) => { images[item.replace('./', '')] = context(item); });
   return images;
 }
 

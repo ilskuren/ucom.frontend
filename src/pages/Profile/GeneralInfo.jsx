@@ -18,7 +18,6 @@ import { patchMyself, patchMyselfFormData } from '../../api';
 import { getToken } from '../../utils/token';
 import { getFileUrl } from '../../utils/upload';
 import { convertServerUser, convertClientUser } from '../../api/convertors';
-import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
 import * as actions from '../../actions';

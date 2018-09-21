@@ -28,7 +28,7 @@ const UserCard = (props) => {
         )}
 
         {props.accountName && !props.rate && (
-          <div className="user-card__account">{props.sign}{props.accountName}</div>
+          <div className={cn('user-card__account', { [`user-card__account_theme_${props.theme}`]: Boolean(props.theme) })}>{props.sign}{props.accountName}</div>
         )}
       </div>
     </div>
@@ -48,6 +48,7 @@ UserCard.propTypes = {
   icon: PropTypes.element,
   rate: PropTypes.number,
   userPosition: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 UserCard.defaultProps = {

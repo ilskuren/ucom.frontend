@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
-import { scroller, Element } from 'react-scroll';
+import { Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
 import Button from '../../components/Button';
@@ -14,7 +14,6 @@ import Loading from '../../components/Loading';
 import { getToken } from '../../utils/token';
 import { patchMyself } from '../../api';
 import { convertClientUser } from '../../api/convertors';
-import { scrollAnimation } from '../../utils/constants';
 
 import { selectUser } from '../../utils/selectors/user';
 import * as actions from '../../actions';

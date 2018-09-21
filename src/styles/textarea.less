@@ -12,13 +12,25 @@
     outline: none;
     padding: 15px;
     border: 1px solid @gray;
+    font-size: 16px;
+    line-height: 1.5;
     border-radius: 4px;
-    margin-top: 10px;
 
     &:focus {
       outline: none;
       border-color: @gray-darker;
     }
+
+    &::placeholder {
+      color: @gray-light;
+    }
+  }
+
+  &__error {
+    margin: 12px 0 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: @red;
   }
 }
 
@@ -26,8 +38,15 @@
   .textarea__text {
     border: none;
     margin:  0;
+
     &:focus {
       border: none;
     }
+  }
+}
+
+.textarea_error {
+  .textarea__text {
+    border-color: @red;
   }
 }

@@ -6,7 +6,7 @@ import { setOrganizationActiveTab } from '../actions';
 
 const OrganizationsCreatePage = props => (
   <Fragment>
-    <div className="content content_separated">
+    <div className="content">
       <div className="content__inner content__inner_medium">
         <div className="content__title">
           <h1 className="title">Create Organization</h1>
@@ -17,7 +17,7 @@ const OrganizationsCreatePage = props => (
             <div
               key={item.id}
               role="presentation"
-              className={classNames('menu__item', { 'menu__item_active': item.active })}
+              className={classNames('menu__item', { 'menu__item_active': item.id === props.organization.activeStepId })}
             >
               <div className="menu__link">{item.name}</div>
             </div>

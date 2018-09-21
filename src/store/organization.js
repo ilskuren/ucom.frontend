@@ -1,19 +1,45 @@
+import Validator from 'validatorjs';
+
 const getInitialState = () => ({
-  data: {},
+  data: {
+    title: '',
+    currency_to_show: '',
+    powered_by: '',
+    about: '',
+    nickname: '',
+    country: '',
+    city: '',
+    address: '',
+    avatar_filename: '',
+    email: '',
+    phone_number: '',
+    personal_website_url: '',
+  },
   errors: {},
   isValid: false,
+  activeStepId: 1,
   steps: [{
     id: 1,
     name: 'General info',
-    active: true,
+    rules: {
+      title: 'required',
+      currency_to_show: 'required',
+      powered_by: 'required',
+      about: 'required',
+      nickname: 'required',
+      country: 'required',
+      city: 'required',
+      address: 'required',
+      avatar_filename: 'required',
+    },
   }, {
     id: 2,
-    name: 'Community',
-    active: false,
-  }, {
-    id: 3,
     name: 'Contacts',
-    active: false,
+    rules: {
+      email: 'required|email',
+      phone_number: 'required',
+      personal_website_url: 'required|url',
+    },
   }],
 });
 
@@ -24,15 +50,26 @@ const organization = (state = getInitialState(), action) => {
     }
 
     case 'SET_ORGANIZATION_DATA': {
+      const keys = Object.keys(action.payload);
       const data = Object.assign({}, state.data, action.payload);
+      const activeStep = state.steps.find(step => step.id === state.activeStepId);
+      const validation = new Validator(data, activeStep.rules);
+      const isValid = validation.passes();
+      const currentErrors = keys.reduce((value, key) => ({ ...value, [key]: validation.errors.get(key) }), {});
+      const errors = Object.assign({}, state.errors, currentErrors);
 
-      return Object.assign({}, state, { data });
+      return Object.assign({}, state, {
+        data,
+        isValid,
+        errors,
+      });
     }
 
     case 'SET_ORGANIZATION_ACTIVE_TAB': {
-      const steps = state.steps.map(i => Object.assign({}, i, { active: i.id === action.payload }));
-
-      return Object.assign({}, state.data, { steps });
+      return Object.assign({}, state, {
+        activeStepId: action.payload,
+        isValid: false,
+      });
     }
 
     default: {

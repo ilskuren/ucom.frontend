@@ -97,9 +97,13 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-areas: 'a b b c d d d d d d d e';
 
+  @media (max-width: 1199px) {
+    grid-template-areas: 'b b b d d d d d d d d d';
+  }
+
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
-    grid-template-areas: 'd' 'b';
+    grid-template-areas: 'b' 'd';
   }
 
   .grid__item_main {

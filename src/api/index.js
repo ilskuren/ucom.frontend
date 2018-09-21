@@ -293,3 +293,14 @@ export const createComment = (token, data, postId, commentId) => {
   })
     .then(resp => resp.json());
 };
+
+export const createOrganization = (token, data) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/organizations`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: data,
+  })
+    .then(resp => resp.json())
+);

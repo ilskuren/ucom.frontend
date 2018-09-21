@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -9,15 +10,27 @@ class VerticalMenu extends PureComponent {
     super(props);
 
     this.state = {
-      activeSectionName: this.props.sections[0].name,
+      activeSectionName: null,
     };
+  }
+
+  componentDidMount() {
+    this.setActiveSectionName(this.props.sections[0].name);
+  }
+
+  componentWillReceiveProps(props) {
+    if (!isEqual(props.sections, this.props.sections)) {
+      this.setActiveSectionName(props.sections[0].name);
+    }
+  }
+
+  setActiveSectionName(activeSectionName) {
+    this.setState({ activeSectionName });
   }
 
   changeActiveSection(sectionName) {
     scroller.scrollTo(sectionName, scrollAnimation);
-    this.setState({
-      activeSectionName: sectionName,
-    });
+    this.setActiveSectionName(sectionName);
   }
 
   render() {

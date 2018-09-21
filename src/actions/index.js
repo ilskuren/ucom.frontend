@@ -1,3 +1,5 @@
+import api from '../api';
+
 export const setUser = payload => ({ payload, type: 'SET_USER' });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
 
@@ -33,3 +35,4 @@ export const showAuthPopup = () => ({ type: 'SHOW_AUTH_POPUP' });
 export const hideAuthPopup = () => ({ type: 'HIDE_AUTH_POPUP' });
 
 export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
+export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });

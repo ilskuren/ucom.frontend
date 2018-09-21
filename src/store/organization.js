@@ -2,18 +2,18 @@ import Validator from 'validatorjs';
 
 const getInitialState = () => ({
   data: {
-    title: '',
-    currency_to_show: '',
-    powered_by: '',
-    about: '',
-    nickname: '',
-    country: '',
-    city: '',
-    address: '',
-    avatar_filename: '',
-    email: '',
-    phone_number: '',
-    personal_website_url: '',
+    title: null,
+    nickname: null,
+    avatar_filename: null,
+    currency_to_show: null,
+    powered_by: null,
+    about: null,
+    country: null,
+    city: null,
+    address: null,
+    email: null,
+    phone_number: null,
+    personal_website_url: null,
   },
   saved: false,
   errors: {},
@@ -24,22 +24,14 @@ const getInitialState = () => ({
     name: 'General info',
     rules: {
       title: 'required',
-      currency_to_show: 'required',
-      powered_by: 'required',
-      about: 'required',
       nickname: 'required',
-      country: 'required',
-      city: 'required',
-      address: 'required',
-      avatar_filename: 'required',
     },
   }, {
     id: 2,
     name: 'Contacts',
     rules: {
-      email: 'required|email',
-      phone_number: 'required',
-      personal_website_url: 'required|url',
+      email: 'email',
+      personal_website_url: 'url',
     },
   }],
 });
@@ -69,7 +61,7 @@ const organization = (state = getInitialState(), action) => {
     case 'SET_ORGANIZATION_ACTIVE_TAB': {
       return Object.assign({}, state, {
         activeStepId: action.payload,
-        isValid: false,
+        isValid: true, // TODO: Calc valid
       });
     }
 

@@ -125,7 +125,7 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">
                       <div className="field__section">Logotype</div>
                       <div className="field__section">
-                        {typeof props.organization.data.avatar_filename === 'object' ? (
+                        {props.organization.data.avatar_filename && typeof props.organization.data.avatar_filename === 'object' ? (
                           <AvatarFromFile square rounded size="big" file={props.organization.data.avatar_filename} />
                         ) : (
                           <Avatar square rounded size="big" src={getFileUrl(props.organization.data.avatar_filename)} />

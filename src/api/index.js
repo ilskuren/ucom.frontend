@@ -1,9 +1,11 @@
+import objectToFormData from 'object-to-formdata';
 import humps from 'lodash-humps';
 import param from 'jquery-param';
 import config from '../../package.json';
 import { convertServerUser, convertServerUserLogin } from './convertors';
 // import { getActivePrivateKey } from '../utils/keys';
 // import { getBrainkey } from '../utils/brainkey';
+import { getToken } from '../utils/token';
 
 const AppTransaction = require('uos-app-transaction');
 
@@ -294,13 +296,13 @@ export const createComment = (token, data, postId, commentId) => {
     .then(resp => resp.json());
 };
 
-export const createOrganization = (token, data) => (
+export const createOrganization = data => (
   fetch(`${config.backend.httpEndpoint}/api/v1/organizations`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${getToken()}`,
     },
-    body: data,
+    body: objectToFormData(data),
   })
     .then(resp => resp.json())
 );

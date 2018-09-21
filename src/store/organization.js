@@ -15,6 +15,7 @@ const getInitialState = () => ({
     phone_number: '',
     personal_website_url: '',
   },
+  saved: false,
   errors: {},
   isValid: false,
   activeStepId: 1,
@@ -70,6 +71,10 @@ const organization = (state = getInitialState(), action) => {
         activeStepId: action.payload,
         isValid: false,
       });
+    }
+
+    case 'SET_ORGANIZATION_SAVED': {
+      return Object.assign({}, state, { saved: action.payload });
     }
 
     default: {

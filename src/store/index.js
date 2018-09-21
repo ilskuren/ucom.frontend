@@ -1,3 +1,4 @@
+import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
@@ -13,7 +14,7 @@ const app = combineReducers({
   auth,
   organization,
 });
-const middlewares = [];
+const middlewares = [thunk];
 
 const store = createStore(app, composeWithDevTools(applyMiddleware(...middlewares)));
 

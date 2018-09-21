@@ -9,7 +9,12 @@ import Button from './Button';
 import DropZone from './DropZone';
 import Avatar from './Avatar';
 import AvatarFromFile from './AvatarFromFile';
-import { setOrganizationActiveTab, setOrganizationData, setOrganizationActiveSection } from '../actions';
+import {
+  setOrganizationActiveTab,
+  setOrganizationData,
+  setOrganizationActiveSection,
+  createOrganization,
+} from '../actions';
 // import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
@@ -17,7 +22,12 @@ const OrganizationsCreatePage = (props) => {
   switch (props.organization.activeStepId) {
     case 2: {
       return (
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            props.createOrganization(props.organization.data);
+          }}
+        >
           <div className="grid grid_settings">
             <div className="grid__item grid__item_side">
               <VerticalMenu
@@ -305,5 +315,6 @@ export default connect(
     setOrganizationActiveTab: tabId => dispatch(setOrganizationActiveTab(tabId)),
     setOrganizationData: data => dispatch(setOrganizationData(data)),
     setOrganizationActiveSection: sectionId => dispatch(setOrganizationActiveSection(sectionId)),
+    createOrganization: data => dispatch(createOrganization(data)),
   }),
 )(OrganizationsCreatePage);

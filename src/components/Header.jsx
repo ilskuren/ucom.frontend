@@ -3,18 +3,17 @@ import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import IconBell from './Icons/Bell';
-// import IconNotification from './Icons/Notification';
-// import IconSearch from './Icons/Search';
+import { bind } from 'decko';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
+import MenuPopup from './MenuPopup';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
-import { getUserUrl } from '../utils/user';
 import { removeBrainkey } from '../utils/brainkey';
 
 class Header extends PureComponent {
+  @bind
   logout() {
     removeToken();
     removeBrainkey();
@@ -38,17 +37,19 @@ class Header extends PureComponent {
                 </div>
               </nav>
             ) : (
-              <div className="inline inline_large">
+              <div className="inline">
                 <div className="inline__item">
-                  <Link to={getUserUrl(this.props.user.id)}>
+                  <Link to="/">
                     <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
                   </Link>
                 </div>
-
+                <div className="inline__item">
+                  <div className="header__rate">{this.props.user.currentRate}°</div>
+                </div>
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
                     <div className="menu__item">
-                      <button className="menu__link menu__link_upper" onClick={() => this.logout()}>Logout</button>
+                      <MenuPopup logout={this.logout} user={this.props.user} />
                     </div>
                   </nav>
                 </div>
@@ -83,18 +84,6 @@ class Header extends PureComponent {
 
           <div className="header__main">
             <nav className="menu menu_responsive menu_header">
-              {this.props.user.id && (
-                <div className="menu__item">
-                  <NavLink
-                    to="/"
-                    className="menu__link menu__link_upper"
-                    activeClassName="menu__link_active"
-                    isActive={() => this.props.location.pathname === '/'}
-                  >
-                    U.Community
-                  </NavLink>
-                </div>
-              )}
 
               {this.props.user.id && (
                 <div className="menu__item">

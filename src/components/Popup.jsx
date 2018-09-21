@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
+import Portal from './Portal';
 import store from '../store';
 
 class Popup extends PureComponent {
@@ -16,28 +16,30 @@ class Popup extends PureComponent {
   render() {
     return (
       <Provider store={store}>
-        <div className="popup popup_active" ref={(el) => { this.popup = el; }}>
-          <div
-            role="presentation"
-            ref={(el) => { this.popupInner = el; }}
-            className="popup__inner"
-            onClick={(e) => {
-              if (
-                (e.target === this.container || e.target === this.popupInner) &&
-                typeof this.props.onClickClose === 'function'
-              ) {
-                this.props.onClickClose();
-              }
-            }}
-          >
+        <Portal>
+          <div className="popup popup_active" ref={(el) => { this.popup = el; }}>
             <div
-              className="popup__container"
-              ref={(el) => { this.container = el; }}
+              role="presentation"
+              ref={(el) => { this.popupInner = el; }}
+              className="popup__inner"
+              onClick={(e) => {
+                if (
+                  (e.target === this.container || e.target === this.popupInner) &&
+                  typeof this.props.onClickClose === 'function'
+                ) {
+                  this.props.onClickClose();
+                }
+              }}
             >
-              {this.props.children}
+              <div
+                className="popup__container"
+                ref={(el) => { this.container = el; }}
+              >
+                {this.props.children}
+              </div>
             </div>
           </div>
-        </div>
+        </Portal>
       </Provider>
     );
   }

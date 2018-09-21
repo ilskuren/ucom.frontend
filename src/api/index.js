@@ -2,19 +2,21 @@ import humps from 'lodash-humps';
 import param from 'jquery-param';
 import config from '../../package.json';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-import { getActivePrivateKey } from '../utils/keys';
-import { getBrainkey } from '../utils/brainkey';
+// import { getActivePrivateKey } from '../utils/keys';
+// import { getBrainkey } from '../utils/brainkey';
 
 const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
 
-if (process.env.NODE_ENV === 'production') {
-  TransactionFactory.initForProductionEnv();
-} else {
-  TransactionFactory.initForProductionEnv();
-  // TransactionFactory.initForTestEnv();
-}
+TransactionFactory.initForProductionEnv();
+
+// TODO: process.env.NODE_ENV fix for production
+// if (process.env.NODE_ENV === 'production') {
+//   TransactionFactory.initForProductionEnv();
+// } else {
+//   TransactionFactory.initForTestEnv();
+// }
 
 const Eos = require('eosjs');
 
@@ -222,26 +224,36 @@ export const updateOffer = (data, token, id) => (
     .then(resp => resp.json())
 );
 
-export const follow = (userId, token, senderAccountName, recipientAccountName) => {
-  const brainkey = getBrainkey();
-  const senderActivePrivateKey = getActivePrivateKey(brainkey);
+// export const follow = (userId, token, senderAccountName, recipientAccountName) => {
+//   const brainkey = getBrainkey();
+//   const senderActivePrivateKey = getActivePrivateKey(brainkey);
 
-  return TransactionFactory.getSignedUserFollowsUser(
-    senderAccountName,
-    senderActivePrivateKey,
-    recipientAccountName,
-  )
-    .then(signed => (
-      fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(signed),
-      })
-        .then(resp => resp.json())
-    ));
-};
+//   return TransactionFactory.getSignedUserFollowsUser(
+//     senderAccountName,
+//     senderActivePrivateKey,
+//     recipientAccountName,
+//   )
+//     .then(signed => (
+//       fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+//         method: 'POST',
+//         headers: {
+//           'Authorization': `Bearer ${token}`,
+//         },
+//         body: JSON.stringify(signed),
+//       })
+//         .then(resp => resp.json())
+//     ));
+// };
+
+export const follow = (userId, token) => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(resp => resp.json())
+);
 
 export const unfollow = (userId, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/unfollow`, {

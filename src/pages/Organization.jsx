@@ -74,7 +74,7 @@ class OrganizationPage extends PureComponent {
                 />
               </div>
             </div>
-            <div className="sheets__content sheets__content_posts">
+            <div className="sheets__content sheets__content_responsive">
               <div className="organization">
                 <div className="organization__header">
                   <ProfileHeader
@@ -165,7 +165,7 @@ class OrganizationPage extends PureComponent {
                 </div>
               </div>
               <div className="organization__content">
-                <div className="grid grid_user">
+                <div className="grid grid_organization">
                   <div className="grid__item">
                     {organization.content && (
                       <Fragment>
@@ -228,7 +228,9 @@ class OrganizationPage extends PureComponent {
 
                     <div className="user-section">
                       <div className="user-section__content">
-                        <Comments postId={1} comments={organization.comments} />
+                        <div className="organization__comments">
+                          <Comments postId={1} comments={organization.comments} />
+                        </div>
                       </div>
                     </div>
                   </div>

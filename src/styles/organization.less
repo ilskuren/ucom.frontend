@@ -1,10 +1,19 @@
 .organization {
   &__header {
     position: relative;
+    & > *:first-child {
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+    @media (max-width: 424px) {
+      & > *:first-child {
+        padding-right: 0px;
+      }
+    }
     &::after {
       content: "";
       height: 1px;
-      width: calc(100% + 80px);
+      width: calc(100% + 90px);
       margin-left: -40px;
       max-width: 1200px;
       background: rgba(184, 184, 184, 0.25);
@@ -14,12 +23,21 @@
       }
     }
   }
+  &__comments {
+    max-width: 600px;
+  }
   &__menu {
     margin-top: 40px;
     height: 100px;
+    padding-left: 60px;
+    padding-right: 60px;
+    @media (max-width: 1023px) {
+        padding-right: 0px;
+    }
   }
   &__content {
-    margin-top: 50px;
+    margin-top: 60px;
+    padding-left: 57px;
     @media (max-width: 1023px) {
       margin-top: 220px;
     }

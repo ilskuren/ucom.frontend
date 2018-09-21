@@ -12,6 +12,7 @@ import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
 import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
+import CreateOrganizationPage from '../pages/CreateOrganization';
 import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser, hideAuthPopup } from '../actions';
@@ -64,6 +65,7 @@ class App extends PureComponent {
       <Fragment>
         <Loading loading={this.state.loading} appear />
 
+        <div id="portal-root" />
         {!this.state.loading && (
           <Router history={this.props.history}>
             <Page>
@@ -84,6 +86,7 @@ class App extends PureComponent {
                 <Route path="/users" component={UsersPage} />
                 <Route exact path="/products" component={ProductsPage} />
                 <Route exact path="/organizations" component={OrganizationsPage} />
+                <Route exact path="/organizations/new" component={CreateOrganizationPage} />
                 <Route component={NotFoundPage} />
               </Switch>
 

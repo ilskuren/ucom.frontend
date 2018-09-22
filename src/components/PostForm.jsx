@@ -8,6 +8,7 @@ import Button from './Button';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 import { POST_TYPES } from '../utils/posts';
+import { selectUser } from '../store/selectors';
 
 class PostForm extends PureComponent {
   render() {
@@ -133,6 +134,6 @@ PostForm.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
   post: state.post,
 }))(PostForm);

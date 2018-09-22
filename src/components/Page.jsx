@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { hideAuthPopup } from '../actions';
 
 class Page extends PureComponent {

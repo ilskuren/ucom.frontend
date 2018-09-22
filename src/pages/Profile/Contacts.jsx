@@ -9,12 +9,12 @@ import { reduxForm } from 'redux-form';
 
 import { scrollAnimation, emptyValues } from 'utils/constants';
 
-import { selectUserContacts, selectUserId } from 'utils/redux/selectors';
-import { Communication } from 'utils/GlobalPropTypes';
-import { selectCommunication } from 'utils/redux/selectors/communication/profile';
+import { PTCommunication } from 'utils/GlobalPropTypes';
 
 import { validate } from 'utils/validators/pages/profile/contacts';
 
+import { selectUserId, selectUserContacts } from '../../store/selectors';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -171,7 +171,7 @@ ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   editContacts: PropTypes.func,
-  editingContacts: Communication,
+  editingContacts: PTCommunication,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   userContacts: PropTypes.shape({

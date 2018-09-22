@@ -1,6 +1,6 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { USER } from 'utils/actionTypes';
-import { selectUserContacts } from 'utils/redux/selectors/user';
+import { selectUserContacts } from '../../store/selectors/user';
 import { getToken } from '../../utils/token';
 import { patchMyself, patchMyselfFormData } from '../../api';
 import { convertClientUserContacts, convertClientGeneralInfo, convertClientWorkAndEducation } from '../../api/convertors';

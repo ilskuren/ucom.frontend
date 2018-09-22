@@ -7,13 +7,14 @@ import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
 
-import { selectUser, selectUserGeneralInfo } from 'utils/redux/selectors';
-import { Communication } from 'utils/GlobalPropTypes';
-import { selectCommunication } from 'utils/redux/selectors/communication/profile';
+import { PTCommunication } from 'utils/GlobalPropTypes';
 import { validate } from 'utils/validators/pages/profile/generalInfo';
 
 import { scrollAnimation } from 'utils/constants';
 
+
+import { selectUserGeneralInfo, selectUserAvatarFilename } from '../../store/selectors';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -34,7 +35,7 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 const mapStateToProps = state => ({
-  user: selectUser(state),
+  avatarFilename: selectUserAvatarFilename(state),
   userGeneralInfo: selectUserGeneralInfo(state),
   uploadingAvatar: selectCommunication(state, 'uploadingAvatar'),
   editingGeneralInfo: selectCommunication(state, 'editingGeneralInfo'),
@@ -68,7 +69,7 @@ class ProfileGeneralInfoPage extends PureComponent {
   }
 
   render() {
-    const { user } = this.props;
+    const { avatarFilename } = this.props;
     const { editingGeneralInfo, uploadingAvatar } = this.props;
     return (
       <Fragment>
@@ -96,7 +97,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
                     <div className="profile__block profile__block_avatar">
                       <Avatar
-                        src={getFileUrl(user.avatarFilename)}
+                        src={getFileUrl(avatarFilename)}
                         size="big"
                         alt="Avatar"
                       />
@@ -207,8 +208,9 @@ ProfileGeneralInfoPage.propTypes = {
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  uploadingAvatar: Communication,
-  editingGeneralInfo: Communication,
+  uploadingAvatar: PTCommunication,
+  editingGeneralInfo: PTCommunication,
+  avatarFilename: PropTypes.string,
   editGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({

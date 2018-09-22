@@ -16,6 +16,7 @@ import FollowersAmount from '../components/FollowersAmount';
 import ProfileHeader from '../components/ProfileHeader';
 
 import * as actions from '../actions';
+import { selectUser } from '../store/selectors';
 
 class MyProfilePage extends PureComponent {
   componentDidMount() {
@@ -176,5 +177,5 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), mapDispatch)(MyProfilePage);

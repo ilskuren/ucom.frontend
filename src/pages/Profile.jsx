@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import { NavLink, Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
+import { selectUser } from '../store/selectors/user';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
@@ -97,5 +98,5 @@ ProfilePage.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(ProfilePage);

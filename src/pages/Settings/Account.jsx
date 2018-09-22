@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bind } from 'decko';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import * as selectors from 'utils/redux/selectors/settings';
+import * as selectors from '../../store/selectors/settings';
 import TextInput from '../../components/TextInput';
 import Dropdown from '../../components/Dropdown';
 import PrefixInput from '../../components/PrefixInput';

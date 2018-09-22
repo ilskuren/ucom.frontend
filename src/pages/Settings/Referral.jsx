@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as selectors from 'utils/redux/selectors/settings';
+import * as selectors from '../../store/selectors/settings';
 import InputWithCopy from '../../components/InputWithCopy';
 import Accordeon from '../../components/Accordeon';
 

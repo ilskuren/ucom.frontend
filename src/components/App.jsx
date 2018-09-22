@@ -111,7 +111,6 @@ App.propTypes = {
     showPopup: PropTypes.bool,
   }),
   setUser: PropTypes.func,
-  auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
 };
 

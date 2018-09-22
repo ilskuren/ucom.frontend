@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const Communication = PropTypes.shape({
+export const PTCommunication = PropTypes.shape({
   isRequesting: PropTypes.bool,
 });

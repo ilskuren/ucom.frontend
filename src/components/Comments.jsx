@@ -8,6 +8,7 @@ import Comment from './Comment';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import { sortComments } from '../utils/comments';
+import { selectUser } from '../store/selectors';
 
 class Comments extends PureComponent {
   createComment(description, commentId) {
@@ -60,5 +61,5 @@ Comments.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(Comments);

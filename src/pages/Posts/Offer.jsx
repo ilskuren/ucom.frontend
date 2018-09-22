@@ -10,6 +10,7 @@ import burgerImg from '../CreatePost/images/burger.png';
 import { getUser } from '../../api';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName } from '../../utils/user';
+import { selectUser } from '../store/selectors/user';
 
 class OfferPage extends PureComponent {
   constructor(props) {
@@ -88,5 +89,5 @@ class OfferPage extends PureComponent {
 }
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(OfferPage);

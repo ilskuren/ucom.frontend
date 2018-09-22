@@ -5,6 +5,7 @@ import Button from './Button';
 import { follow, unfollow } from '../api';
 import { getToken } from '../utils/token';
 import { showAuthPopup } from '../actions';
+import { selectUser } from '../store/selectors/user';
 
 class FollowButton extends PureComponent {
   constructor(props) {
@@ -61,13 +62,12 @@ FollowButton.propTypes = {
   follow: PropTypes.bool,
   isStretched: PropTypes.bool,
   userId: PropTypes.number,
-  showAuthPopup: PropTypes.func,
   userAccountName: PropTypes.string,
 };
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     showAuthPopup: () => dispatch(showAuthPopup()),

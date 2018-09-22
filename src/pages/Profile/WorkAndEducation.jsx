@@ -6,14 +6,14 @@ import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
 
-import { selectUserWorkAndEducation } from 'utils/redux/selectors/user';
-import { Communication } from 'utils/GlobalPropTypes';
-import { selectCommunication } from 'utils/redux/selectors/communication/profile';
+import { PTCommunication } from 'utils/GlobalPropTypes';
 
 import { validate } from 'utils/validators/pages/profile/workAndEducation';
 
 import { scrollAnimation } from 'utils/constants';
 
+import { selectUserWorkAndEducation } from '../../store/selectors/user';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -144,7 +144,7 @@ ProfileWorkAndEducationPage.propTypes = {
     firstCurrency: PropTypes.string,
     firstCurrencyYear: PropTypes.string,
   }),
-  editingWorkAndEducation: Communication,
+  editingWorkAndEducation: PTCommunication,
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,

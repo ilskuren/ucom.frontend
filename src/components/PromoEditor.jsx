@@ -87,7 +87,12 @@ class PromoEditor extends PureComponent {
           </div>
         </div>
         <div className="promo-editor__sub-text">
-          Ideas, Knowledge sharing and opinions fuel the world. Share your stories, polls, forecasts,  and get immediate response.
+          {this.state.activeTabId === 1 ? (
+            <Fragment>Ideas, Knowledge sharing and opinions fuel the world. Share your stories, polls, forecasts,  and get immediate response.</Fragment>
+          ) : (
+            <Fragment>Call for an action! Involve people into what matters to you any activity on and outside the platform: sales, meetups, giveaways, promotion, votings</Fragment>
+          )}
+
         </div>
 
         {this.state.activeTabId === 1 ? (

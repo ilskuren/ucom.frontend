@@ -11,10 +11,10 @@ const Promo = () => (
       <div className="promo__inner">
         <div className="promo-about">
           <div className="promo-about__title">
-            <h1 className="title">A Place for U and Ur audience on a blockchain</h1>
+            <h1 className="title">A place for you and your audience on the blockchain with a human face.</h1>
           </div>
           <div className="promo-about__text">
-            <p>Unite with other people, intearct, share your ideas, get response, build your own community  with u°os based community rating that destributes real financial value.</p>
+            <p>Unite with other people, communicate, share your ideas and get feedback. Build your own community with u°os-based social rating that distributes a real financial value.</p>
           </div>
           <div className="promo-about__action">
             <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Get started</Link>

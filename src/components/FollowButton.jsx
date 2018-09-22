@@ -45,7 +45,7 @@ class FollowButton extends PureComponent {
   render() {
     return (
       <Button
-        isStretched
+        isStretched={this.props.isStretched}
         withCheckedIcon={this.state.follow}
         text={this.state.follow ? 'Following' : 'Follow'}
         size="medium"
@@ -57,9 +57,10 @@ class FollowButton extends PureComponent {
 }
 
 FollowButton.propTypes = {
-  follow: PropTypes.bool,
-  userId: PropTypes.number,
   showAuthPopup: PropTypes.func,
+  follow: PropTypes.bool,
+  isStretched: PropTypes.bool,
+  userId: PropTypes.number,
   userAccountName: PropTypes.string,
 };
 

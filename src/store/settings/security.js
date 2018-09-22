@@ -1,4 +1,5 @@
 import Validator from 'validatorjs';
+import { SETTINGS } from 'utils/actionTypes';
 
 const getInitialState = () => ({
   data: {
@@ -16,11 +17,11 @@ const getInitialState = () => ({
 
 const security = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_SETTINGS_SECURITY': {
+    case SETTINGS.RESET_SECURITY: {
       return getInitialState();
     }
 
-    case 'SET_SETTINGS_SECURITY_DATA': {
+    case SETTINGS.SET_SECURITY_DATA: {
       const { item, checkValue } = action.payload;
 
       const data = Object.assign({}, state.data, action.payload);

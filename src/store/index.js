@@ -1,8 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 import user from './user';
 import settings from './settings';
 import post from './post';
+import userSaga from './sagas/userSaga';
 import auth from './auth';
 
 const app = combineReducers({
@@ -10,9 +13,11 @@ const app = combineReducers({
   post,
   settings,
   auth,
+  form: formReducer,
 });
-const middlewares = [];
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(app, composeWithDevTools(applyMiddleware(...middlewares)));
+const store = createStore(app, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(userSaga);
 
 export default store;

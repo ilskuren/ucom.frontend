@@ -1,1 +1,3 @@
-export const resetSettingsReferral = () => ({ type: 'RESET_SETTINGS_REFERRAL' });
+import { SETTINGS } from 'utils/actionTypes';
+
+export const resetSettingsReferral = () => ({ type: SETTINGS.RESET_REFERRAL });

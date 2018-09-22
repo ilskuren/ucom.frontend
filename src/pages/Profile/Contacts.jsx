@@ -5,32 +5,32 @@ import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
+import { reduxForm } from 'redux-form';
+
 import Button from '../../components/Button';
-import TextInput from '../../components/TextInput';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import Loading from '../../components/Loading';
-import { getToken } from '../../utils/token';
-import { patchMyself } from '../../api';
-import { convertClientUser } from '../../api/convertors';
-import { scrollAnimation } from '../../utils/constants';
 
-import { selectUser } from '../../utils/selectors/user';
+import TextInputField from '../../components/Field/TextInputField';
+import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
+
+import { scrollAnimation, emptyValues } from '../../utils/constants';
+
+import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
+import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    changeUserField: actions.changeUserField,
-    clearErrors: actions.clearErrors,
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
-    addUserPersonalWebSite: actions.addUserPersonalWebSite,
-    removeUserPersonalWebSite: actions.removeUserPersonalWebSite,
-    validateProfileForm: actions.validateProfileForm,
     setUser: actions.setUser,
+    editUserContacts: actions.editUserContacts,
   }, dispatch);
 
 const mapStateToProps = state => ({
-  user: selectUser(state),
+  userId: selectUserId(state),
+  userContacts: selectUserContacts(state),
 });
 
 class ProfileContactsPage extends PureComponent {
@@ -42,72 +42,60 @@ class ProfileContactsPage extends PureComponent {
     };
   }
 
-  componentWillUnmount() {
-    this.props.clearErrors();
+  componentDidMount() {
+    const { initialize, array, userContacts } = this.props;
+    initialize(this.formatUserContacts(userContacts));
+    if (userContacts.userSources.length === 0) {
+      array.push('userSources', '');
+    }
+  }
+
+  componentDidUpdate() {
+    const { userId, submitSucceeded, history } = this.props;
+    if (submitSucceeded) {
+      history.push(`/user/${userId}`);
+    }
+  }
+
+
+  @bind
+  getSourceUrls() {
+    const { userSources } = this.props.userContacts;
+    const sourceUrls = userSources.map(this.formatUserSource);
+    return sourceUrls;
+  }
+
+  removeEmptyWebsiteFields(sourceUrl) {
+    return !emptyValues.includes(sourceUrl);
+  }
+
+  formatUserSource(userSource) {
+    return userSource.sourceUrl ? userSource.sourceUrl : userSource;
   }
 
   @bind
-  getWebSiteUrlErrorMessage(index) {
-    const { errors } = this.props.user;
-    return errors.userSources &&
-      errors.userSources.results &&
-        errors.userSources.results[index] &&
-          errors.userSources.results[index].isInvalidUrl &&
-            errors.userSources.results[index].message;
+  formatUserContacts(userContacts) {
+    return {
+      ...userContacts,
+      userSources: userContacts.userSources
+        .map(this.formatUserSource)
+        .filter(this.removeEmptyWebsiteFields),
+    };
   }
 
   @bind
-  makeRemoveSiteClickHandler(index) {
-    return () => this.props.removeUserPersonalWebSite(index);
-  }
-
-  @bind
-  makeSiteValueChangeHandler(index) {
-    return value => this.props.changeUserPersonalWebSiteUrl({ index, value });
-  }
-
-  @bind
-  makeChangeUserFieldHandler(field) {
-    return value => this.props.changeUserField({ field, value, validationRules: 'contactsRules' });
-  }
-
-  @bind
-  handleSubmit(e) {
-    e.preventDefault();
-    Promise.resolve()
-      .then(this.props.validateProfileForm('contactsRules'))
-      .then(() => {
-        const { isValid } = this.props.user;
-        if (isValid) {
-          this.save();
-        }
-      })
-      .catch(err => console.error(err.message));
-  }
-
-  @bind
-  save() {
-    const { history } = this.props;
-    const { id } = this.props.user;
-    Promise
-      .resolve()
-      .then(() => {
-        const { user } = this.props;
-        const token = getToken();
-        const data = convertClientUser(user);
-        this.setState({ loading: true });
-        return patchMyself(data, token);
-      })
-      .then((data) => {
-        this.props.setUser(data);
-        this.setState({ loading: false });
-      })
-      .then(() => history.push(`/user/${id}`))
-      .catch(err => console.error(err.message));
+  handleSubmit(event) {
+    const {
+      handleSubmit,
+      editUserContacts,
+    } = this.props;
+    handleSubmit((profile) => {
+      editUserContacts(profile);
+    })(event);
   }
 
   render() {
-    const { userSources, errors } = this.props.user;
+    const sourceUrls = this.getSourceUrls();
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -129,11 +117,9 @@ class ProfileContactsPage extends PureComponent {
               <Element name="Contacts">
                 <InfoBlock title="Contacts">
                   <div className="profile__block">
-                    <TextInput
+                    <TextInputField
                       label="Email"
-                      value={this.props.user.email}
-                      onChange={this.makeChangeUserFieldHandler('email')}
-                      error={errors.email && errors.email[0]}
+                      name="email"
                     />
                   </div>
                   <div
@@ -142,19 +128,15 @@ class ProfileContactsPage extends PureComponent {
                       'profile__block_phone-number',
                     )}
                   >
-                    <TextInput
+                    <TextInputField
                       label="Phone number"
-                      value={this.props.user.phoneNumber}
-                      onChange={this.makeChangeUserFieldHandler('phoneNumber')}
-                      error={errors.phoneNumber && errors.phoneNumber[0]}
+                      name="phoneNumber"
                     />
                   </div>
                   <div className="profile__block">
-                    <TextInput
+                    <TextInputField
                       label="Your website"
-                      value={this.props.user.personalWebsiteUrl}
-                      onChange={this.makeChangeUserFieldHandler('personalWebsiteUrl')}
-                      error={errors.personalWebsiteUrl && errors.personalWebsiteUrl[0]}
+                      name="personalWebsiteUrl"
                     />
                   </div>
                 </InfoBlock>
@@ -164,54 +146,10 @@ class ProfileContactsPage extends PureComponent {
               <Element name="SocialNetworks">
                 <InfoBlock title="Social networks">
                   <div className="list__item">
-                    <div className="profile__block" key={0}>
-                      <TextInput
-                        label="Your website"
-                        value={Array.isArray(userSources) && userSources.length !== 0 ? userSources[0].sourceUrl : undefined}
-                        onChange={this.makeSiteValueChangeHandler(0)}
-                        error={this.getWebSiteUrlErrorMessage(0)}
-                      />
-                    </div>
-                    {Array.isArray(userSources) && userSources.length > 1 && (
-                      <div className="profile__block">
-                        <Button
-                          size="small"
-                          theme="transparent"
-                          text="Remove"
-                          onClick={this.makeRemoveSiteClickHandler(0)}
-                        />
-                      </div>
-                    )}
-                    {Array.isArray(userSources) && userSources.slice(1).map((item, index) => (
-                      <div className="profile__block" key={index + 1}>
-                        <div className="profile__block">
-                          <TextInput
-                            label="Your website"
-                            value={userSources[index + 1].sourceUrl || undefined}
-                            onChange={this.makeSiteValueChangeHandler(index + 1)}
-                            error={this.getWebSiteUrlErrorMessage(index + 1)}
-                          />
-                        </div>
-                        {Array.isArray(userSources) && userSources.length > 1 && (
-                          <div className="profile__block">
-                            <Button
-                              size="small"
-                              theme="transparent"
-                              text="Remove"
-                              onClick={this.makeRemoveSiteClickHandler(index + 1)}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    <div className="profile__block">
-                      <Button
-                        size="small"
-                        theme="transparent"
-                        text="Add another"
-                        onClick={this.props.addUserPersonalWebSite}
-                      />
-                    </div>
+                    <SocialNetworksFieldArray
+                      sourceUrls={sourceUrls}
+                      name="userSources"
+                    />
                   </div>
                 </InfoBlock>
               </Element>
@@ -233,17 +171,22 @@ class ProfileContactsPage extends PureComponent {
 }
 
 ProfileContactsPage.propTypes = {
-  changeUserField: PropTypes.func,
-  clearErrors: PropTypes.func,
-  addUserPersonalWebSite: PropTypes.func,
-  removeUserPersonalWebSite: PropTypes.func,
-  changeUserPersonalWebSiteUrl: PropTypes.func,
-  validateProfileForm: PropTypes.func,
-  user: PropTypes.shape({
+  initialize: PropTypes.func,
+  submitSucceeded: PropTypes.bool,
+  editUserContacts: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  userId: PropTypes.number,
+  userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,
-    userSources: PropTypes.arrayOf(PropTypes.object),
+    userSources: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+  }),
+  array: PropTypes.shape({
+    push: PropTypes.func,
   }),
 };
 
-export default connect(mapStateToProps, mapDispatch)(ProfileContactsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatch,
+)(reduxForm({ form: 'contacts', validate, touchOnChange: true })(ProfileContactsPage));

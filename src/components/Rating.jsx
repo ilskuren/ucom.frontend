@@ -93,8 +93,8 @@ Rating.propTypes = {
   postId: PropTypes.number,
   commentId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
   showAuthPopup: PropTypes.func,
+  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
 };
 
 Rating.defaultProps = {

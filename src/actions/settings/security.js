@@ -1,2 +1,4 @@
-export const resetSettingsSecurity = () => ({ type: 'RESET_SETTINGS_SECURITY' });
-export const setSettingsSecurityData = payload => ({ type: 'SET_SETTINGS_SECURITY_DATA', payload });
+import { SETTINGS } from 'utils/actionTypes';
+
+export const resetSettingsSecurity = () => ({ type: SETTINGS.RESET_SECURITY });
+export const setSettingsSecurityData = payload => ({ type: SETTINGS.SET_SECURITY_DATA, payload });

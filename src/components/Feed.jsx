@@ -89,7 +89,7 @@ class Feed extends PureComponent {
 
 Feed.propTypes = {
   title: PropTypes.string,
-  userId: PropTypes.number,
+  userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Feed.defaultProps = {

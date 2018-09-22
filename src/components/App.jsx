@@ -107,10 +107,8 @@ class App extends PureComponent {
 
 App.propTypes = {
   history: PropTypes.objectOf(PropTypes.any),
-  auth: PropTypes.shape({
-    showPopup: PropTypes.bool,
-  }),
   setUser: PropTypes.func,
+  auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
 };
 

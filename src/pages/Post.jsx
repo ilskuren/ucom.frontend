@@ -53,6 +53,7 @@ class Offer extends PureComponent {
               <div className="sheets__item">
                 <PostHeader
                   userId={this.state.post.User && this.state.post.User.id}
+                  userAccountName={this.state.post.User && this.state.post.User.account_name}
                   userUrl={getUserUrl(this.state.post.User && this.state.post.User.id)}
                   avatar={getFileUrl(this.state.post.User && this.state.post.User.avatar_filename)}
                   name={getUserName(this.state.post.User)}

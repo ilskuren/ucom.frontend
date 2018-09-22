@@ -62,16 +62,20 @@ const PostCard = (props) => {
 
           <div className="toolbar__side">
             <div className="inline">
-              <div className="inline__item">
-                <div className="post-card__shares">
-                  <Rate value={props.sharesCount} dimension="" label="shares" />
+              {props.sharesCount !== undefined && (
+                <div className="inline__item">
+                  <div className="post-card__shares">
+                    <Rate value={props.sharesCount} dimension="" label="shares" />
+                  </div>
                 </div>
-              </div>
-              <div className="inline__item">
-                <div className="post-card__shares">
-                  <Rate value={props.commentsCount} dimension="" label="Comments" />
+              )}
+              {props.commentsCount !== undefined && (
+                <div className="inline__item">
+                  <div className="post-card__shares">
+                    <Rate value={props.commentsCount} dimension="" label="Comments" />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -92,11 +96,6 @@ PostCard.propTypes = {
   accountName: PropTypes.string,
   commentsCount: PropTypes.number,
   sharesCount: PropTypes.number,
-};
-
-PostCard.defaultProps = {
-  commentsCount: 0,
-  sharesCount: 0,
 };
 
 export default PostCard;

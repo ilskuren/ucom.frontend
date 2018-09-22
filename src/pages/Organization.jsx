@@ -103,20 +103,20 @@ class OrganizationPage extends PureComponent {
                           </div>
                         </div>
                         <div className="toolbar__side">
-                          <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">
-                            <div className="menu__item">
+                          <div className="inline">
+                            <div className="inline__item">
                               <Followers
                                 title="Joined"
                                 users={organization.followData.joined}
                               />
                             </div>
-                            <div className="menu__item">
+                            <div className="inline__item">
                               <Followers
                                 title="Followers"
                                 users={organization.followData.followers}
                               />
                             </div>
-                            <div className="menu__item">
+                            <div className="inline__item">
                               <Followers
                                 title="Trusted by"
                                 users={organization.followData.trustedBy}

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   max-width: 1023px;
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     flex-direction: column;
     align-items: center;
   }
@@ -21,7 +21,7 @@
 
   &__user-info {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     width: calc(100% - 124px);
 
     @media (max-width: 570px) {
@@ -31,7 +31,7 @@
 
   &__avatar {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     margin-right: 24px;
   }
 
@@ -48,19 +48,6 @@
     }
   }
 
-  &__edit {
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-    background-color: @blue-green;
-    background-image: url('../static/img/pen.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
-
   &__nickname {
     font-size: 1rem;
     color: #767676;
@@ -72,6 +59,24 @@
     @media (max-width: 767px) {
       margin-top: 20px;
     }
+  }
+
+  &__powered-by {
+    font-size: 1rem;
+    color: #767676;
+    display: flex;
+    align-items: center;
+  }
+
+  &__powered-by-image {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  &__board {
+    font-size: 0.7143rem;
+    color: #767676;
+    text-transform: uppercase;
   }
 
   &__user-position {
@@ -100,7 +105,7 @@
       right: -17px;
       font-size: 2.3rem;
     }
-    
+
     @media (max-width: 767px) {
       text-align: center;
       font-size: 2rem;

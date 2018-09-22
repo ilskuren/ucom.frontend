@@ -1,0 +1,35 @@
+.organization {
+  &__header {
+    position: relative;
+    &::after {
+      content: "";
+      height: 1px;
+      width: calc(100% + 200px);
+      margin-left: -100px;
+      max-width: 1200px;
+      background: rgba(184, 184, 184, 0.25);
+      position: absolute;
+      @media (max-width: 1023px) {
+        display: none;
+      }
+    }
+  }
+  &__menu {
+    margin-top: 40px;
+    height: 100px;
+  }
+  &__content {
+    margin-top: 50px;
+    @media (max-width: 1023px) {
+      margin-top: 220px;
+    }
+  }
+  &__text {
+    line-height: 1.8;
+    font-size: 1.1429rem;
+  }
+  &__media {
+    max-width: 100%;
+    height: auto;
+  }
+}

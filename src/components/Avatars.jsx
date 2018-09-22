@@ -25,15 +25,20 @@ class Avatars extends PureComponent {
 
   renderAvatar = (avatar, options) => {
     const { avatarUrl, alt } = avatar;
-
+    const { distance } = this.props;
     const {
       number, orderStacking, size, borderWhite, square,
     } = options;
-
+    const zIndex = (() => {
+      if (distance !== 'far') {
+        return orderStacking === 'fifo' ? number : '';
+      }
+      return null;
+    })();
     return (
       <span
-        className="avatars__avatar"
-        style={{ zIndex: orderStacking === 'fifo' ? number : '' }}
+        className={cn('avatars__avatar', { [`avatars__avatar_distance_${distance}`]: Boolean(distance) })}
+        style={{ zIndex }}
         key={number}
       >
         <Avatar square={square} src={avatarUrl} size={size} alt={alt} borderWhite={borderWhite} />
@@ -50,7 +55,7 @@ class Avatars extends PureComponent {
 
     return (
       <Fragment>
-        <div className={cn('avatars', { [`avatars_${size}`]: Boolean(size) })}>
+        <div data-avatars={maxAvatarsAmount} className={cn('avatars', { [`avatars_${size}`]: Boolean(size) })}>
           <div className="avatars__list">
             {
               listHead.map((avatar, avatarIndex, arr) =>
@@ -90,6 +95,7 @@ Avatars.propTypes = {
   orderStacking: PropTypes.oneOf(['fifo', 'lifo']).isRequired,
   size: PropTypes.string,
   maxAvatarsAmount: PropTypes.number,
+  distance: PropTypes.oneOf(['close', 'far']),
 };
 
 Avatars.defaultProps = {

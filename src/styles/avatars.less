@@ -5,9 +5,31 @@
     margin-left: -10px;
     display: inline-block;
     vertical-align: middle;
-    &:first-child {
-      margin-left: 0;
+    &_distance {
+      &_far {
+        margin-left: 0;
+        margin-right: 10px;
+      }
     }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &[data-avatars="8"] {
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      width: auto;
+     }
+
+     @media (max-width: 420px) {
+       .avatars__list {
+          flex-wrap: wrap;
+          & > * {
+            margin-top: 5px;
+          }
+       }
+     }
   }
 
   &__list {

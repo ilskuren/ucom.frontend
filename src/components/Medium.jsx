@@ -50,6 +50,9 @@ class Medium extends PureComponent {
             paramName: 'image',
           },
         },
+        embeds: {
+          oembedProxy: 'https://iframely.u.community/iframely?',
+        },
       },
     });
   }

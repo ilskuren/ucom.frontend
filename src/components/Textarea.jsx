@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 const Textarea = ({
-  label, value, placeholder, rows, onChange,
+  label, value, placeholder, rows, onChange, className, ...rest
 }) => (
-  <div className="textarea">
+  <div className={cn('textarea', className)}>
     { label && <label className="textarea__label">{label}</label> }
     <textarea
       className="textarea__text"
@@ -16,6 +17,7 @@ const Textarea = ({
           onChange(e.target.value);
         }
       }}
+      {...rest}
     />
   </div>
 );

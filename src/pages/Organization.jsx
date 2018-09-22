@@ -74,7 +74,7 @@ class OrganizationPage extends PureComponent {
                 />
               </div>
             </div>
-            <div className="sheets__content sheets__content_responsive">
+            <div className="sheets__content sheets__content_theme_organization">
               <div className="organization">
                 <div className="organization__header">
                   <ProfileHeader

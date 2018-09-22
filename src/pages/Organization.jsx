@@ -2,11 +2,11 @@ import React, { PureComponent, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Avatar from '../components/Avatar';
 import FollowersAmount from '../components/FollowersAmount';
 import IconLink from '../components/Icons/Link';
 import Footer from '../components/Footer';
+import Followers from '../components/Followers';
 import Comments from '../components/Comments';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
@@ -106,59 +106,22 @@ class OrganizationPage extends PureComponent {
                         <div className="toolbar__side">
                           <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">
                             <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/joined"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/joined'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="joined"
-                                  rate={organization.followData.joined.rate}
-                                  avatar={organization.followData.joined.avatar}
-                                />
-                              </NavLink>
+                              <Followers
+                                title="Joined"
+                                users={organization.followData.joined}
+                              />
                             </div>
                             <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/followers"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/followers'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="followers"
-                                  rate={organization.followData.followers.rate}
-                                  avatar={
-                                    organization.followData.followers.avatar
-                                  }
-                                />
-                              </NavLink>
+                              <Followers
+                                title="Followers"
+                                users={organization.followData.followers}
+                              />
                             </div>
                             <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/trusted-by"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/trusted-by'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="trusted by"
-                                  rate={organization.followData.trustedBy.rate}
-                                  avatar={
-                                    organization.followData.trustedBy.avatar
-                                  }
-                                />
-                              </NavLink>
+                              <Followers
+                                title="Trusted by"
+                                users={organization.followData.trustedBy}
+                              />
                             </div>
                           </div>
                         </div>

@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Avatar from '../components/Avatar';
-import FollowersAmount from '../components/FollowersAmount';
 import IconLink from '../components/Icons/Link';
 import Footer from '../components/Footer';
 import Followers from '../components/Followers';

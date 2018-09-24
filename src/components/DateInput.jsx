@@ -64,7 +64,7 @@ class DateInput extends PureComponent {
   render() {
     const days = range(1, this.state.daysInMonth + 1).map(i => ({ value: i, label: i }));
     const years = range(2018, 1905).map(i => ({ value: i, label: i }));
-
+    const { error, touched } = this.props;
     return (
       <div className="date-input">
         { this.props.label && <div className="date-input__label">{this.props.label}</div> }
@@ -122,6 +122,7 @@ class DateInput extends PureComponent {
             }}
           />
         </div>
+        { touched && error && <div className="date-input__error">{error}</div> }
       </div>
     );
   }
@@ -130,6 +131,8 @@ class DateInput extends PureComponent {
 DateInput.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
+  error: PropTypes.string,
+  touched: PropTypes.bool,
   onChange: PropTypes.func,
 };
 

@@ -13,6 +13,7 @@ import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
 import { validateAuth } from '../utils/user';
 import { saveBrainkey } from '../utils/brainkey';
+import { selectUser } from '../store/selectors';
 
 class Auth extends PureComponent {
   constructor(props) {
@@ -166,7 +167,7 @@ Auth.propTypes = {
 
 export default withRouter(connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     setUser: data => dispatch(setUser(data)),

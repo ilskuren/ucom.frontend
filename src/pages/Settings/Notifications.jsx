@@ -4,12 +4,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as selectors from '../../store/selectors/settings';
 import InfoBlock from '../../components/InfoBlock';
 import Switcher from '../../components/Switcher';
 import Checkbox from '../../components/Checkbox';
 
 import * as actions from '../../actions/settings';
-import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({

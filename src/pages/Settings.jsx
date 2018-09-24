@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router';
 import { NavLink, Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import Footer from '../components/Footer';
+import { selectUser } from '../store/selectors/user';
 import SettingsAccountPage from './Settings/Account';
 import SettingsNotificationsPage from './Settings/Notifications';
 import SettingsSecurityPage from './Settings/Security';
@@ -144,5 +145,5 @@ SettingsPage.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(SettingsPage);

@@ -11,6 +11,7 @@ import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
+import { selectUser } from '../store/selectors';
 
 class Header extends PureComponent {
   @bind
@@ -169,7 +170,7 @@ Header.propTypes = {
 
 export default withRouter(connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),

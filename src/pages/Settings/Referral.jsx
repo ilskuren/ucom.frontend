@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as selectors from '../../store/selectors/settings';
 import InputWithCopy from '../../components/InputWithCopy';
 import Accordeon from '../../components/Accordeon';
 
 import * as actions from '../../actions/settings';
-import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({

@@ -9,6 +9,7 @@ import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
 import { getUserPosts, getUser } from '../api';
+import { selectUser } from '../store/selectors';
 
 class Feed extends PureComponent {
   constructor(props) {
@@ -89,7 +90,7 @@ class Feed extends PureComponent {
 
 Feed.propTypes = {
   title: PropTypes.string,
-  userId: PropTypes.number,
+  userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Feed.defaultProps = {
@@ -97,5 +98,5 @@ Feed.defaultProps = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(Feed);

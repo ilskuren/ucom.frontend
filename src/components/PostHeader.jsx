@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import FollowButton from '../components/FollowButton';
+import { selectUser } from '../store/selectors';
 
 const PostHeader = ({
   avatar, name, rating, userId, userUrl, user, follow, userAccountName, theme,
@@ -59,5 +60,5 @@ PostHeader.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(PostHeader);

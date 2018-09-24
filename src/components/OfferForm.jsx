@@ -15,6 +15,7 @@ import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import { OFFER_TYPES } from '../utils/offer';
+import { selectUser } from '../store/selectors';
 
 class OfferForm extends PureComponent {
   constructor(props) {
@@ -304,7 +305,7 @@ OfferForm.propTypes = {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
     post: state.post,
   }),
   dispatch => ({

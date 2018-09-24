@@ -2,9 +2,8 @@ import { urlRegex } from './constants';
 
 const isValidUrl = (url) => {
   const regexUrl = new RegExp(urlRegex);
-  return typeof url === 'string' && url !== '' && regexUrl.test(url);
+  return regexUrl.test(url);
 };
-
 
 export const validateArrayUrls = (values) => {
   const result = {

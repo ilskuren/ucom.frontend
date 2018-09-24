@@ -6,6 +6,7 @@ import PostsGroupTabs from '../components/PostsGroupTabs';
 import Feed from '../components/Feed';
 import UsersGroup from '../components/UsersGroup';
 import Promo from '../components/Promo';
+import { selectUser } from '../store/selectors';
 
 class HomePage extends PureComponent {
   render() {
@@ -52,5 +53,5 @@ class HomePage extends PureComponent {
 }
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(HomePage);

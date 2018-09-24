@@ -1,4 +1,5 @@
 import Validator from 'validatorjs';
+import { SETTINGS } from 'utils/actionTypes';
 
 const getInitialState = () => ({
   data: {
@@ -27,11 +28,11 @@ const getInitialState = () => ({
 
 const account = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_SETTINGS_ACCOUNT': {
+    case SETTINGS.RESET_ACCOUNT: {
       return getInitialState();
     }
 
-    case 'SET_SETTINGS_ACCOUNT_DATA': {
+    case SETTINGS.SET_ACCOUNT_DATA: {
       const data = {
         ...state.data,
         ...action.payload,
@@ -46,7 +47,7 @@ const account = (state = getInitialState(), action) => {
       };
     }
 
-    case 'VALIDATE_SETTINGS_ACCOUNT_FIELD': {
+    case SETTINGS.VALIDATE_ACCOUNT_FIELD: {
       const validation = new Validator(state.data, state.rules);
 
       validation.passes();

@@ -9,6 +9,7 @@ import { getFileUrl } from '../utils/upload';
 import PrefixInput from './PrefixInput';
 import EyeIcon from './Icons/Eye';
 import { getUserName } from '../utils/user';
+import { selectUser } from '../store/selectors';
 
 const TAB_NAMES = [
   'Story',
@@ -105,5 +106,5 @@ CreatePostHeader.defaultProps = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(CreatePostHeader);

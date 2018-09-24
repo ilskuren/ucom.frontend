@@ -9,6 +9,7 @@ import Tags from './Tags';
 import Rate from './Rate';
 import Comments from './Comments';
 import { getPostEditUrl } from '../utils/posts';
+import { selectUser } from '../store/selectors/user';
 
 const PostContent = props => (
   <div className="posts">
@@ -110,5 +111,5 @@ PostContent.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(PostContent);

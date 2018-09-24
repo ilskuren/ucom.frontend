@@ -306,3 +306,8 @@ export const createOrganization = data => (
   })
     .then(resp => resp.json())
 );
+
+export const getOrganization = id => (
+  fetch(`${config.backend.httpEndpoint}/api/v1/organizations/${id}`)
+    .then(resp => resp.json())
+);

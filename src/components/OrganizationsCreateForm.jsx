@@ -153,6 +153,7 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Organization name</div>
                     <div className="field__input">
                       <TextInput
+                        isRequired
                         placeholder="Type something..."
                         value={props.organization.data.title}
                         onChange={title => props.setOrganizationData({ title })}
@@ -167,6 +168,7 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">@organization slug</div>
                     <div className="field__input">
                       <TextInput
+                        isRequired
                         placeholder="@kickbnb"
                         value={props.organization.data.nickname}
                         onChange={nickname => props.setOrganizationData({ nickname })}

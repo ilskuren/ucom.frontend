@@ -59,9 +59,13 @@ const organization = (state = getInitialState(), action) => {
     }
 
     case 'SET_ORGANIZATION_ACTIVE_TAB': {
+      const activeStep = state.steps.find(step => step.id === state.activeStepId);
+      const validation = new Validator(state.data, activeStep.rules);
+      const isValid = validation.passes();
+
       return Object.assign({}, state, {
         activeStepId: action.payload,
-        isValid: true, // TODO: Calc valid
+        isValid,
       });
     }
 

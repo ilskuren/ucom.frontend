@@ -1,4 +1,5 @@
 .text-input {
+  position: relative;
   font-size: 1.142rem;
 
   &__label {
@@ -10,10 +11,15 @@
   }
 
   &__labels-container {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 12px;
+
     @media (max-width: 425px) {
+      position: static;
       flex-direction: column;
      }
   }

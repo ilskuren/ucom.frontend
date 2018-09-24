@@ -1,9 +1,14 @@
 export function selectUser(state) {
-  return state.user;
+  return state.user.data;
+}
+
+export function selectUserAvatarFilename(state) {
+  const user = selectUser(state);
+  return user.avatarFilename;
 }
 
 export function selectUserGeneralInfo(state) {
-  const { user } = state;
+  const user = selectUser(state);
   return {
     firstName: user.firstName,
     lastName: user.lastName,
@@ -18,7 +23,7 @@ export function selectUserGeneralInfo(state) {
 }
 
 export function selectUserWorkAndEducation(state) {
-  const { user } = state;
+  const user = selectUser(state);
   return {
     firstCurrency: user.firstCurrency,
     firstCurrencyYear: user.firstCurrencyYear,
@@ -29,7 +34,7 @@ export function selectUserWorkAndEducation(state) {
 
 
 export function selectUserContacts(state) {
-  const { user } = state;
+  const user = selectUser(state);
   return {
     email: user.email,
     phoneNumber: user.phoneNumber,
@@ -39,5 +44,5 @@ export function selectUserContacts(state) {
 }
 
 export function selectUserId(state) {
-  return state.user.id;
+  return selectUser(state).id;
 }

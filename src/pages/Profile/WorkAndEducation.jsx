@@ -5,39 +5,36 @@ import { reduxForm } from 'redux-form';
 import { scroller, Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
+
+import { PTCommunication } from 'utils/GlobalPropTypes';
+
+import { validate } from 'utils/validators/pages/profile/workAndEducation';
+
+import { scrollAnimation } from 'utils/constants';
+
+import { selectUserWorkAndEducation } from '../../store/selectors/user';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import Loading from '../../components/Loading';
-import { scrollAnimation } from '../../utils/constants';
-
 import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
-
-import { selectUserWorkAndEducation } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
-    editUserWorkAndEducation: actions.editUserWorkAndEducation,
+    editWorkAndEducation: actions.editWorkAndEducation,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userWorkAndEducation: selectUserWorkAndEducation(state),
+  editingWorkAndEducation: selectCommunication(state, 'editingWorkAndEducation'),
 });
 
 
 class ProfileWorkAndEducationPage extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-    };
-  }
-
   componentDidMount() {
     const { initialize, userWorkAndEducation } = this.props;
     const { userJobs, userEducations } = userWorkAndEducation;
@@ -60,14 +57,15 @@ class ProfileWorkAndEducationPage extends PureComponent {
   handleSubmit(event) {
     const {
       handleSubmit,
-      editUserWorkAndEducation,
+      editWorkAndEducation,
     } = this.props;
     handleSubmit((profile) => {
-      editUserWorkAndEducation(profile);
+      editWorkAndEducation(profile);
     })(event);
   }
 
   render() {
+    const { editingWorkAndEducation } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -84,7 +82,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.state.loading} className="loading_block" />
+            <Loading loading={editingWorkAndEducation.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Blockchain">
@@ -146,10 +144,11 @@ ProfileWorkAndEducationPage.propTypes = {
     firstCurrency: PropTypes.string,
     firstCurrencyYear: PropTypes.string,
   }),
+  editingWorkAndEducation: PTCommunication,
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  editUserWorkAndEducation: PropTypes.func,
+  editWorkAndEducation: PropTypes.func,
 };
 
 export default connect(

@@ -1,24 +1,26 @@
 import { USER } from 'utils/actionTypes';
 
-const getInitialState = () => ({
-  errors: {
-    userSources: {
-      isValid: false,
-      results: [],
-    },
-  },
-  isValid: false,
-});
+const getInitialState = () => ({});
 
 const user = (state = getInitialState(), action) => {
   switch (action.type) {
     case USER.SET_USER:
-      return Object.assign({}, state, action.payload);
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     case USER.REMOVE_USER:
       return getInitialState();
 
-    case USER.EDIT_CONTACTS_COMPLETED: {
+    case USER.UPLOAD_AVATAR_COMPLETED: {
+      return {
+        ...state,
+        avatarFilename: action.payload,
+      };
+    }
+
+    case USER.EDIT_GENERAL_INFO_COMPLETED: {
       return {
         ...state,
         ...action.payload,
@@ -32,17 +34,10 @@ const user = (state = getInitialState(), action) => {
       };
     }
 
-    case USER.EDIT_GENERAL_INFO_COMPLETED: {
+    case USER.EDIT_CONTACTS_COMPLETED: {
       return {
         ...state,
         ...action.payload,
-      };
-    }
-
-    case USER.UPLOAD_AVATAR_COMPLETED: {
-      return {
-        ...state,
-        avatarFilename: action.payload,
       };
     }
 

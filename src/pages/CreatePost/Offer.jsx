@@ -12,6 +12,7 @@ import TextEditor from '../../components/TextEditor';
 import { getToken } from '../../utils/token';
 import { createPost } from '../../api';
 import burgerImg from './images/burger.png';
+import { selectUser } from '../../store/selectors';
 
 class StoryPage extends PureComponent {
   constructor(props) {
@@ -137,5 +138,5 @@ class StoryPage extends PureComponent {
 }
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(StoryPage);

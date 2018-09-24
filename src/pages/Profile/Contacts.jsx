@@ -7,6 +7,14 @@ import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
 
+import { scrollAnimation, emptyValues } from 'utils/constants';
+
+import { PTCommunication } from 'utils/GlobalPropTypes';
+
+import { validate } from 'utils/validators/pages/profile/contacts';
+
+import { selectUserId, selectUserContacts } from '../../store/selectors';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -15,33 +23,22 @@ import Loading from '../../components/Loading';
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
 
-import { scrollAnimation, emptyValues } from '../../utils/constants';
-
-import { selectUserContacts, selectUserId } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/contacts';
 import * as actions from '../../actions/';
+
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     changeUserPersonalWebSiteUrl: actions.changeUserPersonalWebSiteUrl,
-    setUser: actions.setUser,
-    editUserContacts: actions.editUserContacts,
+    editContacts: actions.editContacts,
   }, dispatch);
 
 const mapStateToProps = state => ({
   userId: selectUserId(state),
   userContacts: selectUserContacts(state),
+  editingContacts: selectCommunication(state, 'editingContacts'),
 });
 
 class ProfileContactsPage extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-    };
-  }
-
   componentDidMount() {
     const { initialize, array, userContacts } = this.props;
     initialize(this.formatUserContacts(userContacts));
@@ -56,7 +53,6 @@ class ProfileContactsPage extends PureComponent {
       history.push(`/user/${userId}`);
     }
   }
-
 
   @bind
   getSourceUrls() {
@@ -87,15 +83,16 @@ class ProfileContactsPage extends PureComponent {
   handleSubmit(event) {
     const {
       handleSubmit,
-      editUserContacts,
+      editContacts,
     } = this.props;
     handleSubmit((profile) => {
-      editUserContacts(profile);
+      editContacts(profile);
     })(event);
   }
 
   render() {
     const sourceUrls = this.getSourceUrls();
+    const { editingContacts } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -111,7 +108,7 @@ class ProfileContactsPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={this.state.loading} className="loading_block" />
+            <Loading loading={editingContacts.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Contacts">
@@ -173,7 +170,8 @@ class ProfileContactsPage extends PureComponent {
 ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  editUserContacts: PropTypes.func,
+  editContacts: PropTypes.func,
+  editingContacts: PTCommunication,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   userContacts: PropTypes.shape({

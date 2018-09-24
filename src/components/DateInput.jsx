@@ -15,7 +15,7 @@ class DateInput extends PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setDateValues();
   }
 

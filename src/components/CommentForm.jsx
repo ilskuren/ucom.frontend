@@ -6,6 +6,7 @@ import Avatar from './Avatar';
 import Button from './Button';
 import { getFileUrl } from '../utils/upload';
 import { showAuthPopup } from '../actions';
+import { selectUser } from '../store/selectors';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -122,7 +123,7 @@ CommentForm.propTypes = {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     showAuthPopup: () => dispatch(showAuthPopup()),

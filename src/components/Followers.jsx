@@ -9,6 +9,7 @@ import ModalContent from '../components/ModalContent';
 import ProfilesList from '../components/ProfilesList';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl, userIsFollowed } from '../utils/user';
+import { selectUser } from '../store/selectors';
 
 class Followers extends PureComponent {
   constructor(props) {
@@ -107,5 +108,5 @@ Followers.defaultProps = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(Followers);

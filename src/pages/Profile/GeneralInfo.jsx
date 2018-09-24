@@ -6,6 +6,15 @@ import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
 import { scroller, Element } from 'react-scroll';
+
+import { PTCommunication } from 'utils/GlobalPropTypes';
+import { validate } from 'utils/validators/pages/profile/generalInfo';
+
+import { scrollAnimation } from 'utils/constants';
+
+
+import { selectUserGeneralInfo, selectUserAvatarFilename } from '../../store/selectors';
+import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -17,33 +26,22 @@ import TextInputField from '../../components/Field/TextInputField';
 import TextAreaField from '../../components/Field/TextAreaField';
 import DateInputField from '../../components/Field/DateInputField';
 
-import { scrollAnimation } from '../../utils/constants';
-
-import { selectUser, selectUserGeneralInfo } from '../../utils/selectors/user';
-import { validate } from '../../utils/validators/pages/profile/generalInfo';
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
   bindActionCreators({
     uploadUserAvatar: actions.uploadUserAvatar,
-    editUserGeneralInfo: actions.editUserGeneralInfo,
+    editGeneralInfo: actions.editGeneralInfo,
   }, dispatch);
 
 const mapStateToProps = state => ({
-  user: selectUser(state),
+  avatarFilename: selectUserAvatarFilename(state),
   userGeneralInfo: selectUserGeneralInfo(state),
+  uploadingAvatar: selectCommunication(state, 'uploadingAvatar'),
+  editingGeneralInfo: selectCommunication(state, 'editingGeneralInfo'),
 });
 
 class ProfileGeneralInfoPage extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      avatarLoading: false,
-    };
-  }
-
   componentDidMount() {
     const { initialize, userGeneralInfo } = this.props;
     initialize(userGeneralInfo);
@@ -59,21 +57,20 @@ class ProfileGeneralInfoPage extends PureComponent {
   @bind
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSubmit, editUserGeneralInfo } = this.props;
+    const { handleSubmit, editGeneralInfo } = this.props;
     handleSubmit((profile) => {
-      editUserGeneralInfo(profile);
+      editGeneralInfo(profile);
     })(event);
   }
 
   uploadAvatar(file) {
     const { uploadUserAvatar } = this.props;
-    this.setState({ avatarLoading: true });
     uploadUserAvatar(file);
-    this.setState({ avatarLoading: false });
   }
 
   render() {
-    const { user } = this.props;
+    const { avatarFilename } = this.props;
+    const { editingGeneralInfo, uploadingAvatar } = this.props;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -90,7 +87,7 @@ class ProfileGeneralInfoPage extends PureComponent {
               className="person-form"
               onSubmit={this.handleSubmit}
             >
-              <Loading loading={this.state.loading} className="loading_block" />
+              <Loading loading={editingGeneralInfo.isRequesting} className="loading_block" />
 
               <div className="profile__info-block">
                 <Element name="PersonalInfo">
@@ -100,7 +97,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                     </div>
                     <div className="profile__block profile__block_avatar">
                       <Avatar
-                        src={getFileUrl(user.avatarFilename)}
+                        src={getFileUrl(avatarFilename)}
                         size="big"
                         alt="Avatar"
                       />
@@ -110,7 +107,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                           text="add or drag img"
                           accept="image/jpeg, image/png"
                           onDrop={files => this.uploadAvatar(files[0])}
-                          loading={this.state.avatarLoading}
+                          loading={uploadingAvatar.isRequesting}
                         />
 
                         <div className="profile__text-block">
@@ -211,7 +208,10 @@ ProfileGeneralInfoPage.propTypes = {
   initialize: PropTypes.func,
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
-  editUserGeneralInfo: PropTypes.func,
+  uploadingAvatar: PTCommunication,
+  editingGeneralInfo: PTCommunication,
+  avatarFilename: PropTypes.string,
+  editGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,
   userGeneralInfo: PropTypes.shape({
     firstName: PropTypes.string,

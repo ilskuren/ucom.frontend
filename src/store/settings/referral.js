@@ -1,3 +1,4 @@
+import { SETTINGS } from 'utils/actionTypes';
 
 const getInitialState = () => ({
   data: {
@@ -9,7 +10,7 @@ const getInitialState = () => ({
 
 const referral = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_SETTINGS_REFERRAL': {
+    case SETTINGS.RESET_REFERRAL: {
       return getInitialState();
     }
 

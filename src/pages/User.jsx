@@ -15,6 +15,7 @@ import Followers from '../components/Followers';
 import Feed from '../components/Feed';
 import Status from '../components/Status';
 import api from '../api/Api';
+import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
@@ -442,5 +443,5 @@ const mapDispatch = dispatch =>
   }, dispatch);
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), mapDispatch)(UserPage);

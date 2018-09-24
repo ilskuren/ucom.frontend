@@ -13,6 +13,7 @@ import AddImage from './AddImage';
 import { getOfferEditUrl } from '../utils/offer';
 import api from '../api/Api';
 import { getBase64FromFile } from '../utils/upload';
+import { selectUser } from '../store/selectors';
 
 class EventTitle extends PureComponent {
   constructor(props) {
@@ -218,5 +219,5 @@ EventTitle.defaultProps = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(EventTitle);

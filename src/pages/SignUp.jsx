@@ -8,6 +8,7 @@ import Checkbox from '../components/Checkbox';
 import Passphrase from '../components/Passphrase';
 import Button from '../components/Button';
 import dict from '../utils/dict';
+import { selectUser } from '../store/selectors/user';
 import { getPassphrase, getTestPassphrase } from '../utils/passphrase';
 import { register } from '../api';
 import api from '../api/Api';
@@ -236,7 +237,7 @@ class SignUp extends React.PureComponent {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     setUser: data => dispatch(setUser(data)),

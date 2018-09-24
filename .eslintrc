@@ -8,6 +8,7 @@
     "react/require-default-props": "off",
     "react/no-array-index-key": "off",
     "react/no-danger": "off",
+    "react/no-did-update-set-state": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/label-has-for": "off",
     "import/no-unresolved": "off",

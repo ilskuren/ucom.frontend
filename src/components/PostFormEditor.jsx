@@ -6,6 +6,7 @@ import IconClose from './Icons/Close';
 import Medium from './Medium';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
+import { selectUser } from '../store/selectors';
 
 class PostFormEditor extends PureComponent {
   constructor(props) {
@@ -120,7 +121,7 @@ PostFormEditor.propTypes = {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
     post: state.post,
   }),
   dispatch => ({

@@ -1,4 +1,3 @@
-import flag from '../static/img/flag_ru.jpg';
 import vitalik from '../static/img/vitalik.jpg';
 
 function importAll(context) {
@@ -6,6 +5,25 @@ function importAll(context) {
   context.keys().forEach((item) => { images[item.replace('./', '')] = context(item); });
   return images;
 }
+
+const users = Array.from({ length: 10 }).map((_, i) => ({
+  id: i,
+  accountName: 'Geksagaksa',
+  nickName: 'Nickname',
+  firstName: 'Ivan',
+  lastName: 'Ivanov',
+  email: 'gmail@yandex.RU',
+  phoneNumber: '009900',
+  birthday: null,
+  about: 'Me',
+  country: 'Russia',
+  city: 'Moscow',
+  address: 'Lenina 48',
+  moodMessage: null,
+  isFollow: false,
+  currentRate: 1000,
+  avatarFilename: encodeURI('avatar_filename-1535446210449.jpg'),
+}));
 
 const images = importAll(require.context('../static/img/logo', false, /\.(png|jpe?g|svg)$/));
 
@@ -37,18 +55,9 @@ export default [
     followData: {
       followOrganization: false,
       followUserId: 1,
-      joined: {
-        rate: '8923',
-        avatar: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-      },
-      followers: {
-        rate: '8923',
-        avatar: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-      },
-      trustedBy: {
-        rate: '8923',
-        avatar: 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg',
-      },
+      joined: users,
+      followers: users,
+      trustedBy: users,
     },
     poweredBy: {
       name: 'EOS',
@@ -58,7 +67,6 @@ export default [
     location: {
       city: 'Moscow',
       country: 'Russia',
-      flag,
     },
     partners: [
       { userName: 'Apple', accountName: 'Decenralized Exchange', avatarUrl: images['apple.jpg'] },

@@ -8,6 +8,7 @@ import { vote } from '../api';
 import { getToken } from '../utils/token';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
 import { showAuthPopup } from '../actions';
+import { selectUser } from '../store/selectors';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -93,8 +94,8 @@ Rating.propTypes = {
   postId: PropTypes.number,
   commentId: PropTypes.number,
   rating: PropTypes.number,
-  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
   showAuthPopup: PropTypes.func,
+  choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
 };
 
 Rating.defaultProps = {
@@ -103,7 +104,7 @@ Rating.defaultProps = {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     showAuthPopup: () => dispatch(showAuthPopup()),

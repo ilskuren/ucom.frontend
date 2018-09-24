@@ -2,10 +2,10 @@ import React, { PureComponent, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Avatar from '../components/Avatar';
-import FollowersAmount from '../components/FollowersAmount';
 import IconLink from '../components/Icons/Link';
+import Footer from '../components/Footer';
+import Followers from '../components/Followers';
 import Comments from '../components/Comments';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
@@ -15,6 +15,7 @@ import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import * as actions from '../actions';
+import { selectUser } from '../store/selectors';
 
 class OrganizationPage extends PureComponent {
   constructor(props) {
@@ -73,7 +74,7 @@ class OrganizationPage extends PureComponent {
                 />
               </div>
             </div>
-            <div className="sheets__content sheets__content_posts">
+            <div className="sheets__content sheets__content_theme_organization">
               <div className="organization">
                 <div className="organization__header">
                   <ProfileHeader
@@ -85,6 +86,7 @@ class OrganizationPage extends PureComponent {
                     userRate={organization.rate}
                     users={organization.users}
                     poweredBy={organization.poweredBy}
+                    statusTheme="organization"
                     squareAvatar
                     isBoldTextInStatus
                   />
@@ -93,67 +95,33 @@ class OrganizationPage extends PureComponent {
                     <div className="organization__menu">
                       <div className="toolbar toolbar_responsive">
                         <div className="toolbar__main">
-                          <FollowButton
-                            follow={organization.followData.followOrganization}
-                            userId={organization.followData.followUserId}
-                          />
+                          <div className="organization__follow-button">
+                            <FollowButton
+                              follow={organization.followData.followOrganization}
+                              userId={organization.followData.followUserId}
+                              isStretched
+                            />
+                          </div>
                         </div>
                         <div className="toolbar__side">
-                          <div className="menu menu_simple-tabs menu_simple-tabs_black menu_simple-tabs_medium">
-                            <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/joined"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/joined'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="joined"
-                                  rate={organization.followData.joined.rate}
-                                  avatar={organization.followData.joined.avatar}
-                                />
-                              </NavLink>
+                          <div className="inline">
+                            <div className="inline__item">
+                              <Followers
+                                title="Joined"
+                                users={organization.followData.joined}
+                              />
                             </div>
-                            <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/followers"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/followers'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="followers"
-                                  rate={organization.followData.followers.rate}
-                                  avatar={
-                                    organization.followData.followers.avatar
-                                  }
-                                />
-                              </NavLink>
+                            <div className="inline__item">
+                              <Followers
+                                title="Followers"
+                                users={organization.followData.followers}
+                              />
                             </div>
-                            <div className="menu__item">
-                              <NavLink
-                                className="menu__link menu__link_double-padding"
-                                activeClassName="menu__link_active"
-                                to="/my-profile/followers/trusted-by"
-                                isActive={() =>
-                                  this.props.location.pathname ===
-                                  '/my-profile/followers/trusted-by'
-                                }
-                              >
-                                <FollowersAmount
-                                  status="trusted by"
-                                  rate={organization.followData.trustedBy.rate}
-                                  avatar={
-                                    organization.followData.trustedBy.avatar
-                                  }
-                                />
-                              </NavLink>
+                            <div className="inline__item">
+                              <Followers
+                                title="Trusted by"
+                                users={organization.followData.trustedBy}
+                              />
                             </div>
                           </div>
                         </div>
@@ -163,7 +131,7 @@ class OrganizationPage extends PureComponent {
                 </div>
               </div>
               <div className="organization__content">
-                <div className="grid grid_user">
+                <div className="grid grid_organization">
                   <div className="grid__item">
                     {organization.content && (
                       <Fragment>
@@ -226,7 +194,9 @@ class OrganizationPage extends PureComponent {
 
                     <div className="user-section">
                       <div className="user-section__content">
-                        <Comments postId={1} comments={organization.comments} />
+                        <div className="organization__comments">
+                          <Comments postId={1} comments={organization.comments} />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,13 +211,6 @@ class OrganizationPage extends PureComponent {
                         </div>
                         <div className="user-section__content">
                           <div className="inline">
-                            <div className="inline__item">
-                              <Avatar
-                                src={organization.location.flag}
-                                square
-                                size="flag"
-                              />
-                            </div>
                             <div className="inline__item">
                               {organization.location.city}{organization.location.country && `, ${organization.location.country}`}
                             </div>
@@ -338,6 +301,7 @@ class OrganizationPage extends PureComponent {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     );
@@ -354,7 +318,7 @@ const mapDispatch = dispatch =>
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   mapDispatch,
 )(OrganizationPage);

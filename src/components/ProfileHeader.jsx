@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import Avatar from '../components/Avatar';
 import Avatars from '../components/Avatars';
 import Status from '../components/Status';
 import HordeIco from '../static/img/horde_ico.png';
 
 const ProfileHeader = ({
-  name, nickname, status, userRatePosition, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus,
+  name, nickname, status, userRatePosition, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus, statusTheme,
 }) => (
   <div className="profile-header">
     <div className="profile-header__user">
@@ -34,7 +35,11 @@ const ProfileHeader = ({
           maxAvatarsAmount={8}
         />}
         {users && <div className="profile-header__board">board</div>}
-        <Status text={status} isEditable={isEditableStatus} setUser={setUser} isBoldText={isBoldTextInStatus} />
+        {status && (
+          <div className={cn('profile-header__status', { [`profile-header__status_theme_${statusTheme}`]: Boolean(statusTheme) })}>
+            <Status text={status} isEditable={isEditableStatus} setUser={setUser} isBoldText={isBoldTextInStatus} />
+          </div>
+        )}
       </div>
     </div>
     <div className="profile-header__user-rating">
@@ -49,6 +54,7 @@ ProfileHeader.propTypes = {
   name: PropTypes.string,
   nickname: PropTypes.string,
   status: PropTypes.string,
+  statusTheme: PropTypes.string,
   userRatePosition: PropTypes.number,
   userRate: PropTypes.string,
   squareAvatar: PropTypes.bool,

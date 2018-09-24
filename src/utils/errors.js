@@ -11,3 +11,14 @@ export const getError = (errors, fieldName) => {
 
   return fieldError.message;
 };
+
+export const parseErrors = data => (
+  Promise.resolve()
+    .then(() => {
+      if (!data || data.errors) {
+        throw data.errors;
+      }
+
+      return data;
+    })
+);

@@ -146,9 +146,9 @@ class MenuPopup extends PureComponent {
                     </div>
                   </div>
                   <div className="menu-popup__content">
-                    {/* <div className="menu-popup__content-block">
+                    <div className="menu-popup__content-block">
                       <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
-                        {this.props.organizations || products.map((item, index) => (
+                        {/* {this.props.organizations || products.map((item, index) => (
                           <div className="menu-popup__content-item" key={index}>
                             <UserCard
                               className="user-card_text_left"
@@ -159,23 +159,19 @@ class MenuPopup extends PureComponent {
                               sign="@"
                             />
                           </div>
-                        ))}
+                        ))} */}
                         <div className="menu-popup__content-item">
                           <NavLink
                             className="menu-popup__add"
                             to="/organizations/new"
                             onClick={this.hidePopup}
                           >
-                            <div className="menu-popup__add-icon menu-popup__add-icon_new">
-                              +
-                            </div>
-                            <div className="menu-popup__add-text">
-                                Create new organization
-                            </div>
+                            <div className="menu-popup__add-icon menu-popup__add-icon_new">+</div>
+                            <div className="menu-popup__add-text">Create new organization</div>
                           </NavLink>
                         </div>
                       </InfoBlock>
-                    </div> */}
+                    </div>
                     {this.props.products && (
                       <div className="menu-popup__content-block">
                         <InfoBlock title="Products" size="small" align="left" line="gray-lighter">

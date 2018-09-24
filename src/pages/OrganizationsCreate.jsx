@@ -1,3 +1,4 @@
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React, { Fragment, PureComponent } from 'react';
@@ -15,6 +16,10 @@ class OrganizationsCreatePage extends PureComponent {
   }
 
   render() {
+    if (this.props.organization.saved) {
+      return <Redirect to={`/organizations/${this.props.organization.data.id}`} />;
+    }
+
     return (
       <Fragment>
         <div className="content">

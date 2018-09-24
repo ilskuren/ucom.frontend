@@ -1,4 +1,5 @@
 import { createOrganization as createOrganizationApi } from '../api';
+import { parseErrors } from '../utils/errors';
 
 export const setUser = payload => ({ payload, type: 'SET_USER' });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
@@ -36,8 +37,16 @@ export const hideAuthPopup = () => ({ type: 'HIDE_AUTH_POPUP' });
 
 export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
 export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
+export const setOrganizationErrors = payload => ({ type: 'SET_ORGANIZATION_ERRORS', payload });
 export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED', payload });
 export const createOrganization = payload => (dispatch) => {
   createOrganizationApi(payload)
-    .then(() => dispatch(setOrganizationSaved(true)));
+    .then(parseErrors)
+    .then((data) => {
+      dispatch(setOrganizationData(data));
+      dispatch(setOrganizationSaved(true));
+    })
+    .catch((errors) => {
+      dispatch(setOrganizationErrors(errors));
+    });
 };

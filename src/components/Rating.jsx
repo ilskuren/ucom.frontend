@@ -95,7 +95,6 @@ Rating.propTypes = {
   rating: PropTypes.number,
   showAuthPopup: PropTypes.func,
   choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
-  showAuthPopup: PropTypes.func,
 };
 
 Rating.defaultProps = {

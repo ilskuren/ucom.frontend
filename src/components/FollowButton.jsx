@@ -61,7 +61,6 @@ FollowButton.propTypes = {
   follow: PropTypes.bool,
   isStretched: PropTypes.bool,
   userId: PropTypes.number,
-  showAuthPopup: PropTypes.func,
   userAccountName: PropTypes.string,
 };
 

@@ -54,6 +54,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",
     "decko": "^1.2.0",

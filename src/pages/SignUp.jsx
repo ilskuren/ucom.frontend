@@ -9,7 +9,8 @@ import Passphrase from '../components/Passphrase';
 import Button from '../components/Button';
 import dict from '../utils/dict';
 import { getPassphrase, getTestPassphrase } from '../utils/passphrase';
-import { checkAccountName, register } from '../api';
+import { register } from '../api';
+import api from '../api/Api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
@@ -47,11 +48,11 @@ class SignUp extends React.PureComponent {
         return;
       }
 
-      checkAccountName(accountName)
+      api.checkAccountName(accountName)
         .then((data) => {
           if (data.errors) {
             this.setState({
-              accountNameError: data.errors.account_name,
+              accountNameError: data.errors.accountName,
               accountNameIsValid: false,
             });
 

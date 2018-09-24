@@ -4,9 +4,9 @@ import DateInput from '../../components/DateInput';
 
 class DateInputFieldWrapper extends PureComponent {
   render() {
-    const { input } = this.props;
+    const { input, meta: { error, touched } } = this.props;
     return (
-      <DateInput {...input} label={this.props.label} />
+      <DateInput {...input} label={this.props.label} touched={touched} error={error} />
     );
   }
 }

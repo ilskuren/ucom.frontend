@@ -160,6 +160,7 @@ export const getPosts = params => (
     .then(resp => resp.json())
 );
 
+// not used
 export const postUpVote = (postId, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/upvote`, {
     method: 'POST',
@@ -202,6 +203,7 @@ export const checkAccountName = accountName => (
     .then(resp => resp.json())
 );
 
+// not used
 export const createOffer = (data, token) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers`, {
     method: 'POST',
@@ -213,6 +215,7 @@ export const createOffer = (data, token) => (
     .then(resp => resp.json())
 );
 
+// not used
 export const updateOffer = (data, token, id) => (
   fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
     method: 'PATCH',

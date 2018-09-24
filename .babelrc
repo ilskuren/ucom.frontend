@@ -4,5 +4,12 @@
     "react",
     "stage-2"
   ],
-  "plugins": ["transform-decorators-legacy"]
+  "plugins": [
+    "transform-decorators-legacy",
+    "syntax-async-functions",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }

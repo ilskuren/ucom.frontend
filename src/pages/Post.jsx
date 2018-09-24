@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import cn from 'classnames';
-import { getPost, createComment } from '../api';
+import api from '../api/Api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
-import { getToken } from '../utils/token';
 import PostHeader from '../components/PostHeader';
 import EventTitle from '../components/EventTitle';
 import PostContent from '../components/PostContent';
@@ -23,14 +22,14 @@ class Offer extends PureComponent {
   }
 
   getData() {
-    getPost(this.props.match.params.id, getToken())
+    api.getPost(this.props.match.params.id)
       .then((post) => {
         this.setState({ post });
       });
   }
 
   createComment(commentData, commentId) {
-    return createComment(getToken(), commentData, this.props.match.params.id, commentId)
+    return api.createComment(commentData, this.props.match.params.id, commentId)
       .then((data) => {
         if (data.errors) {
           return;

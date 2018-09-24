@@ -14,7 +14,7 @@ import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import Feed from '../components/Feed';
 import Status from '../components/Status';
-import { getUser } from '../api';
+import api from '../api/Api';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
@@ -41,7 +41,7 @@ class UserPage extends PureComponent {
 
   getData(userId) {
     this.setState({ user: {} }, () => {
-      getUser(userId)
+      api.getUser(userId)
         .then((user) => {
           this.setState({ user });
         });

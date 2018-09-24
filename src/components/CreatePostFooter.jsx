@@ -4,6 +4,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
+import { selectUser } from '../store/selectors';
 
 const CreatePostFooter = props => (
   <div className="create-post__content create-post__content_footer">
@@ -42,5 +43,5 @@ CreatePostFooter.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(CreatePostFooter);

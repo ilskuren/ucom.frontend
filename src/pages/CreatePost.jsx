@@ -8,6 +8,7 @@ import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions'
 import { createPost, updatePost, getPost } from '../api';
 import { getPostUrl } from '../utils/posts';
 import { getToken } from '../utils/token';
+import { selectUser } from '../store/selectors';
 
 class CreatePost extends PureComponent {
   constructor(props) {
@@ -104,7 +105,7 @@ CreatePost.propTypes = {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
     post: state.post,
   }),
   dispatch => ({

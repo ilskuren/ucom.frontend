@@ -15,6 +15,7 @@ import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import * as actions from '../actions';
+import { selectUser } from '../store/selectors';
 
 class OrganizationPage extends PureComponent {
   constructor(props) {
@@ -317,7 +318,7 @@ const mapDispatch = dispatch =>
 
 export default connect(
   state => ({
-    user: state.user,
+    user: selectUser(state),
   }),
   mapDispatch,
 )(OrganizationPage);

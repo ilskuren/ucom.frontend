@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
+import * as selectors from '../../store/selectors/settings';
 import Switcher from '../../components/Switcher';
 
 import * as actions from '../../actions/settings';
-import * as selectors from '../../utils/selectors/settings';
 
 const mapDispatch = dispatch =>
   bindActionCreators({

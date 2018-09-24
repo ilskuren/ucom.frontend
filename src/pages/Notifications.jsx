@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import Footer from '../components/Footer';
 import NotificationsList from '../components/NotificationsList';
+import { selectUser } from '../store/selectors';
 
 class NotificationsPage extends PureComponent {
   componentDidMount() {
@@ -77,5 +78,5 @@ class NotificationsPage extends PureComponent {
 }
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }), null)(NotificationsPage);

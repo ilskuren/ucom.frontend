@@ -1,27 +1,30 @@
-export const setUser = payload => ({ payload, type: 'SET_USER' });
-export const removeUser = () => ({ type: 'REMOVE_USER' });
+import { USER } from 'utils/actionTypes';
+import { makeCommunicationActionCreators } from 'utils/redux/communication';
 
-// General
+export const setUser = payload => ({ payload, type: USER.SET_USER });
+export const removeUser = () => ({ type: USER.REMOVE_USER });
 
-export const changeUserField = payload => ({ type: 'CHANGE_USER_FIELD', payload });
-export const validateProfileForm = payload => ({ type: 'VALIDATE_PROFILE_FORM', payload });
-export const clearErrors = () => ({ type: 'CLEAR_PROFILE_FORM_ERRORS' });
+export const editUser = payload => ({ type: USER.EDIT_USER, payload });
+export const editUserCompleted = payload => ({ type: USER.EDIT_USER_COMPLETED, payload });
+export const editUserFail = payload => ({ type: USER.EDIT_USER_FAIL, payload });
+
+export const { execute: editGeneralInfo, completed: editGeneralInfoCompleted, failed: editGeneralInfoFail } =
+  makeCommunicationActionCreators(USER.EDIT_GENERAL_INFO, USER.EDIT_GENERAL_INFO_COMPLETED, USER.EDIT_CONTACTS_FAIL);
+
+export const { execute: editWorkAndEducation, completed: editWorkAndEducationCompleted, failed: editWorkAndEducationFail } =
+  makeCommunicationActionCreators(USER.EDIT_WORK_AND_EDUCATION, USER.EDIT_WORK_AND_EDUCATION_COMPLETED, USER.EDIT_WORK_AND_EDUCATION_FAIL);
+
+export const { execute: editContacts, completed: editContactsCompleted, failed: editContactsFail } =
+  makeCommunicationActionCreators(USER.EDIT_CONTACTS, USER.EDIT_CONTACTS_COMPLETED, USER.EDIT_CONTACTS_FAIL);
+
+export const { execute: uploadUserAvatar, completed: uploadUserAvatarCompleted, failed: uploadUserAvatarFail } =
+  makeCommunicationActionCreators(USER.UPLOAD_AVATAR, USER.UPLOAD_AVATAR_COMPLETED, USER.UPLOAD_AVATAR_FAIL);
 
 // Contacts
 
 export const addUserPersonalWebSite = () => ({ type: 'ADD_USER_PERSONAL_SITE' });
 export const changeUserPersonalWebSiteUrl = payload => ({ type: 'CHANGE_USER_PERSONAL_SITE', payload });
 export const removeUserPersonalWebSite = payload => ({ type: 'REMOVE_USER_PERSONAL_SITE', payload });
-
-// Work and education
-
-export const addUserEducationItem = () => ({ type: 'ADD_USER_EDUCATION_ITEM' });
-export const changeUserEducationItem = payload => ({ type: 'CHANGE_USER_EDUCATION_ITEM', payload });
-export const removeUserEducationItem = payload => ({ type: 'REMOVE_USER_EDUCATION_ITEM', payload });
-export const addUserJobItem = () => ({ type: 'ADD_USER_JOB_ITEM' });
-export const changeUserJobItem = payload => ({ type: 'CHANGE_USER_JOB_ITEM', payload });
-export const removeUserJobItem = payload => ({ type: 'ADD_USER_REMOVE_ITEM', payload });
-
 // Validate forms
 
 export const setPostData = payload => ({ type: 'SET_POST_DATA', payload });

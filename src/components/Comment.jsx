@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react';
 import CommentForm from './CommentForm';
 import Avatar from './Avatar';
 import Rating from './Rating';
+import { selectUser } from '../store/selectors';
 
 class Comments extends PureComponent {
   constructor(props) {
@@ -105,5 +106,5 @@ Comments.propTypes = {
 };
 
 export default connect(state => ({
-  user: state.user,
+  user: selectUser(state),
 }))(Comments);

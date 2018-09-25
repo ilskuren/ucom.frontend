@@ -29,6 +29,7 @@ class Api {
     return { Authorization: `Bearer ${getToken()}` };
   }
 
+  @bind
   async login({ brainkey, account_name }) {
     const ownerKey = ecc.seedPrivate(brainkey);
     const activeKey = ecc.seedPrivate(ownerKey);
@@ -44,6 +45,7 @@ class Api {
     return convertServerUserLogin(response.data);
   }
 
+  @bind
   async register({ brainkey, accountName }) {
     const ownerKey = ecc.seedPrivate(brainkey);
     const activeKey = ecc.seedPrivate(ownerKey);
@@ -60,61 +62,73 @@ class Api {
     return convertServerUserLogin(response.data);
   }
 
+  @bind
   async getMyself() {
     const response = await this.actions.get('/api/v1/myself', {}, { headers: this.getPrivateHeaders() });
     return convertServerUser(response.data);
   }
 
+  @bind
   async patchMyself(data) {
     const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
     return convertServerUser(response.data);
   }
 
+  @bind
   async patchMyselfFormData(data) {
     const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
     return convertServerUser(response.data);
   }
 
+  @bind
   async getUser(id) {
     const response = await this.actions.get(`/api/v1/users/${id}`);
     return convertServerUser(response.data);
   }
 
+  @bind
   async getUsers() {
     const response = await this.actions.get('/api/v1/users');
     return humps(response.data);
   }
 
+  @bind
   async searchUsers(query) {
     const response = await this.actions.get(`/api/v1/users/search/?q=${query}`);
     return humps(response.data);
   }
 
+  @bind
   async createPost(data) {
     const response = await this.actions.post('/api/v1/posts', data, { headers: this.getPrivateHeaders() });
     return response.data;
   }
 
+  @bind
   async updatePost(data, id) {
     const response = await this.actions.patch(`/api/v1/posts/${id}`, data, { headers: this.getPrivateHeaders() });
     return response.data;
   }
 
+  @bind
   async getPost(id) {
     const response = await this.actions.get(`/api/v1/posts/${id}`, {}, { headers: this.getPrivateHeaders() });
     return response.data;
   }
 
+  @bind
   async getUserPosts(id) {
     const response = await this.actions.get(`/api/v1/users/${id}/posts`);
     return humps(response.data);
   }
 
+  @bind
   async getPosts(params) {
     const response = await this.actions.get(`/api/v1/posts?${param(params)}`);
     return humps(response.data);
   }
 
+  @bind
   async vote(isUp, postId, commentId) {
     let url = `/api/v1/posts/${postId}`;
 
@@ -128,6 +142,7 @@ class Api {
     return humps(response.data);
   }
 
+  @bind
   async checkAccountName(accountName) {
     const response = await this.actions.post('/api/v1/auth/registration/validate-account-name', {
       account_name: accountName,
@@ -147,11 +162,13 @@ class Api {
     return humps(response.data);
   }
 
+  @bind
   async join(userId) {
     const response = await this.actions.post(`/api/v1/posts/${userId}/join`, {}, { headers: this.getPrivateHeaders() });
     return humps(response.data);
   }
 
+  @bind
   async createComment(data, postId, commentId) {
     let url = `/api/v1/posts/${postId}/comments`;
 

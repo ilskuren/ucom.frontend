@@ -37,7 +37,7 @@ class EventsPage extends PureComponent {
 
           <div className="table-content">
             <div className="table-content__table">
-              <table className="list-table list-table_indexed list-table_evetns list-table_responsive">
+              <table className="list-table list-table_indexed list-table_events list-table_responsive">
                 <thead className="list-table__head">
                   <tr className="list-table__row">
                     <td className="list-table__cell list-table__cell_index">#</td>

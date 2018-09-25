@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import Footer from '../components/Footer';
 import UserCard from '../components/UserCard';
-import api from '../api/Api';
+import api from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 

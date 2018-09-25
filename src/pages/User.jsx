@@ -14,7 +14,7 @@ import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import Feed from '../components/Feed';
 import Status from '../components/Status';
-import api from '../api/Api';
+import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';

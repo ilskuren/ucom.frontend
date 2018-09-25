@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
-import api from '../api/Api';
+import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
 import { showAuthPopup } from '../actions';
 import { selectUser } from '../store/selectors';

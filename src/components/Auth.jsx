@@ -7,7 +7,7 @@ import TextInput from './TextInput';
 import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
-import api from '../api/Api';
+import api from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';

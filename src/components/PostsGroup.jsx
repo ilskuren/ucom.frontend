@@ -5,7 +5,7 @@ import PostItem from './PostItem';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl, getUserName } from '../utils/user';
-import api from '../api/Api';
+import api from '../api';
 
 class PostsGroup extends PureComponent {
   constructor(props) {

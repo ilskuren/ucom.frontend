@@ -5,7 +5,7 @@ import UserCard from '../components/UserCard';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
-import api from '../api/Api';
+import api from '../api';
 
 class PostsTable extends PureComponent {
   constructor(props) {

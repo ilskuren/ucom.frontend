@@ -9,7 +9,7 @@ import CommentsStub from '../../components/CommentsStub';
 import EventTitle from '../../components/EventTitle';
 import burgerImg from './images/burger.png';
 import { getToken } from '../../utils/token';
-import api from '../../api/Api';
+import api from '../../api';
 
 class OfferPreview extends PureComponent {
   constructor(props) {

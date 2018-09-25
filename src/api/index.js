@@ -1,9 +1,10 @@
 import humps from 'lodash-humps';
 import param from 'jquery-param';
-import config from '../../package.json';
+import { bind } from 'decko';
+import HttpActions from './HttpActions';
+import packageConfig from '../../package.json';
+import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-// import { getActivePrivateKey } from '../utils/keys';
-// import { getBrainkey } from '../utils/brainkey';
 
 const AppTransaction = require('uos-app-transaction');
 
@@ -11,288 +12,172 @@ const { TransactionFactory } = AppTransaction;
 
 TransactionFactory.initForProductionEnv();
 
-// TODO: process.env.NODE_ENV fix for production
-// if (process.env.NODE_ENV === 'production') {
-//   TransactionFactory.initForProductionEnv();
-// } else {
-//   TransactionFactory.initForTestEnv();
-// }
-
 const Eos = require('eosjs');
 
 const { ecc } = Eos.modules;
 
-export const login = ({ brainkey, account_name }) => {
-  const ownerKey = ecc.seedPrivate(brainkey);
-  const activeKey = ecc.seedPrivate(ownerKey);
-  const sign = ecc.sign(account_name, activeKey);
-  const publicKey = ecc.privateToPublic(activeKey);
-
-  return fetch(`${config.backend.httpEndpoint}/api/v1/auth/login`, {
-    method: 'POST',
-    headers: {
+class Api {
+  constructor() {
+    this.actions = new HttpActions(packageConfig.backend.httpEndpoint);
+    this.headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+    };
+  }
+
+  getPrivateHeaders() {
+    return { Authorization: `Bearer ${getToken()}` };
+  }
+
+  @bind
+  async login({ brainkey, account_name }) {
+    const ownerKey = ecc.seedPrivate(brainkey);
+    const activeKey = ecc.seedPrivate(ownerKey);
+    const sign = ecc.sign(account_name, activeKey);
+    const publicKey = ecc.privateToPublic(activeKey);
+    const response = await this.actions.post('/api/v1/auth/login', {
       sign,
       account_name,
       public_key: publicKey,
-    }),
-  })
-    .then(resp => resp.json().then(data => convertServerUserLogin(data)));
-};
+    }, {
+      headers: this.headers,
+    });
+    return convertServerUserLogin(response.data);
+  }
 
-export const register = ({ brainkey, accountName }) => {
-  const ownerKey = ecc.seedPrivate(brainkey);
-  const activeKey = ecc.seedPrivate(ownerKey);
-  const sign = ecc.sign(accountName, activeKey);
-  const publicKey = ecc.privateToPublic(activeKey);
-
-  return fetch(`${config.backend.httpEndpoint}/api/v1/auth/registration`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+  @bind
+  async register({ brainkey, accountName }) {
+    const ownerKey = ecc.seedPrivate(brainkey);
+    const activeKey = ecc.seedPrivate(ownerKey);
+    const sign = ecc.sign(accountName, activeKey);
+    const publicKey = ecc.privateToPublic(activeKey);
+    const response = await this.actions.post('/api/v1/auth/registration', {
       sign,
       brainkey,
       account_name: accountName,
       public_key: publicKey,
-    }),
-  })
-    .then(resp => resp.json())
-    .then(humps);
-};
-
-export const getMyself = token => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json())
-);
-
-export const patchMyself = (data, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then(resp => resp.json().then(data => convertServerUser(data)))
-);
-
-export const patchMyselfFormData = (data, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/myself`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: data,
-  })
-    .then(resp => resp.json())
-);
-
-export const getUser = id => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}`)
-    .then(resp => resp.json().then(data => convertServerUser(data)))
-);
-
-export const getUsers = () => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users`)
-    .then(resp => resp.json())
-);
-
-export const searchUsers = query => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users/search/?q=${query}`)
-    .then(resp => resp.json())
-);
-
-export const createPost = (data, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: data,
-  })
-    .then(resp => resp.json())
-);
-
-export const updatePost = (data, token, id) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: data,
-  })
-    .then(resp => resp.json())
-);
-
-export const getPost = (id, token) => {
-  const params = {
-    headers: {},
-  };
-
-  if (token) {
-    params.headers.Authorization = `Bearer ${token}`;
+    }, {
+      headers: this.headers,
+    });
+    return convertServerUserLogin(response.data);
   }
 
-  return fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, params)
-    .then(resp => resp.json());
-};
-
-export const getUserPosts = id => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users/${id}/posts`)
-    .then(resp => resp.json())
-);
-
-export const getPosts = params => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts?${param(params)}`)
-    .then(resp => resp.json())
-);
-
-// not used
-export const postUpVote = (postId, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/upvote`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json())
-);
-
-export const vote = (token, isUp, postId, commentId) => {
-  let url = `${config.backend.httpEndpoint}/api/v1/posts/${postId}`;
-
-  if (commentId) {
-    url = `${url}/comments/${commentId}`;
+  @bind
+  async getMyself() {
+    const response = await this.actions.get('/api/v1/myself', {}, { headers: this.getPrivateHeaders() });
+    return convertServerUser(response.data);
   }
 
-  url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
+  @bind
+  async patchMyself(data) {
+    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    return convertServerUser(response.data);
+  }
 
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json());
-};
+  @bind
+  async patchMyselfFormData(data) {
+    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    return convertServerUser(response.data);
+  }
 
-export const checkAccountName = accountName => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/auth/registration/validate-account-name`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+  @bind
+  async getUser(id) {
+    const response = await this.actions.get(`/api/v1/users/${id}`);
+    return convertServerUser(response.data);
+  }
+
+  @bind
+  async getUsers() {
+    const response = await this.actions.get('/api/v1/users');
+    return humps(response.data);
+  }
+
+  @bind
+  async searchUsers(query) {
+    const response = await this.actions.get(`/api/v1/users/search/?q=${query}`);
+    return humps(response.data);
+  }
+
+  @bind
+  async createPost(data) {
+    const response = await this.actions.post('/api/v1/posts', data, { headers: this.getPrivateHeaders() });
+    return response.data;
+  }
+
+  @bind
+  async updatePost(data, id) {
+    const response = await this.actions.patch(`/api/v1/posts/${id}`, data, { headers: this.getPrivateHeaders() });
+    return response.data;
+  }
+
+  @bind
+  async getPost(id) {
+    const response = await this.actions.get(`/api/v1/posts/${id}`, {}, { headers: this.getPrivateHeaders() });
+    return response.data;
+  }
+
+  @bind
+  async getUserPosts(id) {
+    const response = await this.actions.get(`/api/v1/users/${id}/posts`);
+    return humps(response.data);
+  }
+
+  @bind
+  async getPosts(params) {
+    const response = await this.actions.get(`/api/v1/posts?${param(params)}`);
+    return humps(response.data);
+  }
+
+  @bind
+  async vote(isUp, postId, commentId) {
+    let url = `/api/v1/posts/${postId}`;
+
+    if (commentId) {
+      url = `${url}/comments/${commentId}`;
+    }
+
+    url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
+
+    const response = await this.actions.post(url, {}, { headers: this.getPrivateHeaders() });
+    return response.data;
+  }
+
+  @bind
+  async checkAccountName(accountName) {
+    const response = await this.actions.post('/api/v1/auth/registration/validate-account-name', {
       account_name: accountName,
-    }),
-  })
-    .then(resp => resp.json())
-);
-
-// not used
-export const createOffer = (data, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/offers`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: data,
-  })
-    .then(resp => resp.json())
-);
-
-// not used
-export const updateOffer = (data, token, id) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: data,
-  })
-    .then(resp => resp.json())
-);
-
-// export const follow = (userId, token, senderAccountName, recipientAccountName) => {
-//   const brainkey = getBrainkey();
-//   const senderActivePrivateKey = getActivePrivateKey(brainkey);
-
-//   return TransactionFactory.getSignedUserFollowsUser(
-//     senderAccountName,
-//     senderActivePrivateKey,
-//     recipientAccountName,
-//   )
-//     .then(signed => (
-//       fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
-//         method: 'POST',
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//         },
-//         body: JSON.stringify(signed),
-//       })
-//         .then(resp => resp.json())
-//     ));
-// };
-
-export const follow = (userId, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/follow`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json())
-);
-
-export const unfollow = (userId, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/users/${userId}/unfollow`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json())
-);
-
-export const join = (postId, token) => (
-  fetch(`${config.backend.httpEndpoint}/api/v1/posts/${postId}/join`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(resp => resp.json())
-);
-
-export const createComment = (token, data, postId, commentId) => {
-  let url = `${config.backend.httpEndpoint}/api/v1/posts/${postId}/comments`;
-
-  if (commentId) {
-    url = `${url}/${commentId}/comments`;
+    }, { headers: this.headers });
+    return humps(response.data);
   }
 
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then(resp => resp.json());
-};
+  @bind
+  async follow(userId) {
+    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {}, { headers: this.getPrivateHeaders() });
+    return humps(response.data);
+  }
+
+  @bind
+  async unfollow(userId) {
+    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {}, { headers: this.getPrivateHeaders() });
+    return humps(response.data);
+  }
+
+  @bind
+  async join(userId) {
+    const response = await this.actions.post(`/api/v1/posts/${userId}/join`, {}, { headers: this.getPrivateHeaders() });
+    return humps(response.data);
+  }
+
+  @bind
+  async createComment(data, postId, commentId) {
+    let url = `/api/v1/posts/${postId}/comments`;
+
+    if (commentId) {
+      url = `${url}/${commentId}/comments`;
+    }
+    const response = await this.actions.post(url, data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    return humps(response.data);
+  }
+}
+
+export default new Api();

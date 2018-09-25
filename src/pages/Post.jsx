@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import cn from 'classnames';
-import api from '../api/Api';
+import api from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import PostHeader from '../components/PostHeader';

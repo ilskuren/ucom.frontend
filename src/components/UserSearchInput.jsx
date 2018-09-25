@@ -5,7 +5,7 @@ import { components } from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 import UserOption from './UserOption';
 import Close from './Icons/Close';
-import api from '../api/Api';
+import api from '../api';
 import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 

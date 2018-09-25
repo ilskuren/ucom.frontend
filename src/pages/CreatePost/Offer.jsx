@@ -10,7 +10,7 @@ import DropZone from '../../components/DropZone';
 import EventTitle from '../../components/EventTitle';
 import TextEditor from '../../components/TextEditor';
 import { getToken } from '../../utils/token';
-import api from '../../api/Api';
+import api from '../../api';
 import burgerImg from './images/burger.png';
 import { selectUser } from '../../store/selectors';
 

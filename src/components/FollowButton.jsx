@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Button from './Button';
-import api from '../api/Api';
+import api from '../api';
 import { getToken } from '../utils/token';
 import { showAuthPopup } from '../actions';
 import { selectUser } from '../store/selectors/user';

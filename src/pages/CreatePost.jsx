@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 import OfferForm from '../components/OfferForm';
 import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
-import api from '../api/Api';
+import api from '../api';
 import { getPostUrl } from '../utils/posts';
 import { selectUser } from '../store/selectors';
 

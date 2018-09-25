@@ -11,7 +11,7 @@ import TimeCounter from './TimeCounter';
 import Share from './Share';
 import AddImage from './AddImage';
 import { getOfferEditUrl } from '../utils/offer';
-import api from '../api/Api';
+import api from '../api';
 import { getBase64FromFile } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 

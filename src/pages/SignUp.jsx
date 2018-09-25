@@ -10,7 +10,7 @@ import Button from '../components/Button';
 import dict from '../utils/dict';
 import { selectUser } from '../store/selectors/user';
 import { getPassphrase, getTestPassphrase } from '../utils/passphrase';
-import api from '../api/Api';
+import api from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';

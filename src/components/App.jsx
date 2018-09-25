@@ -18,7 +18,7 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser, hideAuthPopup } from '../actions';
 import { getToken } from '../utils/token';
-import api from '../api/Api';
+import api from '../api';
 import Loading from './Loading';
 import Header from './Header';
 import SignUp from '../pages/SignUp';

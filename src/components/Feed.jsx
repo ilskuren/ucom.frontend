@@ -7,7 +7,7 @@ import Post from './Post';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
-import api from '../api/Api';
+import api from '../api';
 import { selectUser } from '../store/selectors';
 
 class Feed extends PureComponent {

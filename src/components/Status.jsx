@@ -4,7 +4,7 @@ import { bind } from 'decko';
 import cn from 'classnames';
 import Textarea from './Textarea';
 import Button from './Button';
-import api from '../api/Api';
+import api from '../api';
 
 class Status extends PureComponent {
   constructor() {

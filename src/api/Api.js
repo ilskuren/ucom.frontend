@@ -139,7 +139,7 @@ class Api {
     url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
 
     const response = await this.actions.post(url, {}, { headers: this.getPrivateHeaders() });
-    return humps(response.data);
+    return response.data;
   }
 
   @bind

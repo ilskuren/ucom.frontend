@@ -10,7 +10,7 @@ import DropZone from '../../components/DropZone';
 import EventTitle from '../../components/EventTitle';
 import TextEditor from '../../components/TextEditor';
 import { getToken } from '../../utils/token';
-import { createPost } from '../../api';
+import api from '../../api/Api';
 import burgerImg from './images/burger.png';
 import { selectUser } from '../../store/selectors';
 
@@ -32,7 +32,6 @@ class StoryPage extends PureComponent {
   save() {
     this.setState({ loading: true });
 
-    const token = getToken();
     const data = new FormData();
 
     data.append('title', this.state.title);
@@ -41,7 +40,7 @@ class StoryPage extends PureComponent {
     data.append('main_image_filename', this.state.main_image_filename);
     data.append('post_type_id', 1);
 
-    createPost(data, token)
+    api.createPost(data)
       .then((post) => {
         this.setState({
           loading: false,

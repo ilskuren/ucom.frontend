@@ -10,7 +10,6 @@ import Button from '../components/Button';
 import dict from '../utils/dict';
 import { selectUser } from '../store/selectors/user';
 import { getPassphrase, getTestPassphrase } from '../utils/passphrase';
-import { register } from '../api';
 import api from '../api/Api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
@@ -74,7 +73,7 @@ class SignUp extends React.PureComponent {
     }, () => {
       const brainkey = this.state.passphrase.join(' ');
 
-      register({
+      api.register({
         brainkey,
         accountName: this.state.accountName,
       })

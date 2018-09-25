@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import humps from 'lodash-humps';
 import React, { PureComponent } from 'react';
 // import FeedToolbar from './FeedToolbar';
 import Post from './Post';
@@ -8,7 +7,7 @@ import Post from './Post';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
-import { getUserPosts, getUser } from '../api';
+import api from '../api/Api';
 import { selectUser } from '../store/selectors';
 
 class Feed extends PureComponent {
@@ -33,12 +32,12 @@ class Feed extends PureComponent {
 
   getData(userId) {
     Promise.all([
-      getUserPosts(userId),
-      getUser(userId),
+      api.getUserPosts(userId),
+      api.getUser(userId),
     ])
       .then((result) => {
         this.setState({
-          posts: humps(result[0]),
+          posts: result[0],
           user: result[1],
         });
       });

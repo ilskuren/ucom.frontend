@@ -5,9 +5,8 @@ import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 import OfferForm from '../components/OfferForm';
 import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
-import { createPost, updatePost, getPost } from '../api';
+import api from '../api/Api';
 import { getPostUrl } from '../utils/posts';
-import { getToken } from '../utils/token';
 import { selectUser } from '../store/selectors';
 
 class CreatePost extends PureComponent {
@@ -45,7 +44,7 @@ class CreatePost extends PureComponent {
   getData(id) {
     this.props.resetPost();
 
-    getPost(id).then((data) => {
+    api.getPost(id).then((data) => {
       this.props.setPostData(data);
     });
   }
@@ -61,13 +60,13 @@ class CreatePost extends PureComponent {
       return;
     }
 
-    const saveFn = this.props.match.params.id ? updatePost : createPost;
+    const saveFn = this.props.match.params.id ? api.updatePost : api.createPost;
     const data = objectToFormData(this.props.post.data, {
       indices: true,
     });
 
     this.setState({ loading: true }, () => {
-      saveFn(data, getToken(), this.props.match.params.id)
+      saveFn(data, this.props.match.params.id)
         .then((data) => {
           this.setState({ loading: false });
           this.props.history.push(getPostUrl(data.id || data.post_id));

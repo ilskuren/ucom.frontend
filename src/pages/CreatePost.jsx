@@ -1,4 +1,3 @@
-import objectToFormData from 'object-to-formdata';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
@@ -61,12 +60,9 @@ class CreatePost extends PureComponent {
     }
 
     const saveFn = this.props.match.params.id ? api.updatePost : api.createPost;
-    const data = objectToFormData(this.props.post.data, {
-      indices: true,
-    });
 
     this.setState({ loading: true }, () => {
-      saveFn(data, this.props.match.params.id)
+      saveFn(this.props.post.data, this.props.match.params.id)
         .then((data) => {
           this.setState({ loading: false });
           this.props.history.push(getPostUrl(data.id || data.post_id));

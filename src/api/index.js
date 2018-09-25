@@ -1,4 +1,3 @@
-import objectToFormData from 'object-to-formdata';
 import humps from 'lodash-humps';
 import param from 'jquery-param';
 import { bind } from 'decko';
@@ -29,10 +28,6 @@ const { ecc } = Eos.modules;
 class Api {
   constructor() {
     this.actions = new HttpActions(packageConfig.backend.httpEndpoint);
-    this.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    };
   }
 
   getPrivateHeaders() {
@@ -49,8 +44,6 @@ class Api {
       sign,
       account_name,
       public_key: publicKey,
-    }, {
-      headers: this.headers,
     });
     return convertServerUserLogin(response.data);
   }
@@ -66,75 +59,84 @@ class Api {
       brainkey,
       account_name: accountName,
       public_key: publicKey,
-    }, {
-      headers: this.headers,
     });
     return convertServerUserLogin(response.data);
   }
 
   @bind
   async getMyself() {
-    const response = await this.actions.get('/api/v1/myself', {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.get('/api/v1/myself');
+
     return convertServerUser(response.data);
   }
 
   @bind
   async patchMyself(data) {
-    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    const response = await this.actions.patch('/api/v1/myself', data);
+
     return convertServerUser(response.data);
   }
 
   @bind
   async patchMyselfFormData(data) {
-    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    const response = await this.actions.patch('/api/v1/myself', data);
+
     return convertServerUser(response.data);
   }
 
   @bind
   async getUser(id) {
     const response = await this.actions.get(`/api/v1/users/${id}`);
+
     return convertServerUser(response.data);
   }
 
   @bind
   async getUsers() {
     const response = await this.actions.get('/api/v1/users');
+
     return humps(response.data);
   }
 
   @bind
   async searchUsers(query) {
     const response = await this.actions.get(`/api/v1/users/search/?q=${query}`);
+
     return humps(response.data);
   }
 
   @bind
   async createPost(data) {
-    const response = await this.actions.post('/api/v1/posts', data, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post('/api/v1/posts', data);
+
     return response.data;
   }
 
   @bind
   async updatePost(data, id) {
-    const response = await this.actions.patch(`/api/v1/posts/${id}`, data, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.patch(`/api/v1/posts/${id}`, data);
+
     return response.data;
   }
 
   @bind
   async getPost(id) {
-    const response = await this.actions.get(`/api/v1/posts/${id}`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.get(`/api/v1/posts/${id}`);
+
     return response.data;
   }
 
   @bind
   async getUserPosts(id) {
     const response = await this.actions.get(`/api/v1/users/${id}/posts`);
+
     return humps(response.data);
   }
 
   @bind
   async getPosts(params) {
     const response = await this.actions.get(`/api/v1/posts?${param(params)}`);
+
     return humps(response.data);
   }
 
@@ -148,7 +150,8 @@ class Api {
 
     url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
 
-    const response = await this.actions.post(url, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(url);
+
     return response.data;
   }
 
@@ -156,7 +159,8 @@ class Api {
   async checkAccountName(accountName) {
     const response = await this.actions.post('/api/v1/auth/registration/validate-account-name', {
       account_name: accountName,
-    }, { headers: this.headers });
+    });
+
     return humps(response.data);
   }
 
@@ -176,19 +180,22 @@ class Api {
 
   @bind
   async follow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(`/api/v1/users/${userId}/follow`);
+
     return humps(response.data);
   }
 
   @bind
   async unfollow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`);
+
     return humps(response.data);
   }
 
   @bind
   async join(userId) {
-    const response = await this.actions.post(`/api/v1/posts/${userId}/join`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(`/api/v1/posts/${userId}/join`);
+
     return humps(response.data);
   }
 
@@ -199,18 +206,16 @@ class Api {
     if (commentId) {
       url = `${url}/${commentId}/comments`;
     }
-    const response = await this.actions.post(url, data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+
+    const response = await this.actions.post(url, data);
+
     return humps(response.data);
   }
 
   @bind
   async createOrganization(data) {
     const url = '/api/v1/organizations';
-    const response = await this.actions.post(
-      url,
-      objectToFormData(data),
-      { headers: { ...this.headers, ...this.getPrivateHeaders() } },
-    );
+    const response = await this.actions.post(url, data);
 
     return response.data;
   }
@@ -219,7 +224,8 @@ class Api {
   async getOrganization(id) {
     const url = `/api/v1/organizations/${id}`;
 
-    const response = await this.actions.get(url, {}, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    const response = await this.actions.get(url);
+
     return response.data;
   }
 }

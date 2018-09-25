@@ -10,9 +10,13 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 import { POST_TYPES } from '../utils/posts';
 import { selectUser } from '../store/selectors';
+import { setPostData } from '../actions';
 
 class PostForm extends PureComponent {
   render() {
+    const organization = this.props.user.organizations.find(i =>
+      i.id === this.props.post.data.organization_id);
+
     return (
       <div className="content">
         <div className="content__inner">
@@ -48,13 +52,17 @@ class PostForm extends PureComponent {
                       <span className="post-form__light">By</span>
                     </div>
                     <div className="inline__item">
-                      <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
+                      <Avatar size="xsmall" src={getFileUrl(organization ? organization.avatarFilename : this.props.user.avatarFilename)} />
                     </div>
                     <div className="inline__item">
-                      <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
+                      <div className="title title_xsmall title_light">{organization ? organization.title : getUserName(this.props.user)}</div>
                     </div>
                     <div className="inline__item">
-                      <OrganizationsDropdown />
+                      <OrganizationsDropdown
+                        onSelect={(organization_id) => {
+                          this.props.setPostData({ organization_id });
+                        }}
+                      />
                     </div>
                   </div>
                 )}
@@ -97,11 +105,11 @@ class PostForm extends PureComponent {
                   <div className="toolbar__side">
                     <div className="inline">
                       <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
+                        <Avatar size="xsmall" src={getFileUrl(organization ? organization.avatarFilename : this.props.user.avatarFilename)} />
                       </div>
                       {this.props.user.id && (
                         <span className="inline__item">
-                          <span className="create-post__author-name">{getUserName(this.props.user)}</span>
+                          <span className="create-post__author-name">{organization ? organization.title : getUserName(this.props.user)}</span>
                         </span>
                       )}
                       <span className="inline__item">
@@ -137,7 +145,12 @@ PostForm.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default connect(state => ({
-  user: selectUser(state),
-  post: state.post,
-}))(PostForm);
+export default connect(
+  state => ({
+    user: selectUser(state),
+    post: state.post,
+  }),
+  dispatch => ({
+    setPostData: data => dispatch(setPostData(data)),
+  }),
+)(PostForm);

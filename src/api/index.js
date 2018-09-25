@@ -60,7 +60,7 @@ class Api {
   async getMyself() {
     const response = await this.actions.get('/api/v1/myself');
 
-    return convertServerUser(response.data);
+    return humps(response.data);
   }
 
   @bind

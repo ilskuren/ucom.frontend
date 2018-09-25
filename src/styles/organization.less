@@ -94,4 +94,29 @@
       margin: 0;
     }
   }
+
+  &__content {
+    max-height: 200px;
+    padding: 20px;
+    border-radius: 3px;
+    overflow-y: auto;
+  }
+
+  &__list {
+    margin: -20px 0;
+  }
+
+  &__item {
+    margin: 0 -20px;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: rgba(0,0,0,0.05);
+    }
+  }
 }

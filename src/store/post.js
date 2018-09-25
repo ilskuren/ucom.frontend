@@ -4,6 +4,7 @@ import { getRulesByPostTypeId } from '../utils/posts';
 const getInitialState = () => ({
   data: {
     post_type_id: 1,
+    organization_id: null,
     title: '',
     leading_text: '',
     description: '',

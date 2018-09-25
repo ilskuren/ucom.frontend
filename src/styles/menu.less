@@ -125,14 +125,14 @@
     }
   }
 
-  .menu__item_active,
-  .menu__item:hover {
-    .menu__link {
-      border-bottom-color: @red;
+  .menu__item_active .menu__link,
+  .menu__item:hover .menu__link,
+  .menu__link_active,
+  .menu__link:hover {
+    border-bottom-color: @red;
 
-      @media (max-width: 1023px) {
-        color: @red;
-      }
+    @media (max-width: 1023px) {
+      color: @red;
     }
   }
 }

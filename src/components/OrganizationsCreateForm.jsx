@@ -48,6 +48,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Email</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         value={props.organization.data.email}
                         onChange={email => props.setOrganizationData({ email })}
                         error={props.organization.errors.email && props.organization.errors.email[0]}
@@ -61,6 +63,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Phone number</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         value={props.organization.data.phone_number}
                         onChange={phone_number => props.setOrganizationData({ phone_number })}
                         error={props.organization.errors.phone_number && props.organization.errors.phone_number[0]}
@@ -74,6 +78,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Your web-site</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         value={props.organization.data.personal_website_url}
                         onChange={personal_website_url => props.setOrganizationData({ personal_website_url })}
                         error={props.organization.errors.personal_website_url && props.organization.errors.personal_website_url[0]}
@@ -153,6 +159,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Organization name</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         isRequired
                         placeholder="Type something..."
                         value={props.organization.data.title}
@@ -168,8 +176,10 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">@organization slug</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         isRequired
-                        placeholder="@kickbnb"
+                        placeholder="kickbnb"
                         value={props.organization.data.nickname}
                         onChange={nickname => props.setOrganizationData({ nickname })}
                         error={props.organization.errors.nickname && props.organization.errors.nickname[0]}
@@ -183,6 +193,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Asset to show</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         placeholder="Example Kickcoin"
                         value={props.organization.data.currency_to_show}
                         onChange={currency_to_show => props.setOrganizationData({ currency_to_show })}
@@ -223,6 +235,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Powered by</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         placeholder="EOS"
                         value={props.organization.data.powered_by}
                         onChange={powered_by => props.setOrganizationData({ powered_by })}
@@ -237,6 +251,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Your idea</div>
                     <div className="field__input">
                       <Textarea
+                        touched
+                        topLabel
                         placeholder="Type something..."
                         rows={4}
                         value={props.organization.data.about}
@@ -256,6 +272,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Country</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         value={props.organization.data.country}
                         onChange={country => props.setOrganizationData({ country })}
                         error={props.organization.errors.country && props.organization.errors.country[0]}
@@ -269,6 +287,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">City</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         value={props.organization.data.city}
                         onChange={city => props.setOrganizationData({ city })}
                         error={props.organization.errors.city && props.organization.errors.city[0]}
@@ -282,6 +302,8 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field__label">Address</div>
                     <div className="field__input">
                       <TextInput
+                        touched
+                        topLabel
                         subtext="Actual address. Example: One Apple Park Way, Cupertino, CA 95014, USA"
                         value={props.organization.data.address}
                         onChange={address => props.setOrganizationData({ address })}

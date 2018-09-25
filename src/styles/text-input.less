@@ -11,17 +11,23 @@
   }
 
   &__labels-container {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 12px;
 
     @media (max-width: 425px) {
-      position: static;
       flex-direction: column;
      }
+
+    &_top {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+
+      @media (max-width: 425px) {
+        position: static;
+      }
+    }
   }
 
   &__input-wrapper {

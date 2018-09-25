@@ -67,7 +67,6 @@ class Status extends PureComponent {
               value={this.state.text}
               autoFocus
               rows={6}
-              isBoldText={isBoldText}
             />
             <div className="status__control">
               <div className="status__button">

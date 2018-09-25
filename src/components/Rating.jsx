@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
-import { vote } from '../api';
-import { getToken } from '../utils/token';
+import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
 import { showAuthPopup } from '../actions';
 import { selectUser } from '../store/selectors';
@@ -40,7 +39,7 @@ class Rating extends PureComponent {
       return;
     }
 
-    vote(getToken(), isUp, this.props.postId, this.props.commentId)
+    api.vote(isUp, this.props.postId, this.props.commentId)
       .then((data) => {
         if (data.errors) {
           return;

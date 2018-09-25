@@ -17,13 +17,12 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import { setUser, hideAuthPopup } from '../actions';
 import { getToken } from '../utils/token';
-import { getMyself } from '../api';
+import api from '../api';
 import Loading from './Loading';
 import Header from './Header';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
-import { convertServerUser } from '../api/convertors';
 import Popup from './Popup';
 import Auth from './Auth';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
@@ -46,19 +45,14 @@ class App extends PureComponent {
 
     this.setState({ loading: true });
 
-    if (token) {
-      getMyself(token)
-        .then((data) => {
-          const convertData = convertServerUser(data);
-          this.props.setUser(convertData);
-          this.setState({ loading: false });
-        })
-        .catch(() => {
-          this.setState({ loading: false });
-        });
-    } else {
-      this.setState({ loading: false });
-    }
+    api.getMyself(token)
+      .then((data) => {
+        this.props.setUser(data);
+        this.setState({ loading: false });
+      })
+      .catch(() => {
+        this.setState({ loading: false });
+      });
   }
 
   render() {

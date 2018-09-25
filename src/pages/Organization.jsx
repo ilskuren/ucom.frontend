@@ -13,7 +13,7 @@ import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
 import * as actions from '../actions';
 import { selectUser } from '../store/selectors';
-import { getOrganization } from '../api';
+import api from '../api';
 
 class OrganizationPage extends PureComponent {
   constructor(props) {
@@ -35,7 +35,7 @@ class OrganizationPage extends PureComponent {
   }
 
   getData(organizationId) {
-    getOrganization(organizationId)
+    api.getOrganization(organizationId)
       .then((data) => {
         this.setState({
           organization: humps(data.data),

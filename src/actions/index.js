@@ -1,4 +1,4 @@
-import { createOrganization as createOrganizationApi } from '../api';
+import api from '../api';
 import { parseErrors } from '../utils/errors';
 
 import { USER } from 'utils/actionTypes';
@@ -43,7 +43,7 @@ export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', 
 export const setOrganizationErrors = payload => ({ type: 'SET_ORGANIZATION_ERRORS', payload });
 export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED', payload });
 export const createOrganization = payload => (dispatch) => {
-  createOrganizationApi(payload)
+  api.createOrganization(payload)
     .then(parseErrors)
     .then((data) => {
       dispatch(setOrganizationData(data));

@@ -4,8 +4,7 @@ import { bind } from 'decko';
 import cn from 'classnames';
 import Textarea from './Textarea';
 import Button from './Button';
-import { patchMyself } from '../api';
-import { getToken } from '../utils/token';
+import api from '../api';
 
 class Status extends PureComponent {
   constructor() {
@@ -46,10 +45,7 @@ class Status extends PureComponent {
     e.preventDefault();
     const { target: { status: { value } } } = e;
     Promise.resolve()
-      .then(() => {
-        const token = getToken();
-        return patchMyself({ mood_message: value }, token);
-      })
+      .then(() => api.patchMyself({ mood_message: value }))
       .then((data) => {
         this.props.setUser(data);
         this.toggleForm();
@@ -71,7 +67,6 @@ class Status extends PureComponent {
               value={this.state.text}
               autoFocus
               rows={6}
-              isBoldText={isBoldText}
             />
             <div className="status__control">
               <div className="status__button">

@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import PostFormEditor from './PostFormEditor';
+import OrganizationsDropdown from '../components/OrganizationsDropdown';
 import Button from './Button';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
@@ -51,6 +52,9 @@ class PostForm extends PureComponent {
                     </div>
                     <div className="inline__item">
                       <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
+                    </div>
+                    <div className="inline__item">
+                      <OrganizationsDropdown />
                     </div>
                   </div>
                 )}

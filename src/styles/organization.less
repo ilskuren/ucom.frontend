@@ -68,3 +68,30 @@
     color: rgba(0,0,0,0.6);
   }
 }
+
+.organizations-dropdown {
+  position: relative;
+
+  &__toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      display: block;
+      height: 6px;
+      width: 6px;
+      margin-top: 3px;
+      border: 2px @black solid;
+      border-bottom: transparent;
+      border-right: transparent;
+      transform: rotate(225deg);
+      transform-origin: 44% 33%;
+      margin: 0;
+    }
+  }
+}

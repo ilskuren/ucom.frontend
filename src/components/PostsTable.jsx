@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import humps from 'lodash-humps';
 import React, { PureComponent } from 'react';
 import UserCard from '../components/UserCard';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
-import { getPosts } from '../api';
+import api from '../api';
 
 class PostsTable extends PureComponent {
   constructor(props) {
@@ -31,8 +30,7 @@ class PostsTable extends PureComponent {
       sort_by: this.state.sortBy,
     };
 
-    getPosts(params)
-      .then(humps)
+    api.getPosts(params)
       .then((data) => {
         this.setState(prevState => ({
           posts: prevState.posts.concat(data.data),
@@ -49,8 +47,7 @@ class PostsTable extends PureComponent {
       sort_by: sortBy,
     };
 
-    getPosts(params)
-      .then(humps)
+    api.getPosts(params)
       .then((data) => {
         this.setState({
           posts: data.data,

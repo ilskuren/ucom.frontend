@@ -1,4 +1,3 @@
-import humps from 'lodash-humps';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import PostCard from './PostCard';
@@ -6,7 +5,7 @@ import PostItem from './PostItem';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl, getUserName } from '../utils/user';
-import { getPosts } from '../api';
+import api from '../api';
 
 class PostsGroup extends PureComponent {
   constructor(props) {
@@ -33,8 +32,7 @@ class PostsGroup extends PureComponent {
     };
 
     this.setState({ posts: [] }, () => {
-      getPosts(params)
-        .then(humps)
+      api.getPosts(params)
         .then((data) => {
           this.setState({
             posts: data.data,

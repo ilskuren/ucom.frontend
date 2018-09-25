@@ -5,7 +5,7 @@ import { components } from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 import UserOption from './UserOption';
 import Close from './Icons/Close';
-import { searchUsers } from '../api';
+import api from '../api';
 import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
@@ -64,7 +64,7 @@ const UserSearchInput = ({ onChange, value }) => (
       placeholder="Find people"
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={searchUsers}
+      loadOptions={api.searchUsers}
       getOptionLabel={data => getUserName(data)}
       getOptionValue={data => data.id}
       components={{

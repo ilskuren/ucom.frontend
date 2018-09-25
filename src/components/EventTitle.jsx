@@ -11,8 +11,7 @@ import TimeCounter from './TimeCounter';
 import Share from './Share';
 import AddImage from './AddImage';
 import { getOfferEditUrl } from '../utils/offer';
-import { join } from '../api';
-import { getToken } from '../utils/token';
+import api from '../api';
 import { getBase64FromFile } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 
@@ -35,7 +34,7 @@ class EventTitle extends PureComponent {
 
   join() {
     if (this.props.user.id) {
-      join(this.props.id, getToken())
+      api.join(this.props.id)
         .then((data) => {
           if (data.errors) {
             return;

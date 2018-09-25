@@ -7,7 +7,7 @@ import PostHeader from '../../components/PostHeader';
 import EventTitle from '../../components/EventTitle';
 import CommentsStub from '../../components/CommentsStub';
 import burgerImg from '../CreatePost/images/burger.png';
-import { getUser } from '../../api';
+import api from '../../api';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName } from '../../utils/user';
 import { selectUser } from '../store/selectors/user';
@@ -33,7 +33,7 @@ class OfferPage extends PureComponent {
   }
 
   getData() {
-    getUser(1)
+    api.getUser(1)
       .then((user) => {
         this.setState({
           user,

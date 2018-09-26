@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../components/Avatar';
 import PostFormEditor from './PostFormEditor';
-import OrganizationsDropdown from '../components/OrganizationsDropdown';
 import Button from './Button';
+import CreateBy from './CreateBy';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 import { POST_TYPES } from '../utils/posts';
@@ -47,24 +47,7 @@ class PostForm extends PureComponent {
                 </div>
 
                 {this.props.user.id && (
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      <span className="post-form__light">By</span>
-                    </div>
-                    <div className="inline__item">
-                      <Avatar size="xsmall" src={getFileUrl(organization ? organization.avatarFilename : this.props.user.avatarFilename)} />
-                    </div>
-                    <div className="inline__item">
-                      <div className="title title_xsmall title_light">{organization ? organization.title : getUserName(this.props.user)}</div>
-                    </div>
-                    <div className="inline__item">
-                      <OrganizationsDropdown
-                        onSelect={(organization_id) => {
-                          this.props.setPostData({ organization_id });
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <CreateBy />
                 )}
               </div>
             </div>

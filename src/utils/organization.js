@@ -5,3 +5,11 @@ export const getOrganizationUrl = (id) => {
 
   return `/organizations/${id}`;
 };
+
+export const getOrganizationEditUrl = (id) => {
+  if (!id) {
+    return null;
+  }
+
+  return `/organizations/${id}/edit`;
+};

@@ -72,6 +72,7 @@ class OrganizationPage extends PureComponent {
               <div className="organization">
                 <div className="organization__header">
                   <OrganizationHeader
+                    editable={organization.userId === this.props.user.id}
                     avatarSrc={getFileUrl(organization.avatarFilename)}
                     title={organization.title}
                     nickname={organization.nickname}

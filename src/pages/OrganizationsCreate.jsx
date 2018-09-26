@@ -7,10 +7,10 @@ import { setOrganizationActiveTab } from '../actions';
 
 class OrganizationsCreatePage extends PureComponent {
   componentWillReceiveProps(props) {
-    if (
-      this.props.organization.activeStepId &&
-      props.organization.activeStepId !== this.props.organization.activeStepId
-    ) {
+    const { activeStepId } = this.props.organization;
+    const nextActiveStepId = props.organization.activeStepId;
+
+    if (activeStepId && nextActiveStepId !== activeStepId) {
       window.scrollTo(0, 0);
     }
   }

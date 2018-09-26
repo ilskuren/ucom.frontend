@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Avatar from './Avatar';
 import Rate from './Rate';
 import FollowButton from './FollowButton';
 import Followers from './Followers';
+import { getOrganizationEditUrl } from '../utils/organization';
 
 const OrganizationHeader = props => (
   <div className="organization-header">
@@ -13,7 +15,15 @@ const OrganizationHeader = props => (
       </div>
 
       <div className="organization-header__main">
-        <div className="organization-header__title">{props.title}</div>
+        <div className="organization-header__title">
+          {props.title}
+          &nbsp;
+          {props.id && props.editable && (
+            <Link to={getOrganizationEditUrl(props.id)}>
+              <span className="edit" />
+            </Link>
+          )}
+        </div>
         <div className="organization-header__nickname">@{props.nickname}</div>
         {props.poweredBy && (
           <div className="organization-header__poweredby">Powered by {props.poweredBy}</div>
@@ -68,6 +78,7 @@ OrganizationHeader.propTypes = {
   joined: PropTypes.arrayOf(PropTypes.object),
   followers: PropTypes.arrayOf(PropTypes.object),
   trustedBy: PropTypes.arrayOf(PropTypes.object),
+  editable: PropTypes.bool,
 };
 
 export default OrganizationHeader;

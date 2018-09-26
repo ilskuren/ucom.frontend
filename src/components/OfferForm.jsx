@@ -11,6 +11,7 @@ import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
 import UserSearchInput from './UserSearchInput';
 import Button from './Button';
+import CreateBy from './CreateBy';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
@@ -57,17 +58,7 @@ class OfferForm extends PureComponent {
                 </div>
 
                 {this.props.user.id && (
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      <span className="post-form__light">By</span>
-                    </div>
-                    <div className="inline__item">
-                      <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                    </div>
-                    <div className="inline__item">
-                      <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
-                    </div>
-                  </div>
+                  <CreateBy />
                 )}
               </div>
             </div>

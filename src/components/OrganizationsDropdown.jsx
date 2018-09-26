@@ -32,7 +32,7 @@ class OrganizationsDropdown extends PureComponent {
               accountName={this.props.user.accountName}
             />
           </div>
-          {this.props.user.organizations.map(item => (
+          {(this.props.user.organizations || []).map(item => (
             <div
               key={item.id}
               role="presentation"

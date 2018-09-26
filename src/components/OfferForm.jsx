@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '../components/Avatar';
+import PostFromFooter from '../components/PostFromFooter';
 import DropZone from '../components/DropZone';
 import EventTitle from '../components/EventTitle';
 import OfferFormEditor from '../components/OfferFormEditor';
@@ -243,42 +243,14 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            <div className="post-form__footer">
-              <div className="post-form__content">
-                <div className="toolbar">
-                  <div className="toolbar__main">
-                    <a href="#top" className="create-post__back-link">Back to settings ↑</a>
-                  </div>
-                  <div className="toolbar__side">
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                      </div>
-                      {this.props.user.id && (
-                        <span className="inline__item">
-                          <span className="create-post__author-name">{getUserName(this.props.user)}</span>
-                        </span>
-                      )}
-                      <span className="inline__item">
-                        <Button
-                          isStretched
-                          isUpper
-                          theme="red"
-                          size="small"
-                          text="Post"
-                          isDisabled={this.props.loading}
-                          onClick={() => {
-                            if (typeof this.props.onClickSave === 'function') {
-                              this.props.onClickSave();
-                            }
-                          }}
-                        />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PostFromFooter
+              loading={this.props.loading}
+              onClickSave={() => {
+                if (typeof this.props.onClickSave === 'function') {
+                  this.props.onClickSave();
+                }
+              }}
+            />
           </div>
         </div>
       </div>

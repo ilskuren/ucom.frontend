@@ -9,7 +9,7 @@ import CommentsStub from '../../components/CommentsStub';
 import EventTitle from '../../components/EventTitle';
 import burgerImg from './images/burger.png';
 import { getToken } from '../../utils/token';
-import { createPost } from '../../api';
+import api from '../../api';
 
 class OfferPreview extends PureComponent {
   constructor(props) {
@@ -31,7 +31,6 @@ class OfferPreview extends PureComponent {
   save() {
     this.setState({ loading: true, description: '' });
 
-    const token = getToken();
     const data = new FormData();
 
     data.append('title', this.state.title);
@@ -40,7 +39,7 @@ class OfferPreview extends PureComponent {
     data.append('main_image_filename', this.state.main_image_filename);
     data.append('post_type_id', 1);
 
-    createPost(data, token)
+    api.createPost(data)
       .then((post) => {
         this.setState({
           loading: false,

@@ -7,7 +7,7 @@ import TextInput from './TextInput';
 import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
-import { login } from '../api';
+import api from '../api';
 import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
@@ -54,7 +54,7 @@ class Auth extends PureComponent {
     });
 
     setTimeout(() => {
-      login({
+      api.login({
         brainkey: this.state.brainkey,
         account_name: this.state.account_name,
       })

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Button from './Button';
-import { follow, unfollow } from '../api';
+import api from '../api';
 import { getToken } from '../utils/token';
 import { showAuthPopup } from '../actions';
 import { selectUser } from '../store/selectors/user';
@@ -26,7 +26,7 @@ class FollowButton extends PureComponent {
       return;
     }
 
-    (this.state.follow ? unfollow : follow)(
+    (this.state.follow ? api.unfollow : api.follow)(
       this.props.userId,
       getToken(),
       this.props.user.accountName,

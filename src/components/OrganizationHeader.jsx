@@ -5,6 +5,7 @@ import Avatar from './Avatar';
 import Rate from './Rate';
 import FollowButton from './FollowButton';
 import Followers from './Followers';
+import Board from './Board';
 import { getOrganizationEditUrl } from '../utils/organization';
 
 const OrganizationHeader = props => (
@@ -16,17 +17,23 @@ const OrganizationHeader = props => (
 
       <div className="organization-header__main">
         <div className="organization-header__title">
-          {props.title}
-          &nbsp;
-          {props.id && props.editable && (
+          {props.title} {props.id && props.editable && (
             <Link to={getOrganizationEditUrl(props.id)}>
               <span className="edit" />
             </Link>
           )}
         </div>
+
         <div className="organization-header__nickname">@{props.nickname}</div>
+
         {props.poweredBy && (
           <div className="organization-header__poweredby">Powered by {props.poweredBy}</div>
+        )}
+
+        {props.usersTeam && (
+          <div className="organization-header__board">
+            <Board users={props.usersTeam} />
+          </div>
         )}
       </div>
 
@@ -52,13 +59,7 @@ const OrganizationHeader = props => (
         <div className="toolbar__side">
           <div className="inline">
             <div className="inline__item">
-              <Followers title="Joined" users={props.joined} />
-            </div>
-            <div className="inline__item">
               <Followers title="Followers" users={props.followers} />
-            </div>
-            <div className="inline__item">
-              <Followers title="Trusted by" users={props.trustedBy} />
             </div>
           </div>
         </div>
@@ -75,9 +76,8 @@ OrganizationHeader.propTypes = {
   currentRate: PropTypes.number,
   id: PropTypes.number,
   position: PropTypes.number,
-  joined: PropTypes.arrayOf(PropTypes.object),
   followers: PropTypes.arrayOf(PropTypes.object),
-  trustedBy: PropTypes.arrayOf(PropTypes.object),
+  usersTeam: PropTypes.arrayOf(PropTypes.object),
   editable: PropTypes.bool,
 };
 

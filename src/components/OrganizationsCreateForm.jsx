@@ -218,6 +218,7 @@ const OrganizationsCreatePage = (props) => {
                             isSearchable
                             isClearable
                             isUserOptions
+                            value={props.organization.data.users_team}
                             onChange={(users_team) => {
                               props.setOrganizationData({ users_team });
                             }}

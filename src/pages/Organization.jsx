@@ -79,9 +79,8 @@ class OrganizationPage extends PureComponent {
                     poweredBy={organization.poweredBy}
                     currentRate={organization.currentRate}
                     id={organization.id}
-                    joined={organization.joined}
                     followers={organization.followers}
-                    trustedBy={organization.trustedBy}
+                    usersTeam={organization.usersTeam}
                   />
                 </div>
                 <div className="organization__content">

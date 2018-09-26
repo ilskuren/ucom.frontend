@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 import VerticalMenu from './VerticalMenu';
 import TextInput from './TextInput';
-// import UserSearchInput from './UserSearchInput';
-// import UserCard from './UserCard';
+import UserSearchInput from './UserSearchInput';
+import UserCard from './UserCard';
 import Textarea from './Textarea';
 import Button from './Button';
 import DropZone from './DropZone';
@@ -16,8 +16,9 @@ import {
   setOrganizationActiveSection,
   saveOrganization,
 } from '../actions';
-// import { getUserName, getUserUrl } from '../utils/user';
+import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
+import { selectUser } from '../store/selectors';
 
 const OrganizationsCreatePage = (props) => {
   switch (props.organization.activeStepId) {
@@ -207,7 +208,7 @@ const OrganizationsCreatePage = (props) => {
                     </div>
                   </div>
 
-                  {/* <div className="fields__item">
+                  <div className="fields__item">
                     <div className="field">
                       <div className="field__label">On board</div>
                       <div className="field__input">
@@ -217,6 +218,9 @@ const OrganizationsCreatePage = (props) => {
                             isSearchable
                             isClearable
                             isUserOptions
+                            onChange={(users_team) => {
+                              props.setOrganizationData({ users_team });
+                            }}
                           />
                         </div>
                         <div className="field__section">
@@ -226,12 +230,11 @@ const OrganizationsCreatePage = (props) => {
                             accountName={props.user.accountName}
                             avatarUrl={getFileUrl(props.user.avatarFilename)}
                             profileLink={getUserUrl(props.user.id)}
-
                           />
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="fields__item">
                     <div className="field">
@@ -337,7 +340,7 @@ const OrganizationsCreatePage = (props) => {
 export default connect(
   state => ({
     organization: state.organization,
-    user: state.user,
+    user: selectUser(state),
   }),
   dispatch => ({
     setOrganizationActiveTab: tabId => dispatch(setOrganizationActiveTab(tabId)),

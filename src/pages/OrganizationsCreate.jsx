@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React, { Fragment, PureComponent } from 'react';
 import OrganizationsCreateForm from '../components/OrganizationsCreateForm';
-import { setOrganizationActiveTab } from '../actions';
+import { setOrganizationActiveTab, fetchOrganization, resetOrganizationData } from '../actions';
+import { selectUser } from '../store/selectors/user';
 
 class OrganizationsCreatePage extends PureComponent {
+  componentDidMount() {
+    this.props.resetOrganizationData();
+
+    if (this.props.match.params.id) {
+      this.props.fetchOrganization(this.props.match.params.id);
+    }
+  }
+
   componentWillReceiveProps(props) {
     const { activeStepId } = this.props.organization;
     const nextActiveStepId = props.organization.activeStepId;
@@ -13,6 +22,18 @@ class OrganizationsCreatePage extends PureComponent {
     if (activeStepId && nextActiveStepId !== activeStepId) {
       window.scrollTo(0, 0);
     }
+
+    if (props.match.params.id && props.match.params.id !== this.props.match.params.id) {
+      this.props.fetchOrganization(props.match.params.id);
+    }
+
+    if (this.props.match.params.id && !props.match.params.id) {
+      this.props.resetOrganizationData();
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetOrganizationData();
   }
 
   render() {
@@ -20,12 +41,16 @@ class OrganizationsCreatePage extends PureComponent {
       return <Redirect to={`/organizations/${this.props.organization.data.id}`} />;
     }
 
+    if (this.props.organization.data.user_id && this.props.organization.data.user_id !== this.props.user.id) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <Fragment>
         <div className="content">
           <div className="content__inner content__inner_medium">
             <div className="content__title">
-              <h1 className="title">Create Organization</h1>
+              <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Organization</h1>
             </div>
 
             <div className="menu menu_simple-tabs">
@@ -58,8 +83,11 @@ class OrganizationsCreatePage extends PureComponent {
 export default connect(
   state => ({
     organization: state.organization,
+    user: selectUser(state),
   }),
   dispatch => ({
-    setOrganizationActiveTab: tabId => dispatch(setOrganizationActiveTab(tabId)),
+    setOrganizationActiveTab: id => dispatch(setOrganizationActiveTab(id)),
+    fetchOrganization: id => dispatch(fetchOrganization(id)),
+    resetOrganizationData: () => dispatch(resetOrganizationData()),
   }),
 )(OrganizationsCreatePage);

@@ -214,6 +214,13 @@ class Api {
   }
 
   @bind
+  async updateOrganization(data) {
+    const response = await this.actions.patch(`/api/v1/organizations/${data.id}`, data);
+
+    return response.data;
+  }
+
+  @bind
   async getOrganization(id) {
     const url = `/api/v1/organizations/${id}`;
 

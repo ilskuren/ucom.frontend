@@ -42,8 +42,10 @@ export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_AC
 export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
 export const setOrganizationErrors = payload => ({ type: 'SET_ORGANIZATION_ERRORS', payload });
 export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED', payload });
-export const createOrganization = payload => (dispatch) => {
-  api.createOrganization(payload)
+export const saveOrganization = payload => (dispatch) => {
+  const save = payload.id ? api.updateOrganization : api.createOrganization;
+
+  save(payload)
     .then(parseErrors)
     .then((data) => {
       dispatch(setOrganizationData(data));
@@ -53,3 +55,11 @@ export const createOrganization = payload => (dispatch) => {
       dispatch(setOrganizationErrors(errors));
     });
 };
+export const fetchOrganization = payload => (dispatch) => {
+  api.getOrganization(payload)
+    .then(parseErrors)
+    .then((data) => {
+      dispatch(setOrganizationData(data.data));
+    });
+};
+export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });

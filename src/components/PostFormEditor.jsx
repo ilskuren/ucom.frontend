@@ -76,7 +76,8 @@ class PostFormEditor extends PureComponent {
             </div>
           ) : (
             <DropZone
-              text="add or drag img"
+              className="drop-zone_line"
+              text="Add cover image"
               accept="image/jpeg, image/png"
               onDrop={(files) => {
                 getBase64FromFile(files[0]).then((base64Cover) => {

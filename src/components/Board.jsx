@@ -1,8 +1,8 @@
 import React from 'react';
 import Avatars from './Avatars';
 
-const Board = (props) => {
-  return props.users && props.users.length ? (
+const Board = props => (
+  props.users && props.users.length ? (
     <div className="board">
       <div className="board__avatars">
         <Avatars
@@ -15,7 +15,7 @@ const Board = (props) => {
       </div>
       <div className="board__title">BOARD</div>
     </div>
-  ) : null;
-};
+  ) : null
+);
 
 export default Board;

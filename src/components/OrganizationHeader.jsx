@@ -30,7 +30,7 @@ const OrganizationHeader = props => (
           <div className="organization-header__poweredby">Powered by {props.poweredBy}</div>
         )}
 
-        {props.usersTeam && (
+        {props.usersTeam && props.usersTeam.length > 0 && (
           <div className="organization-header__board">
             <Board users={props.usersTeam} />
           </div>

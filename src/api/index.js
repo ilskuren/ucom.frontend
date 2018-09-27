@@ -5,8 +5,8 @@ import HttpActions from './HttpActions';
 import packageConfig from '../../package.json';
 import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-// import { getActivePrivateKey } from '../utils/keys';
-// import { getBrainkey } from '../utils/brainkey';
+import { getActivePrivateKey } from '../utils/keys';
+import { getBrainkey } from '../utils/brainkey';
 
 const AppTransaction = require('uos-app-transaction');
 
@@ -157,26 +157,26 @@ class Api {
     return humps(response.data);
   }
 
-  // @bind
-  // async follow(userId, token, senderAccountName, recipientAccountName) {
-  //   const brainkey = getBrainkey();
-  //   const senderActivePrivateKey = getActivePrivateKey(brainkey);
-
-  //   const signed = await TransactionFactory.getSignedUserFollowsUser(
-  //     senderAccountName,
-  //     senderActivePrivateKey,
-  //     recipientAccountName,
-  //   );
-  //   const response = await this.actions.post(`/api/v1/users/${userId}/follow`, signed, { headers: this.getPrivateHeaders() });
-  //   return response;
-  // }
-
   @bind
-  async follow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/follow`);
+  async follow(userId, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signed = await TransactionFactory.getSignedUserFollowsUser(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+    );
+    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, signed);
 
-    return humps(response.data);
+    return response;
   }
+
+  // @bind
+  // async follow(userId) {
+  //   const response = await this.actions.post(`/api/v1/users/${userId}/follow`);
+
+  //   return humps(response.data);
+  // }
 
   @bind
   async unfollow(userId) {

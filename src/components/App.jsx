@@ -26,7 +26,7 @@ import Page from './Page';
 import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
-// import Notifications from './Notifications';
+import Notifications from './Notifications';
 
 class App extends PureComponent {
   constructor(props) {
@@ -95,7 +95,7 @@ class App extends PureComponent {
                 </Popup>
               )}
 
-              {/* <Notifications /> */}
+              <Notifications />
             </Page>
           </Router>
         )}

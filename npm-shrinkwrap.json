@@ -1298,11 +1298,11 @@
       "integrity": "sha512-1Q77Al4ydp6nYApJ7sQ2fmgz30WuQgJZegIYuyOdbdpxenB/bSezQ3hDPsumIXGlUS4vUIv+EwFjzzXZNWtARw==",
       "dev": true,
       "requires": {
-        "find-babel-config": "1.1.0",
-        "glob": "7.1.2",
-        "pkg-up": "2.0.0",
-        "reselect": "3.0.1",
-        "resolve": "1.8.1"
+        "find-babel-config": "^1.1.0",
+        "glob": "^7.1.2",
+        "pkg-up": "^2.0.0",
+        "reselect": "^3.0.1",
+        "resolve": "^1.4.0"
       }
     },
     "babel-plugin-syntax-async-functions": {
@@ -4728,8 +4728,8 @@
       "integrity": "sha1-rMAQQ6Z0n+w0Qpvmtk9ULrtdY1U=",
       "dev": true,
       "requires": {
-        "json5": "0.5.1",
-        "path-exists": "3.0.0"
+        "json5": "^0.5.1",
+        "path-exists": "^3.0.0"
       }
     },
     "find-cache-dir": {
@@ -7938,7 +7938,7 @@
       "integrity": "sha1-yBmscoBZpGHKscOImivjxJoATX8=",
       "dev": true,
       "requires": {
-        "find-up": "2.1.0"
+        "find-up": "^2.1.0"
       }
     },
     "pluralize": {
@@ -11893,7 +11893,7 @@
       }
     },
     "uos-app-transaction": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#3107d4417594693f67e823a04cf5347c1d7884ae",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#17498ac90880d180efca337d41db6a68effa4491",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
       "requires": {
         "eosjs": "16.0.8"

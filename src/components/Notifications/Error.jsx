@@ -20,7 +20,7 @@ const Notification = () => (
       </div>
     </div>
     <div className="notification__content">
-      Check out the real pixels and tell me what you think of it. Also don't forget to follow Degordian team and stay updated for more shot.
+      Check out the real pixels and tell me what you think of it. Also dont forget to follow Degordian team and stay updated for more shot.
     </div>
   </div>
 );

@@ -162,6 +162,7 @@ class MenuPopup extends PureComponent {
                               avatarUrl={getFileUrl(item.avatarFilename)}
                               profileLink={getOrganizationUrl(item.id)}
                               squareAvatar
+                              roundedAvatar
                             />
                           </div>
                         ))}

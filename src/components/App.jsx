@@ -15,6 +15,7 @@ import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
 import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
+import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
 import { getToken, removeToken } from '../utils/token';
 import api from '../api';
@@ -25,7 +26,7 @@ import Page from './Page';
 import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
-import OrganizationsCreatePage from '../pages/OrganizationsCreate';
+import Notifications from './Notifications';
 
 class App extends PureComponent {
   constructor(props) {
@@ -93,6 +94,8 @@ class App extends PureComponent {
                   <Auth onClickClose={() => this.props.hideAuthPopup()} />
                 </Popup>
               )}
+
+              {/* <Notifications /> */}
             </Page>
           </Router>
         )}

@@ -7,6 +7,7 @@ import IconLink from '../components/Icons/Link';
 import Footer from '../components/Footer';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
+import OrganizationFeed from '../components/OrganizationFeed';
 import OrganizationHeader from '../components/OrganizationHeader';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
@@ -94,6 +95,12 @@ class OrganizationPage extends PureComponent {
                           <div className="user-section__content">{organization.about}</div>
                         </div>
                       )}
+
+                      <div className="user-section">
+                        <OrganizationFeed
+                          organizationId={+this.props.match.params.id}
+                        />
+                      </div>
 
                       {/* {organization.content && (
                         <Fragment>

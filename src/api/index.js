@@ -228,6 +228,15 @@ class Api {
 
     return response.data;
   }
+
+  @bind
+  async getOrganizationPosts(id) {
+    const url = `/api/v1/organizations/${id}/posts`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

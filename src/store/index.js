@@ -8,6 +8,7 @@ import post from './post';
 import userSaga from './sagas/userSaga';
 import auth from './auth';
 import organization from './organization';
+import notifications from './notifications';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -16,6 +17,7 @@ const app = combineReducers({
   settings,
   auth,
   organization,
+  notifications,
   form: formReducer,
 });
 const sagaMiddleware = createSagaMiddleware();

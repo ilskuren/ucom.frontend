@@ -3,18 +3,10 @@
   margin: -8px;
 }
 
-.inline_without-margin {
-  margin: 0;
-}
-
 .inline__item {
   display: inline-block;
   margin: 8px;
   vertical-align: middle;
-}
-
-.inline__item_without-margin {
-  margin: 0;
 }
 
 .inline_xsmall {
@@ -30,6 +22,14 @@
 
   > .inline__item {
     margin: 4px;
+  }
+}
+
+.inline_medium {
+  margin: -6px;
+
+  > .inline__item {
+    margin: 6px;
   }
 }
 
@@ -50,7 +50,15 @@
 }
 
 .inline_baseline {
-  .inline__item {
+  > .inline__item {
     vertical-align: baseline;
+  }
+}
+
+.inline_without-margin {
+  margin: 0;
+
+  > .inline__item {
+    margin: 0;
   }
 }

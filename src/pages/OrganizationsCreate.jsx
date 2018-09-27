@@ -16,10 +16,7 @@ class OrganizationsCreatePage extends PureComponent {
   }
 
   componentWillReceiveProps(props) {
-    const { activeStepId } = this.props.organization;
-    const nextActiveStepId = props.organization.activeStepId;
-
-    if (activeStepId && nextActiveStepId !== activeStepId) {
+    if (props.organization.activeStepId !== this.props.organization.activeStepId) {
       window.scrollTo(0, 0);
     }
 

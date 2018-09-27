@@ -32,15 +32,17 @@ const Post = props => (
       </div>
     </div>
 
-    <div className="post__user">
-      <UserCard
-        userName={props.userName}
-        accountName={props.accountName}
-        profileLink={props.profileLink}
-        avatarUrl={props.avatarUrl}
-        sign="@"
-      />
-    </div>
+    {props.userName && props.accountName && (
+      <div className="post__user">
+        <UserCard
+          userName={props.userName}
+          accountName={props.accountName}
+          profileLink={props.profileLink}
+          avatarUrl={props.avatarUrl}
+          sign="@"
+        />
+      </div>
+    )}
 
     <div className="post__content">
       <h1 className="post__title">

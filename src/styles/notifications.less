@@ -2,12 +2,26 @@
   position: fixed;
   bottom: 50px;
   right: 50px;
+
+  @media (max-width: 767px) {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+  }
+
+  &__item {
+    margin: 0 0 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .notification {
   position: relative;
   box-sizing: border-box;
-  width: 500px;
+  max-width: 500px;
   padding: 24px;
   box-shadow: 0 6px 20px rgba(52, 64, 72, 0.12);
   background: #fff;

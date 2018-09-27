@@ -59,3 +59,4 @@ export const fetchOrganization = payload => (dispatch) => {
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const addNotification = payload => ({ type: 'ADD_NOTIFICATION', payload });
+export const closeNotification = payload => ({ type: 'CLOSE_NOTIFICATION', payload });

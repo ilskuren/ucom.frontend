@@ -1,3 +1,5 @@
+import { uniqueId } from 'lodash';
+
 export const NOTIFICATION_TYPE_ERROR = 1;
 
 const getInitialState = () => ({
@@ -11,10 +13,19 @@ const notifications = (state = getInitialState(), action) => {
     }
 
     case 'ADD_NOTIFICATION': {
-      const notification = action.payload;
-      const list = state.list.concat(notification);
+      return Object.assign({}, state, {
+        list: state.list.concat(Object.assign({}, {
+          id: uniqueId((new Date()).getTime()),
+        }, action.payload)),
+      });
+    }
 
-      return Object.assign({}, state, { list });
+    case 'CLOSE_NOTIFICATION': {
+      return Object.assign({}, state, {
+        list: state.list.map(item => Object.assign({}, item, {
+          closed: item.id === action.payload ? true : item.closed,
+        })),
+      });
     }
 
     default: {

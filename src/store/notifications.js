@@ -1,5 +1,7 @@
+export const NOTIFICATION_TYPE_ERROR = 1;
+
 const getInitialState = () => ({
-  notifications: [],
+  list: [],
 });
 
 const notifications = (state = getInitialState(), action) => {
@@ -8,11 +10,11 @@ const notifications = (state = getInitialState(), action) => {
       return getInitialState();
     }
 
-    case 'ADD_NOTIFICATIONS': {
+    case 'ADD_NOTIFICATION': {
       const notification = action.payload;
-      const notifications = state.notifications.concat(notification);
+      const list = state.list.concat(notification);
 
-      return Object.assign({}, state, { notifications });
+      return Object.assign({}, state, { list });
     }
 
     default: {

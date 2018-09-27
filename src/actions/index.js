@@ -46,20 +46,17 @@ export const saveOrganization = payload => (dispatch) => {
   const save = payload.id ? api.updateOrganization : api.createOrganization;
 
   save(payload)
-    .then(parseErrors)
     .then((data) => {
       dispatch(setOrganizationData(data));
       dispatch(setOrganizationSaved(true));
-    })
-    .catch((errors) => {
-      dispatch(setOrganizationErrors(errors));
     });
 };
 export const fetchOrganization = payload => (dispatch) => {
   api.getOrganization(payload)
-    .then(parseErrors)
     .then((data) => {
       dispatch(setOrganizationData(data.data));
     });
 };
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
+
+export const addNotification = payload => ({ type: 'ADD_NOTIFICATION', payload });

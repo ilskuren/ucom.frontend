@@ -6,8 +6,10 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
-import { showAuthPopup } from '../actions';
+import { showAuthPopup, addNotification } from '../actions';
 import { selectUser } from '../store/selectors';
+import { parseErrors } from '../utils/errors';
+import { NOTIFICATION_TYPE_ERROR } from '../store/notifications';
 
 class Rating extends PureComponent {
   constructor(props) {
@@ -41,13 +43,17 @@ class Rating extends PureComponent {
 
     api.vote(isUp, this.props.postId, this.props.commentId)
       .then((data) => {
-        if (data.errors) {
-          return;
-        }
-
         this.setState({
           rating: data.current_vote,
           choice: isUp ? UPVOTE_STATUS : DOWNVOTE_STATUS,
+        });
+      })
+      .catch((error) => {
+        const errors = parseErrors(error);
+
+        this.props.addNotification({
+          type: NOTIFICATION_TYPE_ERROR,
+          message: errors.general,
         });
       });
   }
@@ -107,5 +113,6 @@ export default connect(
   }),
   dispatch => ({
     showAuthPopup: () => dispatch(showAuthPopup()),
+    addNotification: data => dispatch(addNotification(data)),
   }),
 )(Rating);

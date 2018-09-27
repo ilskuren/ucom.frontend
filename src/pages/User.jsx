@@ -19,6 +19,7 @@ import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { extractHostname } from '../utils/url';
+import { getOrganizationUrl } from '../utils/organization';
 import * as actions from '../actions';
 
 class UserPage extends PureComponent {
@@ -219,13 +220,13 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {/* {this.state.user.id && (
+                  {this.state.user.organizations && this.state.user.organizations.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
-                        <h2 className="title title_xsmall title_light">Organization</h2>
+                        <h2 className="title title_xsmall title_light">Organizations</h2>
                       </div>
 
-                      <div className="user-section__tabs">
+                      {/* <div className="user-section__tabs">
                         <div className="menu menu_nav menu_responsive">
                           <div className="menu__item menu__item_active">
                             <button className="menu__link">My</button>
@@ -240,22 +241,26 @@ class UserPage extends PureComponent {
                             <button className="menu__link">Followed</button>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="user-section__organization">
                         <ul className="app-list">
-                          {[0, 0, 0, 0, 0, 0].map((_, index) => (
-                            <li key={index} className="app-list__item">
+                          {this.state.user.organizations.map(item => (
+                            <li key={item.id} className="app-list__item">
                               <div className="app-list__avatar">
-                                <Avatar rounded square size="small" />
+                                <Link to={getOrganizationUrl(item.id)}>
+                                  <Avatar src={getFileUrl(item.avatarFilename)} size="small" rounded square />
+                                </Link>
                               </div>
-                              <div className="app-list__name"><span className="blank">Loremi1a</span></div>
+                              <div className="app-list__name">
+                                <Link to={getOrganizationUrl(item.id)}>{item.title}</Link>
+                              </div>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-                  )} */}
+                  )}
 
                   <div className="user-section">
                     <Feed

@@ -81,7 +81,7 @@ class Api {
   async getUser(id) {
     const response = await this.actions.get(`/api/v1/users/${id}`);
 
-    return convertServerUser(response.data);
+    return humps(response.data);
   }
 
   @bind

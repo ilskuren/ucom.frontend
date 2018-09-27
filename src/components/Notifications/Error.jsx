@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import IconBell from '../Icons/BellOutlined';
 import IconClose from '../Icons/Close';
 
-const Notification = () => (
+const Notification = props => (
   <div className="notification notification_error">
     <div className="notification__close">
       <IconClose />
@@ -15,14 +16,21 @@ const Notification = () => (
           </div>
         </div>
         <div className="inline__item">
-          <div className="notification__title">Text notification</div>
+          <div className="notification__title">{props.title}</div>
         </div>
       </div>
     </div>
-    <div className="notification__content">
-      Check out the real pixels and tell me what you think of it. Also dont forget to follow Degordian team and stay updated for more shot.
-    </div>
+    <div className="notification__content">{props.message}</div>
   </div>
 );
+
+Notification.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+};
+
+Notification.defaultProps = {
+  title: 'Error',
+};
 
 export default Notification;

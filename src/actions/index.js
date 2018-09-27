@@ -1,5 +1,4 @@
 import api from '../api';
-import { parseErrors } from '../utils/errors';
 
 import { USER } from '../utils/actionTypes';
 import { makeCommunicationActionCreators } from '../utils/redux/communication';

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React, { Fragment, PureComponent } from 'react';
 import OrganizationsCreateForm from '../components/OrganizationsCreateForm';
-import { setOrganizationActiveTab, fetchOrganization, resetOrganizationData } from '../actions';
+import { setOrganizationActiveTab, fetchOrganization, resetOrganizationData } from '../actions/organization';
 import { selectUser } from '../store/selectors/user';
 
 class OrganizationsCreatePage extends PureComponent {

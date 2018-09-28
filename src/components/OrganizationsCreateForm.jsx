@@ -15,14 +15,12 @@ import {
   setOrganizationData,
   setOrganizationActiveSection,
   saveOrganization,
-} from '../actions';
+} from '../actions/organization';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 
 const OrganizationsCreatePage = (props) => {
-  console.log(props.organization.data.users_team);
-
   switch (props.organization.activeStepId) {
     case 2: {
       return (
@@ -37,7 +35,7 @@ const OrganizationsCreatePage = (props) => {
               <VerticalMenu
                 sections={[
                   { name: 'PersonalNeworks', title: 'Personal Neworks' },
-                  // { name: 'SocialNetworks', title: 'Social Networks' },
+                  { name: 'SocialNetworks', title: 'Social Networks' },
                 ]}
               />
             </div>
@@ -87,6 +85,26 @@ const OrganizationsCreatePage = (props) => {
                           value={props.organization.data.personal_website_url}
                           onChange={personal_website_url => props.setOrganizationData({ personal_website_url })}
                           error={props.organization.errors.personal_website_url && props.organization.errors.personal_website_url[0]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Element>
+
+                <Element name="SocialNetworks">
+                  <div className="fields__title">
+                    <h1 className="title title_small">Social networks</h1>
+                  </div>
+
+                  <div className="fields__item">
+                    <div className="field">
+                      <div className="field__label">Email</div>
+                      <div className="field__input">
+                        <TextInput
+                          topLabel
+                          value={props.organization.data.email}
+                          onChange={email => props.setOrganizationData({ email })}
+                          error={props.organization.errors.email && props.organization.errors.email[0]}
                         />
                       </div>
                     </div>

@@ -16,9 +16,7 @@ const UserOption = ({
         <div className="toolbar__main">
           <div className="inline">
             <span className="inline__item">
-              <Avatar
-                src={avatar || 'https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg'}
-              />
+              <Avatar src={avatar} />
             </span>
             <span className="inline__item">
               <span className="user-option__name">

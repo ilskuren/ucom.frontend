@@ -1,5 +1,3 @@
-import api from '../api';
-
 import { USER } from '../utils/actionTypes';
 import { makeCommunicationActionCreators } from '../utils/redux/communication';
 
@@ -36,24 +34,3 @@ export const validatePostField = payload => ({ type: 'VALIDATE_POST_FIELD', payl
 
 export const showAuthPopup = () => ({ type: 'SHOW_AUTH_POPUP' });
 export const hideAuthPopup = () => ({ type: 'HIDE_AUTH_POPUP' });
-
-export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
-export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
-export const setOrganizationErrors = payload => ({ type: 'SET_ORGANIZATION_ERRORS', payload });
-export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED', payload });
-export const saveOrganization = payload => (dispatch) => {
-  const save = payload.id ? api.updateOrganization : api.createOrganization;
-
-  save(payload)
-    .then((data) => {
-      dispatch(setOrganizationData(data));
-      dispatch(setOrganizationSaved(true));
-    });
-};
-export const fetchOrganization = payload => (dispatch) => {
-  api.getOrganization(payload)
-    .then((data) => {
-      dispatch(setOrganizationData(data.data));
-    });
-};
-export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });

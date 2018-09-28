@@ -18,6 +18,9 @@ const getInitialState = () => ({
   saved: false,
   errors: {},
   isValid: false,
+  sources: [{
+
+  }],
   activeStepId: 1,
   steps: [{
     id: 1,

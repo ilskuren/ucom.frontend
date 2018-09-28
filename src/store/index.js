@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import settings from './settings';
-import post from './post';
+import post from '../store/post';
 import userSaga from './sagas/userSaga';
 import auth from './auth';
 import { reducer as user } from './user';

@@ -204,7 +204,7 @@ class OrganizationPage extends PureComponent {
                         </div>
                       )}
 
-                      {organization.userSources && organization.userSources.length > 0 && (
+                      {organization.usersSources && organization.usersSources.length > 0 && (
                         <div className="user-section">
                           <div className="user-section__title">
                             <h3 className="title title_xsmall title_light">
@@ -213,7 +213,7 @@ class OrganizationPage extends PureComponent {
                           </div>
                           <div className="user-section__content">
                             <ul className="links">
-                              {organization.userSources.map((item, index) => (
+                              {organization.usersSources.map((item, index) => (
                                 <li key={index} className="links__item">
                                   <span className="inline">
                                     <span className="inline__item">

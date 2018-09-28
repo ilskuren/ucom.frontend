@@ -53,7 +53,7 @@ class UserPage extends PureComponent {
   render() {
     const user = humps(this.props.user);
     const userYears = getYearsFromBirthday(this.state.user.birthday);
-    const userJob = this.state.user.userJobs && this.state.user.userJobs[this.state.user.userJobs.length - 1];
+    const userJob = this.state.user.usersJobs && this.state.user.usersJobs[this.state.user.usersJobs.length - 1];
 
     return (
       <div className="content">
@@ -326,14 +326,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.userSources && this.state.user.userSources.length > 0 && (
+                  {this.state.user.usersSources && this.state.user.usersSources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="links">
-                          {this.state.user.userSources.map((item, index) => (
+                          {this.state.user.usersSources.map((item, index) => (
                             <li key={index} className="links__item">
                               <span className="inline">
                                 <span className="inline__item">
@@ -352,14 +352,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.userJobs && this.state.user.userJobs.length > 0 && (
+                  {this.state.user.usersJobs && this.state.user.usersJobs.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Work Experience</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.userJobs.map(item => (
+                          {this.state.user.usersJobs.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
@@ -383,14 +383,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.userEducations && this.state.user.userEducations.length > 0 && (
+                  {this.state.user.usersEducation && this.state.user.usersEducation.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Education</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.userEducations.map(item => (
+                          {this.state.user.usersEducation.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">

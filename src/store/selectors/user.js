@@ -24,22 +24,24 @@ export function selectUserGeneralInfo(state) {
 
 export function selectUserWorkAndEducation(state) {
   const user = selectUser(state);
+
   return {
     firstCurrency: user.firstCurrency,
     firstCurrencyYear: user.firstCurrencyYear,
-    userJobs: user.userJobs,
-    userEducations: user.userEducations,
+    usersJobs: user.usersJobs,
+    usersEducation: user.usersEducation,
   };
 }
 
 
 export function selectUserContacts(state) {
   const user = selectUser(state);
+
   return {
     email: user.email,
     phoneNumber: user.phoneNumber,
     personalWebsiteUrl: user.personalWebsiteUrl,
-    userSources: user.userSources,
+    usersSources: user.usersSources,
   };
 }
 

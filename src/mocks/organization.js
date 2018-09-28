@@ -80,7 +80,7 @@ export default [
       { userName: 'Dr. Dre', accountName: 'My hommie', avatarUrl: images['dre.png'] },
       { userName: 'Beta', accountName: 'Worst', avatarUrl: images['apple.jpg'] },
     ],
-    userSources: [
+    usersSources: [
       { sourceUrl: 'https://ru-ru.facebook.com/zuck' },
       { sourceUrl: 'blog.tydocom.com' },
       { sourceUrl: '@tydocom' },

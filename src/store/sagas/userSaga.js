@@ -28,8 +28,8 @@ function* editUserWorkAndEducationSaga(action) {
 
 function* editUserContactsSaga(action) {
   try {
-    const userSourceUrlsClient = action.payload.userSources;
-    const userSourcesServer = yield select(selectUserContacts);
+    const userSourceUrlsClient = action.payload.usersSources;
+    const usersSourcesServer = yield select(selectUserContacts);
 
     const getUserSource = (userSource) => {
       if (typeof userSource === 'string') {
@@ -48,17 +48,18 @@ function* editUserContactsSaga(action) {
       return true;
     };
 
-    const mergeUserSources = userSourceUrlsClient.map((userSource, i) => ({
-      ...userSourcesServer.userSources[i],
+    const mergeusersSources = userSourceUrlsClient.map((userSource, i) => ({
+      ...usersSourcesServer.usersSources[i],
       sourceUrl: getUserSource(userSource),
     })).filter(removeEmptySources);
 
     const payload = {
       ...action.payload,
-      userSources: mergeUserSources,
+      usersSources: mergeusersSources,
     };
 
     const convertedUser = convertClientUserContacts(payload);
+
     yield call(api.patchMyself, convertedUser);
     yield put({ type: USER.EDIT_CONTACTS_COMPLETED, payload: action.payload });
   } catch (e) {

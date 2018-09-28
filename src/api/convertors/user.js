@@ -126,9 +126,9 @@ export function convertServerUser(response) {
     blockchainRegistrationStatus: response.blockchain_registration_status,
     createdAt: response.created_at,
     updatedAt: response.updated_at,
-    userEducations: response.users_education ? convertServerUsersEducation(response.users_education) : [],
-    userJobs: response.users_jobs ? convertServerUsersJobs(response.users_jobs) : [],
-    userSources: response.users_sources ? convertServerUsersSources(response.users_sources) : [],
+    usersEducation: response.users_education ? convertServerUsersEducation(response.users_education) : [],
+    usersJobs: response.users_jobs ? convertServerUsersJobs(response.users_jobs) : [],
+    usersSources: response.users_sources ? convertServerUsersSources(response.users_sources) : [],
     iFollow: response.I_follow ? convertServerFollow(response.I_follow) : [],
     followedBy: response.followed_by ? convertServerFollow(response.followed_by) : [],
   };
@@ -162,9 +162,9 @@ export function convertClientUser(userData) {
     blockchain_registration_status: userData.blockchainRegistrationStatus,
     created_at: userData.createdAt,
     updated_at: userData.updatedAt,
-    users_education: convertClientUsersEducation(userData.userEducations),
-    users_jobs: convertClientUsersJobs(userData.userJobs),
-    users_sources: convertClientUsersSources(userData.userSources),
+    users_education: convertClientUsersEducation(userData.usersEducation),
+    users_jobs: convertClientUsersJobs(userData.usersJobs),
+    users_sources: convertClientUsersSources(userData.usersSources),
     I_follow: convertClientFollow(userData.iFollow),
     followed_by: convertClientFollow(userData.followedBy),
   };
@@ -183,7 +183,7 @@ export function convertClientUserContacts(userContacts) {
     email: userContacts.email,
     phone_number: userContacts.phoneNumber,
     personal_website_url: userContacts.personalWebsiteUrl,
-    users_sources: convertClientUsersSources(userContacts.userSources),
+    users_sources: convertClientUsersSources(userContacts.usersSources),
   };
 }
 
@@ -205,7 +205,7 @@ export function convertClientWorkAndEducation(userWorkAndEducation) {
   return {
     first_currency: userWorkAndEducation.firstCurrency,
     first_currency_year: userWorkAndEducation.firstCurrencyYear,
-    users_jobs: convertClientUsersJobs(userWorkAndEducation.userJobs),
-    users_education: convertClientUsersEducation(userWorkAndEducation.userEducations),
+    users_jobs: convertClientUsersJobs(userWorkAndEducation.usersJobs),
+    users_education: convertClientUsersEducation(userWorkAndEducation.usersEducation),
   };
 }

@@ -60,3 +60,7 @@ export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const addNotification = payload => ({ type: 'ADD_NOTIFICATION', payload });
 export const closeNotification = payload => ({ type: 'CLOSE_NOTIFICATION', payload });
+
+export const postsAdd = payload => ({ type: 'POSTS_ADD', payload });
+export const postVoteUp = payload => ({ type: 'POST_VOTE_UP', payload });
+export const postVoteDown = payload => ({ type: 'POST_VOTE_DOWN', payload });

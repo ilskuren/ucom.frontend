@@ -167,7 +167,7 @@ class Api {
       recipientAccountName,
     );
     const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {
-      signed_transaction: signed,
+      signed_transaction: JSON.stringify(signed),
     });
 
     return response;

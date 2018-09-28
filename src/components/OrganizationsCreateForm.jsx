@@ -14,11 +14,13 @@ import {
   setOrganizationActiveTab,
   setOrganizationData,
   setOrganizationActiveSection,
+  setOrganizationEntitySource,
   saveOrganization,
 } from '../actions/organization';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
+import { getSourceNameById } from '../utils/organization';
 
 const OrganizationsCreatePage = (props) => {
   switch (props.organization.activeStepId) {
@@ -96,19 +98,24 @@ const OrganizationsCreatePage = (props) => {
                     <h1 className="title title_small">Social networks</h1>
                   </div>
 
-                  <div className="fields__item">
-                    <div className="field">
-                      <div className="field__label">Email</div>
-                      <div className="field__input">
-                        <TextInput
-                          topLabel
-                          value={props.organization.data.email}
-                          onChange={email => props.setOrganizationData({ email })}
-                          error={props.organization.errors.email && props.organization.errors.email[0]}
-                        />
+                  {props.organization.data.entity_sources.map((item, index) => (
+                    <div className="fields__item" key={index}>
+                      <div className="field">
+                        <div className="field__label">{getSourceNameById(item.source_type_id)}</div>
+                        <div className="field__input">
+                          <TextInput
+                            topLabel
+                            value={props.organization.data.entity_sources
+                              .find(source => source.source_type_id === item.source_type_id).source_url}
+                            onChange={source_url => props.setOrganizationEntitySource({
+                              source_url,
+                              source_type_id: item.source_type_id,
+                            })}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </Element>
 
                 <div className="fields__item">
@@ -367,6 +374,7 @@ export default connect(
     setOrganizationActiveTab: tabId => dispatch(setOrganizationActiveTab(tabId)),
     setOrganizationData: data => dispatch(setOrganizationData(data)),
     setOrganizationActiveSection: sectionId => dispatch(setOrganizationActiveSection(sectionId)),
+    setOrganizationEntitySource: data => dispatch(setOrganizationEntitySource(data)),
     saveOrganization: data => dispatch(saveOrganization(data)),
   }),
 )(OrganizationsCreatePage);

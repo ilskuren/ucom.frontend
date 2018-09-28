@@ -1,5 +1,10 @@
 import Validator from 'validatorjs';
 
+export const SOURCES_ID_FACEBOOK = 1;
+export const SOURCES_ID_REDDIT = 2;
+export const SOURCES_ID_MEDIUM = 3;
+export const SOURCES_ID_TWITTER = 4;
+
 const getInitialState = () => ({
   data: {
     title: null,
@@ -14,13 +19,23 @@ const getInitialState = () => ({
     email: null,
     phone_number: null,
     personal_website_url: null,
+    entity_sources: [{
+      source_type_id: SOURCES_ID_FACEBOOK,
+      source_url: '',
+    }, {
+      source_type_id: SOURCES_ID_REDDIT,
+      source_url: '',
+    }, {
+      source_type_id: SOURCES_ID_MEDIUM,
+      source_url: '',
+    }, {
+      source_type_id: SOURCES_ID_TWITTER,
+      source_url: '',
+    }],
   },
   saved: false,
   errors: {},
   isValid: false,
-  sources: [{
-
-  }],
   activeStepId: 1,
   steps: [{
     id: 1,
@@ -46,6 +61,8 @@ const organization = (state = getInitialState(), action) => {
     }
 
     case 'SET_ORGANIZATION_DATA': {
+      delete action.payload.entity_sources;
+
       const keys = Object.keys(action.payload);
       const data = Object.assign({}, state.data, action.payload);
       const activeStep = state.steps.find(step => step.id === state.activeStepId);
@@ -74,6 +91,26 @@ const organization = (state = getInitialState(), action) => {
 
     case 'SET_ORGANIZATION_SAVED': {
       return Object.assign({}, state, { saved: action.payload });
+    }
+
+    case 'SET_ORGANIZATION_ENTITY_SOURCES': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          entity_sources: state.data.entity_sources
+            .map(source => Object.assign({}, source, action.payload
+              .find(item => source.source_type_id === item.source_type_id))),
+        }),
+      });
+    }
+
+    case 'SET_ORGANIZATION_ENTITY_SOURCE': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          entity_sources: state.data.entity_sources
+            .map(source => Object.assign({}, source, source.source_type_id === action.payload.source_type_id ?
+              action.payload : {})),
+        }),
+      });
     }
 
     default: {

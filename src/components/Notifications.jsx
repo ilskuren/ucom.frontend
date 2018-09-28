@@ -28,7 +28,9 @@ const Notifications = props => (
 );
 
 Notifications.propTypes = {
-  notifications: PropTypes.arrayOf(PropTypes.object),
+  notifications: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 export default connect(state => ({

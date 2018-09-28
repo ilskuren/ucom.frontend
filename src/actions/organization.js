@@ -1,4 +1,6 @@
+import humps from 'lodash-humps';
 import api from '../api';
+import snakes from '../utils/snakes';
 
 export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
 export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
@@ -9,7 +11,7 @@ export const setOrganizationEntitySource = payload => ({ type: 'SET_ORGANIZATION
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const saveOrganization = payload => (dispatch) => {
-  (payload.id ? api.updateOrganization : api.createOrganization)(payload)
+  (payload.id ? api.updateOrganization : api.createOrganization)(snakes(payload))
     .then((data) => {
       dispatch(setOrganizationData(data));
       dispatch(setOrganizationSaved(true));
@@ -19,7 +21,7 @@ export const saveOrganization = payload => (dispatch) => {
 export const fetchOrganization = payload => (dispatch) => {
   api.getOrganization(payload)
     .then((data) => {
-      dispatch(setOrganizationData(data.data));
-      dispatch(setOrganizationEntitySources(data.data.entity_sources));
+      dispatch(setOrganizationData(humps(data.data)));
+      dispatch(setOrganizationEntitySources(humps(data.data.entity_sources)));
     });
 };

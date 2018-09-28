@@ -69,9 +69,9 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          value={props.organization.data.phone_number}
-                          onChange={phone_number => props.setOrganizationData({ phone_number })}
-                          error={props.organization.errors.phone_number && props.organization.errors.phone_number[0]}
+                          value={props.organization.data.phoneNumber}
+                          onChange={phoneNumber => props.setOrganizationData({ phoneNumber })}
+                          error={props.organization.errors.phoneNumber && props.organization.errors.phoneNumber[0]}
                         />
                       </div>
                     </div>
@@ -84,9 +84,9 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          value={props.organization.data.personal_website_url}
-                          onChange={personal_website_url => props.setOrganizationData({ personal_website_url })}
-                          error={props.organization.errors.personal_website_url && props.organization.errors.personal_website_url[0]}
+                          value={props.organization.data.personalWebsiteUrl}
+                          onChange={personalWebsiteUrl => props.setOrganizationData({ personalWebsiteUrl })}
+                          error={props.organization.errors.personalWebsiteUrl && props.organization.errors.personalWebsiteUrl[0]}
                         />
                       </div>
                     </div>
@@ -98,18 +98,18 @@ const OrganizationsCreatePage = (props) => {
                     <h1 className="title title_small">Social networks</h1>
                   </div>
 
-                  {props.organization.data.entity_sources.map((item, index) => (
+                  {props.organization.data.entitySources.map((item, index) => (
                     <div className="fields__item" key={index}>
                       <div className="field">
-                        <div className="field__label">{getSourceNameById(item.source_type_id)}</div>
+                        <div className="field__label">{getSourceNameById(item.sourceTypeId)}</div>
                         <div className="field__input">
                           <TextInput
                             topLabel
-                            value={props.organization.data.entity_sources
-                              .find(source => source.source_type_id === item.source_type_id).source_url}
-                            onChange={source_url => props.setOrganizationEntitySource({
-                              source_url,
-                              source_type_id: item.source_type_id,
+                            value={props.organization.data.entitySources
+                              .find(source => source.sourceTypeId === item.sourceTypeId).sourceUrl}
+                            onChange={sourceUrl => props.setOrganizationEntitySource({
+                              sourceUrl,
+                              sourceTypeId: item.sourceTypeId,
                             })}
                           />
                         </div>
@@ -162,17 +162,17 @@ const OrganizationsCreatePage = (props) => {
                       <div className="field__label">
                         <div className="field__section">Logotype</div>
                         <div className="field__section">
-                          {props.organization.data.avatar_filename && typeof props.organization.data.avatar_filename === 'object' ? (
-                            <AvatarFromFile square rounded size="big" file={props.organization.data.avatar_filename} />
+                          {props.organization.data.avatarFilename && typeof props.organization.data.avatarFilename === 'object' ? (
+                            <AvatarFromFile square rounded size="big" file={props.organization.data.avatarFilename} />
                           ) : (
-                            <Avatar square rounded size="big" src={getFileUrl(props.organization.data.avatar_filename)} />
+                            <Avatar square rounded size="big" src={getFileUrl(props.organization.data.avatarFilename)} />
                           )}
                         </div>
                       </div>
                       <div className="field__input">
                         <div className="field__section">
                           <DropZone
-                            onDrop={files => props.setOrganizationData({ avatar_filename: files[0] })}
+                            onDrop={files => props.setOrganizationData({ avatarFilename: files[0] })}
                             text="Add or drag img"
                           />
                         </div>
@@ -227,9 +227,9 @@ const OrganizationsCreatePage = (props) => {
                           touched
                           topLabel
                           placeholder="Example Kickcoin"
-                          value={props.organization.data.currency_to_show}
-                          onChange={currency_to_show => props.setOrganizationData({ currency_to_show })}
-                          error={props.organization.errors.currency_to_show && props.organization.errors.currency_to_show[0]}
+                          value={props.organization.data.currencyToShow}
+                          onChange={currencyToShow => props.setOrganizationData({ currencyToShow })}
+                          error={props.organization.errors.currencyToShow && props.organization.errors.currencyToShow[0]}
                         />
                       </div>
                     </div>
@@ -245,9 +245,9 @@ const OrganizationsCreatePage = (props) => {
                             isSearchable
                             isClearable
                             isUserOptions
-                            value={props.organization.data.users_team}
-                            onChange={(users_team) => {
-                              props.setOrganizationData({ users_team });
+                            value={props.organization.data.usersTeam}
+                            onChange={(usersTeam) => {
+                              props.setOrganizationData({ usersTeam });
                             }}
                           />
                         </div>
@@ -272,9 +272,9 @@ const OrganizationsCreatePage = (props) => {
                           touched
                           topLabel
                           placeholder="EOS"
-                          value={props.organization.data.powered_by}
-                          onChange={powered_by => props.setOrganizationData({ powered_by })}
-                          error={props.organization.errors.powered_by && props.organization.errors.powered_by[0]}
+                          value={props.organization.data.poweredBy}
+                          onChange={poweredBy => props.setOrganizationData({ poweredBy })}
+                          error={props.organization.errors.poweredBy && props.organization.errors.poweredBy[0]}
                         />
                       </div>
                     </div>

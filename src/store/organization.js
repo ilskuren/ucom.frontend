@@ -9,28 +9,28 @@ const getInitialState = () => ({
   data: {
     title: null,
     nickname: null,
-    avatar_filename: null,
-    currency_to_show: null,
-    powered_by: null,
+    avatarFilename: null,
+    currencyToShow: null,
+    poweredBy: null,
     about: null,
     country: null,
     city: null,
     address: null,
     email: null,
-    phone_number: null,
-    personal_website_url: null,
-    entity_sources: [{
-      source_type_id: SOURCES_ID_FACEBOOK,
-      source_url: '',
+    phoneNumber: null,
+    personalWebsite_url: null,
+    entitySources: [{
+      sourceTypeId: SOURCES_ID_FACEBOOK,
+      sourceUrl: '',
     }, {
-      source_type_id: SOURCES_ID_REDDIT,
-      source_url: '',
+      sourceTypeId: SOURCES_ID_REDDIT,
+      sourceUrl: '',
     }, {
-      source_type_id: SOURCES_ID_MEDIUM,
-      source_url: '',
+      sourceTypeId: SOURCES_ID_MEDIUM,
+      sourceUrl: '',
     }, {
-      source_type_id: SOURCES_ID_TWITTER,
-      source_url: '',
+      sourceTypeId: SOURCES_ID_TWITTER,
+      sourceUrl: '',
     }],
   },
   saved: false,
@@ -49,7 +49,7 @@ const getInitialState = () => ({
     name: 'Contacts',
     rules: {
       email: 'email',
-      personal_website_url: 'url',
+      personalWebsiteUrl: 'url',
     },
   }],
 });
@@ -96,9 +96,9 @@ const organization = (state = getInitialState(), action) => {
     case 'SET_ORGANIZATION_ENTITY_SOURCES': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
-          entity_sources: state.data.entity_sources
+          entitySources: state.data.entitySources
             .map(source => Object.assign({}, source, action.payload
-              .find(item => source.source_type_id === item.source_type_id))),
+              .find(item => source.sourceTypeId === item.sourceTypeId))),
         }),
       });
     }
@@ -106,8 +106,8 @@ const organization = (state = getInitialState(), action) => {
     case 'SET_ORGANIZATION_ENTITY_SOURCE': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
-          entity_sources: state.data.entity_sources
-            .map(source => Object.assign({}, source, source.source_type_id === action.payload.source_type_id ?
+          entitySources: state.data.entitySources
+            .map(source => Object.assign({}, source, source.sourceTypeId === action.payload.sourceTypeId ?
               action.payload : {})),
         }),
       });

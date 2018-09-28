@@ -166,17 +166,12 @@ class Api {
       senderActivePrivateKey,
       recipientAccountName,
     );
-    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, signed);
+    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {
+      signed_transaction: signed,
+    });
 
     return response;
   }
-
-  // @bind
-  // async follow(userId) {
-  //   const response = await this.actions.post(`/api/v1/users/${userId}/follow`);
-
-  //   return humps(response.data);
-  // }
 
   @bind
   async unfollow(userId) {

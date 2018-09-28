@@ -21,6 +21,8 @@ import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 
 const OrganizationsCreatePage = (props) => {
+  console.log(props.organization.data.users_team);
+
   switch (props.organization.activeStepId) {
     case 2: {
       return (

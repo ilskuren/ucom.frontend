@@ -21,10 +21,14 @@
 .notification {
   position: relative;
   box-sizing: border-box;
-  max-width: 500px;
+  width: 500px;
   padding: 24px;
   box-shadow: 0 6px 20px rgba(52, 64, 72, 0.12);
   background: #fff;
+
+  @media (max-width: 767px) {
+    width: auto;
+  }
 
   &__close {
     position: absolute;

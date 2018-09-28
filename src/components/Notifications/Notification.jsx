@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import NotificationError from './Error';
 import { NOTIFICATION_TYPE_ERROR } from '../../store/notifications';
-import { closeNotification } from '../../actions';
+import { closeNotification } from '../../actions/notifications';
 
 const Notification = (props) => {
   switch (props.type) {

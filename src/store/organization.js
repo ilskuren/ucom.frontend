@@ -33,6 +33,7 @@ const getInitialState = () => ({
       sourceUrl: '',
     }],
   },
+  loading: false,
   saved: false,
   errors: {},
   isValid: false,
@@ -90,7 +91,11 @@ const organization = (state = getInitialState(), action) => {
     }
 
     case 'SET_ORGANIZATION_SAVED': {
-      return Object.assign({}, state, { saved: action.payload });
+      return { ...state, saved: action.payload };
+    }
+
+    case 'SET_ORGANIZATION_LOADING': {
+      return { ...state, loading: action.payload };
     }
 
     case 'SET_ORGANIZATION_ENTITY_SOURCES': {

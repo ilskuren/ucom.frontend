@@ -72,7 +72,7 @@ function* loadUserAvatarSaga(action) {
     const avatarData = new FormData();
     avatarData.append('avatar_filename', action.payload);
     const newUser = yield call(api.patchMyselfFormData, avatarData);
-    yield put({ type: USER.UPLOAD_AVATAR_COMPLETED, payload: newUser.avatar_filename });
+    yield put({ type: USER.UPLOAD_AVATAR_COMPLETED, payload: newUser.avatarFilename });
   } catch (e) {
     yield put({ type: USER.UPLOAD_AVATAR_FAIL, message: e.message });
   }

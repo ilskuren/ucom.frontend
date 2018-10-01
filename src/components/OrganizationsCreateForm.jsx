@@ -98,14 +98,14 @@ const OrganizationsCreatePage = (props) => {
                     <h1 className="title title_small">Social networks</h1>
                   </div>
 
-                  {props.organization.data.entitySources.map((item, index) => (
+                  {props.organization.data.socialNetworks.map((item, index) => (
                     <div className="fields__item" key={index}>
                       <div className="field">
                         <div className="field__label">{getSourceNameById(item.sourceTypeId)}</div>
                         <div className="field__input">
                           <TextInput
                             topLabel
-                            value={props.organization.data.entitySources
+                            value={props.organization.data.socialNetworks
                               .find(source => source.sourceTypeId === item.sourceTypeId).sourceUrl}
                             onChange={sourceUrl => props.setOrganizationEntitySource({
                               sourceUrl,

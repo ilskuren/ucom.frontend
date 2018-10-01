@@ -19,7 +19,7 @@ const getInitialState = () => ({
     email: null,
     phoneNumber: null,
     personalWebsite_url: null,
-    entitySources: [{
+    socialNetworks: [{
       sourceTypeId: SOURCES_ID_FACEBOOK,
       sourceUrl: '',
     }, {
@@ -101,7 +101,7 @@ const organization = (state = getInitialState(), action) => {
     case 'SET_ORGANIZATION_ENTITY_SOURCES': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
-          entitySources: state.data.entitySources
+          socialNetworks: state.data.socialNetworks
             .map(source => Object.assign({}, source, action.payload
               .find(item => source.sourceTypeId === item.sourceTypeId))),
         }),
@@ -111,7 +111,7 @@ const organization = (state = getInitialState(), action) => {
     case 'SET_ORGANIZATION_ENTITY_SOURCE': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
-          entitySources: state.data.entitySources
+          socialNetworks: state.data.socialNetworks
             .map(source => Object.assign({}, source, source.sourceTypeId === action.payload.sourceTypeId ?
               action.payload : {})),
         }),

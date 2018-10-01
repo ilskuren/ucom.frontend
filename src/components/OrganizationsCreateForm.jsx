@@ -10,135 +10,36 @@ import Button from './Button';
 import DropZone from './DropZone';
 import Avatar from './Avatar';
 import AvatarFromFile from './AvatarFromFile';
+import SourceForm from './SourceForm';
+import CommunitiesSearch from './CommunitiesSearch';
+import IconRemove from './Icons/Remove';
 import {
   setOrganizationActiveTab,
   setOrganizationData,
   setOrganizationActiveSection,
   setOrganizationEntitySource,
+  setOrganizationCommunitieFromVisibiliy,
+  addOrganizationCommunitiesNetwork,
   saveOrganization,
 } from '../actions/organization';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 import { getSourceNameById } from '../utils/organization';
+import {
+  STEPS_ID_GENERAL,
+  STEPS_ID_COMMUNITY,
+  STEPS_ID_CONTACTS,
+} from '../store/organization';
 
 const OrganizationsCreatePage = (props) => {
   switch (props.organization.activeStepId) {
-    case 2: {
+    case STEPS_ID_GENERAL: {
       return (
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            props.saveOrganization(props.organization.data);
-          }}
-        >
-          <div className="grid grid_settings">
-            <div className="grid__item grid__item_side">
-              <VerticalMenu
-                sections={[
-                  { name: 'PersonalNeworks', title: 'Personal Neworks' },
-                  { name: 'SocialNetworks', title: 'Social Networks' },
-                ]}
-              />
-            </div>
-            <div className="grid__item grid__item_main">
-              <div className="fields">
-                <Element name="PersonalNeworks">
-                  <div className="fields__title">
-                    <h1 className="title title_small">Personal networks</h1>
-                  </div>
-
-                  <div className="fields__item">
-                    <div className="field">
-                      <div className="field__label">Email</div>
-                      <div className="field__input">
-                        <TextInput
-                          topLabel
-                          value={props.organization.data.email}
-                          onChange={email => props.setOrganizationData({ email })}
-                          error={props.organization.errors.email && props.organization.errors.email[0]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="fields__item">
-                    <div className="field">
-                      <div className="field__label">Phone number</div>
-                      <div className="field__input">
-                        <TextInput
-                          touched
-                          topLabel
-                          value={props.organization.data.phoneNumber}
-                          onChange={phoneNumber => props.setOrganizationData({ phoneNumber })}
-                          error={props.organization.errors.phoneNumber && props.organization.errors.phoneNumber[0]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="fields__item">
-                    <div className="field">
-                      <div className="field__label">Your web-site</div>
-                      <div className="field__input">
-                        <TextInput
-                          touched
-                          topLabel
-                          value={props.organization.data.personalWebsiteUrl}
-                          onChange={personalWebsiteUrl => props.setOrganizationData({ personalWebsiteUrl })}
-                          error={props.organization.errors.personalWebsiteUrl && props.organization.errors.personalWebsiteUrl[0]}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Element>
-
-                <Element name="SocialNetworks">
-                  <div className="fields__title">
-                    <h1 className="title title_small">Social networks</h1>
-                  </div>
-
-                  {props.organization.data.socialNetworks.map((item, index) => (
-                    <div className="fields__item" key={index}>
-                      <div className="field">
-                        <div className="field__label">{getSourceNameById(item.sourceTypeId)}</div>
-                        <div className="field__input">
-                          <TextInput
-                            topLabel
-                            value={props.organization.data.socialNetworks
-                              .find(source => source.sourceTypeId === item.sourceTypeId).sourceUrl}
-                            onChange={sourceUrl => props.setOrganizationEntitySource({
-                              sourceUrl,
-                              sourceTypeId: item.sourceTypeId,
-                            })}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Element>
-
-                <div className="fields__item">
-                  <div className="field">
-                    <div className="field__label" />
-                    <div className="field__input">
-                      <Button type="submit" text="FINISH" theme="red" size="big" isDisabled={!props.organization.isValid} isStretched />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      );
-    }
-
-    default: {
-      return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            props.setOrganizationActiveTab(2);
+            props.setOrganizationActiveTab(STEPS_ID_CONTACTS);
           }}
         >
           <div className="grid grid_settings">
@@ -350,7 +251,6 @@ const OrganizationsCreatePage = (props) => {
 
                 <div className="fields__item">
                   <div className="field">
-                    <div className="field__label" />
                     <div className="field__input">
                       <Button type="submit" text="PROCEED" theme="red" size="big" isDisabled={!props.organization.isValid} isStretched />
                     </div>
@@ -361,6 +261,200 @@ const OrganizationsCreatePage = (props) => {
           </div>
         </form>
       );
+    }
+
+    case STEPS_ID_COMMUNITY: {
+      return (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            props.setOrganizationActiveTab(STEPS_ID_CONTACTS);
+          }}
+        >
+          <div className="grid grid_settings">
+            <div className="grid__item grid__item_side">
+              <VerticalMenu
+                sections={[
+                  { name: 'Communities', title: 'Communities' },
+                  { name: 'Partners', title: 'Partners' },
+                ]}
+              />
+            </div>
+            <div className="grid__item grid__item_main">
+              <div className="fields">
+                <Element name="Communities">
+                  <div className="fields__title">
+                    <h1 className="title title_small">Communities</h1>
+                  </div>
+
+                  <div className="fields__item">
+                    <div className="field field_reverse">
+                      <div className="field__input">
+                        <div className="field__section field__section_large">
+                          <CommunitiesSearch
+                            placeholder="Find or add community"
+                            onClickAddExternal={() => {
+                              props.setOrganizationCommunitieFromVisibiliy(true);
+                            }}
+                          />
+                        </div>
+                        <div className="field__section">
+                          <div className="communitie-list">
+                            {props.organization.data.communitiesNetworks.map((item, index) => (
+                              <div className="communitie-list__item" key={index}>
+                                <div className="toolbar">
+                                  <div className="toolbar__main">
+                                    <UserCard
+                                      sign=""
+                                      userName={item.title}
+                                      accountName={item.description}
+                                    />
+                                  </div>
+                                  <div className="toolbar__side">
+                                    <div className="communitie-list__remove">
+                                      <IconRemove />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {props.organization.communitieFromVisible && (
+                    <div className="fields__item">
+                      <SourceForm
+                        onReset={() => {
+                          props.setOrganizationCommunitieFromVisibiliy(false);
+                        }}
+                        onSubmit={(data) => {
+                          props.addOrganizationCommunitiesNetwork(data);
+                        }}
+                      />
+                    </div>
+                  )}
+                </Element>
+              </div>
+            </div>
+          </div>
+        </form>
+      );
+    }
+
+    case STEPS_ID_CONTACTS: {
+      return (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            props.saveOrganization(props.organization.data);
+          }}
+        >
+          <div className="grid grid_settings">
+            <div className="grid__item grid__item_side">
+              <VerticalMenu
+                sections={[
+                  { name: 'PersonalNeworks', title: 'Personal Neworks' },
+                  { name: 'SocialNetworks', title: 'Social Networks' },
+                ]}
+              />
+            </div>
+            <div className="grid__item grid__item_main">
+              <div className="fields">
+                <Element name="PersonalNeworks">
+                  <div className="fields__title">
+                    <h1 className="title title_small">Personal networks</h1>
+                  </div>
+
+                  <div className="fields__item">
+                    <div className="field">
+                      <div className="field__label">Email</div>
+                      <div className="field__input">
+                        <TextInput
+                          topLabel
+                          value={props.organization.data.email}
+                          onChange={email => props.setOrganizationData({ email })}
+                          error={props.organization.errors.email && props.organization.errors.email[0]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="fields__item">
+                    <div className="field">
+                      <div className="field__label">Phone number</div>
+                      <div className="field__input">
+                        <TextInput
+                          touched
+                          topLabel
+                          value={props.organization.data.phoneNumber}
+                          onChange={phoneNumber => props.setOrganizationData({ phoneNumber })}
+                          error={props.organization.errors.phoneNumber && props.organization.errors.phoneNumber[0]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="fields__item">
+                    <div className="field">
+                      <div className="field__label">Your web-site</div>
+                      <div className="field__input">
+                        <TextInput
+                          touched
+                          topLabel
+                          value={props.organization.data.personalWebsiteUrl}
+                          onChange={personalWebsiteUrl => props.setOrganizationData({ personalWebsiteUrl })}
+                          error={props.organization.errors.personalWebsiteUrl && props.organization.errors.personalWebsiteUrl[0]}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Element>
+
+                <Element name="SocialNetworks">
+                  <div className="fields__title">
+                    <h1 className="title title_small">Social networks</h1>
+                  </div>
+
+                  {props.organization.data.socialNetworks.map((item, index) => (
+                    <div className="fields__item" key={index}>
+                      <div className="field">
+                        <div className="field__label">{getSourceNameById(item.sourceTypeId)}</div>
+                        <div className="field__input">
+                          <TextInput
+                            topLabel
+                            value={props.organization.data.socialNetworks
+                              .find(source => source.sourceTypeId === item.sourceTypeId).sourceUrl}
+                            onChange={sourceUrl => props.setOrganizationEntitySource({
+                              sourceUrl,
+                              sourceTypeId: item.sourceTypeId,
+                            })}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Element>
+
+                <div className="fields__item">
+                  <div className="field">
+                    <div className="field__label" />
+                    <div className="field__input">
+                      <Button type="submit" text="FINISH" theme="red" size="big" isDisabled={!props.organization.isValid} isStretched />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      );
+    }
+
+    default: {
+      return null;
     }
   }
 };
@@ -375,6 +469,8 @@ export default connect(
     setOrganizationData: data => dispatch(setOrganizationData(data)),
     setOrganizationActiveSection: sectionId => dispatch(setOrganizationActiveSection(sectionId)),
     setOrganizationEntitySource: data => dispatch(setOrganizationEntitySource(data)),
+    setOrganizationCommunitieFromVisibiliy: data => dispatch(setOrganizationCommunitieFromVisibiliy(data)),
+    addOrganizationCommunitiesNetwork: data => dispatch(addOrganizationCommunitiesNetwork(data)),
     saveOrganization: data => dispatch(saveOrganization(data)),
   }),
 )(OrganizationsCreatePage);

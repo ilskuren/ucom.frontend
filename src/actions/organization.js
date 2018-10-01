@@ -9,6 +9,8 @@ export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED'
 export const setOrganizationLoading = payload => ({ type: 'SET_ORGANIZATION_LOADING', payload });
 export const setOrganizationEntitySources = payload => ({ type: 'SET_ORGANIZATION_ENTITY_SOURCES', payload });
 export const setOrganizationEntitySource = payload => ({ type: 'SET_ORGANIZATION_ENTITY_SOURCE', payload });
+export const setOrganizationCommunitieFromVisibiliy = payload => ({ type: 'SET_ORGANIZATION_COMMUNITIE_FROM_VISIBILIY', payload });
+export const addOrganizationCommunitiesNetwork = payload => ({ type: 'ADD_ORGANIZATION_COMMUNITIES_NETWORK', payload });
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const saveOrganization = payload => (dispatch) => {
@@ -26,7 +28,7 @@ export const fetchOrganization = payload => (dispatch) => {
   api.getOrganization(payload)
     .then((data) => {
       dispatch(setOrganizationData(humps(data.data)));
-      dispatch(setOrganizationEntitySources(humps(data.data.entity_sources)));
+      dispatch(setOrganizationEntitySources(humps(data.data.social_networks)));
       dispatch(setOrganizationLoading(false));
     });
 };

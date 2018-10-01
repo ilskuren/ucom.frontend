@@ -4,6 +4,9 @@ export const SOURCES_ID_FACEBOOK = 1;
 export const SOURCES_ID_REDDIT = 2;
 export const SOURCES_ID_MEDIUM = 3;
 export const SOURCES_ID_TWITTER = 4;
+export const STEPS_ID_GENERAL = 1;
+export const STEPS_ID_COMMUNITY = 2;
+export const STEPS_ID_CONTACTS = 3;
 
 const getInitialState = () => ({
   data: {
@@ -32,21 +35,26 @@ const getInitialState = () => ({
       sourceTypeId: SOURCES_ID_TWITTER,
       sourceUrl: '',
     }],
+    communitiesNetworks: [],
   },
   loading: false,
   saved: false,
   errors: {},
   isValid: false,
-  activeStepId: 1,
+  activeStepId: STEPS_ID_GENERAL,
+  communitieFromVisible: false,
   steps: [{
-    id: 1,
+    id: STEPS_ID_GENERAL,
     name: 'General info',
     rules: {
       title: 'required',
       nickname: 'required',
     },
+  // }, {
+  //   id: STEPS_ID_COMMUNITY,
+  //   name: 'Community',
   }, {
-    id: 2,
+    id: STEPS_ID_CONTACTS,
     name: 'Contacts',
     rules: {
       email: 'email',
@@ -62,7 +70,7 @@ const organization = (state = getInitialState(), action) => {
     }
 
     case 'SET_ORGANIZATION_DATA': {
-      delete action.payload.entity_sources;
+      delete action.payload.socialNetworks;
 
       const keys = Object.keys(action.payload);
       const data = Object.assign({}, state.data, action.payload);
@@ -116,6 +124,18 @@ const organization = (state = getInitialState(), action) => {
               action.payload : {})),
         }),
       });
+    }
+
+    case 'ADD_ORGANIZATION_COMMUNITIES_NETWORK': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          communitiesNetworks: state.data.communitiesNetworks.concat(action.payload),
+        }),
+      });
+    }
+
+    case 'SET_ORGANIZATION_COMMUNITIE_FROM_VISIBILIY': {
+      return { ...state, communitieFromVisible: action.payload };
     }
 
     default: {

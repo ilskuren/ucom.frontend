@@ -91,4 +91,9 @@ module.exports = {
     contentBase: './public',
     historyApiFallback: true,
   },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
+  }
 };

@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import cn from 'classnames';
+import { KEY_ESCAPE } from 'keycode-js';
 import Textarea from './Textarea';
 import Button from './Button';
 import api from '../api';
+
 
 class Status extends PureComponent {
   constructor() {
@@ -23,7 +25,12 @@ class Status extends PureComponent {
   onChangeStatus(value) {
     this.setState({ text: value });
   }
-
+  @bind
+  onEscapeCancel(e) {
+    if (e.keyCode === KEY_ESCAPE) {
+      this.setState({ isActive: false });
+    }
+  }
   setInitialText() {
     this.setState({ text: this.props.text || '' });
   }
@@ -66,11 +73,12 @@ class Status extends PureComponent {
               onChange={this.onChangeStatus}
               value={this.state.text}
               autoFocus
-              rows={6}
+              rows={4}
+              onKeyUp={this.onEscapeCancel}
             />
             <div className="status__control">
               <div className="status__button">
-                <Button text="Cancel" size="small" onClick={this.cancelSubmit} />
+                <Button text="Cancel" size="small" theme="light" onClick={this.cancelSubmit} />
               </div>
               <div className="status__button">
                 <Button

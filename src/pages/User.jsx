@@ -133,11 +133,11 @@ class UserPage extends PureComponent {
                         <Fragment>
                           {(this.state.user.moodMessage || this.props.user.id === this.state.user.id) && (
                             <Status
-                              text={this.props.user.moodMessage}
+                              text={this.state.user.moodMessage}
                               isEditable={this.props.user.id === this.state.user.id}
                               setUser={this.props.setUser}
                             />
-                          )}
+                         )}
                         </Fragment>
                       )}
                     </div>

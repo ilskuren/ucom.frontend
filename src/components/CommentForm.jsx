@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
 import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
+import { newLineToBR } from '../utils/text';
 import Avatar from './Avatar';
 import Button from './Button';
 import { getFileUrl } from '../utils/upload';
 import { showAuthPopup } from '../actions';
 import { selectUser } from '../store/selectors';
 
+
 class CommentForm extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.commentTextArea = createRef();
     this.state = {
       active: this.props.active,
       comment: '',
@@ -35,13 +38,14 @@ class CommentForm extends PureComponent {
 
   submit() {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(this.state.comment);
+      this.props.onSubmit(newLineToBR(this.state.comment));
     }
 
     this.reset();
   }
 
   reset() {
+    this.commentTextArea.current.blur();
     this.setState({
       comment: '',
       active: false,
@@ -72,8 +76,9 @@ class CommentForm extends PureComponent {
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
               }}
+              ref={this.commentTextArea}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN) {
+                if ((e.keyCode === KEY_RETURN && e.ctrlKey) || (e.keyCode === KEY_RETURN && e.shiftKey)) {
                   e.preventDefault();
                   this.submit();
                 }

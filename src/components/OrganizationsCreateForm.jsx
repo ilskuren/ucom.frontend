@@ -39,7 +39,7 @@ const OrganizationsCreatePage = (props) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            props.setOrganizationActiveTab(STEPS_ID_CONTACTS);
+            props.setOrganizationActiveTab(STEPS_ID_COMMUNITY);
           }}
         >
           <div className="grid grid_settings">

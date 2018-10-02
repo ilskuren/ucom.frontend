@@ -50,9 +50,9 @@ const getInitialState = () => ({
       title: 'required',
       nickname: 'required',
     },
-  // }, {
-  //   id: STEPS_ID_COMMUNITY,
-  //   name: 'Community',
+  }, {
+    id: STEPS_ID_COMMUNITY,
+    name: 'Community',
   }, {
     id: STEPS_ID_CONTACTS,
     name: 'Contacts',

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import cn from 'classnames';
@@ -8,7 +8,7 @@ import Button from './Button';
 import api from '../api';
 
 
-class Status extends PureComponent {
+class Status extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -56,6 +56,7 @@ class Status extends PureComponent {
       .then((data) => {
         this.props.setUser(data);
         this.toggleForm();
+        this.props.onSave();
       })
       .catch(err => console.error(err.message));
   }
@@ -109,6 +110,7 @@ Status.propTypes = {
   isEditable: PropTypes.bool,
   isBoldText: PropTypes.bool,
   setUser: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export default Status;

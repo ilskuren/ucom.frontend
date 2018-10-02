@@ -426,7 +426,14 @@ const OrganizationsCreatePage = (props) => {
                   <div className="field">
                     <div className="field__label" />
                     <div className="field__input">
-                      <Button type="submit" text="FINISH" theme="red" size="big" isDisabled={!props.organization.isValid} isStretched />
+                      <Button
+                        isStretched
+                        type="submit"
+                        text="FINISH"
+                        theme="red"
+                        size="big"
+                        isDisabled={!props.organization.isValid || props.organization.loading}
+                      />
                     </div>
                   </div>
                 </div>

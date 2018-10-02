@@ -2,6 +2,7 @@ import humps from 'lodash-humps';
 import api from '../api';
 import snakes from '../utils/snakes';
 import { parseErrors } from '../utils/errors';
+import { addValidationErrorNotification } from './notifications';
 
 export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
 export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
@@ -27,6 +28,8 @@ export const saveOrganization = payload => (dispatch) => {
     .catch((error) => {
       const errors = parseErrors(error);
       dispatch(setOrganizationErrors(errors));
+      dispatch(setOrganizationLoading(false));
+      dispatch(addValidationErrorNotification());
     });
 };
 

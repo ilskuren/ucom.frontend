@@ -56,6 +56,7 @@ class Status extends PureComponent {
       .then((data) => {
         this.props.setUser(data);
         this.toggleForm();
+        this.props.onSave();
       })
       .catch(err => console.error(err.message));
   }
@@ -109,6 +110,7 @@ Status.propTypes = {
   isEditable: PropTypes.bool,
   isBoldText: PropTypes.bool,
   setUser: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export default Status;

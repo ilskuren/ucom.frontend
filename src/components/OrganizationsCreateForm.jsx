@@ -10,22 +10,23 @@ import Button from './Button';
 import DropZone from './DropZone';
 import Avatar from './Avatar';
 import AvatarFromFile from './AvatarFromFile';
-import SourceForm from './SourceForm';
-import CommunitiesSearch from './CommunitiesSearch';
-import IconRemove from './Icons/Remove';
+import SourcesForm from './SourcesForm';
 import {
   setOrganizationActiveTab,
   setOrganizationData,
   setOrganizationActiveSection,
   setOrganizationEntitySource,
-  setOrganizationCommunitieFromVisibiliy,
   addOrganizationCommunitiesNetwork,
+  removeOrganizationCommunitiesNetwork,
+  addOrganizationPartnershipNetwork,
+  removeOrganizationPartnershipNetwork,
   saveOrganization,
 } from '../actions/organization';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 import { getSourceNameById } from '../utils/organization';
+import api from '../api';
 import {
   STEPS_ID_GENERAL,
   STEPS_ID_COMMUNITY,
@@ -287,55 +288,37 @@ const OrganizationsCreatePage = (props) => {
                     <h1 className="title title_small">Communities</h1>
                   </div>
 
+                  <SourcesForm
+                    loadOptions={api.searchCommunity}
+                    list={props.organization.data.communitySources}
+                    onClickRemove={index => props.removeOrganizationCommunitiesNetwork(index)}
+                    onSearch={data => props.addOrganizationCommunitiesNetwork(data)}
+                    onSubmit={data => props.addOrganizationCommunitiesNetwork(data)}
+                    placeholder="Find or add community"
+                    fieldPrefix="Community"
+                  />
+
+                  <div className="fields__title">
+                    <h1 className="title title_small">Partners</h1>
+                  </div>
+
+                  <SourcesForm
+                    loadOptions={api.searchPartnership}
+                    list={props.organization.data.partnershipSources}
+                    onClickRemove={index => props.removeOrganizationPartnershipNetwork(index)}
+                    onSearch={data => props.addOrganizationPartnershipNetwork(data)}
+                    onSubmit={data => props.addOrganizationPartnershipNetwork(data)}
+                    placeholder="Find or add partner"
+                    fieldPrefix="Partner"
+                  />
+
                   <div className="fields__item">
                     <div className="field field_reverse">
                       <div className="field__input">
-                        <div className="field__section field__section_large">
-                          <CommunitiesSearch
-                            placeholder="Find or add community"
-                            onClickAddExternal={() => {
-                              props.setOrganizationCommunitieFromVisibiliy(true);
-                            }}
-                          />
-                        </div>
-                        <div className="field__section">
-                          <div className="communitie-list">
-                            {props.organization.data.communitiesNetworks.map((item, index) => (
-                              <div className="communitie-list__item" key={index}>
-                                <div className="toolbar">
-                                  <div className="toolbar__main">
-                                    <UserCard
-                                      sign=""
-                                      userName={item.title}
-                                      accountName={item.description}
-                                    />
-                                  </div>
-                                  <div className="toolbar__side">
-                                    <div className="communitie-list__remove">
-                                      <IconRemove />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                        <Button type="submit" text="PROCEED" theme="red" size="big" isDisabled={!props.organization.isValid} isStretched />
                       </div>
                     </div>
                   </div>
-
-                  {props.organization.communitieFromVisible && (
-                    <div className="fields__item">
-                      <SourceForm
-                        onReset={() => {
-                          props.setOrganizationCommunitieFromVisibiliy(false);
-                        }}
-                        onSubmit={(data) => {
-                          props.addOrganizationCommunitiesNetwork(data);
-                        }}
-                      />
-                    </div>
-                  )}
                 </Element>
               </div>
             </div>
@@ -469,8 +452,10 @@ export default connect(
     setOrganizationData: data => dispatch(setOrganizationData(data)),
     setOrganizationActiveSection: sectionId => dispatch(setOrganizationActiveSection(sectionId)),
     setOrganizationEntitySource: data => dispatch(setOrganizationEntitySource(data)),
-    setOrganizationCommunitieFromVisibiliy: data => dispatch(setOrganizationCommunitieFromVisibiliy(data)),
     addOrganizationCommunitiesNetwork: data => dispatch(addOrganizationCommunitiesNetwork(data)),
+    removeOrganizationCommunitiesNetwork: index => dispatch(removeOrganizationCommunitiesNetwork(index)),
+    addOrganizationPartnershipNetwork: data => dispatch(addOrganizationPartnershipNetwork(data)),
+    removeOrganizationPartnershipNetwork: index => dispatch(removeOrganizationPartnershipNetwork(index)),
     saveOrganization: data => dispatch(saveOrganization(data)),
   }),
 )(OrganizationsCreatePage);

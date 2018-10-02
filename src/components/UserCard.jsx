@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import Avatar from './Avatar';
+import AvatarFromFile from './AvatarFromFile';
 
 const UserCard = (props) => {
-  const avatar = props.icon || <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
+  const avatar = props.avatarUrl && typeof props.avatarUrl === 'object' ?
+    <AvatarFromFile square={props.squareAvatar} rounded={props.roundedAvatar} size={props.avatarSize} file={props.avatarUrl} /> :
+    <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
+
   const LinkTag = props.profileLink ? Link : 'span';
 
   return (
@@ -41,11 +45,10 @@ UserCard.propTypes = {
   userName: PropTypes.string,
   accountName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   profileLink: PropTypes.string,
-  avatarUrl: PropTypes.string,
+  avatarUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   avatarSize: PropTypes.string,
   sign: PropTypes.string,
   className: PropTypes.string,
-  icon: PropTypes.element,
   rate: PropTypes.number,
   userPosition: PropTypes.string,
   theme: PropTypes.string,

@@ -2,6 +2,8 @@ import Validator from 'validatorjs';
 import React, { PureComponent } from 'react';
 import TextInput from './TextInput';
 import Button from './Button';
+import AvatarFromFile from './AvatarFromFile';
+import DropZone from './DropZone';
 
 class SourceForm extends PureComponent {
   constructor(props) {
@@ -17,6 +19,7 @@ class SourceForm extends PureComponent {
         title: this.props.title || '',
         description: this.props.description || '',
         sourceUrl: this.props.sourceUrl || '',
+        sourceType: 'external',
       },
       isValid: false,
     };
@@ -53,12 +56,36 @@ class SourceForm extends PureComponent {
       <div className="source-form">
         <div className="fields">
           <div className="fields__title">
-            <h2 className="title title_xxsmall">Add external community</h2>
+            <h2 className="title title_xxsmall">Add external {this.props.fieldPrefix.toLowerCase()}</h2>
+          </div>
+
+          <div className="fields__item">
+            <div className="field field_avatar">
+              <div className="field__label">
+                <div className="field__section">Logotype</div>
+                <div className="field__section">
+                  <AvatarFromFile square rounded size="big" file={this.state.data.avatarFilename} />
+                </div>
+              </div>
+              <div className="field__input">
+                <div className="field__section">
+                  <DropZone
+                    onDrop={files => this.setData({ avatarFilename: files[0] })}
+                    text="Add or drag img"
+                  />
+                </div>
+                <div className="field__section">
+                  <div className="field__hint">
+                    You can upload an image in JPG or PNG format. Size is not more than 10 mb.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="fields__item">
             <div className="field">
-              <div className="field__label">Community name</div>
+              <div className="field__label">{`${this.props.fieldPrefix} `}name</div>
               <div className="field__input">
                 <TextInput
                   touched
@@ -91,7 +118,7 @@ class SourceForm extends PureComponent {
 
           <div className="fields__item">
             <div className="field">
-              <div className="field__label">Community link</div>
+              <div className="field__label">{`${this.props.fieldPrefix} `}link</div>
               <div className="field__input">
                 <TextInput
                   touched

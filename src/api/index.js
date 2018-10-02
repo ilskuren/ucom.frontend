@@ -232,6 +232,24 @@ class Api {
 
     return humps(response.data);
   }
+
+  @bind
+  async searchCommunity(q) {
+    const url = `/api/v1/community/search?q=${q}`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async searchPartnership(q) {
+    const url = `/api/v1/partnership/search?q=${q}`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

@@ -35,7 +35,8 @@ const getInitialState = () => ({
       sourceTypeId: SOURCES_ID_TWITTER,
       sourceUrl: '',
     }],
-    communitiesNetworks: [],
+    communitySources: [],
+    partnershipSources: [],
   },
   loading: false,
   saved: false,
@@ -129,13 +130,39 @@ const organization = (state = getInitialState(), action) => {
     case 'ADD_ORGANIZATION_COMMUNITIES_NETWORK': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
-          communitiesNetworks: state.data.communitiesNetworks.concat(action.payload),
+          communitySources: (action.payload.id ?
+            state.data.communitySources.filter(item => item.id !== action.payload.id) :
+            state.data.communitySources).concat(action.payload),
         }),
       });
     }
 
-    case 'SET_ORGANIZATION_COMMUNITIE_FROM_VISIBILIY': {
-      return { ...state, communitieFromVisible: action.payload };
+    case 'REMOVE_ORGANIZATION_COMMUNITIES_NETWORK': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          communitySources: state.data.communitySources
+            .filter((item, index) => index !== action.payload),
+        }),
+      });
+    }
+
+    case 'ADD_ORGANIZATION_PARTNERSHIP_NETWORK': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          partnershipSources: (action.payload.id ?
+            state.data.partnershipSources.filter(item => item.id !== action.payload.id) :
+            state.data.partnershipSources).concat(action.payload),
+        }),
+      });
+    }
+
+    case 'REMOVE_ORGANIZATION_PARTNERSHIP_NETWORK': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          partnershipSources: state.data.partnershipSources
+            .filter((item, index) => index !== action.payload),
+        }),
+      });
     }
 
     default: {

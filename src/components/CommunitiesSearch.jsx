@@ -1,4 +1,3 @@
-import humps from 'lodash-humps';
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
@@ -6,8 +5,6 @@ import { components } from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 import UserCard from './UserCard';
 import Close from './Icons/Close';
-import api from '../api';
-import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
 const SelectUserOption = props => (
@@ -15,9 +12,9 @@ const SelectUserOption = props => (
     <UserCard
       squareAvatar
       roundedAvatar
-      userName={getUserName(props.data)}
-      avatarUrl={getFileUrl(humps(props.data).avatarFilename)}
-      accountName={props.data.accountName}
+      userName={props.data.title}
+      avatarUrl={getFileUrl(props.data.avatarFilename)}
+      accountName={props.data.nickname}
     />
   </components.Option>
 );
@@ -75,16 +72,13 @@ const Input = props => (
 const CommunitiesSearch = props => (
   <div className="dropdown">
     <AsyncSelect
-      value={props.value}
-      isMulti
+      value={[]}
       isSearchable
       isClearable={false}
       placeholder={props.placeholder}
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={api.searchUsers}
-      getOptionLabel={data => getUserName(data)}
-      getOptionValue={data => data.id}
+      loadOptions={props.loadOptions}
       onClickAddExternal={props.onClickAddExternal}
       components={{
         MultiValueRemove: CloseButton,
@@ -104,7 +98,6 @@ const CommunitiesSearch = props => (
 );
 
 CommunitiesSearch.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.object),
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
 };

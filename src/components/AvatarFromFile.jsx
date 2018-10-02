@@ -20,6 +20,10 @@ class AvatarFromFile extends PureComponent {
   }
 
   setSrcFromFile(file) {
+    if (!file) {
+      return;
+    }
+
     getBase64FromFile(file)
       .then(src => this.setState({ src }));
   }

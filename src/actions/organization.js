@@ -9,8 +9,10 @@ export const setOrganizationSaved = payload => ({ type: 'SET_ORGANIZATION_SAVED'
 export const setOrganizationLoading = payload => ({ type: 'SET_ORGANIZATION_LOADING', payload });
 export const setOrganizationEntitySources = payload => ({ type: 'SET_ORGANIZATION_ENTITY_SOURCES', payload });
 export const setOrganizationEntitySource = payload => ({ type: 'SET_ORGANIZATION_ENTITY_SOURCE', payload });
-export const setOrganizationCommunitieFromVisibiliy = payload => ({ type: 'SET_ORGANIZATION_COMMUNITIE_FROM_VISIBILIY', payload });
 export const addOrganizationCommunitiesNetwork = payload => ({ type: 'ADD_ORGANIZATION_COMMUNITIES_NETWORK', payload });
+export const removeOrganizationCommunitiesNetwork = payload => ({ type: 'REMOVE_ORGANIZATION_COMMUNITIES_NETWORK', payload });
+export const addOrganizationPartnershipNetwork = payload => ({ type: 'ADD_ORGANIZATION_PARTNERSHIP_NETWORK', payload });
+export const removeOrganizationPartnershipNetwork = payload => ({ type: 'REMOVE_ORGANIZATION_PARTNERSHIP_NETWORK', payload });
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const saveOrganization = payload => (dispatch) => {

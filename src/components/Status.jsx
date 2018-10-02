@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import cn from 'classnames';
@@ -8,7 +8,7 @@ import Button from './Button';
 import api from '../api';
 
 
-class Status extends React.Component {
+class Status extends PureComponent {
   constructor() {
     super();
     this.state = {

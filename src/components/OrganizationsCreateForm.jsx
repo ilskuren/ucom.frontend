@@ -356,6 +356,7 @@ const OrganizationsCreatePage = (props) => {
                       <div className="field__label">Email</div>
                       <div className="field__input">
                         <TextInput
+                          touched
                           topLabel
                           value={props.organization.data.email}
                           onChange={email => props.setOrganizationData({ email })}

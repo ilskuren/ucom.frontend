@@ -21,7 +21,7 @@ const getInitialState = () => ({
     address: null,
     email: null,
     phoneNumber: null,
-    personalWebsite_url: null,
+    personalWebsiteUrl: null,
     socialNetworks: [{
       sourceTypeId: SOURCES_ID_FACEBOOK,
       sourceUrl: '',
@@ -51,9 +51,24 @@ const getInitialState = () => ({
       title: 'required',
       nickname: 'required',
     },
+    fields: [
+      'title',
+      'nickname',
+      'avatarFilename',
+      'currencyToShow',
+      'poweredBy',
+      'about',
+      'country',
+      'city',
+      'address',
+    ],
   }, {
     id: STEPS_ID_COMMUNITY,
     name: 'Community',
+    fields: [
+      'communitySources',
+      'partnershipSources',
+    ],
   }, {
     id: STEPS_ID_CONTACTS,
     name: 'Contacts',
@@ -61,6 +76,11 @@ const getInitialState = () => ({
       email: 'email',
       personalWebsiteUrl: 'url',
     },
+    fields: [
+      'email',
+      'phoneNumber',
+      'personalWebsiteUrl',
+    ],
   }],
 });
 
@@ -162,6 +182,14 @@ const organization = (state = getInitialState(), action) => {
           partnershipSources: state.data.partnershipSources
             .filter((item, index) => index !== action.payload),
         }),
+      });
+    }
+
+    case 'SET_ORGANIZATION_ERRORS': {
+      return Object.assign({}, state, {
+        errors: action.payload.reduce((value, item) => ({ ...value, [item.field]: [item.message] }), {}),
+        activeStepId: state.steps.find(item => item.fields.indexOf(action.payload[0].field) > -1).id,
+        isValid: false,
       });
     }
 

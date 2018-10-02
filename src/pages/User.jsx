@@ -136,6 +136,7 @@ class UserPage extends PureComponent {
                               text={this.state.user.moodMessage}
                               isEditable={this.props.user.id === this.state.user.id}
                               setUser={this.props.setUser}
+                              onSave={() => this.getData(this.props.match.params.id)}
                             />
                          )}
                         </Fragment>

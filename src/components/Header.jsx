@@ -22,6 +22,9 @@ class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.bell = createRef();
+    this.state = {
+      tooltipOpen: false,
+    };
   }
   @bind
   logout() {
@@ -29,7 +32,18 @@ class Header extends PureComponent {
     removeBrainkey();
     this.props.removeUser();
   }
-
+  @bind
+  hideTooltip() {
+    this.setState({ tooltipOpen: false });
+  }
+  @bind
+  showTooltip() {
+    this.setState({ tooltipOpen: true });
+  }
+  @bind
+  triggerTooltip() {
+    this.setState({ tooltipOpen: !this.state.tooltipOpen });
+  }
   render() {
     return (
       <div className="header" id="top">
@@ -67,8 +81,9 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <div className="inline inline_small">
                     <Tooltip
-                      trigger="click"
-                      html={<NotificationTooltip bell={this.bell} />}
+                      open={this.state.tooltipOpen}
+                      onRequestClose={this.hideTooltip}
+                      html={<NotificationTooltip hideTooltip={this.hideTooltip} />}
                       theme="notification"
                       arrow
                       position="top-start"
@@ -76,7 +91,7 @@ class Header extends PureComponent {
                       hideOnClick={false}
                       interactive
                     >
-                      <div className="inline__item inline__item__bell" ref={this.bell}>
+                      <div className="inline__item inline__item__bell" role="presentation" onClick={this.triggerTooltip}>
                         <div className="icon-counter">
                           <div className="icon-counter__icon">
                             <IconBell />

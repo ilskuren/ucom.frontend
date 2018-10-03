@@ -92,6 +92,13 @@ class Api {
   }
 
   @bind
+  async getOrganizations() {
+    const response = await this.actions.get('/api/v1/organizations');
+
+    return humps(response.data);
+  }
+
+  @bind
   async searchUsers(query) {
     const response = await this.actions.get(`/api/v1/users/search/?q=${query}`);
 

@@ -1,120 +1,76 @@
-import React from 'react';
-import UnAuthTable from './UnAuth/UnAuthTable';
-import av1 from '../static/avatars/1.png';
-import av2 from '../static/avatars/2.png';
-import av3 from '../static/avatars/3.png';
-import av4 from '../static/avatars/4.png';
-import av5 from '../static/avatars/5.png';
-import av6 from '../static/avatars/6.png';
-import av7 from '../static/avatars/7.png';
-import av8 from '../static/avatars/8.png';
+import React, { PureComponent } from 'react';
+import Footer from '../components/Footer';
+import UserCard from '../components/UserCard';
+import api from '../api';
+import { getOrganizationUrl } from '../utils/organization';
+import { getFileUrl } from '../utils/upload';
 
-const organizations = [
-  {
-    profileCardData: {
-      profileName: 'Walmart',
-      accountName: 'apple_inc',
-      avatarUrl: av1,
-    },
-    joined: 10231,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'Exxon Mobil',
-      accountName: 'apple_inc',
-      avatarUrl: av2,
-    },
-    joined: 8923,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'Berkshire Hathaway',
-      accountName: 'apple_inc',
-      avatarUrl: av3,
-    },
-    joined: 7342,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'UnitedHealth Group',
-      accountName: 'apple_inc',
-      avatarUrl: av4,
-    },
-    joined: 6234,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'McKesson',
-      accountName: 'apple_inc',
-      avatarUrl: av5,
-    },
-    joined: 5133,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'CVS Health',
-      accountName: 'apple_inc',
-      avatarUrl: av6,
-    },
-    joined: 4142,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'Exxon Mobil',
-      accountName: 'apple_inc',
-      avatarUrl: av7,
-    },
-    joined: 3233,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-  {
-    profileCardData: {
-      profileName: 'Exxon Mobil',
-      accountName: 'apple_inc',
-      avatarUrl: av8,
-    },
-    joined: 900,
-    followers: 8923,
-    trustedBy: 8923,
-    rate: 12800,
-  },
-];
+class EventsPage extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const OrganizationsPage = () => (
-  <div className="content">
-    <div className="content__inner">
-      <UnAuthTable
-        title="Organizations"
-        tableTitles={['joined', 'followers', 'trusted by', 'rate']}
-        onFilterClick={() => true}
-        textInMiddle="How to Create Organization?"
-        tableData={organizations}
-        stickyBottom
-        withPagination
-        isIndexed
-      />
-    </div>
-  </div>
-);
+    this.state = {
+      organizations: [],
+    };
+  }
 
-export default OrganizationsPage;
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    api.getOrganizations()
+      .then((data) => {
+        this.setState({ organizations: data.data });
+      });
+  }
+
+  render() {
+    return (
+      <div className="content">
+        <div className="content__inner">
+          <div className="content__title content__title_narrow">
+            <h1 className="title">Organizations</h1>
+          </div>
+
+          <div className="table-content">
+            <div className="table-content__table">
+              <table className="list-table list-table_indexed list-table_organizations list-table_responsive">
+                <thead className="list-table__head">
+                  <tr className="list-table__row">
+                    <td className="list-table__cell list-table__cell_index">#</td>
+                    <td className="list-table__cell list-table__cell_name">Name</td>
+                    <td className="list-table__cell">Rate</td>
+                  </tr>
+                </thead>
+                <tbody className="list-table__body">
+                  {this.state.organizations.map((item, index) => (
+                    <tr className="list-table__row" key={item.id}>
+                      <td className="list-table__cell list-table__cell_index">{index + 1}</td>
+                      <td className="list-table__cell list-table__cell_name" data-title="Name">
+                        <UserCard
+                          profileLink={getOrganizationUrl(item.id)}
+                          avatarUrl={getFileUrl(item.avatarFilename)}
+                          userName={item.title}
+                          accountName={item.nickname}
+                          sign="@"
+                        />
+                      </td>
+                      <td className="list-table__cell" data-title="Rate">
+                        <span className="title title_xsmall title_light">{(+item.currentRate).toLocaleString()}°</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default EventsPage;

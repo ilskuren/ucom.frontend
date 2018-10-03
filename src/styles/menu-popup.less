@@ -1,8 +1,26 @@
 .menu-popup {
   &__head {
-    padding: 20px 40px;
     text-align: left;
     border-bottom: 1px solid @gray-lighter;
+  }
+
+  &__item-arrow {
+    margin: 5px 15px;
+    cursor: pointer;
+  }
+
+  &__container {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1280px;
+    padding: 20px 40px;
+    box-sizing: border-box;
+
+    &__head {
+      min-height: 90px;
+      box-sizing: border-box;
+    }
   }
 
   &__main {
@@ -10,6 +28,7 @@
     justify-content: space-between;
     padding: 20px 35px;
     margin-top: 20px;
+    min-height: 90px;
 
     @media (max-width: 424px) {
       display: block;
@@ -18,7 +37,6 @@
 
   &__content {
     display: flex;
-    // justify-content: space-around;
     padding: 0 20px;
     flex-grow: 1;
 

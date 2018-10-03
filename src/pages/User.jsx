@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../components/Avatar';
 import IconInfo from '../components/Icons/Info';
 import Rate from '../components/Rate';
-import IconLink from '../components/Icons/Link';
+import Links from '../components/Links';
 import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
@@ -18,9 +18,8 @@ import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
-import { extractHostname } from '../utils/url';
-import { getOrganizationUrl } from '../utils/organization';
 import * as actions from '../actions';
+import { getOrganizationUrl } from '../utils/organization';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -333,22 +332,7 @@ class UserPage extends PureComponent {
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
-                        <ul className="links">
-                          {this.state.user.usersSources.map((item, index) => (
-                            <li key={index} className="links__item">
-                              <span className="inline">
-                                <span className="inline__item">
-                                  <span className="icon">
-                                    <IconLink />
-                                  </span>
-                                </span>
-                                <span className="inline__item">
-                                  <a href={item.sourceUrl} target="blank">{extractHostname(item.sourceUrl)}</a>
-                                </span>
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
+                        <Links userSources={this.state.user.userSources} />
                       </div>
                     </div>
                   )}

@@ -52,7 +52,7 @@ class Comments extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="comment__text" dangerouslySetInnerHTML={{ __html: this.props.description }} />
+            <div className="comment__text">{this.props.description}</div>
             <div className="comment__actions">
               <div className="inline">
                 {this.props.user.id && (

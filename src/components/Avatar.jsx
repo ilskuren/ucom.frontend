@@ -19,6 +19,10 @@ const Avatar = props => (
     ) : (
       <UserIcon />
     )}
+
+    {props.badgeUrl && (
+      <img className="avatar__badge" src={props.badgeUrl} title={props.badgeTitle} alt={props.badgeTitle} />
+    )}
   </span>
 );
 

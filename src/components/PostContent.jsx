@@ -68,6 +68,7 @@ const PostContent = props => (
           <Comments
             postId={props.id}
             comments={props.comments}
+            organization={props.organization}
             onSubmit={(data, commentId) => {
               if (typeof props.onSubmitComment === 'function') {
                 props.onSubmitComment(data, commentId);

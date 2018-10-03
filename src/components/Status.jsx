@@ -74,7 +74,7 @@ class Status extends PureComponent {
               onChange={this.onChangeStatus}
               value={this.state.text}
               autoFocus
-              rows={4}
+              rows={2}
               onKeyUp={this.onEscapeCancel}
             />
             <div className="status__control">

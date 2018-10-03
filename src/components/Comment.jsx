@@ -30,7 +30,12 @@ class Comments extends PureComponent {
         <div className="toolbar toolbar_top">
           <div className="toolbar__side">
             <Link to={this.props.userUrl}>
-              <Avatar size="xsmall" src={this.props.avatar} />
+              <Avatar
+                size="xsmall"
+                src={this.props.avatar}
+                badgeUrl={this.props.avatarBadgeUrl}
+                badgeTitle={this.props.avatarBadgeTitle}
+              />
             </Link>
           </div>
           <div className="toolbar__main">

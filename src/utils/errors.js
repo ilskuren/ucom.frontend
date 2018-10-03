@@ -16,7 +16,9 @@ export const getError = (errors, fieldName) => {
 
 export const parseErrors = (error) => {
   if (error.response && error.response.data && error.response.data.errors) {
-    return error.response.data.errors.map(item => ({ ...item, field: camelCase(item.field) }));
+    return Array.isArray(error.response.data.errors) ?
+      error.response.data.errors.map(item => ({ ...item, field: camelCase(item.field) })) :
+      error.response.data.errors;
   }
 
   const errors = {

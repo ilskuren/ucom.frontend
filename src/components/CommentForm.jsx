@@ -57,7 +57,12 @@ class CommentForm extends PureComponent {
       <div className="comment-form">
         <div className="toolbar toolbar_top">
           <div className="toolbar__side">
-            <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
+            <Avatar
+              size="xsmall"
+              src={getFileUrl(this.props.user.avatarFilename)}
+              badgeUrl={this.props.avatarBadgeUrl}
+              badgeTitle={this.props.avatarBadgeTitle}
+            />
           </div>
 
           <div className="toolbar__main">

@@ -332,7 +332,7 @@ class UserPage extends PureComponent {
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
-                        <Links userSources={this.state.user.userSources} />
+                        <Links userSources={this.state.user.usersSources} />
                       </div>
                     </div>
                   )}

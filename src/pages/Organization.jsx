@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import IconLink from '../components/Icons/Link';
+import Links from '../components/Links';
 import Footer from '../components/Footer';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
@@ -11,7 +11,6 @@ import OrganizationFeed from '../components/OrganizationFeed';
 import OrganizationHeader from '../components/OrganizationHeader';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
-import { extractHostname } from '../utils/url';
 import * as actions from '../actions';
 import { selectUser } from '../store/selectors';
 import api from '../api';
@@ -159,24 +158,7 @@ class OrganizationPage extends PureComponent {
                             </h3>
                           </div>
                           <div className="user-section__content">
-                            <ul className="links">
-                              {socialNetworks.map(item => (
-                                <li key={item.id} className="links__item">
-                                  <span className="inline">
-                                    <span className="inline__item">
-                                      <span className="icon">
-                                        <IconLink />
-                                      </span>
-                                    </span>
-                                    <span className="inline__item">
-                                      <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener">
-                                        {extractHostname(item.sourceUrl)}
-                                      </a>
-                                    </span>
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
+                            <Links userSources={socialNetworks} />
                           </div>
                         </div>
                       )}

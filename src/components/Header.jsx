@@ -1,19 +1,28 @@
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
+import { Tooltip } from 'react-tippy';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
 import MenuPopup from './MenuPopup';
+import NotificationTooltip from './NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
+import IconBell from '../components/Icons/Bell';
+import IconNotification from '../components/Icons/Notification';
+
 
 class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.bell = createRef();
+  }
   @bind
   logout() {
     removeToken();
@@ -55,18 +64,29 @@ class Header extends PureComponent {
                   </nav>
                 </div>
 
-                {/* <div className="inline__item">
+                <div className="inline__item">
                   <div className="inline inline_small">
-                    <div className="inline__item">
-                      <div className="icon-counter">
-                        <div className="icon-counter__icon">
-                          <IconBell />
-                        </div>
-                        <div className="icon-counter__counter">
-                          <span className="counter counter_top">1</span>
+                    <Tooltip
+                      trigger="click"
+                      html={<NotificationTooltip bell={this.bell} />}
+                      theme="notification"
+                      arrow
+                      position="top-start"
+                      arrowSize="big"
+                      hideOnClick={false}
+                      interactive
+                    >
+                      <div className="inline__item inline__item__bell" ref={this.bell}>
+                        <div className="icon-counter">
+                          <div className="icon-counter__icon">
+                            <IconBell />
+                          </div>
+                          <div className="icon-counter__counter">
+                            <span className="counter counter_top">1</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Tooltip>
                     <div className="inline__item">
                       <div className="icon-counter">
                         <div className="icon-counter__icon">
@@ -78,7 +98,7 @@ class Header extends PureComponent {
                       </div>
                     </div>
                   </div>
-                </div> */}
+                </div>
               </div>
             )}
           </div>

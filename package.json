@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development ",
     "build": "webpack --config ./webpack.config.js --mode production",
-    "fix_live_reloading" : "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
+    "fix_live_reloading": "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
   },
   "keywords": [],
   "author": "",
@@ -87,11 +87,12 @@
     "react-router-dom": "^4.3.1",
     "react-scroll": "^1.7.10",
     "react-select": "^2.0.0",
+    "react-tippy": "^1.2.3",
     "react-transition-group": "^2.4.0",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
-    "redux-saga": "^0.16.0",
     "redux-form": "^7.4.2",
+    "redux-saga": "^0.16.0",
     "uos-app-transaction": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
     "uuid": "^3.3.2",
     "validatorjs": "^3.14.2"

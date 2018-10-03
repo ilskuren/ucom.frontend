@@ -48,8 +48,8 @@ class Comments extends PureComponent {
                 accountName={item.user ? item.user.accountName : null}
                 created={moment(item.createdAt).fromNow()}
                 onSubmit={description => this.createComment(description, item.id)}
-                avatarBadgeUrl={item.myselfData && item.myselfData.organizationMember && item.organization && getFileUrl(item.organization.avatarFilename)}
-                avatarBadgeTitle={item.myselfData && item.myselfData.organizationMember && item.organization && item.organization.title}
+                avatarBadgeUrl={item.organization && getFileUrl(item.organization.avatarFilename)}
+                avatarBadgeTitle={item.organization && item.organization.title}
               />
             ))}
           </div>

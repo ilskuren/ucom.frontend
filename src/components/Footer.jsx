@@ -1,8 +1,8 @@
 import React from 'react';
-import IconFacebook from './Icons/Facebook';
-import IconTwitter from './Icons/Twitter';
-import IconLinkedin from './Icons/Linkedin';
-import IconTelegram from './Icons/Telegram';
+import IconFacebook from './Icons/Socials/Facebook';
+import IconTwitter from './Icons/Socials/Twitter';
+import IconLinkedin from './Icons/Socials/Linkedin';
+import IconTelegram from './Icons/Socials/Telegram';
 
 const Footer = () => (
   <div className="footer">

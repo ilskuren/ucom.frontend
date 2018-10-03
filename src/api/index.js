@@ -188,6 +188,20 @@ class Api {
   }
 
   @bind
+  async followOrganization(id) {
+    const response = await this.actions.post(`/api/v1/organizations/${id}/follow`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async unfollowOrganization(id) {
+    const response = await this.actions.post(`/api/v1/organizations/${id}/unfollow`);
+
+    return humps(response.data);
+  }
+
+  @bind
   async join(userId) {
     const response = await this.actions.post(`/api/v1/posts/${userId}/join`);
 

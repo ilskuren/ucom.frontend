@@ -46,7 +46,11 @@ class VerticalCards extends Component {
         {this.state.popupIsVisible && (
           <Popup onClickClose={() => this.hidePopup()}>
             <ModalContent onClickClose={() => this.hidePopup()}>
-              <ProfilesList users={userCards} noSign />
+              <ProfilesList
+                title={this.props.title}
+                users={userCards}
+                noSign
+              />
             </ModalContent>
           </Popup>
         )}
@@ -57,6 +61,7 @@ class VerticalCards extends Component {
 
 VerticalCards.propTypes = {
   userCards: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
 };
 
 export default VerticalCards;

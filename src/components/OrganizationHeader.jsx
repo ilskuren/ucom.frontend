@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -6,6 +7,7 @@ import Rate from './Rate';
 import FollowButton from './FollowButton';
 import Followers from './Followers';
 import Board from './Board';
+import { selectUser } from '../store/selectors';
 import { getOrganizationEditUrl } from '../utils/organization';
 
 const OrganizationHeader = props => (
@@ -52,7 +54,9 @@ const OrganizationHeader = props => (
           <div className="organization-header__follow-btn">
             <FollowButton
               isStretched
+              isOrganization
               userId={props.id}
+              follow={props.follow}
             />
           </div>
         </div>
@@ -81,4 +85,6 @@ OrganizationHeader.propTypes = {
   editable: PropTypes.bool,
 };
 
-export default OrganizationHeader;
+export default connect(state => ({
+  user: selectUser(state),
+}))(OrganizationHeader);

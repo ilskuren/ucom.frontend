@@ -83,6 +83,7 @@ class OrganizationPage extends PureComponent {
                     id={organization.id}
                     followers={organization.followers}
                     usersTeam={organization.usersTeam}
+                    follow={organization.myselfData && organization.myselfData.follow}
                   />
                 </div>
                 <div className="organization__content">
@@ -123,6 +124,7 @@ class OrganizationPage extends PureComponent {
                           </div>
                           <div className="user-section__content">
                             <VerticalCards
+                              title="Partners"
                               userCards={organization.partnershipSources.map(item => ({
                                 userName: item.title,
                                 avatarUrl: getFileUrl(item.avatarFilename),
@@ -140,6 +142,7 @@ class OrganizationPage extends PureComponent {
                           </div>
                           <div className="user-section__content">
                             <VerticalCards
+                              title="Communities"
                               userCards={organization.communitySources.map(item => ({
                                 userName: item.title,
                                 avatarUrl: getFileUrl(item.avatarFilename),

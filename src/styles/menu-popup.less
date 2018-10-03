@@ -1,7 +1,13 @@
 .menu-popup {
   &__head {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
     text-align: left;
     border-bottom: 1px solid @gray-lighter;
+    background: #fff;
   }
 
   &__item-arrow {
@@ -26,9 +32,7 @@
   &__main {
     display: flex;
     justify-content: space-between;
-    padding: 20px 35px;
-    margin-top: 20px;
-    min-height: 90px;
+    padding: 101px 35px 20px;
 
     @media (max-width: 424px) {
       display: block;

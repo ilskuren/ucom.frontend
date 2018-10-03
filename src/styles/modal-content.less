@@ -1,12 +1,11 @@
 .modal-content {
   position: relative;
   background-color: @white;
-  overflow-y: scroll;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
 
   &__close {
-    position: absolute;
+    position: fixed;
     top: 30px;
     right: 40px;
     padding: 5px;
@@ -46,6 +45,6 @@
   }
 
   &__main {
-    overflow-y: auto;
+    overflow-y: scroll;
   }
 }

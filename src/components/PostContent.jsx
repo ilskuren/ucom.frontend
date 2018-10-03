@@ -8,8 +8,11 @@ import EditIcon from './Icons/Edit';
 import Tags from './Tags';
 import Rate from './Rate';
 import Comments from './Comments';
+import UserCard from './UserCard';
 import { getPostEditUrl } from '../utils/posts';
 import { selectUser } from '../store/selectors/user';
+import { getFileUrl } from '../utils/upload';
+import { getOrganizationUrl } from '../utils/organization';
 
 const PostContent = props => (
   <div className="posts">
@@ -49,6 +52,21 @@ const PostContent = props => (
             </div>
           </div>
         ) : null}
+
+        {props.organization && (
+          <div className="posts__organization">
+            <UserCard
+              squareAvatar
+              roundedAvatar
+              caption="ORG"
+              userName={props.organization.title}
+              accountName={props.organization.nickname}
+              rate={props.organization.current_rate}
+              avatarUrl={getFileUrl(props.organization.avatar_filename)}
+              profileLink={getOrganizationUrl(props.organization.id)}
+            />
+          </div>
+        )}
 
         <div className="posts__content">
           {props.imgSrc && (

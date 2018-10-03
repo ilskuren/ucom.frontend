@@ -1,15 +1,17 @@
 .user-card {
-  display: flex;
+  display: inline-block;
+}
+
+.user-card__inner {
+  display: grid;
   align-items: center;
+  grid-template: 'a a';
+  grid-column-gap: 10px;
+  grid-row-gap: 5px;
 }
 
-.user-card__avatar {
-  padding: 0 10px 0 0;
-  align-self: flex-start;
-}
-
-.user-card__info {
-  flex: 1 1 auto;
+.user-card_with-caption {
+  padding: 0 0 16px;
 }
 
 .user-card__name {
@@ -50,4 +52,14 @@
 .user-card__position {
   margin: 0 0 0 20px;
   color: #C4C4C4;
+}
+
+.user-card__caption {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  line-height: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

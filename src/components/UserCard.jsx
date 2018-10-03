@@ -14,25 +14,31 @@ const UserCard = (props) => {
 
   return (
     <div className={cn('user-card', props.className)}>
-      <div className="user-card__avatar">
-        <LinkTag to={props.profileLink}>{avatar}</LinkTag>
-      </div>
+      <div className="user-card__inner">
+        <div className="user-card__main">
+          <LinkTag to={props.profileLink}>{avatar}</LinkTag>
+        </div>
 
-      <div className="user-card__info">
-        <div className="user-card__name">
-          <LinkTag to={props.profileLink}>{props.userName}</LinkTag>
+        <div className="user-card__side">
+          <div className="user-card__name">
+            <LinkTag to={props.profileLink}>{props.userName}</LinkTag>
 
-          {props.userPosition && (
-            <span className="user-card__position">{props.userPosition}</span>
+            {props.userPosition && (
+              <span className="user-card__position">{props.userPosition}</span>
+            )}
+          </div>
+
+          {props.rate && (
+            <div className="user-card__rate">{(+props.rate).toLocaleString()}°</div>
+          )}
+
+          {props.accountName && !props.rate && (
+            <div className={cn('user-card__account', { [`user-card__account_theme_${props.theme}`]: Boolean(props.theme) })}>{props.sign}{props.accountName}</div>
           )}
         </div>
 
-        {props.rate && (
-          <div className="user-card__rate">{(+props.rate).toLocaleString()}°</div>
-        )}
-
-        {props.accountName && !props.rate && (
-          <div className={cn('user-card__account', { [`user-card__account_theme_${props.theme}`]: Boolean(props.theme) })}>{props.sign}{props.accountName}</div>
+        {props.caption && (
+          <div className="user-card__caption">{props.caption}</div>
         )}
       </div>
     </div>

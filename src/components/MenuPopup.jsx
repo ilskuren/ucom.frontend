@@ -71,185 +71,189 @@ class MenuPopup extends PureComponent {
             <ModalContent onClickClose={this.hidePopup} closeText="Close">
               <div className="menu-popup">
                 <div className="menu-popup__head">
-                  <div className="inline">
-                    <div className="inline__item">
-                      <Link to={getUserUrl(this.props.user.id)} onClick={this.hidePopup}>
-                        <Avatar src={getFileUrl(this.props.user.avatarFilename)} size="msmall" />
-                      </Link>
-                    </div>
-
-                    <div className="inline__item">
-                      <div className="menu-popup__rate">
-                        {this.props.user.currentRate}°
+                  <div className="menu-popup__container menu-popup__container__head">
+                    <div className="inline inline__group">
+                      <div className="inline__item">
+                        <Link to={getUserUrl(this.props.user.id)} onClick={this.hidePopup}>
+                          <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
+                        </Link>
                       </div>
-                    </div>
 
-                    <div className="inline__item">
-                      <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
-                    </div>
+                      <div className="inline__item">
+                        <div className="menu-popup__rate">
+                          {this.props.user.currentRate}°
+                        </div>
+                      </div>
 
-                    {/* <div className="inline__item">
-                      <div className="inline inline_small">
-                        <div className="inline__item">
-                          <div className="icon-counter">
-                            <div className="icon-counter__icon">
-                              <IconBell />
-                            </div>
-                            <div className="icon-counter__counter">
-                              <span className="counter counter_top">1</span>
+                      <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
+                        <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
+                      </div>
+
+                      {/* <div className="inline__item">
+                        <div className="inline inline_small">
+                          <div className="inline__item">
+                            <div className="icon-counter">
+                              <div className="icon-counter__icon">
+                                <IconBell />
+                              </div>
+                              <div className="icon-counter__counter">
+                                <span className="counter counter_top">1</span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div> */}
+                      </div> */}
+                    </div>
                   </div>
                 </div>
                 <div className="menu-popup__main">
-                  <div className="menu-popup__side">
-                    <div className="menu menu_vertical">
-                      <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to={`/user/${this.props.user.id}`}
-                          onClick={this.hidePopup}
-                        >
-                          My profile
-                        </NavLink>
-                      </div>
-                      {/* <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to="/"
-                          onClick={this.hidePopup}
-                        >
-                          Activity Log
-                        </NavLink>
-                      </div> */}
-                      <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to="/profile/general-info"
-                          onClick={this.hidePopup}
-                        >
-                          Settings
-                        </NavLink>
-                      </div>
-                      <div className="menu__item">
-                        <div className="inline menu-popup__logout" role="presentation" onClick={this.logout}>
-                          <div className="inline__item"><LogoutIcon /></div>
-                          <div className="inline__item">Log out</div>
+                  <div className="menu-popup__container menu-popup__container__main">
+                    <div className="menu-popup__side">
+                      <div className="menu menu_vertical">
+                        <div className="menu__item">
+                          <NavLink
+                            className="menu__link"
+                            activeClassName="menu__link_active"
+                            to={`/user/${this.props.user.id}`}
+                            onClick={this.hidePopup}
+                          >
+                            My profile
+                          </NavLink>
+                        </div>
+                        {/* <div className="menu__item">
+                          <NavLink
+                            className="menu__link"
+                            activeClassName="menu__link_active"
+                            to="/"
+                            onClick={this.hidePopup}
+                          >
+                            Activity Log
+                          </NavLink>
+                        </div> */}
+                        <div className="menu__item">
+                          <NavLink
+                            className="menu__link"
+                            activeClassName="menu__link_active"
+                            to="/profile/general-info"
+                            onClick={this.hidePopup}
+                          >
+                            Settings
+                          </NavLink>
+                        </div>
+                        <div className="menu__item">
+                          <div className="inline menu-popup__logout" role="presentation" onClick={this.logout}>
+                            <div className="inline__item"><LogoutIcon /></div>
+                            <div className="inline__item">Log out</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="menu-popup__content">
-                    {/* <div className="menu-popup__content-block">
-                      <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
-                        {this.props.organizations || products.map((item, index) => (
-                          <div className="menu-popup__content-item" key={index}>
-                            <UserCard
-                              className="user-card_text_left"
-                              userName={item.profileName}
-                              accountName={item.accountName}
-                              avatarUrl={item.avatarUrl}
-                              squareAvatar
-                              sign="@"
-                            />
+                    <div className="menu-popup__content">
+                      {/* <div className="menu-popup__content-block">
+                        <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
+                          {this.props.organizations || products.map((item, index) => (
+                            <div className="menu-popup__content-item" key={index}>
+                              <UserCard
+                                className="user-card_text_left"
+                                userName={item.profileName}
+                                accountName={item.accountName}
+                                avatarUrl={item.avatarUrl}
+                                squareAvatar
+                                sign="@"
+                              />
+                            </div>
+                          ))}
+                          <div className="menu-popup__content-item">
+                            <NavLink
+                              className="menu-popup__add"
+                              to="/organizations/new"
+                              onClick={this.hidePopup}
+                            >
+                              <div className="menu-popup__add-icon menu-popup__add-icon_new">
+                                +
+                              </div>
+                              <div className="menu-popup__add-text">
+                                  Create new organization
+                              </div>
+                            </NavLink>
                           </div>
-                        ))}
-                        <div className="menu-popup__content-item">
-                          <NavLink
-                            className="menu-popup__add"
-                            to="/organizations/new"
-                            onClick={this.hidePopup}
-                          >
-                            <div className="menu-popup__add-icon menu-popup__add-icon_new">
-                              +
+                        </InfoBlock>
+                      </div> */}
+                      {this.props.products && (
+                        <div className="menu-popup__content-block">
+                          <InfoBlock title="Products" size="small" align="left" line="gray-lighter">
+                            {products.map((item, index) => (
+                              <div className="menu-popup__content-item" key={index}>
+                                <UserCard
+                                  className="user-card_text_left"
+                                  userName={item.profileName}
+                                  accountName={item.accountName}
+                                  avatarUrl={item.avatarUrl}
+                                  squareAvatar
+                                  sign="by @"
+                                />
+                              </div>
+                            ))}
+                            <div className="menu-popup__content-item">
+                              <NavLink
+                                className="menu-popup__add"
+                                to="#"
+                                onClick={this.hidePopup}
+                              >
+                                <div className="menu-popup__add-icon menu-popup__add-icon_new">
+                                  +
+                                </div>
+                                <div className="menu-popup__add-text">
+                                  Create new product
+                                </div>
+                              </NavLink>
                             </div>
-                            <div className="menu-popup__add-text">
-                                Create new organization
-                            </div>
-                          </NavLink>
+                          </InfoBlock>
                         </div>
-                      </InfoBlock>
-                    </div> */}
-                    {this.props.products && (
-                      <div className="menu-popup__content-block">
-                        <InfoBlock title="Products" size="small" align="left" line="gray-lighter">
-                          {products.map((item, index) => (
-                            <div className="menu-popup__content-item" key={index}>
-                              <UserCard
-                                className="user-card_text_left"
-                                userName={item.profileName}
-                                accountName={item.accountName}
-                                avatarUrl={item.avatarUrl}
-                                squareAvatar
-                                sign="by @"
-                              />
-                            </div>
-                          ))}
-                          <div className="menu-popup__content-item">
-                            <NavLink
-                              className="menu-popup__add"
-                              to="#"
-                              onClick={this.hidePopup}
-                            >
-                              <div className="menu-popup__add-icon menu-popup__add-icon_new">
-                                +
+                      )}
+                      {this.props.offers && (
+                        <div className="menu-popup__content-block">
+                          <InfoBlock title="Offers" size="small" align="left" line="gray-lighter">
+                            {products.map((item, index) => (
+                              <div className="menu-popup__content-item" key={index}>
+                                <UserCard
+                                  className="user-card_text_left"
+                                  userName={item.profileName}
+                                  accountName={item.accountName}
+                                  avatarUrl={item.avatarUrl}
+                                  squareAvatar
+                                  sign=""
+                                />
                               </div>
-                              <div className="menu-popup__add-text">
-                                Create new product
-                              </div>
-                            </NavLink>
-                          </div>
-                        </InfoBlock>
-                      </div>
-                    )}
-                    {this.props.offers && (
-                      <div className="menu-popup__content-block">
-                        <InfoBlock title="Offers" size="small" align="left" line="gray-lighter">
-                          {products.map((item, index) => (
-                            <div className="menu-popup__content-item" key={index}>
-                              <UserCard
-                                className="user-card_text_left"
-                                userName={item.profileName}
-                                accountName={item.accountName}
-                                avatarUrl={item.avatarUrl}
-                                squareAvatar
-                                sign=""
-                              />
-                            </div>
-                          ))}
-                          <div className="menu-popup__content-item">
-                            <div className="menu-popup__add">
-                              <div className="menu-popup__add-icon">
-                                +25
-                              </div>
-                              <div className="menu-popup__add-text">
-                                Show more events
+                            ))}
+                            <div className="menu-popup__content-item">
+                              <div className="menu-popup__add">
+                                <div className="menu-popup__add-icon">
+                                  +25
+                                </div>
+                                <div className="menu-popup__add-text">
+                                  Show more events
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="menu-popup__content-item">
-                            <NavLink
-                              className="menu-popup__add"
-                              to="#"
-                              onClick={this.hidePopup}
-                            >
-                              <div className="menu-popup__add-icon menu-popup__add-icon_new">
-                                +
-                              </div>
-                              <div className="menu-popup__add-text">
-                                Create new event
-                              </div>
-                            </NavLink>
-                          </div>
-                        </InfoBlock>
-                      </div>
-                    )}
+                            <div className="menu-popup__content-item">
+                              <NavLink
+                                className="menu-popup__add"
+                                to="#"
+                                onClick={this.hidePopup}
+                              >
+                                <div className="menu-popup__add-icon menu-popup__add-icon_new">
+                                  +
+                                </div>
+                                <div className="menu-popup__add-text">
+                                  Create new event
+                                </div>
+                              </NavLink>
+                            </div>
+                          </InfoBlock>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

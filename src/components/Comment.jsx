@@ -80,6 +80,8 @@ class Comments extends PureComponent {
                 <CommentForm
                   active
                   autoFocus
+                  avatarBadgeUrl={this.props.avatarBadgeUrl}
+                  avatarBadgeTitle={this.props.avatarBadgeTitle}
                   onReset={() => this.hideForm()}
                   onSubmit={(description) => {
                     this.props.onSubmit(description);

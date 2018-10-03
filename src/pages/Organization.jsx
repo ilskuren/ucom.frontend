@@ -46,6 +46,8 @@ class OrganizationPage extends PureComponent {
 
   render() {
     const { organization } = this.state;
+    const socialNetworks = (organization.socialNetworks || [])
+      .filter(item => item.sourceUrl && item.sourceUrl.length > 0);
 
     return (
       <div className="content">
@@ -101,73 +103,6 @@ class OrganizationPage extends PureComponent {
                           organizationId={+this.props.match.params.id}
                         />
                       </div>
-
-                      {/* {organization.content && (
-                        <Fragment>
-                          <div className="user-section">
-                            <div className="user-section__content">
-                              <img
-                                src={organization.content.media}
-                                alt="vitalik"
-                                className="organization__media"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="user-section">
-                            <div className="user-section__title">
-                              <h3 className="title title_xsmall title_light">
-                                Mission
-                              </h3>
-                            </div>
-                            <div className="user-section__content">
-                              <div className="organization__text">
-                                {organization.content.text}
-                              </div>
-                            </div>
-                          </div>
-                        </Fragment>
-                      )} */}
-
-                      {/* {organization.events && (
-                        <div className="user-section">
-                          <div className="user-section__tabs">
-                            <div className="menu menu_nav menu_responsive">
-                              <div className="menu__item">
-                                <button className="menu__link menu__item_active">
-                                  Events
-                                </button>
-                              </div>
-                              <div className="menu__item">
-                                <button className="menu__link">Products</button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="user-section__organization">
-                            <ul className="app-list">
-                              {organization.events.map((event, index) => (
-                                <li key={index} className="app-list__item">
-                                  <div className="app-list__avatar">
-                                    <Avatar square size="small" src={event.src} />
-                                  </div>
-                                  <div className="app-list__name">
-                                    {event.name}
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      )} */}
-
-                      {/* <div className="user-section">
-                        <div className="user-section__content">
-                          <div className="organization__comments">
-                            <Comments postId={1} comments={organization.comments} />
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
 
                     <div className="grid__item">
@@ -182,29 +117,41 @@ class OrganizationPage extends PureComponent {
                         </div>
                       )}
 
-                      {organization.partners && (
+                      {organization.partnershipSources && organization.partnershipSources.length > 0 && (
                         <div className="user-section">
                           <div className="user-section__title">
                             <h3 className="title title_xsmall title_light">Partners</h3>
                           </div>
                           <div className="user-section__content">
-                            <VerticalCards userCards={organization.partners} />
+                            <VerticalCards
+                              userCards={organization.partnershipSources.map(item => ({
+                                userName: item.title,
+                                avatarUrl: getFileUrl(item.avatarFilename),
+                                accountName: item.nickname || item.description,
+                              }))}
+                            />
                           </div>
                         </div>
                       )}
 
-                      {organization.communities && (
+                      {organization.communitySources && organization.communitySources.length > 0 && (
                         <div className="user-section">
                           <div className="user-section__title">
                             <h3 className="title title_xsmall title_light">Communities</h3>
                           </div>
                           <div className="user-section__content">
-                            <VerticalCards userCards={organization.communities} />
+                            <VerticalCards
+                              userCards={organization.communitySources.map(item => ({
+                                userName: item.title,
+                                avatarUrl: getFileUrl(item.avatarFilename),
+                                accountName: item.nickname || item.description,
+                              }))}
+                            />
                           </div>
                         </div>
                       )}
 
-                      {organization.usersSources && organization.usersSources.length > 0 && (
+                      {socialNetworks && socialNetworks.length > 0 && (
                         <div className="user-section">
                           <div className="user-section__title">
                             <h3 className="title title_xsmall title_light">
@@ -213,8 +160,8 @@ class OrganizationPage extends PureComponent {
                           </div>
                           <div className="user-section__content">
                             <ul className="links">
-                              {organization.usersSources.map((item, index) => (
-                                <li key={index} className="links__item">
+                              {socialNetworks.map(item => (
+                                <li key={item.id} className="links__item">
                                   <span className="inline">
                                     <span className="inline__item">
                                       <span className="icon">
@@ -222,7 +169,7 @@ class OrganizationPage extends PureComponent {
                                       </span>
                                     </span>
                                     <span className="inline__item">
-                                      <a href={item.sourceUrl} target="blank">
+                                      <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener">
                                         {extractHostname(item.sourceUrl)}
                                       </a>
                                     </span>
@@ -244,12 +191,6 @@ class OrganizationPage extends PureComponent {
                           </div>
                         </div>
                       )}
-
-                      {/* {organization.id && (
-                        <div className="user-section">
-                          <button className="button button_theme_transparent button_size_medium">Share this profile</button>
-                        </div>
-                      )} */}
                     </div>
                   </div>
                 </div>

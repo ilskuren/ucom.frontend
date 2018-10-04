@@ -9,6 +9,7 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import { sortComments } from '../utils/comments';
 import { selectUser } from '../store/selectors';
+import { getOrganizationUrl } from '../utils/organization';
 
 class Comments extends PureComponent {
   createComment(description, commentId) {
@@ -25,6 +26,7 @@ class Comments extends PureComponent {
       <div className="comments">
         <div className="comments__form">
           <CommentForm
+            showAvatrBadge={this.props.organizationMember}
             avatarBadgeUrl={organization && getFileUrl(organization.avatarFilename)}
             avatarBadgeTitle={organization && organization.title}
             onSubmit={description => this.createComment(description)}
@@ -48,8 +50,13 @@ class Comments extends PureComponent {
                 accountName={item.user ? item.user.accountName : null}
                 created={moment(item.createdAt).fromNow()}
                 onSubmit={description => this.createComment(description, item.id)}
+                showAvatrBadge={item.organization}
                 avatarBadgeUrl={item.organization && getFileUrl(item.organization.avatarFilename)}
                 avatarBadgeTitle={item.organization && item.organization.title}
+                avatarBadgeLink={item.organization && getOrganizationUrl(item.organization.id)}
+                showFormAvatrBadge={this.props.organizationMember}
+                formAvatarBadgeUrl={organization && getFileUrl(organization.avatarFilename)}
+                formAvatarBadgeTitle={organization && organization.title}
               />
             ))}
           </div>

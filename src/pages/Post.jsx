@@ -107,7 +107,8 @@ class Offer extends PureComponent {
                 сhoice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
                 comments={this.state.post.comments}
                 onSubmitComment={(data, commentId) => this.createComment(data, commentId)}
-                organization={this.state.post.myselfData && this.state.post.myselfData.organization_member && this.state.post.organization}
+                organization={this.state.post.organization}
+                organizationMember={this.state.post.myselfData && this.state.post.myselfData.organization_member}
               />
             </div>
           </div>

@@ -60,6 +60,7 @@ class CommentForm extends PureComponent {
             <Avatar
               size="xsmall"
               src={getFileUrl(this.props.user.avatarFilename)}
+              showBadge={this.props.showAvatrBadge}
               badgeUrl={this.props.avatarBadgeUrl}
               badgeTitle={this.props.avatarBadgeTitle}
             />

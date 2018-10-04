@@ -61,10 +61,11 @@ class OrganizationPage extends PureComponent {
                   avatar={getFileUrl(organization.user && organization.user.avatarFilename)}
                   name={getUserName(organization.user)}
                   rating={organization.user && +organization.user.currentRate}
+                  userAccountName={organization.user && organization.user.accountName}
                   follow={
                     organization.user &&
-                    organization.user.myselfData &&
-                    organization.user.myselfData.follow
+                    organization.user.id &&
+                    this.props.user.iFollow.find(item => item.id === organization.user.id)
                   }
                 />
               </div>
@@ -81,7 +82,7 @@ class OrganizationPage extends PureComponent {
                     poweredBy={organization.poweredBy}
                     currentRate={organization.currentRate}
                     id={organization.id}
-                    followers={organization.followers}
+                    followers={organization.followedBy}
                     usersTeam={organization.usersTeam}
                     follow={organization.myselfData && organization.myselfData.follow}
                   />

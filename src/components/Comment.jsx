@@ -33,8 +33,10 @@ class Comments extends PureComponent {
               <Avatar
                 size="xsmall"
                 src={this.props.avatar}
+                showBadge={this.props.showAvatrBadge}
                 badgeUrl={this.props.avatarBadgeUrl}
                 badgeTitle={this.props.avatarBadgeTitle}
+                badgeLink={this.props.avatarBadgeLink}
               />
             </Link>
           </div>
@@ -80,8 +82,9 @@ class Comments extends PureComponent {
                 <CommentForm
                   active
                   autoFocus
-                  avatarBadgeUrl={this.props.avatarBadgeUrl}
-                  avatarBadgeTitle={this.props.avatarBadgeTitle}
+                  showAvatrBadge={this.props.showFormAvatrBadge}
+                  avatarBadgeUrl={this.props.formAvatarBadgeUrl}
+                  avatarBadgeTitle={this.props.formAvatarBadgeTitle}
                   onReset={() => this.hideForm()}
                   onSubmit={(description) => {
                     this.props.onSubmit(description);

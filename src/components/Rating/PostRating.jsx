@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
 import Rating from './Rating';
-import { postVoteUp, postVoteDown } from '../../actions/posts';
+import { postVote } from '../../actions/posts';
 
 const PostRating = (props) => {
   const post = Object.entries(props.posts.data)
@@ -13,8 +13,8 @@ const PostRating = (props) => {
     <Rating
       currentVote={post.currentVote}
       myselfVote={post.myselfData.myselfVote}
-      onClickVoteDown={() => props.postVoteDown(props.postId)}
-      onClickVoteUp={() => props.postVoteUp(props.postId)}
+      onClickVoteDown={() => props.postVote({ postId: props.postId, isUp: false })}
+      onClickVoteUp={() => props.postVote({ postId: props.postId, isUp: true })}
     />
   );
 };
@@ -24,7 +24,6 @@ export default connect(
     posts: state.posts,
   }),
   dispatch => bindActionCreators({
-    postVoteUp,
-    postVoteDown,
+    postVote,
   }, dispatch),
 )(PostRating);

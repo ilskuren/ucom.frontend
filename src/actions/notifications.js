@@ -9,3 +9,7 @@ export const addValidationErrorNotification = () => (dispatch) => {
     message: 'Some fields in the form are incorrect',
   }));
 };
+
+export const addErrorNotification = message => (dispatch) => {
+  dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message }));
+};

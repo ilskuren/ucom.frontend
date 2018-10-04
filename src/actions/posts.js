@@ -2,6 +2,8 @@ import humps from 'lodash-humps';
 import api from '../api';
 import { addUsers } from './users';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
+import { parseErrors } from '../utils/errors';
+import { addErrorNotification } from './notifications';
 
 export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const addPost = payload => ({ type: 'ADD_POST', payload });
@@ -22,26 +24,17 @@ export const fetchOrganizationPosts = organizationId => (dispatch) => {
     });
 };
 
-export const postVoteUp = postId => (dispatch) => {
-  api.vote(true, postId)
+export const postVote = payload => (dispatch) => {
+  api.vote(payload.isUp, payload.postId)
     .then(humps)
     .then((data) => {
       dispatch(setPostVote({
-        id: postId,
+        id: payload.postId,
         currentVote: data.currentVote,
-        myselfVote: UPVOTE_STATUS,
+        myselfVote: payload.isUp ? UPVOTE_STATUS : DOWNVOTE_STATUS,
       }));
-    });
-};
-
-export const postVoteDown = postId => (dispatch) => {
-  api.vote(false, postId)
-    .then(humps)
-    .then((data) => {
-      dispatch(setPostVote({
-        id: postId,
-        currentVote: data.currentVote,
-        myselfVote: DOWNVOTE_STATUS,
-      }));
+    })
+    .catch((error) => {
+      dispatch(addErrorNotification(parseErrors(error).general));
     });
 };

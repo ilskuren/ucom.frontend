@@ -90,6 +90,9 @@ class Header extends PureComponent {
                       arrowSize="big"
                       hideOnClick={false}
                       interactive
+                      useContext
+                      sticky
+                      stickyDuration={0}
                     >
                       <div className="inline__item inline__item__bell" role="presentation" onClick={this.triggerTooltip}>
                         <div className="icon-counter">

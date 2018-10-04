@@ -7,11 +7,12 @@ import Links from '../components/Links';
 import Footer from '../components/Footer';
 import PostHeader from '../components/PostHeader';
 import VerticalCards from '../components/VerticalCards';
-import OrganizationFeed from '../components/OrganizationFeed';
+import OrganizationFeed from '../components/Feed/OrganizationFeed';
 import OrganizationHeader from '../components/OrganizationHeader';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
+import { fetchOrganizationPosts } from '../actions/posts';
 import { selectUser } from '../store/selectors';
 import api from '../api';
 
@@ -35,6 +36,8 @@ class OrganizationPage extends PureComponent {
   }
 
   getData(organizationId) {
+    this.props.fetchOrganizationPosts(organizationId);
+
     api.getOrganization(organizationId)
       .then((data) => {
         this.setState({
@@ -100,9 +103,7 @@ class OrganizationPage extends PureComponent {
                       )}
 
                       <div className="user-section">
-                        <OrganizationFeed
-                          organizationId={+this.props.match.params.id}
-                        />
+                        <OrganizationFeed organizationId={+this.props.match.params.id} />
                       </div>
                     </div>
 
@@ -190,17 +191,12 @@ class OrganizationPage extends PureComponent {
   }
 }
 
-const mapDispatch = dispatch =>
-  bindActionCreators(
-    {
-      setUser: actions.setUser,
-    },
-    dispatch,
-  );
-
 export default connect(
   state => ({
     user: selectUser(state),
   }),
-  mapDispatch,
+  dispatch => bindActionCreators({
+    fetchOrganizationPosts,
+    setUser: actions.setUser,
+  }, dispatch),
 )(OrganizationPage);

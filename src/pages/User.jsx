@@ -12,13 +12,15 @@ import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
-import Feed from '../components/Feed';
+import UserFeed from '../components/Feed/UserFeed';
 import Status from '../components/Status';
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
+import { fetchUser } from '../actions/users';
+import { fetchUserPosts } from '../actions/posts';
 import { getOrganizationUrl } from '../utils/organization';
 
 class UserPage extends PureComponent {
@@ -41,6 +43,9 @@ class UserPage extends PureComponent {
   }
 
   getData(userId) {
+    this.props.fetchUser(userId);
+    this.props.fetchUserPosts(userId);
+
     this.setState({ user: {} }, () => {
       api.getUser(userId)
         .then((user) => {
@@ -263,10 +268,7 @@ class UserPage extends PureComponent {
                   )}
 
                   <div className="user-section">
-                    <Feed
-                      title="Feed"
-                      userId={+this.props.match.params.id}
-                    />
+                    <UserFeed userId={+this.props.match.params.id} />
                   </div>
                 </div>
 
@@ -427,11 +429,13 @@ class UserPage extends PureComponent {
   }
 }
 
-const mapDispatch = dispatch =>
-  bindActionCreators({
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    fetchUser,
+    fetchUserPosts,
     setUser: actions.setUser,
-  }, dispatch);
-
-export default connect(state => ({
-  user: selectUser(state),
-}), mapDispatch)(UserPage);
+  }, dispatch),
+)(UserPage);

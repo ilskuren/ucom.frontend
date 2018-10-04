@@ -1,4 +1,4 @@
-import { SETTINGS } from 'utils/actionTypes';
+import { SETTINGS } from '../../utils/actionTypes';
 
 const getInitialState = () => ({
   data: {

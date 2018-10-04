@@ -23,6 +23,26 @@ const posts = (state = getInitialState(), action) => {
       });
     }
 
+    case 'SET_POST_VOTE_UP': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          [action.payload.id]: Object.assign({}, state.data[action.payload.id], {
+            currentVote: state.data[action.payload.id] + 1,
+          }),
+        }),
+      });
+    }
+
+    case 'SET_POST_VOTE_DOWN': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          [action.payload.id]: Object.assign({}, state.data[action.payload.id], {
+            currentVote: state.data[action.payload.id] - 1,
+          }),
+        }),
+      });
+    }
+
     default: {
       return state;
     }

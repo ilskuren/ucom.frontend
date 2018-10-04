@@ -1,4 +1,4 @@
-import { SETTINGS } from 'utils/actionTypes';
+import { SETTINGS } from '../../utils/actionTypes';
 
 export const setSettingsAccountData = payload => ({ type: SETTINGS.SET_ACCOUNT_DATA, payload });
 export const resetSettingsAccount = () => ({ type: SETTINGS.RESET_ACCOUNT });

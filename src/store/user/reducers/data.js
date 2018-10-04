@@ -1,4 +1,4 @@
-import { USER } from 'utils/actionTypes';
+import { USER } from '../../../utils/actionTypes';
 
 const getInitialState = () => ({});
 

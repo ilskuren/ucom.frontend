@@ -1,4 +1,4 @@
-import { initialCommunicationField } from 'utils/redux/communication';
+import { initialCommunicationField } from '../../utils/redux/communication';
 
 export const initial = {
   communication: {

@@ -57,6 +57,8 @@ const OrganizationHeader = props => (
               isOrganization
               userId={props.id}
               follow={props.follow}
+              accountName={props.accountName}
+              userAccountName={props.organizationBlockchainId}
             />
           </div>
         </div>

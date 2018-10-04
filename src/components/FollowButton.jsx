@@ -26,28 +26,29 @@ class FollowButton extends PureComponent {
       return;
     }
 
-    let response;
+    let apiMethod;
 
     if (this.props.isOrganization) {
-      response = (this.state.follow ? api.unfollowOrganization : api.followOrganization)(this.props.userId);
+      apiMethod = this.state.follow ? api.unfollowOrganization : api.followOrganization;
     } else {
-      response = (this.state.follow ? api.unfollow : api.follow)(
-        this.props.userId,
-        getToken(),
-        this.props.user.accountName,
-        this.props.userAccountName,
-      );
+      apiMethod = this.state.follow ? api.unfollow : api.follow;
     }
 
-    response.then((data) => {
-      if (data.errors) {
-        return;
-      }
+    apiMethod(
+      this.props.userId,
+      getToken(),
+      this.props.user.accountName,
+      this.props.userAccountName,
+    )
+      .then((data) => {
+        if (data.errors) {
+          return;
+        }
 
-      this.setState(prevState => ({
-        follow: !prevState.follow,
-      }));
-    });
+        this.setState(prevState => ({
+          follow: !prevState.follow,
+        }));
+      });
   }
 
   render() {

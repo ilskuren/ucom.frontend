@@ -168,35 +168,67 @@ class Api {
   async follow(userId, token, senderAccountName, recipientAccountName) {
     const brainkey = getBrainkey();
     const senderActivePrivateKey = getActivePrivateKey(brainkey);
-    const signed = await TransactionFactory.getSignedUserFollowsUser(
+    const signedTransaction = await TransactionFactory.getSignedUserFollowsUser(
       senderAccountName,
       senderActivePrivateKey,
       recipientAccountName,
+      true,
     );
+
     const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {
-      signed_transaction: JSON.stringify(signed),
+      signedTransaction,
     });
 
     return response;
   }
 
   @bind
-  async unfollow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`);
+  async unfollow(userId, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserUnfollowsUser(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+      true,
+    );
+
+    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {
+      signedTransaction,
+    });
 
     return humps(response.data);
   }
 
   @bind
-  async followOrganization(id) {
-    const response = await this.actions.post(`/api/v1/organizations/${id}/follow`);
+  async followOrganization(id, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserFollowsOrg(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+    );
+
+    const response = await this.actions.post(`/api/v1/organizations/${id}/follow`, {
+      signedTransaction,
+    });
 
     return humps(response.data);
   }
 
   @bind
-  async unfollowOrganization(id) {
-    const response = await this.actions.post(`/api/v1/organizations/${id}/unfollow`);
+  async unfollowOrganization(id, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserUnfollowsOrg(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+    );
+    const response = await this.actions.post(`/api/v1/organizations/${id}/unfollow`, {
+      signedTransaction,
+    });
 
     return humps(response.data);
   }

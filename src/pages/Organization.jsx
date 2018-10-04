@@ -66,9 +66,9 @@ class OrganizationPage extends PureComponent {
                   rating={organization.user && +organization.user.currentRate}
                   userAccountName={organization.user && organization.user.accountName}
                   follow={
-                    organization.user &&
-                    organization.user.id &&
-                    this.props.user.iFollow.find(item => item.id === organization.user.id)
+                    !!organization.user &&
+                    !!organization.user.id &&
+                    !!this.props.user.iFollow.find(item => item.id === organization.user.id)
                   }
                 />
               </div>
@@ -85,6 +85,8 @@ class OrganizationPage extends PureComponent {
                     poweredBy={organization.poweredBy}
                     currentRate={organization.currentRate}
                     id={organization.id}
+                    accountName={this.props.user.accountName}
+                    organizationBlockchainId={organization.blockchainId}
                     followers={organization.followedBy}
                     usersTeam={organization.usersTeam}
                     follow={organization.myselfData && organization.myselfData.follow}

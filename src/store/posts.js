@@ -23,6 +23,19 @@ const posts = (state = getInitialState(), action) => {
       });
     }
 
+    case 'SET_POST_VOTE': {
+      return Object.assign({}, state, {
+        data: Object.assign({}, state.data, {
+          [action.payload.id]: Object.assign({}, state.data[action.payload.id], {
+            currentVote: action.payload.currentVote,
+            myselfData: Object.assign({}, state.data[action.payload.id].myselfData, {
+              myselfVote: action.payload.myselfVote,
+            }),
+          }),
+        }),
+      });
+    }
+
     default: {
       return state;
     }

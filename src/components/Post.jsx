@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React from 'react';
-import Rating from './Rating';
+import PostRating from './Rating/PostRating';
 import UserCard from './UserCard';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
 import { getFileUrl } from '../utils/upload';
@@ -30,7 +30,7 @@ const Post = (props) => {
           <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
 
           <div className="toolbar__side">
-            <Rating rating={post.currentVote} postId={post.id} />
+            <PostRating postId={post.id} />
           </div>
         </div>
       </div>

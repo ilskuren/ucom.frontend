@@ -176,7 +176,7 @@ class Api {
     );
 
     const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {
-      signedTransaction,
+      signed_transaction: signedTransaction,
     });
 
     return response;
@@ -194,7 +194,7 @@ class Api {
     );
 
     const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {
-      signedTransaction,
+      signed_transaction: signedTransaction,
     });
 
     return humps(response.data);
@@ -211,7 +211,7 @@ class Api {
     );
 
     const response = await this.actions.post(`/api/v1/organizations/${id}/follow`, {
-      signedTransaction,
+      signed_transaction: signedTransaction,
     });
 
     return humps(response.data);
@@ -227,7 +227,7 @@ class Api {
       recipientAccountName,
     );
     const response = await this.actions.post(`/api/v1/organizations/${id}/unfollow`, {
-      signedTransaction,
+      signed_transaction: signedTransaction,
     });
 
     return humps(response.data);

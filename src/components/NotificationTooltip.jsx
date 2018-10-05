@@ -17,7 +17,7 @@ class NotificationTooltip extends Component {
         <div className="notification-tooltip__header notification-tooltip__header_new">
           <h3 className="notification-tooltip__title">{this.state.title}</h3>
         </div>
-        <div className="notification-tooltip__list notification-tooltip__list__new">
+        <div className="notification-tooltip__list notification-tooltip__list_new">
           <div className="notification-tooltip__item notification-tooltip__item_new">
             <NotificationCard
               recent

@@ -28,12 +28,12 @@ export const validate = (values) => {
     errors.firstCurrencyYear = 'The field name first currency year format is invalid.';
   }
 
-  // if (Array.isArray(values.userJobs) && values.userJobs.length !== 0) {
-  //   validateBlock({ errors, array: values.userJobs, type: 'userJobs' });
+  // if (Array.isArray(values.usersJobs) && values.usersJobs.length !== 0) {
+  //   validateBlock({ errors, array: values.usersJobs, type: 'usersJobs' });
   // }
 
-  // if (Array.isArray(values.userEducations) && values.userEducations.length !== 0) {
-  //   validateBlock({ errors, array: values.userEducations, type: 'userEducations' });
+  // if (Array.isArray(values.usersEducation) && values.usersEducation.length !== 0) {
+  //   validateBlock({ errors, array: values.usersEducation, type: 'usersEducation' });
   // }
   return errors;
 };

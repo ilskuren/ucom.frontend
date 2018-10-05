@@ -1,4 +1,5 @@
 .text-input {
+  position: relative;
   font-size: 1.142rem;
 
   &__label {
@@ -13,9 +14,20 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 12px;
+
     @media (max-width: 425px) {
       flex-direction: column;
      }
+
+    &_top {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+
+      @media (max-width: 425px) {
+        position: static;
+      }
+    }
   }
 
   &__input-wrapper {
@@ -63,8 +75,9 @@
   }
 
   &__subtext {
-    color: @gray-dark;
     margin-top: 12px;
+    line-height: 24px;
+    color: @gray-dark;
   }
 
   &__error {

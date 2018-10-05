@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 const Textarea = ({
-  label, value, placeholder, rows, onChange, className, ...rest
+  label, value, placeholder, rows, onChange, className, error, ...rest
 }) => (
-  <div className={cn('textarea', className)}>
+  <div className={cn(
+      'textarea',
+      { 'textarea_error': !!error },
+      className,
+    )}
+  >
     { label && <label className="textarea__label">{label}</label> }
     <textarea
       className="textarea__text"
@@ -19,6 +24,7 @@ const Textarea = ({
       }}
       {...rest}
     />
+    {error && <div className="textarea__error">{error}</div>}
   </div>
 );
 
@@ -28,6 +34,7 @@ Textarea.propTypes = {
   placeholder: PropTypes.string,
   rows: PropTypes.number,
   onChange: PropTypes.func,
+  error: PropTypes.string,
 };
 
 export default Textarea;

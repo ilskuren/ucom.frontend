@@ -46,7 +46,7 @@ const PostItem = (props) => {
       <div className="post-item__side">
         {props.rate && (
           <div className="post-item__rate">
-            <Rate value={props.rate} />
+            <Rate value={+props.rate} />
           </div>
         )}
       </div>

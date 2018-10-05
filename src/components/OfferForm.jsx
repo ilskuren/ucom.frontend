@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '../components/Avatar';
+import PostFromFooter from '../components/PostFromFooter';
 import DropZone from '../components/DropZone';
 import EventTitle from '../components/EventTitle';
 import OfferFormEditor from '../components/OfferFormEditor';
@@ -11,6 +11,7 @@ import Switcher from '../components/Switcher';
 import InputErrorIcon from '../components/Icons/InputError';
 import UserSearchInput from './UserSearchInput';
 import Button from './Button';
+import CreateBy from './CreateBy';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
@@ -57,17 +58,7 @@ class OfferForm extends PureComponent {
                 </div>
 
                 {this.props.user.id && (
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      <span className="post-form__light">By</span>
-                    </div>
-                    <div className="inline__item">
-                      <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                    </div>
-                    <div className="inline__item">
-                      <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
-                    </div>
-                  </div>
+                  <CreateBy />
                 )}
               </div>
             </div>
@@ -252,42 +243,14 @@ class OfferForm extends PureComponent {
               </div>
             </div>
 
-            <div className="post-form__footer">
-              <div className="post-form__content">
-                <div className="toolbar">
-                  <div className="toolbar__main">
-                    <a href="#top" className="create-post__back-link">Back to settings ↑</a>
-                  </div>
-                  <div className="toolbar__side">
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                      </div>
-                      {this.props.user.id && (
-                        <span className="inline__item">
-                          <span className="create-post__author-name">{getUserName(this.props.user)}</span>
-                        </span>
-                      )}
-                      <span className="inline__item">
-                        <Button
-                          isStretched
-                          isUpper
-                          theme="red"
-                          size="small"
-                          text="Post"
-                          isDisabled={this.props.loading}
-                          onClick={() => {
-                            if (typeof this.props.onClickSave === 'function') {
-                              this.props.onClickSave();
-                            }
-                          }}
-                        />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PostFromFooter
+              loading={this.props.loading}
+              onClickSave={() => {
+                if (typeof this.props.onClickSave === 'function') {
+                  this.props.onClickSave();
+                }
+              }}
+            />
           </div>
         </div>
       </div>

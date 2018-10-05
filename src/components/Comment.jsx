@@ -30,7 +30,14 @@ class Comments extends PureComponent {
         <div className="toolbar toolbar_top">
           <div className="toolbar__side">
             <Link to={this.props.userUrl}>
-              <Avatar size="xsmall" src={this.props.avatar} />
+              <Avatar
+                size="xsmall"
+                src={this.props.avatar}
+                showBadge={this.props.showAvatrBadge}
+                badgeUrl={this.props.avatarBadgeUrl}
+                badgeTitle={this.props.avatarBadgeTitle}
+                badgeLink={this.props.avatarBadgeLink}
+              />
             </Link>
           </div>
           <div className="toolbar__main">
@@ -75,6 +82,9 @@ class Comments extends PureComponent {
                 <CommentForm
                   active
                   autoFocus
+                  showAvatrBadge={this.props.showFormAvatrBadge}
+                  avatarBadgeUrl={this.props.formAvatarBadgeUrl}
+                  avatarBadgeTitle={this.props.formAvatarBadgeTitle}
                   onReset={() => this.hideForm()}
                   onSubmit={(description) => {
                     this.props.onSubmit(description);

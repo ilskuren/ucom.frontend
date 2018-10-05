@@ -181,6 +181,20 @@
   }
 }
 
+.list-table_organizations {
+  &.list-table_responsive {
+    .list-table__cell_name {
+      width: 100%;
+
+      @media (max-width: 1023px) {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
 .list-table_indexed {
   .list-table__cell {
     &:first-child {

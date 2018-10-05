@@ -1,3 +1,4 @@
+import { withRouter } from 'react-router';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -19,6 +20,27 @@ const Avatar = props => (
     ) : (
       <UserIcon />
     )}
+
+    {props.showBadge && (
+      <span
+        role="presentation"
+        className="avatar__badge"
+        title={props.badgeTitle}
+        onClick={(e) => {
+          e.preventDefault();
+
+          if (props.badgeLink) {
+            props.history.push(props.badgeLink);
+          }
+        }}
+      >
+        {props.badgeUrl ? (
+          <img src={props.badgeUrl} alt={props.badgeTitle} />
+        ) : (
+          <UserIcon />
+        )}
+      </span>
+    )}
   </span>
 );
 
@@ -36,4 +58,4 @@ Avatar.defaultProps = {
   rounded: false,
 };
 
-export default Avatar;
+export default withRouter(Avatar);

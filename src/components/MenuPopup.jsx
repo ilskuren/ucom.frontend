@@ -1,4 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
+import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
@@ -10,6 +11,7 @@ import Avatar from './Avatar';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
 import { getUserUrl } from '../utils/user';
+import { getOrganizationUrl } from '../utils/organization';
 
 import av1 from '../static/avatars/1.png';
 import av2 from '../static/avatars/2.png';
@@ -40,6 +42,12 @@ class MenuPopup extends PureComponent {
     this.state = {
       popupIsVisible: false,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.hidePopup();
+    }
   }
 
   @bind
@@ -149,17 +157,18 @@ class MenuPopup extends PureComponent {
                       </div>
                     </div>
                     <div className="menu-popup__content">
-                      {/* <div className="menu-popup__content-block">
+                      <div className="menu-popup__content-block">
                         <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter">
-                          {this.props.organizations || products.map((item, index) => (
-                            <div className="menu-popup__content-item" key={index}>
+                          {this.props.user.organizations && this.props.user.organizations.map(item => (
+                            <div className="menu-popup__content-item" key={item.id}>
                               <UserCard
                                 className="user-card_text_left"
-                                userName={item.profileName}
-                                accountName={item.accountName}
-                                avatarUrl={item.avatarUrl}
+                                userName={item.title}
+                                accountName={item.nickname}
+                                avatarUrl={getFileUrl(item.avatarFilename)}
+                                profileLink={getOrganizationUrl(item.id)}
                                 squareAvatar
-                                sign="@"
+                                roundedAvatar
                               />
                             </div>
                           ))}
@@ -167,18 +176,13 @@ class MenuPopup extends PureComponent {
                             <NavLink
                               className="menu-popup__add"
                               to="/organizations/new"
-                              onClick={this.hidePopup}
                             >
-                              <div className="menu-popup__add-icon menu-popup__add-icon_new">
-                                +
-                              </div>
-                              <div className="menu-popup__add-text">
-                                  Create new organization
-                              </div>
+                              <div className="menu-popup__add-icon menu-popup__add-icon_new">+</div>
+                              <div className="menu-popup__add-text">Create new organization</div>
                             </NavLink>
                           </div>
                         </InfoBlock>
-                      </div> */}
+                      </div>
                       {this.props.products && (
                         <div className="menu-popup__content-block">
                           <InfoBlock title="Products" size="small" align="left" line="gray-lighter">
@@ -272,4 +276,4 @@ MenuPopup.propTypes = {
   logout: PropTypes.func,
 };
 
-export default MenuPopup;
+export default withRouter(MenuPopup);

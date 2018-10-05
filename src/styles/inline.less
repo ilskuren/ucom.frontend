@@ -3,10 +3,6 @@
   margin: -8px;
 }
 
-.inline_without-margin {
-  margin: 0;
-}
-
 .inline__item {
   display: inline-block;
   margin: 8px;
@@ -21,6 +17,7 @@
   top: 1px;
   // some necessary creepy thing for accurate visual conformity of modal header with profile header
 }
+
 .inline__item_without-margin {
   margin: 0;
 }
@@ -41,6 +38,14 @@
   }
 }
 
+.inline_medium {
+  margin: -6px;
+
+  > .inline__item {
+    margin: 6px;
+  }
+}
+
 .inline_large {
   margin: -16px;
 
@@ -58,7 +63,15 @@
 }
 
 .inline_baseline {
-  .inline__item {
+  > .inline__item {
     vertical-align: baseline;
+  }
+}
+
+.inline_without-margin {
+  margin: 0;
+
+  > .inline__item {
+    margin: 0;
   }
 }

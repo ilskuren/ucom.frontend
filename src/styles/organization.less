@@ -1,47 +1,122 @@
 .organization {
-  border-bottom: 1px solid rgba(184, 184, 184, 0.25);
   &__header {
-    padding: 50px;
-    padding-bottom: 0;
-    & > *:first-child {
-      padding-left: 60px;
-      padding-right: 60px;
-    }
-    @media (max-width: 424px) {
-      & > *:first-child {
-        padding-right: 0px;
-      }
+    margin: 0 0 40px;
+    padding: 40px 100px;
+    border-bottom: 1px solid #EAEAEA;
+
+    @media (max-width: 767px) {
+      padding: 40px 20px;
     }
   }
-  &__comments {
-    max-width: 600px;
-  }
-  &__menu {
-    margin-top: 40px;
-    height: 100px;
-    padding-left: 60px;
-    padding-right: 60px;
-    @media (max-width: 1023px) {
-        padding-right: 0px;
+
+  &__content {
+    padding: 0 100px 40px;
+
+    @media (max-width: 767px) {
+      padding: 0 20px 40px;
     }
   }
-  &__follow-button {
+}
+
+.organization-header {
+  &__top {
+    display: flex;
+    margin: 0 0 40px;
+  }
+
+  &__main {
+    flex: 1 1 auto;
+  }
+
+  &__aside {
+    padding: 0 36px 0 0;
+  }
+
+  &__bside {
+    text-align: right;
+  }
+
+  &__title {
+    margin: 0 0 4px;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  &__nickname {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #585858;
+  }
+
+  &__poweredby {
+    margin: 0 0 23px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #767676;
+  }
+
+  &__follow-btn {
     width: 160px;
   }
-  &__content {
-    margin-top: 60px;
-    padding-left: 57px;
-    @media (max-width: 1023px) {
-      margin-top: 220px;
+
+  &__position {
+    margin: 0 0 4px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(0,0,0,0.6);
+  }
+}
+
+.organizations-dropdown {
+  position: relative;
+
+  &__toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      display: block;
+      height: 6px;
+      width: 6px;
+      margin-top: 3px;
+      border: 2px @black solid;
+      border-bottom: transparent;
+      border-right: transparent;
+      transform: rotate(225deg);
+      transform-origin: 44% 33%;
+      margin: 0;
     }
   }
-  &__text {
-    line-height: 1.8;
-    font-size: 1.1429rem;
-    max-width: 700px;
+
+  &__content {
+    max-height: 200px;
+    padding: 20px;
+    border-radius: 3px;
+    overflow-y: auto;
   }
-  &__media {
-    max-width: 100%;
-    height: auto;
+
+  &__list {
+    margin: -20px 0;
+  }
+
+  &__item {
+    margin: 0 -20px;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: rgba(0,0,0,0.05);
+    }
   }
 }

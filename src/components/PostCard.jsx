@@ -24,7 +24,7 @@ const PostCard = (props) => {
 
       {props.rate !== undefined && (
         <div className="post-card__rate">
-          <Rate value={props.rate} />
+          <Rate value={+props.rate} />
         </div>
       )}
 

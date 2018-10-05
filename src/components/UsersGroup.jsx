@@ -33,6 +33,7 @@ class UsersGroup extends PureComponent {
           <Popup onClickClose={() => this.hideUsersPopup()}>
             <ModalContent onClickClose={() => this.hideUsersPopup()}>
               <ProfilesList
+                title={this.props.title}
                 users={this.props.users.map(item => ({
                   id: item.id,
                   rate: item.currentRate,

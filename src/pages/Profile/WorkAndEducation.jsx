@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
+
 import { reduxForm } from 'redux-form';
-import { scroller, Element } from 'react-scroll';
+import { Element } from 'react-scroll';
 import { bind } from 'decko';
 import PropTypes from 'prop-types';
 
 import { PTCommunication } from 'utils/GlobalPropTypes';
 
 import { validate } from 'utils/validators/pages/profile/workAndEducation';
-
-import { scrollAnimation } from 'utils/constants';
 
 import { selectUserWorkAndEducation } from '../../store/selectors/user';
 import { selectCommunication } from '../../store/selectors/communication/user';
@@ -19,8 +18,10 @@ import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import Loading from '../../components/Loading';
+
 import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
+
 import * as actions from '../../actions';
 
 const mapDispatch = dispatch =>
@@ -37,11 +38,11 @@ const mapStateToProps = state => ({
 class ProfileWorkAndEducationPage extends PureComponent {
   componentDidMount() {
     const { initialize, userWorkAndEducation } = this.props;
-    const { userJobs, userEducations } = userWorkAndEducation;
+    const { usersJobs, usersEducation } = userWorkAndEducation;
     const preInitializedUserWorkAndEducation = {
       ...userWorkAndEducation,
-      userJobs: userJobs.length === 0 ? [{}] : userJobs,
-      userEducations: userEducations.length === 0 ? [{}] : userEducations,
+      usersJobs: usersJobs.length === 0 ? [{}] : usersJobs,
+      usersEducation: usersEducation.length === 0 ? [{}] : usersEducation,
     };
     initialize(preInitializedUserWorkAndEducation);
   }
@@ -71,10 +72,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
         <div className="grid__item">
           <VerticalMenu
             sections={[
-            { type: 'blockchain', percents: '0', onClick: () => scroller.scrollTo('Blockchain', scrollAnimation) },
-            { type: 'work', percents: '0', onClick: () => scroller.scrollTo('Work', scrollAnimation) },
-            { type: 'education', percents: '0', onClick: () => scroller.scrollTo('Education', scrollAnimation) },
-          ]}
+              { title: 'blockchain', name: 'Blockchain' },
+              { title: 'work', name: 'Work' },
+              { title: 'education', name: 'Education' },
+            ]}
           />
         </div>
         <div className="grid__item">
@@ -109,7 +110,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Work">
                 <InfoBlock title="Work">
                   <div className="list">
-                    <WorkAndEducationFieldArray name="userJobs" componentName="jobs" />
+                    <WorkAndEducationFieldArray name="usersJobs" componentName="jobs" />
                   </div>
                 </InfoBlock>
               </Element>
@@ -118,7 +119,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
               <Element name="Education">
                 <InfoBlock title="Education">
                   <div className="list">
-                    <WorkAndEducationFieldArray name="userEducations" componentName="educations" />
+                    <WorkAndEducationFieldArray name="usersEducation" componentName="educations" />
                   </div>
                   <div className="profile__block">
                     <span className="profile__text">Achievements</span>
@@ -139,8 +140,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
 
 ProfileWorkAndEducationPage.propTypes = {
   userWorkAndEducation: PropTypes.shape({
-    userJobs: PropTypes.arrayOf(PropTypes.object),
-    userEducations: PropTypes.arrayOf(PropTypes.object),
+    usersJobs: PropTypes.arrayOf(PropTypes.object),
+    usersEducation: PropTypes.arrayOf(PropTypes.object),
     firstCurrency: PropTypes.string,
     firstCurrencyYear: PropTypes.string,
   }),

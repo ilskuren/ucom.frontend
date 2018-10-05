@@ -13,11 +13,11 @@ import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
 import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
-import CreateOrganizationPage from '../pages/CreateOrganization';
 import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
+import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
-import { getToken } from '../utils/token';
+import { getToken, removeToken } from '../utils/token';
 import api from '../api';
 import Loading from './Loading';
 import Header from './Header';
@@ -26,6 +26,7 @@ import Page from './Page';
 import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
+import Notifications from './Notifications';
 
 class App extends PureComponent {
   constructor(props) {
@@ -51,6 +52,7 @@ class App extends PureComponent {
         this.setState({ loading: false });
       })
       .catch(() => {
+        removeToken();
         this.setState({ loading: false });
       });
   }
@@ -81,8 +83,9 @@ class App extends PureComponent {
                 <Route path="/users" component={UsersPage} />
                 <Route exact path="/products" component={ProductsPage} />
                 <Route exact path="/organizations" component={OrganizationsPage} />
-                <Route path="/organizations/:id" component={OrganizationPage} />
-                <Route exact path="/organizations/new" component={CreateOrganizationPage} />
+                <Route exact path="/organizations/new" component={OrganizationsCreatePage} />
+                <Route exact path="/organizations/:id" component={OrganizationPage} />
+                <Route exact path="/organizations/:id/edit" component={OrganizationsCreatePage} />
                 <Route component={NotFoundPage} />
               </Switch>
 
@@ -91,6 +94,8 @@ class App extends PureComponent {
                   <Auth onClickClose={() => this.props.hideAuthPopup()} />
                 </Popup>
               )}
+
+              <Notifications />
             </Page>
           </Router>
         )}

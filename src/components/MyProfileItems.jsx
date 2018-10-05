@@ -28,10 +28,10 @@ const renderRow = (renderButton, index) => {
             <div className="my-profile-items__description">Our mission is to make better world for us.</div>
             <div className="my-profile-items__powered-by">
               <div className="inline inline_without-margin">
-                <div className="inline__item inline__item_without-margin">
+                <div className="inline__item">
                   <Avatar src="https://cdn-images-1.medium.com/fit/c/300/300/1*28Gx-SixWGfev_WLLuCfhg.jpeg" size="xxsmall" />
                 </div>
-                <div className="inline__item inline__item_without-margin my-profile-items__powered-by_style">Powered by EOS</div>
+                <div className="inline__item my-profile-items__powered-by_style">Powered by EOS</div>
               </div>
             </div>
           </div>

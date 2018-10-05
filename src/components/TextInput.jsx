@@ -7,7 +7,7 @@ import InputCompleteIcon from '../components/Icons/InputComplete';
 import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
-  value, error, label, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ...rest
+  value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ...rest
 }) => {
   const isIconExist = isSearch || error || isValid || type === 'password';
   let icon;
@@ -26,7 +26,12 @@ const TextInput = ({
       <label>
         {
           (isRequired || label) && (
-            <div className="text-input__labels-container">
+            <div
+              className={cn(
+                'text-input__labels-container',
+                { 'text-input__labels-container_top': topLabel },
+              )}
+            >
               { label && <div className="text-input__label">{label}</div> }
               { isRequired && <div className="text-input__required-label">It needs to be filled <span role="img" aria-label="hugging face">🤗</span></div> }
             </div>

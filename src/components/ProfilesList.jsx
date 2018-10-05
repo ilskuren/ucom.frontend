@@ -11,14 +11,15 @@ const ProfilesList = props => (
     </div>
     {props.users.map((user) => {
       const {
-      userName,
-      accountName,
-      avatarUrl,
-      profileLink,
-      rate,
-      follow,
-      id,
+        userName,
+        accountName,
+        avatarUrl,
+        profileLink,
+        rate,
+        follow,
+        id,
       } = user;
+
       return (
         <div className="profiles-list__row" key={id}>
           <div className="profiles-list__user">

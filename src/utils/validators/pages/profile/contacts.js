@@ -13,10 +13,10 @@ export const validate = (values) => {
   if (!phoneNumberRegex.test(values.phoneNumber) && !emptyValues.includes(values.phoneNumber)) {
     errors.phoneNumber = 'The field name phone number format is invalid.';
   }
-  if (values.userSources) {
-    const resultsOfValidateUrlsArray = validateArrayUrls(values.userSources);
+  if (values.usersSources) {
+    const resultsOfValidateUrlsArray = validateArrayUrls(values.usersSources);
     if (!resultsOfValidateUrlsArray.isValid) {
-      errors.userSources = values.userSources.map((_, i, src) => {
+      errors.usersSources = values.usersSources.map((_, i, src) => {
         const currentUrlValidationResult = resultsOfValidateUrlsArray.results[i];
         const isNotEmptyCurrentString = !emptyValues.includes(src[i]);
         if (

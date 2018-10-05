@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '../components/Avatar';
 import PostFormEditor from './PostFormEditor';
 import Button from './Button';
-import { getFileUrl } from '../utils/upload';
-import { getUserName } from '../utils/user';
+import CreateBy from './CreateBy';
+import PostFromFooter from './PostFromFooter';
 import { POST_TYPES } from '../utils/posts';
 import { selectUser } from '../store/selectors';
+import { setPostData } from '../actions';
 
 class PostForm extends PureComponent {
   render() {
@@ -42,17 +42,7 @@ class PostForm extends PureComponent {
                 </div>
 
                 {this.props.user.id && (
-                  <div className="inline inline_small">
-                    <div className="inline__item">
-                      <span className="post-form__light">By</span>
-                    </div>
-                    <div className="inline__item">
-                      <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                    </div>
-                    <div className="inline__item">
-                      <div className="title title_xsmall title_light">{getUserName(this.props.user)}</div>
-                    </div>
-                  </div>
+                  <CreateBy />
                 )}
               </div>
             </div>
@@ -84,42 +74,14 @@ class PostForm extends PureComponent {
               </div>
             </div>
 
-            <div className="post-form__footer">
-              <div className="post-form__content">
-                <div className="toolbar">
-                  <div className="toolbar__main">
-                    <a href="#top" className="create-post__back-link">Back to settings ↑</a>
-                  </div>
-                  <div className="toolbar__side">
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Avatar size="xsmall" src={getFileUrl(this.props.user.avatarFilename)} />
-                      </div>
-                      {this.props.user.id && (
-                        <span className="inline__item">
-                          <span className="create-post__author-name">{getUserName(this.props.user)}</span>
-                        </span>
-                      )}
-                      <span className="inline__item">
-                        <Button
-                          isStretched
-                          isUpper
-                          theme="red"
-                          size="small"
-                          text="Post"
-                          isDisabled={this.props.loading}
-                          onClick={() => {
-                            if (typeof this.props.onClickSave === 'function') {
-                              this.props.onClickSave();
-                            }
-                          }}
-                        />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <PostFromFooter
+              loading={this.props.loading}
+              onClickSave={() => {
+                if (typeof this.props.onClickSave === 'function') {
+                  this.props.onClickSave();
+                }
+              }}
+            />
           </div>
         </div>
       </div>
@@ -133,7 +95,12 @@ PostForm.propTypes = {
   loading: PropTypes.bool,
 };
 
-export default connect(state => ({
-  user: selectUser(state),
-  post: state.post,
-}))(PostForm);
+export default connect(
+  state => ({
+    user: selectUser(state),
+    post: state.post,
+  }),
+  dispatch => ({
+    setPostData: data => dispatch(setPostData(data)),
+  }),
+)(PostForm);

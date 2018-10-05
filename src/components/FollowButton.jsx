@@ -26,7 +26,15 @@ class FollowButton extends PureComponent {
       return;
     }
 
-    (this.state.follow ? api.unfollow : api.follow)(
+    let apiMethod;
+
+    if (this.props.isOrganization) {
+      apiMethod = this.state.follow ? api.unfollowOrganization : api.followOrganization;
+    } else {
+      apiMethod = this.state.follow ? api.unfollow : api.follow;
+    }
+
+    apiMethod(
       this.props.userId,
       getToken(),
       this.props.user.accountName,
@@ -63,6 +71,11 @@ FollowButton.propTypes = {
   isStretched: PropTypes.bool,
   userId: PropTypes.number,
   userAccountName: PropTypes.string,
+  isOrganization: PropTypes.bool,
+};
+
+FollowButton.defaultProps = {
+  isOrganization: false,
 };
 
 export default connect(

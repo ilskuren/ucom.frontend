@@ -76,6 +76,7 @@ class Auth extends PureComponent {
             saveBrainkey(this.state.brainkey);
           }
 
+          window.location.reload();
           this.close();
         })
         .catch(() => {

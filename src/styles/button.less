@@ -77,15 +77,21 @@
       }
     }
 
+    &_light {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #C4C4C4;
+    }
+
     &_blank {
       border-color: transparent;
       background: rgba(0, 0, 0, 0.04);
       color: transparent;
       cursor: default;
-      
+
       &:extend(.flashing);
     }
-    
+
     &_white {
       border-color: transparent;
       background: @white;

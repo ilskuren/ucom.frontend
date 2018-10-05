@@ -125,6 +125,8 @@
     }
   }
 
+  .menu__item_active .menu__link,
+  .menu__item:hover .menu__link,
   .menu__link_active,
   .menu__link:hover {
     border-bottom-color: @red;
@@ -191,6 +193,22 @@
     &_active, {
       color: @red;
       text-decoration: none;
+    }
+  }
+}
+
+.menu_disabled {
+  .menu__item,
+  .menu__link {
+    cursor: default;
+  }
+
+  .menu__item:not(.menu__item_active):hover .menu__link,
+  .menu__link:hover {
+    border-bottom-color: transparent;
+
+    @media (max-width: 1023px) {
+      color: inherit;
     }
   }
 }

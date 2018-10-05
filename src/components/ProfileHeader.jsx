@@ -4,29 +4,32 @@ import cn from 'classnames';
 import Avatar from '../components/Avatar';
 import Avatars from '../components/Avatars';
 import Status from '../components/Status';
-import HordeIco from '../static/img/horde_ico.png';
 
 const ProfileHeader = ({
-  name, nickname, status, userRatePosition, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus, statusTheme,
+  name, nickname, status, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus, statusTheme,
 }) => (
   <div className="profile-header">
     <div className="profile-header__user">
       <div className="profile-header__avatar">
-        <Avatar src={HordeIco} alt={name} size="medium" square={squareAvatar} />
+        <Avatar alt={name} size="medium" square={squareAvatar} />
       </div>
       <div className="profile-header__user-info">
         <div>
           <h2 className="profile-header__name" title={name}>{name}</h2>
           {isEditableStatus && <div className="edit" />}
         </div>
+
         <div className="profile-header__nickname">@{nickname}</div>
+
         {poweredBy && (
           <div className="profile-header__powered-by">
-            <div className="profile-header__powered-by-image">
+            {/* <div className="profile-header__powered-by-image">
               <Avatar src={poweredBy.avatarFilename} size="xxsmall" />
-            </div>
+            </div> */}
            Powered by {poweredBy.name}
-          </div>)}
+          </div>)
+        }
+
         {users && <Avatars
           list={users}
           orderStacking="fifo"
@@ -43,7 +46,7 @@ const ProfileHeader = ({
       </div>
     </div>
     <div className="profile-header__user-rating">
-      <div className="profile-header__user-position">#{userRatePosition}</div>
+      {/* <div className="profile-header__user-position">#{userRatePosition}</div> */}
       <div className="profile-header__user-rate">{userRate}</div>
       <div className="profile-header__user-rate-title">RATE</div>
     </div>
@@ -55,16 +58,13 @@ ProfileHeader.propTypes = {
   nickname: PropTypes.string,
   status: PropTypes.string,
   statusTheme: PropTypes.string,
-  userRatePosition: PropTypes.number,
-  userRate: PropTypes.string,
+  // userRatePosition: PropTypes.number,
+  userRate: PropTypes.number,
   squareAvatar: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object),
   isEditableStatus: PropTypes.bool,
   isBoldTextInStatus: PropTypes.bool,
-  poweredBy: PropTypes.shape({
-    name: PropTypes.string,
-    avatarFilename: PropTypes.string,
-  }),
+  poweredBy: PropTypes.string,
 };
 
 ProfileHeader.defaultProps = {

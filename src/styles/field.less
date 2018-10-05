@@ -1,30 +1,40 @@
+.fields__title {
+  margin: 0 0 50px;
+}
+
+.fields__item {
+  margin: 0 0 72px;
+}
+
 .field {
-  display: flex;
-  align-items: baseline;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-areas: 'a a b b b b b';
 
   @media (max-width: 767px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'a' 'b';
   }
+}
+
+.field_avatar {
+  .field__input {
+    padding-top: 50px;
+  }
+}
+
+.field_reverse {
+  grid-template-areas: 'b b b b b a a';
 }
 
 .field__label {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  max-width: 200px;
+  grid-area: a;
   padding: 12px 0;
   font-size: 1.142rem;
-  opacity: .37;
 }
 
 .field__input {
-  flex: 1 1 auto;
-  max-width: 400px;
-
-  @media (max-width: 767px) {
-    max-width: 100%;
-    width: 100%;
-  }
+  grid-area: b;
 }
 
 .field__item {
@@ -40,4 +50,21 @@
   line-height: 1.4;
   font-size: 1.142rem;
   color: @red;
+}
+
+.field__section {
+  margin: 0 0 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.field__section_large {
+  margin-bottom: 40px;
+}
+
+.field__hint {
+  font-size: 16px;
+  line-height: 28px;
 }

@@ -1,39 +1,20 @@
 .vertical-menu {
-  border: 1px solid darken(@gray-lighter, 5);
-  border-radius: 4px;
   margin: 0;
-  font-size: 1.02rem;
-  color: @black;
-  text-transform: capitalize;
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
   padding: 0;
-    &__section {
-      list-style-type: none;
-      cursor: pointer;
-      display: flex;
-      padding: 1.45rem;
-      justify-content: space-between;
-      border-bottom: 1px solid darken(@gray-lighter, 5);
+  list-style-type: none;
+  font-size: 16px;
+  line-height: 24px;
+
+  &__section {
+    margin: 0 0 20px;
+    padding: 0 0 0 32px;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+
+    &:hover,
+    &_active {
       font-weight: bold;
-      &:last-child {
-        border-bottom: none;
-      }
-      &_active {
-        position: relative;
-        &:hover {
-          &::before {
-            content: "";
-            position: absolute;
-            border-radius: 3px;
-            height: 1.14rem;
-            left: -1px;
-            display: block;
-            width: 2px;
-            background-color: @red;
-          }
-        }
-      }
+      border-left-color: #000;
     }
+  }
 }

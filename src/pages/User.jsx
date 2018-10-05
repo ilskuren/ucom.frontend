@@ -12,14 +12,16 @@ import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
 import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
-import Feed from '../components/Feed';
+import UserFeed from '../components/Feed/UserFeed';
 import Status from '../components/Status';
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
-
 import * as actions from '../actions';
+import { fetchUser } from '../actions/users';
+import { fetchUserPosts } from '../actions/posts';
+import { getOrganizationUrl } from '../utils/organization';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -41,6 +43,9 @@ class UserPage extends PureComponent {
   }
 
   getData(userId) {
+    this.props.fetchUser(userId);
+    this.props.fetchUserPosts(userId);
+
     this.setState({ user: {} }, () => {
       api.getUser(userId)
         .then((user) => {
@@ -52,7 +57,7 @@ class UserPage extends PureComponent {
   render() {
     const user = humps(this.props.user);
     const userYears = getYearsFromBirthday(this.state.user.birthday);
-    const userJob = this.state.user.userJobs && this.state.user.userJobs[this.state.user.userJobs.length - 1];
+    const userJob = this.state.user.usersJobs && this.state.user.usersJobs[this.state.user.usersJobs.length - 1];
 
     return (
       <div className="content">
@@ -220,13 +225,13 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {/* {this.state.user.id && (
+                  {this.state.user.organizations && this.state.user.organizations.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
-                        <h2 className="title title_xsmall title_light">Organization</h2>
+                        <h2 className="title title_xsmall title_light">Organizations</h2>
                       </div>
 
-                      <div className="user-section__tabs">
+                      {/* <div className="user-section__tabs">
                         <div className="menu menu_nav menu_responsive">
                           <div className="menu__item menu__item_active">
                             <button className="menu__link">My</button>
@@ -241,28 +246,29 @@ class UserPage extends PureComponent {
                             <button className="menu__link">Followed</button>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="user-section__organization">
                         <ul className="app-list">
-                          {[0, 0, 0, 0, 0, 0].map((_, index) => (
-                            <li key={index} className="app-list__item">
+                          {this.state.user.organizations.map(item => (
+                            <li key={item.id} className="app-list__item">
                               <div className="app-list__avatar">
-                                <Avatar rounded square size="small" />
+                                <Link to={getOrganizationUrl(item.id)}>
+                                  <Avatar src={getFileUrl(item.avatarFilename)} size="small" rounded square />
+                                </Link>
                               </div>
-                              <div className="app-list__name"><span className="blank">Loremi1a</span></div>
+                              <div className="app-list__name">
+                                <Link to={getOrganizationUrl(item.id)}>{item.title}</Link>
+                              </div>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-                  )} */}
+                  )}
 
                   <div className="user-section">
-                    <Feed
-                      title="Feed"
-                      userId={+this.props.match.params.id}
-                    />
+                    <UserFeed userId={+this.props.match.params.id} />
                   </div>
                 </div>
 
@@ -322,25 +328,25 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.userSources && this.state.user.userSources.length > 0 && (
+                  {this.state.user.usersSources && this.state.user.usersSources.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Social Networks</h3>
                       </div>
                       <div className="user-section__content">
-                        <Links userSources={this.state.user.userSources} />
+                        <Links userSources={this.state.user.usersSources} />
                       </div>
                     </div>
                   )}
 
-                  {this.state.user.userJobs && this.state.user.userJobs.length > 0 && (
+                  {this.state.user.usersJobs && this.state.user.usersJobs.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Work Experience</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.userJobs.map(item => (
+                          {this.state.user.usersJobs.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
@@ -364,14 +370,14 @@ class UserPage extends PureComponent {
                     </div>
                   )}
 
-                  {this.state.user.userEducations && this.state.user.userEducations.length > 0 && (
+                  {this.state.user.usersEducation && this.state.user.usersEducation.length > 0 && (
                     <div className="user-section">
                       <div className="user-section__title">
                         <h3 className="title title_xsmall title_light">Education</h3>
                       </div>
                       <div className="user-section__content">
                         <ul className="experience">
-                          {this.state.user.userEducations.map(item => (
+                          {this.state.user.usersEducation.map(item => (
                             <li className="experience__item" key={item.id}>
                               <div className="experience__header">
                                 <div className="toolbar">
@@ -423,11 +429,13 @@ class UserPage extends PureComponent {
   }
 }
 
-const mapDispatch = dispatch =>
-  bindActionCreators({
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    fetchUser,
+    fetchUserPosts,
     setUser: actions.setUser,
-  }, dispatch);
-
-export default connect(state => ({
-  user: selectUser(state),
-}), mapDispatch)(UserPage);
+  }, dispatch),
+)(UserPage);

@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import classNames from 'classnames';
-import { scroller, Element } from 'react-scroll';
+
+import { Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
 
-import { scrollAnimation, emptyValues } from 'utils/constants';
+import { emptyValues } from 'utils/constants';
 
 import { PTCommunication } from 'utils/GlobalPropTypes';
 
@@ -15,6 +16,7 @@ import { validate } from 'utils/validators/pages/profile/contacts';
 
 import { selectUserId, selectUserContacts } from '../../store/selectors';
 import { selectCommunication } from '../../store/selectors/communication/user';
+
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -41,9 +43,10 @@ const mapStateToProps = state => ({
 class ProfileContactsPage extends PureComponent {
   componentDidMount() {
     const { initialize, array, userContacts } = this.props;
+
     initialize(this.formatUserContacts(userContacts));
-    if (userContacts.userSources.length === 0) {
-      array.push('userSources', '');
+    if (!userContacts.usersSources || userContacts.usersSources.length === 0) {
+      array.push('usersSources', '');
     }
   }
 
@@ -56,8 +59,8 @@ class ProfileContactsPage extends PureComponent {
 
   @bind
   getSourceUrls() {
-    const { userSources } = this.props.userContacts;
-    const sourceUrls = userSources.map(this.formatUserSource);
+    const { usersSources } = this.props.userContacts;
+    const sourceUrls = (usersSources || []).map(this.formatUserSource);
     return sourceUrls;
   }
 
@@ -73,7 +76,7 @@ class ProfileContactsPage extends PureComponent {
   formatUserContacts(userContacts) {
     return {
       ...userContacts,
-      userSources: userContacts.userSources
+      usersSources: (userContacts.usersSources || [])
         .map(this.formatUserSource)
         .filter(this.removeEmptyWebsiteFields),
     };
@@ -93,13 +96,14 @@ class ProfileContactsPage extends PureComponent {
   render() {
     const sourceUrls = this.getSourceUrls();
     const { editingContacts } = this.props;
+
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
           <VerticalMenu
             sections={[
-              { type: 'personal contacts', percents: '0', onClick: () => scroller.scrollTo('Contacts', scrollAnimation) },
-              { type: 'social networks', percents: '0', onClick: () => scroller.scrollTo('SocialNetworks', scrollAnimation) },
+              { title: 'Personal Contacts', name: 'Contacts' },
+              { title: 'Social Networks', name: 'SocialNetworks' },
             ]}
           />
         </div>
@@ -145,7 +149,7 @@ class ProfileContactsPage extends PureComponent {
                   <div className="list__item">
                     <SocialNetworksFieldArray
                       sourceUrls={sourceUrls}
-                      name="userSources"
+                      name="usersSources"
                     />
                   </div>
                 </InfoBlock>
@@ -177,7 +181,7 @@ ProfileContactsPage.propTypes = {
   userContacts: PropTypes.shape({
     phoneNumber: PropTypes.string,
     email: PropTypes.string,
-    userSources: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+    usersSources: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
   }),
   array: PropTypes.shape({
     push: PropTypes.func,

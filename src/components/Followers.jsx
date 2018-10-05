@@ -105,6 +105,7 @@ Followers.propTypes = {
 
 Followers.defaultProps = {
   title: 'Following',
+  users: [],
 };
 
 export default connect(state => ({

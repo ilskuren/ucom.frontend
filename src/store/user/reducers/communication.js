@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { USER } from 'utils/actionTypes';
+import { USER } from '../../../utils/actionTypes';
 
-import { makeCommunicationReducer } from 'utils/redux/communication';
+import { makeCommunicationReducer } from '../../../utils/redux/communication';
 
 import { initial } from '../initial';
 

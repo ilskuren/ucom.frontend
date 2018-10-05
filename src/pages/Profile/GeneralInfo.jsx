@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
 import classNames from 'classnames';
-import { scroller, Element } from 'react-scroll';
+
+import { Element } from 'react-scroll';
 
 import { PTCommunication } from 'utils/GlobalPropTypes';
 import { validate } from 'utils/validators/pages/profile/generalInfo';
 
-import { scrollAnimation } from 'utils/constants';
-
 
 import { selectUserGeneralInfo, selectUserAvatarFilename } from '../../store/selectors';
 import { selectCommunication } from '../../store/selectors/communication/user';
+
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
@@ -22,6 +22,7 @@ import DropZone from '../../components/DropZone';
 import Avatar from '../../components/Avatar';
 import Loading from '../../components/Loading';
 import { getFileUrl } from '../../utils/upload';
+
 import TextInputField from '../../components/Field/TextInputField';
 import TextAreaField from '../../components/Field/TextAreaField';
 import DateInputField from '../../components/Field/DateInputField';
@@ -77,8 +78,8 @@ class ProfileGeneralInfoPage extends PureComponent {
           <div className="grid__item">
             <VerticalMenu
               sections={[
-                { type: 'personal info', percents: '25', onClick: () => scroller.scrollTo('PersonalInfo', scrollAnimation) },
-                { type: 'location', percents: '0', onClick: () => scroller.scrollTo('Location', scrollAnimation) },
+                { title: 'Personal Info', name: 'PersonalInfo' },
+                { title: 'Location', name: 'Location' },
               ]}
             />
           </div>

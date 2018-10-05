@@ -7,6 +7,7 @@ const Links = props => (
   <ul className="links">
     {props.userSources.map((item, index) => {
       const hostName = extractHostname(item.sourceUrl);
+
       return (
         <li key={index} className="links__item">
           <span className="inline">
@@ -27,6 +28,10 @@ const Links = props => (
 
 Links.propTypes = {
   userSources: PropTypes.arrayOf(PropTypes.object),
+};
+
+Links.defaultProps = {
+  userSources: [],
 };
 
 export default Links;

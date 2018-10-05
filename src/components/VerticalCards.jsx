@@ -24,6 +24,7 @@ class VerticalCards extends Component {
 
   render() {
     const { userCards } = this.props;
+
     return (
       <div className="vertical-cards">
         {userCards.slice(0, 3).map((userCard, userCardKey) => (
@@ -37,13 +38,19 @@ class VerticalCards extends Component {
             />
           </div>
         ))}
+
         {userCards.length > 3 && (
           <div className="vertical-cards__view-all" role="presentation" onClick={() => this.showPopup()}>View All</div>
         )}
+
         {this.state.popupIsVisible && (
           <Popup onClickClose={() => this.hidePopup()}>
             <ModalContent onClickClose={() => this.hidePopup()}>
-              <ProfilesList users={userCards} noSign />
+              <ProfilesList
+                title={this.props.title}
+                users={userCards}
+                noSign
+              />
             </ModalContent>
           </Popup>
         )}
@@ -54,6 +61,7 @@ class VerticalCards extends Component {
 
 VerticalCards.propTypes = {
   userCards: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
 };
 
 export default VerticalCards;

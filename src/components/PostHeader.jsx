@@ -31,18 +31,16 @@ const PostHeader = ({
             </div>
           </div>
         </div>
-        {!user.id || (user.id !== userId) ? (
-          <div className="toolbar__side">
-            <div className="post-header__follow-button">
-              <FollowButton
-                follow={follow}
-                userId={userId}
-                isStretched
-                userAccountName={userAccountName}
-              />
-            </div>
+        <div className="toolbar__side">
+          <div className="post-header__follow-button">
+            <FollowButton
+              follow={user.id !== userId ? follow : true}
+              userId={userId}
+              isStretched
+              userAccountName={userAccountName}
+            />
           </div>
-        ) : null}
+        </div>
       </div>
     </div>
   );

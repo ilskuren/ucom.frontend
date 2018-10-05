@@ -5,21 +5,14 @@ import HttpActions from './HttpActions';
 import packageConfig from '../../package.json';
 import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-// import { getActivePrivateKey } from '../utils/keys';
-// import { getBrainkey } from '../utils/brainkey';
+import { getActivePrivateKey } from '../utils/keys';
+import { getBrainkey } from '../utils/brainkey';
 
 const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
 
 TransactionFactory.initForProductionEnv();
-
-// TODO: process.env.NODE_ENV fix for production
-// if (process.env.NODE_ENV === 'production') {
-//   TransactionFactory.initForProductionEnv();
-// } else {
-//   TransactionFactory.initForTestEnv();
-// }
 
 const Eos = require('eosjs');
 
@@ -28,10 +21,6 @@ const { ecc } = Eos.modules;
 class Api {
   constructor() {
     this.actions = new HttpActions(packageConfig.backend.httpEndpoint);
-    this.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    };
   }
 
   getPrivateHeaders() {
@@ -48,8 +37,6 @@ class Api {
       sign,
       account_name,
       public_key: publicKey,
-    }, {
-      headers: this.headers,
     });
     return convertServerUserLogin(response.data);
   }
@@ -65,75 +52,91 @@ class Api {
       brainkey,
       account_name: accountName,
       public_key: publicKey,
-    }, {
-      headers: this.headers,
     });
     return convertServerUserLogin(response.data);
   }
 
   @bind
   async getMyself() {
-    const response = await this.actions.get('/api/v1/myself', {}, { headers: this.getPrivateHeaders() });
-    return convertServerUser(response.data);
+    const response = await this.actions.get('/api/v1/myself');
+
+    return humps(response.data);
   }
 
   @bind
   async patchMyself(data) {
-    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    const response = await this.actions.patch('/api/v1/myself', data);
+
     return convertServerUser(response.data);
   }
 
   @bind
   async patchMyselfFormData(data) {
-    const response = await this.actions.patch('/api/v1/myself', data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+    const response = await this.actions.patch('/api/v1/myself', data);
+
     return convertServerUser(response.data);
   }
 
   @bind
   async getUser(id) {
     const response = await this.actions.get(`/api/v1/users/${id}`);
-    return convertServerUser(response.data);
+
+    return humps(response.data);
   }
 
   @bind
   async getUsers() {
     const response = await this.actions.get('/api/v1/users');
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getOrganizations() {
+    const response = await this.actions.get('/api/v1/organizations');
+
     return humps(response.data);
   }
 
   @bind
   async searchUsers(query) {
     const response = await this.actions.get(`/api/v1/users/search/?q=${query}`);
+
     return humps(response.data);
   }
 
   @bind
   async createPost(data) {
-    const response = await this.actions.post('/api/v1/posts', data, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post('/api/v1/posts', data);
+
     return response.data;
   }
 
   @bind
   async updatePost(data, id) {
-    const response = await this.actions.patch(`/api/v1/posts/${id}`, data, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.patch(`/api/v1/posts/${id}`, data);
+
     return response.data;
   }
 
   @bind
   async getPost(id) {
-    const response = await this.actions.get(`/api/v1/posts/${id}`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.get(`/api/v1/posts/${id}`);
+
     return response.data;
   }
 
   @bind
   async getUserPosts(id) {
     const response = await this.actions.get(`/api/v1/users/${id}/posts`);
+
     return humps(response.data);
   }
 
   @bind
   async getPosts(params) {
     const response = await this.actions.get(`/api/v1/posts?${param(params)}`);
+
     return humps(response.data);
   }
 
@@ -147,7 +150,8 @@ class Api {
 
     url = `${url}/${isUp ? 'upvote' : 'downvote'}`;
 
-    const response = await this.actions.post(url, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(url);
+
     return response.data;
   }
 
@@ -155,39 +159,84 @@ class Api {
   async checkAccountName(accountName) {
     const response = await this.actions.post('/api/v1/auth/registration/validate-account-name', {
       account_name: accountName,
-    }, { headers: this.headers });
-    return humps(response.data);
-  }
+    });
 
-  // @bind
-  // async follow(userId, token, senderAccountName, recipientAccountName) {
-  //   const brainkey = getBrainkey();
-  //   const senderActivePrivateKey = getActivePrivateKey(brainkey);
-
-  //   const signed = await TransactionFactory.getSignedUserFollowsUser(
-  //     senderAccountName,
-  //     senderActivePrivateKey,
-  //     recipientAccountName,
-  //   );
-  //   const response = await this.actions.post(`/api/v1/users/${userId}/follow`, signed, { headers: this.getPrivateHeaders() });
-  //   return response;
-  // }
-
-  @bind
-  async follow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {}, { headers: this.getPrivateHeaders() });
     return humps(response.data);
   }
 
   @bind
-  async unfollow(userId) {
-    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {}, { headers: this.getPrivateHeaders() });
+  async follow(userId, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserFollowsUser(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+      true,
+    );
+
+    const response = await this.actions.post(`/api/v1/users/${userId}/follow`, {
+      signed_transaction: signedTransaction,
+    });
+
+    return response;
+  }
+
+  @bind
+  async unfollow(userId, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserUnfollowsUser(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+      true,
+    );
+
+    const response = await this.actions.post(`/api/v1/users/${userId}/unfollow`, {
+      signed_transaction: signedTransaction,
+    });
+
+    return humps(response.data);
+  }
+
+  @bind
+  async followOrganization(id, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserFollowsOrg(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+    );
+
+    const response = await this.actions.post(`/api/v1/organizations/${id}/follow`, {
+      signed_transaction: signedTransaction,
+    });
+
+    return humps(response.data);
+  }
+
+  @bind
+  async unfollowOrganization(id, token, senderAccountName, recipientAccountName) {
+    const brainkey = getBrainkey();
+    const senderActivePrivateKey = getActivePrivateKey(brainkey);
+    const signedTransaction = await TransactionFactory.getSignedUserUnfollowsOrg(
+      senderAccountName,
+      senderActivePrivateKey,
+      recipientAccountName,
+    );
+    const response = await this.actions.post(`/api/v1/organizations/${id}/unfollow`, {
+      signed_transaction: signedTransaction,
+    });
+
     return humps(response.data);
   }
 
   @bind
   async join(userId) {
-    const response = await this.actions.post(`/api/v1/posts/${userId}/join`, {}, { headers: this.getPrivateHeaders() });
+    const response = await this.actions.post(`/api/v1/posts/${userId}/join`);
+
     return humps(response.data);
   }
 
@@ -198,7 +247,60 @@ class Api {
     if (commentId) {
       url = `${url}/${commentId}/comments`;
     }
-    const response = await this.actions.post(url, data, { headers: { ...this.headers, ...this.getPrivateHeaders() } });
+
+    const response = await this.actions.post(url, data);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async createOrganization(data) {
+    const url = '/api/v1/organizations';
+    const response = await this.actions.post(url, data);
+
+    return response.data;
+  }
+
+  @bind
+  async updateOrganization(data) {
+    const response = await this.actions.patch(`/api/v1/organizations/${data.id}`, data);
+
+    return response.data;
+  }
+
+  @bind
+  async getOrganization(id) {
+    const url = `/api/v1/organizations/${id}`;
+
+    const response = await this.actions.get(url);
+
+    return response.data;
+  }
+
+  @bind
+  async getOrganizationPosts(id) {
+    const url = `/api/v1/organizations/${id}/posts`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async searchCommunity(q) {
+    const url = `/api/v1/community/search?q=${q}`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async searchPartnership(q) {
+    const url = `/api/v1/partnership/search?q=${q}`;
+
+    const response = await this.actions.get(url);
+
     return humps(response.data);
   }
 }

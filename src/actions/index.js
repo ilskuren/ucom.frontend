@@ -1,5 +1,5 @@
-import { USER } from 'utils/actionTypes';
-import { makeCommunicationActionCreators } from 'utils/redux/communication';
+import { USER } from '../utils/actionTypes';
+import { makeCommunicationActionCreators } from '../utils/redux/communication';
 
 export const setUser = payload => ({ payload, type: USER.SET_USER });
 export const removeUser = () => ({ type: USER.REMOVE_USER });

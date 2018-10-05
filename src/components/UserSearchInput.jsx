@@ -1,3 +1,4 @@
+import humps from 'lodash-humps';
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
@@ -13,7 +14,7 @@ const SelectUserOption = props => (
   <components.Option {...props}>
     <UserOption
       name={getUserName(props.data)}
-      avatar={getFileUrl(props.data.avatar_filename)}
+      avatar={getFileUrl(humps(props.data).avatarFilename)}
     />
   </components.Option>
 );

@@ -142,13 +142,10 @@ html .dropdown {
   &__value-container {
     padding: 0;
     overflow: hidden;
+    margin: 0 -10px;
 
     input {
       line-height: 1;
-    }
-
-    &--is-multi {
-      margin: 0 -10px;
     }
   }
 
@@ -185,6 +182,15 @@ html .dropdown {
 
   &__input {
     margin-left: 10px;
+  }
+
+  &__no-options {
+    padding: 17px 0;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: @red;
   }
 
   .dropdown__multi-value + .dropdown__input-container {

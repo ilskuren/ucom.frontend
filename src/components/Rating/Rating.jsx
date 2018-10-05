@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 import IconArrowDown from '../Icons/ArrowDown';
@@ -37,5 +38,12 @@ const Rating = props => (
     </button>
   </div>
 );
+
+Rating.propTypes = {
+  myselfVote: PropTypes.string,
+  currentVote: PropTypes.number,
+  onClickVoteDown: PropTypes.func.isRequired,
+  onClickVoteUp: PropTypes.func.isRequired,
+};
 
 export default Rating;

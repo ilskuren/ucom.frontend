@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Post from '../Post';
+import Post from './Post';
 
 const Feed = props => (
   <div className="feed">
@@ -22,6 +22,7 @@ const Feed = props => (
 
 Feed.propTypes = {
   title: PropTypes.string,
+  posts: PropTypes.arrayOf(PropTypes.object),
 };
 
 Feed.defaultProps = {

@@ -14,6 +14,9 @@ import FollowButton from '../components/FollowButton';
 import Followers from '../components/Followers';
 import UserFeed from '../components/Feed/UserFeed';
 import Status from '../components/Status';
+
+import UserHead from '../components/User/UserHead';
+
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
@@ -74,7 +77,9 @@ class UserPage extends PureComponent {
             </div>
 
             <div className="sheets__content">
-              <div className="user-header">
+              <UserHead userId={this.props.match.params.id} />
+
+              {/* <div className="user-header">
                 <div className="user-header__main">
                   <Avatar size="medium" src={getFileUrl(this.state.user.avatarFilename)} />
                 </div>
@@ -208,7 +213,7 @@ class UserPage extends PureComponent {
                     </div>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="grid grid_user">
                 <div className="grid__item">

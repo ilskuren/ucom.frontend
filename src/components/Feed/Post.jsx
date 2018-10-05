@@ -2,24 +2,22 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React from 'react';
-import PostRating from './Rating/PostRating';
-import UserCard from './UserCard';
-import { getPostUrl, getPostTypeById } from '../utils/posts';
-import { getFileUrl } from '../utils/upload';
-import { getUserName, getUserUrl } from '../utils/user';
+import PostRating from '../Rating/PostRating';
+import UserCard from '../UserCard';
+import { getPostUrl, getPostTypeById } from '../../utils/posts';
+import { getFileUrl } from '../../utils/upload';
+import { getUserName, getUserUrl } from '../../utils/user';
+import { getPostById } from '../../store/posts';
+import { getUserById } from '../../store/users';
 
 const Post = (props) => {
-  const post = Object.entries(props.posts.data)
-    .map(item => item[1])
-    .find(item => item.id === props.id);
+  const post = getPostById(props.posts, props.id);
 
   if (!post) {
     return null;
   }
 
-  const user = Object.entries(props.users.data)
-    .map(item => item[1])
-    .find(item => item.id === post.userId);
+  const user = getUserById(props.users, post.userId);
 
   return (
     <div className="post">

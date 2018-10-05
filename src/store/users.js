@@ -30,4 +30,6 @@ const users = (state = getInitialState(), action) => {
   }
 };
 
+export const getUserById = (users, userId) => users.data[userId];
+
 export default users;

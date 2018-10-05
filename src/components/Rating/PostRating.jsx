@@ -1,13 +1,13 @@
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
 import Rating from './Rating';
 import { postVote } from '../../actions/posts';
+import { getPostById } from '../../store/posts';
 
 const PostRating = (props) => {
-  const post = Object.entries(props.posts.data)
-    .map(item => item[1])
-    .find(item => item.id === props.postId);
+  const post = getPostById(props.posts, props.postId);
 
   return (
     <Rating
@@ -17,6 +17,11 @@ const PostRating = (props) => {
       onClickVoteUp={() => props.postVote({ postId: props.postId, isUp: true })}
     />
   );
+};
+
+PostRating.propTypes = {
+  postVote: PropTypes.func,
+  postId: PropTypes.number,
 };
 
 export default connect(

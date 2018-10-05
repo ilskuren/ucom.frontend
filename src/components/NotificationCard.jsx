@@ -2,16 +2,16 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const NotificationCard = ({
-  isReplay = false, name, time, avatar, text, post, postCover, reply,
+  isReplay = false, username, time, avatar, description, relatingPost, postCover, reply,
 }) => (
   <Fragment>
     <div className="notification-card">
-      <img alt={name} className="notification-card__avatar" src={avatar} />
+      <img alt={username} className="notification-card__avatar" src={avatar} />
       <div className="notification-card__content">
         <p className="notification-card__text">
-          <strong>{name} </strong>
-          {text}
-          <strong> {post}</strong>
+          <strong>{username} </strong>
+          {description}
+          <strong> {relatingPost}</strong>
         </p>
 
         {!isReplay && <p className="notification-card__time">{time}</p>}
@@ -32,12 +32,12 @@ const NotificationCard = ({
 
 NotificationCard.propTypes = {
   isReplay: PropTypes.bool,
-  name: PropTypes.string,
+  username: PropTypes.string,
   time: PropTypes.string,
   avatar: PropTypes.string,
-  text: PropTypes.string,
+  description: PropTypes.string,
   postCover: PropTypes.string,
-  post: PropTypes.string,
+  relatingPost: PropTypes.string,
   reply: PropTypes.shape({
     replyText: PropTypes.string,
     replyTime: PropTypes.string,

@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const NotificationItem = ({
-  isReplay = false, recent = false, name, time, avatar, text, post, postCover, reply,
+const NotificationCard = ({
+  isReplay = false, name, time, avatar, text, post, postCover, reply,
 }) => (
-  <div className={`notification-tooltip__item ${recent ? 'notification-tooltip__item_new' : ''}`}>
+  <Fragment>
     <div className="notification-card">
       <img alt={name} className="notification-card__avatar" src={avatar} />
-      <div className="notification-card__item__content">
+      <div className="notification-card__content">
         <p className="notification-card__text">
-          <span className="notification-card__bold">{name} </span>
+          <strong>{name} </strong>
           {text}
-          <span className="notification-card__bold"> {post}</span>
+          <strong> {post}</strong>
         </p>
 
         {!isReplay && <p className="notification-card__time">{time}</p>}
@@ -24,15 +24,14 @@ const NotificationItem = ({
         )}
       </div>
     </div>
-    <div className="notification-side">
-      {postCover && <img alt="" className="notification-side__post__cover" src={postCover} />}
+    <div className="notification-card__side">
+      {postCover && <img alt="" className="notification-card__post-cover" src={postCover} />}
     </div>
-  </div>
+  </Fragment>
 );
 
-NotificationItem.propTypes = {
+NotificationCard.propTypes = {
   isReplay: PropTypes.bool,
-  recent: PropTypes.bool,
   name: PropTypes.string,
   time: PropTypes.string,
   avatar: PropTypes.string,
@@ -45,4 +44,4 @@ NotificationItem.propTypes = {
   }),
 
 };
-export default NotificationItem;
+export default NotificationCard;

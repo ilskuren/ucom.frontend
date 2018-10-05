@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import React, { PureComponent, createRef } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
 import { Tooltip } from 'react-tippy';
@@ -11,6 +11,7 @@ import MenuPopup from './MenuPopup';
 import NotificationTooltip from './NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
+import { showNotificationTooltip, hideNotificationTooltip, triggerNotificationTooltip } from '../actions/siteNotifications';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
@@ -19,13 +20,6 @@ import IconNotification from '../components/Icons/Notification';
 
 
 class Header extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.bell = createRef();
-    this.state = {
-      tooltipOpen: false,
-    };
-  }
   @bind
   logout() {
     removeToken();
@@ -34,15 +28,15 @@ class Header extends PureComponent {
   }
   @bind
   hideTooltip() {
-    this.setState({ tooltipOpen: false });
+    this.props.hideNotificationTooltip();
   }
   @bind
   showTooltip() {
-    this.setState({ tooltipOpen: true });
+    this.props.showNotificationTooltip();
   }
   @bind
   triggerTooltip() {
-    this.setState({ tooltipOpen: !this.state.tooltipOpen });
+    this.props.triggerNotificationTooltip();
   }
   render() {
     return (
@@ -81,7 +75,7 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <div className="inline inline_small">
                     <Tooltip
-                      open={this.state.tooltipOpen}
+                      open={this.props.tooltipVisibilty}
                       onRequestClose={this.hideTooltip}
                       html={<NotificationTooltip hideTooltip={this.hideTooltip} />}
                       theme="notification"
@@ -204,14 +198,22 @@ Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
+  showNotificationTooltip: PropTypes.func,
+  hideNotificationTooltip: PropTypes.func,
+  triggerNotificationTooltip: PropTypes.func,
+  tooltipVisibilty: PropTypes.bool,
 };
 
 export default withRouter(connect(
   state => ({
     user: selectUser(state),
+    tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
     showAuthPopup: () => dispatch(showAuthPopup()),
+    showNotificationTooltip: () => dispatch(showNotificationTooltip()),
+    hideNotificationTooltip: () => dispatch(hideNotificationTooltip()),
+    triggerNotificationTooltip: () => dispatch(triggerNotificationTooltip()),
   }),
 )(Header));

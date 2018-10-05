@@ -9,6 +9,7 @@ import userSaga from './sagas/userSaga';
 import auth from './auth';
 import organization from './organization';
 import notifications from './notifications';
+import siteNotifications from './siteNotifications';
 import posts from './posts';
 import users from './users';
 import { reducer as user } from './user';
@@ -20,6 +21,7 @@ const app = combineReducers({
   auth,
   organization,
   notifications,
+  siteNotifications,
   posts,
   users,
   form: formReducer,

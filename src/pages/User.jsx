@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
-import humps from 'lodash-humps';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,7 +10,7 @@ import UserFeed from '../components/Feed/UserFeed';
 import UserHead from '../components/User/UserHead';
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
-import { getYearsFromBirthday, getYearOfDate } from '../utils/user';
+import { getYearOfDate } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
 import { fetchUser } from '../actions/users';
@@ -50,10 +49,6 @@ class UserPage extends PureComponent {
   }
 
   render() {
-    const user = humps(this.props.user);
-    const userYears = getYearsFromBirthday(this.state.user.birthday);
-    const userJob = this.state.user.usersJobs && this.state.user.usersJobs[this.state.user.usersJobs.length - 1];
-
     return (
       <div className="content">
         <div className="content__inner">

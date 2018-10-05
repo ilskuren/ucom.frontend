@@ -7,7 +7,7 @@ import Rate from '../Rate';
 import UserStatus from './UserStatus';
 import FollowButton from '../FollowButton';
 import IconInfo from '../Icons/Info';
-import Followers from '../Followers';
+import UserFollowers from './UserFollowers';
 import { getUserById } from '../../store/users';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getYearsFromBirthday, userIsFollowed } from '../../utils/user';
@@ -105,12 +105,16 @@ const UserHead = (props) => {
 
             <div className="toolbar__side">
               <div className="inline inline_large">
-                <div className="inline__item">
-                  <Followers title="Followers" users={user.followedBy} />
-                </div>
-                <div className="inline__item">
-                  <Followers title="Following" users={user.iFollow} />
-                </div>
+                {user.followedBy && (
+                  <div className="inline__item">
+                    <UserFollowers title="Followers" usersIds={user.followedBy.map(item => item.id)} />
+                  </div>
+                )}
+                {user.iFollow && (
+                  <div className="inline__item">
+                    <UserFollowers title="Following" usersIds={user.iFollow.map(item => item.id)} />
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -18,6 +18,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
 import { getToken, removeToken } from '../utils/token';
+import { fetchMyself } from '../actions/users';
 import api from '../api';
 import Loading from './Loading';
 import Header from './Header';
@@ -45,6 +46,8 @@ class App extends PureComponent {
     const token = getToken();
 
     this.setState({ loading: true });
+
+    this.props.fetchMyself();
 
     api.getMyself(token)
       .then((data) => {
@@ -117,6 +120,7 @@ export default connect(
   }),
   dispatch => ({
     setUser: data => dispatch(setUser(data)),
+    fetchMyself: () => dispatch(fetchMyself()),
     hideAuthPopup: () => dispatch(hideAuthPopup()),
   }),
 )(App);

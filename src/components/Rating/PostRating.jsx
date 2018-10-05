@@ -12,7 +12,7 @@ const PostRating = (props) => {
   return (
     <Rating
       currentVote={post.currentVote}
-      myselfVote={post.myselfData.myselfVote}
+      myselfVote={post.myselfData && post.myselfData.myselfVote}
       onClickVoteDown={() => props.postVote({ postId: props.postId, isUp: false })}
       onClickVoteUp={() => props.postVote({ postId: props.postId, isUp: true })}
     />

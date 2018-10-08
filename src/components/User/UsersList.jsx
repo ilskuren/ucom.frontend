@@ -39,12 +39,6 @@ const UsersList = (props) => {
 
             <div className="profiles-list__button">
               <UserFollowButton userId={item.id} />
-              {/* <FollowButton
-                isStretched
-                follow={props.user.iFollow && props.user.iFollow.some(i => i.id === item.id)}
-                userId={item.id}
-                userAccountName={item.accountName}
-              /> */}
             </div>
           </div>
         </div>

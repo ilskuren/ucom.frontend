@@ -10,18 +10,22 @@ const UserCard = (props) => {
     <AvatarFromFile square={props.squareAvatar} rounded={props.roundedAvatar} size={props.avatarSize} file={props.avatarUrl} /> :
     <Avatar square={props.squareAvatar} rounded={props.roundedAvatar} src={props.avatarUrl} size={props.avatarSize} />;
 
-  const LinkTag = props.profileLink ? Link : 'span';
+  let LinkTag = 'span';
+
+  if (props.profileLink) {
+    LinkTag = props.profileLink.indexOf('http') === 0 ? 'a' : Link;
+  }
 
   return (
     <div className={cn('user-card', props.className)}>
       <div className="user-card__inner">
         <div className="user-card__main">
-          <LinkTag to={props.profileLink}>{avatar}</LinkTag>
+          <LinkTag to={props.profileLink} href={props.profileLink}>{avatar}</LinkTag>
         </div>
 
         <div className="user-card__side">
           <div className="user-card__name">
-            <LinkTag to={props.profileLink}>{props.userName}</LinkTag>
+            <LinkTag to={props.profileLink} href={props.profileLink}>{props.userName}</LinkTag>
 
             {props.userPosition && (
               <span className="user-card__position">{props.userPosition}</span>

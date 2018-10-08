@@ -1,9 +1,7 @@
-.tippy-popper {
-  max-width: 1200px !important;
-}
-.tippy-tooltip {
-  max-width: 1200px !important;
-}
+// .tippy-popper {
+//   max-width: 600px !important;
+// }
+
 .notification-theme {
   padding: 0;
   width: 600px;
@@ -14,10 +12,13 @@
   top: 7px;
   position: relative;
   color: black;
-  
+  @media (max-width: 787px) {
+    width: 100%;
+  }
   .arrow-big {
     border-bottom-color: #E8ECEC !important;
   }
+
 }
 
 .notification-tooltip__close {
@@ -27,23 +28,28 @@
   cursor: pointer;
 }
 
-.notification-tooltip__header {
-  padding: 20px 20px 24px;
-  border-bottom: 1px solid #E8ECEC;
-
-  &.notification-tooltip__header_new {
-    padding-bottom: 20px;
+.notification-tooltip__container {
+  height: 784px;
+  overflow-y: scroll;
+  .notification-tooltip__header {
+    padding: 20px 20px 24px;
+    border-bottom: 1px solid #E8ECEC;
+  
+    &.notification-tooltip__header_new {
+      padding-bottom: 20px;
+    }
+  
+    .notification-tooltip__title {
+      text-transform: uppercase;
+      opacity: 0.6;
+      font-size: 16px;
+      margin: 0;
+      text-align: left;
+      font-weight: normal;
+    }
   }
 
-  .notification-tooltip__title {
-    text-transform: uppercase;
-    opacity: 0.6;
-    font-size: 16px;
-    margin: 0;
-    text-align: left;
-    font-weight: normal;
+  .notification-tooltip__list_new {
+    margin-top: 16px;
   }
-}
-.notification-tooltip__list_new {
-  margin-top: 16px;
 }

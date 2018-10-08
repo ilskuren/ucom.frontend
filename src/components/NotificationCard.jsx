@@ -1,12 +1,16 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Avatar from './Avatar';
 
 const NotificationCard = ({
   isReplay = false, username, time, avatar, description, relatingPost, postCover, reply,
 }) => (
   <Fragment>
     <div className="notification-card">
-      <img alt={username} className="notification-card__avatar" src={avatar} />
+
+      <div className="notification-card__avatar" >
+        <Avatar alt={username} src={avatar} />
+      </div>
       <div className="notification-card__content">
         <p className="notification-card__text">
           <strong>{username} </strong>
@@ -25,7 +29,10 @@ const NotificationCard = ({
       </div>
     </div>
     <div className="notification-card__side">
-      {postCover && <img alt="" className="notification-card__post-cover" src={postCover} />}
+      {postCover &&
+      <div alt="" className="notification-card__post-cover">
+        <Avatar src={postCover} square />
+      </div>}
     </div>
   </Fragment>
 );

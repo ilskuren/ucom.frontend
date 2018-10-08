@@ -41,6 +41,8 @@ const Avatar = props => (
         )}
       </span>
     )}
+
+
   </span>
 );
 

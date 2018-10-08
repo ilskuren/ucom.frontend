@@ -80,7 +80,7 @@ class FeedForm extends PureComponent {
                     <Button text="Cancel" size="small" theme="light" onClick={() => this.hideForm()} />
                   </div>
                   <div className="inline__item">
-                    <Button text="Post" type="submit" size="small" theme="red" />
+                    <Button text="Post" type="submit" size="small" theme="red" isDisabled={this.state.message.length === 0} />
                   </div>
                 </div>
               </div>

@@ -10,7 +10,7 @@ import { getFileUrl } from '../../utils/upload';
 import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 
-class UserFollowers extends PureComponent {
+class Followers extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -100,4 +100,4 @@ class UserFollowers extends PureComponent {
 export default withRouter(connect(state => ({
   users: state.users,
   user: selectUser(state),
-}))(UserFollowers));
+}))(Followers));

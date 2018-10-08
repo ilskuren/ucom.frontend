@@ -303,6 +303,14 @@ class Api {
 
     return humps(response.data);
   }
+
+  @bind
+  async createCommentPost(data) {
+    const url = '/api/v1/comment';
+    const response = await this.actions.post(url, data);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

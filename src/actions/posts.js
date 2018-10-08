@@ -38,3 +38,13 @@ export const postVote = payload => (dispatch) => {
       dispatch(addErrorNotification(parseErrors(error).general));
     });
 };
+
+export const createCommentPost = payload => (dispatch) => {
+  api.createCommentPost(payload)
+    .then((data) => {
+      dispatch(addPosts(data.data));
+    })
+    .catch((error) => {
+      dispatch(addErrorNotification(parseErrors(error).general));
+    });
+};

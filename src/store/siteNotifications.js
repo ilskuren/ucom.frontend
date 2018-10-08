@@ -8,6 +8,7 @@ const getInitialState = () => ({
       avatar: 'https://steamuserimages-a.akamaihd.net/ugc/933814008881052459/22818793B6D9C730A788E677F998933F9EDDE0B7/',
       description: 'started following you',
       recent: true,
+      id: 1,
     },
     2: {
       username: 'Shiro',
@@ -16,6 +17,7 @@ const getInitialState = () => ({
       description: 'started following your organization Taboon Common',
       recent: true,
       postCover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/600px-Parking_icon.svg.png',
+      id: 2,
     },
     3: {
       avatar: 'https://is4-ssl.mzstatic.com/image/thumb/Purple128/v4/fa/a3/1a/faa31a82-3c25-017c-6320-ca90ee3755aa/source/512x512bb.jpg',
@@ -28,6 +30,8 @@ const getInitialState = () => ({
       },
       isReplay: true,
       postCover: 'https://static.thenounproject.com/png/11690-200.png',
+      id: 3,
+
     },
     5: {
       username: 'Suzan Born',
@@ -35,6 +39,7 @@ const getInitialState = () => ({
       avatar: 'https://steamuserimages-a.akamaihd.net/ugc/933814008881052459/22818793B6D9C730A788E677F998933F9EDDE0B7/',
       description: 'started following you',
       recent: true,
+      id: 5,
     },
     6: {
       username: 'Shiro',
@@ -43,6 +48,7 @@ const getInitialState = () => ({
       description: 'started following your organization Taboon Common',
       recent: true,
       postCover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/600px-Parking_icon.svg.png',
+      id: 6,
     },
   },
   tooltipVisibilty: false,
@@ -59,12 +65,15 @@ const siteNotifications = (state = getInitialState(), action) => {
         ...state, tooltipVisibilty: false,
       };
     }
-    case 'ADD_SITE_NOTIFICATION': {
+    case 'ADD_SITE_NOTIFICATIONS': {
       return {
         ...state,
         tooltipNotificationsList: {
           ...state.tooltipNotificationsList,
-          [uniqueId((new Date()).getTime())]: action.payload.data,
+          ...action.payload.data.reduce((accumulator, currentValue) => {
+            const id = currentValue.id || uniqueId((new Date()).getTime());
+            return { ...accumulator, [id]: { ...currentValue, id } };
+          }, {}),
         },
       };
     }
@@ -80,11 +89,15 @@ const siteNotifications = (state = getInitialState(), action) => {
       };
     }
     case 'DELETE_SITE_NOTIFICATION': {
+      const tooltipNotificationsList = { ...state.tooltipNotificationsList };
+      delete tooltipNotificationsList[action.payload.id];
+      console.log({
+        ...state,
+        tooltipNotificationsList,
+      });
       return {
         ...state,
-        tooltipNotificationsList: {
-          ...state.tooltipNotificationsList.filter(i => i.id !== action.payload.id),
-        },
+        tooltipNotificationsList,
       };
     }
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {

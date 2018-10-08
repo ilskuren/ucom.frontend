@@ -5,12 +5,14 @@ import React from 'react';
 import Rating from './Rating';
 import { postVote } from '../../actions/posts';
 import { getPostById } from '../../store/posts';
+import { selectUser } from '../../store/selectors/user';
 
 const PostRating = (props) => {
   const post = getPostById(props.posts, props.postId);
 
   return (
     <Rating
+      disabled={post.userId === props.user.id}
       currentVote={post.currentVote}
       myselfVote={post.myselfData && post.myselfData.myselfVote}
       onClickVoteDown={() => props.postVote({ postId: props.postId, isUp: false })}
@@ -27,6 +29,7 @@ PostRating.propTypes = {
 export default connect(
   state => ({
     posts: state.posts,
+    user: selectUser(state),
   }),
   dispatch => bindActionCreators({
     postVote,

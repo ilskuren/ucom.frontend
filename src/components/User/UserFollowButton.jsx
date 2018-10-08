@@ -19,14 +19,17 @@ const UserFollowButton = (props) => {
   }
 
   const userIsFollow = owner ? owner.iFollow.some(item => item.id === props.userId) : false;
+  const isOwner = owner.id === user.id;
+
 
   return (
     <Button
       isStretched
+      isDisabled={isOwner}
       size="medium"
       theme="transparent"
-      withCheckedIcon={userIsFollow}
-      text={userIsFollow ? 'Following' : 'Follow'}
+      withCheckedIcon={userIsFollow || isOwner}
+      text={userIsFollow || isOwner ? 'Following' : 'Follow'}
       onClick={() => {
         if (!owner) {
           return;

@@ -1,3 +1,4 @@
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -22,27 +23,35 @@ const UsersList = (props) => {
         <h3>{props.title}</h3>
       </div>
 
-      {users.map(item => (
-        <div className="profiles-list__row" key={item.id}>
-          <div className="profiles-list__user">
-            <UserCard
-              className="user-card_text_left"
-              userName={getUserName(item)}
-              accountName={item.accountName}
-              avatarUrl={getFileUrl(item.avatarFilename)}
-              profileLink={getUserUrl(item.id)}
-              sign={props.noSign ? '' : '@'}
-            />
-          </div>
-          <div className="profiles-list__info">
-            <Rate value={item.currentRate} className="rate_profile rate_right rate_color_black" />
+      <TransitionGroup className="profiles-list__content">
+        {users.map(item => (
+          <CSSTransition
+            key={item.id}
+            timeout={500}
+            classNames="fade"
+          >
+            <div className="profiles-list__row" key={item.id}>
+              <div className="profiles-list__user">
+                <UserCard
+                  className="user-card_text_left"
+                  userName={getUserName(item)}
+                  accountName={item.accountName}
+                  avatarUrl={getFileUrl(item.avatarFilename)}
+                  profileLink={getUserUrl(item.id)}
+                  sign={props.noSign ? '' : '@'}
+                />
+              </div>
+              <div className="profiles-list__info">
+                <Rate value={item.currentRate} className="rate_profile rate_right rate_color_black" />
 
-            <div className="profiles-list__button">
-              <UserFollowButton userId={item.id} />
+                <div className="profiles-list__button">
+                  <UserFollowButton userId={item.id} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </div>
   );
 };

@@ -68,7 +68,7 @@ class OrganizationPage extends PureComponent {
                   follow={
                     !!organization.user &&
                     !!organization.user.id &&
-                    !!this.props.user.iFollow.find(item => item.id === organization.user.id)
+                    !!(this.props.user.iFollow || []).find(item => item.id === organization.user.id)
                   }
                 />
               </div>

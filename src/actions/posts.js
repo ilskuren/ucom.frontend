@@ -4,10 +4,18 @@ import { addUsers } from './users';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
+import { addComments } from './comments';
 
 export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
-export const addPost = payload => ({ type: 'ADD_POST', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
+
+export const fetchPost = postId => (dispatch) => {
+  api.getPost(postId)
+    .then((data) => {
+      dispatch(addComments(humps(data.comments)));
+      dispatch(addPosts([data]));
+    });
+};
 
 export const fetchUserPosts = userId => (dispatch) => {
   api.getUserPosts(userId)

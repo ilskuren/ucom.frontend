@@ -107,15 +107,13 @@ class Post extends PureComponent {
           </span>
         </div>
 
-        {this.props.user.id && (
-          <div className="post__comments">
-            {this.state.commentsIsVisible ? (
-              <Comments postId={post.id} />
-            ) : (
-              <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
-            )}
-          </div>
-        )}
+        <div className="post__comments">
+          {this.state.commentsIsVisible ? (
+            <Comments postId={post.id} />
+          ) : (
+            <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
+          )}
+        </div>
       </div>
     );
   }

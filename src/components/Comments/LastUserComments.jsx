@@ -34,6 +34,7 @@ const LastUserComments = (props) => {
           />
         </div>
       )}
+
       <div className="comments__form">
         <CommentForm
           showBadge={post.myselfData && post.myselfData.organizationMember}

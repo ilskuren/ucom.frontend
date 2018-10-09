@@ -88,7 +88,7 @@ class Post extends PureComponent {
         </div>
 
         <div className="post__footer">
-          <div
+          <span
             role="presentation"
             className={classNames(
               'post__comment-count',
@@ -96,15 +96,15 @@ class Post extends PureComponent {
             )}
             onClick={() => this.toggleComments()}
           >
-            <div className="inline inline_small">
-              <div className="inline__item">
+            <span className="inline inline_small">
+              <span className="inline__item">
                 <IconComment />
-              </div>
+              </span>
               {post.postStats && (
-                <div className="inline__item">{post.postStats.commentsCount}</div>
+                <span className="inline__item">{post.postStats.commentsCount}</span>
               )}
-            </div>
-          </div>
+            </span>
+          </span>
         </div>
 
         {this.props.user.id && (

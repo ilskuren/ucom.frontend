@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Post from './Post';
-import FeedForm from './FeedForm';
+// import FeedForm from './FeedForm';
 
 const Feed = props => (
   <div className="feed">
@@ -9,7 +9,7 @@ const Feed = props => (
       <h1 className="title title_small">{props.title}</h1>
     </div>
 
-    <FeedForm />
+    {/* <FeedForm /> */}
 
     {props.posts.length > 0 && (
       <div className="feed__list">

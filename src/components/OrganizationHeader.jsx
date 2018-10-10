@@ -26,7 +26,9 @@ const OrganizationHeader = props => (
           )}
         </div>
 
-        <div className="organization-header__nickname">@{props.nickname}</div>
+        {props.nickname && (
+          <div className="organization-header__nickname">@{props.nickname}</div>
+        )}
 
         {props.poweredBy && (
           <div className="organization-header__poweredby">Powered by {props.poweredBy}</div>

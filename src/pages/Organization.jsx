@@ -11,6 +11,7 @@ import OrganizationFeed from '../components/Feed/OrganizationFeed';
 import OrganizationHeader from '../components/OrganizationHeader';
 import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
+import { getSourceUrl } from '../utils/sources';
 import * as actions from '../actions';
 import { fetchOrganizationPosts } from '../actions/posts';
 import { selectUser } from '../store/selectors';
@@ -68,7 +69,7 @@ class OrganizationPage extends PureComponent {
                   follow={
                     !!organization.user &&
                     !!organization.user.id &&
-                    !!this.props.user.iFollow.find(item => item.id === organization.user.id)
+                    !!(this.props.user.iFollow || []).find(item => item.id === organization.user.id)
                   }
                 />
               </div>
@@ -130,9 +131,11 @@ class OrganizationPage extends PureComponent {
                             <VerticalCards
                               title="Partners"
                               userCards={organization.partnershipSources.map(item => ({
+                                id: item.id,
                                 userName: item.title,
                                 avatarUrl: getFileUrl(item.avatarFilename),
                                 accountName: item.nickname || item.description,
+                                profileLink: getSourceUrl(item),
                               }))}
                             />
                           </div>
@@ -148,9 +151,11 @@ class OrganizationPage extends PureComponent {
                             <VerticalCards
                               title="Communities"
                               userCards={organization.communitySources.map(item => ({
+                                id: item.id,
                                 userName: item.title,
                                 avatarUrl: getFileUrl(item.avatarFilename),
                                 accountName: item.nickname || item.description,
+                                profileLink: getSourceUrl(item),
                               }))}
                             />
                           </div>

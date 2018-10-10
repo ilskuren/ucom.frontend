@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Post from '../Post';
+import Post from './Post';
+import FeedForm from './FeedForm';
 
 const Feed = props => (
   <div className="feed">
     <div className="feed__title">
       <h1 className="title title_small">{props.title}</h1>
     </div>
+
+    <FeedForm />
 
     {props.posts.length > 0 && (
       <div className="feed__list">
@@ -22,6 +25,7 @@ const Feed = props => (
 
 Feed.propTypes = {
   title: PropTypes.string,
+  posts: PropTypes.arrayOf(PropTypes.object),
 };
 
 Feed.defaultProps = {

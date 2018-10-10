@@ -42,4 +42,20 @@ const posts = (state = getInitialState(), action) => {
   }
 };
 
+export const getPostById = (posts, postId) => posts.data[postId];
+
+export const getPostsByUserId = (posts, userId) => (
+  Object.entries(posts.data)
+    .map(item => item[1])
+    .filter(item => item.userId === userId)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+);
+
+export const getOrganizationPosts = (posts, organizationId) => (
+  Object.entries(posts.data)
+    .map(item => item[1])
+    .filter(item => item.organizationId === organizationId)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+);
+
 export default posts;

@@ -1,6 +1,6 @@
 export const sortComments = (comments) => {
   if (!comments || !comments.length) {
-    return null;
+    return [];
   }
 
   return comments.sort((commentA, commentB) => { // eslint-disable-line

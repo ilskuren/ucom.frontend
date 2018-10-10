@@ -3,6 +3,7 @@ import api from '../api';
 import snakes from '../utils/snakes';
 import { parseErrors } from '../utils/errors';
 import { addValidationErrorNotification } from './notifications';
+import loader from '../utils/loader';
 
 export const setOrganizationActiveTab = payload => ({ type: 'SET_ORGANIZATION_ACTIVE_TAB', payload });
 export const setOrganizationData = payload => ({ type: 'SET_ORGANIZATION_DATA', payload });
@@ -18,6 +19,7 @@ export const removeOrganizationPartnershipNetwork = payload => ({ type: 'REMOVE_
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
 export const saveOrganization = payload => (dispatch) => {
+  loader.start();
   dispatch(setOrganizationLoading(true));
   (payload.id ? api.updateOrganization : api.createOrganization)(snakes(payload))
     .then((data) => {
@@ -30,15 +32,19 @@ export const saveOrganization = payload => (dispatch) => {
       dispatch(setOrganizationErrors(errors));
       dispatch(setOrganizationLoading(false));
       dispatch(addValidationErrorNotification());
-    });
+    })
+    .then(() => loader.done());
 };
 
 export const fetchOrganization = payload => (dispatch) => {
+  loader.start();
   dispatch(setOrganizationLoading(true));
   api.getOrganization(payload)
     .then((data) => {
       dispatch(setOrganizationData(humps(data.data)));
       dispatch(setOrganizationEntitySources(humps(data.data.social_networks)));
       dispatch(setOrganizationLoading(false));
-    });
+    })
+    .catch(() => loader.done())
+    .then(() => loader.done());
 };

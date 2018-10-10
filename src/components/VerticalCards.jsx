@@ -34,6 +34,7 @@ class VerticalCards extends Component {
               userName={userCard.userName}
               avatarUrl={userCard.avatarUrl}
               accountName={userCard.accountName}
+              profileLink={userCard.profileLink}
               theme="vertical"
             />
           </div>

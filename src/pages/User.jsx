@@ -1,22 +1,16 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
-import humps from 'lodash-humps';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Avatar from '../components/Avatar';
-import IconInfo from '../components/Icons/Info';
-import Rate from '../components/Rate';
 import Links from '../components/Links';
-import IconEdit from '../components/Icons/Edit';
 import Footer from '../components/Footer';
-import FollowButton from '../components/FollowButton';
-import Followers from '../components/Followers';
 import UserFeed from '../components/Feed/UserFeed';
-import Status from '../components/Status';
+import UserHead from '../components/User/UserHead';
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
-import { getYearsFromBirthday, getYearOfDate, userIsFollowed } from '../utils/user';
+import { getYearOfDate } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
 import { fetchUser } from '../actions/users';
@@ -55,10 +49,6 @@ class UserPage extends PureComponent {
   }
 
   render() {
-    const user = humps(this.props.user);
-    const userYears = getYearsFromBirthday(this.state.user.birthday);
-    const userJob = this.state.user.usersJobs && this.state.user.usersJobs[this.state.user.usersJobs.length - 1];
-
     return (
       <div className="content">
         <div className="content__inner">
@@ -74,141 +64,7 @@ class UserPage extends PureComponent {
             </div>
 
             <div className="sheets__content">
-              <div className="user-header">
-                <div className="user-header__main">
-                  <Avatar size="medium" src={getFileUrl(this.state.user.avatarFilename)} />
-                </div>
-
-                <div className="user-header__side">
-                  <div className="toolbar toolbar_top">
-                    <div className="toolbar__main">
-                      <div className="user-header__name">
-                        <h1 className="title title_light">
-                          <div className="inline">
-                            {this.state.user.id ? (
-                              <Fragment>
-                                {(this.state.user.firstName || this.state.user.lastName) && (
-                                  <div className="inline__item">{this.state.user.firstName} {this.state.user.lastName}</div>
-                                )}
-                              </Fragment>
-                            ) : (
-                              <div className="inline__item">
-                                <span className="blank">Jon Don</span>
-                              </div>
-                            )}
-
-                            {this.props.user.id && this.props.user.id === this.state.user.id && (
-                              <div className="inline__item">
-                                <Link className="button-icon button-icon_edit" to="/profile/general-info">
-                                  <IconEdit />
-                                </Link>
-                              </div>
-                            )}
-                          </div>
-                        </h1>
-                      </div>
-
-                      <div className="user-header__account-name">
-                        @{this.state.user.accountName}
-                      </div>
-
-                      {((userJob && userJob.position) || userYears) && (
-                        <div className="user-header__info">
-                          <div className="inline">
-                            {userJob && userJob.position && (
-                              <div className="inline__item">
-                                {userJob.position}
-                              </div>
-                            )}
-                            {userYears && (
-                              <div className="inline__item">
-                                {userYears} y.o.
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {!this.state.user.id ? (
-                        <div className="user-header__status">
-                          <span className="blank">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, aperiam.</span>
-                        </div>
-                      ) : (
-                        <Fragment>
-                          {(this.state.user.moodMessage || this.props.user.id === this.state.user.id) && (
-                            <Status
-                              text={this.state.user.moodMessage}
-                              isEditable={this.props.user.id === this.state.user.id}
-                              setUser={this.props.setUser}
-                              onSave={() => this.getData(this.props.match.params.id)}
-                            />
-                         )}
-                        </Fragment>
-                      )}
-                    </div>
-                    <div className="toolbar__side">
-                      <div className="user-header__rate">
-                        <Rate
-                          className="rate_big"
-                          value={this.state.user.currentRate}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {this.state.user.id && (
-                    <div className="user-header__actions">
-                      <div className="toolbar">
-                        <div className="toolbar__main">
-                          {this.props.user.id !== this.state.user.id && (
-                            <div className="inline inline_large">
-                              <div className="inline__item">
-                                <FollowButton
-                                  follow={this.state.user.myselfData ? this.state.user.myselfData.follow : userIsFollowed(this.state.user.followedBy, this.props.user.id)}
-                                  userId={this.state.user.id}
-                                  userAccountName={this.state.user.accountName}
-                                  isStretched
-                                />
-                              </div>
-
-                              {userIsFollowed(user.iFollow, this.state.user.id) && userIsFollowed(this.state.user.iFollow, user.id) ? (
-                                <div className="inline__item">
-                                  <div className="inline inline_small">
-                                    <div className="inline__item">
-                                      Trusted you
-                                    </div>
-                                    <div className="inline__item">
-                                      <span className="icon">
-                                        <IconInfo />
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              ) : null}
-                            </div>
-                          )}
-                        </div>
-                        <div className="toolbar__side">
-                          <div className="inline inline_large">
-                            <div className="inline__item">
-                              <Followers
-                                title="Followers"
-                                users={this.state.user.followedBy}
-                              />
-                            </div>
-                            <div className="inline__item">
-                              <Followers
-                                title="Following"
-                                users={this.state.user.iFollow}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <UserHead userId={this.props.match.params.id} />
 
               <div className="grid grid_user">
                 <div className="grid__item">
@@ -230,23 +86,6 @@ class UserPage extends PureComponent {
                       <div className="user-section__title">
                         <h2 className="title title_xsmall title_light">Organizations</h2>
                       </div>
-
-                      {/* <div className="user-section__tabs">
-                        <div className="menu menu_nav menu_responsive">
-                          <div className="menu__item menu__item_active">
-                            <button className="menu__link">My</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Joined</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Trusted</button>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link">Followed</button>
-                          </div>
-                        </div>
-                      </div> */}
 
                       <div className="user-section__organization">
                         <ul className="app-list">
@@ -411,12 +250,6 @@ class UserPage extends PureComponent {
                       </div>
                     </div>
                   )}
-
-                  {/* {this.state.user.id && (
-                    <div className="user-section">
-                      <button className="button button_theme_transparent button_size_medium">Share this profile</button>
-                    </div>
-                  )} */}
                 </div>
               </div>
             </div>

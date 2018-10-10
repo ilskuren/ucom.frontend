@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
+// import cn from 'classnames';
 import Avatar from '../components/Avatar';
 import Avatars from '../components/Avatars';
-import Status from '../components/Status';
+// import Status from '../components/Status';
 
 const ProfileHeader = ({
-  name, nickname, status, userRate, setUser, squareAvatar, users, poweredBy, isEditableStatus, isBoldTextInStatus, statusTheme,
+  name, nickname, userRate, squareAvatar, users, poweredBy, isEditableStatus,
 }) => (
   <div className="profile-header">
     <div className="profile-header__user">
@@ -38,11 +38,11 @@ const ProfileHeader = ({
           maxAvatarsAmount={8}
         />}
         {users && <div className="profile-header__board">board</div>}
-        {status && (
+        {/* {status && (
           <div className={cn('profile-header__status', { [`profile-header__status_theme_${statusTheme}`]: Boolean(statusTheme) })}>
             <Status text={status} isEditable={isEditableStatus} setUser={setUser} isBoldText={isBoldTextInStatus} />
           </div>
-        )}
+        )} */}
       </div>
     </div>
     <div className="profile-header__user-rating">
@@ -56,19 +56,19 @@ const ProfileHeader = ({
 ProfileHeader.propTypes = {
   name: PropTypes.string,
   nickname: PropTypes.string,
-  status: PropTypes.string,
-  statusTheme: PropTypes.string,
+  // status: PropTypes.string,
+  // statusTheme: PropTypes.string,
   // userRatePosition: PropTypes.number,
   userRate: PropTypes.number,
   squareAvatar: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object),
   isEditableStatus: PropTypes.bool,
-  isBoldTextInStatus: PropTypes.bool,
+  // isBoldTextInStatus: PropTypes.bool,
   poweredBy: PropTypes.string,
 };
 
 ProfileHeader.defaultProps = {
-  status: '',
+  // status: '',
 };
 
 export default ProfileHeader;

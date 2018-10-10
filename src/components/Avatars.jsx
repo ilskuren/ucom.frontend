@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -35,14 +36,17 @@ class Avatars extends PureComponent {
       }
       return null;
     })();
+    const LinkTag = avatar.profileLink ? Link : 'span';
+
     return (
-      <span
+      <LinkTag
+        to={avatar.profileLink}
         className={cn('avatars__avatar', { [`avatars__avatar_distance_${distance}`]: Boolean(distance) })}
         style={{ zIndex }}
         key={number}
       >
         <Avatar square={square} src={avatarUrl} size={size} alt={alt} borderWhite={borderWhite} />
-      </span>
+      </LinkTag>
     );
   };
 

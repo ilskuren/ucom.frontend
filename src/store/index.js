@@ -12,6 +12,7 @@ import notifications from './notifications';
 import siteNotifications from './siteNotifications';
 import posts from './posts';
 import users from './users';
+import comments from './comments';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -24,6 +25,7 @@ const app = combineReducers({
   siteNotifications,
   posts,
   users,
+  comments,
   form: formReducer,
 });
 const sagaMiddleware = createSagaMiddleware();

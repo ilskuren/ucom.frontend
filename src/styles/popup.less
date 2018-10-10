@@ -9,7 +9,6 @@
   z-index: 1000;
   transition: opacity 0.3s ease;
   opacity: 0;
-
   &:after {
     content: '';
     position: fixed;
@@ -24,6 +23,7 @@
 
 .popup_active {
   opacity: 1;
+  overflow-y: scroll;
 }
 
 .popup__inner {

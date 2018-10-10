@@ -45,5 +45,6 @@ export const fetchOrganization = payload => (dispatch) => {
       dispatch(setOrganizationEntitySources(humps(data.data.social_networks)));
       dispatch(setOrganizationLoading(false));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };

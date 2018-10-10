@@ -13,6 +13,7 @@ export const fetchMyself = () => (dispatch) => {
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -22,6 +23,7 @@ export const fetchUser = userId => (dispatch) => {
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -31,6 +33,7 @@ export const updateUser = data => (dispatch) => {
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -40,6 +43,7 @@ export const followUser = data => (dispatch) => {
     .then(() => {
       dispatch(addUserFollower(data));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -49,5 +53,6 @@ export const unfollowUser = data => (dispatch) => {
     .then(() => {
       dispatch(removeUserFollower(data));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };

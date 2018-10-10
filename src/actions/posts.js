@@ -17,6 +17,7 @@ export const fetchPost = postId => (dispatch) => {
       dispatch(addComments(humps(data.comments)));
       dispatch(addPosts([data]));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -26,6 +27,7 @@ export const fetchUserPosts = userId => (dispatch) => {
     .then((data) => {
       dispatch(addPosts(data));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -36,6 +38,7 @@ export const fetchOrganizationPosts = organizationId => (dispatch) => {
       dispatch(addUsers(data.data.map(item => item.user)));
       dispatch(addPosts(data.data));
     })
+    .catch(() => loader.done())
     .then(() => loader.done());
 };
 

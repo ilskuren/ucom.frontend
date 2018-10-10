@@ -9,6 +9,7 @@ const getInitialState = () => ({
       description: 'started following you',
       recent: true,
       id: 1,
+      typeOfFeedIcon: 'upvote',
     },
     2: {
       username: 'Shiro',
@@ -18,11 +19,12 @@ const getInitialState = () => ({
       recent: true,
       postCover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/600px-Parking_icon.svg.png',
       id: 2,
+      typeOfFeedIcon: 'downvote',
     },
     3: {
       avatar: 'https://is4-ssl.mzstatic.com/image/thumb/Purple128/v4/fa/a3/1a/faa31a82-3c25-017c-6320-ca90ee3755aa/source/512x512bb.jpg',
       username: 'Meka',
-      text: 'replied to your comment in the post',
+      description: 'replied to your comment in the post, test51 test56 test532 test532 test532 dsvsjpijpijhiph',
       relatingPost: 'Who is Rick?',
       reply: {
         replyTime: 'today at 9:11 am',
@@ -31,7 +33,7 @@ const getInitialState = () => ({
       isReplay: true,
       postCover: 'https://static.thenounproject.com/png/11690-200.png',
       id: 3,
-
+      typeOfFeedIcon: 'share',
     },
     5: {
       username: 'Suzan Born',
@@ -40,6 +42,7 @@ const getInitialState = () => ({
       description: 'started following you',
       recent: true,
       id: 5,
+      typeOfFeedIcon: 'mentioned',
     },
     6: {
       username: 'Shiro',

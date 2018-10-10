@@ -17,6 +17,7 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
+import { initNotificationsListeners } from '../actions/siteNotifications';
 import { getToken, removeToken } from '../utils/token';
 import api from '../api';
 import Loading from './Loading';
@@ -39,6 +40,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     this.restoreSession();
+    this.props.initNotificationsListeners();
   }
 
   restoreSession() {
@@ -109,6 +111,7 @@ App.propTypes = {
   setUser: PropTypes.func,
   auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
+  initNotificationsListeners: PropTypes.func,
 };
 
 export default connect(
@@ -118,5 +121,6 @@ export default connect(
   dispatch => ({
     setUser: data => dispatch(setUser(data)),
     hideAuthPopup: () => dispatch(hideAuthPopup()),
+    initNotificationsListeners: () => dispatch(initNotificationsListeners()),
   }),
 )(App);

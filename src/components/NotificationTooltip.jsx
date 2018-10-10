@@ -20,14 +20,7 @@ const NotificationTooltip = props => (
       {Object.values(props.tooltipNotificationsList).filter(i => i.recent).map(item => (
         <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
           <NotificationCard
-            avatar={item.avatar}
-            username={item.username}
-            description={item.description}
-            time={item.time}
-            postCover={item.postCover}
-            reply={item.reply}
-            isReplay={item.isReplay}
-            relatingPost={item.relatingPost}
+            {...item}
           />
         </div>
       ))}
@@ -39,14 +32,7 @@ const NotificationTooltip = props => (
       {Object.values(props.tooltipNotificationsList).filter(i => !i.recent).map(item => (
         <div key={item.id} className="notification-tooltip__item">
           <NotificationCard
-            avatar={item.avatar}
-            username={item.username}
-            description={item.description}
-            time={item.time}
-            postCover={item.postCover}
-            reply={item.reply}
-            isReplay={item.isReplay}
-            relatingPost={item.relatingPost}
+            {...item}
           />
         </div>
         ))}

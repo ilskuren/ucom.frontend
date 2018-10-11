@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { bind } from 'decko';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
 import InfoBlock from './InfoBlock';
@@ -50,18 +49,15 @@ class MenuPopup extends PureComponent {
     }
   }
 
-  @bind
-  hidePopup() {
+  hidePopup = () => {
     this.setState({ popupIsVisible: false });
   }
 
-  @bind
-  showPopup() {
+  showPopup = () => {
     this.setState({ popupIsVisible: true });
   }
 
-  @bind
-  logout() {
+  logout = () => {
     this.props.logout();
     this.hidePopup();
   }

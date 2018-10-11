@@ -2,20 +2,18 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Avatar from '../components/Avatar';
 import Links from '../components/Links';
 import Footer from '../components/Footer';
 import UserFeed from '../components/Feed/UserFeed';
 import UserHead from '../components/User/UserHead';
+import UserOrganizations from '../components/User/UserOrganizations';
+import UserAbout from '../components/User/UserAbout';
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { getYearOfDate } from '../utils/user';
-import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
 import { fetchUser } from '../actions/users';
 import { fetchUserPosts, getUserWallFeed } from '../actions/posts';
-import { getOrganizationUrl } from '../utils/organization';
 
 class UserPage extends PureComponent {
   constructor(props) {
@@ -68,47 +66,9 @@ class UserPage extends PureComponent {
 
               <div className="grid grid_user">
                 <div className="grid__item">
-                  {this.state.user.about && (
-                    <div className="user-section">
-                      <div className="user-section__title">
-                        <h2 className="title title_xsmall title_light">About</h2>
-                      </div>
-                      <div className="user-section__text">
-                        <div className="text">
-                          <p>{this.state.user.about}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {this.state.user.organizations && this.state.user.organizations.length > 0 && (
-                    <div className="user-section">
-                      <div className="user-section__title">
-                        <h2 className="title title_xsmall title_light">Organizations</h2>
-                      </div>
-
-                      <div className="user-section__organization">
-                        <ul className="app-list">
-                          {this.state.user.organizations.map(item => (
-                            <li key={item.id} className="app-list__item">
-                              <div className="app-list__avatar">
-                                <Link to={getOrganizationUrl(item.id)}>
-                                  <Avatar src={getFileUrl(item.avatarFilename)} size="small" rounded square />
-                                </Link>
-                              </div>
-                              <div className="app-list__name">
-                                <Link to={getOrganizationUrl(item.id)}>{item.title}</Link>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="user-section">
-                    <UserFeed userId={+this.props.match.params.id} />
-                  </div>
+                  <UserAbout userId={+this.props.match.params.id} />
+                  <UserOrganizations userId={+this.props.match.params.id} />
+                  <UserFeed userId={+this.props.match.params.id} />
                 </div>
 
                 <div className="grid__item">

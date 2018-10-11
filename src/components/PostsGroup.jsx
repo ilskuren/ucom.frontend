@@ -44,7 +44,7 @@ class PostsGroup extends PureComponent {
   render() {
     let { posts } = this.state;
 
-    posts = posts.filter(p => p.title && p.description);
+    posts = posts.filter(item => item.title || item.leadingText);
 
     const mainPost = posts.length ? posts[0] : {};
     const sidePosts = posts.length ? posts.slice(1, 5) : [{}, {}, {}, {}];
@@ -58,7 +58,7 @@ class PostsGroup extends PureComponent {
               <PostCard
                 coverUrl={getFileUrl(mainPost.mainImageFilename)}
                 rate={mainPost.currentRate}
-                title={mainPost.title}
+                title={mainPost.title || mainPost.leadingText}
                 url={getPostUrl(mainPost.id)}
                 userUrl={getUserUrl(mainPost.user && mainPost.user.id)}
                 userImageUrl={getFileUrl(mainPost.user && mainPost.user.avatarFilename)}

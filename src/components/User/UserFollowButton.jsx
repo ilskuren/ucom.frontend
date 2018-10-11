@@ -18,9 +18,8 @@ const UserFollowButton = (props) => {
     return null;
   }
 
-  const userIsFollow = owner ? owner.iFollow.some(item => item.id === props.userId) : false;
-  const isOwner = owner.id === user.id;
-
+  const userIsFollow = props.user.id ? owner.iFollow.some(item => item.id === props.userId) : false;
+  const isOwner = props.user.id && owner.id === user.id;
 
   return (
     <Button

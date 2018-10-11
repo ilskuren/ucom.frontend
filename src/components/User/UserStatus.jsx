@@ -55,7 +55,7 @@ class UserStatus extends PureComponent {
 
     return (
       <div className={classNames('status', { status_open: this.state.formVisible })}>
-        {this.props.user.id === user.id && this.state.formVisible ? (
+        {this.state.formVisible ? (
           <form className="status__form" onSubmit={e => this.saveMoodMessage(e)} autoComplete="off">
             <Textarea
               autoFocus
@@ -84,7 +84,7 @@ class UserStatus extends PureComponent {
                 {user.moodMessage || 'My status or message'}
               </span>
 
-              {this.props.user.id === user.id && (
+              {+this.props.user.id === +user.id && (
                 <span className="inline__item">
                   <span className="edit edit_xsmall" role="presentation" onClick={() => this.showForm(user.moodMessage)} />
                 </span>

@@ -37,7 +37,7 @@ const UserHead = (props) => {
                 <span className="inline">
                   <span className="inline__item">{getUserName(user)}</span>
 
-                  {props.user.id && props.user.id === user.id && (
+                  {props.user.id && +props.user.id === +user.id && (
                     <span className="inline__item">
                       <Link className="button-icon button-icon_edit" to="/profile/general-info">
                         <IconEdit />
@@ -68,7 +68,7 @@ const UserHead = (props) => {
 
           <div className="toolbar__side">
             <div className="user-header__rate">
-              <Rate className="rate_big" value={user.currentRate} />
+              <Rate className="rate_big" value={+user.currentRate} />
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ const UserHead = (props) => {
         <div className="user-header__actions">
           <div className="toolbar">
             <div className="toolbar__main">
-              {props.user.id !== user.id && (
+              {+props.user.id !== +user.id && (
                 <div className="inline inline_large">
                   <div className="inline__item">
                     <FollowButton

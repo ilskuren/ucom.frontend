@@ -1,24 +1,10 @@
-.modal-content {
-  height: 100vh;
-}
-
-.modal-content__main, .menu-popup, .menu-popup__content-block, .info-block{
-  height: 100%;
-}
-
-.menu-popup__container__main {
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.menu-popup__main {
-  height: calc(100% - 91px);
-  box-sizing: border-box;
-}
-
 .info-block {
-  overflow-y: auto;
-  position: relative;
+  &_scrolled {
+    overflow-y: auto;
+    position: relative;
+    height: 100%;
+  }
+
   &__title {
     margin-bottom: 65px;
     font-size: 24px;

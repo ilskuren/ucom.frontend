@@ -16,7 +16,7 @@ const OrganizationFeed = (props) => {
   return (
     <Feed
       postsIds={organization.wallFeedIds}
-      onSubmit={(description) => {
+      onSubmitNewPost={(description) => {
         props.createOrganizationsCommentPost({
           organizationId: props.organizationId,
           data: {

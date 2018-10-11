@@ -121,9 +121,9 @@ export const createSelfCommentPost = payload => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const updateUserCommentPost = payload => (dispatch) => {
+export const updatePost = payload => (dispatch) => {
   loader.start();
-  api.updateUserCommentPost(payload.userId, payload.postId, payload.data)
+  api.updatePost(payload.data, payload.postId)
     .then((data) => {
       dispatch(addPosts([data]));
     })

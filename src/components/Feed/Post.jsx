@@ -12,13 +12,14 @@ import IconEdit from '../Icons/Edit';
 import Comments from '../Comments/Comments';
 import LastUserComments from '../Comments/LastUserComments';
 import FeedForm from './FeedForm';
-import { getPostUrl, getPostTypeById } from '../../utils/posts';
+import { getPostUrl, getPostTypeById, postIsEditable } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getPostById } from '../../store/posts';
 import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
+import { updatePost } from '../../actions/posts';
 
 class Post extends PureComponent {
   constructor(props) {
@@ -87,10 +88,12 @@ class Post extends PureComponent {
               <FeedForm
                 message={post.description}
                 onCancel={this.hideForm}
-                onSubmit={(message) => {
-                  if (typeof this.props.onSubmit === 'function') {
-                    this.props.onSubmit(post.id, message);
-                  }
+                onSubmit={(description) => {
+                  this.hideForm();
+                  this.props.updatePost({
+                    postId: post.id,
+                    data: { description },
+                  });
                 }}
               />
             </div>
@@ -101,7 +104,7 @@ class Post extends PureComponent {
                   <div className="toolbar__main">
                     {post.description}
                   </div>
-                  {false && post.userId === this.props.user.id && (
+                  {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
                     <div className="toolbar__side">
                       <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
                         <IconEdit />
@@ -160,8 +163,9 @@ class Post extends PureComponent {
 
 Post.propTypes = {
   id: PropTypes.number,
-  posts: PropTypes.objectOf(PropTypes.object),
-  users: PropTypes.objectOf(PropTypes.object),
+  updatePost: PropTypes.func,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(
@@ -173,5 +177,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     createComment,
+    updatePost,
   }, dispatch),
 )(Post);

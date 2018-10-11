@@ -16,7 +16,7 @@ const UserFeed = (props) => {
   return (
     <Feed
       postsIds={user.wallFeedIds}
-      onSubmit={(description) => {
+      onSubmitNewPost={(description) => {
         props.createUserCommentPost({
           userId: props.userId,
           data: {

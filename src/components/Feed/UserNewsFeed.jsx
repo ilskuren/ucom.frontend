@@ -16,7 +16,7 @@ const UserNewsFeed = (props) => {
   return (
     <Feed
       postsIds={user.newsFeedIds}
-      onSubmit={(description) => {
+      onSubmitNewPost={(description) => {
         props.createSelfCommentPost({
           userId: props.userId,
           data: {

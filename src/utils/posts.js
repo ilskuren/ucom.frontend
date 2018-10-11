@@ -78,3 +78,11 @@ export const getPostTypeById = (postTypeId) => {
       return null;
   }
 };
+
+export const postIsEditable = (createdAt) => {
+  if (!createdAt) {
+    return false;
+  }
+
+  return (new Date()).getTime() - (new Date(createdAt)).getTime() < 600000;
+};

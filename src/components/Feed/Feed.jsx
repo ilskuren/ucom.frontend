@@ -17,8 +17,8 @@ const Feed = (props) => {
 
       <FeedInput
         onSubmit={(message) => {
-          if (typeof props.onSubmit === 'function') {
-            props.onSubmit(message);
+          if (typeof props.onSubmitNewPost === 'function') {
+            props.onSubmitNewPost(message);
           }
         }}
       />
@@ -38,9 +38,9 @@ const Feed = (props) => {
 
 Feed.propTypes = {
   title: PropTypes.string,
-  onSubmit: PropTypes.func,
+  onSubmitNewPost: PropTypes.func,
   postsIds: PropTypes.arrayOf(PropTypes.number),
-  posts: PropTypes.objectOf(PropTypes.object),
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 Feed.defaultProps = {

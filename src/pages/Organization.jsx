@@ -14,6 +14,7 @@ import { getFileUrl } from '../utils/upload';
 import { getSourceUrl } from '../utils/sources';
 import * as actions from '../actions';
 import { fetchOrganizationPosts } from '../actions/posts';
+import { getOrganization, getOrganizationWallFeed } from '../actions/organizations';
 import { selectUser } from '../store/selectors';
 import api from '../api';
 
@@ -37,7 +38,10 @@ class OrganizationPage extends PureComponent {
   }
 
   getData(organizationId) {
-    this.props.fetchOrganizationPosts(organizationId);
+    // this.props.fetchOrganizationPosts(organizationId);
+
+    this.props.getOrganization(organizationId);
+    this.props.getOrganizationWallFeed(organizationId);
 
     api.getOrganization(organizationId)
       .then((data) => {
@@ -203,6 +207,8 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => bindActionCreators({
+    getOrganization,
+    getOrganizationWallFeed,
     fetchOrganizationPosts,
     setUser: actions.setUser,
   }, dispatch),

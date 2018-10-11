@@ -14,7 +14,7 @@ import { getYearOfDate } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import * as actions from '../actions';
 import { fetchUser } from '../actions/users';
-import { fetchUserPosts } from '../actions/posts';
+import { fetchUserPosts, getUserWallFeed } from '../actions/posts';
 import { getOrganizationUrl } from '../utils/organization';
 
 class UserPage extends PureComponent {
@@ -38,7 +38,7 @@ class UserPage extends PureComponent {
 
   getData(userId) {
     this.props.fetchUser(userId);
-    this.props.fetchUserPosts(userId);
+    this.props.getUserWallFeed(userId);
 
     this.setState({ user: {} }, () => {
       api.getUser(userId)
@@ -269,6 +269,7 @@ export default connect(
   dispatch => bindActionCreators({
     fetchUser,
     fetchUserPosts,
+    getUserWallFeed,
     setUser: actions.setUser,
   }, dispatch),
 )(UserPage);

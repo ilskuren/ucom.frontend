@@ -81,7 +81,7 @@ const UserHead = (props) => {
                   <div className="inline__item">
                     <FollowButton
                       isStretched
-                      userId={user.id}
+                      userId={+user.id}
                       userAccountName={user.accountName}
                       follow={user.myselfData ? user.myselfData.follow : userIsFollowed(user.followedBy, props.user.id)}
                     />

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -7,8 +8,10 @@ import React, { PureComponent } from 'react';
 import PostRating from '../Rating/PostRating';
 import UserCard from '../UserCard';
 import IconComment from '../Icons/Comment';
+import IconEdit from '../Icons/Edit';
 import Comments from '../Comments/Comments';
 import LastUserComments from '../Comments/LastUserComments';
+import FeedForm from './FeedForm';
 import { getPostUrl, getPostTypeById } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
@@ -22,16 +25,25 @@ class Post extends PureComponent {
     super(props);
 
     this.state = {
+      formIsVisible: false,
       commentsIsVisible: false,
       timestamp: (new Date()).getTime(),
     };
   }
 
-  toggleComments() {
+  toggleComments = () => {
     this.setState({
       timestamp: (new Date()).getTime(),
       commentsIsVisible: !this.state.commentsIsVisible,
     });
+  }
+
+  showForm = () => {
+    this.setState({ formIsVisible: true });
+  }
+
+  hideForm = () => {
+    this.setState({ formIsVisible: false });
   }
 
   render() {
@@ -70,9 +82,38 @@ class Post extends PureComponent {
         )}
 
         <div className="post__content">
-          <h1 className="post__title">
-            <Link to={getPostUrl(post.id)}>{post.title}</Link>
-          </h1>
+          {this.state.formIsVisible ? (
+            <div className="post__form">
+              <FeedForm
+                message={post.description}
+                onCancel={this.hideForm}
+                onSubmit={(message) => {
+                  if (typeof this.props.onSubmit === 'function') {
+                    this.props.onSubmit(post.id, message);
+                  }
+                }}
+              />
+            </div>
+          ) : (
+            <h1 className="post__title">
+              {post.postTypeId === 10 ? (
+                <div className="toolbar toolbar_fluid toolbar_small">
+                  <div className="toolbar__main">
+                    {post.description}
+                  </div>
+                  {false && post.userId === this.props.user.id && (
+                    <div className="toolbar__side">
+                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
+                        <IconEdit />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link to={getPostUrl(post.id)}>{post.title}</Link>
+              )}
+            </h1>
+          )}
 
           {post.leadingText && (
             <h2 className="post__title post__title_leading">{post.leadingText}</h2>
@@ -94,15 +135,13 @@ class Post extends PureComponent {
               'post__comment-count',
               { 'post__comment-count_active': this.state.commentsIsVisible },
             )}
-            onClick={() => this.toggleComments()}
+            onClick={this.toggleComments}
           >
             <span className="inline inline_small">
               <span className="inline__item">
                 <IconComment />
               </span>
-              {post.postStats && (
-                <span className="inline__item">{post.postStats.commentsCount}</span>
-              )}
+              <span className="inline__item">{post.commentsCount}</span>
             </span>
           </span>
         </div>
@@ -118,6 +157,12 @@ class Post extends PureComponent {
     );
   }
 }
+
+Post.propTypes = {
+  id: PropTypes.number,
+  posts: PropTypes.objectOf(PropTypes.object),
+  users: PropTypes.objectOf(PropTypes.object),
+};
 
 export default connect(
   state => ({

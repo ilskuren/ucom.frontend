@@ -4,13 +4,23 @@
   margin: -10px;
 }
 
-.toolbar__main {
-  flex: 1 1 auto;
-  margin: 10px;
+.toolbar_fluid {
+  > .toolbar__main {
+    flex: 0 1 auto;
+  }
 }
 
-.toolbar__side {
-  margin: 10px;
+.toolbar_top {
+  align-items: flex-start;
+}
+
+.toolbar_small {
+  margin: -4px;
+
+  > .toolbar__main,
+  > .toolbar__side {
+    margin: 4px;
+  }
 }
 
 .toolbar_responsive {
@@ -25,6 +35,11 @@
   }
 }
 
-.toolbar_top {
-  align-items: flex-start;
+.toolbar__main {
+  flex: 1 1 auto;
+  margin: 10px;
+}
+
+.toolbar__side {
+  margin: 10px;
 }

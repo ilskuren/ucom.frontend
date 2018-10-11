@@ -48,14 +48,14 @@ export const getPostsByUserId = (posts, userId) => (
   Object.entries(posts.data)
     .map(item => item[1])
     .filter(item => item.userId === userId)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .sort((a, b) => new Date(b.createdAt || b.postStats.createdAt) - new Date(a.createdAt || a.postStats.createdAt))
 );
 
 export const getOrganizationPosts = (posts, organizationId) => (
   Object.entries(posts.data)
     .map(item => item[1])
     .filter(item => item.organizationId === organizationId)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .sort((a, b) => new Date(b.createdAt || b.postStats.createdAt) - new Date(a.createdAt || a.postStats.createdAt))
 );
 
 export default posts;

@@ -56,9 +56,10 @@ const LastUserComments = (props) => {
 
 LastUserComments.propTypes = {
   postId: PropTypes.number,
-  comments: PropTypes.objectOf(PropTypes.object),
   timestamp: PropTypes.number,
   createComment: PropTypes.func,
+  comments: PropTypes.objectOf(PropTypes.object).isRequired,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

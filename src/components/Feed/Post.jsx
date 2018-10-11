@@ -101,7 +101,7 @@ class Post extends PureComponent {
                   <div className="toolbar__main">
                     {post.description}
                   </div>
-                  {false && post.userId === this.props.user.id && (
+                  {post.userId === this.props.user.id && (
                     <div className="toolbar__side">
                       <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
                         <IconEdit />

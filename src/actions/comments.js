@@ -33,7 +33,7 @@ export const createComment = payload => (dispatch) => {
       dispatch(addComments([data]));
       dispatch(setPostCommentCount({
         postId: payload.postId,
-        commentsCount: payload.commentsCount + 1,
+        commentsCount: (payload.commentsCount || 0) + 1,
       }));
     })
     .catch((error) => {

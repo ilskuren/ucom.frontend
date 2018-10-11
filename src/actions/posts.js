@@ -11,6 +11,8 @@ export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const addUserWallFeedPost = payload => ({ type: 'ADD_USER_WALL_FEED_POST', payload });
 export const addUserNewsFeedPost = payload => ({ type: 'ADD_USER_NEWS_FEED_POST', payload });
+export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
+
 
 export const fetchPost = postId => (dispatch) => {
   loader.start();

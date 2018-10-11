@@ -44,6 +44,7 @@ const LastUserComments = (props) => {
           onSubmit={(description) => {
             props.createComment({
               postId: props.postId,
+              commentsCount: post.commentsCount,
               data: { description },
             });
           }}

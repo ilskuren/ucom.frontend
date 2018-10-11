@@ -8,14 +8,6 @@ const posts = (state = getInitialState(), action) => {
       return getInitialState();
     }
 
-    case 'ADD_POST': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, {
-          [action.payload.id]: Object.assign({}, state.data[action.payload.id], action.payload),
-        }),
-      });
-    }
-
     case 'ADD_POSTS': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, action.payload
@@ -24,17 +16,33 @@ const posts = (state = getInitialState(), action) => {
     }
 
     case 'SET_POST_VOTE': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, {
-          [action.payload.id]: Object.assign({}, state.data[action.payload.id], {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.id]: {
+            ...state.data[action.payload.id],
             currentVote: action.payload.currentVote,
-            myselfData: Object.assign({}, state.data[action.payload.id].myselfData, {
+            myselfData: {
+              ...state.data[action.payload.id].myselfData,
               myselfVote: action.payload.myselfVote,
-            }),
-          }),
-        }),
-      });
+            },
+          },
+        },
+      };
     }
+
+    case 'SET_POST_COMMENT_COUNT':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.postId]: {
+            ...state.data[action.payload.postId],
+            commentsCount: action.payload.commentsCount,
+          },
+        },
+      };
 
     default: {
       return state;

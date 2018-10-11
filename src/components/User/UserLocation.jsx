@@ -10,7 +10,7 @@ const UserLocation = (props) => {
     return null;
   }
 
-  if (!user.city) {
+  if (!user.city && !user.country) {
     return null;
   }
 
@@ -20,7 +20,9 @@ const UserLocation = (props) => {
         <h3 className="title title_xsmall title_light">Location</h3>
       </div>
       <div className="user-section__content">
-        {user.city}{user.country && `, ${user.country}`}
+        {user.city && user.country ? `${user.city}, ${user.country}` : null}
+        {user.city && !user.country ? user.city : null}
+        {!user.city && user.country ? user.country : null}
       </div>
     </div>
   );

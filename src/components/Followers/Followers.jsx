@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
@@ -96,6 +97,16 @@ class Followers extends PureComponent {
     );
   }
 }
+
+Followers.propTypes = {
+  title: PropTypes.string,
+  usersIds: PropTypes.arrayOf(PropTypes.number),
+  users: PropTypes.objectOf(PropTypes.object),
+};
+
+Followers.defaultProps = {
+  title: 'Followers',
+};
 
 export default withRouter(connect(state => ({
   users: state.users,

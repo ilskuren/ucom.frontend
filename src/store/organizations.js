@@ -1,4 +1,4 @@
-import { uniqBy, uniq } from 'lodash';
+import { uniqBy, uniq, compact } from 'lodash';
 
 const getInitialState = () => ({
   data: {},
@@ -21,10 +21,10 @@ const organizations = (state = getInitialState(), action) => {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, {
           [action.payload.organizationId]: Object.assign({}, state.data[action.payload.organizationId], {
-            followedBy: uniqBy([].concat(
+            followedBy: uniqBy(compact([].concat(
               state.data[action.payload.organizationId].followedBy,
-              action.payload.organization,
-            ), item => item.id),
+              action.payload.user,
+            )), item => item.id),
           }),
         }),
       });

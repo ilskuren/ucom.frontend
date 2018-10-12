@@ -5,11 +5,10 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import Links from '../components/Links';
 import Footer from '../components/Footer';
-import PostHeader from '../components/PostHeader';
+import PostHeader from '../components/Post/PostHeader';
 import VerticalCards from '../components/VerticalCards';
 import OrganizationFeed from '../components/Feed/OrganizationFeed';
-import OrganizationHeader from '../components/OrganizationHeader';
-import { getUserName, getUserUrl } from '../utils/user';
+import OrganizationHeader from '../components/Organization/OrganizationHeader';
 import { getFileUrl } from '../utils/upload';
 import { getSourceUrl } from '../utils/sources';
 import * as actions from '../actions';
@@ -62,40 +61,14 @@ class OrganizationPage extends PureComponent {
           <div className="sheets">
             <div className="sheets__list">
               <div className="sheets__item">
-                <PostHeader
-                  theme="organization"
-                  userId={organization.user && organization.user.id}
-                  userUrl={getUserUrl(organization.user && organization.user.id)}
-                  avatar={getFileUrl(organization.user && organization.user.avatarFilename)}
-                  name={getUserName(organization.user)}
-                  rating={organization.user && +organization.user.currentRate}
-                  userAccountName={organization.user && organization.user.accountName}
-                  follow={
-                    !!organization.user &&
-                    !!organization.user.id &&
-                    !!(this.props.user.iFollow || []).find(item => item.id === organization.user.id)
-                  }
-                />
+                <PostHeader userId={organization.user && organization.user.id} />
               </div>
             </div>
 
             <div className="sheets__content sheets__content_theme_organization">
               <div className="organization">
                 <div className="organization__header">
-                  <OrganizationHeader
-                    editable={organization.userId === this.props.user.id}
-                    avatarSrc={getFileUrl(organization.avatarFilename)}
-                    title={organization.title}
-                    nickname={organization.nickname}
-                    poweredBy={organization.poweredBy}
-                    currentRate={organization.currentRate}
-                    id={organization.id}
-                    accountName={this.props.user.accountName}
-                    organizationBlockchainId={organization.blockchainId}
-                    followers={organization.followedBy}
-                    usersTeam={organization.usersTeam}
-                    follow={organization.myselfData && organization.myselfData.follow}
-                  />
+                  <OrganizationHeader organizationId={+this.props.match.params.id} />
                 </div>
                 <div className="organization__content">
                   <div className="grid grid_organization">

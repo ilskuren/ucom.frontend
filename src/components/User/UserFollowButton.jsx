@@ -20,7 +20,7 @@ const UserFollowButton = (props) => {
     return null;
   }
 
-  const userIsFollow = props.user.id ? owner.iFollow.some(item => +item.id === +props.userId) : false;
+  const userIsFollow = props.user.id ? (owner.iFollow || []).some(item => +item.id === +props.userId) : false;
 
   const isOwner = props.user.id && +owner.id === +user.id;
 

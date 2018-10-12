@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from './Avatar';
-import { DownvoteIcon, UpvoteIcon, MentionedIcon, ShareIcon } from './Icons/FeedIcons';
+import Avatar from '../Avatar';
+import { DownvoteIcon, UpvoteIcon, MentionedIcon, ShareIcon } from '../Icons/FeedIcons';
 
 const UPVOTE = 'upvote';
 const DOWNVOTE = 'downvote';
@@ -22,7 +22,7 @@ const getSvgFeedIcon = (nameOfIcon) => {
       return '';
   }
 };
-const NotificationCard = ({
+const NotificationCardDefault = ({
   isReplay = false, username, time, avatar, description, relatingPost, postCover, reply, typeOfFeedIcon = '',
 }) => (
   <Fragment>
@@ -56,7 +56,7 @@ const NotificationCard = ({
   </Fragment>
 );
 
-NotificationCard.propTypes = {
+NotificationCardDefault.propTypes = {
   isReplay: PropTypes.bool,
   username: PropTypes.string,
   time: PropTypes.string,
@@ -71,4 +71,4 @@ NotificationCard.propTypes = {
   }),
 
 };
-export default NotificationCard;
+export default NotificationCardDefault;

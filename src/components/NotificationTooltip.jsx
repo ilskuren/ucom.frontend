@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IconClose from 'components/Icons/Close';
-import NotificationCard from 'components/NotificationCard';
+import NotificationCard from 'components/NotificationCards/NotificationCard';
 import {
   hideNotificationTooltip,
   addSiteNotifications,

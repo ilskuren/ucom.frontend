@@ -54,12 +54,11 @@ const getInitialState = () => ({
       id: 6,
     },
     14: {
-      username: 'Suzan Born',
       time: 'today at 9:11 am',
-      avatar: 'https://steamuserimages-a.akamaihd.net/ugc/933814008881052459/22818793B6D9C730A788E677F998933F9EDDE0B7/',
-      description: 'started following you',
+      description: 'Welcome my friend. You just joined the U. Community. We sent a confirmation letter on your e-mail.',
       recent: true,
       id: 14,
+      typeOfFeedIcon: 'congratulations',
     },
     436: {
       username: 'Shiro',

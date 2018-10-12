@@ -29,6 +29,7 @@ import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
 import Notifications from './Notifications';
+// import socket from '../api/socket';
 
 class App extends PureComponent {
   constructor(props) {
@@ -42,6 +43,7 @@ class App extends PureComponent {
   componentDidMount() {
     this.restoreSession();
     this.props.initNotificationsListeners();
+    // socket.connect();
   }
 
   restoreSession() {

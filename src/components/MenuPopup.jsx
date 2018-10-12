@@ -152,20 +152,22 @@ class MenuPopup extends PureComponent {
                     </div>
                   </div>
                   <div className="menu-popup__content">
-                    <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter" scrolled>
-                      {this.props.user.organizations && this.props.user.organizations.map(item => (
-                        <div className="menu-popup__content-item" key={item.id}>
-                          <UserCard
-                            className="user-card_text_left"
-                            userName={item.title}
-                            accountName={item.nickname}
-                            avatarUrl={getFileUrl(item.avatarFilename)}
-                            profileLink={getOrganizationUrl(item.id)}
-                            squareAvatar
-                            roundedAvatar
-                          />
-                        </div>
-                      ))}
+                    <InfoBlock title="Organizations" size="small" align="left" line="gray-lighter" fixedChildren>
+                      <div className="info-block__scrolled-list">
+                        {this.props.user.organizations && this.props.user.organizations.map(item => (
+                          <div className="menu-popup__content-item" key={item.id}>
+                            <UserCard
+                              className="user-card_text_left"
+                              userName={item.title}
+                              accountName={item.nickname}
+                              avatarUrl={getFileUrl(item.avatarFilename)}
+                              profileLink={getOrganizationUrl(item.id)}
+                              squareAvatar
+                              roundedAvatar
+                            />
+                          </div>
+                        ))}
+                      </div>
                       <div className="menu-popup__content-item">
                         <NavLink
                           className="menu-popup__add"

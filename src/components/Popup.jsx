@@ -6,11 +6,11 @@ import store from '../store';
 
 class Popup extends PureComponent {
   componentDidMount() {
-    document.body.classList.add('no-scroll');
+    document.documentElement.classList.add('no-scroll');
   }
 
   componentWillUnmount() {
-    document.body.classList.remove('no-scroll');
+    document.documentElement.classList.remove('no-scroll');
   }
 
   render() {

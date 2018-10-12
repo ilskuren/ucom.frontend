@@ -92,8 +92,8 @@ class Api {
   }
 
   @bind
-  async getOrganizations() {
-    const response = await this.actions.get('/api/v1/organizations');
+  async getOrganizations(params) {
+    const response = await this.actions.get(`/api/v1/organizations?${param(params)}`);
 
     return humps(response.data);
   }

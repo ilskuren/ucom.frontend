@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../Avatar';
+import Button from '../Button';
 import { CongratulationsIcon } from '../Icons/FeedIcons';
 
 const NotificationCardCongratulations = ({
@@ -19,6 +20,24 @@ const NotificationCardCongratulations = ({
       </div>
     </div>
     <p className="notification-card__text_congratulations">{description}</p>
+    <div className="inline notification-card__buttons">
+      <div className="inline__item">
+        <Button
+          theme="accent-light"
+          size="small"
+          text="Confirm"
+          isStretched
+        />
+      </div>
+      <div className="inline__item">
+        <Button
+          theme="accent-gray"
+          size="small"
+          text="Decline"
+          isStretched
+        />
+      </div>
+    </div>
   </div>
 );
 

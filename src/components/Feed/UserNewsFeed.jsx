@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Feed from './Feed';
 import { getUserById } from '../../store/users';
-import { createUserCommentPost } from '../../actions/posts';
+import { createSelfCommentPost } from '../../actions/posts';
 
-const UserFeed = (props) => {
+const UserNewsFeed = (props) => {
   const user = getUserById(props.users, props.userId);
 
   if (!user) {
@@ -15,9 +15,9 @@ const UserFeed = (props) => {
 
   return (
     <Feed
-      postsIds={user.wallFeedIds}
+      postsIds={user.newsFeedIds}
       onSubmitNewPost={(description) => {
-        props.createUserCommentPost({
+        props.createSelfCommentPost({
           userId: props.userId,
           data: {
             description,
@@ -29,9 +29,9 @@ const UserFeed = (props) => {
   );
 };
 
-UserFeed.propTypes = {
+UserNewsFeed.propTypes = {
   userId: PropTypes.number,
-  createUserCommentPost: PropTypes.func,
+  createSelfCommentPost: PropTypes.func,
   users: PropTypes.objectOf(PropTypes.object),
 };
 
@@ -40,6 +40,6 @@ export default connect(
     users: state.users,
   }),
   dispatch => bindActionCreators({
-    createUserCommentPost,
+    createSelfCommentPost,
   }, dispatch),
-)(UserFeed);
+)(UserNewsFeed);

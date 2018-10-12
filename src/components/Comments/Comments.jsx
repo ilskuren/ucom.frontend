@@ -44,6 +44,7 @@ class Comments extends PureComponent {
             onSubmit={(description) => {
               this.props.createComment({
                 postId: this.props.postId,
+                commentsCount: post.commentsCount,
                 data: { description },
               });
             }}

@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import classNames from 'classnames';
 import Footer from '../components/Footer';
 import UserCard from '../components/UserCard';
 import api from '../api';
 import { getOrganizationUrl } from '../utils/organization';
+import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 
 class EventsPage extends PureComponent {
@@ -10,12 +12,15 @@ class EventsPage extends PureComponent {
     super(props);
 
     this.state = {
+      page: 0,
+      hasMore: true,
+      sortBy: '-current_rate',
       organizations: [],
     };
   }
 
   componentDidMount() {
-    this.getData();
+    this.loadMore();
   }
 
   getData() {
@@ -24,8 +29,41 @@ class EventsPage extends PureComponent {
         this.setState({ organizations: data.data });
       });
   }
+  loadMore() {
+    const params = {
+      page: this.state.page + 1,
+      sort_by: this.state.sortBy,
+    };
+
+    api.getOrganizations(params)
+      .then((data) => {
+        this.setState(prevState => ({
+          organizations: [...prevState.organizations, ...data.data],
+          hasMore: data.metadata.hasMore,
+          page: params.page,
+        }));
+      });
+  }
+
+  changeSort(sortBy) {
+    const params = {
+      page: 1,
+      sort_by: sortBy,
+    };
+
+    api.getOrganizations(params)
+      .then((data) => {
+        this.setState({
+          organizations: data.data,
+          hasMore: data.metadata.hasMore,
+          sortBy,
+          page: 1,
+        });
+      });
+  }
 
   render() {
+    console.log(this.state.organizations);
     return (
       <div className="content">
         <div className="content__inner">
@@ -38,9 +76,45 @@ class EventsPage extends PureComponent {
               <table className="list-table list-table_indexed list-table_organizations list-table_responsive">
                 <thead className="list-table__head">
                   <tr className="list-table__row">
-                    <td className="list-table__cell list-table__cell_index">#</td>
+                    {/* <td className="list-table__cell list-table__cell_index">#</td>
                     <td className="list-table__cell list-table__cell_name">Name</td>
-                    <td className="list-table__cell">Rate</td>
+                    <td className="list-table__cell">Rate</td> */}
+                    <td className="list-table__cell list-table__cell_index">#</td>
+                    {[{
+                      title: 'Name',
+                      name: 'title',
+                      sortable: true,
+                    }, {
+                      title: 'Rate',
+                      name: 'current_rate',
+                      sortable: true,
+                    }].map(item => (
+                      <td
+                        key={item.name}
+                        role="presentation"
+                        className={classNames(
+                          'list-table__cell',
+                          { 'list-table__cell_sortable': item.sortable },
+                        )}
+                        onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '' : '-'}${item.name}`)}
+                      >
+                        <div className="list-table__title">
+                          {item.title}
+
+                          {this.state.sortBy === `-${item.name}` && (
+                            <div className="list-table__sort-icon">
+                              <IconTableTriangle />
+                            </div>
+                          )}
+
+                          {this.state.sortBy === `${item.name}` && (
+                            <div className="list-table__sort-icon list-table__sort-icon_flip">
+                              <IconTableTriangle />
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="list-table__body">
@@ -64,6 +138,16 @@ class EventsPage extends PureComponent {
                 </tbody>
               </table>
             </div>
+            {this.state.hasMore && (
+            <div className="table-content__showmore">
+              <button
+                className="button-clean button-clean_link"
+                onClick={() => this.loadMore()}
+              >
+                Show More
+              </button>
+            </div>
+          )}
           </div>
 
           <Footer />

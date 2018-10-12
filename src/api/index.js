@@ -92,8 +92,8 @@ class Api {
   }
 
   @bind
-  async getOrganizations() {
-    const response = await this.actions.get('/api/v1/organizations');
+  async getOrganizations(params) {
+    const response = await this.actions.get(`/api/v1/organizations?${param(params)}`);
 
     return humps(response.data);
   }
@@ -287,6 +287,15 @@ class Api {
   }
 
   @bind
+  async getOrganizationWallFeed(id) {
+    const url = `/api/v1/organizations/${id}/wall-feed`;
+
+    const response = await this.actions.get(url);
+
+    return humps(response.data);
+  }
+
+  @bind
   async searchCommunity(q) {
     const url = `/api/v1/community/search?q=${q}`;
 
@@ -305,9 +314,47 @@ class Api {
   }
 
   @bind
-  async createCommentPost(data) {
-    const url = '/api/v1/comment';
+  async createUserCommentPost(userId, data) {
+    const url = `/api/v1/users/${userId}/posts`;
     const response = await this.actions.post(url, data);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async updateUserCommentPost(userId, postId, data) {
+    const url = `/api/v1/users/${userId}/posts/${postId}`;
+    const response = await this.actions.patch(url, data);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async createOrganizationsCommentPost(orgId, data) {
+    const url = `/api/v1/organizations/${orgId}/posts`;
+    const response = await this.actions.post(url, data);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async updateOrganizationsCommentPost(orgId, postId, data) {
+    const url = `/api/v1/organizations/${orgId}/posts/${postId}`;
+    const response = await this.actions.path(url, data);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getUserWallFeed(userId) {
+    const response = await this.actions.get(`/api/v1/users/${userId}/wall-feed`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getUserNewsFeed() {
+    const response = await this.actions.get('/api/v1/myself/news-feed');
 
     return humps(response.data);
   }

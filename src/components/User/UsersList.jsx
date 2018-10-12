@@ -42,7 +42,7 @@ const UsersList = (props) => {
                 />
               </div>
               <div className="profiles-list__info">
-                <Rate value={item.currentRate} className="rate_profile rate_right rate_color_black" />
+                <Rate value={+item.currentRate} className="rate_profile rate_right rate_color_black" />
 
                 <div className="profiles-list__button">
                   <UserFollowButton userId={item.id} />

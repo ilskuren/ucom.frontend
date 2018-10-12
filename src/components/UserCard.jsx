@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
+import classNames from 'classnames';
 import Avatar from './Avatar';
 import AvatarFromFile from './AvatarFromFile';
 
@@ -17,7 +17,13 @@ const UserCard = (props) => {
   }
 
   return (
-    <div className={cn('user-card', props.className)}>
+    <div
+      className={classNames(
+        props.className,
+        'user-card',
+        { [`user-card_size_${props.size}`]: Boolean(props.size) },
+      )}
+    >
       <div className="user-card__inner">
         <div className="user-card__main">
           <LinkTag to={props.profileLink} href={props.profileLink}>{avatar}</LinkTag>
@@ -37,7 +43,14 @@ const UserCard = (props) => {
           )}
 
           {props.accountName && !props.rate && (
-            <div className={cn('user-card__account', { [`user-card__account_theme_${props.theme}`]: Boolean(props.theme) })}>{props.sign}{props.accountName}</div>
+            <div
+              className={classNames(
+                'user-card__account',
+                { [`user-card__account_theme_${props.theme}`]: Boolean(props.theme) },
+              )}
+            >
+              {props.sign}{props.accountName}
+            </div>
           )}
         </div>
 
@@ -62,6 +75,8 @@ UserCard.propTypes = {
   rate: PropTypes.number,
   userPosition: PropTypes.string,
   theme: PropTypes.string,
+  size: PropTypes.string,
+  caption: PropTypes.string,
 };
 
 UserCard.defaultProps = {

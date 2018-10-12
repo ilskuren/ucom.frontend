@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Comment from './Comment';
 import { getCommentById } from '../../store/comments';
+import { getPostById } from '../../store/posts';
 import { createComment } from '../../actions/comments';
 
 const CommentsList = (props) => {
+  const post = getPostById(props.posts, props.postId);
+
+  if (!post) {
+    return null;
+  }
+
   const comments = props.commentsIds.map(id => getCommentById(props.comments, id));
 
   if (!comments.length) {
@@ -23,6 +30,7 @@ const CommentsList = (props) => {
             props.createComment({
               postId: props.postId,
               commentId: item.id,
+              commentsCount: post.commentsCount,
               data: { description },
             });
           }}
@@ -37,6 +45,7 @@ CommentsList.propTypes = {
   commentsIds: PropTypes.arrayOf(PropTypes.number),
   comments: PropTypes.objectOf(PropTypes.object),
   createComment: PropTypes.func,
+  posts: PropTypes.objectOf(PropTypes.object),
 };
 
 CommentsList.defaultProps = {
@@ -46,6 +55,7 @@ CommentsList.defaultProps = {
 export default connect(
   state => ({
     comments: state.comments,
+    posts: state.posts,
   }),
   dispatch => bindActionCreators({
     createComment,

@@ -9,6 +9,10 @@ import loader from '../utils/loader';
 
 export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
+export const addUserWallFeedPost = payload => ({ type: 'ADD_USER_WALL_FEED_POST', payload });
+export const addUserNewsFeedPost = payload => ({ type: 'ADD_USER_NEWS_FEED_POST', payload });
+export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
+
 
 export const fetchPost = postId => (dispatch) => {
   loader.start();
@@ -26,6 +30,34 @@ export const fetchUserPosts = userId => (dispatch) => {
   api.getUserPosts(userId)
     .then((data) => {
       dispatch(addPosts(data));
+    })
+    .catch(() => loader.done())
+    .then(() => loader.done());
+};
+
+export const getUserWallFeed = userId => (dispatch) => {
+  loader.start();
+  api.getUserWallFeed(userId)
+    .then((data) => {
+      dispatch(addPosts(data.data));
+      dispatch(addUsers([{
+        id: userId,
+        wallFeedIds: data.data.map(item => item.id),
+      }]));
+    })
+    .catch(() => loader.done())
+    .then(() => loader.done());
+};
+
+export const getUserNewsFeed = userId => (dispatch) => {
+  loader.start();
+  api.getUserNewsFeed(userId)
+    .then((data) => {
+      dispatch(addPosts(data.data));
+      dispatch(addUsers([{
+        id: userId,
+        newsFeedIds: data.data.map(item => item.id),
+      }]));
     })
     .catch(() => loader.done())
     .then(() => loader.done());
@@ -59,11 +91,41 @@ export const postVote = payload => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const createCommentPost = payload => (dispatch) => {
+export const createUserCommentPost = payload => (dispatch) => {
   loader.start();
-  api.createCommentPost(payload)
+  api.createUserCommentPost(payload.userId, payload.data)
     .then((data) => {
-      dispatch(addPosts(data.data));
+      dispatch(addPosts([data]));
+      dispatch(addUserWallFeedPost({
+        userId: payload.userId,
+        postId: data.id,
+      }));
+    })
+    .catch((error) => {
+      dispatch(addErrorNotification(parseErrors(error).general));
+    })
+    .then(() => loader.done());
+};
+
+export const createSelfCommentPost = payload => (dispatch) => {
+  loader.start();
+  api.createUserCommentPost(payload.userId, payload.data)
+    .then((data) => {
+      dispatch(addPosts([data]));
+      dispatch(addUserWallFeedPost({ userId: payload.userId, postId: data.id }));
+      dispatch(addUserNewsFeedPost({ userId: payload.userId, postId: data.id }));
+    })
+    .catch((error) => {
+      dispatch(addErrorNotification(parseErrors(error).general));
+    })
+    .then(() => loader.done());
+};
+
+export const updatePost = payload => (dispatch) => {
+  loader.start();
+  api.updatePost(payload.data, payload.postId)
+    .then((data) => {
+      dispatch(addPosts([data]));
     })
     .catch((error) => {
       dispatch(addErrorNotification(parseErrors(error).general));

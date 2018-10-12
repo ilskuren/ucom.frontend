@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -7,31 +8,43 @@ import React, { PureComponent } from 'react';
 import PostRating from '../Rating/PostRating';
 import UserCard from '../UserCard';
 import IconComment from '../Icons/Comment';
+import IconEdit from '../Icons/Edit';
 import Comments from '../Comments/Comments';
 import LastUserComments from '../Comments/LastUserComments';
-import { getPostUrl, getPostTypeById } from '../../utils/posts';
+import FeedForm from './FeedForm';
+import { getPostUrl, getPostTypeById, postIsEditable } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getPostById } from '../../store/posts';
 import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
+import { updatePost } from '../../actions/posts';
 
 class Post extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
+      formIsVisible: false,
       commentsIsVisible: false,
       timestamp: (new Date()).getTime(),
     };
   }
 
-  toggleComments() {
+  toggleComments = () => {
     this.setState({
       timestamp: (new Date()).getTime(),
       commentsIsVisible: !this.state.commentsIsVisible,
     });
+  }
+
+  showForm = () => {
+    this.setState({ formIsVisible: true });
+  }
+
+  hideForm = () => {
+    this.setState({ formIsVisible: false });
   }
 
   render() {
@@ -70,9 +83,40 @@ class Post extends PureComponent {
         )}
 
         <div className="post__content">
-          <h1 className="post__title">
-            <Link to={getPostUrl(post.id)}>{post.title}</Link>
-          </h1>
+          {this.state.formIsVisible ? (
+            <div className="post__form">
+              <FeedForm
+                message={post.description}
+                onCancel={this.hideForm}
+                onSubmit={(description) => {
+                  this.hideForm();
+                  this.props.updatePost({
+                    postId: post.id,
+                    data: { description },
+                  });
+                }}
+              />
+            </div>
+          ) : (
+            <h1 className="post__title">
+              {post.postTypeId === 10 ? (
+                <div className="toolbar toolbar_fluid toolbar_small">
+                  <div className="toolbar__main">
+                    {post.description}
+                  </div>
+                  {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
+                    <div className="toolbar__side">
+                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
+                        <IconEdit />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link to={getPostUrl(post.id)}>{post.title}</Link>
+              )}
+            </h1>
+          )}
 
           {post.leadingText && (
             <h2 className="post__title post__title_leading">{post.leadingText}</h2>
@@ -94,15 +138,13 @@ class Post extends PureComponent {
               'post__comment-count',
               { 'post__comment-count_active': this.state.commentsIsVisible },
             )}
-            onClick={() => this.toggleComments()}
+            onClick={this.toggleComments}
           >
             <span className="inline inline_small">
               <span className="inline__item">
                 <IconComment />
               </span>
-              {post.postStats && (
-                <span className="inline__item">{post.postStats.commentsCount}</span>
-              )}
+              <span className="inline__item">{post.commentsCount}</span>
             </span>
           </span>
         </div>
@@ -119,6 +161,13 @@ class Post extends PureComponent {
   }
 }
 
+Post.propTypes = {
+  id: PropTypes.number,
+  updatePost: PropTypes.func,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  users: PropTypes.objectOf(PropTypes.object).isRequired,
+};
+
 export default connect(
   state => ({
     posts: state.posts,
@@ -128,5 +177,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     createComment,
+    updatePost,
   }, dispatch),
 )(Post);

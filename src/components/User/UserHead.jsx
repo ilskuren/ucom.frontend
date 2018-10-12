@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -5,7 +6,7 @@ import Avatar from '../Avatar';
 import IconEdit from '../Icons/Edit';
 import Rate from '../Rate';
 import UserStatus from './UserStatus';
-import FollowButton from '../FollowButton';
+import UserFollowButton from './UserFollowButton';
 import IconInfo from '../Icons/Info';
 import Followers from '../Followers/Followers';
 import { getUserById } from '../../store/users';
@@ -37,7 +38,7 @@ const UserHead = (props) => {
                 <span className="inline">
                   <span className="inline__item">{getUserName(user)}</span>
 
-                  {props.user.id && props.user.id === user.id && (
+                  {props.user.id && +props.user.id === +user.id && (
                     <span className="inline__item">
                       <Link className="button-icon button-icon_edit" to="/profile/general-info">
                         <IconEdit />
@@ -50,13 +51,13 @@ const UserHead = (props) => {
 
             <div className="user-header__account-name">@{user.nickname}</div>
 
-            {((userJob && userJob.position) || userYears) && (
+            {((userJob && userJob.position) || userYears > 0) && (
               <div className="user-header__info">
                 <div className="inline inline_small">
                   {userJob && userJob.position && (
                     <div className="inline__item">{userJob.position}</div>
                   )}
-                  {userYears && (
+                  {userYears > 0 && (
                     <div className="inline__item">{userYears} y.o.</div>
                   )}
                 </div>
@@ -68,7 +69,7 @@ const UserHead = (props) => {
 
           <div className="toolbar__side">
             <div className="user-header__rate">
-              <Rate className="rate_big" value={user.currentRate} />
+              <Rate className="rate_big" value={+user.currentRate} />
             </div>
           </div>
         </div>
@@ -76,15 +77,10 @@ const UserHead = (props) => {
         <div className="user-header__actions">
           <div className="toolbar">
             <div className="toolbar__main">
-              {props.user.id !== user.id && (
+              {+props.user.id !== +user.id && (
                 <div className="inline inline_large">
                   <div className="inline__item">
-                    <FollowButton
-                      isStretched
-                      userId={user.id}
-                      userAccountName={user.accountName}
-                      follow={user.myselfData ? user.myselfData.follow : userIsFollowed(user.followedBy, props.user.id)}
-                    />
+                    <UserFollowButton userId={+user.id} />
                   </div>
 
                   {userIsFollowed(props.user.iFollow, user.id) && userIsFollowed(user.iFollow, props.user.id) && (
@@ -122,6 +118,11 @@ const UserHead = (props) => {
       </div>
     </div>
   );
+};
+
+UserHead.propTypes = {
+  users: PropTypes.objectOf(PropTypes.object),
+  userId: PropTypes.number,
 };
 
 export default connect(state => ({

@@ -1,6 +1,21 @@
+.modal-content {
+  height: 100vh;
+}
+
+.modal-content__main, .menu-popup, .menu-popup__content-block{
+  height: 100%;
+}
+
+.menu-popup__container_main {
+  height: calc(100% - 91px);
+  box-sizing: border-box;
+}
+
+
 .menu-popup {
+  // position: relative;
   &__head {
-    position: fixed;
+    position: sticky;
     z-index: 1;
     top: 0;
     left: 0;
@@ -22,26 +37,29 @@
     max-width: 1280px;
     padding: 20px 40px;
     box-sizing: border-box;
-
+    @media (max-width: 424px) {
+      display: block;
+    }
     &__head {
       min-height: 90px;
       box-sizing: border-box;
     }
   }
 
-  &__main {
+ /* &__main {
     display: flex;
     justify-content: space-between;
-    padding: 101px 35px 20px;
+    padding: 10px 35px 20px;
 
     @media (max-width: 424px) {
       display: block;
     }
   }
+  */
 
   &__content {
     display: flex;
-    padding: 0 20px;
+    padding: 0 25px;
     flex-grow: 1;
 
     @media (max-width: 1023px) {

@@ -5,15 +5,11 @@ const getInitialState = () => ({
 const auth = (state = getInitialState(), action) => {
   switch (action.type) {
     case 'SHOW_AUTH_POPUP': {
-      return Object.assign({}, state, {
-        showPopup: true,
-      });
+      return { ...state, showPopup: true };
     }
 
     case 'HIDE_AUTH_POPUP': {
-      return Object.assign({}, state, {
-        showPopup: false,
-      });
+      return { ...state, showPopup: false };
     }
 
     default: {

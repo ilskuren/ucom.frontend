@@ -68,6 +68,8 @@ export const getRulesByPostTypeId = (postTypeId) => {
 
 export const getPostTypeById = (postTypeId) => {
   switch (postTypeId) {
+    case 10:
+      return 'post';
     case 2:
       return 'offer';
     case 1:
@@ -75,4 +77,12 @@ export const getPostTypeById = (postTypeId) => {
     default:
       return null;
   }
+};
+
+export const postIsEditable = (createdAt) => {
+  if (!createdAt) {
+    return false;
+  }
+
+  return (new Date()).getTime() - (new Date(createdAt)).getTime() < 600000;
 };

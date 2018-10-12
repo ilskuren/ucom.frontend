@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const InfoBlock = ({
-  title, children, size, align, line,
+  title, children, size, align, line, scrolled,
 }) => (
-  <div className="info-block">
+  <div className={`info-block ${scrolled && 'info-block_scrolled'}`}>
     <div
       className={classNames('info-block__title', {
         [`info-block__title_size_${size}`]: Boolean(size),
@@ -24,6 +24,7 @@ InfoBlock.propTypes = {
   size: PropTypes.string,
   align: PropTypes.string,
   line: PropTypes.string,
+  scrolled: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

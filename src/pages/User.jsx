@@ -41,7 +41,7 @@ class UserPage extends PureComponent {
 
           <div className="sheets">
             <div className="sheets__content">
-              <UserHead userId={this.props.match.params.id} />
+              <UserHead userId={+this.props.match.params.id} />
 
               <div className="grid grid_user">
                 <div className="grid__item">

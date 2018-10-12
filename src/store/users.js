@@ -1,4 +1,4 @@
-import { uniqBy, uniq } from 'lodash';
+import { uniqBy, uniq, compact } from 'lodash';
 
 const getInitialState = () => ({
   data: {
@@ -18,20 +18,23 @@ const users = (state = getInitialState(), action) => {
       });
     }
 
-    case 'ADD_USER_FOLLOWER': {
+    case 'ADD_USER_I_FOLLOW': {
       return {
         ...state,
         data: {
           ...state.data,
           [action.payload.userId]: {
             ...state.data[action.payload.userId],
-            iFollow: uniqBy([].concat(state.data[action.payload.userId].iFollow, action.payload.user), item => item.id),
+            iFollow: uniqBy([].concat(
+              state.data[action.payload.userId].iFollow,
+              action.payload.user,
+            ), item => item.id),
           },
         },
       };
     }
 
-    case 'REMOVE_USER_FOLLOWER': {
+    case 'REMOVE_USER_I_FOLLOW': {
       return {
         ...state,
         data: {
@@ -39,6 +42,36 @@ const users = (state = getInitialState(), action) => {
           [action.payload.userId]: {
             ...state.data[action.payload.userId],
             iFollow: state.data[action.payload.userId].iFollow
+              .filter(item => item.id !== action.payload.user.id),
+          },
+        },
+      };
+    }
+
+    case 'ADD_USER_FOLLOWED_BY': {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.userId]: {
+            ...state.data[action.payload.userId],
+            followedBy: uniqBy(compact([].concat(
+              state.data[action.payload.userId].followedBy,
+              action.payload.user,
+            )), item => item.id),
+          },
+        },
+      };
+    }
+
+    case 'REMOVE_USER_FOLLOWED_BY': {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.userId]: {
+            ...state.data[action.payload.userId],
+            followedBy: state.data[action.payload.userId].followedBy
               .filter(item => item.id !== action.payload.user.id),
           },
         },

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -5,6 +6,7 @@ import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { followUser, unfollowUser } from '../../actions/users';
 import { getUserById } from '../../store/users';
+import { showAuthPopup } from '../../actions';
 
 const UserFollowButton = (props) => {
   if (!props.userId) {
@@ -18,8 +20,9 @@ const UserFollowButton = (props) => {
     return null;
   }
 
-  const userIsFollow = props.user.id ? owner.iFollow.some(item => item.id === props.userId) : false;
-  const isOwner = props.user.id && owner.id === user.id;
+  const userIsFollow = props.user.id ? owner.iFollow.some(item => +item.id === +props.userId) : false;
+
+  const isOwner = props.user.id && +owner.id === +user.id;
 
   return (
     <Button
@@ -31,17 +34,22 @@ const UserFollowButton = (props) => {
       text={userIsFollow || isOwner ? 'Following' : 'Follow'}
       onClick={() => {
         if (!owner) {
+          props.showAuthPopup();
           return;
         }
 
-        (userIsFollow ? props.unfollowUser : props.followUser)({
-          user,
-          userId: owner.id,
-          userAccountName: owner.accountName,
-        });
+        (userIsFollow ? props.unfollowUser : props.followUser)({ user, owner });
       }}
     />
   );
+};
+
+UserFollowButton.propTypes = {
+  unfollowUser: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
+  showAuthPopup: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
+  users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(
@@ -52,5 +60,6 @@ export default connect(
   dispatch => bindActionCreators({
     followUser,
     unfollowUser,
+    showAuthPopup,
   }, dispatch),
 )(UserFollowButton);

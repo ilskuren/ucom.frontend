@@ -5,9 +5,22 @@ import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } 
 
 export const addFeedPosts = payload => ({ type: 'ADD_FEED_POSTS', payload });
 export const removeFeedPosts = payload => ({ type: 'REMOVE_FEED_POSTS', payload });
+export const setFeedLoading = payload => ({ type: 'SET_FEED_LOADING', payload });
+
+const loaderStart = () => (dispatch) => {
+  loader.start();
+  dispatch(setFeedLoading(true));
+};
+
+const loaderDone = () => (dispatch) => {
+  loader.done();
+  if (loader.isDone()) {
+    dispatch(setFeedLoading(false));
+  }
+};
 
 export const getUserWallFeed = payload => (dispatch) => {
-  loader.start();
+  dispatch(loaderStart());
   api.getUserWallFeed(payload.userId, payload.perPage, payload.page)
     .then((data) => {
       dispatch(addPosts(data.data));
@@ -18,8 +31,8 @@ export const getUserWallFeed = payload => (dispatch) => {
         metadata: data.metadata,
       }));
     })
-    .catch(() => loader.done())
-    .then(() => loader.done());
+    .catch(() => dispatch(loaderDone()))
+    .then(() => dispatch(loaderDone()));
 };
 
 export const removeWallFeedPosts = payload => (dispatch) => {
@@ -30,7 +43,7 @@ export const removeWallFeedPosts = payload => (dispatch) => {
 };
 
 export const getOrganizationWallFeed = payload => (dispatch) => {
-  loader.start();
+  dispatch(loaderStart());
   api.getOrganizationWallFeed(payload.organizationId, payload.perPage, payload.page)
     .then((data) => {
       dispatch(addPosts(data.data));
@@ -41,8 +54,8 @@ export const getOrganizationWallFeed = payload => (dispatch) => {
         metadata: data.metadata,
       }));
     })
-    .catch(() => loader.done())
-    .then(() => loader.done());
+    .catch(() => dispatch(loaderDone()))
+    .then(() => dispatch(loaderDone()));
 };
 
 export const removeOrganizationWallFeed = payload => (dispatch) => {
@@ -53,7 +66,7 @@ export const removeOrganizationWallFeed = payload => (dispatch) => {
 };
 
 export const getUserNewsFeed = payload => (dispatch) => {
-  loader.start();
+  dispatch(loaderStart());
   api.getUserNewsFeed(payload.perPage, payload.page)
     .then((data) => {
       dispatch(addPosts(data.data));
@@ -64,8 +77,8 @@ export const getUserNewsFeed = payload => (dispatch) => {
         metadata: data.metadata,
       }));
     })
-    .catch(() => loader.done())
-    .then(() => loader.done());
+    .catch(() => dispatch(loaderDone()))
+    .then(() => dispatch(loaderDone()));
 };
 
 export const removeUserNewsFeed = payload => (dispatch) => {

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import Post from './Post';
-import Button from '../Button';
+import LoadMore from './LoadMore';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
 
@@ -35,13 +35,9 @@ const Feed = (props) => {
           </div>
           {props.loadMoreIsVisible && (
             <div className="feed__loadmore">
-              <Button
-                isStretched
-                theme="thin"
-                size="medium"
-                text="Load more"
+              <LoadMore
                 onClick={() => {
-                  if (typeof props.onClickMore === 'function') {
+                  if (!props.feeds.loading && typeof props.onClickMore === 'function') {
                     props.onClickMore();
                   }
                 }}
@@ -61,6 +57,7 @@ Feed.propTypes = {
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   onClickMore: PropTypes.func,
   loadMoreIsVisible: PropTypes.bool,
+  feeds: PropTypes.objectOf(PropTypes.any),
 };
 
 Feed.defaultProps = {
@@ -70,4 +67,5 @@ Feed.defaultProps = {
 
 export default connect(state => ({
   posts: state.posts,
+  feeds: state.feeds,
 }))(Feed);

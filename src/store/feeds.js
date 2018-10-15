@@ -8,6 +8,7 @@ const getInitialState = () => ({
   [USER_FEED_TYPE_ID]: {},
   [ORGANIZATION_FEED_TYPE_ID]: {},
   [USER_NEWS_FEED_TYPE_ID]: {},
+  loading: false,
 });
 
 const feeds = (state = getInitialState(), action) => {
@@ -36,6 +37,13 @@ const feeds = (state = getInitialState(), action) => {
       delete state[action.payload.feedTypeId][action.payload.userId];
 
       return { ...state };
+    }
+
+    case 'SET_FEED_LOADING': {
+      return {
+        ...state,
+        loading: action.payload,
+      };
     }
 
     default: {

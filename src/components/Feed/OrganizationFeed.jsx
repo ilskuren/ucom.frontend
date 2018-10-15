@@ -72,7 +72,7 @@ OrganizationFeed.propTypes = {
   createOrganizationsCommentPost: PropTypes.func,
   removeOrganizationWallFeed: PropTypes.func,
   getOrganizationWallFeed: PropTypes.func,
-  feeds: PropTypes.objectOf(PropTypes.object),
+  feeds: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(

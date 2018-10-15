@@ -69,7 +69,7 @@ class UserFeed extends PureComponent {
 
 UserFeed.propTypes = {
   userId: PropTypes.number,
-  feeds: PropTypes.objectOf(PropTypes.object),
+  feeds: PropTypes.objectOf(PropTypes.any),
   createUserCommentPost: PropTypes.func,
   getUserWallFeed: PropTypes.func,
   removeWallFeedPosts: PropTypes.func,

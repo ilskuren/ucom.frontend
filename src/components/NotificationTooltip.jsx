@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IconClose from 'components/Icons/Close';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import NotificationCard from 'components/NotificationCards/NotificationCard';
 import {
   hideNotificationTooltip,
@@ -12,31 +13,33 @@ import {
 
 const NotificationTooltip = props => (
   <div className="notification-tooltip__container">
-    <div className="notification-tooltip__header notification-tooltip__header_new">
-      <h3 role="presentation" className="notification-tooltip__title">New notifications</h3>
-    </div>
+    <PerfectScrollbar>
+      <div className="notification-tooltip__header notification-tooltip__header_new">
+        <h3 className="notification-tooltip__title">New notifications</h3>
+      </div>
 
-    <div role="presentation" className="notification-tooltip__list notification-tooltip__list_new">
-      {Object.values(props.tooltipNotificationsList).filter(i => i.recent).map(item => (
-        <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
-          <NotificationCard
-            {...item}
-          />
-        </div>
-      ))}
-    </div>
-    <div role="presentation" className="notification-tooltip__header">
-      <h3 className="notification-tooltip__title">Early</h3>
-    </div>
-    <div className="notification-tooltip__list">
-      {Object.values(props.tooltipNotificationsList).filter(i => !i.recent).map(item => (
-        <div key={item.id} className="notification-tooltip__item">
-          <NotificationCard
-            {...item}
-          />
-        </div>
+      <div className="notification-tooltip__list notification-tooltip__list_new">
+        {Object.values(props.tooltipNotificationsList).filter(i => i.recent).map(item => (
+          <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
+            <NotificationCard
+              {...item}
+            />
+          </div>
         ))}
-    </div>
+      </div>
+      <div className="notification-tooltip__header">
+        <h3 className="notification-tooltip__title">Early</h3>
+      </div>
+      <div className="notification-tooltip__list">
+        {Object.values(props.tooltipNotificationsList).filter(i => !i.recent).map(item => (
+          <div key={item.id} className="notification-tooltip__item">
+            <NotificationCard
+              {...item}
+            />
+          </div>
+          ))}
+      </div>
+    </PerfectScrollbar>
     <div
       className="inline__item notification-tooltip__close"
       onClick={() => props.hideTooltip()}

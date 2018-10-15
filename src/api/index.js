@@ -287,8 +287,8 @@ class Api {
   }
 
   @bind
-  async getOrganizationWallFeed(id) {
-    const url = `/api/v1/organizations/${id}/wall-feed`;
+  async getOrganizationWallFeed(id, perPage, page) {
+    const url = `/api/v1/organizations/${id}/wall-feed?per_page=${perPage}&page=${page}`;
 
     const response = await this.actions.get(url);
 
@@ -346,15 +346,15 @@ class Api {
   }
 
   @bind
-  async getUserWallFeed(userId) {
-    const response = await this.actions.get(`/api/v1/users/${userId}/wall-feed`);
+  async getUserWallFeed(userId, perPage, page) {
+    const response = await this.actions.get(`/api/v1/users/${userId}/wall-feed?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);
   }
 
   @bind
-  async getUserNewsFeed() {
-    const response = await this.actions.get('/api/v1/myself/news-feed');
+  async getUserNewsFeed(perPage, page) {
+    const response = await this.actions.get(`/api/v1/myself/news-feed?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);
   }

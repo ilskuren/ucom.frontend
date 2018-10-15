@@ -1,45 +1,88 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import Feed from './Feed';
-import { getOrganizationById } from '../../store/organizations';
-import { createOrganizationsCommentPost } from '../../actions/organizations';
+import { createOrganizationsCommentPost } from '../../actions/posts';
+import { getWallFeedIdsByOrganizationId } from '../../store/feeds';
+import { removeOrganizationWallFeed, getOrganizationWallFeed } from '../../actions/feeds';
 
-const OrganizationFeed = (props) => {
-  const organization = getOrganizationById(props.organizations, props.organizationId);
-
-  if (!organization) {
-    return null;
+class OrganizationFeed extends PureComponent {
+  componentDidMount() {
+    this.getData(this.props.organizationId);
   }
 
-  return (
-    <Feed
-      postsIds={organization.wallFeedIds}
-      onSubmitNewPost={(description) => {
-        props.createOrganizationsCommentPost({
-          organizationId: props.organizationId,
-          data: {
-            description,
-            post_type_id: 10,
-          },
-        });
-      }}
-    />
-  );
-};
+  componentWillReceiveProps(nextProps) {
+    if (this.props.organizationId !== nextProps.organizationId) {
+      this.getData(nextProps.organizationId);
+    }
+  }
+
+  getData(organizationId) {
+    this.props.removeOrganizationWallFeed({ organizationId });
+    this.props.getOrganizationWallFeed({
+      organizationId,
+      perPage: 10,
+      page: 1,
+    });
+  }
+
+  getMoreData = () => {
+    const organizationWallFeed = getWallFeedIdsByOrganizationId(this.props.feeds, this.props.organizationId);
+
+    if (!organizationWallFeed) {
+      return;
+    }
+
+    this.props.getOrganizationWallFeed({
+      organizationId: this.props.organizationId,
+      perPage: organizationWallFeed.metadata.perPage,
+      page: organizationWallFeed.metadata.page + 1,
+    });
+  }
+
+  render() {
+    const organizationWallFeed = getWallFeedIdsByOrganizationId(this.props.feeds, this.props.organizationId);
+
+    if (!organizationWallFeed) {
+      return null;
+    }
+
+    return (
+      <Feed
+        postsIds={organizationWallFeed.postsIds}
+        onClickMore={this.getMoreData}
+        loadMoreIsVisible={organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
+        onSubmitNewPost={(description) => {
+          this.props.createOrganizationsCommentPost({
+            organizationId: this.props.organizationId,
+            data: {
+              description,
+              post_type_id: 10,
+            },
+          });
+        }}
+      />
+    );
+  }
+}
 
 OrganizationFeed.propTypes = {
   organizationId: PropTypes.number,
   createOrganizationsCommentPost: PropTypes.func,
+  removeOrganizationWallFeed: PropTypes.func,
+  getOrganizationWallFeed: PropTypes.func,
+  feeds: PropTypes.objectOf(PropTypes.object),
 };
 
 export default connect(
   state => ({
     posts: state.posts,
-    organizations: state.organizations,
+    feeds: state.feeds,
   }),
   dispatch => bindActionCreators({
     createOrganizationsCommentPost,
+    removeOrganizationWallFeed,
+    getOrganizationWallFeed,
   }, dispatch),
 )(OrganizationFeed);

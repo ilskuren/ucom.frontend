@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import Post from './Post';
+import Button from '../Button';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
 
@@ -24,13 +25,30 @@ const Feed = (props) => {
       />
 
       {posts.length > 0 && (
-        <div className="feed__list">
-          {posts.map(item => (
-            <div className="feed__item" key={item.id}>
-              <Post id={item.id} />
+        <Fragment>
+          <div className="feed__list">
+            {posts.map(item => (
+              <div className="feed__item" key={item.id}>
+                <Post id={item.id} />
+              </div>
+            ))}
+          </div>
+          {props.loadMoreIsVisible && (
+            <div className="feed__loadmore">
+              <Button
+                isStretched
+                theme="thin"
+                size="medium"
+                text="Load more"
+                onClick={() => {
+                  if (typeof props.onClickMore === 'function') {
+                    props.onClickMore();
+                  }
+                }}
+              />
             </div>
-          ))}
-        </div>
+          )}
+        </Fragment>
       )}
     </div>
   );
@@ -41,6 +59,8 @@ Feed.propTypes = {
   onSubmitNewPost: PropTypes.func,
   postsIds: PropTypes.arrayOf(PropTypes.number),
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  onClickMore: PropTypes.func,
+  loadMoreIsVisible: PropTypes.bool,
 };
 
 Feed.defaultProps = {

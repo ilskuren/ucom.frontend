@@ -5,14 +5,13 @@ import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
 import { addComments } from './comments';
+import { addFeedPosts } from './feeds';
+import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 import loader from '../utils/loader';
 
 export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
-export const addUserWallFeedPost = payload => ({ type: 'ADD_USER_WALL_FEED_POST', payload });
-export const addUserNewsFeedPost = payload => ({ type: 'ADD_USER_NEWS_FEED_POST', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
-
 
 export const fetchPost = postId => (dispatch) => {
   loader.start();
@@ -25,41 +24,15 @@ export const fetchPost = postId => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const fetchUserPosts = userId => (dispatch) => {
+export const updatePost = payload => (dispatch) => {
   loader.start();
-  api.getUserPosts(userId)
+  api.updatePost(payload.data, payload.postId)
     .then((data) => {
-      dispatch(addPosts(data));
+      dispatch(addPosts([data]));
     })
-    .catch(() => loader.done())
-    .then(() => loader.done());
-};
-
-export const getUserWallFeed = userId => (dispatch) => {
-  loader.start();
-  api.getUserWallFeed(userId)
-    .then((data) => {
-      dispatch(addPosts(data.data));
-      dispatch(addUsers([{
-        id: userId,
-        wallFeedIds: data.data.map(item => item.id),
-      }]));
+    .catch((error) => {
+      dispatch(addErrorNotification(parseErrors(error).general));
     })
-    .catch(() => loader.done())
-    .then(() => loader.done());
-};
-
-export const getUserNewsFeed = userId => (dispatch) => {
-  loader.start();
-  api.getUserNewsFeed(userId)
-    .then((data) => {
-      dispatch(addPosts(data.data));
-      dispatch(addUsers([{
-        id: userId,
-        newsFeedIds: data.data.map(item => item.id),
-      }]));
-    })
-    .catch(() => loader.done())
     .then(() => loader.done());
 };
 
@@ -96,9 +69,10 @@ export const createUserCommentPost = payload => (dispatch) => {
   api.createUserCommentPost(payload.userId, payload.data)
     .then((data) => {
       dispatch(addPosts([data]));
-      dispatch(addUserWallFeedPost({
+      dispatch(addFeedPosts({
+        feedTypeId: USER_FEED_TYPE_ID,
         userId: payload.userId,
-        postId: data.id,
+        postsIds: [data.id],
       }));
     })
     .catch((error) => {
@@ -112,8 +86,16 @@ export const createSelfCommentPost = payload => (dispatch) => {
   api.createUserCommentPost(payload.userId, payload.data)
     .then((data) => {
       dispatch(addPosts([data]));
-      dispatch(addUserWallFeedPost({ userId: payload.userId, postId: data.id }));
-      dispatch(addUserNewsFeedPost({ userId: payload.userId, postId: data.id }));
+      dispatch(addFeedPosts({
+        feedTypeId: USER_FEED_TYPE_ID,
+        userId: payload.userId,
+        postsIds: [data.id],
+      }));
+      dispatch(addFeedPosts({
+        feedTypeId: USER_NEWS_FEED_TYPE_ID,
+        userId: payload.userId,
+        postsIds: [data.id],
+      }));
     })
     .catch((error) => {
       dispatch(addErrorNotification(parseErrors(error).general));
@@ -121,11 +103,16 @@ export const createSelfCommentPost = payload => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const updatePost = payload => (dispatch) => {
+export const createOrganizationsCommentPost = payload => (dispatch) => {
   loader.start();
-  api.updatePost(payload.data, payload.postId)
+  api.createOrganizationsCommentPost(payload.organizationId, payload.data)
     .then((data) => {
       dispatch(addPosts([data]));
+      dispatch(addFeedPosts({
+        feedTypeId: ORGANIZATION_FEED_TYPE_ID,
+        organizationId: payload.organizationId,
+        postsIds: [data.id],
+      }));
     })
     .catch((error) => {
       dispatch(addErrorNotification(parseErrors(error).general));

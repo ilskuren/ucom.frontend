@@ -22,4 +22,8 @@ export default {
       NProgress.done();
     }
   },
+
+  isDone() {
+    return queue === 0;
+  },
 };

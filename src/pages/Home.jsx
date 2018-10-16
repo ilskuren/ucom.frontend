@@ -7,13 +7,11 @@ import UserNewsFeed from '../components/Feed/UserNewsFeed';
 import UsersGroup from '../components/UsersGroup';
 import Promo from '../components/Promo';
 import { selectUser } from '../store/selectors';
-import { fetchUserPosts, getUserNewsFeed } from '../actions/posts';
 import { fetchUser } from '../actions/users';
 
 class HomePage extends PureComponent {
   componentDidMount() {
     this.props.fetchUser(this.props.user.id);
-    this.props.getUserNewsFeed(this.props.user.id);
   }
 
   render() {
@@ -64,8 +62,6 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => ({
-    fetchUserPosts: userId => dispatch(fetchUserPosts(userId)),
     fetchUser: userId => dispatch(fetchUser(userId)),
-    getUserNewsFeed: userId => dispatch(getUserNewsFeed(userId)),
   }),
 )(HomePage);

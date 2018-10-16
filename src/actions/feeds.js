@@ -3,8 +3,9 @@ import api from '../api';
 import { addPosts } from './posts';
 import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 
+
+export const resetFeeds = payload => ({ type: 'RESET_FEEDS', payload });
 export const addFeedPosts = payload => ({ type: 'ADD_FEED_POSTS', payload });
-export const removeFeedPosts = payload => ({ type: 'REMOVE_FEED_POSTS', payload });
 export const setFeedLoading = payload => ({ type: 'SET_FEED_LOADING', payload });
 
 const loaderStart = () => (dispatch) => {
@@ -35,13 +36,6 @@ export const getUserWallFeed = payload => (dispatch) => {
     .then(() => dispatch(loaderDone()));
 };
 
-export const removeWallFeedPosts = payload => (dispatch) => {
-  dispatch(removeFeedPosts({
-    feedTypeId: USER_FEED_TYPE_ID,
-    userId: payload.userId,
-  }));
-};
-
 export const getOrganizationWallFeed = payload => (dispatch) => {
   dispatch(loaderStart());
   api.getOrganizationWallFeed(payload.organizationId, payload.perPage, payload.page)
@@ -58,13 +52,6 @@ export const getOrganizationWallFeed = payload => (dispatch) => {
     .then(() => dispatch(loaderDone()));
 };
 
-export const removeOrganizationWallFeed = payload => (dispatch) => {
-  dispatch(removeFeedPosts({
-    feedTypeId: ORGANIZATION_FEED_TYPE_ID,
-    userId: payload.organizationId,
-  }));
-};
-
 export const getUserNewsFeed = payload => (dispatch) => {
   dispatch(loaderStart());
   api.getUserNewsFeed(payload.perPage, payload.page)
@@ -79,11 +66,4 @@ export const getUserNewsFeed = payload => (dispatch) => {
     })
     .catch(() => dispatch(loaderDone()))
     .then(() => dispatch(loaderDone()));
-};
-
-export const removeUserNewsFeed = payload => (dispatch) => {
-  dispatch(removeFeedPosts({
-    feedTypeId: USER_NEWS_FEED_TYPE_ID,
-    userId: payload.userId,
-  }));
 };

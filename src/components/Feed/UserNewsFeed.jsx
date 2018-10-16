@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import Feed from './Feed';
 import { createSelfCommentPost } from '../../actions/posts';
 import { getNewsFeedIdsByUserId } from '../../store/feeds';
-import { removeUserNewsFeed, getUserNewsFeed } from '../../actions/feeds';
+import { resetFeeds, getUserNewsFeed } from '../../actions/feeds';
 
 class UserNewsFeed extends PureComponent {
   componentDidMount() {
@@ -19,7 +19,7 @@ class UserNewsFeed extends PureComponent {
   }
 
   getData(userId) {
-    this.props.removeUserNewsFeed({ userId });
+    this.props.resetFeeds();
     this.props.getUserNewsFeed({
       userId,
       perPage: 10,
@@ -71,7 +71,7 @@ UserNewsFeed.propTypes = {
   userId: PropTypes.number,
   feeds: PropTypes.objectOf(PropTypes.any),
   createSelfCommentPost: PropTypes.func,
-  removeUserNewsFeed: PropTypes.func,
+  resetFeeds: PropTypes.func,
   getUserNewsFeed: PropTypes.func,
 };
 
@@ -81,7 +81,7 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     createSelfCommentPost,
-    removeUserNewsFeed,
+    resetFeeds,
     getUserNewsFeed,
   }, dispatch),
 )(UserNewsFeed);

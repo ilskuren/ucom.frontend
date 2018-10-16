@@ -3,7 +3,6 @@ import api from '../api';
 import { addPosts } from './posts';
 import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 
-
 export const resetFeeds = payload => ({ type: 'RESET_FEEDS', payload });
 export const addFeedPosts = payload => ({ type: 'ADD_FEED_POSTS', payload });
 export const setFeedLoading = payload => ({ type: 'SET_FEED_LOADING', payload });

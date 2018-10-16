@@ -13,7 +13,7 @@ const UserFollowButton = (props) => {
     return null;
   }
 
-  const owner = getUserById(props.users, props.user.id);
+  const owner = getUserById(props.users, props.user.id) || {};
   const user = getUserById(props.users, props.userId);
 
   if (!user) {

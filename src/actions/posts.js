@@ -17,9 +17,11 @@ export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT',
 export const fetchPost = postId => (dispatch) => {
   loader.start();
   api.getPost(postId)
+    .then(humps)
     .then((data) => {
       dispatch(addComments(humps(data.comments)));
       dispatch(addPosts([data]));
+      dispatch(addUsers([data.user]));
     })
     .catch(() => loader.done())
     .then(() => loader.done());

@@ -8,7 +8,7 @@ import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
 import PostHeader from '../components/Post/PostHeader';
 import EventTitle from '../components/EventTitle';
-import PostContent from '../components/PostContent';
+import PostContent from '../components/Post/PostContent';
 import Footer from '../components/Footer';
 import { fetchPost } from '../actions/posts';
 import { selectUser } from '../store/selectors';
@@ -101,22 +101,7 @@ class Offer extends PureComponent {
                 { 'sheets__content_no-radius': this.state.post.post_type_id === 2 },
               )}
             >
-              <PostContent
-                id={this.state.post.id}
-                userId={this.state.post.User && this.state.post.User.id}
-                title={this.state.post.post_type_id === 1 ? this.state.post.title : null}
-                leadingText={this.state.post.leading_text}
-                description={this.state.post.description}
-                imgSrc={this.state.post.post_type_id === 1 ? getFileUrl(this.state.post.main_image_filename) : null}
-                rating={this.state.post.current_vote}
-                rate={+this.state.post.current_rate}
-                tags={['story']}
-                сhoice={this.state.post.myselfData && this.state.post.myselfData.myselfVote}
-                comments={this.state.post.comments}
-                onSubmitComment={(data, commentId) => this.createComment(data, commentId)}
-                organization={this.state.post.organization}
-                organizationMember={this.state.post.myselfData && this.state.post.myselfData.organization_member}
-              />
+              <PostContent postId={post && post.id} />
             </div>
           </div>
 

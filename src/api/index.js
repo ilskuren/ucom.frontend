@@ -358,6 +358,27 @@ class Api {
 
     return humps(response.data);
   }
+  @bind
+  async getNotifications() {
+    const response = await this.actions.get('/api/v1/myself/notifications');
+
+    return humps(response.data);
+  }
+
+  @bind
+  async confirmNotification(id) {
+    const response = await this.actions.post(`/api/v1/myself/notifications/${id}/confirm`);
+
+    return humps(response.data);
+  }
+
+
+  @bind
+  async declineNotification(id) {
+    const response = await this.actions.post(`/api/v1/myself/notifications/${id}/decline`);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

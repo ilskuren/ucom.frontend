@@ -11,7 +11,7 @@ import MenuPopup from './MenuPopup';
 import NotificationTooltip from './NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
-import { showNotificationTooltip, hideNotificationTooltip, triggerNotificationTooltip } from '../actions/siteNotifications';
+import { showAndFetchNotifications, hideNotificationTooltip } from '../actions/siteNotifications';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
@@ -32,11 +32,11 @@ class Header extends PureComponent {
   }
   @bind
   showTooltip() {
-    this.props.showNotificationTooltip();
+    this.props.showAndFetchNotifications();
   }
   @bind
   triggerTooltip() {
-    this.props.triggerNotificationTooltip();
+    return this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications();
   }
   render() {
     return (
@@ -94,7 +94,7 @@ class Header extends PureComponent {
                             <IconBell />
                           </div>
                           <div className="icon-counter__counter">
-                            <span className="counter counter_top">1</span>
+                            <span className="counter counter_top">{this.props.totalUnreadAmount ? this.props.totalUnreadAmount : ''}</span>
                           </div>
                         </div>
                       </div>
@@ -198,22 +198,22 @@ Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
-  showNotificationTooltip: PropTypes.func,
+  showAndFetchNotifications: PropTypes.func,
   hideNotificationTooltip: PropTypes.func,
-  triggerNotificationTooltip: PropTypes.func,
   tooltipVisibilty: PropTypes.bool,
+  totalUnreadAmount: PropTypes.number,
 };
 
 export default withRouter(connect(
   state => ({
     user: selectUser(state),
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
+    totalUnreadAmount: state.siteNotifications.totalUnreadAmount,
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
     showAuthPopup: () => dispatch(showAuthPopup()),
-    showNotificationTooltip: () => dispatch(showNotificationTooltip()),
+    showAndFetchNotifications: () => dispatch(showAndFetchNotifications()),
     hideNotificationTooltip: () => dispatch(hideNotificationTooltip()),
-    triggerNotificationTooltip: () => dispatch(triggerNotificationTooltip()),
   }),
 )(Header));

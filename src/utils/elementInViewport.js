@@ -1,4 +1,8 @@
 export default (el) => {
+  if (!el) {
+    return false;
+  }
+
   const rect = el.getBoundingClientRect();
 
   return (

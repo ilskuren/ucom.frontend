@@ -31,24 +31,26 @@ const NotificationCardCongratulations = ({
     </p>
     {
       !finished &&
-      <div className="inline notification-card__buttons">
-        <div className="inline__item">
-          <Button
-            theme="accent-light"
-            size="small"
-            text="Confirm"
-            isStretched
-            onClick={() => confirmNotification(id)}
-          />
-        </div>
-        <div className="inline__item">
-          <Button
-            theme="accent-gray"
-            size="small"
-            text="Decline"
-            isStretched
-            onClick={() => declineNotification(id)}
-          />
+      <div className="notification-card__buttons">
+        <div className="inline">
+          <div className="inline__item">
+            <Button
+              theme="accent-light"
+              size="small"
+              text="Confirm"
+              isStretched
+              onClick={() => confirmNotification(id)}
+            />
+          </div>
+          <div className="inline__item">
+            <Button
+              theme="accent-gray"
+              size="small"
+              text="Decline"
+              isStretched
+              onClick={() => declineNotification(id)}
+            />
+          </div>
         </div>
       </div>
     }

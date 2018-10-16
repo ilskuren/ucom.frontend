@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash';
 
 const getInitialState = () => ({
-  tooltipNotificationsList: {
+  list: {
     // 1: {
     //   username: 'Suzan Born',
     //   time: 'today at 9:11 am',
@@ -116,8 +116,8 @@ const siteNotifications = (state = getInitialState(), action) => {
     case 'ADD_SITE_NOTIFICATIONS': {
       return {
         ...state,
-        tooltipNotificationsList: {
-          ...state.tooltipNotificationsList,
+        list: {
+          ...state.list,
           ...action.payload.data.reduce((accumulator, currentValue) => {
             const id = currentValue.id || uniqueId((new Date()).getTime());
             return { ...accumulator, [id]: { ...currentValue, id } };
@@ -126,25 +126,13 @@ const siteNotifications = (state = getInitialState(), action) => {
       };
     }
 
-    case 'EDIT_SITE_NOTIFICATION': {
-      return {
-        ...state,
-        tooltipNotificationsList: {
-          ...state.tooltipNotificationsList,
-          [action.payload.id]: {
-            ...state.tooltipNotificationsList[action.payload.id], ...action.payload.data,
-          },
-        },
-      };
-    }
-
     case 'DELETE_SITE_NOTIFICATION': {
-      const tooltipNotificationsList = { ...state.tooltipNotificationsList };
-      delete tooltipNotificationsList[action.payload.id];
+      const list = { ...state.list };
+      delete list[action.payload.id];
 
       return {
         ...state,
-        tooltipNotificationsList,
+        list,
       };
     }
 

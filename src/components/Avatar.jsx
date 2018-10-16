@@ -38,12 +38,12 @@ const Avatar = props => (
       </span>
     )}
     {props.icon && (
-    <div
-      className="avatar__icon"
-      title={props.iconTitle}
-    >
-      {props.icon}
-    </div>
+      <div
+        className="avatar__icon"
+        title={props.iconTitle}
+      >
+        {props.icon}
+      </div>
     )}
   </span>
 );

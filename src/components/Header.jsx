@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { bind } from 'decko';
 import { Tooltip } from 'react-tippy';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
@@ -20,24 +19,18 @@ import IconNotification from '../components/Icons/Notification';
 
 
 class Header extends PureComponent {
-  @bind
-  logout() {
+  logout = () => {
     removeToken();
     removeBrainkey();
     this.props.removeUser();
   }
-  @bind
-  hideTooltip() {
+  hideTooltip = () => {
     this.props.hideNotificationTooltip();
   }
-  @bind
-  showTooltip() {
+  showTooltip = () => {
     this.props.showAndFetchNotifications();
   }
-  @bind
-  triggerTooltip() {
-    return this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications();
-  }
+  triggerTooltip = () => (this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications());
   render() {
     return (
       <div className="header" id="top">
@@ -88,7 +81,7 @@ class Header extends PureComponent {
                       sticky
                       stickyDuration={0}
                     >
-                      <div className="inline__item inline__item__bell" role="presentation" onClick={this.triggerTooltip}>
+                      <div className="inline__item " role="presentation" onClick={this.triggerTooltip}>
                         <div className="icon-counter">
                           <div className="icon-counter__icon">
                             <IconBell />

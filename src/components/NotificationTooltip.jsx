@@ -7,7 +7,6 @@ import NotificationCard from 'components/NotificationCards/NotificationCard';
 import {
   hideNotificationTooltip,
   addSiteNotifications,
-  editSiteNotification,
   deleteSiteNotification,
 } from '../actions/siteNotifications';
 
@@ -16,16 +15,16 @@ const filterNotifs = (arr, isEarly = true) => Object.values(arr)
   .filter(i => (i.finished || i.seen) === isEarly)
   .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
-const NotificationTooltip = ({ tooltipNotificationsList, hideTooltip }) => (
+const NotificationTooltip = ({ list, hideTooltip }) => (
   <PerfectScrollbar className="notification-tooltip__container">
-    {isRequiredTime(tooltipNotificationsList, false) &&
+    {isRequiredTime(list, false) &&
       <div className="notification-tooltip__header notification-tooltip__header_new">
         <h3 className="notification-tooltip__title">New notifications</h3>
       </div>
       }
 
     <div className="notification-tooltip__list notification-tooltip__list_new">
-      {filterNotifs(tooltipNotificationsList, false).map(item => (
+      {filterNotifs(list, false).map(item => (
         <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
           <NotificationCard
             {...item}
@@ -33,13 +32,13 @@ const NotificationTooltip = ({ tooltipNotificationsList, hideTooltip }) => (
         </div>
       ))}
     </div>
-    {isRequiredTime(tooltipNotificationsList, true) &&
+    {isRequiredTime(list, true) &&
       <div className="notification-tooltip__header">
         <h3 className="notification-tooltip__title">Early</h3>
       </div>
       }
     <div className="notification-tooltip__list">
-      {filterNotifs(tooltipNotificationsList, true).map(item => (
+      {filterNotifs(list, true).map(item => (
         <div key={item.id} className="notification-tooltip__item">
           <NotificationCard
             {...item}
@@ -60,19 +59,17 @@ const NotificationTooltip = ({ tooltipNotificationsList, hideTooltip }) => (
 NotificationTooltip.propTypes = {
   hideTooltip: PropTypes.func,
   // addSiteNotifications: PropTypes.func,
-  // editSiteNotification: PropTypes.func,
   // deleteSiteNotification: PropTypes.func,
-  tooltipNotificationsList: PropTypes.objectOf(PropTypes.any),
+  list: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(
   state => ({
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
-    tooltipNotificationsList: state.siteNotifications.tooltipNotificationsList,
+    list: state.siteNotifications.list,
   }),
   dispatch => ({
     addSiteNotifications: data => dispatch(addSiteNotifications(data)),
-    editSiteNotification: data => dispatch(editSiteNotification(data)),
     deleteSiteNotification: data => dispatch(deleteSiteNotification(data)),
     hideTooltip: () => dispatch(hideNotificationTooltip()),
   }),

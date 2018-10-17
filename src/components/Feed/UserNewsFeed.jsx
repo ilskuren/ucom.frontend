@@ -52,7 +52,7 @@ class UserNewsFeed extends PureComponent {
       <Feed
         postsIds={userNewsFeed.postsIds}
         onClickMore={this.getMoreData}
-        loadMoreIsVisible={userNewsFeed.postsIds.length < userNewsFeed.metadata.totalAmount}
+        loadMoreIsVisible={userNewsFeed.metadata && userNewsFeed.postsIds.length < userNewsFeed.metadata.totalAmount}
         onSubmitNewPost={(description) => {
           this.props.createSelfCommentPost({
             userId: this.props.userId,

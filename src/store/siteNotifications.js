@@ -104,7 +104,7 @@ const siteNotifications = (state = getInitialState(), action) => {
     }
     case 'SET_UNREAD_NOTIFICATIONS_AMOUNT': {
       return {
-        ...state, tooltipVisibilty: action.payload,
+        ...state, totalUnreadAmount: action.payload,
       };
     }
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {

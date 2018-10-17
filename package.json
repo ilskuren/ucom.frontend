@@ -18,8 +18,8 @@
   },
   "backend": {
     "httpEndpoint": "https://backend.u.community",
-    "socketEndpoint": "localhost",
-    "socketEnabled": false
+    "socketEndpoint": "https://backend.u.community:443",
+    "socketEnabled": true
   },
   "eosConfig": {
     "httpEndpoint": "http://136.243.131.83:8888"

@@ -88,22 +88,24 @@ export const showAndFetchNotifications = () => async (dispatch) => {
   loader.done();
 };
 
-export const confirmNotification = id => async (dispatch) => {
+export const confirmNotification = id => async (dispatch, getState) => {
   loader.start();
   try {
     const res = await api.confirmNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
+    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1)); // todo
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }
   loader.done();
 };
 
-export const declineNotification = id => async (dispatch) => {
+export const declineNotification = id => async (dispatch, getState) => {
   loader.start();
   try {
     const res = await api.declineNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
+    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1)); // todo
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }
@@ -120,7 +122,9 @@ export const initNotificationsListeners = () => (dispatch) => {
   //   dispatch(deleteSiteNotification(res));
   // });
   socket.on('notification', (res) => {
-    dispatch(setUnreadNotificationsAmount(res.metadata));
+    if (res.unread_messages_count) {
+      dispatch(setUnreadNotificationsAmount(res.unread_messages_count));
+    }
   });
 };
 

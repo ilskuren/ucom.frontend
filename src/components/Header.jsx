@@ -33,6 +33,7 @@ class Header extends PureComponent {
   }
   triggerTooltip = () => (this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications());
   render() {
+    // console.log(this.props.totalUnreadAmount);
     return (
       <div className="header" id="top">
         <div className="header__inner">

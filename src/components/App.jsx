@@ -17,7 +17,7 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
-import { initNotificationsListeners } from '../actions/siteNotifications';
+import { initNotificationsListeners, setUnreadNotificationsAmount } from '../actions/siteNotifications';
 import { getToken, removeToken } from '../utils/token';
 import { fetchMyself } from '../actions/users';
 import api from '../api';
@@ -59,6 +59,7 @@ class App extends PureComponent {
     api.getMyself(token)
       .then((data) => {
         this.props.setUser(data);
+        this.props.setUnreadNotificationsAmount(data.unreadMessagesCount);
         this.setState({ loading: false });
       })
       .catch(() => {
@@ -120,6 +121,7 @@ App.propTypes = {
   auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
   initNotificationsListeners: PropTypes.func,
+  setUnreadNotificationsAmount: PropTypes.func,
 };
 
 export default connect(
@@ -131,5 +133,6 @@ export default connect(
     fetchMyself: () => dispatch(fetchMyself()),
     hideAuthPopup: () => dispatch(hideAuthPopup()),
     initNotificationsListeners: () => dispatch(initNotificationsListeners()),
+    setUnreadNotificationsAmount: data => dispatch(setUnreadNotificationsAmount(data)),
   }),
 )(App);

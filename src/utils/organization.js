@@ -66,4 +66,4 @@ export const getUsersTeamStatusById = (id) => {
       return null;
     }
   }
-}
+};

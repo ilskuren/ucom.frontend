@@ -63,7 +63,7 @@ class EventsPage extends PureComponent {
   }
 
   render() {
-    console.log(this.state.organizations);
+    // console.log(this.state.organizations);
     return (
       <div className="content">
         <div className="content__inner">

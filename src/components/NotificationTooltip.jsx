@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconClose from 'components/Icons/Close';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import NotificationCard from 'components/NotificationCards/NotificationCard';
@@ -24,13 +25,21 @@ const NotificationTooltip = ({ list, hideTooltip }) => (
       }
 
     <div className="notification-tooltip__list notification-tooltip__list_new">
-      {filterNotifs(list, false).map(item => (
-        <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
-          <NotificationCard
-            {...item}
-          />
-        </div>
-      ))}
+      <TransitionGroup>
+        {filterNotifs(list, false).map(item => (
+          <CSSTransition
+            key={item.id}
+            timeout={200}
+            classNames="fade"
+          >
+            <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
+              <NotificationCard
+                {...item}
+              />
+            </div>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </div>
     {isRequiredTime(list, true) &&
       <div className="notification-tooltip__header">
@@ -38,15 +47,22 @@ const NotificationTooltip = ({ list, hideTooltip }) => (
       </div>
       }
     <div className="notification-tooltip__list">
-      {filterNotifs(list, true).map(item => (
-        <div key={item.id} className="notification-tooltip__item">
-          <NotificationCard
-            {...item}
-          />
-        </div>
-        ))}
+      <TransitionGroup>
+        {filterNotifs(list, true).map(item => (
+          <CSSTransition
+            key={item.id}
+            timeout={200}
+            classNames="fade"
+          >
+            <div key={item.id} className="notification-tooltip__item">
+              <NotificationCard
+                {...item}
+              />
+            </div>
+          </CSSTransition>
+          ))}
+      </TransitionGroup>
     </div>
-
     <div
       className="inline__item notification-tooltip__close"
       onClick={() => hideTooltip()}

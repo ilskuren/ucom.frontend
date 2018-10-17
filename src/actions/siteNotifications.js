@@ -81,7 +81,6 @@ export const showAndFetchNotifications = () => async (dispatch) => {
   loader.start();
   try {
     const res = await api.getNotifications();
-    // console.log(res.data);
     dispatch(addSiteNotifications({ data: res.data }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
@@ -93,8 +92,7 @@ export const confirmNotification = id => async (dispatch) => {
   loader.start();
   try {
     const res = await api.confirmNotification(id);
-    // console.log(res, id);
-    dispatch(addSiteNotifications({ data: [res.data] }));
+    dispatch(addSiteNotifications({ data: [res] }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }
@@ -105,8 +103,7 @@ export const declineNotification = id => async (dispatch) => {
   loader.start();
   try {
     const res = await api.declineNotification(id);
-    // console.log(res.data);
-    dispatch(addSiteNotifications({ data: [res.data] }));
+    dispatch(addSiteNotifications({ data: [res] }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }

@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import Feed from './Feed';
 import { getWallFeedIdsByUserId } from '../../store/feeds';
 import { createUserCommentPost } from '../../actions/posts';
-import { getUserWallFeed, removeWallFeedPosts } from '../../actions/feeds';
+import { getUserWallFeed, resetFeeds } from '../../actions/feeds';
 
 class UserFeed extends PureComponent {
   componentDidMount() {
@@ -19,7 +19,7 @@ class UserFeed extends PureComponent {
   }
 
   getData(userId) {
-    this.props.removeWallFeedPosts({ userId });
+    this.props.resetFeeds();
     this.props.getUserWallFeed({
       userId,
       perPage: 10,
@@ -72,7 +72,7 @@ UserFeed.propTypes = {
   feeds: PropTypes.objectOf(PropTypes.any),
   createUserCommentPost: PropTypes.func,
   getUserWallFeed: PropTypes.func,
-  removeWallFeedPosts: PropTypes.func,
+  resetFeeds: PropTypes.func,
 };
 
 export default connect(
@@ -82,6 +82,6 @@ export default connect(
   dispatch => bindActionCreators({
     createUserCommentPost,
     getUserWallFeed,
-    removeWallFeedPosts,
+    resetFeeds,
   }, dispatch),
 )(UserFeed);

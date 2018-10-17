@@ -45,7 +45,7 @@ const OrganizationHeader = (props) => {
 
           {organization.usersTeam && organization.usersTeam.length > 0 && (
             <div className="organization-header__board">
-              <Board users={organization.usersTeam} />
+              <Board users={organization.usersTeam.filter(item => item.usersTeamStatus === 1)} />
             </div>
           )}
         </div>

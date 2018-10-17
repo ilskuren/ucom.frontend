@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import api from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getUserName, getUserUrl } from '../utils/user';
-import PostHeader from '../components/PostHeader';
+import PostHeader from '../components/Post/PostHeader';
 import EventTitle from '../components/EventTitle';
 import PostContent from '../components/PostContent';
 import Footer from '../components/Footer';
+import { fetchPost } from '../actions/posts';
+import { selectUser } from '../store/selectors';
 
 class Offer extends PureComponent {
   constructor(props) {
@@ -18,14 +23,22 @@ class Offer extends PureComponent {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(this.props.match.params.id);
   }
 
-  getData() {
-    api.getPost(this.props.match.params.id)
-      .then((post) => {
-        this.setState({ post });
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.getData(nextProps.match.params.id);
+    }
+  }
+
+  getData(postId) {
+    api.getPost(postId)
+      .then((data) => {
+        this.setState({ post: data });
       });
+
+    this.props.fetchPost(postId);
   }
 
   createComment(commentData, commentId) {
@@ -44,21 +57,15 @@ class Offer extends PureComponent {
   }
 
   render() {
+    const { post } = this.state;
+
     return (
       <div className="content">
         <div className="content__inner">
           <div className="sheets">
             <div className="sheets__list">
               <div className="sheets__item">
-                <PostHeader
-                  userId={this.state.post.User && this.state.post.User.id}
-                  userAccountName={this.state.post.User && this.state.post.User.account_name}
-                  userUrl={getUserUrl(this.state.post.User && this.state.post.User.id)}
-                  avatar={getFileUrl(this.state.post.User && this.state.post.User.avatar_filename)}
-                  name={getUserName(this.state.post.User)}
-                  rating={this.state.post.User && this.state.post.User.current_rate}
-                  follow={this.state.post.User && this.state.post.User.myselfData && this.state.post.User.myselfData.follow}
-                />
+                <PostHeader userId={post.User && post.User.id} />
               </div>
             </div>
 
@@ -120,4 +127,15 @@ class Offer extends PureComponent {
   }
 }
 
-export default Offer;
+Offer.propTypes = {
+  fetchPost: PropTypes.func.isRequired,
+};
+
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    fetchPost,
+  }, dispatch),
+)(Offer);

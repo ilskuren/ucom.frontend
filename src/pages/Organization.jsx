@@ -40,7 +40,7 @@ class OrganizationPage extends PureComponent {
     // this.props.fetchOrganizationPosts(organizationId);
 
     this.props.getOrganization(organizationId);
-    this.props.getOrganizationWallFeed(organizationId);
+    // this.props.getOrganizationWallFeed(organizationId);
 
     api.getOrganization(organizationId)
       .then((data) => {

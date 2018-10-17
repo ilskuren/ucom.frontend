@@ -14,6 +14,7 @@ import posts from './posts';
 import users from './users';
 import comments from './comments';
 import organizations from './organizations';
+import feeds from './feeds';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -28,6 +29,7 @@ const app = combineReducers({
   users,
   comments,
   organizations,
+  feeds,
   form: formReducer,
 });
 const sagaMiddleware = createSagaMiddleware();

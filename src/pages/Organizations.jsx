@@ -23,12 +23,6 @@ class EventsPage extends PureComponent {
     this.loadMore();
   }
 
-  getData() {
-    api.getOrganizations()
-      .then((data) => {
-        this.setState({ organizations: data.data });
-      });
-  }
   loadMore() {
     const params = {
       page: this.state.page + 1,
@@ -63,7 +57,6 @@ class EventsPage extends PureComponent {
   }
 
   render() {
-    console.log(this.state.organizations);
     return (
       <div className="content">
         <div className="content__inner">

@@ -1,4 +1,4 @@
-import { uniqBy, uniq, compact } from 'lodash';
+import { uniqBy, compact } from 'lodash';
 
 const getInitialState = () => ({
   data: {},
@@ -35,18 +35,6 @@ const organizations = (state = getInitialState(), action) => {
         data: Object.assign({}, state.data, {
           [action.payload.organizationId]: Object.assign({}, state.data[action.payload.organizationId], {
             followedBy: state.data[action.payload.organizationId].followedBy.filter(item => item.id !== action.payload.user.id),
-          }),
-        }),
-      });
-    }
-
-    case 'ADD_ORGANIZATION_WALL_FEED_POST': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, {
-          [action.payload.organizationId]: Object.assign({}, state.data[action.payload.organizationId], {
-            wallFeedIds: uniq(state.data[action.payload.organizationId].wallFeedIds ?
-              state.data[action.payload.organizationId].wallFeedIds.concat(action.payload.postId) :
-              [action.payload.postId]),
           }),
         }),
       });

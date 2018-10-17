@@ -1,4 +1,4 @@
-import { uniqBy, uniq, compact } from 'lodash';
+import { uniqBy, compact } from 'lodash';
 
 const getInitialState = () => ({
   data: {
@@ -73,36 +73,6 @@ const users = (state = getInitialState(), action) => {
             ...state.data[action.payload.userId],
             followedBy: state.data[action.payload.userId].followedBy
               .filter(item => item.id !== action.payload.user.id),
-          },
-        },
-      };
-    }
-
-    case 'ADD_USER_WALL_FEED_POST': {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            wallFeedIds: uniq(state.data[action.payload.userId].wallFeedIds ?
-              state.data[action.payload.userId].wallFeedIds.concat(action.payload.postId) :
-              [action.payload.postId]),
-          },
-        },
-      };
-    }
-
-    case 'ADD_USER_NEWS_FEED_POST': {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            newsFeedIds: uniq(state.data[action.payload.userId].newsFeedIds ?
-              state.data[action.payload.userId].newsFeedIds.concat(action.payload.postId) :
-              [action.payload.postId]),
           },
         },
       };

@@ -3,6 +3,9 @@ import {
   SOURCES_ID_REDDIT,
   SOURCES_ID_MEDIUM,
   SOURCES_ID_TWITTER,
+  USERS_TEAM_STATUS_ID_PENDING,
+  USERS_TEAM_STATUS_ID_CONFIRMED,
+  USERS_TEAM_STATUS_ID_DECLINED,
 } from '../store/organization';
 
 export const getOrganizationUrl = (id) => {
@@ -37,6 +40,26 @@ export const getSourceNameById = (id) => {
 
     case SOURCES_ID_TWITTER: {
       return 'Twitter';
+    }
+
+    default: {
+      return null;
+    }
+  }
+};
+
+export const getUsersTeamStatusById = (id) => {
+  switch (id) {
+    case USERS_TEAM_STATUS_ID_PENDING: {
+      return 'Pending';
+    }
+
+    case USERS_TEAM_STATUS_ID_CONFIRMED: {
+      return 'Confirmed';
+    }
+
+    case USERS_TEAM_STATUS_ID_DECLINED: {
+      return 'Declined';
     }
 
     default: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import Avatar from '../Avatar';
 import Button from '../Button';
@@ -12,6 +13,12 @@ const NotificationCardCongratulations = ({
   declineNotification,
   id,
   finished,
+  data: {
+    organization: {
+      nickname: titleOfOrg,
+      id: idOfOrg,
+    },
+  },
 }) => (
   <div className="notification-card notification-card_congratulations">
     <div className="notification-card__block">
@@ -21,12 +28,12 @@ const NotificationCardCongratulations = ({
       <div className="notification-card__content">
         <div className="notification-card__text notification-card__description">
           <strong>Whooooooa! Сongratulations!</strong>
-          <p className="notification-card__time">{updatedAt}</p>
+          <p className="notification-card__time">{moment(updatedAt).fromNow()}</p>
         </div>
       </div>
     </div>
     <p className="notification-card__text_congratulations">
-    Welcome my friend. You just joined the U. Community.
+    Welcome my friend. You just joined the <a href={`/organizations/${idOfOrg}`}><strong>{titleOfOrg}</strong></a>.
      We sent a confirmation letter on your e-mail.
     </p>
     {

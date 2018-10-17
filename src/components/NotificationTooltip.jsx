@@ -23,7 +23,11 @@ const NotificationTooltip = ({ list, hideTooltip }) => (
         <h3 className="notification-tooltip__title">New notifications</h3>
       </div>
       }
-
+    {!Object.values(list).length &&
+      <div className="notification-tooltip__header notification-tooltip__header_center">
+        <h3 className="notification-tooltip__title">No notifications</h3>
+      </div>
+      }
     <div className="notification-tooltip__list notification-tooltip__list_new">
       <TransitionGroup>
         {filterNotifs(list, false).map(item => (

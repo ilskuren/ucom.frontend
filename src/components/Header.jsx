@@ -23,6 +23,7 @@ class Header extends PureComponent {
     removeToken();
     removeBrainkey();
     this.props.removeUser();
+    window.location.reload();
   }
   hideTooltip = () => {
     this.props.hideNotificationTooltip();

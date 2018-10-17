@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Rating from '../Rating';
+import PostRating from '../Rating/PostRating';
 import PostViews from '../PostViews';
 import EditIcon from '../Icons/Edit';
 import Tags from '../Tags';
@@ -38,7 +38,7 @@ const PostContent = (props) => {
                   <h1 className="title title_medium">
                     <div className="inline">
                       <div className="inline__item">
-                        {post.title || <span className="blank">Lorem ipsum dolor sit amet.</span>}
+                        {post.title}
                       </div>
                       <div className="inline__item">
                         {props.user.id === post.userId ? (
@@ -100,11 +100,7 @@ const PostContent = (props) => {
         <div className="grid__item">
           <div className="posts__sidebar">
             <div className="posts__rating">
-              <Rating
-                postId={post.id}
-                rating={post.currentVote}
-                choice={(post.myselfData) ? post.myselfData.myselfVote : null}
-              />
+              <PostRating postId={post && post.id} />
             </div>
             <div className="posts__views">
               <PostViews views={0} />

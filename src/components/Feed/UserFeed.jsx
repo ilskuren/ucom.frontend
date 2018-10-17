@@ -52,7 +52,7 @@ class UserFeed extends PureComponent {
       <Feed
         postsIds={userWallFeed.postsIds}
         onClickMore={this.getMoreData}
-        loadMoreIsVisible={userWallFeed.postsIds.length < userWallFeed.metadata.totalAmount}
+        loadMoreIsVisible={userWallFeed.metadata && userWallFeed.postsIds.length < userWallFeed.metadata.totalAmount}
         onSubmitNewPost={(description) => {
           this.props.createUserCommentPost({
             userId: this.props.userId,

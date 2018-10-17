@@ -12,7 +12,14 @@ class Passphrase extends PureComponent {
   }
 
   validate() {
-    const verify = words => words.every(i => this.props.testWords.indexOf(i) > -1);
+    const testWords = [
+      this.props.passphrase[1],
+      this.props.passphrase[3],
+      this.props.passphrase[7],
+      this.props.passphrase[11],
+    ];
+
+    const verify = words => words.every(i => testWords.indexOf(i) > -1);
 
     if (this.state.checkedWords.length === 4 && verify(this.state.checkedWords)) {
       return true;
@@ -69,6 +76,7 @@ class Passphrase extends PureComponent {
 
 Passphrase.propTypes = {
   testWords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  passphrase: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func,
 };
 

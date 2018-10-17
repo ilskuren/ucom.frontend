@@ -27,7 +27,9 @@ const feeds = (state = getInitialState(), action) => {
             postsIds: uniq(compact(state[action.payload.feedTypeId][action.payload.userId] ?
               [].concat(state[action.payload.feedTypeId][action.payload.userId].postsIds, action.payload.postsIds) :
               [].concat(action.payload.postsIds))),
-            metadata: action.payload.metadata,
+            metadata: action.payload.metadata ?
+              action.payload.metadata :
+              state[action.payload.feedTypeId][action.payload.userId] && state[action.payload.feedTypeId][action.payload.userId].metadata,
           },
         },
       };

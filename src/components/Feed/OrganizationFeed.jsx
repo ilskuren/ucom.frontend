@@ -52,7 +52,7 @@ class OrganizationFeed extends PureComponent {
       <Feed
         postsIds={organizationWallFeed.postsIds}
         onClickMore={this.getMoreData}
-        loadMoreIsVisible={organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
+        loadMoreIsVisible={organizationWallFeed.metadata && organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
         onSubmitNewPost={(description) => {
           this.props.createOrganizationsCommentPost({
             organizationId: this.props.organizationId,

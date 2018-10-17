@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconClose from 'components/Icons/Close';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import NotificationCard from 'components/NotificationCards/NotificationCard';
@@ -29,11 +30,21 @@ const NotificationTooltip = ({ list, hideTooltip }) => {
 
       {newNotifications && newNotifications.length > 0 && (
         <div className="notification-tooltip__list notification-tooltip__list_new">
-          {newNotifications.map(item => (
-            <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
-              <NotificationCard {...item} />
-            </div>
-          ))}
+          <TransitionGroup>
+            {newNotifications.map(item => (
+              <CSSTransition
+                key={item.id}
+                timeout={200}
+                classNames="fade"
+              >
+                <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
+                  <NotificationCard
+                    {...item}
+                  />
+                </div>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
       )}
 
@@ -45,11 +56,21 @@ const NotificationTooltip = ({ list, hideTooltip }) => {
 
       {oldNotifications && oldNotifications.length > 0 && (
         <div className="notification-tooltip__list">
-          {oldNotifications.map(item => (
-            <div key={item.id} className="notification-tooltip__item">
-              <NotificationCard {...item} />
-            </div>
-          ))}
+          <TransitionGroup>
+            {filterNotifs(list, true).map(item => (
+              <CSSTransition
+                key={item.id}
+                timeout={200}
+                classNames="fade"
+              >
+                <div key={item.id} className="notification-tooltip__item">
+                  <NotificationCard
+                    {...item}
+                  />
+                </div>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
       )}
 

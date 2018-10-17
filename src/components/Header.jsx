@@ -15,7 +15,7 @@ import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
 import IconBell from '../components/Icons/Bell';
-import IconNotification from '../components/Icons/Notification';
+// import IconNotification from '../components/Icons/Notification';
 
 
 class Header extends PureComponent {
@@ -92,7 +92,7 @@ class Header extends PureComponent {
                         </div>
                       </div>
                     </Tooltip>
-                    <div className="inline__item">
+                    {/* <div className="inline__item">
                       <div className="icon-counter">
                         <div className="icon-counter__icon">
                           <IconNotification />
@@ -101,7 +101,7 @@ class Header extends PureComponent {
                           <span className="counter counter_top">23</span>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

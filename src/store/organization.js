@@ -7,6 +7,9 @@ export const SOURCES_ID_TWITTER = 4;
 export const STEPS_ID_GENERAL = 1;
 export const STEPS_ID_COMMUNITY = 2;
 export const STEPS_ID_CONTACTS = 3;
+export const USERS_TEAM_STATUS_ID_PENDING = 0;
+export const USERS_TEAM_STATUS_ID_CONFIRMED = 1;
+export const USERS_TEAM_STATUS_ID_DECLINED = 2;
 
 const getInitialState = () => ({
   data: {

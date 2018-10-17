@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import VerticalMenu from './VerticalMenu';
 import TextInput from './TextInput';
-import UserSearchInput from './UserSearchInput';
-import UserCard from './UserCard';
+import UsersTeamForm from './UsersTeamForm';
 import Textarea from './Textarea';
 import Button from './Button';
 import DropZone from './DropZone';
@@ -22,7 +21,6 @@ import {
   removeOrganizationPartnershipNetwork,
   saveOrganization,
 } from '../actions/organization';
-import { getUserName, getUserUrl } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 import { selectUser } from '../store/selectors';
 import { getSourceNameById } from '../utils/organization';
@@ -141,27 +139,12 @@ const OrganizationsCreatePage = (props) => {
                     <div className="field">
                       <div className="field__label">On board</div>
                       <div className="field__input">
-                        <div className="field__section">
-                          <UserSearchInput
-                            isMulti
-                            isSearchable
-                            isClearable
-                            isUserOptions
-                            value={props.organization.data.usersTeam}
-                            onChange={(usersTeam) => {
-                              props.setOrganizationData({ usersTeam });
-                            }}
-                          />
-                        </div>
-                        <div className="field__section">
-                          <UserCard
-                            userName={getUserName(props.user)}
-                            userPosition="Author"
-                            accountName={props.user.accountName}
-                            avatarUrl={getFileUrl(props.user.avatarFilename)}
-                            profileLink={getUserUrl(props.user.id)}
-                          />
-                        </div>
+                        <UsersTeamForm
+                          users={props.organization.data.usersTeam}
+                          onChange={(usersTeam) => {
+                            props.setOrganizationData({ usersTeam });
+                          }}
+                        />
                       </div>
                     </div>
                   </div>

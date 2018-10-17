@@ -200,6 +200,7 @@ class SignUp extends React.PureComponent {
               <div className="sign-up__content sign-up__content_verification">
                 <Fragment>
                   <Passphrase
+                    passphrase={this.state.passphrase}
                     testWords={this.state.testPassphrase}
                     onChange={passphraseIsValid => this.setState({ passphraseIsValid })}
                   />

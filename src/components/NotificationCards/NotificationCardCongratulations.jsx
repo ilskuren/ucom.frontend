@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { CongratulationsIcon } from '../Icons/FeedIcons';
@@ -33,8 +34,7 @@ const NotificationCardCongratulations = ({
       </div>
     </div>
     <p className="notification-card__text_congratulations">
-    Welcome my friend. You just joined the <a href={`/organizations/${idOfOrg}`}><strong>{titleOfOrg}</strong></a>.
-     We sent a confirmation letter on your e-mail.
+    Welcome my friend. You just joined the <Link to={`/organizations/${idOfOrg}`} className="menu__link"><strong>{titleOfOrg}</strong></Link>
     </p>
     {
       !finished &&

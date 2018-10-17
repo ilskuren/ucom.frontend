@@ -70,8 +70,8 @@ const PostContent = (props) => {
                 caption="ORG"
                 userName={post.organization.title}
                 accountName={post.organization.nickname}
-                rate={post.organization.current_rate}
-                avatarUrl={getFileUrl(post.organization.avatar_filename)}
+                rate={post.organization.currentRate}
+                avatarUrl={getFileUrl(post.organization.avatarFilename)}
                 profileLink={getOrganizationUrl(post.organization.id)}
               />
             </div>
@@ -103,7 +103,7 @@ const PostContent = (props) => {
               <Rating
                 postId={post.id}
                 rating={post.currentVote}
-                choice={props.сhoice}
+                choice={(post.myselfData) ? post.myselfData.myselfVote : null}
               />
             </div>
             <div className="posts__views">
@@ -116,20 +116,10 @@ const PostContent = (props) => {
   );
 };
 
-// PostContent.propTypes = {
-//   id: PropTypes.number,
-//   userId: PropTypes.number,
-//   title: PropTypes.string,
-//   leadingText: PropTypes.string,
-//   description: PropTypes.string,
-//   rate: PropTypes.number,
-//   tags: PropTypes.arrayOf(PropTypes.string),
-//   rating: PropTypes.number,
-//   сhoice: PropTypes.string,
-//   imgSrc: PropTypes.string,
-//   comments: PropTypes.arrayOf(PropTypes.object),
-//   onSubmitComment: PropTypes.func,
-// };
+PostContent.propTypes = {
+  postId: PropTypes.number,
+  posts: PropTypes.objectOf(PropTypes.object),
+};
 
 export default connect(state => ({
   user: selectUser(state),

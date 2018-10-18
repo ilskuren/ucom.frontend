@@ -90,6 +90,7 @@ class OfferForm extends PureComponent {
                   </div>
                   <div className="field__input">
                     <TextInput
+                      touched
                       placeholder="Type something..."
                       value={this.props.post.data.title}
                       error={this.props.post.errors.title && this.props.post.errors.title[0]}
@@ -110,6 +111,7 @@ class OfferForm extends PureComponent {
                   <div className="field__input">
                     <div className="field__item">
                       <TextInput
+                        touched
                         placeholder="Name of Acton Button"
                         value={this.props.post.data.action_button_title}
                         error={this.props.post.errors.action_button_title && this.props.post.errors.action_button_title[0]}
@@ -121,6 +123,7 @@ class OfferForm extends PureComponent {
                     </div>
                     <div className="field__item">
                       <TextInput
+                        touched
                         placeholder="Link"
                         value={this.props.post.data.action_button_url}
                         error={this.props.post.errors.action_button_url && this.props.post.errors.action_button_url[0]}
@@ -142,6 +145,7 @@ class OfferForm extends PureComponent {
                   <div className="field__input">
                     <div className="field__item">
                       <TextInput
+                        touched
                         placeholder="Days"
                         inputWidth={150}
                         value={this.props.post.data.action_duration_in_days.toString()}

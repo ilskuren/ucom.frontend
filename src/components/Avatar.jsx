@@ -1,5 +1,5 @@
 import { withRouter } from 'react-router';
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import UserIcon from './Icons/User';
@@ -14,13 +14,9 @@ const Avatar = props => (
       { 'avatar_border_white': props.borderWhite },
       { 'avatar_blank': !props.src },
     )}
-  >
-    {props.src ? (
-      <img className="avatar__img" src={props.src} alt={props.alt} />
-    ) : (
-      <UserIcon />
-    )}
-
+  > {props.src && <img className="avatar__img" src={props.src} alt={props.alt} /> }
+    {props.srcComponent && <Fragment>{props.srcComponent}</Fragment> }
+    {!props.srcComponent && !props.src && <UserIcon />}
     {props.showBadge && (
       <span
         role="presentation"
@@ -40,6 +36,14 @@ const Avatar = props => (
           <UserIcon />
         )}
       </span>
+    )}
+    {props.icon && (
+      <div
+        className="avatar__icon"
+        title={props.iconTitle}
+      >
+        {props.icon}
+      </div>
     )}
   </span>
 );

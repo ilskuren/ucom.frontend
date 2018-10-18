@@ -8,6 +8,7 @@ import { getPostById } from '../../store/posts';
 
 const Feed = (props) => {
   const posts = props.postsIds.map(id => getPostById(props.posts, id))
+    .filter(item => !!item)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (

@@ -17,7 +17,9 @@
     "api-path": "/api/v0/"
   },
   "backend": {
-    "httpEndpoint": "https://backend.u.community"
+    "httpEndpoint": "https://backend.u.community",
+    "socketEndpoint": "https://backend.u.community:443",
+    "socketEnabled": true
   },
   "eosConfig": {
     "httpEndpoint": "http://136.243.131.83:8888"
@@ -84,17 +86,21 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.4.2",
     "react-dropzone": "^5.0.1",
+    "react-perfect-scrollbar": "^1.2.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scroll": "^1.7.10",
     "react-select": "^2.0.0",
+    "react-tippy": "^1.2.3",
     "react-transition-group": "^2.4.0",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-form": "^7.4.2",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
     "uos-app-transaction": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
     "uuid": "^3.3.2",
     "validatorjs": "^3.14.2"

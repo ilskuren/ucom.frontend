@@ -17,6 +17,7 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
+import { initNotificationsListeners, setUnreadNotificationsAmount } from '../actions/siteNotifications';
 import { getToken, removeToken } from '../utils/token';
 import { fetchMyself } from '../actions/users';
 import api from '../api';
@@ -28,6 +29,8 @@ import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
 import Notifications from './Notifications';
+import socket from '../api/socket';
+import config from '../../package.json';
 
 class App extends PureComponent {
   constructor(props) {
@@ -40,6 +43,10 @@ class App extends PureComponent {
 
   componentDidMount() {
     this.restoreSession();
+    this.props.initNotificationsListeners();
+    if (config.backend.socketEnabled) {
+      socket.connect();
+    }
   }
 
   restoreSession() {
@@ -52,6 +59,7 @@ class App extends PureComponent {
     api.getMyself(token)
       .then((data) => {
         this.props.setUser(data);
+        this.props.setUnreadNotificationsAmount(data.unreadMessagesCount);
         this.setState({ loading: false });
       })
       .catch(() => {
@@ -112,6 +120,8 @@ App.propTypes = {
   setUser: PropTypes.func,
   auth: PropTypes.objectOf(PropTypes.any),
   hideAuthPopup: PropTypes.func,
+  initNotificationsListeners: PropTypes.func,
+  setUnreadNotificationsAmount: PropTypes.func,
 };
 
 export default connect(
@@ -122,5 +132,7 @@ export default connect(
     setUser: data => dispatch(setUser(data)),
     fetchMyself: () => dispatch(fetchMyself()),
     hideAuthPopup: () => dispatch(hideAuthPopup()),
+    initNotificationsListeners: () => dispatch(initNotificationsListeners()),
+    setUnreadNotificationsAmount: data => dispatch(setUnreadNotificationsAmount(data)),
   }),
 )(App);

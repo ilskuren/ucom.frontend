@@ -21,3 +21,4 @@ export function selectSettingsBlacklist(state) {
 export function selectSettingsReferral(state) {
   return selectSettings(state).referral;
 }
+

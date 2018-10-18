@@ -1,0 +1,61 @@
+.notification-theme {
+  padding: 0;
+  width: 600px;
+  max-height: 784px;
+  background-color: #fff;
+  border: 1px solid #E8ECEC;
+  left: -8px;
+  top: 7px;
+  position: relative;
+  color: black;
+
+  @media (max-width: 787px) {
+    width: 100%;
+  }
+
+  .arrow-big {
+    border-bottom-color: #E8ECEC !important;
+  }
+}
+
+.notification-tooltip__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.notification-tooltip__container {
+  max-height: 784px;
+  overflow: auto;
+
+  .ps__rail-y {
+    right: 0px;
+    left:  initial !important;
+  }
+
+  .notification-tooltip__header {
+    padding: 20px 20px 24px;
+    border-bottom: 1px solid #E8ECEC;
+
+    &.notification-tooltip__header_new {
+      padding-bottom: 20px;
+    }
+    &.notification-tooltip__header_center .notification-tooltip__title{
+      text-align: center;
+    }
+
+    .notification-tooltip__title {
+      text-transform: uppercase;
+      opacity: 0.6;
+      font-size: 16px;
+      margin: 0;
+      text-align: left;
+      font-weight: normal;
+    }
+  }
+
+  .notification-tooltip__list_new {
+    margin: 16px 0;
+  }
+}

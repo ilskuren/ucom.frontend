@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import React, { PureComponent } from 'react';
 import Button from '../Button';
-import elementInViewport from '../../utils/elementInViewport';
 
 class LoadMore extends PureComponent {
   constructor(props) {
@@ -12,7 +11,13 @@ class LoadMore extends PureComponent {
     this.state = {};
 
     this.onScroll = throttle(() => {
-      if (!elementInViewport(this.el)) {
+      if (!this.el) {
+        return;
+      }
+
+      const rect = this.el.getBoundingClientRect();
+
+      if (rect.top - window.innerHeight > 400) {
         return;
       }
 

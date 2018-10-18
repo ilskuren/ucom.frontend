@@ -14,9 +14,7 @@ const loaderStart = () => (dispatch) => {
 
 const loaderDone = () => (dispatch) => {
   loader.done();
-  if (loader.isDone()) {
-    dispatch(setFeedLoading(false));
-  }
+  dispatch(setFeedLoading(false));
 };
 
 export const getUserWallFeed = payload => (dispatch) => {

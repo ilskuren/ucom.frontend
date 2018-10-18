@@ -15,8 +15,6 @@ import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
 import IconBell from '../components/Icons/Bell';
-// import IconNotification from '../components/Icons/Notification';
-
 
 class Header extends PureComponent {
   logout = () => {
@@ -25,15 +23,22 @@ class Header extends PureComponent {
     this.props.removeUser();
     window.location.reload();
   }
+
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
   }
+
   showTooltip = () => {
     this.props.showAndFetchNotifications();
   }
-  triggerTooltip = () => (this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications());
+
+  triggerTooltip = () => (
+    this.props.tooltipVisibilty ?
+      this.props.hideNotificationTooltip() :
+      this.props.showAndFetchNotifications()
+  );
+
   render() {
-    // console.log(this.props.totalUnreadAmount);
     return (
       <div className="header" id="top">
         <div className="header__inner">

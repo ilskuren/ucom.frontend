@@ -359,8 +359,8 @@ class Api {
     return humps(response.data);
   }
   @bind
-  async getNotifications() {
-    const response = await this.actions.get('/api/v1/myself/notifications');
+  async getNotifications(perPage, page) {
+    const response = await this.actions.get(`/api/v1/myself/notifications?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);
   }

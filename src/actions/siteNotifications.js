@@ -11,12 +11,12 @@ export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS'
 export const deleteSiteNotification = payload => ({ type: 'DELETE_SITE_NOTIFICATION', payload });
 export const setUnreadNotificationsAmount = payload => ({ type: 'SET_UNREAD_NOTIFICATIONS_AMOUNT', payload });
 
-export const showAndFetchNotifications = () => async (dispatch) => {
+export const showAndFetchNotifications = payload => async (dispatch) => {
   dispatch(showNotificationTooltip());
   loader.start();
   try {
-    const res = await api.getNotifications();
-    dispatch(addSiteNotifications({ data: res.data }));
+    const res = await api.getNotifications(payload.perPage, payload.page);
+    dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }

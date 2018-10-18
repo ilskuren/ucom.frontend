@@ -30,13 +30,14 @@ class Header extends PureComponent {
   }
 
   showTooltip = () => {
-    this.props.showAndFetchNotifications();
+    this.props.showAndFetchNotifications({
+      perPage: this.props.notificationsMetadata.perPage || 50,
+      page: this.props.notificationsMetadata.page || 1,
+    });
   }
 
   triggerTooltip = () => (
-    this.props.tooltipVisibilty ?
-      this.props.hideNotificationTooltip() :
-      this.props.showAndFetchNotifications()
+    this.props.tooltipVisibilty ? this.hideTooltip() : this.showTooltip()
   );
 
   render() {
@@ -202,6 +203,7 @@ class Header extends PureComponent {
 
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
+  notificationsMetadata: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
   showAndFetchNotifications: PropTypes.func,
@@ -215,11 +217,12 @@ export default withRouter(connect(
     user: selectUser(state),
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
     totalUnreadAmount: state.siteNotifications.totalUnreadAmount,
+    notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
     showAuthPopup: () => dispatch(showAuthPopup()),
-    showAndFetchNotifications: () => dispatch(showAndFetchNotifications()),
+    showAndFetchNotifications: payload => dispatch(showAndFetchNotifications(payload)),
     hideNotificationTooltip: () => dispatch(hideNotificationTooltip()),
   }),
 )(Header));

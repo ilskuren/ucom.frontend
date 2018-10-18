@@ -100,6 +100,7 @@ export default connect(
   state => ({
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
     list: state.siteNotifications.list,
+    notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => ({
     addSiteNotifications: data => dispatch(addSiteNotifications(data)),

@@ -15,10 +15,17 @@ import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
 import IconBell from '../components/Icons/Bell';
+import Popup from './Popup';
+import ModalContent from './ModalContent';
+import CreateEventPopup from './CreateEventPopup';
+
 // import IconNotification from '../components/Icons/Notification';
 
 
 class Header extends PureComponent {
+  state = {
+    popupIsVisible: false,
+  }
   logout = () => {
     removeToken();
     removeBrainkey();
@@ -32,6 +39,13 @@ class Header extends PureComponent {
     this.props.showAndFetchNotifications();
   }
   triggerTooltip = () => (this.props.tooltipVisibilty ? this.props.hideNotificationTooltip() : this.props.showAndFetchNotifications());
+  hidePopup = () => {
+    this.setState({ popupIsVisible: false });
+  }
+
+  showPopup = () => {
+    this.setState({ popupIsVisible: true });
+  }
   render() {
     // console.log(this.props.totalUnreadAmount);
     return (
@@ -113,7 +127,8 @@ class Header extends PureComponent {
           <div className="header__main">
             <nav className="menu menu_responsive menu_header">
 
-              {this.props.user.id && (
+
+              {/* {this.props.user.id && (
                 <div className="menu__item">
                   <NavLink
                     to="/posts/new/1"
@@ -135,6 +150,9 @@ class Header extends PureComponent {
                 >
                   Create Event
                 </NavLink>
+              </div> */}
+              <div className="menu__item">
+                <button onClick={this.showPopup} className="menu__item__button"><strong> Add publication</strong></button>
               </div>
               <div className="menu__item">
                 <NavLink
@@ -153,17 +171,7 @@ class Header extends PureComponent {
                   activeClassName="menu__link_active"
                   isActive={() => this.props.location.pathname === '/organizations'}
                 >
-                  Organizations
-                </NavLink>
-              </div>
-              <div className="menu__item">
-                <NavLink
-                  to="/products"
-                  className="menu__link menu__link_upper"
-                  activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname === '/products'}
-                >
-                  Products
+                  Communities
                 </NavLink>
               </div>
               <div className="menu__item">
@@ -173,7 +181,7 @@ class Header extends PureComponent {
                   activeClassName="menu__link_active"
                   isActive={() => this.props.location.pathname.indexOf('/events') === 0}
                 >
-                  Events
+                  Publications
                 </NavLink>
               </div>
               {/* <div className="menu__item">
@@ -184,6 +192,13 @@ class Header extends PureComponent {
             </nav>
           </div>
         </div>
+        {this.state.popupIsVisible && (
+          <Popup onClickClose={() => this.hidePopup()}>
+            <ModalContent onClickClose={() => this.hidePopup()}>
+              <CreateEventPopup onClickClose={() => this.hidePopup()} />
+            </ModalContent>
+          </Popup>
+        )}
       </div>
     );
   }

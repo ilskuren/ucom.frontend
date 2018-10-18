@@ -18,7 +18,7 @@ const OrganizationHeader = (props) => {
   if (!organization) {
     return null;
   }
-
+  const isYourOrg = [organization.userId, ...organization.usersTeam.map(e => e.id)].some(i => i === props.user.id);
   return (
     <div className="organization-header">
       <div className="organization-header__top">
@@ -61,11 +61,13 @@ const OrganizationHeader = (props) => {
       </div>
       <div className="organization-header__bottom">
         <div className="toolbar toolbar_responsive">
+          {!isYourOrg &&
           <div className="toolbar__main">
             <div className="organization-header__follow-btn">
               <OrganizationFollowButton organizationId={+organization.id} />
             </div>
           </div>
+          }
           <div className="toolbar__side">
             <Followers usersIds={(organization.followedBy || []).map(item => item.id)} />
           </div>

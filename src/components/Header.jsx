@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
@@ -41,9 +42,7 @@ class Header extends PureComponent {
   }
 
   triggerTooltip = () => (
-    this.props.tooltipVisibilty ?
-      this.props.hideNotificationTooltip() :
-      this.props.showAndFetchNotifications()
+    this.props.tooltipVisibilty ? this.hideTooltip() : this.showTooltip()
   );
 
   hidePopup = () => {
@@ -105,7 +104,12 @@ class Header extends PureComponent {
                       stickyDuration={0}
                     >
                       <div className="inline__item " role="presentation" onClick={this.triggerTooltip}>
-                        <div className="icon-counter">
+                        <div
+                          className={classNames(
+                            'icon-counter',
+                            { 'icon-counter_active': this.props.tooltipVisibilty },
+                          )}
+                        >
                           <div className="icon-counter__icon">
                             <IconBell />
                           </div>
@@ -226,11 +230,12 @@ export default withRouter(connect(
     user: selectUser(state),
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
     totalUnreadAmount: state.siteNotifications.totalUnreadAmount,
+    notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => ({
     removeUser: () => dispatch(removeUser()),
     showAuthPopup: () => dispatch(showAuthPopup()),
-    showAndFetchNotifications: () => dispatch(showAndFetchNotifications()),
+    showAndFetchNotifications: payload => dispatch(showAndFetchNotifications(payload)),
     hideNotificationTooltip: () => dispatch(hideNotificationTooltip()),
   }),
 )(Header));

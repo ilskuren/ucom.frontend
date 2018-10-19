@@ -1,3 +1,4 @@
+import { bindActionCreators } from 'redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ import {
   hideNotificationTooltip,
   addSiteNotifications,
   deleteSiteNotification,
+  fetchNotifications,
 } from '../actions/siteNotifications';
 
 const isRequiredTime = (arr, isEarly = true) => Object.values(arr).some(i => (i.finished || i.seen) === isEarly);
@@ -16,14 +18,26 @@ const filterNotifs = (arr, isEarly = true) => Object.values(arr)
   .filter(i => (i.finished || i.seen) === isEarly)
   .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
-const NotificationTooltip = ({ list, hideTooltip }) => {
+const NotificationTooltip = ({
+  list,
+  hideNotificationTooltip,
+  notificationsMetadata,
+  fetchNotifications,
+}) => {
   const newNotifications = filterNotifs(list, false);
   const oldNotifications = filterNotifs(list, true);
 
   return (
-    <PerfectScrollbar className="notification-tooltip__container">
+    <PerfectScrollbar
+      className="notification-tooltip__container"
+      onYReachEnd={() => {
+        if (notificationsMetadata.hasMore) {
+          fetchNotifications();
+        }
+      }}
+    >
       {isRequiredTime(list, false) &&
-        <div className="notification-tooltip__header notification-tooltip__header_new">
+        <div className="notification-tooltip__header">
           <h3 className="notification-tooltip__title">New notifications</h3>
         </div>
       }
@@ -78,9 +92,13 @@ const NotificationTooltip = ({ list, hideTooltip }) => {
         </div>
       )}
 
+      {notificationsMetadata.hasMore &&
+        <div className="notification-tooltip__loading">Loading...</div>
+      }
+
       <div
         className="inline__item notification-tooltip__close"
-        onClick={() => hideTooltip()}
+        onClick={() => hideNotificationTooltip()}
         role="presentation"
       >
         <IconClose />
@@ -90,20 +108,22 @@ const NotificationTooltip = ({ list, hideTooltip }) => {
 };
 
 NotificationTooltip.propTypes = {
-  hideTooltip: PropTypes.func,
-  // addSiteNotifications: PropTypes.func,
-  // deleteSiteNotification: PropTypes.func,
+  hideNotificationTooltip: PropTypes.func.isRequired,
+  fetchNotifications: PropTypes.func.isRequired,
   list: PropTypes.objectOf(PropTypes.any),
+  notificationsMetadata: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(
   state => ({
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
     list: state.siteNotifications.list,
+    notificationsMetadata: state.siteNotifications.metadata,
   }),
-  dispatch => ({
-    addSiteNotifications: data => dispatch(addSiteNotifications(data)),
-    deleteSiteNotification: data => dispatch(deleteSiteNotification(data)),
-    hideTooltip: () => dispatch(hideNotificationTooltip()),
-  }),
+  dispatch => bindActionCreators({
+    addSiteNotifications,
+    deleteSiteNotification,
+    hideNotificationTooltip,
+    fetchNotifications,
+  }, dispatch),
 )(NotificationTooltip);

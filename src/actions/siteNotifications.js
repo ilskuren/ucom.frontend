@@ -15,6 +15,7 @@ export const fetchNotifications = payload => async (dispatch) => {
   loader.start();
   try {
     const res = await api.getNotifications(payload.perPage, payload.page);
+    console.log(res);
     dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
@@ -24,7 +25,7 @@ export const fetchNotifications = payload => async (dispatch) => {
 
 export const showAndFetchNotifications = () => (dispatch) => {
   dispatch(showNotificationTooltip());
-  dispatch(fetchNotifications({ perPage: 50, page: 1 }));
+  dispatch(fetchNotifications({ perPage: 7, page: 1 }));
 };
 
 export const confirmNotification = id => async (dispatch, getState) => {

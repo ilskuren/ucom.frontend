@@ -6,6 +6,7 @@ import UserCard from '../UserCard';
 import { getUserById } from '../../store/users';
 import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
+import { selectUser } from '../../store/selectors/user';
 
 const PostHeader = (props) => {
   const user = getUserById(props.users, props.userId);
@@ -28,7 +29,9 @@ const PostHeader = (props) => {
         </div>
         <div className="toolbar__side">
           <div className="post-header__follow-button">
-            <UserFollowButton userId={user.id} />
+            {props.user.id && props.user.id === props.userId ? null : (
+              <UserFollowButton userId={props.userId} />
+            )}
           </div>
         </div>
       </div>
@@ -43,4 +46,5 @@ PostHeader.propTypes = {
 
 export default connect(state => ({
   users: state.users,
+  user: selectUser(state),
 }))(PostHeader);

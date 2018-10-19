@@ -58,17 +58,14 @@ class Post extends PureComponent {
 
     return (
       <div className="post">
-        <div className="post__type">{getPostTypeById(post.postTypeId)}</div>
-
-        <div className="post__header">
-          <div className="toolbar">
-            <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
-
-            <div className="toolbar__side">
-              <PostRating postId={post.id} />
-            </div>
+        <div className="post__info-block">
+          <div className="post__type"><strong>{getPostTypeById(post.postTypeId)}</strong></div>
+          <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
+          <div className="toolbar__side">
+            <PostRating postId={post.id} />
           </div>
         </div>
+
 
         {user && (
           <div className="post__user">
@@ -118,10 +115,6 @@ class Post extends PureComponent {
             </h1>
           )}
 
-          {post.leadingText && (
-            <h2 className="post__title post__title_leading">{post.leadingText}</h2>
-          )}
-
           {post.mainImageFilename && (
             <div className="post__cover">
               <Link to={getPostUrl(post.id)}>
@@ -129,6 +122,12 @@ class Post extends PureComponent {
               </Link>
             </div>
           )}
+
+          {post.leadingText && (
+            <h2 className="post__title post__title_leading">{post.leadingText}</h2>
+          )}
+
+
         </div>
 
         <div className="post__footer">

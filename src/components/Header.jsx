@@ -30,10 +30,7 @@ class Header extends PureComponent {
   }
 
   showTooltip = () => {
-    this.props.showAndFetchNotifications({
-      perPage: this.props.notificationsMetadata.perPage || 50,
-      page: this.props.notificationsMetadata.page || 1,
-    });
+    this.props.showAndFetchNotifications();
   }
 
   triggerTooltip = () => (

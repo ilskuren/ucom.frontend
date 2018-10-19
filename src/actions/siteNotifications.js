@@ -11,8 +11,7 @@ export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS'
 export const deleteSiteNotification = payload => ({ type: 'DELETE_SITE_NOTIFICATION', payload });
 export const setUnreadNotificationsAmount = payload => ({ type: 'SET_UNREAD_NOTIFICATIONS_AMOUNT', payload });
 
-export const showAndFetchNotifications = payload => async (dispatch) => {
-  dispatch(showNotificationTooltip());
+export const fetchNotifications = payload => async (dispatch) => {
   loader.start();
   try {
     const res = await api.getNotifications(payload.perPage, payload.page);
@@ -23,12 +22,18 @@ export const showAndFetchNotifications = payload => async (dispatch) => {
   loader.done();
 };
 
+export const showAndFetchNotifications = () => (dispatch) => {
+  dispatch(showNotificationTooltip());
+  dispatch(fetchNotifications({ perPage: 50, page: 1 }));
+};
+
 export const confirmNotification = id => async (dispatch, getState) => {
   loader.start();
   try {
     const res = await api.confirmNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1)); // todo
+    // TODO: Получать данные о количетсве непрочитанных от сервера
+    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }
@@ -40,7 +45,8 @@ export const declineNotification = id => async (dispatch, getState) => {
   try {
     const res = await api.declineNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1)); // todo
+    // TODO: Получать данные о количетсве непрочитанных от сервера
+    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));
   }

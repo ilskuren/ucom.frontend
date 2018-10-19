@@ -71,13 +71,6 @@ class Api {
   }
 
   @bind
-  async patchMyselfFormData(data) {
-    const response = await this.actions.patch('/api/v1/myself', data);
-
-    return convertServerUser(response.data);
-  }
-
-  @bind
   async getUser(id) {
     const response = await this.actions.get(`/api/v1/users/${id}`);
 

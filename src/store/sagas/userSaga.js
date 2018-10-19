@@ -69,9 +69,12 @@ function* editUserContactsSaga(action) {
 
 function* loadUserAvatarSaga(action) {
   try {
-    const avatarData = new FormData();
-    avatarData.append('avatar_filename', action.payload);
-    const newUser = yield call(api.patchMyselfFormData, avatarData);
+    // const avatarData = new FormData();
+    // avatarData.append('avatar_filename', action.payload);
+    // console.log(avatarData, action.payload);
+    const newUser = yield call(api.patchMyself, {
+      avatar_filename: action.payload,
+    });
     yield put({ type: USER.UPLOAD_AVATAR_COMPLETED, payload: newUser.avatarFilename });
   } catch (e) {
     yield put({ type: USER.UPLOAD_AVATAR_FAIL, message: e.message });

@@ -23,11 +23,6 @@ const siteNotifications = (state = getInitialState(), action) => {
         ...state, totalUnreadAmount: action.payload,
       };
     }
-    case 'SHOW_NOTIFICATIONS_TOOLTIP': {
-      return {
-        ...state, tooltipVisibilty: true,
-      };
-    }
 
     case 'ADD_SITE_NOTIFICATIONS': {
       return {

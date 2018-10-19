@@ -200,7 +200,6 @@ class Header extends PureComponent {
 
 Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  notificationsMetadata: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
   showAndFetchNotifications: PropTypes.func,

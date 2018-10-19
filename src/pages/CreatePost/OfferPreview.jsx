@@ -2,7 +2,6 @@ import { Redirect } from 'react-router';
 import React, { Fragment, PureComponent } from 'react';
 import CreatePostHeader from '../../components/CreatePostHeader';
 import Rating from '../../components/Rating';
-import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import CreatePostFooter from '../../components/CreatePostFooter';
 import CommentsStub from '../../components/CommentsStub';
@@ -80,9 +79,6 @@ class OfferPreview extends PureComponent {
             <div className="posts__sidebar">
               <div className="posts__rating">
                 <Rating rating={100} />
-              </div>
-              <div className="posts__views">
-                <PostViews views={352} />
               </div>
             </div>
           </div>

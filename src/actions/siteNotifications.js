@@ -15,7 +15,6 @@ export const fetchNotifications = payload => async (dispatch) => {
   loader.start();
   try {
     const res = await api.getNotifications(payload.perPage, payload.page);
-    console.log(res);
     dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));
   } catch (error) {
     dispatch(addErrorNotification(parseErrors(error).general));

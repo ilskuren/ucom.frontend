@@ -17,16 +17,16 @@
     "api-path": "/api/v0/"
   },
   "backend": {
-    "httpEndpoint": "https://backend.u.community",
-    "socketEndpoint": "https://backend.u.community:443",
-    "socketEnabled": true
+    "staging": {
+      "httpEndpoint": "https://staging-backend.u.community",
+      "socketEndpoint": "https://staging-backend.u.community:443"
+    },
+    "production": {
+      "httpEndpoint": "https://new-backend.u.community",
+      "socketEndpoint": "https://new-backend.u.community:443"
+    }
   },
-  "eosConfig": {
-    "httpEndpoint": "http://136.243.131.83:8888"
-  },
-  "registratorConfig": {
-    "httpEndpoint": "http://localhost:3000"
-  },
+  "socketEnabled": true,
   "devDependencies": {
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",

@@ -27,6 +27,7 @@ class EventsPage extends PureComponent {
     const params = {
       page: this.state.page + 1,
       sort_by: this.state.sortBy,
+      per_page: 20,
     };
 
     api.getOrganizations(params)

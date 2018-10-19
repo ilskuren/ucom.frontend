@@ -1,4 +1,4 @@
-import humps from 'lodash-humps';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import Footer from '../components/Footer';
@@ -11,12 +11,12 @@ import { fetchUser } from '../actions/users';
 
 class HomePage extends PureComponent {
   componentDidMount() {
-    this.props.fetchUser(this.props.user.id);
+    if (this.props.user.id) {
+      this.props.fetchUser(this.props.user.id);
+    }
   }
 
   render() {
-    const user = humps(this.props.user);
-
     return (
       <Fragment>
         <div className="content">
@@ -35,9 +35,9 @@ class HomePage extends PureComponent {
 
                 <div className="grid__item grid__item_side">
                   <div className="sidebar">
-                    {user.iFollow && user.iFollow.length > 0 && (
+                    {this.props.user.iFollow && this.props.user.iFollow.length > 0 && (
                       <div className="sidebar__section">
-                        <UsersGroup users={user.iFollow} />
+                        <UsersGroup users={this.props.user.iFollow} />
                       </div>
                     )}
                   </div>
@@ -56,6 +56,10 @@ class HomePage extends PureComponent {
     );
   }
 }
+
+HomePage.propTypes = {
+  fetchUser: PropTypes.func.isRequired,
+};
 
 export default connect(
   state => ({

@@ -2,6 +2,7 @@ import { uniqueId } from 'lodash';
 
 const getInitialState = () => ({
   list: {},
+  metadata: {},
   tooltipVisibilty: false,
   totalUnreadAmount: 0,
 });
@@ -37,6 +38,10 @@ const siteNotifications = (state = getInitialState(), action) => {
             const id = currentValue.id || uniqueId((new Date()).getTime());
             return { ...accumulator, [id]: { ...currentValue, id } };
           }, {}),
+        },
+        metadata: {
+          ...state.metadata,
+          ...action.payload.metadata,
         },
       };
     }

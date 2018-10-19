@@ -60,10 +60,11 @@ class App extends PureComponent {
       .then((data) => {
         this.props.setUser(data);
         this.props.setUnreadNotificationsAmount(data.unreadMessagesCount);
-        this.setState({ loading: false });
       })
       .catch(() => {
         removeToken();
+      })
+      .then(() => {
         this.setState({ loading: false });
       });
   }

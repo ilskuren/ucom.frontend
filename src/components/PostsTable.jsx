@@ -28,6 +28,7 @@ class PostsTable extends PureComponent {
       page: this.state.page + 1,
       post_type_id: this.props.postTypeId,
       sort_by: this.state.sortBy,
+      per_page: 20,
     };
 
     api.getPosts(params)
@@ -45,6 +46,7 @@ class PostsTable extends PureComponent {
       page: 1,
       post_type_id: this.props.postTypeId,
       sort_by: sortBy,
+      per_page: 20,
     };
 
     api.getPosts(params)

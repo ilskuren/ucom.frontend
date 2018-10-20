@@ -5,7 +5,7 @@ import CloseIcon from './Icons/Close';
 import SearchIcon from './Icons/Search';
 
 const ModalContent = props => (
-  <div className="modal-content">
+  <div className="modal-content" role="presentation" onClick={props.onClickClose}>
     <div className="modal-content__close" role="presentation" onClick={props.onClickClose}>
       <div className="inline">
         {props.closeText && (

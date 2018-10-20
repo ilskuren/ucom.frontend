@@ -10,6 +10,14 @@ const PostFromFooter = (props) => {
   const organization = (props.user.organizations || []).find(i =>
     i.id === props.post.data.organization_id);
 
+  const onKeydownSave = (e) => {
+    if (!e) e = document.event;
+    if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
+      props.onClickSave();
+    }
+  };
+  document.onkeydown = onKeydownSave;
+
   return (
     <div className="post-form__footer">
       <div className="post-form__content">

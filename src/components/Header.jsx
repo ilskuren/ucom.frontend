@@ -171,7 +171,11 @@ class Header extends PureComponent {
                 </NavLink>
               </div> */}
               <div className="menu__item">
-                <button onClick={this.showPopup} className="menu__item__button"><strong> Add publication</strong></button>
+                {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
+
+                <Link to="/posts/new/1" className="menu__link-button">
+                  <strong> Add publication</strong>
+                </Link>
               </div>
               <div className="menu__item">
                 <NavLink

@@ -89,7 +89,7 @@ class MenuPopup extends PureComponent {
                         </Link>
                       </div>
                       <div className="inline__item">
-                        <div className="header__rate">{this.props.user.currentRate}°</div>
+                        <div className="header__rate">{(+this.props.user.currentRate).toLocaleString()}°</div>
                       </div>
                       <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
                         <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />

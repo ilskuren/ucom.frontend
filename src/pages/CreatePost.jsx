@@ -72,13 +72,13 @@ class CreatePost extends PureComponent {
 
   render() {
     switch (this.props.post.data.post_type_id) {
-      case 2:
-        return (
-          <OfferForm
-            onClickSave={() => this.save()}
-            loading={this.state.loading}
-          />
-        );
+      // case 2:
+      //   return (
+      //     <OfferForm
+      //       onClickSave={() => this.save()}
+      //       loading={this.state.loading}
+      //     />
+      //   );
       default:
         return (
           <PostForm

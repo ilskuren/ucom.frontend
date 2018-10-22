@@ -1,11 +1,11 @@
-import config from '../../package.json';
+import { getBackendConfig } from '../utils/config';
 
 export const getFileUrl = (filename) => {
   if (!filename || filename === 'null') {
     return null;
   }
 
-  return `${config.backend.httpEndpoint}/upload/${filename}`;
+  return `${getBackendConfig().httpEndpoint}/upload/${filename}`;
 };
 
 export const getBase64FromFile = file => (

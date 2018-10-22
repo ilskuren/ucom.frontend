@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
-import config from '../../package.json';
+import { getBackendConfig } from '../utils/config';
 
 const $ = require('jquery');
 
@@ -44,7 +44,7 @@ class Medium extends PureComponent {
         images: {
           captions: false,
           fileUploadOptions: {
-            url: `${config.backend.httpEndpoint}/api/v1/posts/image`,
+            url: `${getBackendConfig().httpEndpoint}/api/v1/posts/image`,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             singleFileUploads: true,
             paramName: 'image',

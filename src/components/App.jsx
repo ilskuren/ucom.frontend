@@ -44,7 +44,8 @@ class App extends PureComponent {
   componentDidMount() {
     this.restoreSession();
     this.props.initNotificationsListeners();
-    if (config.backend.socketEnabled) {
+
+    if (config.socketEnabled) {
       socket.connect();
     }
   }

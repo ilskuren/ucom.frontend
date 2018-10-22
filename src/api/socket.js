@@ -1,10 +1,10 @@
 import io from 'socket.io-client';
-import config from '../../package.json';
 import { getToken } from '../utils/token';
+import { getBackendConfig } from '../utils/config';
 
 const token = getToken();
 
-const socket = io(config.backend.socketEndpoint, {
+const socket = io(getBackendConfig().socketEndpoint, {
   autoConnect: false,
   transports: [
     'websocket',

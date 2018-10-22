@@ -5,7 +5,7 @@ import CloseIcon from './Icons/Close';
 import SearchIcon from './Icons/Search';
 
 const ModalContent = props => (
-  <div className="modal-content">
+  <div className="modal-content" role="presentation" onClick={(props.typePopup === 'addPublication') ? props.onClickClose : null}>
     <div className="modal-content__close" role="presentation" onClick={props.onClickClose}>
       <div className="inline">
         {props.closeText && (
@@ -41,6 +41,7 @@ ModalContent.propTypes = {
   onClickClose: PropTypes.func,
   onSearchChange: PropTypes.func,
   searchValue: PropTypes.string,
+  typePopup: PropTypes.string,
 };
 
 export default ModalContent;

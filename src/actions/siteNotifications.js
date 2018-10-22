@@ -24,7 +24,7 @@ export const fetchNotifications = payload => async (dispatch) => {
 
 export const showAndFetchNotifications = () => (dispatch) => {
   dispatch(showNotificationTooltip());
-  dispatch(fetchNotifications({ perPage: 50, page: 1 }));
+  dispatch(fetchNotifications({ perPage: 7, page: 1 }));
 };
 
 export const confirmNotification = id => async (dispatch, getState) => {

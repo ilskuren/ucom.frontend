@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
+import MiniIconLogo from './Icons/MiniLogo';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
 import MenuPopup from './MenuPopup';
@@ -35,10 +36,12 @@ class Header extends PureComponent {
 
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
+    document.documentElement.classList.remove('no-scroll');
   }
 
   showTooltip = () => {
     this.props.showAndFetchNotifications();
+    document.documentElement.classList.add('no-scroll');
   }
 
   triggerTooltip = () => (
@@ -71,8 +74,13 @@ class Header extends PureComponent {
               </nav>
             ) : (
               <div className="inline">
+                <div className="inline__item mini-icon-logo">
+                  <Link to="/" className="menu__link">
+                    <MiniIconLogo />
+                  </Link>
+                </div>
                 <div className="inline__item">
-                  <Link to="/">
+                  <Link to={`/user/${this.props.user.id}`}>
                     <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
                   </Link>
                 </div>
@@ -87,8 +95,8 @@ class Header extends PureComponent {
                   </nav>
                 </div>
 
-                <div className="inline__item">
-                  <div className="inline inline_small">
+                <div className="inline__item bell__container">
+                  <div className="inline">
                     <Tooltip
                       open={this.props.tooltipVisibilty}
                       onRequestClose={this.hideTooltip}

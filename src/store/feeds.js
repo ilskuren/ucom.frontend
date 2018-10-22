@@ -22,14 +22,14 @@ const feeds = (state = getInitialState(), action) => {
         ...state,
         [action.payload.feedTypeId]: {
           ...state[action.payload.feedTypeId],
-          [action.payload.userId]: {
-            ...state[action.payload.feedTypeId][action.payload.userId],
-            postsIds: uniq(compact(state[action.payload.feedTypeId][action.payload.userId] ?
-              [].concat(state[action.payload.feedTypeId][action.payload.userId].postsIds, action.payload.postsIds) :
+          [action.payload.id]: {
+            ...state[action.payload.feedTypeId][action.payload.id],
+            postsIds: uniq(compact(state[action.payload.feedTypeId][action.payload.id] ?
+              [].concat(state[action.payload.feedTypeId][action.payload.id].postsIds, action.payload.postsIds) :
               [].concat(action.payload.postsIds))),
             metadata: action.payload.metadata ?
               action.payload.metadata :
-              state[action.payload.feedTypeId][action.payload.userId] && state[action.payload.feedTypeId][action.payload.userId].metadata,
+              state[action.payload.feedTypeId][action.payload.id] && state[action.payload.feedTypeId][action.payload.id].metadata,
           },
         },
       };
@@ -49,7 +49,7 @@ const feeds = (state = getInitialState(), action) => {
 };
 
 export const getWallFeedIdsByUserId = (feeds, userId) => feeds[USER_FEED_TYPE_ID][userId];
-export const getNewsFeedIdsByUserId = (feeds, organizationId) => feeds[USER_NEWS_FEED_TYPE_ID][organizationId];
-export const getWallFeedIdsByOrganizationId = (feeds, organizationId) => feeds[ORGANIZATION_FEED_TYPE_ID][organizationId];
+export const getNewsFeedIdsByUserId = (feeds, userId) => feeds[USER_NEWS_FEED_TYPE_ID][userId];
+export const getWallFeedIdsByOrganizationId = (feeds, OrganizationId) => feeds[ORGANIZATION_FEED_TYPE_ID][OrganizationId];
 
 export default feeds;

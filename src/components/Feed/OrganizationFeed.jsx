@@ -13,8 +13,7 @@ class OrganizationFeed extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((this.props.organizationId !== nextProps.organizationId) ||
-       (Object.keys(this.props.posts.data).length !== Object.keys(nextProps.posts.data).length)) {
+    if (this.props.organizationId !== nextProps.organizationId) {
       this.getData(nextProps.organizationId);
     }
   }

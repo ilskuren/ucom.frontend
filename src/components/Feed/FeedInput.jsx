@@ -53,7 +53,7 @@ class FeedInput extends PureComponent {
 
         {this.state.active && (
           <div className="feed-input__container">
-            <div className="feed-input__overlay" />
+            <div className="feed-input__overlay" role="presentation" onClick={this.hideForm} />
             <FeedForm onSubmit={this.createPost} onCancel={this.hideForm} />
           </div>
         )}

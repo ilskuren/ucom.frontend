@@ -16,6 +16,12 @@ class FeedForm extends PureComponent {
     };
   }
 
+  sumbitForm = (e) => {
+    if (typeof this.props.onSubmit === 'function') {
+      this.props.onSubmit(e);
+    }
+  }
+
   render() {
     const user = getUserById(this.props.users, this.props.user.id);
 
@@ -28,10 +34,7 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-
-          if (typeof this.props.onSubmit === 'function') {
-            this.props.onSubmit(this.state.message);
-          }
+          this.sumbitForm(this.state.message);
         }}
       >
         <div className="feed-form__field">
@@ -47,6 +50,12 @@ class FeedForm extends PureComponent {
               placeholder="Leave a comment"
               value={this.state.message}
               onChange={e => this.setState({ message: e.target.value })}
+              onKeyDown={(e) => {
+                if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
+                e.preventDefault();
+                this.sumbitForm(this.state.message);
+                }
+              }}
             />
           </div>
         </div>

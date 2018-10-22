@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React, { PureComponent, Fragment } from 'react';
 import Rating from '../../components/Rating';
-import PostViews from '../../components/PostViews';
 import Loading from '../../components/Loading';
 import PostHeader from '../../components/PostHeader';
 import EventTitle from '../../components/EventTitle';
@@ -74,9 +73,6 @@ class OfferPage extends PureComponent {
                 <div className="posts__sidebar">
                   <div className="posts__rating">
                     <Rating rating={100} />
-                  </div>
-                  <div className="posts__views">
-                    <PostViews views={0} />
                   </div>
                 </div>
               </div>

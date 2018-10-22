@@ -41,8 +41,6 @@ class NotificationTooltip extends Component {
     const oldNotifications = filterNotifs(list, true);
 
     const eventTest = new CustomEvent('EventTest');
-
-
     return (
       <PerfectScrollbar
         className="notification-tooltip__container"

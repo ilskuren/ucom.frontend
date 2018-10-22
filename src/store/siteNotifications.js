@@ -15,7 +15,10 @@ const siteNotifications = (state = getInitialState(), action) => {
 
     case 'HIDE_NOTIFICATIONS_TOOLTIP': {
       return {
-        ...state, tooltipVisibilty: false,
+        ...state,
+        tooltipVisibilty: false,
+        list: getInitialState().list,
+        metadata: getInitialState().metadata,
       };
     }
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {

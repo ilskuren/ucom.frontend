@@ -85,7 +85,7 @@ class Header extends PureComponent {
                   </Link>
                 </div>
                 <div className="inline__item">
-                  <div className="header__rate">{this.props.user.currentRate}°</div>
+                  <div className="header__rate">{(+this.props.user.currentRate).toLocaleString()}°</div>
                 </div>
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">

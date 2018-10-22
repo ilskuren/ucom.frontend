@@ -72,8 +72,8 @@ export const createUserCommentPost = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts([data]));
       dispatch(addFeedPosts({
+        id: payload.userId,
         feedTypeId: USER_FEED_TYPE_ID,
-        userId: payload.userId,
         postsIds: [data.id],
       }));
     })
@@ -89,13 +89,13 @@ export const createSelfCommentPost = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts([data]));
       dispatch(addFeedPosts({
+        id: payload.userId,
         feedTypeId: USER_FEED_TYPE_ID,
-        userId: payload.userId,
         postsIds: [data.id],
       }));
       dispatch(addFeedPosts({
+        id: payload.userId,
         feedTypeId: USER_NEWS_FEED_TYPE_ID,
-        userId: payload.userId,
         postsIds: [data.id],
       }));
     })
@@ -111,8 +111,8 @@ export const createOrganizationsCommentPost = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts([data]));
       dispatch(addFeedPosts({
+        id: payload.organizationId,
         feedTypeId: ORGANIZATION_FEED_TYPE_ID,
-        organizationId: payload.organizationId,
         postsIds: [data.id],
       }));
     })

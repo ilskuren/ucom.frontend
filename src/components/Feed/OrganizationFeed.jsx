@@ -47,7 +47,6 @@ class OrganizationFeed extends PureComponent {
     if (!organizationWallFeed) {
       return null;
     }
-
     return (
       <Feed
         postsIds={organizationWallFeed.postsIds}

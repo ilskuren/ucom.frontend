@@ -18,6 +18,9 @@ const OrganizationHeader = (props) => {
   if (!organization) {
     return null;
   }
+  const users = organization.usersTeam
+    .filter(item => item.usersTeamStatus === 1)
+    .concat([organization.user]);
 
   return (
     <div className="organization-header">
@@ -45,7 +48,7 @@ const OrganizationHeader = (props) => {
 
           {organization.usersTeam && organization.usersTeam.length > 0 && (
             <div className="organization-header__board">
-              <Board users={organization.usersTeam.filter(item => item.usersTeamStatus === 1)} />
+              <Board users={users} />
             </div>
           )}
         </div>

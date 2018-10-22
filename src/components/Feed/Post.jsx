@@ -126,8 +126,6 @@ class Post extends PureComponent {
           {post.leadingText && (
             <h2 className="post__title post__title_leading">{post.leadingText}</h2>
           )}
-
-
         </div>
 
         <div className="post__footer">

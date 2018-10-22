@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import React, { PureComponent, Fragment } from 'react';
 import PostsGroup from './PostsGroup';
 
@@ -6,10 +6,10 @@ const POSTS_TYPES = [{
   id: 1,
   name: 'Community Media',
   enabled: true,
-}, {
-  id: 2,
-  name: 'People Offers',
-  enabled: true,
+// }, {
+//   id: 2,
+//   name: 'People Offers',
+//   enabled: true,
 }];
 
 class PostsGroupTabs extends PureComponent {
@@ -28,7 +28,7 @@ class PostsGroupTabs extends PureComponent {
   render() {
     return (
       <Fragment>
-        <div className="page-nav">
+        {/* <div className="page-nav">
           <div className="menu menu_media menu_responsive">
             {POSTS_TYPES.map(item => (
               <div className="menu__item" key={item.id}>
@@ -50,7 +50,7 @@ class PostsGroupTabs extends PureComponent {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <PostsGroup postTypeId={this.state.activePostTypeId} />
       </Fragment>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
-import OfferForm from '../components/OfferForm';
+// import OfferForm from '../components/OfferForm';
 import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
 import api from '../api';
 import { getPostUrl } from '../utils/posts';
@@ -72,13 +72,13 @@ class CreatePost extends PureComponent {
 
   render() {
     switch (this.props.post.data.post_type_id) {
-      case 2:
-        return (
-          <OfferForm
-            onClickSave={() => this.save()}
-            loading={this.state.loading}
-          />
-        );
+      // case 2:
+      //   return (
+      //     <OfferForm
+      //       onClickSave={() => this.save()}
+      //       loading={this.state.loading}
+      //     />
+      //   );
       default:
         return (
           <PostForm

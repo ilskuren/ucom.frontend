@@ -1,11 +1,12 @@
-import { Route } from 'react-router';
-import { NavLink } from 'react-router-dom';
-import React, { Fragment } from 'react';
+// import { Route } from 'react-router';
+// import { NavLink } from 'react-router-dom';
+import React from 'react';
 import Footer from '../components/Footer';
-import MediaList from '../components/MediaList';
-import OffersList from '../components/OffersList';
+// import MediaList from '../components/MediaList';
+// import OffersList from '../components/OffersList';
+import PostsTable from '../components/PostsTable';
 
-const EventsPage = props => (
+const EventsPage = () => (
   <div className="content">
     <div className="content__inner">
       <div className="content__title content__title_narrow">
@@ -13,9 +14,11 @@ const EventsPage = props => (
           <div className="toolbar__main">
             <div className="inline inline_baseline inline_xlarge">
               <div className="inline__item">
-                <h1 className="title">Events</h1>
+                {/* <h1 className="title">Events</h1> */}
+                <h1 className="title">Publications</h1>
+
               </div>
-              <div className="inline__item">
+              {/* <div className="inline__item">
                 <div className="menu menu_simple-tabs menu_simple-tabs_small menu_not-responsive">
                   <div className="menu__item">
                     <NavLink
@@ -38,16 +41,18 @@ const EventsPage = props => (
                     </NavLink>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
 
-      <Fragment>
+      <PostsTable postTypeId={1} />
+
+      {/* <Fragment>
         <Route exact path="/events/media" component={MediaList} />
         <Route exact path="/events/offers" component={OffersList} />
-      </Fragment>
+      </Fragment> */}
 
       <Footer />
     </div>

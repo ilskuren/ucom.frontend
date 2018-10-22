@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
-import OfferForm from '../components/OfferForm';
+// import OfferForm from '../components/OfferForm';
 import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
 import api from '../api';
 import { getPostUrl } from '../utils/posts';

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import PostRating from '../Rating/PostRating';
-import PostViews from '../PostViews';
 import EditIcon from '../Icons/Edit';
 import Tags from '../Tags';
 import Rate from '../Rate';
@@ -101,9 +100,6 @@ const PostContent = (props) => {
           <div className="posts__sidebar">
             <div className="posts__rating">
               <PostRating postId={post && post.id} />
-            </div>
-            <div className="posts__views">
-              <PostViews views={0} />
             </div>
           </div>
         </div>

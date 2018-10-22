@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { hideAuthPopup } from '../actions';
+import { hideNotificationTooltip } from '../actions/siteNotifications';
 
 class Page extends PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
       this.props.hideAuthPopup();
+      this.props.hideNotificationTooltip();
     }
   }
 
@@ -23,11 +26,13 @@ class Page extends PureComponent {
 
 Page.propTypes = {
   hideAuthPopup: PropTypes.func,
+  hideNotificationTooltip: PropTypes.func,
 };
 
 export default withRouter(connect(
   null,
-  dispatch => ({
-    hideAuthPopup: () => dispatch(hideAuthPopup()),
-  }),
+  dispatch => bindActionCreators({
+    hideAuthPopup,
+    hideNotificationTooltip,
+  }, dispatch),
 )(Page));

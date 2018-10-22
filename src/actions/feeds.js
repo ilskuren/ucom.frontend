@@ -23,8 +23,8 @@ export const getUserWallFeed = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts(data.data));
       dispatch(addFeedPosts({
+        id: payload.userId,
         feedTypeId: USER_FEED_TYPE_ID,
-        userId: payload.userId,
         postsIds: data.data.map(item => item.id),
         metadata: data.metadata,
       }));
@@ -39,8 +39,8 @@ export const getOrganizationWallFeed = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts(data.data));
       dispatch(addFeedPosts({
+        id: payload.organizationId,
         feedTypeId: ORGANIZATION_FEED_TYPE_ID,
-        userId: payload.organizationId,
         postsIds: data.data.map(item => item.id),
         metadata: data.metadata,
       }));
@@ -55,8 +55,8 @@ export const getUserNewsFeed = payload => (dispatch) => {
     .then((data) => {
       dispatch(addPosts(data.data));
       dispatch(addFeedPosts({
+        id: payload.userId,
         feedTypeId: USER_NEWS_FEED_TYPE_ID,
-        userId: payload.userId,
         postsIds: data.data.map(item => item.id),
         metadata: data.metadata,
       }));

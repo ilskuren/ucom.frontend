@@ -9,7 +9,8 @@ import UserCard from './UserCard';
 import Avatar from './Avatar';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
-import { getUserUrl } from '../utils/user';
+// import { getUserUrl } from '../utils/user';
+import MiniIconLogo from './Icons/MiniLogo';
 import { getOrganizationUrl } from '../utils/organization';
 
 import av1 from '../static/avatars/1.png';
@@ -77,7 +78,23 @@ class MenuPopup extends PureComponent {
                 <div className="menu-popup__head">
                   <div className="menu-popup__container menu-popup__container__head">
                     <div className="inline inline__group">
+                      <div className="inline__item mini-icon-logo">
+                        <Link to="/" className="menu__link">
+                          <MiniIconLogo />
+                        </Link>
+                      </div>
                       <div className="inline__item">
+                        <Link to={`/user/${this.props.user.id}`}>
+                          <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
+                        </Link>
+                      </div>
+                      <div className="inline__item">
+                        <div className="header__rate">{this.props.user.currentRate}°</div>
+                      </div>
+                      <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
+                        <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
+                      </div>
+                      {/* <div className="inline__item">
                         <Link to={getUserUrl(this.props.user.id)} onClick={this.hidePopup}>
                           <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
                         </Link>
@@ -91,7 +108,7 @@ class MenuPopup extends PureComponent {
 
                       <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
                         <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
-                      </div>
+                      </div> */}
 
                       {/* <div className="inline__item">
                         <div className="inline inline_small">

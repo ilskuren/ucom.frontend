@@ -3,9 +3,9 @@ import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
 import DropZone from './DropZone';
 import IconClose from './Icons/Close';
-import config from '../../package.json';
 import { getFileUrl } from '../utils/upload';
 import { getError } from '../utils/errors';
+import { getBackendConfig } from '../utils/config';
 
 const $ = require('jquery');
 
@@ -43,7 +43,7 @@ class TextEditor extends PureComponent {
         images: {
           captions: false,
           fileUploadOptions: {
-            url: `${config.backend.httpEndpoint}/api/v1/posts/image`,
+            url: `${getBackendConfig().httpEndpoint}/api/v1/posts/image`,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             paramName: 'image',
             singleFileUploads: true,

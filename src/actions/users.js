@@ -33,10 +33,12 @@ export const fetchUser = userId => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const updateUser = data => (dispatch) => {
+export const updateUser = payload => (dispatch) => {
   loader.start();
-  api.patchMyself(snakes(data))
-    .then((data) => {
+  api.patchMyself(snakes(payload))
+    .then((unfixedData) => {
+      const data = { ...unfixedData };
+      delete data.currentRate;
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
     .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))

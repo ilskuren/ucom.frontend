@@ -2,17 +2,21 @@ import humps from 'lodash-humps';
 import param from 'jquery-param';
 import { bind } from 'decko';
 import HttpActions from './HttpActions';
-import packageConfig from '../../package.json';
 import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
 import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
+import { getBackendConfig } from '../utils/config';
 
 const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
 
-TransactionFactory.initForProductionEnv();
+if (process.env.NODE_ENV === 'production') {
+  TransactionFactory.initForProductionEnv();
+} else {
+  TransactionFactory.initForStagingEnv();
+}
 
 const Eos = require('eosjs');
 
@@ -20,7 +24,7 @@ const { ecc } = Eos.modules;
 
 class Api {
   constructor() {
-    this.actions = new HttpActions(packageConfig.backend.httpEndpoint);
+    this.actions = new HttpActions(getBackendConfig().httpEndpoint);
   }
 
   getPrivateHeaders() {

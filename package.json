@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development ",
-    "build": "webpack --config ./webpack.config.js --mode production",
+    "start": "NODE_ENV=staging webpack-dev-server --config ./webpack.config.js --mode development ",
+    "staging": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development",
+    "production": "NODE_ENV=production webpack --config ./webpack.config.js --mode production",
     "fix_live_reloading": "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
   },
   "keywords": [],
@@ -17,16 +18,16 @@
     "api-path": "/api/v0/"
   },
   "backend": {
-    "httpEndpoint": "https://backend.u.community",
-    "socketEndpoint": "https://backend.u.community:443",
-    "socketEnabled": true
+    "staging": {
+      "httpEndpoint": "https://staging-backend.u.community",
+      "socketEndpoint": "https://staging-backend.u.community:443"
+    },
+    "production": {
+      "httpEndpoint": "https://new-backend.u.community",
+      "socketEndpoint": "https://new-backend.u.community:443"
+    }
   },
-  "eosConfig": {
-    "httpEndpoint": "http://136.243.131.83:8888"
-  },
-  "registratorConfig": {
-    "httpEndpoint": "http://localhost:3000"
-  },
+  "socketEnabled": true,
   "devDependencies": {
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",

@@ -54,7 +54,7 @@ class NotificationTooltip extends Component {
           </div>
         }
         {!Object.values(list).length &&
-          <div className="notification-tooltip__header notification-tooltip__header_center notification-tooltip__header_no-notifs">
+          <div className="notification-tooltip__header notification-tooltip__header_center">
             <h3 className="notification-tooltip__title">No notifications</h3>
           </div>
         }

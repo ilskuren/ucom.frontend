@@ -189,20 +189,20 @@ class Header extends PureComponent {
               </div>
               <div className="menu__item">
                 <NavLink
-                  to="/organizations"
+                  to="/communities"
                   className="menu__link menu__link_upper"
                   activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname === '/organizations'}
+                  isActive={() => this.props.location.pathname === '/communities'}
                 >
                   Communities
                 </NavLink>
               </div>
               <div className="menu__item">
                 <NavLink
-                  to="/events/media"
+                  to="/publications/media"
                   className="menu__link menu__link_upper"
                   activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname.indexOf('/events') === 0}
+                  isActive={() => this.props.location.pathname.indexOf('/publications') === 0}
                 >
                   Publications
                 </NavLink>

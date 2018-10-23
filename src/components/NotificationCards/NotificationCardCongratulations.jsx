@@ -7,12 +7,13 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import { CongratulationsIcon } from '../Icons/FeedIcons';
 import { confirmNotification, declineNotification } from '../../actions/siteNotifications';
+import { getOrganizationUrl } from '../../utils/organization';
 
 const NotificationCardCongratulations = ({
-  updatedAt,
+  id,
+  createAt,
   confirmNotification,
   declineNotification,
-  id,
   finished,
   data: {
     organization: {
@@ -23,19 +24,23 @@ const NotificationCardCongratulations = ({
 }) => (
   <div className="notification-card notification-card_congratulations">
     <div className="notification-card__block">
-      <div className="notification-card__avatar" >
+      <div className="notification-card__avatar">
         <Avatar srcComponent={<CongratulationsIcon />} />
       </div>
       <div className="notification-card__content">
-        <div className="notification-card__text notification-card__description">
-          <strong>Whooooooa! Сongratulations!</strong>
-          <p className="notification-card__time">{moment(updatedAt).fromNow()}</p>
+        <div className="notification-card__description">
+          <div className="notification-card__text">
+            <strong>Whooooooa! Сongratulations!</strong>
+            <p className="notification-card__time">{moment(createAt).fromNow()}</p>
+          </div>
         </div>
       </div>
     </div>
-    <p className="notification-card__text_congratulations">
-    Welcome my friend. You just joined the <Link target="_blank" to={`/organizations/${idOfOrg}`} className="menu__link"><strong>{titleOfOrg}</strong></Link>
+
+    <p className="notification-card__text notification-card__text_congratulations">
+      Welcome my friend. You just joined the <Link target="_blank" to={getOrganizationUrl(idOfOrg)} className="menu__link"><strong>{titleOfOrg}</strong></Link>
     </p>
+
     {
       !finished &&
       <div className="notification-card__buttons">
@@ -65,8 +70,8 @@ const NotificationCardCongratulations = ({
 );
 
 NotificationCardCongratulations.propTypes = {
-  // username: PropTypes.string,
-  updatedAt: PropTypes.string,
+  data: PropTypes.objectOf(PropTypes.object),
+  createAt: PropTypes.string,
   finished: PropTypes.bool,
   id: PropTypes.number,
   confirmNotification: PropTypes.func,

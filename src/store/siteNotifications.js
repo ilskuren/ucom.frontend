@@ -1,5 +1,23 @@
 import { uniqueId } from 'lodash';
 
+export const CONGRATULATIONS_EVENT_ID = 10;
+export const USER_FOLLOWS_YOU = 30;
+export const USER_UPVOTES_YOUR_POST = 31;
+export const USER_DOWNVOTES_YOUR_POST = 32;
+export const USER_UPVOTES_YOUR_COMMENT = 33;
+export const USER_DOWNVOTES_YOUR_COMMENT = 34;
+export const USER_FOLLOWS_ORG = 50;
+export const USER_UPVOTES_ORG_POST = 51;
+export const USER_DOWNVOTES_ORG_POST = 52;
+export const USER_UPVOTES_ORG_COMMENT = 53;
+export const USER_DOWNVOTES_ORG_COMMENT = 54;
+export const USER_CREATES_DIRECT_POST_FOR_YOU = 70;
+export const USER_COMMENTS_YOUR_POST = 71;
+export const USER_LEAVES_COMMENT_ON_YOUR_COMMENT = 72;
+export const USER_CREATES_DIRECT_POST_FOR_ORG = 90;
+export const USER_COMMENTS_ORG_POST = 91;
+export const USER_LEAVES_COMMENT_ON_ORG_COMMENT = 92;
+
 const getInitialState = () => ({
   list: {},
   metadata: {},

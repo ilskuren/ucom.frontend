@@ -5,25 +5,30 @@ import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconClose from 'components/Icons/Close';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import NotificationCard from 'components/NotificationCards/NotificationCard';
+import NotificationCard from './NotificationCard';
 import {
   hideNotificationTooltip,
   addSiteNotifications,
   deleteSiteNotification,
   fetchNotifications,
-} from '../actions/siteNotifications';
+} from '../../actions/siteNotifications';
 
-const isRequiredTime = (arr, isEarly = true) => Object.values(arr).some(i => (i.finished || i.seen) === isEarly);
+const isRequiredTime = (arr, isEarly = true) => Object.values(arr)
+  .some(i => (i.finished || i.seen) === isEarly);
+
 const filterNotifs = (arr, isEarly = true) => Object.values(arr)
   .filter(i => (i.finished || i.seen) === isEarly)
-  .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
 class NotificationTooltip extends Component {
   componentDidMount() {
-    window.addEventListener('EventTest', this.loadMore);
+    window.addEventListener('NotificationTrigger', this.loadMore);
   }
+
   componentWillUnmount() {
-    window.removeEventListener('EventTest', this.loadMore);
+    window.removeEventListener('NotificationTrigger', this.loadMore);
   }
+
   loadMore = () => {
     const {
       hasMore,
@@ -35,17 +40,68 @@ class NotificationTooltip extends Component {
       });
     }
   };
+
   render() {
     const { list, notificationsMetadata } = this.props;
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
 
-    const eventTest = new CustomEvent('EventTest');
+    oldNotifications.unshift({
+      id: 123,
+      eventId: 31,
+      createdAt: '2018-10-17T08:17:07.595Z',
+      data: {
+        user: {
+          id: 1,
+          firstName: 'Pavel',
+          lastName: 'Ivanov',
+        },
+      },
+      targetEntity: {
+        post: {
+          id: 1,
+          mainImageFilename: 'avatar_filename-1540196543652.jpg',
+        },
+      },
+    }, {
+      id: 124,
+      eventId: 30,
+      createdAt: '2018-10-17T08:17:07.595Z',
+      data: {
+        user: {
+          id: 1,
+          firstName: 'Pavel',
+          lastName: 'Ivanov',
+          avatarFilename: 'avatar_filename-1540196543652.jpg',
+        },
+      },
+    }, {
+      id: 125,
+      eventId: 33,
+      createdAt: '2018-10-17T08:17:07.595Z',
+      data: {
+        user: {
+          id: 1,
+          firstName: 'Pavel',
+          lastName: 'Ivanov',
+          avatarFilename: 'avatar_filename-1540196543652.jpg',
+        },
+      },
+      targetEntity: {
+        post: {
+          id: 1,
+          mainImageFilename: 'avatar_filename-1540196543652.jpg',
+        },
+      },
+    });
+
+    const notificationTrigger = new CustomEvent('NotificationTrigger');
+
     return (
       <PerfectScrollbar
         className="notification-tooltip__container"
         onYReachEnd={() => {
-          window.dispatchEvent(eventTest);
+          window.dispatchEvent(notificationTrigger);
         }}
       >
         {isRequiredTime(list, false) &&
@@ -63,15 +119,9 @@ class NotificationTooltip extends Component {
           <div className="notification-tooltip__list notification-tooltip__list_new">
             <TransitionGroup>
               {newNotifications.map(item => (
-                <CSSTransition
-                  key={item.id}
-                  timeout={200}
-                  classNames="fade"
-                >
+                <CSSTransition key={item.id} timeout={200} classNames="fade">
                   <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
-                    <NotificationCard
-                      {...item}
-                    />
+                    <NotificationCard {...item} />
                   </div>
                 </CSSTransition>
               ))}
@@ -89,16 +139,10 @@ class NotificationTooltip extends Component {
         {oldNotifications && oldNotifications.length > 0 && (
           <div className="notification-tooltip__list">
             <TransitionGroup>
-              {filterNotifs(list, true).map(item => (
-                <CSSTransition
-                  key={item.id}
-                  timeout={200}
-                  classNames="fade"
-                >
+              {oldNotifications.map(item => (
+                <CSSTransition key={item.id} timeout={200} classNames="fade">
                   <div key={item.id} className="notification-tooltip__item">
-                    <NotificationCard
-                      {...item}
-                    />
+                    <NotificationCard {...item} />
                   </div>
                 </CSSTransition>
               ))}

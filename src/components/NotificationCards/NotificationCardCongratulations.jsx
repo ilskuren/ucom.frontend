@@ -34,7 +34,7 @@ const NotificationCardCongratulations = ({
       </div>
     </div>
     <p className="notification-card__text_congratulations">
-    Welcome my friend. You just joined the <Link target="_blank" to={`/organizations/${idOfOrg}`} className="menu__link"><strong>{titleOfOrg}</strong></Link>
+    Welcome my friend. You just joined the <Link target="_blank" to={`/communities/${idOfOrg}`} className="menu__link"><strong>{titleOfOrg}</strong></Link>
     </p>
     {
       !finished &&

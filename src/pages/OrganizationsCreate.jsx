@@ -35,7 +35,7 @@ class OrganizationsCreatePage extends PureComponent {
 
   render() {
     if (this.props.organization.saved) {
-      return <Redirect to={`/organizations/${this.props.organization.data.id}`} />;
+      return <Redirect to={`/communities/${this.props.organization.data.id}`} />;
     }
 
     if (this.props.organization.data.user_id && this.props.organization.data.user_id !== this.props.user.id) {

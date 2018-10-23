@@ -62,7 +62,7 @@ class EventsPage extends PureComponent {
       <div className="content">
         <div className="content__inner">
           <div className="content__title content__title_narrow">
-            <h1 className="title">Organizations</h1>
+            <h1 className="title">Communities</h1>
           </div>
 
           <div className="table-content">

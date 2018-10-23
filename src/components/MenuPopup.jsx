@@ -169,7 +169,7 @@ class MenuPopup extends PureComponent {
                     </div>
                   </div>
                   <div className="menu-popup__content">
-                    <InfoBlock title="Organizations" size="small" align="left" fixedChildren fixedTitle>
+                    <InfoBlock title="Communities" size="small" align="left" fixedChildren fixedTitle>
                       <div className="info-block__scrolled-list">
                         {this.props.user.organizations && this.props.user.organizations.map(item => (
                           <div className="menu-popup__content-item" key={item.id}>
@@ -188,7 +188,7 @@ class MenuPopup extends PureComponent {
                       <div className="menu-popup__content-item menu-popup__create-new_fixed">
                         <NavLink
                           className="menu-popup__add"
-                          to="/organizations/new"
+                          to="/communities/new"
                         >
                           <div className="menu-popup__add-icon menu-popup__add-icon_new">+</div>
                           <div className="menu-popup__add-text">Create new organization</div>

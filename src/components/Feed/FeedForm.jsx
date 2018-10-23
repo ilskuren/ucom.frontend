@@ -52,8 +52,8 @@ class FeedForm extends PureComponent {
               onChange={e => this.setState({ message: e.target.value })}
               onKeyDown={(e) => {
                 if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
-                e.preventDefault();
-                this.sumbitForm(this.state.message);
+                  e.preventDefault();
+                  this.sumbitForm(this.state.message);
                 }
               }}
             />

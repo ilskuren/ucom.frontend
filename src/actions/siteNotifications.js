@@ -4,6 +4,7 @@ import loader from '../utils/loader';
 import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
+import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
 
 export const showNotificationTooltip = () => ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
 export const hideNotificationTooltip = () => ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
@@ -14,8 +15,8 @@ export const setUnreadNotificationsAmount = payload => ({ type: 'SET_UNREAD_NOTI
 
 export const fetchNotifications = (payload = {}) => async (dispatch) => {
   payload = {
-    perPage: payload.perPage || 7,
-    page: payload.page || 1,
+    perPage: payload.perPage || PER_PAGE,
+    page: payload.page || INITTIAL_PAGE,
   };
   loader.start();
   try {

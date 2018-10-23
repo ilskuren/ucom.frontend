@@ -47,7 +47,7 @@ class OrganizationsCreatePage extends PureComponent {
         <div className="content">
           <div className="content__inner content__inner_medium">
             <div className="content__title">
-              <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Organization</h1>
+              <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Community</h1>
             </div>
 
             <div className="menu menu_simple-tabs menu_disabled">

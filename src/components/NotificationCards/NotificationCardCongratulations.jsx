@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { CongratulationsIcon } from '../Icons/FeedIcons';
@@ -46,7 +47,7 @@ const NotificationCardCongratulations = ({
               size="small"
               text="Confirm"
               isStretched
-              onClick={() => confirmNotification(id)}
+              onClick={() => confirmNotification({ id, idOfOrg })}
             />
           </div>
           <div className="inline__item">
@@ -75,8 +76,8 @@ NotificationCardCongratulations.propTypes = {
 
 export default connect(
   null,
-  dispatch => ({
-    confirmNotification: data => dispatch(confirmNotification(data)),
-    declineNotification: data => dispatch(declineNotification(data)),
-  }),
+  dispatch => bindActionCreators({
+    confirmNotification,
+    declineNotification,
+  }, dispatch),
 )(NotificationCardCongratulations);

@@ -2,19 +2,35 @@
 
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
-import Tippy from '@tippy.js/react';
+import { Tooltip } from 'react-tippy';
 import UserCard from '../components/UserCard';
 import { selectUser } from '../store/selectors';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
 
 class OrganizationsDropdown extends PureComponent {
+  state = {
+    tooltipIsVisible: false,
+  }
+
+  hideTooltip = () => {
+    this.setState({ tooltipIsVisible: false });
+  }
+
+  showTooltip = () => {
+    this.setState({ tooltipIsVisible: true });
+  }
+
+  triggerTooltip = () => (
+    this.state.tooltipIsVisible ? this.hideTooltip() : this.showTooltip()
+  );
+
   select(organizationId) {
     if (typeof this.props.onSelect === 'function') {
       this.props.onSelect(organizationId);
     }
 
-    this.tippy.hide();
+    this.hideTooltip();
   }
 
   render() {
@@ -54,17 +70,19 @@ class OrganizationsDropdown extends PureComponent {
 
     return (
       <div className="organizations-dropdown">
-        <Tippy
+        <Tooltip
           arrow
+          useContext
+          open={this.state.tooltipIsVisible}
+          onRequestClose={this.hideTooltip}
           interactive
-          placement="bottom"
+          position="bottom"
           trigger="click"
           theme="dropdown"
-          content={organizationsContent}
-          onCreate={(tippy) => { this.tippy = tippy; }}
+          html={organizationsContent}
         >
-          <div className="organizations-dropdown__toggler" />
-        </Tippy>
+          <div onClick={this.triggerTooltip} className="organizations-dropdown__toggler" role="presentation" />
+        </Tooltip>
       </div>
     );
   }

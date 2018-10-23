@@ -13,12 +13,17 @@ const siteNotifications = (state = getInitialState(), action) => {
       return getInitialState();
     }
 
+    case 'RESET_NOTIFICATIONS_TOOLTIP_DATA': {
+      return {
+        ...state,
+        list: getInitialState().list,
+        metadata: getInitialState().metadata,
+      };
+    }
     case 'HIDE_NOTIFICATIONS_TOOLTIP': {
       return {
         ...state,
         tooltipVisibilty: false,
-        list: getInitialState().list,
-        metadata: getInitialState().metadata,
       };
     }
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {

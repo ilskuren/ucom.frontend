@@ -37,7 +37,7 @@ class UnAuthTable extends PureComponent {
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
-                          to="/events"
+                          to="/publications"
                           isActive={() => true}
                         >
                           Media
@@ -47,7 +47,7 @@ class UnAuthTable extends PureComponent {
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
-                          to="/events"
+                          to="/publications"
                         >
                           Offers
                         </NavLink>

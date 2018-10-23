@@ -217,7 +217,7 @@ class Header extends PureComponent {
         </div>
         {this.state.popupIsVisible && (
           <Popup onClickClose={() => this.hidePopup()}>
-            <ModalContent onClickClose={() => this.hidePopup()} >
+            <ModalContent onClickClose={() => this.hidePopup()}>
               <CreateEventPopup onClickClose={() => this.hidePopup()} />
             </ModalContent>
           </Popup>

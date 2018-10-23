@@ -85,7 +85,7 @@ class Header extends PureComponent {
                   </Link>
                 </div>
                 <div className="inline__item">
-                  <div className="header__rate">{this.props.user.currentRate}°</div>
+                  <div className="header__rate">{(+this.props.user.currentRate).toLocaleString()}°</div>
                 </div>
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
@@ -171,7 +171,11 @@ class Header extends PureComponent {
                 </NavLink>
               </div> */}
               <div className="menu__item">
-                <button onClick={this.showPopup} className="menu__item__button"><strong> Add publication</strong></button>
+                {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
+
+                <Link to="/posts/new/1" className="menu__link-button">
+                  <strong> Add publication</strong>
+                </Link>
               </div>
               <div className="menu__item">
                 <NavLink
@@ -185,20 +189,20 @@ class Header extends PureComponent {
               </div>
               <div className="menu__item">
                 <NavLink
-                  to="/organizations"
+                  to="/communities"
                   className="menu__link menu__link_upper"
                   activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname === '/organizations'}
+                  isActive={() => this.props.location.pathname === '/communities'}
                 >
                   Communities
                 </NavLink>
               </div>
               <div className="menu__item">
                 <NavLink
-                  to="/events/media"
+                  to="/publications/media"
                   className="menu__link menu__link_upper"
                   activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname.indexOf('/events') === 0}
+                  isActive={() => this.props.location.pathname.indexOf('/publications') === 0}
                 >
                   Publications
                 </NavLink>

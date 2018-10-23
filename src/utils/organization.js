@@ -13,7 +13,7 @@ export const getOrganizationUrl = (id) => {
     return null;
   }
 
-  return `/organizations/${id}`;
+  return `/communities/${id}`;
 };
 
 export const getOrganizationEditUrl = (id) => {
@@ -21,7 +21,7 @@ export const getOrganizationEditUrl = (id) => {
     return null;
   }
 
-  return `/organizations/${id}/edit`;
+  return `/communities/${id}/edit`;
 };
 
 export const getSourceNameById = (id) => {

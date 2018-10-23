@@ -35,7 +35,7 @@ class OrganizationsCreatePage extends PureComponent {
 
   render() {
     if (this.props.organization.saved) {
-      return <Redirect to={`/organizations/${this.props.organization.data.id}`} />;
+      return <Redirect to={`/communities/${this.props.organization.data.id}`} />;
     }
 
     if (this.props.organization.data.user_id && this.props.organization.data.user_id !== this.props.user.id) {
@@ -47,7 +47,7 @@ class OrganizationsCreatePage extends PureComponent {
         <div className="content">
           <div className="content__inner content__inner_medium">
             <div className="content__title">
-              <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Organization</h1>
+              <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Community</h1>
             </div>
 
             <div className="menu menu_simple-tabs menu_disabled">

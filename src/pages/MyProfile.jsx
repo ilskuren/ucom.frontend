@@ -59,12 +59,12 @@ class MyProfilePage extends PureComponent {
                       <NavLink
                         className="menu__link"
                         activeClassName="menu__link_active"
-                        to="/my-profile/organizations"
-                        isActive={() => this.props.location.pathname === '/my-profile/organizations'}
+                        to="/my-profile/communities"
+                        isActive={() => this.props.location.pathname === '/my-profile/communities'}
                       >
                         <div className="rate rate_small">
                           <div className="rate__value">5</div>
-                          <div className="rate__label">organizations</div>
+                          <div className="rate__label">communities</div>
                         </div>
                       </NavLink>
                     </div>
@@ -85,12 +85,12 @@ class MyProfilePage extends PureComponent {
                       <NavLink
                         className="menu__link"
                         activeClassName="menu__link_active"
-                        to="/my-profile/events"
-                        isActive={() => this.props.location.pathname === '/my-profile/events'}
+                        to="/my-profile/publications"
+                        isActive={() => this.props.location.pathname === '/my-profile/publications'}
                       >
                         <div className="rate rate_small">
                           <div className="rate__value">4</div>
-                          <div className="rate__label">events</div>
+                          <div className="rate__label">publications</div>
                         </div>
                       </NavLink>
                     </div>
@@ -152,9 +152,9 @@ class MyProfilePage extends PureComponent {
             <Fragment>
               <Route exact path="/my-profile/followers/*" component={MyProfileFollowersPage} />
               <Route exact path="/my-profile/feed" component={MyProfileFeedPage} />
-              <Route exact path="/my-profile/organizations" component={MyProfileOrganizationsPage} />
+              <Route exact path="/my-profile/communities" component={MyProfileOrganizationsPage} />
               <Route exact path="/my-profile/products" component={MyProfileProductsPage} />
-              <Route exact path="/my-profile/events" component={MyProfileEventsPage} />
+              <Route exact path="/my-profile/publications" component={MyProfileEventsPage} />
             </Fragment>
             <Footer />
           </div>

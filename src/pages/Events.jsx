@@ -24,8 +24,8 @@ const EventsPage = () => (
                     <NavLink
                       className="menu__link"
                       activeClassName="menu__link_active"
-                      to="/events/media"
-                      isActive={() => props.location.pathname === '/events/media'}
+                      to="/publications/media"
+                      isActive={() => props.location.pathname === '/publications/media'}
                     >
                       Media
                     </NavLink>
@@ -34,8 +34,8 @@ const EventsPage = () => (
                     <NavLink
                       className="menu__link"
                       activeClassName="menu__link_active"
-                      to="/events/offers"
-                      isActive={() => props.location.pathname === '/events/offers'}
+                      to="/publications/offers"
+                      isActive={() => props.location.pathname === '/publications/offers'}
                     >
                       Offers
                     </NavLink>
@@ -50,8 +50,8 @@ const EventsPage = () => (
       <PostsTable postTypeId={1} />
 
       {/* <Fragment>
-        <Route exact path="/events/media" component={MediaList} />
-        <Route exact path="/events/offers" component={OffersList} />
+        <Route exact path="/publications/media" component={MediaList} />
+        <Route exact path="/publications/offers" component={OffersList} />
       </Fragment> */}
 
       <Footer />

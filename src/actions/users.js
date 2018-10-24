@@ -3,6 +3,7 @@ import snakes from '../utils/snakes';
 import { getToken } from '../utils/token';
 import loader from '../utils/loader';
 import { addErrorNotification } from './notifications';
+import { setUser } from './';
 import { parseErrors } from '../utils/errors';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
@@ -18,6 +19,7 @@ export const fetchMyself = () => (dispatch) => {
   api.getMyself(getToken())
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
+      dispatch(setUser(data));
     })
     .catch(() => loader.done())
     .then(() => loader.done());

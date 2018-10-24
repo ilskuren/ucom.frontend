@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from './TextInput';
@@ -8,7 +9,7 @@ import IconClose from './Icons/Close';
 import Loading from './Loading';
 import dict from '../utils/dict';
 import api from '../api';
-import { setUser } from '../actions';
+import { fetchMyself } from '../actions/users';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
 import { validateAuth } from '../utils/user';
@@ -67,16 +68,11 @@ class Auth extends PureComponent {
             return;
           }
 
-          if (data.user) {
-            this.props.setUser(data.user);
-          }
-
           if (data.token) {
             saveToken(data.token);
             saveBrainkey(this.state.brainkey);
           }
-
-          window.location.reload();
+          this.props.fetchMyself();
           this.close();
         })
         .catch(() => {
@@ -163,14 +159,14 @@ class Auth extends PureComponent {
 
 Auth.propTypes = {
   onClickClose: PropTypes.func,
-  setUser: PropTypes.func,
+  fetchMyself: PropTypes.func,
 };
 
 export default withRouter(connect(
   state => ({
     user: selectUser(state),
   }),
-  dispatch => ({
-    setUser: data => dispatch(setUser(data)),
-  }),
+  dispatch => bindActionCreators({
+    fetchMyself,
+  }, dispatch),
 )(Auth));

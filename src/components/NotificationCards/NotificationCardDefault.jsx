@@ -24,6 +24,8 @@ import {
   USER_COMMENTS_YOUR_POST,
   USER_LEAVES_COMMENT_ON_YOUR_COMMENT,
   USER_CREATES_DIRECT_POST_FOR_ORG,
+  USER_COMMENTS_ORG_POST,
+  USER_LEAVES_COMMENT_ON_ORG_COMMENT,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -170,18 +172,29 @@ const getTitle = (props) => {
         </Fragment>
       );
 
-    // case USER_COMMENTS_ORG_POST:
-    //   return (
-    //     <Fragment>
-    //       <Link to={getUserUrl(props.data.post.user.id)}>
-    //         <strong>{getUserName(props.data.post.user)}</strong>
-    //       </Link>
-    //       &nbsp;posted in&nbsp;
-    //       {props.targetEntity.organization.title}
-    //       ’s feed:&nbsp;
-    //       {props.data.post.description}
-    //     </Fragment>
-    //   );
+    case USER_COMMENTS_ORG_POST:
+      return (
+        <Fragment>
+          <Link to={getUserUrl(props.data.user.id)}>
+            <strong>{getUserName(props.data.user)}</strong>
+          </Link>
+          &nbsp;commented&nbsp;
+          {props.targetEntity.organization.title}
+          ’s post
+        </Fragment>
+      );
+
+    case USER_LEAVES_COMMENT_ON_ORG_COMMENT:
+      return (
+        <Fragment>
+          <Link to={getUserUrl(props.data.user.id)}>
+            <strong>{getUserName(props.data.user)}</strong>
+          </Link>
+          &nbsp;replied to&nbsp;
+          {props.targetEntity.organization.title}
+          ’s comment
+        </Fragment>
+      );
 
     default:
       return null;
@@ -247,6 +260,8 @@ const getAvatar = (props) => {
 
 const getContent = (props) => {
   switch (props.eventId) {
+    case USER_LEAVES_COMMENT_ON_ORG_COMMENT:
+    case USER_COMMENTS_ORG_POST:
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
     case USER_COMMENTS_YOUR_POST:
       return (

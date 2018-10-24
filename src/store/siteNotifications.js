@@ -31,19 +31,27 @@ const siteNotifications = (state = getInitialState(), action) => {
       return getInitialState();
     }
 
-    case 'HIDE_NOTIFICATIONS_TOOLTIP': {
+    case 'RESET_NOTIFICATIONS_TOOLTIP_DATA': {
       return {
         ...state,
-        tooltipVisibilty: false,
         list: getInitialState().list,
         metadata: getInitialState().metadata,
       };
     }
+
+    case 'HIDE_NOTIFICATIONS_TOOLTIP': {
+      return {
+        ...state,
+        tooltipVisibilty: false,
+      };
+    }
+
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {
       return {
         ...state, tooltipVisibilty: true,
       };
     }
+
     case 'SET_UNREAD_NOTIFICATIONS_AMOUNT': {
       return {
         ...state, totalUnreadAmount: action.payload,

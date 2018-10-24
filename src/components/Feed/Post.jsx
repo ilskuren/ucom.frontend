@@ -15,6 +15,7 @@ import FeedForm from './FeedForm';
 import { getPostUrl, getPostTypeById, postIsEditable } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
+import { escapeQuotes } from '../../utils/text';
 import { getPostById } from '../../store/posts';
 import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
@@ -99,7 +100,7 @@ class Post extends PureComponent {
               {post.postTypeId === 10 ? (
                 <div className="toolbar toolbar_fluid toolbar_small">
                   <div className="toolbar__main">
-                    {post.description}
+                    {escapeQuotes(post.description)}
                   </div>
                   {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
                     <div className="toolbar__side">
@@ -110,7 +111,7 @@ class Post extends PureComponent {
                   )}
                 </div>
               ) : (
-                <Link to={getPostUrl(post.id)}>{post.title}</Link>
+                <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
               )}
             </h1>
           )}
@@ -124,7 +125,7 @@ class Post extends PureComponent {
           )}
 
           {post.leadingText && (
-            <h2 className="post__title post__title_leading">{post.leadingText}</h2>
+            <h2 className="post__title post__title_leading">{escapeQuotes(post.leadingText)}</h2>
           )}
         </div>
 

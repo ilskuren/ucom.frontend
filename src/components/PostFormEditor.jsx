@@ -6,6 +6,7 @@ import IconClose from './Icons/Close';
 import Medium from './Medium';
 import { setPostData, validatePostField } from '../actions';
 import { getFileUrl, getBase64FromFile } from '../utils/upload';
+import { escapeQuotes } from '../utils/text';
 import { selectUser } from '../store/selectors';
 
 class PostFormEditor extends PureComponent {
@@ -25,7 +26,7 @@ class PostFormEditor extends PureComponent {
             type="text"
             placeholder="Title"
             className="editor__input"
-            value={this.props.post.data.title}
+            value={escapeQuotes(this.props.post.data.title)}
             onChange={(e) => {
               this.props.setPostData({ title: e.target.value });
               this.props.validatePostField('title');
@@ -42,7 +43,7 @@ class PostFormEditor extends PureComponent {
             type="text"
             placeholder="Lead text"
             className="editor__input editor__input_medium"
-            value={this.props.post.data.leading_text}
+            value={escapeQuotes(this.props.post.data.leading_text)}
             onChange={(e) => {
               this.props.setPostData({ leading_text: e.target.value });
               this.props.validatePostField('leading_text');

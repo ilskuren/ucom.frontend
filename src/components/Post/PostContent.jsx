@@ -12,6 +12,7 @@ import { getPostEditUrl, getPostTypeById } from '../../utils/posts';
 import { selectUser } from '../../store/selectors/user';
 import { getPostById } from '../../store/posts';
 import { getFileUrl } from '../../utils/upload';
+import { escapeQuotes } from '../../utils/text';
 import { getOrganizationUrl } from '../../utils/organization';
 
 const PostContent = (props) => {
@@ -37,7 +38,7 @@ const PostContent = (props) => {
                   <h1 className="title title_medium">
                     <div className="inline">
                       <div className="inline__item">
-                        {post.title}
+                        {escapeQuotes(post.title)}
                       </div>
                       <div className="inline__item">
                         {props.user.id === post.userId ? (
@@ -83,7 +84,7 @@ const PostContent = (props) => {
               </div>
             )}
             {post.leadingText && (
-              <div className="posts__lead-text posts__lead-text_offer">{post.leadingText}</div>
+              <div className="posts__lead-text posts__lead-text_offer">{escapeQuotes(post.leadingText)}</div>
             )}
             {post.description && (
               <div className="posts__text" dangerouslySetInnerHTML={{ __html: post.description }} />

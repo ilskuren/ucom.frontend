@@ -170,6 +170,19 @@ const getTitle = (props) => {
         </Fragment>
       );
 
+    // case USER_COMMENTS_ORG_POST:
+    //   return (
+    //     <Fragment>
+    //       <Link to={getUserUrl(props.data.post.user.id)}>
+    //         <strong>{getUserName(props.data.post.user)}</strong>
+    //       </Link>
+    //       &nbsp;posted in&nbsp;
+    //       {props.targetEntity.organization.title}
+    //       ’s feed:&nbsp;
+    //       {props.data.post.description}
+    //     </Fragment>
+    //   );
+
     default:
       return null;
   }

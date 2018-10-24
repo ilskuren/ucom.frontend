@@ -174,13 +174,25 @@ class Header extends PureComponent {
                   Create Event
                 </NavLink>
               </div> */}
-              <div className="menu__item">
+              <div className="menu__item menu__item_only_desktop">
                 {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
 
                 <Link to="/posts/new/1" className="menu__link-button">
-                  <strong> Add publication</strong>
+                  <strong>Add publication</strong>
                 </Link>
               </div>
+
+              <div className="menu__item menu__item_only_phone">
+                <NavLink
+                  to="/posts/new/1"
+                  className="menu__link menu__link_upper"
+                  activeClassName="menu__link_active"
+                  isActive={() => this.props.location.pathname === '/posts/new/1'}
+                >
+                  Add&nbsp;publication
+                </NavLink>
+              </div>
+
               <div className="menu__item">
                 <NavLink
                   to="/users"

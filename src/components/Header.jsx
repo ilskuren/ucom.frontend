@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -12,7 +13,7 @@ import MenuPopup from './MenuPopup';
 import NotificationTooltip from './NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
-import { showAndFetchNotifications, hideNotificationTooltip } from '../actions/siteNotifications';
+import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../actions/siteNotifications';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
@@ -36,7 +37,10 @@ class Header extends PureComponent {
 
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
-    document.documentElement.classList.remove('no-scroll');
+    setTimeout(() => {
+      this.props.resetNotificationTooltipData();
+      document.documentElement.classList.remove('no-scroll');
+    }, 300);
   }
 
   showTooltip = () => {
@@ -232,6 +236,7 @@ Header.propTypes = {
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
   showAndFetchNotifications: PropTypes.func,
+  resetNotificationTooltipData: PropTypes.func,
   hideNotificationTooltip: PropTypes.func,
   tooltipVisibilty: PropTypes.bool,
   totalUnreadAmount: PropTypes.number,
@@ -244,10 +249,11 @@ export default withRouter(connect(
     totalUnreadAmount: state.siteNotifications.totalUnreadAmount,
     notificationsMetadata: state.siteNotifications.metadata,
   }),
-  dispatch => ({
-    removeUser: () => dispatch(removeUser()),
-    showAuthPopup: () => dispatch(showAuthPopup()),
-    showAndFetchNotifications: payload => dispatch(showAndFetchNotifications(payload)),
-    hideNotificationTooltip: () => dispatch(hideNotificationTooltip()),
-  }),
+  dispatch => bindActionCreators({
+    removeUser,
+    showAuthPopup,
+    showAndFetchNotifications,
+    hideNotificationTooltip,
+    resetNotificationTooltipData,
+  }, dispatch),
 )(Header));

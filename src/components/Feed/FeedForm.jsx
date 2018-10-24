@@ -6,6 +6,7 @@ import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { getUserById } from '../../store/users';
 import { getFileUrl } from '../../utils/upload';
+import { escapeQuotes } from '../../utils/text';
 
 class FeedForm extends PureComponent {
   constructor(props) {
@@ -14,6 +15,12 @@ class FeedForm extends PureComponent {
     this.state = {
       message: this.props.message || '',
     };
+  }
+
+  sumbitForm = (e) => {
+    if (typeof this.props.onSubmit === 'function') {
+      this.props.onSubmit(e);
+    }
   }
 
   render() {
@@ -28,10 +35,7 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-
-          if (typeof this.props.onSubmit === 'function') {
-            this.props.onSubmit(this.state.message);
-          }
+          this.sumbitForm(this.state.message);
         }}
       >
         <div className="feed-form__field">
@@ -45,8 +49,14 @@ class FeedForm extends PureComponent {
               rows="4"
               className="feed-form__textarea"
               placeholder="Leave a comment"
-              value={this.state.message}
+              value={escapeQuotes(this.state.message)}
               onChange={e => this.setState({ message: e.target.value })}
+              onKeyDown={(e) => {
+                if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
+                  e.preventDefault();
+                  this.sumbitForm(this.state.message);
+                }
+              }}
             />
           </div>
         </div>

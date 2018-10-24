@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import Avatar from './Avatar';
 import AvatarFromFile from './AvatarFromFile';
+import { escapeQuotes } from '../utils/text';
 
 const UserCard = (props) => {
   const avatar = props.avatarUrl && typeof props.avatarUrl === 'object' ?
@@ -31,7 +32,7 @@ const UserCard = (props) => {
 
         <div className="user-card__side">
           <div className="user-card__name">
-            <LinkTag to={props.profileLink} href={props.profileLink}>{props.userName}</LinkTag>
+            <LinkTag to={props.profileLink} href={props.profileLink}>{escapeQuotes(props.userName)}</LinkTag>
 
             {props.userPosition && (
               <span className="user-card__position">{props.userPosition}</span>

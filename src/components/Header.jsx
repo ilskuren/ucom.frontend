@@ -37,9 +37,11 @@ class Header extends PureComponent {
 
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
+    if (this.props.tooltipVisibilty) {
+      document.documentElement.classList.remove('no-scroll');
+    }
     setTimeout(() => {
       this.props.resetNotificationTooltipData();
-      document.documentElement.classList.remove('no-scroll');
     }, 300);
   }
 

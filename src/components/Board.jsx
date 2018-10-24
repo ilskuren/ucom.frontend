@@ -1,5 +1,5 @@
 import React, { Fragment, PureComponent } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Avatars from './Avatars';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
@@ -28,9 +28,11 @@ class Board extends PureComponent {
   showPopup = () => {
     this.setState({ popupVisible: true });
   }
+
   render() {
     const { users } = this.props;
     const usersIds = users.map(item => item.id);
+
     return (
       <Fragment>
         {this.state.popupVisible && (
@@ -50,7 +52,6 @@ class Board extends PureComponent {
                   avatarUrl: getFileUrl(user.avatarFilename),
                   accountName: user.accountName,
                   rate: user.currentRate,
-                  // profileLink: getUserUrl(user.id),
                   userName: getUserName(user),
                 }))}
                 orderStacking="fifo"
@@ -59,7 +60,7 @@ class Board extends PureComponent {
                 maxAvatarsAmount={8}
               />
             </div>
-            <div className="board__title">BOARD</div>
+            <div className="board__title">{this.props.title}</div>
           </div>)
         }
       </Fragment>
@@ -70,6 +71,11 @@ class Board extends PureComponent {
 Board.defaultProps = {
   users: [],
   title: 'Board',
+};
+
+Board.propTypes = {
+  users: PropTypes.objectOf(PropTypes.any),
+  title: PropTypes.string,
 };
 
 export default Board;

@@ -20,11 +20,6 @@ class CommentForm extends PureComponent {
   }
 
   show() {
-    if (!this.props.user.id) {
-      this.props.showAuthPopup();
-      return;
-    }
-
     this.setState({ active: true });
   }
 
@@ -35,6 +30,10 @@ class CommentForm extends PureComponent {
   }
 
   submit() {
+    if (!this.props.user.id) {
+      this.props.showAuthPopup();
+      return;
+    }
     if (typeof this.props.onSubmit === 'function') {
       this.props.onSubmit(this.state.comment);
     }

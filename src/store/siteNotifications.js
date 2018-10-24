@@ -20,17 +20,20 @@ const siteNotifications = (state = getInitialState(), action) => {
         metadata: getInitialState().metadata,
       };
     }
+
     case 'HIDE_NOTIFICATIONS_TOOLTIP': {
       return {
         ...state,
         tooltipVisibilty: false,
       };
     }
+
     case 'SHOW_NOTIFICATIONS_TOOLTIP': {
       return {
         ...state, tooltipVisibilty: true,
       };
     }
+
     case 'SET_UNREAD_NOTIFICATIONS_AMOUNT': {
       return {
         ...state, totalUnreadAmount: action.payload,

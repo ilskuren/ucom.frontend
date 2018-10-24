@@ -1,5 +1,3 @@
-// TODO: Unification
-
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { Tooltip } from 'react-tippy';

@@ -183,9 +183,6 @@ class SignUp extends React.PureComponent {
                         onClick={() => this.setState({ activeStep: 2 })}
                       />
                     </CopyToClipboard>
-                    {/* {this.props.auth.showPopup && (
-                      <Popup onClickClose={() => this.props.hideAuthPopup()} />
-                    )} */}
                   </div>
                   <div className="sign-up__submit-section-description">Please, copy your passphrase to proceed</div>
                 </div>

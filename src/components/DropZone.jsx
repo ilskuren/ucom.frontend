@@ -15,25 +15,42 @@ class DropZone extends PureComponent {
 
   @bind
   onDropHandler(files) {
-    const { minWidth, minHeight, onDrop } = this.props;
-    this.fr = new FileReader();
-    this.fr.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        if (typeof onDrop === 'function') {
-          if (minWidth && img.width < minWidth) {
-            this.changeErrorText(`Width of image should be at least ${minWidth} pixels`);
-          } else if (minHeight && img.height < minHeight) {
-            this.changeErrorText(`Height of image should be at least ${minHeight} pixels`);
-          } else {
-            this.changeErrorText('');
-            onDrop(files);
+    const {
+      minWidth,
+      minHeight,
+      onDrop,
+      maxSize,
+    } = this.props;
+    const overSize = maxSize ? maxSize : 1000000;
+
+    if (files[0] && files[0].size < overSize) {
+      this.fr = new FileReader();
+      this.fr.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          if (typeof onDrop === 'function') {
+            if (minWidth && img.width < minWidth) {
+              this.changeErrorText(`Width of image should be at least ${minWidth} pixels`);
+            } else if (minHeight && img.height < minHeight) {
+              this.changeErrorText(`Height of image should be at least ${minHeight} pixels`);
+            } else {
+              this.changeErrorText('');
+              onDrop(files);
+            }
           }
-        }
+        };
+        img.src = this.fr.result;
       };
-      img.src = this.fr.result;
-    };
-    this.fr.readAsDataURL(files[0]);
+      if (files[0] !== []) {
+        this.fr.readAsDataURL(files[0]);
+      }
+    } else if (overSize === 1000000) {
+      this.changeErrorText('File exceed the 1 Mb limit.');
+    } else if (overSize === 2000000) {
+      this.changeErrorText('File exceed the 2 Mb limit.');
+    } else {
+      this.changeErrorText('File exceed the limit.');
+    }
   }
 
   changeErrorText(error) {
@@ -47,6 +64,7 @@ class DropZone extends PureComponent {
           multiple={this.props.multiple}
           accept={this.props.accept}
           className="drop-zone__input"
+          maxSize={this.props.maxSize}
           onDrop={this.onDropHandler}
         >
           <Loading className="loading_small" loading={this.props.loading} />
@@ -71,6 +89,7 @@ DropZone.propTypes = {
   multiple: PropTypes.bool,
   minWidth: PropTypes.number,
   minHeight: PropTypes.number,
+  maxSize: PropTypes.number,
 };
 
 export default DropZone;

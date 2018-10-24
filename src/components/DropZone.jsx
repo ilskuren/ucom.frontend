@@ -46,8 +46,6 @@ class DropZone extends PureComponent {
       }
     } else if (overSize === 1000000) {
       this.changeErrorText('File exceed the 1 Mb limit.');
-    } else if (overSize === 2000000) {
-      this.changeErrorText('File exceed the 2 Mb limit.');
     } else {
       this.changeErrorText('File exceed the limit.');
     }

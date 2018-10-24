@@ -100,7 +100,7 @@
 }
 
 @media (min-width: 1024px) {
-  .list-table__row {
+  .list-table__body .list-table__row {
     min-height: 117px;
     height: 117px;
   }
@@ -123,6 +123,17 @@
         padding-right: 100px;
       }
     } 
+  }
+
+  .list-table_users {
+    .list-table__cell {
+      &:nth-child(3) &:nth-child(4) &:nth-child(5) {
+        min-width: 240px;
+        max-width: 240px;
+        width: 100%;
+        padding-right: 100px;
+      }
+    }
   }
 
   .list-table_organizations {
@@ -217,7 +228,7 @@
   }
 }
 
-.list-table_organizations {
+.list-table_organizations, .list-table_users {
   &.list-table_responsive {
     .list-table__cell_name {
       width: 100%;

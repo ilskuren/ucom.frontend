@@ -9,6 +9,7 @@ import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
 export const showNotificationTooltip = () => ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
 export const hideNotificationTooltip = () => ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
 export const resetNotificationTooltip = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP' });
+export const resetNotificationTooltipData = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP_DATA' });
 export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS', payload });
 export const deleteSiteNotification = payload => ({ type: 'DELETE_SITE_NOTIFICATION', payload });
 export const setUnreadNotificationsAmount = payload => ({ type: 'SET_UNREAD_NOTIFICATIONS_AMOUNT', payload });

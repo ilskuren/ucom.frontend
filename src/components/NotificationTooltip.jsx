@@ -7,7 +7,6 @@ import IconClose from 'components/Icons/Close';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import NotificationCard from 'components/NotificationCards/NotificationCard';
 import {
-  hideNotificationTooltip,
   addSiteNotifications,
   deleteSiteNotification,
   fetchNotifications,
@@ -112,7 +111,7 @@ class NotificationTooltip extends Component {
 
         <div
           className="inline__item notification-tooltip__close"
-          onClick={() => this.props.hideNotificationTooltip()}
+          onClick={() => this.props.hideTooltip()}
           role="presentation"
         >
           <IconClose />
@@ -123,7 +122,7 @@ class NotificationTooltip extends Component {
 }
 
 NotificationTooltip.propTypes = {
-  hideNotificationTooltip: PropTypes.func.isRequired,
+  hideTooltip: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
   list: PropTypes.objectOf(PropTypes.any),
   notificationsMetadata: PropTypes.objectOf(PropTypes.any),
@@ -138,7 +137,6 @@ export default connect(
   dispatch => bindActionCreators({
     addSiteNotifications,
     deleteSiteNotification,
-    hideNotificationTooltip,
     fetchNotifications,
   }, dispatch),
 )(NotificationTooltip);

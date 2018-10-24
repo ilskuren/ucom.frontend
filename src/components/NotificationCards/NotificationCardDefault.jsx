@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
+import Button from '../Button';
 import { getPostUrl } from '../../utils/posts';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
 import { getUserName, getUserUrl } from '../../utils/user';
@@ -26,6 +27,7 @@ import {
   USER_CREATES_DIRECT_POST_FOR_ORG,
   USER_COMMENTS_ORG_POST,
   USER_LEAVES_COMMENT_ON_ORG_COMMENT,
+  CONGRATULATIONS_EVENT_ID,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -196,37 +198,68 @@ const getTitle = (props) => {
         </Fragment>
       );
 
+    case CONGRATULATIONS_EVENT_ID:
+      return (
+        <Fragment>
+          {props.data.user && (
+            <Fragment>
+              <Link to={getUserUrl(props.data.user.id)}>
+                <strong>{getUserName(props.data.user)}</strong>
+              </Link>
+              &nbsp;
+            </Fragment>
+          )}
+          invites you to become a member of&nbsp;
+          <Link to={getOrganizationUrl(props.data.organization.id)}>
+            <strong>{props.data.organization.title}</strong>
+          </Link>
+        </Fragment>
+      );
+
     default:
       return null;
   }
 };
 
 const getCover = (props) => {
-  if (!props.targetEntity) {
-    return null;
-  }
+  switch (props.eventId) {
+    case CONGRATULATIONS_EVENT_ID:
+      return props.data.organization && props.data.organization.avatar_filename ? (
+        <div className="site-notification__cover">
+          <Link to={getPostUrl(props.data.organization.id)}>
+            <Avatar src={getFileUrl(props.data.organization.avatarFilename)} square />
+          </Link>
+        </div>
+      ) : null;
 
-  if (props.targetEntity.post) {
-    return (
-      <div className="site-notification__cover">
-        <Link to={getPostUrl(props.targetEntity.post.id)}>
-          <Avatar src={getFileUrl(props.targetEntity.post.mainImageFilename)} square />
-        </Link>
-      </div>
-    );
-  }
+    default: {
+      if (!props.targetEntity) {
+        return null;
+      }
 
-  if (props.targetEntity.organization) {
-    return (
-      <div className="site-notification__cover">
-        <Link to={getOrganizationUrl(props.targetEntity.organization.id)}>
-          <Avatar src={getFileUrl(props.targetEntity.organization.mainImageFilename)} square />
-        </Link>
-      </div>
-    );
-  }
+      if (props.targetEntity.post && props.targetEntity.post.mainImageFilename) {
+        return (
+          <div className="site-notification__cover">
+            <Link to={getPostUrl(props.targetEntity.post.id)}>
+              <Avatar src={getFileUrl(props.targetEntity.post.mainImageFilename)} square />
+            </Link>
+          </div>
+        );
+      }
 
-  return null;
+      if (props.targetEntity.organization && props.targetEntity.organization.avatarFilename) {
+        return (
+          <div className="site-notification__cover">
+            <Link to={getOrganizationUrl(props.targetEntity.organization.id)}>
+              <Avatar src={getFileUrl(props.targetEntity.organization.avatarFilename)} square />
+            </Link>
+          </div>
+        );
+      }
+
+      return null;
+    }
+  }
 };
 
 const getAvatar = (props) => {
@@ -258,6 +291,54 @@ const getAvatar = (props) => {
   }
 };
 
+const getActions = (props) => {
+  switch (props.eventId) {
+    case CONGRATULATIONS_EVENT_ID:
+      return (
+        <div className="site-notification__actions">
+          <div className="inline">
+            {props.confirmed === 0 &&
+              <Fragment>
+                <div className="inline__item">
+                  <Button
+                    theme="accent-light"
+                    size="small"
+                    text="Confirm"
+                    isStretched
+                  />
+                </div>
+
+                <div className="inline__item">
+                  <Button
+                    theme="accent-gray"
+                    size="small"
+                    text="Decline"
+                    isStretched
+                  />
+                </div>
+              </Fragment>
+            }
+
+            {props.confirmed === 1 &&
+              <div className="inline__item">
+                Accepted
+              </div>
+            }
+
+            {props.confirmed === 2 &&
+              <div className="inline__item">
+                Declined
+              </div>
+            }
+          </div>
+        </div>
+      );
+
+    default:
+      return null;
+  }
+};
+
 const getContent = (props) => {
   switch (props.eventId) {
     case USER_LEAVES_COMMENT_ON_ORG_COMMENT:
@@ -283,6 +364,7 @@ const getContent = (props) => {
           {props.createdAt && (
             <div className="site-notification__time">{moment(props.createdAt).fromNow()}</div>
           )}
+          {getActions(props)}
         </div>
       );
   }

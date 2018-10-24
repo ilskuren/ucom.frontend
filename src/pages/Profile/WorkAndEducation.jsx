@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import { reduxForm } from 'redux-form';
 import { Element } from 'react-scroll';
-import { bind } from 'decko';
 import PropTypes from 'prop-types';
 
 import { PTCommunication } from 'utils/GlobalPropTypes';
@@ -54,8 +53,7 @@ class ProfileWorkAndEducationPage extends PureComponent {
     }
   }
 
-  @bind
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     const {
       handleSubmit,
       editWorkAndEducation,

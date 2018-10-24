@@ -11,7 +11,7 @@ import { getOrganizationUrl } from '../../utils/organization';
 
 const NotificationCardCongratulations = ({
   id,
-  createAt,
+  createdAt,
   confirmNotification,
   declineNotification,
   finished,
@@ -31,7 +31,7 @@ const NotificationCardCongratulations = ({
         <div className="notification-card__description">
           <div className="notification-card__text">
             <strong>Whooooooa! Сongratulations!</strong>
-            <p className="notification-card__time">{moment(createAt).fromNow()}</p>
+            <p className="notification-card__time">{moment(createdAt).fromNow()}</p>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@ const NotificationCardCongratulations = ({
 
 NotificationCardCongratulations.propTypes = {
   data: PropTypes.objectOf(PropTypes.object),
-  createAt: PropTypes.string,
+  createdAt: PropTypes.string,
   finished: PropTypes.bool,
   id: PropTypes.number,
   confirmNotification: PropTypes.func,

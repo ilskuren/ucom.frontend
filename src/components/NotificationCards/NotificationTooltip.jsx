@@ -46,54 +46,122 @@ class NotificationTooltip extends Component {
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
 
-    oldNotifications.unshift({
-      id: 123,
-      eventId: 31,
-      createdAt: '2018-10-17T08:17:07.595Z',
-      data: {
-        user: {
-          id: 1,
-          firstName: 'Pavel',
-          lastName: 'Ivanov',
-        },
-      },
-      targetEntity: {
-        post: {
-          id: 1,
-          mainImageFilename: 'avatar_filename-1540196543652.jpg',
-        },
-      },
-    }, {
-      id: 124,
-      eventId: 30,
-      createdAt: '2018-10-17T08:17:07.595Z',
-      data: {
-        user: {
-          id: 1,
-          firstName: 'Pavel',
-          lastName: 'Ivanov',
-          avatarFilename: 'avatar_filename-1540196543652.jpg',
-        },
-      },
-    }, {
-      id: 125,
-      eventId: 33,
-      createdAt: '2018-10-17T08:17:07.595Z',
-      data: {
-        user: {
-          id: 1,
-          firstName: 'Pavel',
-          lastName: 'Ivanov',
-          avatarFilename: 'avatar_filename-1540196543652.jpg',
-        },
-      },
-      targetEntity: {
-        post: {
-          id: 1,
-          mainImageFilename: 'avatar_filename-1540196543652.jpg',
-        },
-      },
-    });
+    // oldNotifications.unshift({
+    //   id: 123,
+    //   eventId: 31,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //     },
+    //   },
+    //   targetEntity: {
+    //     post: {
+    //       id: 1,
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // }, {
+    //   id: 124,
+    //   eventId: 30,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //       avatarFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // }, {
+    //   id: 125,
+    //   eventId: 33,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //       avatarFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    //   targetEntity: {
+    //     post: {
+    //       id: 1,
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // }, {
+    //   id: 126,
+    //   eventId: 50,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //       avatarFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    //   targetEntity: {
+    //     organization: {
+    //       id: 1,
+    //       title: 'UOS',
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // }, {
+    //   id: 127,
+    //   eventId: 51,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //       avatarFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    //   targetEntity: {
+    //     organization: {
+    //       id: 1,
+    //       title: 'UOS',
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //     post: {
+    //       id: 1,
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // }, {
+    //   id: 128,
+    //   eventId: 71,
+    //   createdAt: '2018-10-17T08:17:07.595Z',
+    //   data: {
+    //     user: {
+    //       id: 1,
+    //       firstName: 'Pavel',
+    //       lastName: 'Ivanov',
+    //       avatarFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //     comment: {
+    //       description: 'qweqweq qweqe',
+    //     },
+    //   },
+    //   targetEntity: {
+    //     organization: {
+    //       id: 1,
+    //       title: 'UOS',
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //     post: {
+    //       id: 1,
+    //       mainImageFilename: 'avatar_filename-1540196543652.jpg',
+    //     },
+    //   },
+    // });
 
     const notificationTrigger = new CustomEvent('NotificationTrigger');
 

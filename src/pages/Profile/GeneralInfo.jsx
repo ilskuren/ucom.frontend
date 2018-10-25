@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bind } from 'decko';
 import classNames from 'classnames';
 
 import { Element } from 'react-scroll';
@@ -55,8 +54,7 @@ class ProfileGeneralInfoPage extends PureComponent {
     }
   }
 
-  @bind
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { handleSubmit, editGeneralInfo } = this.props;
     handleSubmit((profile) => {

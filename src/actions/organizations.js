@@ -3,7 +3,6 @@ import api from '../api';
 import loader from '../utils/loader';
 import { addUsers } from './users';
 import { addErrorNotification } from './notifications';
-import { parseErrors } from '../utils/errors';
 import { getToken } from '../utils/token';
 
 export const addOrganizations = payload => ({ type: 'ADD_ORGANIZATIONS', payload });
@@ -31,7 +30,7 @@ export const followOrganization = data => (dispatch) => {
         user: data.owner,
       }));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };
 
@@ -44,6 +43,6 @@ export const unfollowOrganization = data => (dispatch) => {
         user: data.owner,
       }));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };

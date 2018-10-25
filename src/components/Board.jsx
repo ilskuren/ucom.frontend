@@ -74,7 +74,7 @@ Board.defaultProps = {
 };
 
 Board.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.object), // TODO
+  users: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
 };
 

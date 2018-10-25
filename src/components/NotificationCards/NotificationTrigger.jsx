@@ -7,7 +7,6 @@ import React, { PureComponent } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../../actions/siteNotifications';
-import { enableScroll, disableScroll } from '../../utils/scroll';
 
 class NotificationTrigger extends PureComponent {
   hideTooltip = () => {

@@ -36,7 +36,7 @@ class CommentForm extends PureComponent {
     }
 
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(this.state.comment);
+      this.props.onSubmit(this.state.comment.trim());
     }
 
     this.reset();
@@ -109,6 +109,7 @@ class CommentForm extends PureComponent {
                           size="small"
                           text="Post"
                           onClick={() => this.submit()}
+                          isDisabled={this.state.comment.trim().length === 0}
                         />
                       </div>
                     </div>

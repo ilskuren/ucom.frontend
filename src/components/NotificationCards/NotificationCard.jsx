@@ -13,7 +13,7 @@ import InputCompleteIcon from '../Icons/InputComplete';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
-import { confirmNotification, declineNotification } from '../../actions/siteNotifications';
+import { confirmNotification, declineNotification, seenNotification } from '../../actions/siteNotifications';
 
 import {
   USER_FOLLOWS_YOU,
@@ -310,7 +310,7 @@ const getActions = (props) => {
                     size="small"
                     text="Confirm"
                     isStretched
-                    onClick={() => confirmNotification({
+                    onClick={() => props.confirmNotification({
                       id: props,
                       idOfOrg: props.data.organization.id,
                     })}
@@ -323,7 +323,7 @@ const getActions = (props) => {
                     size="small"
                     text="Decline"
                     isStretched
-                    onClick={() => declineNotification(props.id)}
+                    onClick={() => props.declineNotification(props.id)}
                   />
                 </div>
               </Fragment>
@@ -383,7 +383,9 @@ const NotificationCardDefault = props => (
   <div
     className="site-notification"
     onMouseEnter={() => {
-      console.log('qwe');
+      if (!props.finished) {
+        props.seenNotification(props.id);
+      }
     }}
   >
     {getAvatar(props)}
@@ -405,10 +407,17 @@ getCover.propTypes = {
   targetEntity: PropTypes.objectOf(PropTypes.any),
 };
 
+NotificationCardDefault.propTypes = {
+  id: PropTypes.number,
+  seenNotification: PropTypes.func,
+  finished: PropTypes.bool,
+};
+
 export default connect(
   null,
   dispatch => bindActionCreators({
     confirmNotification,
     declineNotification,
+    seenNotification,
   }, dispatch),
 )(NotificationCardDefault);

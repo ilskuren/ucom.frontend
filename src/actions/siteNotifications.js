@@ -60,6 +60,15 @@ export const declineNotification = id => async (dispatch, getState) => {
   loader.done();
 };
 
+export const seenNotification = id => async (dispatch) => {
+  try {
+    const res = await api.seenNotification(id);
+    dispatch(addSiteNotifications({ data: [res] }));
+  } catch (error) {
+    dispatch(addErrorNotification(error));
+  }
+};
+
 export const initNotificationsListeners = () => (dispatch) => {
   socket.on('notification', (res) => {
     if (res.unread_messages_count) {

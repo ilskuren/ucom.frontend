@@ -11,9 +11,10 @@ export const addValidationErrorNotification = () => (dispatch) => {
   }));
 };
 
-export const addErrorNotification = message => (dispatch) => {
-  if (message === 'Request failed with status code 401') {
+export const addErrorNotification = (message, status) => (dispatch) => {
+  if (status === 401) {
     dispatch(showAuthPopup());
+  } else {
+    dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message }));
   }
-  dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message }));
 };

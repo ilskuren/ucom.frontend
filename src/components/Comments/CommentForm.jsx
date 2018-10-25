@@ -34,6 +34,7 @@ class CommentForm extends PureComponent {
       this.props.showAuthPopup();
       return;
     }
+
     if (typeof this.props.onSubmit === 'function') {
       this.props.onSubmit(this.state.comment);
     }

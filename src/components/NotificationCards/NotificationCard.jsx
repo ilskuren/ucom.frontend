@@ -380,7 +380,12 @@ const getContent = (props) => {
 };
 
 const NotificationCardDefault = props => (
-  <div className="site-notification">
+  <div
+    className="site-notification"
+    onMouseEnter={() => {
+      console.log('qwe');
+    }}
+  >
     {getAvatar(props)}
     {getContent(props)}
     {getCover(props)}

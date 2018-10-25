@@ -10,7 +10,7 @@ import MiniIconLogo from './Icons/MiniLogo';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
 import MenuPopup from './MenuPopup';
-import NotificationTooltip from './NotificationTooltip';
+import NotificationTooltip from './NotificationCards/NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../actions/siteNotifications';
@@ -37,9 +37,7 @@ class Header extends PureComponent {
 
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
-    if (this.props.tooltipVisibilty) {
-      document.documentElement.classList.remove('no-scroll');
-    }
+
     setTimeout(() => {
       this.props.resetNotificationTooltipData();
     }, 300);
@@ -47,7 +45,6 @@ class Header extends PureComponent {
 
   showTooltip = () => {
     this.props.showAndFetchNotifications();
-    document.documentElement.classList.add('no-scroll');
   }
 
   triggerTooltip = () => (

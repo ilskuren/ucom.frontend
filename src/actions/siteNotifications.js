@@ -33,13 +33,12 @@ export const showAndFetchNotifications = () => (dispatch) => {
   dispatch(fetchNotifications());
 };
 
-export const confirmNotification = ({ id, idOfOrg }) => async (dispatch, getState) => {
+export const confirmNotification = ({ id, idOfOrg }) => async (dispatch) => {
   loader.start();
   try {
     const res = await api.confirmNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    // TODO: Получать данные о количетсве непрочитанных от сервера
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
     dispatch(getOrganization(idOfOrg));
   } catch (error) {
     dispatch(addErrorNotification(error));
@@ -47,17 +46,26 @@ export const confirmNotification = ({ id, idOfOrg }) => async (dispatch, getStat
   loader.done();
 };
 
-export const declineNotification = id => async (dispatch, getState) => {
+export const declineNotification = id => async (dispatch) => {
   loader.start();
   try {
     const res = await api.declineNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    // TODO: Получать данные о количетсве непрочитанных от сервера
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
   } catch (error) {
     dispatch(addErrorNotification(error));
   }
   loader.done();
+};
+
+export const seenNotification = id => async (dispatch) => {
+  try {
+    const res = await api.seenNotification(id);
+    dispatch(addSiteNotifications({ data: [res] }));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
+  } catch (error) {
+    dispatch(addErrorNotification(error));
+  }
 };
 
 export const initNotificationsListeners = () => (dispatch) => {

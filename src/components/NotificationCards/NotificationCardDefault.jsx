@@ -1,3 +1,5 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -6,9 +8,12 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import { getPostUrl } from '../../utils/posts';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
+import InputErrorIcon from '../Icons/InputError';
+import InputCompleteIcon from '../Icons/InputComplete';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
+import { confirmNotification, declineNotification } from '../../actions/siteNotifications';
 
 import {
   USER_FOLLOWS_YOU,
@@ -297,7 +302,7 @@ const getActions = (props) => {
       return (
         <div className="site-notification__actions">
           <div className="inline">
-            {props.confirmed === 0 &&
+            {props.confirmed === 0 ? (
               <Fragment>
                 <div className="inline__item">
                   <Button
@@ -305,6 +310,10 @@ const getActions = (props) => {
                     size="small"
                     text="Confirm"
                     isStretched
+                    onClick={() => confirmNotification({
+                      id: props,
+                      idOfOrg: props.data.organization.id,
+                    })}
                   />
                 </div>
 
@@ -314,22 +323,22 @@ const getActions = (props) => {
                     size="small"
                     text="Decline"
                     isStretched
+                    onClick={() => declineNotification(props.id)}
                   />
                 </div>
               </Fragment>
-            }
-
-            {props.confirmed === 1 &&
+            ) : (
               <div className="inline__item">
-                Accepted
+                <div className="site-notification__confirmed-action">
+                  <span className="inline inline_small">
+                    <span className="inline__item">{props.confirmed === 1 ? 'Accepted' : 'Declined'}</span>
+                    <span className="inline__item">
+                      {props.confirmed === 1 ? <InputCompleteIcon /> : <InputErrorIcon />}
+                    </span>
+                  </span>
+                </div>
               </div>
-            }
-
-            {props.confirmed === 2 &&
-              <div className="inline__item">
-                Declined
-              </div>
-            }
+            )}
           </div>
         </div>
       );
@@ -391,4 +400,10 @@ getCover.propTypes = {
   targetEntity: PropTypes.objectOf(PropTypes.any),
 };
 
-export default NotificationCardDefault;
+export default connect(
+  null,
+  dispatch => bindActionCreators({
+    confirmNotification,
+    declineNotification,
+  }, dispatch),
+)(NotificationCardDefault);

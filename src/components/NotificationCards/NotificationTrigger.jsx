@@ -29,8 +29,6 @@ class NotificationTrigger extends PureComponent {
   render() {
     return (
       <Tooltip
-        onHide={() => enableScroll()}
-        onShow={() => disableScroll()}
         open={this.props.tooltipVisibilty}
         onRequestClose={this.hideTooltip}
         html={<NotificationTooltip hideTooltip={this.hideTooltip} />}

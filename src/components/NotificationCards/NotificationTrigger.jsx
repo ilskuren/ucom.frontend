@@ -41,6 +41,8 @@ class NotificationTrigger extends PureComponent {
         hideOnClick={false}
         interactive
         useContext
+        sticky
+        stickyDuration={0}
       >
         <div
           role="presentation"

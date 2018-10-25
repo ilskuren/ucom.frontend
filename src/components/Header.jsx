@@ -10,7 +10,7 @@ import MiniIconLogo from './Icons/MiniLogo';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
 import MenuPopup from './MenuPopup';
-import NotificationTooltip from './NotificationTooltip';
+import NotificationTooltip from './NotificationCards/NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../actions/siteNotifications';
@@ -37,15 +37,14 @@ class Header extends PureComponent {
 
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
+
     setTimeout(() => {
       this.props.resetNotificationTooltipData();
-      document.documentElement.classList.remove('no-scroll');
     }, 300);
   }
 
   showTooltip = () => {
     this.props.showAndFetchNotifications();
-    document.documentElement.classList.add('no-scroll');
   }
 
   triggerTooltip = () => (
@@ -174,13 +173,25 @@ class Header extends PureComponent {
                   Create Event
                 </NavLink>
               </div> */}
-              <div className="menu__item">
+              <div className="menu__item menu__item_only_desktop">
                 {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
 
                 <Link to="/posts/new/1" className="menu__link-button">
-                  <strong> Add publication</strong>
+                  <strong>Add publication</strong>
                 </Link>
               </div>
+
+              <div className="menu__item menu__item_only_phone">
+                <NavLink
+                  to="/posts/new/1"
+                  className="menu__link menu__link_upper"
+                  activeClassName="menu__link_active"
+                  isActive={() => this.props.location.pathname === '/posts/new/1'}
+                >
+                  Add&nbsp;publication
+                </NavLink>
+              </div>
+
               <div className="menu__item">
                 <NavLink
                   to="/users"

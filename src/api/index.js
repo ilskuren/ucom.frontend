@@ -377,6 +377,13 @@ class Api {
 
     return humps(response.data);
   }
+
+  @bind
+  async seenNotification(id) {
+    const response = await this.actions.post(`/api/v1/myself/notifications/${id}/seen`);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

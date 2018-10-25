@@ -15,7 +15,7 @@ const Avatar = props => (
       { 'avatar_blank': !props.src },
     )}
   > {props.src && <img className="avatar__img" src={props.src} alt={props.alt} /> }
-    {props.srcComponent && <Fragment>{props.srcComponent}</Fragment> }
+    {props.srcComponent && <Fragment>{props.srcComponent}</Fragment>}
     {!props.srcComponent && !props.src && <UserIcon />}
     {props.showBadge && (
       <span

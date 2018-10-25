@@ -50,11 +50,12 @@ class OrganizationsCreatePage extends PureComponent {
               <h1 className="title">{this.props.match.params.id ? 'Edit' : 'Create'} Community</h1>
             </div>
 
-            <div className="menu menu_simple-tabs menu_disabled">
+            <div className="menu menu_simple-tabs">
               {this.props.organization.steps.map(item => (
                 <div
                   key={item.id}
                   role="presentation"
+                  onClick={() => this.props.setOrganizationActiveTab(item.id)}
                   className={classNames(
                     'menu__item',
                     { 'menu__item_active': item.id === this.props.organization.activeStepId },

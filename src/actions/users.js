@@ -3,7 +3,7 @@ import snakes from '../utils/snakes';
 import { getToken } from '../utils/token';
 import loader from '../utils/loader';
 import { addErrorNotification } from './notifications';
-import { parseErrors } from '../utils/errors';
+import { setUser } from './';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
 export const addUserIFollow = payload => ({ type: 'ADD_USER_I_FOLLOW', payload });
@@ -18,6 +18,7 @@ export const fetchMyself = () => (dispatch) => {
   api.getMyself(getToken())
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
+      dispatch(setUser(data));
     })
     .catch(() => loader.done())
     .then(() => loader.done());
@@ -29,7 +30,7 @@ export const fetchUser = userId => (dispatch) => {
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };
 
@@ -41,7 +42,7 @@ export const updateUser = payload => (dispatch) => {
       delete data.currentRate;
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };
 
@@ -58,7 +59,7 @@ export const followUser = data => (dispatch) => {
         user: data.owner,
       }));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };
 
@@ -75,6 +76,6 @@ export const unfollowUser = data => (dispatch) => {
         user: data.owner,
       }));
     })
-    .catch(error => dispatch(addErrorNotification(parseErrors(error).general)))
+    .catch(error => dispatch(addErrorNotification(error)))
     .then(() => loader.done());
 };

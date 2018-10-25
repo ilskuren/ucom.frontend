@@ -7,6 +7,7 @@ import TextInput from '../components/TextInput';
 import Checkbox from '../components/Checkbox';
 import Passphrase from '../components/Passphrase';
 import Button from '../components/Button';
+import Popup from '../components/Popup';
 import dict from '../utils/dict';
 import { selectUser } from '../store/selectors/user';
 import { getPassphrase, getTestPassphrase } from '../utils/passphrase';
@@ -32,8 +33,10 @@ class SignUp extends React.PureComponent {
       accountNameIsValid: false,
       passphraseIsValid: false,
       termsAccpeted: false,
+      allowAnonUsage: false,
       errors: [],
       loading: false,
+      visibilityOfPopup: false,
     };
   }
 
@@ -67,15 +70,23 @@ class SignUp extends React.PureComponent {
     });
   }
 
+  hidePopup = () => {
+    this.setState({ visibilityOfPopup: false });
+  }
+
+  showPopup = () => {
+    this.setState({ visibilityOfPopup: true });
+  }
   register() {
     this.setState({
       loading: true,
     }, () => {
       const brainkey = this.state.passphrase.join(' ');
-
+      // const { allowAnonUsage } = this.state;
       api.register({
         brainkey,
         accountName: this.state.accountName,
+        // allowAnonUsage,
       })
         .then((data) => {
           if (data.errors) {
@@ -177,12 +188,34 @@ class SignUp extends React.PureComponent {
                     <CopyToClipboard text={this.state.passphrase.join(' ')}>
                       <Button
                         isStretched
-                        text="COPY"
+                        isUpper
+                        text="Copy"
                         size="big"
                         theme="red"
-                        onClick={() => this.setState({ activeStep: 2 })}
+                        onClick={this.showPopup}
                       />
                     </CopyToClipboard>
+                    {this.state.visibilityOfPopup && (
+                      <Popup onClickClose={this.hidePopup}>
+                        <div className="brain-key">
+                          <div className="brain-key__title title_small"><strong>Important</strong></div>
+                          <div className="brain-key__description">
+                            Brainkey used for private keys generation and to restore them in case of loss.
+                            The brainkey generates only once, <strong>if you lose it you won’t be able to restore it!</strong>
+                          </div>
+                          <div className="brain-key__button">
+                            <Button
+                              isUpper
+                              isStretched
+                              text="Got it"
+                              size="big"
+                              theme="red"
+                              onClick={() => this.setState({ activeStep: 2 })}
+                            />
+                          </div>
+                        </div>
+                      </Popup>
+                    )}
                   </div>
                   <div className="sign-up__submit-section-description">Please, copy your passphrase to proceed</div>
                 </div>
@@ -211,6 +244,14 @@ class SignUp extends React.PureComponent {
                       onChange={termsAccpeted => this.setState({ termsAccpeted })}
                     />
                     <div className="sign-up__agreement-text">I accept the <a className="sign-up__agreement-conditions" href="#">General Terms and Conditions.</a></div>
+                  </div>
+
+                  <div className="sign-up__agreement sign-up__agreement_anon">
+                    <Checkbox
+                      isChecked={this.state.allowAnonUsage}
+                      onChange={allowAnonUsage => this.setState({ allowAnonUsage })}
+                    />
+                    <div className="sign-up__agreement-text">Allow to send anonymous usage data to developer</div>
                   </div>
                 </Fragment>
               </div>

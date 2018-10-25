@@ -1,7 +1,6 @@
 import socket from '../api/socket';
 import api from '../api';
 import loader from '../utils/loader';
-import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
 import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
@@ -24,7 +23,7 @@ export const fetchNotifications = (payload = {}) => async (dispatch) => {
     const res = await api.getNotifications(payload.perPage, payload.page);
     dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
 };
@@ -43,7 +42,7 @@ export const confirmNotification = ({ id, idOfOrg }) => async (dispatch, getStat
     dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
     dispatch(getOrganization(idOfOrg));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
 };
@@ -56,7 +55,7 @@ export const declineNotification = id => async (dispatch, getState) => {
     // TODO: Получать данные о количетсве непрочитанных от сервера
     dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
 };

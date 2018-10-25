@@ -11,7 +11,9 @@ export const extractHostname = (url) => {
     [hostname] = hostname.split(':');
     [hostname] = hostname.split('?');
 
-    return hostname;
+    const name = hostname.replace('www.', '').split('.');
+    name.pop();
+    return name.join('.');
   }
 
   return null;

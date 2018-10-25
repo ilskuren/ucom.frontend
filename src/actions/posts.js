@@ -2,7 +2,6 @@ import humps from 'lodash-humps';
 import api from '../api';
 import { addUsers } from './users';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
-import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
 import { addComments } from './comments';
 import { addFeedPosts } from './feeds';
@@ -33,7 +32,7 @@ export const updatePost = payload => (dispatch) => {
       dispatch(addPosts([data]));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -61,7 +60,7 @@ export const postVote = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -78,7 +77,7 @@ export const createUserCommentPost = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -100,7 +99,7 @@ export const createSelfCommentPost = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -117,7 +116,7 @@ export const createOrganizationsCommentPost = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };

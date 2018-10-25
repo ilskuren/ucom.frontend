@@ -1,7 +1,6 @@
 import humps from 'lodash-humps';
 import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
-import { parseErrors } from '../utils/errors';
 import loader from '../utils/loader';
 import { addErrorNotification } from './notifications';
 import { setPostCommentCount } from './posts';
@@ -21,7 +20,7 @@ export const commentVote = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -37,7 +36,7 @@ export const createComment = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(parseErrors(error).general));
+      dispatch(addErrorNotification(error));
     })
     .then(() => loader.done());
 };

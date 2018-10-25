@@ -33,7 +33,7 @@ const UserFollowButton = (props) => {
       withCheckedIcon={userIsFollow || isOwner}
       text={userIsFollow || isOwner ? 'Following' : 'Follow'}
       onClick={() => {
-        if (!owner) {
+        if (!props.user.id) {
           props.showAuthPopup();
           return;
         }

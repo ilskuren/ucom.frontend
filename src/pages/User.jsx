@@ -16,20 +16,28 @@ import UserEducation from '../components/User/UserEducation';
 import UserCreatedAt from '../components/User/UserCreatedAt';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
+import { fetchPost } from '../actions/posts';
 
 class UserPage extends PureComponent {
   componentDidMount() {
-    this.getData(this.props.match.params.id);
+    this.getData(this.props.match.params.id, this.props.match.params.postId);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.id !== nextProps.match.params.id) {
-      this.getData(nextProps.match.params.id);
+    if (
+      this.props.match.params.id !== nextProps.match.params.id ||
+      this.props.match.params.postId !== nextProps.match.params.postId
+    ) {
+      this.getData(nextProps.match.params.id, nextProps.match.params.postId);
     }
   }
 
-  getData(userId) {
+  getData(userId, postId) {
     this.props.fetchUser(userId);
+
+    if (postId) {
+      this.props.fetchPost(postId);
+    }
   }
 
   render() {
@@ -45,7 +53,10 @@ class UserPage extends PureComponent {
                 <div className="grid__item">
                   <UserAbout userId={+this.props.match.params.id} />
                   <UserOrganizations userId={+this.props.match.params.id} />
-                  <UserFeed userId={+this.props.match.params.id} />
+                  <UserFeed
+                    userId={+this.props.match.params.id}
+                    pinnedPostId={+this.props.match.params.postId}
+                  />
                 </div>
 
                 <div className="grid__item">
@@ -78,5 +89,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     fetchUser,
+    fetchPost,
   }, dispatch),
 )(UserPage);

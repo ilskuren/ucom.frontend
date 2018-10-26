@@ -7,9 +7,14 @@ import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
 
 const Feed = (props) => {
-  const posts = props.postsIds.map(id => getPostById(props.posts, id))
+  const pinnedPost = getPostById(props.posts, props.pinnedPostId);
+  let posts = props.postsIds.map(id => getPostById(props.posts, id))
     .filter(item => !!item)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (pinnedPost) {
+    posts = [pinnedPost].concat(posts);
+  }
 
   return (
     <div className="feed">
@@ -54,6 +59,7 @@ const Feed = (props) => {
 Feed.propTypes = {
   title: PropTypes.string,
   onSubmitNewPost: PropTypes.func,
+  pinnedPostId: PropTypes.number,
   postsIds: PropTypes.arrayOf(PropTypes.number),
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   onClickMore: PropTypes.func,

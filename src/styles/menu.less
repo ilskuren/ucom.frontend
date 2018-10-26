@@ -115,6 +115,11 @@
 
 .menu_footer {
   font-size: 16px;
+
+  @media (max-width: 330px) {
+    max-width: 320px;
+    flex-wrap: wrap;
+  }
 }
 
 .menu_simple-tabs {
@@ -231,13 +236,13 @@
 }
 
 .menu__item_only_desktop {
-  @media (max-width: 767px) {
+  @media (max-width: 799px) {
     display: none;
   }
 }
 
 .menu__item_only_phone {
-  @media (min-width: 768px) {
+  @media (min-width: 800px) {
     display: none;
   }
 }

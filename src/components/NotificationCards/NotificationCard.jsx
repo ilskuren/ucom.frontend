@@ -6,7 +6,7 @@ import moment from 'moment';
 import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
-import { getPostUrl, getUserPinnedPost } from '../../utils/posts';
+import { getPostUrl, getPinnedPostUrl } from '../../utils/posts';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
@@ -141,8 +141,10 @@ const getTitle = (props) => {
           <Link to={getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
-          &nbsp;posted on your profile:&nbsp;
-          {props.data.post.description}
+          &nbsp;posted on your&nbsp;
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <strong>profile</strong>
+          </Link>
         </Fragment>
       );
 
@@ -153,7 +155,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your&nbsp;
-          <Link to={getUserPinnedPost(props.targetEntity.post.userId, props.targetEntity.post.id)}>
+          <Link to={getPinnedPostUrl(props.data.comment.post)}>
             <strong>post</strong>
           </Link>
         </Fragment>

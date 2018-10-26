@@ -35,18 +35,6 @@ export const getPinnedPostUrl = (post) => {
   return `/user/${post.entityIdFor}/${post.id}`;
 };
 
-export const getUserPinnedPost = (userId, postId) => {
-  if (!userId || !postId) {
-    return null;
-  }
-
-  return getPinnedPostUrl({
-    id: postId,
-    entityNameFor: 'user',
-    entityIdFor: userId,
-  });
-};
-
 export const getRulesByPostTypeId = (postTypeId) => {
   switch (postTypeId) {
     case 2:

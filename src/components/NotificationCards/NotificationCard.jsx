@@ -178,9 +178,10 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted in&nbsp;
-          {props.targetEntity.organization.title}
-          ’s feed:&nbsp;
-          {props.data.post.description}
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <strong>{props.targetEntity.organization.nickname}</strong>
+          </Link>
+          ’s feed
         </Fragment>
       );
 
@@ -274,6 +275,7 @@ const getCover = (props) => {
 
 const getAvatar = (props) => {
   switch (props.eventId) {
+    case USER_CREATES_DIRECT_POST_FOR_ORG:
     case USER_CREATES_DIRECT_POST_FOR_YOU:
       return (
         <div className="site-notification__avatar">

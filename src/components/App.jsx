@@ -88,7 +88,8 @@ class App extends PureComponent {
                 <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/notifications" component={NotificationsPage} />
-                <Route path="/user/:id" component={UserPage} />
+                <Route exact path="/user/:id" component={UserPage} />
+                <Route exact path="/user/:id/:postId" component={UserPage} />
                 <Route path="/posts/new/:postTypeId" component={CreatePost} />
                 <Route path="/posts/:id/edit" component={CreatePost} />
                 <Route exact path="/posts/:id" component={Post} />

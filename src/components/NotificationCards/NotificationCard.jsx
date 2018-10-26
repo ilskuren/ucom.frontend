@@ -149,8 +149,8 @@ const getTitle = (props) => {
     case USER_COMMENTS_YOUR_POST:
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
-            <strong>{getUserName(props.data.user)}</strong>
+          <Link to={getUserUrl(props.data.comment.user.id)}>
+            <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your post
         </Fragment>
@@ -277,6 +277,15 @@ const getAvatar = (props) => {
               src={getFileUrl(props.data.post.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}
             />
+          </Link>
+        </div>
+      );
+
+    case USER_COMMENTS_YOUR_POST:
+      return (
+        <div className="site-notification__avatar">
+          <Link to={getUserUrl(props.data.comment.user.id)}>
+            <Avatar src={getFileUrl(props.data.comment.user.avatarFilename)} />
           </Link>
         </div>
       );

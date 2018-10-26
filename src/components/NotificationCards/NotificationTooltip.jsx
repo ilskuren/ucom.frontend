@@ -45,7 +45,6 @@ class NotificationTooltip extends Component {
     const { list, notificationsMetadata } = this.props;
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
-
     const notificationTrigger = new CustomEvent('NotificationTrigger');
 
     return (

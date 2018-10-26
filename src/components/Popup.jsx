@@ -3,14 +3,15 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Portal from './Portal';
 import store from '../store';
+import { disableScroll, enableScroll } from '../utils/scroll';
 
 class Popup extends PureComponent {
   componentDidMount() {
-    document.documentElement.classList.add('no-scroll');
+    disableScroll();
   }
 
   componentWillUnmount() {
-    document.documentElement.classList.remove('no-scroll');
+    enableScroll();
   }
 
   render() {

@@ -2,54 +2,33 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Tooltip } from 'react-tippy';
 import MiniIconLogo from './Icons/MiniLogo';
 import IconLogo from './Icons/Logo';
 import Avatar from './Avatar';
 import MenuPopup from './MenuPopup';
-import NotificationTooltip from './NotificationCards/NotificationTooltip';
 import { removeToken } from '../utils/token';
 import { removeUser, showAuthPopup } from '../actions';
-import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../actions/siteNotifications';
 import { getFileUrl } from '../utils/upload';
 import { removeBrainkey } from '../utils/brainkey';
 import { selectUser } from '../store/selectors';
-import IconBell from '../components/Icons/Bell';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
 import CreateEventPopup from './CreateEventPopup';
-
-// import IconNotification from '../components/Icons/Notification';
+import NotificationTrigger from './NotificationCards/NotificationTrigger';
 
 class Header extends PureComponent {
   state = {
     popupIsVisible: false,
   }
+
   logout = () => {
     removeToken();
     removeBrainkey();
     this.props.removeUser();
     window.location.reload();
   }
-
-  hideTooltip = () => {
-    this.props.hideNotificationTooltip();
-
-    setTimeout(() => {
-      this.props.resetNotificationTooltipData();
-    }, 300);
-  }
-
-  showTooltip = () => {
-    this.props.showAndFetchNotifications();
-  }
-
-  triggerTooltip = () => (
-    this.props.tooltipVisibilty ? this.hideTooltip() : this.showTooltip()
-  );
 
   hidePopup = () => {
     this.setState({ popupIsVisible: false });
@@ -99,48 +78,7 @@ class Header extends PureComponent {
                 </div>
 
                 <div className="inline__item bell__container">
-                  <div className="inline">
-                    <Tooltip
-                      open={this.props.tooltipVisibilty}
-                      onRequestClose={this.hideTooltip}
-                      html={<NotificationTooltip hideTooltip={this.hideTooltip} />}
-                      theme="notification"
-                      arrow
-                      position="top-start"
-                      arrowSize="big"
-                      hideOnClick={false}
-                      interactive
-                      useContext
-                      sticky
-                      stickyDuration={0}
-                    >
-                      <div className="inline__item " role="presentation" onClick={this.triggerTooltip}>
-                        <div
-                          className={classNames(
-                            'icon-counter',
-                            { 'icon-counter_active': this.props.tooltipVisibilty },
-                          )}
-                        >
-                          <div className="icon-counter__icon">
-                            <IconBell />
-                          </div>
-                          <div className="icon-counter__counter">
-                            <span className="counter counter_top">{this.props.totalUnreadAmount ? this.props.totalUnreadAmount : ''}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Tooltip>
-                    {/* <div className="inline__item">
-                      <div className="icon-counter">
-                        <div className="icon-counter__icon">
-                          <IconNotification />
-                        </div>
-                        <div className="icon-counter__counter">
-                          <span className="counter counter_top">23</span>
-                        </div>
-                      </div>
-                    </div> */}
-                  </div>
+                  <NotificationTrigger />
                 </div>
               </div>
             )}
@@ -246,25 +184,14 @@ Header.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
   removeUser: PropTypes.func,
   showAuthPopup: PropTypes.func,
-  showAndFetchNotifications: PropTypes.func,
-  resetNotificationTooltipData: PropTypes.func,
-  hideNotificationTooltip: PropTypes.func,
-  tooltipVisibilty: PropTypes.bool,
-  totalUnreadAmount: PropTypes.number,
 };
 
 export default withRouter(connect(
   state => ({
     user: selectUser(state),
-    tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
-    totalUnreadAmount: state.siteNotifications.totalUnreadAmount,
-    notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => bindActionCreators({
     removeUser,
     showAuthPopup,
-    showAndFetchNotifications,
-    hideNotificationTooltip,
-    resetNotificationTooltipData,
   }, dispatch),
 )(Header));

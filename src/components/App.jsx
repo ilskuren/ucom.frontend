@@ -99,6 +99,7 @@ class App extends PureComponent {
                 <Route exact path="/communities" component={OrganizationsPage} />
                 <Route exact path="/communities/new" component={OrganizationsCreatePage} />
                 <Route exact path="/communities/:id" component={OrganizationPage} />
+                <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
                 <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
                 <Route component={NotFoundPage} />
               </Switch>

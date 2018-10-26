@@ -6,7 +6,7 @@ import moment from 'moment';
 import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
-import { getPostUrl } from '../../utils/posts';
+import { getPostUrl, getUserPinnedPost } from '../../utils/posts';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
@@ -152,15 +152,18 @@ const getTitle = (props) => {
           <Link to={getUserUrl(props.data.comment.user.id)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
-          &nbsp;commented on your post
+          &nbsp;commented on your&nbsp;
+          <Link to={getUserPinnedPost(props.targetEntity.post.userId, props.targetEntity.post.id)}>
+            <strong>post</strong>
+          </Link>
         </Fragment>
       );
 
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
-            <strong>{getUserName(props.data.user)}</strong>
+          <Link to={getUserUrl(props.data.comment.id)}>
+            <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;replied to your comment
         </Fragment>
@@ -281,6 +284,7 @@ const getAvatar = (props) => {
         </div>
       );
 
+    case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
     case USER_COMMENTS_YOUR_POST:
       return (
         <div className="site-notification__avatar">

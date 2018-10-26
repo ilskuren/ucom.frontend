@@ -6,43 +6,45 @@ export const POST_TYPES = [{
   id: 1,
   description: 'Story',
 }];
-// , {
-//   id: 2,
-//   description: 'Challenge',
-// }, {
-//   id: 3,
-//   description: 'Poll',
-// }, {
-//   id: 4,
-//   description: 'News',
-// }, {
-//   id: 5,
-//   description: 'Trading Forecast',
-// }, {
-//   id: 6,
-//   description: 'Review',
-// }, {
-//   id: 7,
-//   description: 'Analytics',
-// }, {
-//   id: 8,
-//   description: 'Interview',
-// }];
 
 export const getPostUrl = (postId) => {
-  if (postId) {
-    return `/posts/${postId}`;
+  if (!postId) {
+    return null;
   }
 
-  return null;
+  return `/posts/${postId}`;
 };
 
 export const getPostEditUrl = (postId) => {
-  if (postId) {
-    return `/posts/${postId}/edit`;
+  if (!postId) {
+    return null;
   }
 
-  return null;
+  return `/posts/${postId}/edit`;
+};
+
+export const getPinnedPostUrl = (post) => {
+  if (!post || !post.id || !post.entityIdFor || !post.entityNameFor) {
+    return null;
+  }
+
+  if (post.entityNameFor.trim() === 'org') {
+    return `/communities/${post.entityIdFor}/${post.id}`;
+  }
+
+  return `/user/${post.entityIdFor}/${post.id}`;
+};
+
+export const getUserPinnedPost = (userId, postId) => {
+  if (!userId || !postId) {
+    return null;
+  }
+
+  return getPinnedPostUrl({
+    id: postId,
+    entityNameFor: 'user',
+    entityIdFor: userId,
+  });
 };
 
 export const getRulesByPostTypeId = (postTypeId) => {

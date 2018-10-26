@@ -16,28 +16,20 @@ import UserEducation from '../components/User/UserEducation';
 import UserCreatedAt from '../components/User/UserCreatedAt';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
-import { fetchPost } from '../actions/posts';
 
 class UserPage extends PureComponent {
   componentDidMount() {
-    this.getData(this.props.match.params.id, this.props.match.params.postId);
+    this.getData(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.match.params.id !== nextProps.match.params.id ||
-      this.props.match.params.postId !== nextProps.match.params.postId
-    ) {
-      this.getData(nextProps.match.params.id, nextProps.match.params.postId);
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.getData(nextProps.match.params.id);
     }
   }
 
-  getData(userId, postId) {
+  getData(userId) {
     this.props.fetchUser(userId);
-
-    if (postId) {
-      this.props.fetchPost(postId);
-    }
   }
 
   render() {
@@ -89,6 +81,5 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     fetchUser,
-    fetchPost,
   }, dispatch),
 )(UserPage);

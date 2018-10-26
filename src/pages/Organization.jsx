@@ -37,10 +37,7 @@ class OrganizationPage extends PureComponent {
   }
 
   getData(organizationId) {
-    // this.props.fetchOrganizationPosts(organizationId);
-
     this.props.getOrganization(organizationId);
-    // this.props.getOrganizationWallFeed(organizationId);
 
     api.getOrganization(organizationId)
       .then((data) => {
@@ -83,7 +80,10 @@ class OrganizationPage extends PureComponent {
                       )}
 
                       <div className="user-section">
-                        <OrganizationFeed organizationId={+this.props.match.params.id} />
+                        <OrganizationFeed
+                          organizationId={+this.props.match.params.id}
+                          pinnedPostId={+this.props.match.params.postId}
+                        />
                       </div>
                     </div>
 

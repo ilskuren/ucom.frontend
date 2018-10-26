@@ -38,14 +38,19 @@ class Post extends PureComponent {
 
   componentDidMount() {
     if (this.props.pinned) {
-      scrollTo(this.el, POST_TOP_OFFSET);
+      this.showOnFeed();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.pinned && nextProps.pinned) {
-      scrollTo(this.el, POST_TOP_OFFSET);
+      this.showOnFeed();
     }
+  }
+
+  showOnFeed() {
+    scrollTo(this.el, POST_TOP_OFFSET);
+    this.toggleComments();
   }
 
   toggleComments = () => {

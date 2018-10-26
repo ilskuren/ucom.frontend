@@ -7,7 +7,6 @@ import IconClose from 'components/Icons/Close';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import NotificationCard from './NotificationCard';
 import {
-  hideNotificationTooltip,
   addSiteNotifications,
   deleteSiteNotification,
   fetchNotifications,
@@ -25,6 +24,7 @@ class NotificationTooltip extends Component {
     super(props);
     this.tooltip = createRef();
   }
+
   componentDidMount() {
     window.addEventListener('NotificationTrigger', this.loadMore);
     document.addEventListener('click', this.hideIfOut);
@@ -36,9 +36,8 @@ class NotificationTooltip extends Component {
   }
 
   loadMore = () => {
-    const {
-      hasMore,
-    } = this.props.notificationsMetadata;
+    const { hasMore } = this.props.notificationsMetadata;
+
     if (hasMore) {
       this.props.fetchNotifications({
         page: ++this.props.notificationsMetadata.page,
@@ -46,11 +45,13 @@ class NotificationTooltip extends Component {
       });
     }
   };
+
   hideIfOut = (e) => {
     if (e.path.every(i => i !== this.tooltip.current)) {
-      this.props.hideNotificationTooltip();
+      this.props.hideTooltip();
     }
   }
+
   render() {
     const { list, notificationsMetadata } = this.props;
     const newNotifications = filterNotifs(list, false);
@@ -58,84 +59,81 @@ class NotificationTooltip extends Component {
     const notificationTrigger = new CustomEvent('NotificationTrigger');
 
     return (
-      <div ref={this.tooltip} className="notification-theme-popper">
-        <div className="otification-theme-popper__tooltip">
-          <div className="arrow-big" />
-          <PerfectScrollbar
-            className="notification-tooltip__container"
-            onYReachEnd={() => {
-            window.dispatchEvent(notificationTrigger);
-          }}
+      <div ref={this.tooltip} className="notification-theme">
+        <div className="arrow-big" />
+        <PerfectScrollbar
+          className="notification-tooltip__container"
+          onYReachEnd={() => {
+          window.dispatchEvent(notificationTrigger);
+        }}
+        >
+          <div>
+            {isRequiredTime(list, false) &&
+              <div className="notification-tooltip__header">
+                <h3 className="notification-tooltip__title">New notifications
+                </h3>
+              </div>
+            }
+
+            {!Object.values(list).length &&
+              <div className="notification-tooltip__header notification-tooltip__header_center">
+                <h3 className="notification-tooltip__title">No notifications</h3>
+              </div>
+            }
+
+            {newNotifications && newNotifications.length > 0 &&
+              <div className="notification-tooltip__list notification-tooltip__list_new">
+                <TransitionGroup>
+                  {newNotifications.map(item => (
+                    <CSSTransition key={item.id} timeout={200} classNames="fade">
+                      <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
+                        <NotificationCard {...item} />
+                      </div>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
+              </div>
+            }
+
+            {isRequiredTime(list, true) &&
+              <div className="notification-tooltip__header">
+                <h3 className="notification-tooltip__title">Early</h3>
+              </div>
+            }
+
+            {oldNotifications && oldNotifications.length > 0 &&
+              <div className="notification-tooltip__list">
+                <TransitionGroup>
+                  {oldNotifications.map(item => (
+                    <CSSTransition key={item.id} timeout={200} classNames="fade">
+                      <div key={item.id} className="notification-tooltip__item">
+                        <NotificationCard {...item} />
+                      </div>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
+              </div>
+            }
+
+            {notificationsMetadata.hasMore &&
+              <div className="notification-tooltip__loading">Loading...</div>
+            }
+          </div>
+
+          <div
+            className="inline__item notification-tooltip__close"
+            onClick={() => this.props.hideTooltip()}
+            role="presentation"
           >
-            <div>
-              {isRequiredTime(list, false) &&
-                <div className="notification-tooltip__header">
-                  <h3 className="notification-tooltip__title">New notifications
-                  </h3>
-                </div>
-              }
-
-              {!Object.values(list).length &&
-                <div className="notification-tooltip__header notification-tooltip__header_center">
-                  <h3 className="notification-tooltip__title">No notifications</h3>
-                </div>
-              }
-
-              {newNotifications && newNotifications.length > 0 &&
-                <div className="notification-tooltip__list notification-tooltip__list_new">
-                  <TransitionGroup>
-                    {newNotifications.map(item => (
-                      <CSSTransition key={item.id} timeout={200} classNames="fade">
-                        <div key={item.id} className="notification-tooltip__item notification-tooltip__item_new">
-                          <NotificationCard {...item} />
-                        </div>
-                      </CSSTransition>
-                    ))}
-                  </TransitionGroup>
-                </div>
-              }
-
-              {isRequiredTime(list, true) &&
-                <div className="notification-tooltip__header">
-                  <h3 className="notification-tooltip__title">Early</h3>
-                </div>
-              }
-
-              {oldNotifications && oldNotifications.length > 0 &&
-                <div className="notification-tooltip__list">
-                  <TransitionGroup>
-                    {oldNotifications.map(item => (
-                      <CSSTransition key={item.id} timeout={200} classNames="fade">
-                        <div key={item.id} className="notification-tooltip__item">
-                          <NotificationCard {...item} />
-                        </div>
-                      </CSSTransition>
-                    ))}
-                  </TransitionGroup>
-                </div>
-              }
-
-              {notificationsMetadata.hasMore &&
-                <div className="notification-tooltip__loading">Loading...</div>
-              }
-            </div>
-
-            <div
-              className="inline__item notification-tooltip__close"
-              onClick={() => this.props.hideNotificationTooltip()}
-              role="presentation"
-            >
-              <IconClose />
-            </div>
-          </PerfectScrollbar>
-        </div>
+            <IconClose />
+          </div>
+        </PerfectScrollbar>
       </div>
     );
   }
 }
 
 NotificationTooltip.propTypes = {
-  hideNotificationTooltip: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
   list: PropTypes.objectOf(PropTypes.any),
   notificationsMetadata: PropTypes.objectOf(PropTypes.any),
@@ -150,7 +148,6 @@ export default connect(
   dispatch => bindActionCreators({
     addSiteNotifications,
     deleteSiteNotification,
-    hideNotificationTooltip,
     fetchNotifications,
   }, dispatch),
 )(NotificationTooltip);

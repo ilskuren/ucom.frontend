@@ -1,10 +1,4 @@
-.notification-theme-popper {
-  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-  pointer-events: none;
-  transition-duration: 0ms;
-}
-
-.notification-theme-popper__tooltip {
+.notification-theme {
   padding: 0;
   width: 600px;
   max-height: 784px;
@@ -15,9 +9,16 @@
   left: 2px;
   top: 41px;
   position: absolute;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 99;
 
   @media (max-width: 787px) {
+    position: fixed;
+    max-height: 100%;
+    height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
   }
 
   .arrow-big {

@@ -7,10 +7,12 @@ import React, { PureComponent, Fragment } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../../actions/siteNotifications';
+import { enableScroll, disableScroll } from '../../utils/scroll';
 
 class NotificationTrigger extends PureComponent {
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
+    enableScroll();
 
     setTimeout(() => {
       this.props.resetNotificationTooltipData();
@@ -19,12 +21,20 @@ class NotificationTrigger extends PureComponent {
 
   showTooltip = () => {
     this.props.showAndFetchNotifications();
+    this.resizeTooltip();
   }
 
   triggerTooltip = () => (
     this.props.tooltipVisibilty ? this.hideTooltip() : this.showTooltip()
   );
 
+  resizeTooltip = () => {
+    if (window.matchMedia('(min-width: 787px)').matches) {
+      enableScroll();
+    } else {
+      disableScroll();
+    }
+  }
   render() {
     return (
       // <Tooltip

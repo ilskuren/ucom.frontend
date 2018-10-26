@@ -1,20 +1,35 @@
-.notification-theme {
+.notification-theme-popper {
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  pointer-events: none;
+  transition-duration: 0ms;
+}
+
+.notification-theme-popper__tooltip {
   padding: 0;
   width: 600px;
   max-height: 784px;
   background-color: #fff;
-  border: 1px solid #E8ECEC;
-  left: -8px;
-  top: 7px;
-  position: relative;
   color: black;
+  border: 1px solid #E8ECEC;
+  border-radius: 4px;
+  left: 2px;
+  top: 41px;
+  position: absolute;
 
   @media (max-width: 787px) {
     width: 100%;
   }
 
   .arrow-big {
-    border-bottom-color: #E8ECEC !important;
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0 9px;
+    top: -10px;
+    left: 3px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #E8ECEC;
   }
 }
 
@@ -41,7 +56,6 @@
 .notification-tooltip__container {
   max-height: 784px;
   overflow: auto;
-
   .ps__rail-y {
     right: 0px;
     left:  initial !important;

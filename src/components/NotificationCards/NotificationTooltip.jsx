@@ -58,7 +58,7 @@ class NotificationTooltip extends Component {
     const oldNotifications = filterNotifs(list, true);
     const notificationTrigger = new CustomEvent('NotificationTrigger');
     return (
-      <div ref={this.tooltip} className="notification-theme">
+      <div ref={this.tooltip} className="notification-tooltip">
         <div className="arrow-big" />
         <PerfectScrollbar
           className="notification-tooltip__container"

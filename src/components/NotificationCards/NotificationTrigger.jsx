@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { Tooltip } from 'react-tippy';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import React, { PureComponent, Fragment } from 'react';
@@ -38,20 +37,6 @@ class NotificationTrigger extends PureComponent {
   }
   render() {
     return (
-      // <Tooltip
-      //   open={this.props.tooltipVisibilty}
-      //   onRequestClose={this.hideTooltip}
-      //   html={<NotificationTooltip hideTooltip={this.hideTooltip} />}
-      //   theme="notification"
-      //   arrow
-      //   position="top-start"
-      //   arrowSize="big"
-      //   hideOnClick={false}
-      //   interactive
-      //   useContext
-      //   sticky
-      //   stickyDuration={0}
-      // >
       <Fragment>
         <CSSTransition
           timeout={300}

@@ -162,7 +162,7 @@ const getTitle = (props) => {
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.comment.id)}>
+          <Link to={getUserUrl(props.data.comment.userId)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;replied to your comment

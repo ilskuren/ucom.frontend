@@ -16,7 +16,6 @@ import UserEducation from '../components/User/UserEducation';
 import UserCreatedAt from '../components/User/UserCreatedAt';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
-import { fetchPost } from '../actions/posts';
 
 class UserPage extends PureComponent {
   componentDidMount() {
@@ -74,7 +73,6 @@ class UserPage extends PureComponent {
 
 UserPage.propTypes = {
   fetchUser: PropTypes.func.isRequired,
-  fetchPost: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -83,6 +81,5 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     fetchUser,
-    fetchPost,
   }, dispatch),
 )(UserPage);

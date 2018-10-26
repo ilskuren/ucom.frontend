@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { Tooltip } from 'react-tippy';
 import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 import React, { PureComponent, Fragment } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
@@ -52,9 +53,15 @@ class NotificationTrigger extends PureComponent {
       //   stickyDuration={0}
       // >
       <Fragment>
-        {this.props.tooltipVisibilty &&
+        <CSSTransition
+          timeout={300}
+          appear
+          in={this.props.tooltipVisibilty}
+          classNames="fade"
+          unmountOnExit
+        >
           <NotificationTooltip hideTooltip={this.hideTooltip} />
-        }
+        </CSSTransition>
         <div
           role="presentation"
           onClick={this.triggerTooltip}

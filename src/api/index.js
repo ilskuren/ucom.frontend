@@ -46,7 +46,7 @@ class Api {
   }
 
   @bind
-  async register({ brainkey, accountName }) {
+  async register({ brainkey, accountName, allowAnonUsage }) {
     const ownerKey = ecc.seedPrivate(brainkey);
     const activeKey = ecc.seedPrivate(ownerKey);
     const sign = ecc.sign(accountName, activeKey);
@@ -54,6 +54,7 @@ class Api {
     const response = await this.actions.post('/api/v1/auth/registration', {
       sign,
       brainkey,
+      allow_anon_usage: allowAnonUsage,
       account_name: accountName,
       public_key: publicKey,
     });
@@ -373,13 +374,6 @@ class Api {
   @bind
   async declineNotification(id) {
     const response = await this.actions.post(`/api/v1/myself/notifications/${id}/decline`);
-
-    return humps(response.data);
-  }
-
-  @bind
-  async seenNotification(id) {
-    const response = await this.actions.post(`/api/v1/myself/notifications/${id}/seen`);
 
     return humps(response.data);
   }

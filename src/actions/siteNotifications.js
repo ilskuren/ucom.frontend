@@ -4,9 +4,25 @@ import loader from '../utils/loader';
 import { addErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
 import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
+import { enableScroll, disableScroll } from '../utils/scroll';
+import { isMobile } from '../utils/mediaQueries';
 
-export const showNotificationTooltip = () => ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
-export const hideNotificationTooltip = () => ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
+export const showNotificationTooltip = () => {
+  if (isMobile()) {
+    enableScroll();
+  } else {
+    disableScroll();
+  }
+
+  return ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
+};
+
+export const hideNotificationTooltip = () => {
+  enableScroll();
+
+  return ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
+};
+
 export const resetNotificationTooltip = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP' });
 export const resetNotificationTooltipData = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP_DATA' });
 export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS', payload });

@@ -20,24 +20,17 @@ import { fetchPost } from '../actions/posts';
 
 class UserPage extends PureComponent {
   componentDidMount() {
-    this.getData(this.props.match.params.id, this.props.match.params.postId);
+    this.getData(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.match.params.id !== nextProps.match.params.id ||
-      this.props.match.params.postId !== nextProps.match.params.postId
-    ) {
-      this.getData(nextProps.match.params.id, nextProps.match.params.postId);
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.getData(nextProps.match.params.id);
     }
   }
 
-  getData(userId, postId) {
+  getData(userId) {
     this.props.fetchUser(userId);
-
-    if (postId) {
-      this.props.fetchPost(postId);
-    }
   }
 
   render() {
@@ -81,6 +74,7 @@ class UserPage extends PureComponent {
 
 UserPage.propTypes = {
   fetchUser: PropTypes.func.isRequired,
+  fetchPost: PropTypes.func.isRequired,
 };
 
 export default connect(

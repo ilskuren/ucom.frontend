@@ -8,7 +8,7 @@ import { hideNotificationTooltip } from '../actions/siteNotifications';
 
 class Page extends PureComponent {
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       window.scrollTo(0, 0);
       this.props.hideAuthPopup();
       this.props.hideNotificationTooltip();

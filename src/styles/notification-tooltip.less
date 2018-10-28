@@ -1,20 +1,35 @@
-.notification-theme {
+.notification-tooltip {
   padding: 0;
   width: 600px;
   max-height: 784px;
   background-color: #fff;
-  border: 1px solid #E8ECEC;
-  left: -8px;
-  top: 7px;
-  position: relative;
   color: black;
+  border: 1px solid #E8ECEC;
+  border-radius: 4px;
+  left: 2px;
+  top: 41px;
+  position: absolute;
+  z-index: 99;
 
   @media (max-width: 787px) {
+    position: fixed;
+    max-height: 100%;
+    height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
   }
 
   .arrow-big {
-    border-bottom-color: #E8ECEC !important;
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0 9px;
+    top: -10px;
+    left: 3px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #E8ECEC;
   }
 }
 
@@ -41,6 +56,11 @@
 .notification-tooltip__container {
   max-height: 784px;
   overflow: auto;
+  
+  @media (max-width: 787px) {
+    max-height: 100%;
+    height: 100%;
+  }
 
   .ps__rail-y {
     right: 0px;

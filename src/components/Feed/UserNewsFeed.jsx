@@ -20,11 +20,7 @@ class UserNewsFeed extends PureComponent {
 
   getData(userId) {
     this.props.resetFeeds();
-    this.props.getUserNewsFeed({
-      userId,
-      perPage: 10,
-      page: 1,
-    });
+    this.props.getUserNewsFeed({ userId, perPage: 10, page: 1 });
   }
 
   getMoreData = () => {

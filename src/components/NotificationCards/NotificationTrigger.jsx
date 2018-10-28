@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Tooltip } from 'react-tippy';
 import classNames from 'classnames';
-import React, { PureComponent } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import React, { PureComponent, Fragment } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../../actions/siteNotifications';
@@ -27,20 +27,16 @@ class NotificationTrigger extends PureComponent {
 
   render() {
     return (
-      <Tooltip
-        open={this.props.tooltipVisibilty}
-        onRequestClose={this.hideTooltip}
-        html={<NotificationTooltip hideTooltip={this.hideTooltip} />}
-        theme="notification"
-        arrow
-        position="top-start"
-        arrowSize="big"
-        hideOnClick={false}
-        interactive
-        useContext
-        sticky
-        stickyDuration={0}
-      >
+      <Fragment>
+        <CSSTransition
+          timeout={300}
+          appear
+          in={this.props.tooltipVisibilty}
+          classNames="fade"
+          unmountOnExit
+        >
+          <NotificationTooltip hideTooltip={this.hideTooltip} />
+        </CSSTransition>
         <div
           role="presentation"
           onClick={this.triggerTooltip}
@@ -56,7 +52,7 @@ class NotificationTrigger extends PureComponent {
             <span className="counter counter_top">{this.props.totalUnreadAmount ? this.props.totalUnreadAmount : ''}</span>
           </div>
         </div>
-      </Tooltip>
+      </Fragment>
     );
   }
 }

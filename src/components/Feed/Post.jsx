@@ -12,7 +12,7 @@ import IconEdit from '../Icons/Edit';
 import Comments from '../Comments/Comments';
 import LastUserComments from '../Comments/LastUserComments';
 import FeedForm from './FeedForm';
-import { getPostUrl, getPostTypeById, postIsEditable } from '../../utils/posts';
+import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { escapeQuotes } from '../../utils/text';
@@ -21,6 +21,9 @@ import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
 import { updatePost } from '../../actions/posts';
+import { scrollTo } from '../../utils/scroll';
+
+const POST_TOP_OFFSET = 20;
 
 class Post extends PureComponent {
   constructor(props) {
@@ -31,6 +34,23 @@ class Post extends PureComponent {
       commentsIsVisible: false,
       timestamp: (new Date()).getTime(),
     };
+  }
+
+  componentDidMount() {
+    if (this.props.pinned) {
+      this.showOnFeed();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.pinned && nextProps.pinned) {
+      this.showOnFeed();
+    }
+  }
+
+  showOnFeed() {
+    scrollTo(this.el, POST_TOP_OFFSET);
+    this.toggleComments();
   }
 
   toggleComments = () => {
@@ -58,7 +78,7 @@ class Post extends PureComponent {
     const user = getUserById(this.props.users, post.userId);
 
     return (
-      <div className="post">
+      <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
         <div className="post__info-block">
           <div className="post__type"><strong>{getPostTypeById(post.postTypeId)}</strong></div>
           <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
@@ -100,7 +120,7 @@ class Post extends PureComponent {
               {post.postTypeId === 10 ? (
                 <div className="toolbar toolbar_fluid toolbar_small">
                   <div className="toolbar__main">
-                    {escapeQuotes(post.description)}
+                    <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
                   </div>
                   {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
                     <div className="toolbar__side">
@@ -161,6 +181,7 @@ class Post extends PureComponent {
 
 Post.propTypes = {
   id: PropTypes.number,
+  pinned: PropTypes.bool,
   updatePost: PropTypes.func,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,

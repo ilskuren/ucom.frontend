@@ -28,36 +28,38 @@ const OrganizationHeader = (props) => {
           <Avatar size="medium" src={getFileUrl(organization.avatarFilename)} square rounded />
         </div>
 
-        <div className="organization-header__main">
-          <div className="organization-header__title">
-            {organization.title} {organization.userId === props.user.id && (
-              <Link to={getOrganizationEditUrl(organization.id)}>
-                <span className="edit" />
-              </Link>
+        <div className="organization-header__aside-b">
+          <div className="organization-header__main">
+            <div className="organization-header__title">
+              {organization.title} {organization.userId === props.user.id && (
+                <Link to={getOrganizationEditUrl(organization.id)}>
+                  <span className="edit" />
+                </Link>
+              )}
+            </div>
+
+            {organization.nickname && (
+              <div className="organization-header__nickname">@{organization.nickname}</div>
+            )}
+
+            {organization.poweredBy && (
+              <div className="organization-header__poweredby">Powered by {organization.poweredBy}</div>
+            )}
+
+            {organization.usersTeam && (
+              <div className="organization-header__board">
+                <Board users={users} title="Board" />
+              </div>
             )}
           </div>
 
-          {organization.nickname && (
-            <div className="organization-header__nickname">@{organization.nickname}</div>
-          )}
-
-          {organization.poweredBy && (
-            <div className="organization-header__poweredby">Powered by {organization.poweredBy}</div>
-          )}
-
-          {organization.usersTeam && (
-            <div className="organization-header__board">
-              <Board users={users} title="Board" />
+          <div className="organization-header__bside">
+            {organization.position && (
+              <div className="organization-header__position">#{organization.position}</div>
+            )}
+            <div className="organization-header__rate">
+              <Rate value={+organization.currentRate} className="rate_big" />
             </div>
-          )}
-        </div>
-
-        <div className="organization-header__bside">
-          {organization.position && (
-            <div className="organization-header__position">#{organization.position}</div>
-          )}
-          <div className="organization-header__rate">
-            <Rate value={+organization.currentRate} className="rate_big" />
           </div>
         </div>
       </div>

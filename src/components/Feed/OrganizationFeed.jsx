@@ -20,11 +20,7 @@ class OrganizationFeed extends PureComponent {
 
   getData(organizationId) {
     this.props.resetFeeds();
-    this.props.getOrganizationWallFeed({
-      organizationId,
-      perPage: 10,
-      page: 1,
-    });
+    this.props.getOrganizationWallFeed({ organizationId, perPage: 10, page: 1 });
   }
 
   getMoreData = () => {
@@ -49,6 +45,7 @@ class OrganizationFeed extends PureComponent {
     }
     return (
       <Feed
+        pinnedPostId={this.props.pinnedPostId}
         postsIds={organizationWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={organizationWallFeed.metadata && organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
@@ -68,6 +65,7 @@ class OrganizationFeed extends PureComponent {
 
 OrganizationFeed.propTypes = {
   organizationId: PropTypes.number,
+  pinnedPostId: PropTypes.number,
   createOrganizationsCommentPost: PropTypes.func,
   resetFeeds: PropTypes.func,
   getOrganizationWallFeed: PropTypes.func,

@@ -45,7 +45,10 @@ class UserPage extends PureComponent {
                 <div className="grid__item">
                   <UserAbout userId={+this.props.match.params.id} />
                   <UserOrganizations userId={+this.props.match.params.id} />
-                  <UserFeed userId={+this.props.match.params.id} />
+                  <UserFeed
+                    userId={+this.props.match.params.id}
+                    pinnedPostId={+this.props.match.params.postId}
+                  />
                 </div>
 
                 <div className="grid__item">

@@ -111,7 +111,7 @@ class Header extends PureComponent {
                   Create Event
                 </NavLink>
               </div> */}
-              <div className="menu__item menu__item_only_desktop">
+              <div className="menu__item only-desktop">
                 {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
 
                 <Link to="/posts/new/1" className="menu__link-button">
@@ -119,18 +119,7 @@ class Header extends PureComponent {
                 </Link>
               </div>
 
-              <div className="menu__item menu__item_only_phone">
-                <NavLink
-                  to="/posts/new/1"
-                  className="menu__link menu__link_upper"
-                  activeClassName="menu__link_active"
-                  isActive={() => this.props.location.pathname === '/posts/new/1'}
-                >
-                  Add&nbsp;publication
-                </NavLink>
-              </div>
-
-              <div className="menu__item">
+              <div className="menu__item only-desktop">
                 <NavLink
                   to="/users"
                   className="menu__link menu__link_upper"
@@ -140,7 +129,7 @@ class Header extends PureComponent {
                   People
                 </NavLink>
               </div>
-              <div className="menu__item">
+              <div className="menu__item only-desktop">
                 <NavLink
                   to="/communities"
                   className="menu__link menu__link_upper"
@@ -150,7 +139,7 @@ class Header extends PureComponent {
                   Communities
                 </NavLink>
               </div>
-              <div className="menu__item">
+              <div className="menu__item only-desktop">
                 <NavLink
                   to="/publications/media"
                   className="menu__link menu__link_upper"

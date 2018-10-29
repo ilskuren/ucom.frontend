@@ -50,3 +50,15 @@ h4 {
 .no-scroll {
   overflow: hidden;
 }
+
+.only-desktop {
+  @media (max-width: 787px) {
+    display: none;
+  }
+}
+
+.only-phone {
+  @media (min-width: 788px) {
+    display: none;
+  }
+}

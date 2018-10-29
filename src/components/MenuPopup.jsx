@@ -76,7 +76,7 @@ class MenuPopup extends PureComponent {
             <ModalContent onClickClose={this.hidePopup} closeText="Close">
               <div className="menu-popup">
                 <div className="menu-popup__head">
-                  <div className="menu-popup__container menu-popup__container__head">
+                  <div className="header__inner">
                     <div className="inline inline__group">
                       <div className="inline__item mini-icon-logo">
                         <Link to="/" className="menu__link">
@@ -158,6 +158,45 @@ class MenuPopup extends PureComponent {
                           onClick={this.hidePopup}
                         >
                             Settings
+                        </NavLink>
+                      </div>
+                      <div className="menu__item only-phone">
+                        <NavLink
+                          to="/posts/new/1"
+                          className="menu__link"
+                        >
+                          Add&nbsp;publication
+                        </NavLink>
+                      </div>
+
+                      <div className="menu__item only-phone">
+                        <NavLink
+                          to="/users"
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          isActive={() => this.props.location.pathname === '/users'}
+                        >
+                          People
+                        </NavLink>
+                      </div>
+                      <div className="menu__item only-phone">
+                        <NavLink
+                          to="/communities"
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          isActive={() => this.props.location.pathname === '/communities'}
+                        >
+                          Communities
+                        </NavLink>
+                      </div>
+                      <div className="menu__item only-phone">
+                        <NavLink
+                          to="/publications/media"
+                          className="menu__link"
+                          activeClassName="menu__link_active"
+                          isActive={() => this.props.location.pathname.indexOf('/publications') === 0}
+                        >
+                          Publications
                         </NavLink>
                       </div>
                       <div className="menu__item">

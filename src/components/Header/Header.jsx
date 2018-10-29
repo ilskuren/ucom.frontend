@@ -2,13 +2,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { showAuthPopup } from '../actions';
-import { selectUser } from '../store/selectors';
-import Popup from './Popup';
-import ModalContent from './ModalContent';
+import { showAuthPopup } from '../../actions';
+import { selectUser } from '../../store/selectors';
+import Popup from '../Popup';
+import ModalContent from '../ModalContent';
 import HeaderSide from './HeaderSide';
 import HeaderMain from './HeaderMain';
-import CreateEventPopup from './CreateEventPopup';
+import CreateEventPopup from '../CreateEventPopup';
 
 class Header extends PureComponent {
   state = {

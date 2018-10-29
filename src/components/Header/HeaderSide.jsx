@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Avatar from './Avatar';
-import IconLogo from './Icons/Logo';
-import MiniIconLogo from './Icons/MiniLogo';
-import { getFileUrl } from '../utils/upload';
-import NotificationTrigger from './NotificationCards/NotificationTrigger';
-import { showAuthPopup } from '../actions';
-import { triggerMenuPopup, hideMenuPopup } from '../actions/menuPopup';
-import { selectUser } from '../store/selectors';
+import Avatar from '../Avatar';
+import IconLogo from '../Icons/Logo';
+import MiniIconLogo from '../Icons/MiniLogo';
+import { getFileUrl } from '../../utils/upload';
+import NotificationTrigger from '../NotificationCards/NotificationTrigger';
+import { showAuthPopup } from '../../actions';
+import { triggerMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
+import { selectUser } from '../../store/selectors';
 
 /* {menuPopupVisibility ?
       <div className="inline inline__group">

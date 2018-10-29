@@ -8,7 +8,7 @@ import Popup from './Popup';
 import ModalContent from './ModalContent';
 import InfoBlock from './InfoBlock';
 import UserCard from './UserCard';
-import Header from './Header';
+import Header from './Header/Header';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
 // import { getUserUrl } from '../utils/user';

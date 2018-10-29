@@ -22,7 +22,7 @@ import { getToken, removeToken } from '../utils/token';
 import { fetchMyself } from '../actions/users';
 import api from '../api';
 import Loading from './Loading';
-import Header from './Header';
+import Header from './Header/Header';
 import MenuPopup from './MenuPopup';
 import SignUp from '../pages/SignUp';
 import Page from './Page';

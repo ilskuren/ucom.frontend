@@ -1,18 +1,23 @@
 import React, { PureComponent, Fragment } from 'react';
 import { withRouter } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
 import InfoBlock from './InfoBlock';
 import UserCard from './UserCard';
-import Avatar from './Avatar';
+import Header from './Header';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
 // import { getUserUrl } from '../utils/user';
-import MiniIconLogo from './Icons/MiniLogo';
-import IconLogo from './Icons/Logo';
+import { selectUser } from '../store/selectors';
 import { getOrganizationUrl } from '../utils/organization';
+import { showMenuPopup, hideMenuPopup } from '../actions/menuPopup';
+import { removeBrainkey } from '../utils/brainkey';
+import { removeToken } from '../utils/token';
+import { removeUser } from '../actions';
 
 import av1 from '../static/avatars/1.png';
 import av2 from '../static/avatars/2.png';
@@ -37,29 +42,26 @@ const products = [
 ];
 
 class MenuPopup extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      menuPopupVisibility: false,
-    };
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.hidePopup();
     }
   }
 
+  logout = () => {
+    removeToken();
+    removeBrainkey();
+    this.props.removeUser();
+    window.location.reload();
+    this.hidePopup();
+  }
+
   hidePopup = () => {
+    this.props.hideMenuPopup();
   }
 
   showPopup = () => {
-  }
-
-  logout = () => {
-    this.props.logout();
-    this.hidePopup();
+    this.props.showMenuPopup();
   }
 
   render() {
@@ -69,77 +71,11 @@ class MenuPopup extends PureComponent {
           <Popup onClickClose={this.hidePopup}>
             <ModalContent onClickClose={this.hidePopup} closeText="Close">
               <div className="menu-popup">
-                <div className="menu-popup__head">
-                  <div className="header__inner">
-                    <div className="inline inline__group">
-                      {this.props.isAuth ?
-                        <Fragment>
-                          <div className="inline__item mini-icon-logo">
-                            <Link to="/" className="menu__link">
-                              <MiniIconLogo />
-                            </Link>
-                          </div>
-                          <div className="inline__item">
-                            <Link to={`/user/${this.props.user.id}`}>
-                              <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
-                            </Link>
-                          </div>
-                          <div className="inline__item">
-                            <div className="header__rate">{(+this.props.user.currentRate).toLocaleString()}°</div>
-                          </div>
-                        </Fragment>
-                        :
-                        <Fragment>
-                          <div className="inline__item only-phone">
-                            <Link to="/" className="menu__link">
-                              <IconLogo />
-                            </Link>
-                          </div>
-                          <div className="menu__item">
-                            <button className="menu__link menu__link_upper" onClick={() => this.props.showAuthPopup()}>SIGN in</button>
-                          </div>
-                        </Fragment>
-                      }
-                      <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
-                        <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
-                      </div>
-                      {/* <div className="inline__item">
-                        <Link to={getUserUrl(this.props.user.id)} onClick={this.hidePopup}>
-                          <Avatar src={getFileUrl(this.props.user.avatarFilename)} />
-                        </Link>
-                      </div>
-
-                      <div className="inline__item">
-                        <div className="menu-popup__rate">
-                          {this.props.user.currentRate}°
-                        </div>
-                      </div>
-
-                      <div className="inline__item menu-popup__item-arrow" role="presentation" onClick={this.hidePopup} >
-                        <div className="menu-popup__arrow menu-popup__arrow_red" role="presentation" />
-                      </div> */}
-
-                      {/* <div className="inline__item">
-                        <div className="inline inline_small">
-                          <div className="inline__item">
-                            <div className="icon-counter">
-                              <div className="icon-counter__icon">
-                                <IconBell />
-                              </div>
-                              <div className="icon-counter__counter">
-                                <span className="counter counter_top">1</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
-                    </div>
-                  </div>
-                </div>
+                <Header />
                 <div className="menu-popup__container menu-popup__container_main">
                   <div className="menu-popup__side">
                     <div className="menu menu_vertical">
-                      {this.props.isAuth ?
+                      {this.props.user.id ?
                         <Fragment>
                           <div className="menu__item">
                             <NavLink
@@ -202,7 +138,7 @@ class MenuPopup extends PureComponent {
                           Publications
                         </NavLink>
                       </div>
-                      {this.props.isAuth ?
+                      {this.props.user.id ?
                         <div className="menu__item">
                           <div className="inline menu-popup__logout" role="presentation" onClick={this.logout}>
                             <div className="inline__item"><LogoutIcon /></div>
@@ -212,7 +148,8 @@ class MenuPopup extends PureComponent {
                       }
                     </div>
                   </div>
-                  {this.props.isAuth ?
+
+                  {this.props.user.id &&
                     <div className="menu-popup__content">
                       <InfoBlock title="Communities" size="small" align="left" fixedChildren fixedTitle>
                         <div className="info-block__scrolled-list">
@@ -314,7 +251,7 @@ class MenuPopup extends PureComponent {
                           </InfoBlock>
                         </div>
                       )}
-                    </div> : null
+                    </div>
                   }
                 </div>
               </div>
@@ -327,10 +264,18 @@ class MenuPopup extends PureComponent {
 }
 
 MenuPopup.propTypes = {
-  // organizations: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.objectOf(PropTypes.any),
   products: PropTypes.arrayOf(PropTypes.object),
   offers: PropTypes.arrayOf(PropTypes.object),
-  logout: PropTypes.func,
+  removeUser: PropTypes.func,
+  menuPopupVisibility: PropTypes.bool,
 };
 
-export default withRouter(MenuPopup);
+export default withRouter(connect(state => ({
+  menuPopupVisibility: state.menuPopup.menuPopupVisibility,
+  user: selectUser(state),
+}), dispatch => bindActionCreators({
+  showMenuPopup,
+  hideMenuPopup,
+  removeUser,
+}, dispatch))(MenuPopup));

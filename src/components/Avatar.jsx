@@ -52,7 +52,7 @@ const Avatar = (props) => {
       )}
     </span>
   );
-}
+};
 
 Avatar.propTypes = {
   square: PropTypes.bool,

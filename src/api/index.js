@@ -46,7 +46,7 @@ class Api {
   }
 
   @bind
-  async register({ brainkey, accountName, allowAnonUsage }) {
+  async register({ brainkey, accountName, enabledSendStatistic }) {
     const ownerKey = ecc.seedPrivate(brainkey);
     const activeKey = ecc.seedPrivate(ownerKey);
     const sign = ecc.sign(accountName, activeKey);
@@ -54,7 +54,7 @@ class Api {
     const response = await this.actions.post('/api/v1/auth/registration', {
       sign,
       brainkey,
-      allow_anon_usage: allowAnonUsage,
+      enabled_send_statistic: enabledSendStatistic,
       account_name: accountName,
       public_key: publicKey,
     });

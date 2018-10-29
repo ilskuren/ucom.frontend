@@ -6,7 +6,7 @@ import moment from 'moment';
 import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
-import { getPostUrl, getUserPinnedPost } from '../../utils/posts';
+import { getPostUrl, getPinnedPostUrl } from '../../utils/posts';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
@@ -77,7 +77,10 @@ const getTitle = (props) => {
           <Link to={getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
-          {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvote' : ' downvote'} your post`}
+          {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvote' : ' downvote'} your `}
+          <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+            <strong>post</strong>
+          </Link>
         </Fragment>
       );
 
@@ -141,8 +144,10 @@ const getTitle = (props) => {
           <Link to={getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
-          &nbsp;posted on your profile:&nbsp;
-          {props.data.post.description}
+          &nbsp;posted on your&nbsp;
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <strong>profile</strong>
+          </Link>
         </Fragment>
       );
 
@@ -153,7 +158,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your&nbsp;
-          <Link to={getUserPinnedPost(props.targetEntity.post.userId, props.targetEntity.post.id)}>
+          <Link to={getPinnedPostUrl(props.data.comment.post)}>
             <strong>post</strong>
           </Link>
         </Fragment>
@@ -176,9 +181,10 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted in&nbsp;
-          {props.targetEntity.organization.title}
-          ’s feed:&nbsp;
-          {props.data.post.description}
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <strong>{props.targetEntity.organization.nickname}</strong>
+          </Link>
+          ’s feed
         </Fragment>
       );
 
@@ -240,16 +246,25 @@ const getCover = (props) => {
         </div>
       ) : null;
 
+    case USER_CREATES_DIRECT_POST_FOR_YOU:
+      return (
+        <div className="site-notification__cover">
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
+          </Link>
+        </div>
+      );
+
     default: {
       if (!props.targetEntity) {
         return null;
       }
 
-      if (props.targetEntity.post && props.targetEntity.post.mainImageFilename) {
+      if (props.targetEntity.post) {
         return (
           <div className="site-notification__cover">
-            <Link to={getPostUrl(props.targetEntity.post.id)}>
-              <Avatar src={getFileUrl(props.targetEntity.post.mainImageFilename)} square />
+            <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+              <Avatar square isPost src={getFileUrl(props.targetEntity.post.mainImageFilename)} />
             </Link>
           </div>
         );
@@ -272,11 +287,13 @@ const getCover = (props) => {
 
 const getAvatar = (props) => {
   switch (props.eventId) {
+    case USER_CREATES_DIRECT_POST_FOR_ORG:
     case USER_CREATES_DIRECT_POST_FOR_YOU:
       return (
         <div className="site-notification__avatar">
           <Link to={getUserUrl(props.data.post.user.id)}>
             <Avatar
+              isPost
               src={getFileUrl(props.data.post.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}
             />

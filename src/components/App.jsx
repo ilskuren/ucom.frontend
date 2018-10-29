@@ -32,6 +32,7 @@ import Auth from './Auth';
 import Notifications from './Notifications';
 import socket from '../api/socket';
 import config from '../../package.json';
+import gtm from '../utils/gtm.html';
 
 class App extends PureComponent {
   constructor(props) {
@@ -48,6 +49,9 @@ class App extends PureComponent {
 
     if (config.socketEnabled) {
       socket.connect();
+    }
+    if (true && process.env.NODE_ENV === 'production') /* TODO this.props.enabledSendStatistics */ {
+      document.write(gtm);
     }
   }
 

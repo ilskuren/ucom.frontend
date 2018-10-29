@@ -20,7 +20,7 @@ import NotificationTrigger from './NotificationCards/NotificationTrigger';
 
 class Header extends PureComponent {
   state = {
-    popupIsVisible: false,
+    createPopupIsVisible: false,
   }
 
   logout = () => {
@@ -30,12 +30,12 @@ class Header extends PureComponent {
     window.location.reload();
   }
 
-  hidePopup = () => {
-    this.setState({ popupIsVisible: false });
+  hideCreatePopup = () => {
+    this.setState({ createPopupIsVisible: false });
   }
 
-  showPopup = () => {
-    this.setState({ popupIsVisible: true });
+  showCreatePopup = () => {
+    this.setState({ createPopupIsVisible: true });
   }
 
   render() {
@@ -52,6 +52,13 @@ class Header extends PureComponent {
                 </div>
                 <div className="menu__item">
                   <button className="menu__link menu__link_upper" onClick={() => this.props.showAuthPopup()}>SIGN in</button>
+                </div>
+                <div className="menu__item">
+                  <div className="menu-popup">
+                    <div className="menu-popup__arrow-wrapper" role="presentation" onClick={this.props.triggerMenuPopup}>
+                      <div className="menu-popup__arrow" />
+                    </div>
+                  </div>
                 </div>
               </nav>
             ) : (
@@ -72,7 +79,12 @@ class Header extends PureComponent {
                 <div className="inline__item">
                   <nav className="menu menu_responsive menu_header">
                     <div className="menu__item">
-                      <MenuPopup logout={this.logout} user={this.props.user} />
+                      {/* <MenuPopup logout={this.logout} user={this.props.user} /> */}
+                      <div className="menu-popup">
+                        <div className="menu-popup__arrow-wrapper" role="presentation" onClick={this.props.triggerMenuPopup}>
+                          <div className="menu-popup__arrow" />
+                        </div>
+                      </div>
                     </div>
                   </nav>
                 </div>
@@ -111,15 +123,26 @@ class Header extends PureComponent {
                   Create Event
                 </NavLink>
               </div> */}
-              <div className="menu__item only-desktop">
-                {/* <button onClick={this.showPopup} className="menu__link-button"><strong> Add publication</strong></button> */}
+              <div className="menu__item menu__item_only_desktop">
+                {/* <button onClick={this.showCreatePopup} className="menu__link-button"><strong> Add publication</strong></button> */}
 
                 <Link to="/posts/new/1" className="menu__link-button">
                   <strong>Add publication</strong>
                 </Link>
               </div>
 
-              <div className="menu__item only-desktop">
+              <div className="menu__item menu__item_only_phone">
+                <NavLink
+                  to="/posts/new/1"
+                  className="menu__link menu__link_upper"
+                  activeClassName="menu__link_active"
+                  isActive={() => this.props.location.pathname === '/posts/new/1'}
+                >
+                  Add&nbsp;publication
+                </NavLink>
+              </div>
+
+              <div className="menu__item">
                 <NavLink
                   to="/users"
                   className="menu__link menu__link_upper"
@@ -129,7 +152,7 @@ class Header extends PureComponent {
                   People
                 </NavLink>
               </div>
-              <div className="menu__item only-desktop">
+              <div className="menu__item">
                 <NavLink
                   to="/communities"
                   className="menu__link menu__link_upper"
@@ -139,7 +162,7 @@ class Header extends PureComponent {
                   Communities
                 </NavLink>
               </div>
-              <div className="menu__item only-desktop">
+              <div className="menu__item">
                 <NavLink
                   to="/publications/media"
                   className="menu__link menu__link_upper"
@@ -157,10 +180,10 @@ class Header extends PureComponent {
             </nav>
           </div>
         </div>
-        {this.state.popupIsVisible && (
-          <Popup onClickClose={() => this.hidePopup()}>
-            <ModalContent onClickClose={() => this.hidePopup()}>
-              <CreateEventPopup onClickClose={() => this.hidePopup()} />
+        {this.state.createPopupIsVisible && (
+          <Popup onClickClose={() => this.hideCreatePopup()}>
+            <ModalContent onClickClose={() => this.hideCreatePopup()}>
+              <CreateEventPopup onClickClose={() => this.hideCreatePopup()} />
             </ModalContent>
           </Popup>
         )}

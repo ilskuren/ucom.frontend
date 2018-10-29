@@ -23,6 +23,7 @@ import { fetchMyself } from '../actions/users';
 import api from '../api';
 import Loading from './Loading';
 import Header from './Header';
+import MenuPopup from './MenuPopup';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
@@ -80,7 +81,7 @@ class App extends PureComponent {
           <Router history={this.props.history}>
             <Page>
               <Header />
-
+              <MenuPopup />
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signup" component={SignUp} />

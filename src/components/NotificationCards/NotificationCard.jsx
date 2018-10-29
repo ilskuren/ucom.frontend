@@ -77,7 +77,10 @@ const getTitle = (props) => {
           <Link to={getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
-          {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvote' : ' downvote'} your post`}
+          {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvote' : ' downvote'} your `}
+          <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+            <strong>post</strong>
+          </Link>
         </Fragment>
       );
 
@@ -243,16 +246,25 @@ const getCover = (props) => {
         </div>
       ) : null;
 
+    case USER_CREATES_DIRECT_POST_FOR_YOU:
+      return (
+        <div className="site-notification__cover">
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
+          </Link>
+        </div>
+      );
+
     default: {
       if (!props.targetEntity) {
         return null;
       }
 
-      if (props.targetEntity.post && props.targetEntity.post.mainImageFilename) {
+      if (props.targetEntity.post) {
         return (
           <div className="site-notification__cover">
-            <Link to={getPostUrl(props.targetEntity.post.id)}>
-              <Avatar src={getFileUrl(props.targetEntity.post.mainImageFilename)} square />
+            <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+              <Avatar square isPost src={getFileUrl(props.targetEntity.post.mainImageFilename)} />
             </Link>
           </div>
         );
@@ -281,6 +293,7 @@ const getAvatar = (props) => {
         <div className="site-notification__avatar">
           <Link to={getUserUrl(props.data.post.user.id)}>
             <Avatar
+              isPost
               src={getFileUrl(props.data.post.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}
             />

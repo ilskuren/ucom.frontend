@@ -8,8 +8,10 @@ import React, { PureComponent } from 'react';
 import PostRating from '../Rating/PostRating';
 import UserCard from '../UserCard';
 import IconComment from '../Icons/Comment';
+import IconShare from '../Icons/Share';
 import IconEdit from '../Icons/Edit';
 import Comments from '../Comments/Comments';
+import ShareBlock from './ShareBlock';
 import LastUserComments from '../Comments/LastUserComments';
 import FeedForm from './FeedForm';
 import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
@@ -32,6 +34,7 @@ class Post extends PureComponent {
     this.state = {
       formIsVisible: false,
       commentsIsVisible: false,
+      sharePopup: false,
       timestamp: (new Date()).getTime(),
     };
   }
@@ -58,6 +61,10 @@ class Post extends PureComponent {
       timestamp: (new Date()).getTime(),
       commentsIsVisible: !this.state.commentsIsVisible,
     });
+  };
+
+  toggleShare = () => {
+    this.setState({ sharePopup: !this.state.sharePopup });
   }
 
   showForm = () => {
@@ -165,7 +172,27 @@ class Post extends PureComponent {
               <span className="inline__item">{post.commentsCount}</span>
             </span>
           </span>
+          <span
+            role="presentation"
+            className={classNames(
+              'post__share',
+              { 'post__share_active': this.state.sharePopup },
+            )}
+            onClick={this.toggleShare}
+          >
+            <span className="inline inline_small">
+              <span className="inline__item">
+                <IconShare />
+              </span>
+              <span className="inline__item">Share</span>
+            </span>
+          </span>
         </div>
+        {this.state.sharePopup ? (
+          <div className="post__share-popup">
+            <ShareBlock link={getPinnedPostUrl(post)} />
+          </div>
+        ) : null }
 
         <div className="post__comments">
           {this.state.commentsIsVisible ? (
@@ -174,6 +201,7 @@ class Post extends PureComponent {
             <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
           )}
         </div>
+
       </div>
     );
   }

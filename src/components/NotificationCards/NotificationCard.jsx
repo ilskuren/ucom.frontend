@@ -59,7 +59,6 @@ const getAvatarIcon = (eventId) => {
 };
 
 const getTitle = (props) => {
-  console.log(props);
   switch (props.eventId) {
     case USER_FOLLOWS_YOU:
       return (

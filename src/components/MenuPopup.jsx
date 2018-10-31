@@ -74,7 +74,7 @@ class MenuPopup extends PureComponent {
                 <Header />
                 <div className="menu-popup__container menu-popup__container_main">
                   <div className="menu-popup__side">
-                    <div className="menu menu_vertical">
+                    <div className="menu menu_vertical full-height">
                       {this.props.user.id ?
                         <Fragment>
                           <div className="menu__item">
@@ -138,45 +138,49 @@ class MenuPopup extends PureComponent {
                           Publications
                         </NavLink>
                       </div>
-                      {this.props.user.id ?
+                      {this.props.user.id &&
                         <div className="menu__item">
                           <div className="inline menu-popup__logout" role="presentation" onClick={this.logout}>
                             <div className="inline__item"><LogoutIcon /></div>
                             <div className="inline__item">Log out</div>
                           </div>
-                        </div> : null
+                        </div>
+                      }
+                      {this.props.user.id &&
+                        <div className="menu__item menu__item_full-height">
+                          <InfoBlock title="Communities" size="small" align="left" fixedChildren fixedTitle>
+                            <div className="info-block__scrolled-list">
+                              {this.props.user.organizations && this.props.user.organizations.map(item => (
+                                <div className="menu-popup__content-item" key={item.id}>
+                                  <UserCard
+                                    className="user-card_text_left"
+                                    userName={item.title}
+                                    accountName={item.nickname}
+                                    avatarUrl={getFileUrl(item.avatarFilename)}
+                                    profileLink={getOrganizationUrl(item.id)}
+                                    squareAvatar
+                                    roundedAvatar
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                            <div className="menu-popup__content-item menu-popup__create-new_fixed">
+                              <NavLink
+                                className="menu-popup__add"
+                                to="/communities/new"
+                              >
+                                <div className="menu-popup__add-icon menu-popup__add-icon_new">+</div>
+                                <div className="menu-popup__add-text">Create new organization</div>
+                              </NavLink>
+                            </div>
+                          </InfoBlock>
+                        </div>
                       }
                     </div>
                   </div>
 
                   {this.props.user.id &&
                     <div className="menu-popup__content">
-                      <InfoBlock title="Communities" size="small" align="left" fixedChildren fixedTitle>
-                        <div className="info-block__scrolled-list">
-                          {this.props.user.organizations && this.props.user.organizations.map(item => (
-                            <div className="menu-popup__content-item" key={item.id}>
-                              <UserCard
-                                className="user-card_text_left"
-                                userName={item.title}
-                                accountName={item.nickname}
-                                avatarUrl={getFileUrl(item.avatarFilename)}
-                                profileLink={getOrganizationUrl(item.id)}
-                                squareAvatar
-                                roundedAvatar
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <div className="menu-popup__content-item menu-popup__create-new_fixed">
-                          <NavLink
-                            className="menu-popup__add"
-                            to="/communities/new"
-                          >
-                            <div className="menu-popup__add-icon menu-popup__add-icon_new">+</div>
-                            <div className="menu-popup__add-text">Create new organization</div>
-                          </NavLink>
-                        </div>
-                      </InfoBlock>
                       {this.props.products && (
                         <div className="menu-popup__content-block">
                           <InfoBlock title="Products" size="small" align="left" line="gray-lighter">

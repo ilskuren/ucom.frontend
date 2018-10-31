@@ -44,6 +44,21 @@ class NotificationTooltip extends Component {
         perPage: this.props.notificationsMetadata.perPage,
       });
     }
+
+    document.onwheel = (e) => {
+      if (!e.path.every(i => i !== this.tooltip.current)) {
+        const area = e.target;
+        const delta = e.deltaY || e.detail || e.wheelDelta;
+
+        if (delta < 0 && area.scrollTop === 0) {
+          e.preventDefault();
+        }
+
+        if (delta > 0 && area.scrollHeight - area.clientHeight - area.scrollTop <= 1) {
+          e.preventDefault();
+        }
+      }
+    };
   };
 
   hideIfOut = (e) => {
@@ -57,6 +72,7 @@ class NotificationTooltip extends Component {
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
     const notificationTrigger = new CustomEvent('NotificationTrigger');
+
     return (
       <div ref={this.tooltip} className="notification-tooltip">
         <div className="arrow-big" />

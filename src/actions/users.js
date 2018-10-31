@@ -2,7 +2,7 @@ import api from '../api';
 import snakes from '../utils/snakes';
 import { getToken, removeToken } from '../utils/token';
 import loader from '../utils/loader';
-import gtm from '../utils/gtm.html';
+import { enableGtm } from '../utils/gtm';
 import { addErrorNotification } from './notifications';
 import { setUser } from './';
 import { setUnreadNotificationsAmount } from './siteNotifications';
@@ -28,9 +28,9 @@ export const fetchMyself = () => (dispatch) => {
       dispatch(setUser(data));
       dispatch(setUnreadNotificationsAmount(data.unreadMessagesCount));
 
-      // TODO: Сделать в утилитах методы enable и disable
+      // TODO: Сделать disable
       if (process.env.NODE_ENV === 'production' && data.isTrackingAllowed) {
-        document.write(gtm);
+        enableGtm();
       }
     })
     .catch(() => removeToken())

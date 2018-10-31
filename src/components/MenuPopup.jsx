@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
 import InfoBlock from './InfoBlock';
+import MenuWallet from './MenuWallet';
 import UserCard from './UserCard';
 import Header from './Header/Header';
 import LogoutIcon from './Icons/Logout';
@@ -255,6 +256,7 @@ class MenuPopup extends PureComponent {
                           </InfoBlock>
                         </div>
                       )}
+                      <MenuWallet />
                     </div>
                   }
                 </div>

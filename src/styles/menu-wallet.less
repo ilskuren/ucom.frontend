@@ -1,0 +1,134 @@
+.menu-wallet {
+  height: 100%;
+  width: 100%;
+  margin-left: 25px;
+  margin-top: 44px;
+
+  table {
+    border-collapse: collapse;
+  }
+
+  .progrees-bar {
+    height: 6px;
+    background-color: #E0E0E0;
+    opacity: 0.53;
+    margin-top: 14px;
+
+    .progrees-bar__filler {
+      background-color: @blue-green-darker;
+      width: 60%;
+      height: 100%;
+    }
+  }
+}
+
+.menu-wallet__block {
+  margin-top: 48px;
+}
+
+.menu-wallet__block_tokens {
+  margin-top: 0;
+
+  .menu-wallet__amount {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+}
+
+.menu-wallet__block_resources {
+
+  .menu-wallet__amount {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+
+    .menu-wallet__whole-amount {
+      color: @gray-dark;
+      font-size: 14px;
+      font-weight: normal;
+    }
+  }
+
+  .menu-wallet__item {
+    margin-right: 50px;
+    
+    &:nth-child(3) {
+      margin-right: 0;
+    }
+  }
+}
+
+.menu-wallet__content {
+  display: flex;
+  width: 100%;
+
+  .menu-wallet__item {
+    flex: 1;
+  }
+}
+
+.menu-wallet__title {
+  font-size: 48px;
+  margin-bottom: 48px;
+}
+
+.menu-wallet__status {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  color: @gray-dark;
+  font-size: 14px;
+}
+
+.menu-wallet__action {
+  color: @red;
+  cursor: pointer;
+  margin: 0;
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+
+  &:hover {
+    border-bottom: 1px solid @red;
+  }
+}
+.menu-wallet__action_buy {
+  margin-right: 16px;
+}
+
+.menu-table {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 20px;
+
+  .menu-table__head {
+
+    .menu-table__row {
+      border-bottom: 1px solid @whitish-gray;
+      height: 49px;
+
+      .menu-table__cell {
+        font-size: 12px;
+        text-transform: uppercase;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .menu-table__body {
+
+    .menu-table__row {
+      height: 64px;
+
+      .menu-wallet__account-card {
+        display: flex;
+        
+        .avatar {
+          margin-right: 8px;
+        }
+      }
+    }
+    
+  }
+}

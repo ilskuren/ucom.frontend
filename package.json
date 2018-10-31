@@ -20,11 +20,11 @@
   "backend": {
     "staging": {
       "httpEndpoint": "https://staging-backend.u.community",
-      "socketEndpoint": "https://staging-backend.u.community:443"
+      "socketEndpoint": "https://websocket-staging.u.community:443"
     },
     "production": {
       "httpEndpoint": "https://new-backend.u.community",
-      "socketEndpoint": "https://new-backend.u.community:443"
+      "socketEndpoint": "https://websocket.u.community:443"
     }
   },
   "socketEnabled": true,

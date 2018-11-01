@@ -18,6 +18,7 @@ const ModalContent = props => (
         <div className="inline__item"><CloseIcon /></div>
       </div>
     </div>
+
     {props.onSearchChange && (
       <div className="modal-content__search">
         <SearchIcon />
@@ -26,6 +27,7 @@ const ModalContent = props => (
         </div>
       </div>
     )}
+
     <div className="modal-content__main">
       {props.children}
     </div>

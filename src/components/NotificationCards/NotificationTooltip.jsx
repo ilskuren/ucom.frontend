@@ -47,7 +47,7 @@ class NotificationTooltip extends Component {
   };
 
   hideIfOut = (e) => {
-    if (e.path.every(i => i !== this.tooltip.current)) {
+    if (!this.tooltip.current.contains(e.target)) {
       this.props.hideTooltip();
     }
   }
@@ -57,6 +57,7 @@ class NotificationTooltip extends Component {
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
     const notificationTrigger = new CustomEvent('NotificationTrigger');
+
     return (
       <div ref={this.tooltip} className="notification-tooltip">
         <div className="arrow-big" />

@@ -73,6 +73,7 @@ class MenuPopup extends PureComponent {
             <ModalContent onClickClose={this.hidePopup} closeText="Close">
               <div className="menu-popup">
                 <Header />
+
                 <div className="menu-popup__container menu-popup__container_main">
                   <div className="menu-popup__side">
                     <div className="menu menu_vertical full-height">

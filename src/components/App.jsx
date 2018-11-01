@@ -20,7 +20,7 @@ import { setUser, hideAuthPopup } from '../actions';
 import { initNotificationsListeners, setUnreadNotificationsAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
 import Header from './Header/Header';
-import MenuPopup from './MenuPopup';
+import UserMenu from './UserMenu/UserMenu';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
@@ -48,7 +48,7 @@ class App extends PureComponent {
         <Router history={this.props.history}>
           <Page>
             <Header />
-            <MenuPopup />
+            <UserMenu />
 
             <Switch>
               <Route exact path="/" component={HomePage} />

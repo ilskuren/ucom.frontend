@@ -1,9 +1,31 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import IconRepost from '../Icons/Repost';
 import IconCopyLink from '../Icons/CopyLink';
+import { addRepost } from '../../actions/posts';
+import { selectUser } from '../../store/selectors/user';
 
 class ShareBlock extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.onClick = (e) => {
+      if (!this.el.contains(e.target)) {
+        this.props.onClickClose();
+      }
+    };
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.onClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.onClick);
+  }
+
   copyToClipboard = () => {
     const link = document.createElement('textarea');
     link.innerText = window.location.origin + this.props.link;
@@ -15,8 +37,15 @@ class ShareBlock extends PureComponent {
 
   render() {
     return (
-      <div className="share-btn">
-        <div className="repost__block">
+      <div className="share-btn" ref={(el) => { this.el = el; }}>
+        <div
+          className="repost__block"
+          role="presentation"
+          onClick={() => {
+            this.props.addRepost(this.props.postId);
+            this.props.onClickClose();
+          }}
+        >
           <IconRepost className="repost__icon" />
           <span>Repost to my profile</span>
         </div>
@@ -34,6 +63,16 @@ class ShareBlock extends PureComponent {
 
 ShareBlock.propTypes = {
   link: PropTypes.string,
+  addRepost: PropTypes.func,
+  onClickClose: PropTypes.func,
 };
 
-export default ShareBlock;
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    selectUser,
+    addRepost,
+  }, dispatch),
+)(ShareBlock);

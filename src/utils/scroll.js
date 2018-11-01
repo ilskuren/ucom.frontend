@@ -6,7 +6,9 @@ export const disableScroll = () => {
 };
 
 export const enableScroll = () => {
-  disableScrollQueue--;
+  if (disableScrollQueue > 0) {
+    disableScrollQueue--;
+  }
 
   if (disableScrollQueue === 0) {
     document.documentElement.classList.remove('no-scroll');

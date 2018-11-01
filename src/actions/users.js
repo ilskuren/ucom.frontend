@@ -1,26 +1,39 @@
 import api from '../api';
 import snakes from '../utils/snakes';
-import { getToken } from '../utils/token';
+import { getToken, removeToken } from '../utils/token';
 import loader from '../utils/loader';
+import { enableGtm } from '../utils/gtm';
 import { addErrorNotification } from './notifications';
 import { setUser } from './';
+import { setUnreadNotificationsAmount } from './siteNotifications';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
 export const addUserIFollow = payload => ({ type: 'ADD_USER_I_FOLLOW', payload });
 export const removeUserIFollow = payload => ({ type: 'REMOVE_USER_I_FOLLOW', payload });
 export const addUserFollowedBy = payload => ({ type: 'ADD_USER_FOLLOWED_BY', payload });
 export const removeUserFollowedBy = payload => ({ type: 'REMOVE_USER_FOLLOWED_BY', payload });
-
 export const removeUserFollower = payload => ({ type: 'REMOVE_USER_FOLLOWER', payload });
 
 export const fetchMyself = () => (dispatch) => {
+  const token = getToken();
+
+  if (!token) {
+    return;
+  }
+
   loader.start();
-  api.getMyself(getToken())
+  api.getMyself(token)
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
       dispatch(setUser(data));
+      dispatch(setUnreadNotificationsAmount(data.unreadMessagesCount));
+
+      // TODO: Сделать disable
+      if (process.env.NODE_ENV === 'production' && data.isTrackingAllowed) {
+        enableGtm();
+      }
     })
-    .catch(() => loader.done())
+    .catch(() => removeToken())
     .then(() => loader.done());
 };
 

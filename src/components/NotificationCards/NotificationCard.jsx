@@ -116,8 +116,8 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_POST ? ' upvote ' : ' downvote '}
-          <Link to={getOrganizationUrl(props.targetEntity.organization.id)}>
-            <strong>{props.targetEntity.organization.title}</strong>
+          <Link to={getOrganizationUrl(props.targetEntity.post.id)}>
+            <strong>{props.targetEntity.post.title}</strong>
           </Link>
           ’s post
         </Fragment>

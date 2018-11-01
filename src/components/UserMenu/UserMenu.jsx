@@ -13,6 +13,7 @@ import Popup from '../Popup';
 import Header from '../Header/Header';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
+import MenuWallet from '../MenuWallet';
 
 const UserMenu = (props) => {
   if (!props.user) {
@@ -139,6 +140,8 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   }
+
+                  <MenuWallet />
                 </div>
               </div>
             </div>

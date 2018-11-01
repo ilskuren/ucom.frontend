@@ -21,6 +21,7 @@ class MenuWallet extends PureComponent {
       setStakeVisibility: false,
     });
   }
+
   render() {
     return (
       <Fragment>

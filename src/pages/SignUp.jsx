@@ -33,7 +33,7 @@ class SignUp extends React.PureComponent {
       accountNameIsValid: false,
       passphraseIsValid: false,
       termsAccpeted: false,
-      enabledSendStatistic: false,
+      isTrackingAllowed: false,
       errors: [],
       loading: false,
       visibilityOfPopup: false,
@@ -83,11 +83,12 @@ class SignUp extends React.PureComponent {
       loading: true,
     }, () => {
       const brainkey = this.state.passphrase.join(' ');
-      // const { enabledSendStatistic } = this.state;
+      const { isTrackingAllowed } = this.state;
+
       api.register({
         brainkey,
         accountName: this.state.accountName,
-        // enabledSendStatistic,
+        isTrackingAllowed,
       })
         .then((data) => {
           if (data.errors) {
@@ -249,8 +250,8 @@ class SignUp extends React.PureComponent {
 
                   <div className="sign-up__agreement sign-up__agreement_anon">
                     <Checkbox
-                      isChecked={this.state.enabledSendStatistic}
-                      onChange={enabledSendStatistic => this.setState({ enabledSendStatistic })}
+                      isChecked={this.state.isTrackingAllowed}
+                      onChange={isTrackingAllowed => this.setState({ isTrackingAllowed })}
                     />
                     <div className="sign-up__agreement-text">Allow to send anonymous usage data to developer</div>
                   </div>

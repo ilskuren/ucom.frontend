@@ -1,19 +1,24 @@
 import React, { Fragment, PureComponent } from 'react';
 import Avatar from './Avatar';
 import SendTokensPopup from './Wallet/SendTokensPopup';
+import TradeRAMPopup from './Wallet/TradeRAMPopup';
+import SetStakePopup from './Wallet/SetStakePopup';
 import Popup from './Popup';
 
 class MenuWallet extends PureComponent {
   state = {
     sendTokensVisibility: false,
-    // buyRAMVisibility: false,
-    // sellRAMVisibility: false,
-    // setStakeVisibility: false,
+    buyRAMVisibility: false,
+    sellRAMVisibility: false,
+    setStakeVisibility: false,
   }
 
   hidePopups = () => {
     this.setState({
       sendTokensVisibility: false,
+      buyRAMVisibility: false,
+      sellRAMVisibility: false,
+      setStakeVisibility: false,
     });
   }
   render() {
@@ -22,17 +27,32 @@ class MenuWallet extends PureComponent {
         <div className="menu-wallet left">
           <div className="menu-wallet__block menu-wallet__block_tokens">
             <h2 className="menu-wallet__title">Tokens</h2>
+
             <div className="menu-wallet__content">
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">3200</div>
                 <div className="menu-wallet__status">Active, UOS</div>
-                <div role="presentation" onClick={() => this.setState({ sendTokensVisibility: true })} className="menu-wallet__action">Send</div>
+                <div
+                  role="presentation"
+                  onClick={() => this.setState({ sendTokensVisibility: true })}
+                  className="menu-wallet__action"
+                >
+                  Send
+                </div>
               </div>
+
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">3000</div>
                 <div className="menu-wallet__status">Stacked, UOS</div>
-                <div className="menu-wallet__action">Edit Stake</div>
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => this.setState({ setStakeVisibility: true })}
+                >
+                  Edit Stake
+                </div>
               </div>
+
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">0.000000001</div>
                 <div className="menu-wallet__status">Emission, UOS</div>
@@ -40,8 +60,10 @@ class MenuWallet extends PureComponent {
               </div>
             </div>
           </div>
+
           <div className="menu-wallet__block menu-wallet__block_resources">
             <h2 className="menu-wallet__title">Resources</h2>
+
             <div className="menu-wallet__content">
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">
@@ -53,10 +75,23 @@ class MenuWallet extends PureComponent {
                 </div>
                 <div className="menu-wallet__status">RAM</div>
                 <div>
-                  <div className="inline__item menu-wallet__action menu-wallet__action_buy">Buy</div>
-                  <div className="inline__item menu-wallet__action">Sell</div>
+                  <div
+                    role="presentation"
+                    onClick={() => this.setState({ buyRAMVisibility: true })}
+                    className="inline__item menu-wallet__action menu-wallet__action_buy"
+                  >
+                    Buy
+                  </div>
+                  <div
+                    className="inline__item menu-wallet__action"
+                    role="presentation"
+                    onClick={() => this.setState({ sellRAMVisibility: true })}
+                  >
+                    Sell
+                  </div>
                 </div>
               </div>
+
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">
                   <span>0.0004 sec</span>
@@ -66,8 +101,15 @@ class MenuWallet extends PureComponent {
                   <div className="progrees-bar__filler" />
                 </div>
                 <div className="menu-wallet__status">CPU Time</div>
-                <div className="menu-wallet__action">Edit Stake</div>
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => this.setState({ setStakeVisibility: true })}
+                >
+                Edit Stake
+                </div>
               </div>
+
               <div className="inline__item menu-wallet__item">
                 <div className="menu-wallet__amount">
                   <span>0.05kB Free</span>
@@ -77,12 +119,19 @@ class MenuWallet extends PureComponent {
                   <div className="progrees-bar__filler" />
                 </div>
                 <div className="menu-wallet__status">Network BW</div>
-                <div className="menu-wallet__action">Edit Stake</div>
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => this.setState({ setStakeVisibility: true })}
+                >Edit Stake
+                </div>
               </div>
             </div>
           </div>
+
           <div className="menu-wallet__block menu-wallet__block_resources">
             <h2 className="menu-wallet__title">Activity</h2>
+
             <div className="table-content">
               <div className="table-content__table">
                 <table className="menu-table menu-table_responsive">
@@ -95,6 +144,7 @@ class MenuWallet extends PureComponent {
                       <td className="menu-table__cell" />
                     </tr>
                   </thead>
+
                   <tbody className="menu-table__body">
                     {new Array(5).join('.').split('.').map((_, i) => (
                       <tr key={i} className="menu-table__row menu-table__row_first-row">
@@ -110,7 +160,7 @@ class MenuWallet extends PureComponent {
                           <span className="bold">0.32424</span>
                         </td>
                         <td className="menu-table__cell" data-title="">
-                        12/24/2018, 1:08:03 PM
+                          12/24/2018, 1:08:03 PM
                         </td>
                       </tr>
                       ))}
@@ -131,6 +181,21 @@ class MenuWallet extends PureComponent {
         {this.state.sendTokensVisibility && (
           <Popup onClickClose={this.hidePopups}>
             <SendTokensPopup />
+          </Popup>
+        )}
+        {this.state.buyRAMVisibility && (
+          <Popup onClickClose={this.hidePopups}>
+            <TradeRAMPopup title="Buy" />
+          </Popup>
+        )}
+        {this.state.sellRAMVisibility && (
+          <Popup onClickClose={this.hidePopups}>
+            <TradeRAMPopup title="Sell" />
+          </Popup>
+        )}
+        {this.state.setStakeVisibility && (
+          <Popup onClickClose={this.hidePopups}>
+            <SetStakePopup />
           </Popup>
         )}
       </Fragment>

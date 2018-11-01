@@ -139,7 +139,7 @@
   margin: 0 auto;
   background: white;
   box-shadow: 0px 5px 38px rgba(60, 68, 75, 0.37);
-  line-height: 28px;
+  line-height: 18px;
 
   .menu-tokens-popup__title {
     margin-bottom: 24px;
@@ -147,6 +147,11 @@
 
   .menu-tokens-popup__field {
     margin-bottom: 32px;
+  }
+
+  .menu-tokens-popup__fields {
+    display: flex;
+    justify-content: space-between;
   }
 
   .menu-tokens-popup__input {
@@ -171,13 +176,44 @@
     padding: 24px;
     border-radius: 4px;
     border: 1px solid @red;
-    margin-bottom: 6px;
+    margin-bottom: 24px;
     display: flex;
+    line-height: 28px;
+
   }
 
   .menu-tokens-popup__error-icon{
     margin: auto;
     margin-right: 20px;
     margin-left: 0;
+  }
+
+  .button_disabled {
+    color: #fff;
+    opacity: 1;
+  }
+
+
+  .menu-tokens-popup__cost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+  } 
+
+  .menu-tokens-popup__title-cost {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .menu-tokens-popup__tip {
+    color: @gray-dark;
+    font-size: 14px;
+  }
+
+  .menu-tokens-popup__tip_stake {
+    margin-bottom: 24px;
+    margin-top: 36px;
   }
 }

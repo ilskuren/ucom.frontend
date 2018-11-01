@@ -14,6 +14,7 @@ class SendTokensPopup extends PureComponent {
     return (
       <div className="menu-tokens-popup left">
         <div className="menu-tokens-popup__title title_small"><strong>Send Tokens</strong></div>
+
         <div className="menu-tokens-popup__field">
           <TextInput
             label="UOS Amount"
@@ -44,9 +45,10 @@ class SendTokensPopup extends PureComponent {
         </div>
 
         <div className="menu-tokens-popup__error">
-          <div className="menu-tokens-popup__error-icon"><InputErrorIcon /></div>
+          <div className="menu-tokens-popup__error-icon"><InputErrorIcon isBig /></div>
           <div>Destination account doesn’t exist, check spelling</div>
         </div>
+
         <Button
           isUpper
           isStretched

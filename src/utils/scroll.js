@@ -1,9 +1,16 @@
+let disableScrollQueue = 0;
+
 export const disableScroll = () => {
+  disableScrollQueue++;
   document.documentElement.classList.add('no-scroll');
 };
 
 export const enableScroll = () => {
-  document.documentElement.classList.remove('no-scroll');
+  disableScrollQueue--;
+
+  if (disableScrollQueue === 0) {
+    document.documentElement.classList.remove('no-scroll');
+  }
 };
 
 export const scrollTo = (el, topOffset = 0) => {

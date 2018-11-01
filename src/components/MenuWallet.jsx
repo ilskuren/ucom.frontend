@@ -25,12 +25,12 @@ class MenuWallet extends PureComponent {
   render() {
     return (
       <Fragment>
-        <div className="menu-wallet left">
+        <div className="menu-wallet">
           <div className="menu-wallet__block menu-wallet__block_tokens">
             <h2 className="menu-wallet__title">Tokens</h2>
 
-            <div className="menu-wallet__content">
-              <div className="inline__item menu-wallet__item">
+            <div className="inline inline_flex inline_large inline_resp">
+              <div className="inline__item">
                 <div className="menu-wallet__amount">3200</div>
                 <div className="menu-wallet__status">Active, UOS</div>
                 <div
@@ -42,7 +42,7 @@ class MenuWallet extends PureComponent {
                 </div>
               </div>
 
-              <div className="inline__item menu-wallet__item">
+              <div className="inline__item">
                 <div className="menu-wallet__amount">3000</div>
                 <div className="menu-wallet__status">Stacked, UOS</div>
                 <div
@@ -54,7 +54,7 @@ class MenuWallet extends PureComponent {
                 </div>
               </div>
 
-              <div className="inline__item menu-wallet__item">
+              <div className="inline__item">
                 <div className="menu-wallet__amount">0.000000001</div>
                 <div className="menu-wallet__status">Emission, UOS</div>
                 <div className="menu-wallet__action">Get Emission</div>
@@ -65,35 +65,48 @@ class MenuWallet extends PureComponent {
           <div className="menu-wallet__block menu-wallet__block_resources">
             <h2 className="menu-wallet__title">Resources</h2>
 
-            <div className="menu-wallet__content">
-              <div className="inline__item menu-wallet__item">
-                <div className="menu-wallet__amount">
-                  <span>0.05kB Free</span>
-                  <span className="menu-wallet__whole-amount">5.47kB</span>
+            <div className="inline inline_flex inline_large inline_resp">
+              <div className="inline__item">
+                <div className="toolbar">
+                  <div className="toolbar__main">
+                    <span className="menu-wallet__amount menu-wallet__amount_small">
+                      0.05kB Free
+                    </span>
+                  </div>
+                  <div className="toolbar__side">
+
+                    5.47kB
+                  </div>
                 </div>
+
                 <div className="progrees-bar">
                   <div className="progrees-bar__filler" />
                 </div>
                 <div className="menu-wallet__status">RAM</div>
-                <div>
-                  <div
-                    role="presentation"
-                    onClick={() => this.setState({ buyRAMVisibility: true })}
-                    className="inline__item menu-wallet__action menu-wallet__action_buy"
-                  >
-                    Buy
+
+                <div className="inline">
+                  <div className="inline__item">
+                    <div
+                      role="presentation"
+                      onClick={() => this.setState({ buyRAMVisibility: true })}
+                      className="menu-wallet__action"
+                    >
+                      Buy
+                    </div>
                   </div>
-                  <div
-                    className="inline__item menu-wallet__action"
-                    role="presentation"
-                    onClick={() => this.setState({ sellRAMVisibility: true })}
-                  >
-                    Sell
+                  <div className="inline__item">
+                    <div
+                      role="presentation"
+                      className="menu-wallet__action"
+                      onClick={() => this.setState({ sellRAMVisibility: true })}
+                    >
+                      Sell
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="inline__item menu-wallet__item">
+              <div className="inline__item">
                 <div className="menu-wallet__amount">
                   <span>0.0004 sec</span>
                   <span className="menu-wallet__whole-amount">0.0034 sec</span>
@@ -111,7 +124,7 @@ class MenuWallet extends PureComponent {
                 </div>
               </div>
 
-              <div className="inline__item menu-wallet__item">
+              <div className="inline__item">
                 <div className="menu-wallet__amount">
                   <span>0.05kB Free</span>
                   <span className="menu-wallet__whole-amount">5.47kB</span>
@@ -130,7 +143,7 @@ class MenuWallet extends PureComponent {
             </div>
           </div>
 
-          <div className="menu-wallet__block menu-wallet__block_resources">
+          {/* <div className="menu-wallet__block menu-wallet__block_resources">
             <h2 className="menu-wallet__title">Activity</h2>
 
             <div className="table-content">
@@ -177,7 +190,7 @@ class MenuWallet extends PureComponent {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {this.state.sendTokensVisibility && (
           <Popup onClickClose={this.hidePopups}>

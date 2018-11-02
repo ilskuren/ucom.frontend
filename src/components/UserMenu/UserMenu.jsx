@@ -14,12 +14,20 @@ import Header from '../Header/Header';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
+import { removeBrainkey } from '../../utils/brainkey';
+import { removeToken } from '../../utils/token';
 
 const UserMenu = (props) => {
   if (!props.user) {
     return null;
   }
-
+  const logout = () => {
+    removeToken();
+    removeBrainkey();
+    props.removeUser();
+    window.location.reload();
+    props.hideMenuPopup();
+  };
   return (
     <Fragment>
       {props.menuPopupVisibility &&
@@ -101,7 +109,7 @@ const UserMenu = (props) => {
                       </div>
 
                       <div className="menu__item">
-                        <span className="menu__link menu__link_upper">
+                        <span className="menu__link menu__link_upper" role="presentation" onClick={logout}>
                           <span className="inline inline_small">
                             <span className="inline__item"><LogoutIcon /></span>
                             <span className="inline__item">Log out</span>
@@ -110,7 +118,7 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   </div>
-                  <MenuWallet />
+                  {props.user.id && <MenuWallet />}
                   {props.user.organizations && props.user.organizations.length > 0 &&
                     <div className="user-menu__section">
                       <div className="user-menu__title">Communities</div>

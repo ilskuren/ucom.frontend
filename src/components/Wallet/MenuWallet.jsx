@@ -1,9 +1,9 @@
 import React, { Fragment, PureComponent } from 'react';
-import Avatar from './Avatar';
-import SendTokensPopup from './Wallet/SendTokensPopup';
-import TradeRAMPopup from './Wallet/TradeRAMPopup';
-import SetStakePopup from './Wallet/SetStakePopup';
-import Popup from './Popup';
+import SendTokensPopup from './SendTokensPopup';
+import TradeRAMPopup from './TradeRAMPopup';
+import SetStakePopup from './SetStakePopup';
+import Popup from '../Popup';
+import ProgressBar from './ProgressBar';
 
 class MenuWallet extends PureComponent {
   state = {
@@ -67,23 +67,13 @@ class MenuWallet extends PureComponent {
 
             <div className="inline inline_flex inline_large inline_resp">
               <div className="inline__item">
-                <div className="toolbar">
-                  <div className="toolbar__main">
-                    <span className="menu-wallet__amount menu-wallet__amount_small">
-                      0.05kB Free
-                    </span>
-                  </div>
-                  <div className="toolbar__side">
-
-                    5.47kB
-                  </div>
-                </div>
-
-                <div className="progrees-bar">
-                  <div className="progrees-bar__filler" />
-                </div>
-                <div className="menu-wallet__status">RAM</div>
-
+                <ProgressBar
+                  partAmount={0.05}
+                  fullAmount={5.47}
+                  title="RAM"
+                  label="kB"
+                  description="Free"
+                />
                 <div className="inline">
                   <div className="inline__item">
                     <div
@@ -107,14 +97,12 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">
-                  <span>0.0004 sec</span>
-                  <span className="menu-wallet__whole-amount">0.0034 sec</span>
-                </div>
-                <div className="progrees-bar">
-                  <div className="progrees-bar__filler" />
-                </div>
-                <div className="menu-wallet__status">CPU Time</div>
+                <ProgressBar
+                  partAmount={0.0004}
+                  fullAmount={0.0034}
+                  title="CPU Time"
+                  label="sec"
+                />
                 <div
                   className="menu-wallet__action"
                   role="presentation"
@@ -125,14 +113,12 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">
-                  <span>0.05kB Free</span>
-                  <span className="menu-wallet__whole-amount">5.47kB</span>
-                </div>
-                <div className="progrees-bar">
-                  <div className="progrees-bar__filler" />
-                </div>
-                <div className="menu-wallet__status">Network BW</div>
+                <ProgressBar
+                  partAmount={0.5}
+                  fullAmount={5.47}
+                  title="Network BW"
+                  label="kB"
+                />
                 <div
                   className="menu-wallet__action"
                   role="presentation"

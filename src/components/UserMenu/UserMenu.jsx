@@ -13,7 +13,7 @@ import Popup from '../Popup';
 import Header from '../Header/Header';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
-import MenuWallet from '../MenuWallet';
+import MenuWallet from '../Wallet/MenuWallet';
 
 const UserMenu = (props) => {
   if (!props.user) {
@@ -110,7 +110,7 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   </div>
-
+                  <MenuWallet />
                   {props.user.organizations && props.user.organizations.length > 0 &&
                     <div className="user-menu__section">
                       <div className="user-menu__title">Communities</div>
@@ -140,8 +140,6 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   }
-
-                  <MenuWallet />
                 </div>
               </div>
             </div>

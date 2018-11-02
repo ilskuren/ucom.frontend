@@ -2,19 +2,6 @@
   table {
     border-collapse: collapse;
   }
-
-  .progrees-bar {
-    height: 6px;
-    background-color: #E0E0E0;
-    opacity: 0.53;
-    margin-top: 14px;
-
-    .progrees-bar__filler {
-      background-color: @blue-green-darker;
-      width: 60%;
-      height: 100%;
-    }
-  }
 }
 
 .menu-wallet__block {
@@ -25,29 +12,6 @@
   font-size: 28px;
   font-weight: bold;
 }
-
-.menu-wallet__amount_small {
-  color: @gray-dark;
-  font-size: 14px;
-  font-weight: normal;
-}
-
-// .menu-wallet__block_resources {
-//   .menu-wallet__amount {
-//     font-size: 16px;
-//     font-weight: bold;
-//     display: flex;
-//     justify-content: space-between;
-//   }
-
-//   .menu-wallet__item {
-//     margin-right: 50px;
-
-//     &:nth-child(3) {
-//       margin-right: 0;
-//     }
-//   }
-// }
 
 .menu-wallet__title {
   font-size: 48px;
@@ -65,13 +29,13 @@
   color: @red;
   cursor: pointer;
   margin: 0;
-  border-bottom: 1px solid transparent;
   display: inline-block;
 
   &:hover {
-    border-bottom: 1px solid @red;
+    text-decoration: underline;
   }
 }
+
 .menu-wallet__action_buy {
   margin-right: 16px;
 }
@@ -83,7 +47,6 @@
   line-height: 20px;
 
   .menu-table__head {
-
     .menu-table__row {
       border-bottom: 1px solid @whitish-gray;
       height: 49px;
@@ -97,7 +60,6 @@
   }
 
   .menu-table__body {
-
     .menu-table__row {
       height: 64px;
 
@@ -135,7 +97,6 @@
   }
 
   .menu-tokens-popup__input {
-
     .text-input__input {
       height: 56px;
     }

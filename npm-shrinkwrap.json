@@ -12901,7 +12901,7 @@
       }
     },
     "uos-app-transaction": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#5497bdc28e80e7a0b5f0d26faef2bb17a4f05540",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#32c7955bbeb2db9619ac86aa78a94496e49e2f65",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
       "requires": {
         "eosjs": "16.0.8"
@@ -12945,6 +12945,10 @@
           }
         }
       }
+    },
+    "uos.app.wallet": {
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#81d4ab9ab65b2806c7eb7913b2dd7c25234b02db",
+      "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git"
     },
     "upath": {
       "version": "1.1.0",

@@ -9,6 +9,7 @@ import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 
 const AppTransaction = require('uos-app-transaction');
+const { WalletApi } = require('uos.app.wallet');
 
 const { TransactionFactory } = AppTransaction;
 
@@ -384,6 +385,13 @@ class Api {
     const response = await this.actions.post(`/api/v1/myself/notifications/${id}/seen`);
 
     return humps(response.data);
+  }
+
+  @bind
+  async getAccountState(accountName) {
+    const accountState = await WalletApi.getAccountState(accountName);
+
+    return humps(accountState);
   }
 }
 

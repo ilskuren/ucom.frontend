@@ -16,6 +16,7 @@ import comments from './comments';
 import organizations from './organizations';
 import menuPopup from './menuPopup';
 import feeds from './feeds';
+import wallet from './wallet';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -32,6 +33,7 @@ const app = combineReducers({
   organizations,
   feeds,
   menuPopup,
+  wallet,
   form: formReducer,
 });
 const sagaMiddleware = createSagaMiddleware();

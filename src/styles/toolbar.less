@@ -25,7 +25,10 @@
 
 .toolbar_responsive {
   @media (max-width: 767px) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0 0px;
   }
 }
 
@@ -42,4 +45,21 @@
 
 .toolbar__side {
   margin: 10px;
+}
+
+
+@media (max-width: 650px) {
+  .user-header__side {
+    .toolbar_top {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      margin: 0;
+    }
+
+    .inline_large {
+      margin: -6px;
+    }
+  }
 }

@@ -20,11 +20,6 @@ class CommentForm extends PureComponent {
   }
 
   show() {
-    if (!this.props.user.id) {
-      this.props.showAuthPopup();
-      return;
-    }
-
     this.setState({ active: true });
   }
 
@@ -35,8 +30,13 @@ class CommentForm extends PureComponent {
   }
 
   submit() {
+    if (!this.props.user.id) {
+      this.props.showAuthPopup();
+      return;
+    }
+
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(this.state.comment);
+      this.props.onSubmit(this.state.comment.trim());
     }
 
     this.reset();
@@ -75,13 +75,14 @@ class CommentForm extends PureComponent {
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"
               placeholder="Leave a comment"
+              maxLength="2000"
               onFocus={() => this.show()}
               onBlur={() => this.hide()}
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN) {
+                if (e.keyCode === KEY_RETURN && this.state.comment.trim().length !== 0) {
                   e.target.blur();
                   e.preventDefault();
                   this.submit();
@@ -109,6 +110,7 @@ class CommentForm extends PureComponent {
                           size="small"
                           text="Post"
                           onClick={() => this.submit()}
+                          isDisabled={this.state.comment.trim().length === 0}
                         />
                       </div>
                     </div>

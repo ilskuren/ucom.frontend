@@ -20,11 +20,7 @@ class UserFeed extends PureComponent {
 
   getData(userId) {
     this.props.resetFeeds();
-    this.props.getUserWallFeed({
-      userId,
-      perPage: 10,
-      page: 1,
-    });
+    this.props.getUserWallFeed({ userId, perPage: 10, page: 1 });
   }
 
   getMoreData = () => {
@@ -50,6 +46,7 @@ class UserFeed extends PureComponent {
 
     return (
       <Feed
+        pinnedPostId={this.props.pinnedPostId}
         postsIds={userWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={userWallFeed.metadata && userWallFeed.postsIds.length < userWallFeed.metadata.totalAmount}
@@ -73,6 +70,7 @@ UserFeed.propTypes = {
   createUserCommentPost: PropTypes.func,
   getUserWallFeed: PropTypes.func,
   resetFeeds: PropTypes.func,
+  pinnedPostId: PropTypes.number,
 };
 
 export default connect(

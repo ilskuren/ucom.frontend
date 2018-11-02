@@ -2,5 +2,5 @@
 node_modules
 public
 .history
-
 .vscode
+npm-debug.log

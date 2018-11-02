@@ -35,7 +35,7 @@
 .menu_responsive {
   flex-wrap: wrap;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     display: block;
   }
 }
@@ -115,6 +115,11 @@
 
 .menu_footer {
   font-size: 16px;
+
+  @media (max-width: 330px) {
+    max-width: 320px;
+    flex-wrap: wrap;
+  }
 }
 
 .menu_simple-tabs {
@@ -194,7 +199,7 @@
     text-align: left;
     font-size: 16px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 767px) {
       margin-bottom: 20px;
     }
   }
@@ -227,5 +232,17 @@
     @media (max-width: 1023px) {
       color: inherit;
     }
+  }
+}
+
+.menu__item_only_desktop {
+  @media (max-width: 799px) {
+    display: none;
+  }
+}
+
+.menu__item_only_phone {
+  @media (min-width: 800px) {
+    display: none;
   }
 }

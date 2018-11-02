@@ -13,7 +13,7 @@ class FeedForm extends PureComponent {
     super(props);
 
     this.state = {
-      message: this.props.message || '',
+      message: escapeQuotes(this.props.message) || '',
     };
   }
 
@@ -35,7 +35,7 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-          this.sumbitForm(this.state.message);
+          this.sumbitForm(this.state.message.trim());
         }}
       >
         <div className="feed-form__field">
@@ -49,7 +49,7 @@ class FeedForm extends PureComponent {
               rows="4"
               className="feed-form__textarea"
               placeholder="Leave a comment"
-              value={escapeQuotes(this.state.message)}
+              value={this.state.message}
               onChange={e => this.setState({ message: e.target.value })}
               onKeyDown={(e) => {
                 if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
@@ -80,7 +80,7 @@ class FeedForm extends PureComponent {
                 type="submit"
                 size="small"
                 theme="red"
-                isDisabled={this.state.message.length === 0}
+                isDisabled={this.state.message.trim().length === 0}
               />
             </div>
           </div>

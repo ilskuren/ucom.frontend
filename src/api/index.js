@@ -46,7 +46,7 @@ class Api {
   }
 
   @bind
-  async register({ brainkey, accountName }) {
+  async register({ brainkey, accountName, isTrackingAllowed }) {
     const ownerKey = ecc.seedPrivate(brainkey);
     const activeKey = ecc.seedPrivate(ownerKey);
     const sign = ecc.sign(accountName, activeKey);
@@ -54,10 +54,12 @@ class Api {
     const response = await this.actions.post('/api/v1/auth/registration', {
       sign,
       brainkey,
+      is_tracking_allowed: isTrackingAllowed,
       account_name: accountName,
       public_key: publicKey,
     });
-    return convertServerUserLogin(response.data);
+
+    return humps(response.data);
   }
 
   @bind
@@ -105,6 +107,13 @@ class Api {
   @bind
   async createPost(data) {
     const response = await this.actions.post('/api/v1/posts', data);
+
+    return response.data;
+  }
+
+  @bind
+  async repostPost(postId) {
+    const response = await this.actions.post(`/api/v1/posts/${postId}/repost`);
 
     return response.data;
   }
@@ -373,6 +382,13 @@ class Api {
   @bind
   async declineNotification(id) {
     const response = await this.actions.post(`/api/v1/myself/notifications/${id}/decline`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async seenNotification(id) {
+    const response = await this.actions.post(`/api/v1/myself/notifications/${id}/seen`);
 
     return humps(response.data);
   }

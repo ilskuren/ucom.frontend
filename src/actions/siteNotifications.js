@@ -1,13 +1,28 @@
 import socket from '../api/socket';
 import api from '../api';
 import loader from '../utils/loader';
-import { parseErrors } from '../utils/errors';
 import { addErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
 import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
+import { enableScroll, disableScroll } from '../utils/scroll';
+import { isMobile } from '../utils/mediaQueries';
 
-export const showNotificationTooltip = () => ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
-export const hideNotificationTooltip = () => ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
+export const showNotificationTooltip = () => {
+  if (isMobile()) {
+    enableScroll();
+  } else {
+    disableScroll();
+  }
+
+  return ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
+};
+
+export const hideNotificationTooltip = () => {
+  enableScroll();
+
+  return ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
+};
+
 export const resetNotificationTooltip = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP' });
 export const resetNotificationTooltipData = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP_DATA' });
 export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS', payload });
@@ -24,7 +39,7 @@ export const fetchNotifications = (payload = {}) => async (dispatch) => {
     const res = await api.getNotifications(payload.perPage, payload.page);
     dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
 };
@@ -34,31 +49,39 @@ export const showAndFetchNotifications = () => (dispatch) => {
   dispatch(fetchNotifications());
 };
 
-export const confirmNotification = ({ id, idOfOrg }) => async (dispatch, getState) => {
+export const confirmNotification = ({ id, idOfOrg }) => async (dispatch) => {
   loader.start();
   try {
     const res = await api.confirmNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    // TODO: Получать данные о количетсве непрочитанных от сервера
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
     dispatch(getOrganization(idOfOrg));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
 };
 
-export const declineNotification = id => async (dispatch, getState) => {
+export const declineNotification = id => async (dispatch) => {
   loader.start();
   try {
     const res = await api.declineNotification(id);
     dispatch(addSiteNotifications({ data: [res] }));
-    // TODO: Получать данные о количетсве непрочитанных от сервера
-    dispatch(setUnreadNotificationsAmount(getState().siteNotifications.totalUnreadAmount - 1));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
   } catch (error) {
-    dispatch(addErrorNotification(parseErrors(error).general));
+    dispatch(addErrorNotification(error));
   }
   loader.done();
+};
+
+export const seenNotification = id => async (dispatch) => {
+  try {
+    const res = await api.seenNotification(id);
+    dispatch(addSiteNotifications({ data: [res] }));
+    dispatch(setUnreadNotificationsAmount(res.myselfData.unreadMessagesCount));
+  } catch (error) {
+    dispatch(addErrorNotification(error));
+  }
 };
 
 export const initNotificationsListeners = () => (dispatch) => {

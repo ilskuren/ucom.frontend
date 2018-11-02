@@ -6,15 +6,16 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
 import PostRating from '../Rating/PostRating';
+import RepostRating from '../Rating/RepostRating';
 import UserCard from '../UserCard';
 import IconComment from '../Icons/Comment';
 import IconShare from '../Icons/Share';
-import IconEdit from '../Icons/Edit';
+import IconRepost from '../Icons/Repost';
 import Comments from '../Comments/Comments';
 import ShareBlock from './ShareBlock';
 import LastUserComments from '../Comments/LastUserComments';
 import FeedForm from './FeedForm';
-import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
+import { getPostUrl, getPostTypeById, getPinnedPostUrl } from '../../utils/posts';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { escapeQuotes } from '../../utils/text';
@@ -27,7 +28,7 @@ import { scrollTo } from '../../utils/scroll';
 
 const POST_TOP_OFFSET = 20;
 
-class Post extends PureComponent {
+class Repost extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -85,15 +86,15 @@ class Post extends PureComponent {
     const user = getUserById(this.props.users, post.userId);
 
     return (
-      <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
+      <div className="repost">
         <div className="post__info-block">
-          <div className="post__type"><strong>{getPostTypeById(post.postTypeId)}</strong></div>
+          <IconRepost />
+          <div className="post__type post__type--icon"><strong>{getPostTypeById(post.postTypeId)}</strong></div>
           <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
           <div className="toolbar__side">
-            <PostRating postId={post.id} />
+            <RepostRating postId={post.id} />
           </div>
         </div>
-
 
         {user && (
           <div className="post__user">
@@ -106,56 +107,68 @@ class Post extends PureComponent {
             />
           </div>
         )}
-
-        <div className="post__content">
-          {this.state.formIsVisible ? (
-            <div className="post__form">
-              <FeedForm
-                message={post.description}
-                onCancel={this.hideForm}
-                onSubmit={(description) => {
-                  this.hideForm();
-                  this.props.updatePost({
-                    postId: post.id,
-                    data: { description },
-                  });
-                }}
-              />
+        <div className="post post--grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+          <div className="post__info-block">
+            <div className="post__type"><strong>{getPostTypeById(post.post.postTypeId)}</strong></div>
+            <div className="toolbar__main">{moment(post.post.updatedAt).fromNow()}</div>
+            <div className="toolbar__side">
+              <PostRating postId={post.post.id} />
             </div>
-          ) : (
-            <h1 className="post__title">
-              {post.postTypeId === 10 ? (
-                <div className="toolbar toolbar_fluid toolbar_small">
-                  <div className="toolbar__main">
-                    <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
-                  </div>
-                  {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
-                    <div className="toolbar__side">
-                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
-                        <IconEdit />
-                      </button>
+          </div>
+
+          <div className="post__user">
+            <UserCard
+              sign="@"
+              userName={getUserName(post.post.user)}
+              accountName={post.post.user.accountName}
+              profileLink={getUserUrl(post.post.user.id)}
+              avatarUrl={getFileUrl(post.post.user.avatarFilename)}
+            />
+          </div>
+
+          <div className="post__content">
+            {this.state.formIsVisible ? (
+              <div className="post__form">
+                <FeedForm
+                  message={post.description}
+                  onCancel={this.hideForm}
+                  onSubmit={(description) => {
+                    this.hideForm();
+                    this.props.updatePost({
+                      postId: post.id,
+                      data: { description },
+                    });
+                  }}
+                />
+              </div>
+            ) : (
+              <h1 className="post__title">
+                {post.post.postTypeId === 10 ? (
+                  <div className="toolbar toolbar_fluid toolbar_small">
+                    <div className="toolbar__main">
+                      <Link to={getPinnedPostUrl(post.post)}>{escapeQuotes(post.post.description)}</Link>
                     </div>
-                  )}
-                </div>
-              ) : (
-                <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
-              )}
-            </h1>
-          )}
+                  </div>
+                  ) : (
+                    <Link to={getPostUrl(post.post.id)}>{escapeQuotes(post.post.title)}</Link>
+                  )
+                }
+              </h1>
+            )}
 
-          {post.mainImageFilename && (
-            <div className="post__cover">
-              <Link to={getPostUrl(post.id)}>
-                <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
-              </Link>
-            </div>
-          )}
+            {post.post.mainImageFilename && (
+              <div className="post__cover">
+                <Link to={getPostUrl(post.post.id)}>
+                  <img src={getFileUrl(post.post.mainImageFilename)} alt="cover" />
+                </Link>
+              </div>
+            )}
 
-          {post.leadingText && (
-            <h2 className="post__title post__title_leading">{escapeQuotes(post.leadingText)}</h2>
-          )}
+            {post.post.leadingText && (
+              <h2 className="post__title post__title_leading post__title_leading--no-margin">{escapeQuotes(post.post.leadingText)}</h2>
+            )}
+          </div>
         </div>
-
         <div className="post__footer">
           <span
             role="presentation"
@@ -197,7 +210,6 @@ class Post extends PureComponent {
             />
           </div>
         ) : null }
-
         <div className="post__comments">
           {this.state.commentsIsVisible ? (
             <Comments postId={post.id} />
@@ -205,13 +217,12 @@ class Post extends PureComponent {
             <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
           )}
         </div>
-
       </div>
     );
   }
 }
 
-Post.propTypes = {
+Repost.propTypes = {
   id: PropTypes.number,
   pinned: PropTypes.bool,
   updatePost: PropTypes.func,
@@ -230,4 +241,4 @@ export default connect(
     createComment,
     updatePost,
   }, dispatch),
-)(Post);
+)(Repost);

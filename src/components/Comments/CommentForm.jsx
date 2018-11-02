@@ -8,7 +8,7 @@ import Button from '../Button';
 import { getFileUrl } from '../../utils/upload';
 import { showAuthPopup } from '../../actions';
 import { selectUser } from '../../store/selectors';
-import { addSiteNotifications } from 'actions/siteNotifications';
+import { getTextContent } from '../../utils/text';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -37,10 +37,9 @@ class CommentForm extends PureComponent {
     }
 
     if (typeof this.props.onSubmit === 'function') {
-      const text = document.createElement('div');
-      text.innerHTML = this.el.value;
+      const text = getTextContent(this.el.value);
 
-      this.props.onSubmit(text.textContent.trim());
+      this.props.onSubmit(text);
     }
 
     this.reset();

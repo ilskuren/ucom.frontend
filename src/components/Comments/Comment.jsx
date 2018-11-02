@@ -69,7 +69,7 @@ class Comment extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="comment__text" dangerouslySetInnerHTML={makeLink(comment.description)} />
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: makeLink(comment.description) }} />
             <div className="comment__actions">
               <div className="inline">
                 {this.props.user.id && (

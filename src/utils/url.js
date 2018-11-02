@@ -26,5 +26,5 @@ export const makeLink = (text) => {
     text = text.replace(urlRegex, url => `<a target="_blank" href="${url}"> ${url}</a>`);
   }
 
-  return { __html: text };
+  return text;
 };

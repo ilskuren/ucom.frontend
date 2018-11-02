@@ -79,13 +79,14 @@ class CommentForm extends PureComponent {
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"
               placeholder="Leave a comment"
+              maxLength="2000"
               onFocus={() => this.show()}
               onBlur={() => this.hide()}
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN) {
+                if (e.keyCode === KEY_RETURN && this.state.comment.trim().length !== 0) {
                   e.target.blur();
                   e.preventDefault();
                   this.submit();

@@ -28,11 +28,13 @@ class NotificationTooltip extends Component {
   componentDidMount() {
     window.addEventListener('NotificationTrigger', this.loadMore);
     document.addEventListener('click', this.hideIfOut);
+    document.onwheel = this.checkScroll;
   }
 
   componentWillUnmount() {
     window.removeEventListener('NotificationTrigger', this.loadMore);
     document.removeEventListener('click', this.hideIfOut);
+    document.onwheel = null;
   }
 
   loadMore = () => {
@@ -44,26 +46,26 @@ class NotificationTooltip extends Component {
         perPage: this.props.notificationsMetadata.perPage,
       });
     }
-
-    document.onwheel = (e) => {
-      if (!e.path.every(i => i !== this.tooltip.current)) {
-        const area = e.target;
-        const delta = e.deltaY || e.detail || e.wheelDelta;
-
-        if (delta < 0 && area.scrollTop === 0) {
-          e.preventDefault();
-        }
-
-        if (delta > 0 && area.scrollHeight - area.clientHeight - area.scrollTop <= 1) {
-          e.preventDefault();
-        }
-      }
-    };
   };
 
   hideIfOut = (e) => {
     if (e.path.every(i => i !== this.tooltip.current)) {
       this.props.hideTooltip();
+    }
+  }
+
+  checkScroll = (e) => {
+    if (!e.path.every(i => i !== this.tooltip.current)) {
+      const area = e.target;
+      const delta = e.deltaY || e.detail || e.wheelDelta;
+
+      if (delta < 0 && area.scrollTop === 0) {
+        e.preventDefault();
+      }
+
+      if (delta > 0 && area.scrollHeight - area.clientHeight - area.scrollTop <= 1) {
+        e.preventDefault();
+      }
     }
   }
 

@@ -12,40 +12,46 @@ class SendTokensPopup extends PureComponent {
 
   render() {
     return (
-      <div className="menu-tokens-popup left">
-        <div className="menu-tokens-popup__title title_small"><strong>Send Tokens</strong></div>
-
-        <div className="menu-tokens-popup__field">
-          <TextInput
-            label="UOS Amount"
-            placeholder="0"
-            className="menu-tokens-popup__input"
-            value={this.state.UOSAmount}
-            onChange={UOSAmount => this.setState({ UOSAmount })}
-          />
-        </div>
-        <div className="menu-tokens-popup__field menu-tokens-popup__field_destination-account">
-          <TextInput
-            label="Destination Account"
-            placeholder="@"
-            className="menu-tokens-popup__input"
-            value={this.state.destinationAccount}
-            onChange={destinationAccount => this.setState({ destinationAccount })}
-            isSearch
-          />
-        </div>
-        <div className="menu-tokens-popup__field">
-          <TextInput
-            label="Memo"
-            placeholder="Example"
-            className="menu-tokens-popup__input"
-            value={this.state.memo}
-            onChange={memo => this.setState({ memo })}
-          />
+      <div className="tokens-popup">
+        <div className="tokens-popup__title">
+          <h2 className="title title_small title_light">Send Tokens</h2>
         </div>
 
-        <div className="menu-tokens-popup__error">
-          <div className="menu-tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+        <div className="tokens-popup__field">
+          <div className="tokens-popup__input">
+            <TextInput
+              label="UOS Amount"
+              placeholder="0"
+              value={this.state.UOSAmount}
+              onChange={UOSAmount => this.setState({ UOSAmount })}
+            />
+          </div>
+        </div>
+        <div className="tokens-popup__field">
+          <div className="tokens-popup__input">
+            <TextInput
+              label="Destination Account"
+              placeholder="@"
+              value={this.state.destinationAccount}
+              onChange={destinationAccount => this.setState({ destinationAccount })}
+              isSearch
+            />
+          </div>
+        </div>
+        <div className="tokens-popup__field">
+          <div className="tokens-popup__input">
+            <TextInput
+              label="Memo"
+              placeholder="Example"
+              className="tokens-popup__input"
+              value={this.state.memo}
+              onChange={memo => this.setState({ memo })}
+            />
+          </div>
+        </div>
+
+        <div className="tokens-popup__error">
+          <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
           <div>Destination account doesn’t exist, check spelling</div>
         </div>
 

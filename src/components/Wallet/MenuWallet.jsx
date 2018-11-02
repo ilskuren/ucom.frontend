@@ -26,7 +26,7 @@ class MenuWallet extends PureComponent {
     return (
       <Fragment>
         <div className="menu-wallet">
-          <div className="menu-wallet__block menu-wallet__block_tokens">
+          <div className="menu-wallet__block">
             <h2 className="menu-wallet__title">Tokens</h2>
 
             <div className="inline inline_flex inline_large inline_resp">
@@ -62,7 +62,7 @@ class MenuWallet extends PureComponent {
             </div>
           </div>
 
-          <div className="menu-wallet__block menu-wallet__block_resources">
+          <div className="menu-wallet__block">
             <h2 className="menu-wallet__title">Resources</h2>
 
             <div className="inline inline_flex inline_large inline_resp">
@@ -151,13 +151,13 @@ class MenuWallet extends PureComponent {
                         <td className="menu-table__cell" data-title="Received account">
                           <div className="menu-wallet__account-card">
                             <Avatar size="xmsmall" />
-                            <span className="bold">@cryptoplant</span>
+                            <strong>@cryptoplant</strong>
                           </div>
                         </td>
                         <td className="menu-table__cell" data-title="Tx hash">177oEJ4****32eyOK213</td>
                         <td className="menu-table__cell" data-title="Block">7764342</td>
                         <td className="bold menu-table__cell" data-title="Amount, UOS">
-                          <span className="bold">0.32424</span>
+                          <strong>0.32424</strong>
                         </td>
                         <td className="menu-table__cell" data-title="">
                           12/24/2018, 1:08:03 PM

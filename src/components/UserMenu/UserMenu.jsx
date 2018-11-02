@@ -10,7 +10,7 @@ import { showMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import Popup from '../Popup';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
@@ -21,6 +21,7 @@ const UserMenu = (props) => {
   if (!props.user) {
     return null;
   }
+
   const logout = () => {
     removeToken();
     removeBrainkey();
@@ -28,21 +29,22 @@ const UserMenu = (props) => {
     window.location.reload();
     props.hideMenuPopup();
   };
+
   return (
     <Fragment>
       {props.menuPopupVisibility &&
-        <Popup>
+        <Popup mod="user-menu">
           <div className="user-menu">
-            <div className="user-menu__header">
+            {/* <div className="user-menu__header">
               <Header />
-            </div>
+            </div> */}
 
             <div className="user-menu__content">
               <div className="content">
                 <div className="content__inner">
                   <div className="user-menu__section">
                     <div className="menu menu_wrap">
-                      <div className="menu__item only-phone">
+                      <div className="menu__item else-desktop">
                         <NavLink
                           to="/posts/new/1"
                           className="menu__link menu__link_upper"
@@ -53,7 +55,7 @@ const UserMenu = (props) => {
                         </NavLink>
                       </div>
 
-                      <div className="menu__item only-phone">
+                      <div className="menu__item else-desktop">
                         <NavLink
                           to="/users"
                           className="menu__link menu__link_upper"
@@ -64,7 +66,7 @@ const UserMenu = (props) => {
                         </NavLink>
                       </div>
 
-                      <div className="menu__item only-phone">
+                      <div className="menu__item else-desktop">
                         <NavLink
                           to="/communities"
                           className="menu__link menu__link_upper"
@@ -75,7 +77,7 @@ const UserMenu = (props) => {
                         </NavLink>
                       </div>
 
-                      <div className="menu__item only-phone">
+                      <div className="menu__item else-desktop">
                         <NavLink
                           to="/publications/media"
                           className="menu__link menu__link_upper"
@@ -160,6 +162,8 @@ const UserMenu = (props) => {
 
 UserMenu.propTypes = {
   menuPopupVisibility: PropTypes.bool,
+  removeUser: PropTypes.func,
+  hideMenuPopup: PropTypes.func,
 };
 
 export default withRouter(connect(

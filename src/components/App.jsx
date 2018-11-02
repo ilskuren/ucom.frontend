@@ -48,30 +48,31 @@ class App extends PureComponent {
         <Router history={this.props.history}>
           <Page>
             <Header />
-            <UserMenu />
 
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/my-profile" component={MyProfilePage} />
-              <Route path="/settings" component={SettingsPage} />
-              <Route path="/notifications" component={NotificationsPage} />
-              <Route exact path="/user/:id" component={UserPage} />
-              <Route exact path="/user/:id/:postId" component={UserPage} />
-              <Route path="/posts/new/:postTypeId" component={CreatePost} />
-              <Route path="/posts/:id/edit" component={CreatePost} />
-              <Route exact path="/posts/:id" component={Post} />
-              <Route path="/publications" component={EventsPage} />
-              <Route path="/users" component={UsersPage} />
-              <Route exact path="/products" component={ProductsPage} />
-              <Route exact path="/communities" component={OrganizationsPage} />
-              <Route exact path="/communities/new" component={OrganizationsCreatePage} />
-              <Route exact path="/communities/:id" component={OrganizationPage} />
-              <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
-              <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <div className="page__content">
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-profile" component={MyProfilePage} />
+                <Route path="/settings" component={SettingsPage} />
+                <Route path="/notifications" component={NotificationsPage} />
+                <Route exact path="/user/:id" component={UserPage} />
+                <Route exact path="/user/:id/:postId" component={UserPage} />
+                <Route path="/posts/new/:postTypeId" component={CreatePost} />
+                <Route path="/posts/:id/edit" component={CreatePost} />
+                <Route exact path="/posts/:id" component={Post} />
+                <Route path="/publications" component={EventsPage} />
+                <Route path="/users" component={UsersPage} />
+                <Route exact path="/products" component={ProductsPage} />
+                <Route exact path="/communities" component={OrganizationsPage} />
+                <Route exact path="/communities/new" component={OrganizationsCreatePage} />
+                <Route exact path="/communities/:id" component={OrganizationPage} />
+                <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
+                <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </div>
 
             {this.props.auth.showPopup &&
               <Popup onClickClose={() => this.props.hideAuthPopup()}>
@@ -80,6 +81,7 @@ class App extends PureComponent {
             }
 
             <Notifications />
+            <UserMenu />
           </Page>
         </Router>
       </Fragment>

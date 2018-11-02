@@ -47,33 +47,32 @@ h4 {
   margin: 0;
 }
 
-.no-scroll {
-  overflow: hidden;
+.only-desktop {
+  @media (max-width: 1023px) {
+    display: none;
+  }
 }
 
-.only-desktop {
-  @media (max-width: 787px) {
+.else-desktop {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.only-pad {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.else-pad {
+  @media (min-width: 768px) {
     display: none;
   }
 }
 
 .only-phone {
-  @media (min-width: 788px) {
+  @media (min-width: 768px) {
     display: none;
   }
-}
-.left {
-  text-align: left;
-}
-
-.right {
-  text-align: right;
-}
-
-.full-height {
-  height: 100%;
-}
-
-.bold {
-  font-weight: bold;
 }

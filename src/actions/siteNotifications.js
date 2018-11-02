@@ -4,21 +4,21 @@ import loader from '../utils/loader';
 import { addErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
 import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
-import { enableScroll, disableScroll } from '../utils/scroll';
+import { blockPageContent, unblockPageContent } from '../utils/page';
 import { isMobile } from '../utils/mediaQueries';
 
 export const showNotificationTooltip = () => {
   if (isMobile()) {
-    enableScroll();
-  } else {
-    disableScroll();
+    blockPageContent();
   }
 
   return ({ type: 'SHOW_NOTIFICATIONS_TOOLTIP' });
 };
 
 export const hideNotificationTooltip = () => {
-  enableScroll();
+  if (isMobile()) {
+    unblockPageContent();
+  }
 
   return ({ type: 'HIDE_NOTIFICATIONS_TOOLTIP' });
 };

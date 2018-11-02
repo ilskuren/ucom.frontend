@@ -101,7 +101,7 @@ class MenuPopup extends PureComponent {
                           </div>
                         </Fragment> : null
                       }
-                      <div className="menu__item only-phone">
+                      <div className="menu__item only-pad">
                         <NavLink
                           to="/posts/new/1"
                           className="menu__link"
@@ -110,7 +110,7 @@ class MenuPopup extends PureComponent {
                         </NavLink>
                       </div>
 
-                      <div className="menu__item only-phone">
+                      <div className="menu__item only-pad">
                         <NavLink
                           to="/users"
                           className="menu__link"
@@ -120,7 +120,7 @@ class MenuPopup extends PureComponent {
                           People
                         </NavLink>
                       </div>
-                      <div className="menu__item only-phone">
+                      <div className="menu__item only-pad">
                         <NavLink
                           to="/communities"
                           className="menu__link"
@@ -130,7 +130,7 @@ class MenuPopup extends PureComponent {
                           Communities
                         </NavLink>
                       </div>
-                      <div className="menu__item only-phone">
+                      <div className="menu__item only-pad">
                         <NavLink
                           to="/publications/media"
                           className="menu__link"

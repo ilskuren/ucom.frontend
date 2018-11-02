@@ -25,7 +25,7 @@ class Header extends PureComponent {
 
   render() {
     return (
-      <div className={`header ${this.props.menuPopupVisibility ? '' : 'header-fixed'}`} id="top">
+      <div className="header" id="top">
         <div className="header__inner">
           <HeaderSide />
           <HeaderMain />

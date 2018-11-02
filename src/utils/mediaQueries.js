@@ -1,1 +1,1 @@
-export const isMobile = () => window.matchMedia('(min-width: 787px)').matches;
+export const isMobile = () => window.matchMedia('(max-width: 767px)').matches;

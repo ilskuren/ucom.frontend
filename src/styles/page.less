@@ -1,9 +1,17 @@
 .page {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 91px);
+}
 
-  @media (min-width: 1024px) {
-    padding-top: 91px;
-  }
+.page__content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 91px 0 0;
+}
+
+.page__content_blocked {
+  position: fixed;
+  max-height: 100%;
+  overflow: hidden;
+  z-index: 0;
 }

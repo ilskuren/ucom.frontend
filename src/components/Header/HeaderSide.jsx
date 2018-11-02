@@ -18,16 +18,19 @@ const HeaderSide = ({
 }) => (
   <div className="header__side">
     {!user.id ? (
-      <nav className="menu menu_responsive menu_header">
+      <nav className="menu menu_header">
         <div className="menu__item">
           <Link to="/" className="menu__link">
-            <IconLogo />
+            <span className="only-pad"><IconLogo /></span>
+            <span className="else-pad"><MiniIconLogo /></span>
           </Link>
         </div>
-        <div className="menu__item left">
+
+        <div className="menu__item">
           <button className="menu__link menu__link_upper " onClick={() => showAuthPopup()}>SIGN in</button>
         </div>
-        <div className="menu__item only-phone">
+
+        <div className="menu__item else-desktop">
           <div className="menu-popup">
             <div className="menu-popup__arrow-wrapper" role="presentation" onClick={triggerMenuPopup}>
               <div className={`menu-popup__arrow ${menuPopupVisibility ? 'menu-popup__arrow_red' : ''}`} />

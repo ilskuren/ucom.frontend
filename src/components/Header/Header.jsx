@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { showAuthPopup } from '../../actions';
 import { selectUser } from '../../store/selectors';
 import Popup from '../Popup';
@@ -42,14 +41,9 @@ class Header extends PureComponent {
   }
 }
 
-Header.propTypes = {
-  menuPopupVisibility: PropTypes.bool,
-};
-
 export default connect(
   state => ({
     user: selectUser(state),
-    menuPopupVisibility: state.menuPopup.menuPopupVisibility,
   }),
   dispatch => bindActionCreators({
     showAuthPopup,

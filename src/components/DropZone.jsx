@@ -21,7 +21,7 @@ class DropZone extends PureComponent {
       onDrop,
       maxSize,
     } = this.props;
-    const overSize = maxSize ? maxSize : 1000000;
+    const overSize = (!maxSize) ? 1000000 : maxSize;
 
     if (files[0] && files[0].size < overSize) {
       this.fr = new FileReader();

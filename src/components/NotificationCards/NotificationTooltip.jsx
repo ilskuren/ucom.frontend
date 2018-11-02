@@ -57,6 +57,8 @@ class NotificationTooltip extends Component {
     const newNotifications = filterNotifs(list, false);
     const oldNotifications = filterNotifs(list, true);
     const notificationTrigger = new CustomEvent('NotificationTrigger');
+    console.log(oldNotifications);
+
     return (
       <div ref={this.tooltip} className="notification-tooltip">
         <div className="arrow-big" />

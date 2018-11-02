@@ -64,6 +64,8 @@ export const getPostTypeById = (postTypeId) => {
       return 'offer';
     case 1:
       return 'story';
+    case 11:
+      return 'repost';
     default:
       return null;
   }

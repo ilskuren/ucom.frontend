@@ -21,6 +21,12 @@ export const getUserWallFeed = payload => (dispatch) => {
   dispatch(loaderStart());
   api.getUserWallFeed(payload.userId, payload.perPage, payload.page)
     .then((data) => {
+      data.data.forEach((item) => {
+        dispatch(addPosts([item]));
+        if (item.post) {
+          dispatch(addPosts([item.post]));
+        }
+      });
       dispatch(addPosts(data.data));
       dispatch(addFeedPosts({
         id: payload.userId,
@@ -53,7 +59,12 @@ export const getUserNewsFeed = payload => (dispatch) => {
   dispatch(loaderStart());
   api.getUserNewsFeed(payload.perPage, payload.page)
     .then((data) => {
-      dispatch(addPosts(data.data));
+      data.data.forEach((item) => {
+        dispatch(addPosts([item]));
+        if (item.post) {
+          dispatch(addPosts([item.post]));
+        }
+      });
       dispatch(addFeedPosts({
         id: payload.userId,
         feedTypeId: USER_NEWS_FEED_TYPE_ID,

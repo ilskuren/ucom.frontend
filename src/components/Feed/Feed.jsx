@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Fragment, PureComponent } from 'react';
 import Post from './Post';
+import Repost from './Repost';
 import LoadMore from './LoadMore';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
@@ -57,10 +58,17 @@ class Feed extends PureComponent {
             <div className="feed__list">
               {posts.map(item => (
                 <div className="feed__item" key={item.id}>
-                  <Post
-                    id={item.id}
-                    pinned={+this.props.pinnedPostId === +item.id}
-                  />
+                  {(item.postTypeId === 11) ? (
+                    <Repost
+                      id={item.id}
+                      pinned={+this.props.pinnedPostId === +item.id}
+                    />
+                  ) : (
+                    <Post
+                      id={item.id}
+                      pinned={+this.props.pinnedPostId === +item.id}
+                    />
+                  )}
                 </div>
               ))}
             </div>

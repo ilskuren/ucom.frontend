@@ -40,7 +40,6 @@ export const updatePost = payload => (dispatch) => {
 export const addRepost = postId => (dispatch) => {
   loader.start();
   api.repostPost(postId)
-    .then((/* data */) => {})
     .catch((error) => {
       dispatch(addErrorNotification(error));
     })

@@ -37,6 +37,16 @@ export const updatePost = payload => (dispatch) => {
     .then(() => loader.done());
 };
 
+export const addRepost = postId => (dispatch) => {
+  loader.start();
+  api.repostPost(postId)
+    .then((data) => {})
+    .catch((error) => {
+      dispatch(addErrorNotification(error));
+    })
+    .then(() => loader.done());
+};
+
 export const fetchOrganizationPosts = organizationId => (dispatch) => {
   loader.start();
   api.getOrganizationPosts(organizationId)

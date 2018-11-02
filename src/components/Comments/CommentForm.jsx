@@ -75,6 +75,7 @@ class CommentForm extends PureComponent {
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"
               placeholder="Leave a comment"
+              maxLength="2000"
               onFocus={() => this.show()}
               onBlur={() => this.hide()}
               onChange={(e) => {

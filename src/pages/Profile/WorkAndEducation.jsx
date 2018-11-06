@@ -15,7 +15,7 @@ import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
-import DropZone from '../../components/DropZone';
+// import DropZone from '../../components/DropZone';
 import Loading from '../../components/Loading';
 
 import TextInputField from '../../components/Field/TextInputField';
@@ -40,8 +40,8 @@ class ProfileWorkAndEducationPage extends PureComponent {
     const { usersJobs, usersEducation } = userWorkAndEducation;
     const preInitializedUserWorkAndEducation = {
       ...userWorkAndEducation,
-      usersJobs: usersJobs.length === 0 ? [{}] : usersJobs,
-      usersEducation: usersEducation.length === 0 ? [{}] : usersEducation,
+      usersJobs: (usersJobs === undefined) || (usersJobs.length === 0) ? [{}] : usersJobs,
+      usersEducation: (usersEducation === undefined) || (usersEducation.length === 0) ? [{}] : usersEducation,
     };
     initialize(preInitializedUserWorkAndEducation);
   }
@@ -119,10 +119,10 @@ class ProfileWorkAndEducationPage extends PureComponent {
                   <div className="list">
                     <WorkAndEducationFieldArray name="usersEducation" componentName="educations" />
                   </div>
-                  <div className="profile__block">
+                  {/* <div className="profile__block">
                     <span className="profile__text">Achievements</span>
                     <DropZone text="add or drag file" />
-                  </div>
+                  </div> */}
                 </InfoBlock>
               </Element>
               <div className="profile__block">

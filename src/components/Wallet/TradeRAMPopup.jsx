@@ -11,23 +11,27 @@ class TradeRAMPopup extends PureComponent {
 
   render() {
     return (
-      <div className="menu-tokens-popup menu-tokens-popup_buy-ram left">
-        <div className="menu-tokens-popup__title title_small"><strong>{this.props.title} Tokens</strong></div>
+      <div className="tokens-popup tokens-popup_buy-ram">
+        <div className="tokens-popup__title">
+          <h2 className="title title_small title_light">{this.props.title} RAM</h2>
+        </div>
+
         <div>
-          <TextInput
-            label="RAM Amount, Bytes"
-            placeholder="6664"
-            className="menu-tokens-popup__input"
-            value={this.state.RAMAmount}
-            onChange={RAMAmount => this.setState({ RAMAmount })}
-          />
+          <div className="tokens-popup__input">
+            <TextInput
+              label="RAM Amount, Bytes"
+              placeholder="6664"
+              value={this.state.RAMAmount}
+              onChange={RAMAmount => this.setState({ RAMAmount })}
+            />
+          </div>
         </div>
-        <div className="menu-tokens-popup__cost">
-          <div className="menu-tokens-popup__title-cost"><strong>≈ 56 UOS</strong></div>
-          <div className="menu-tokens-popup__tip">RAM Cost</div>
+        <div className="tokens-popup__cost">
+          <div className="tokens-popup__title-cost"><strong>≈ 56 UOS</strong></div>
+          <div className="tokens-popup__tip">RAM Cost</div>
         </div>
-        <div className="menu-tokens-popup__error">
-          <div className="menu-tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+        <div className="tokens-popup__error">
+          <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
           <div>Not enough RAM, decrease RAM amount  </div>
         </div>
         <Button

@@ -10,7 +10,6 @@ import { showMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import Popup from '../Popup';
-// import Header from '../Header/Header';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
@@ -35,10 +34,6 @@ const UserMenu = (props) => {
       {props.menuPopupVisibility &&
         <Popup mod="user-menu">
           <div className="user-menu">
-            {/* <div className="user-menu__header">
-              <Header />
-            </div> */}
-
             <div className="user-menu__content">
               <div className="content">
                 <div className="content__inner">
@@ -120,7 +115,9 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   </div>
+
                   {props.user.id && <MenuWallet />}
+
                   {props.user.organizations && props.user.organizations.length > 0 &&
                     <div className="user-menu__section">
                       <div className="user-menu__title">Communities</div>

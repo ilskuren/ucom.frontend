@@ -17,7 +17,7 @@ const ProgressBar = ({
     </div>
 
     <div className="progress-bar__container">
-      <div style={{ width: `${partAmount / (fullAmount / 100)}%` }} className="progress-bar__filler" />
+      <div style={{ width: `${(partAmount * 100) / fullAmount}%` }} className="progress-bar__filler" />
     </div>
     <div className="progress-bar__status">{title}</div>
   </div>

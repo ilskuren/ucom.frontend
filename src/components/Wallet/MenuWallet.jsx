@@ -1,3 +1,6 @@
+// import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
 import SendTokensPopup from './SendTokensPopup';
 import TradeRAMPopup from './TradeRAMPopup';
@@ -23,15 +26,17 @@ class MenuWallet extends PureComponent {
   }
 
   render() {
+    const { wallet } = this.props;
+
     return (
       <Fragment>
         <div className="menu-wallet">
-          <div className="menu-wallet__block menu-wallet__block_tokens">
+          <div className="menu-wallet__block">
             <h2 className="menu-wallet__title">Tokens</h2>
 
             <div className="inline inline_flex inline_large inline_resp">
               <div className="inline__item">
-                <div className="menu-wallet__amount">3200</div>
+                <div className="menu-wallet__amount">{wallet.data.tokens.active}</div>
                 <div className="menu-wallet__status">Active, UOS</div>
                 <div
                   role="presentation"
@@ -43,7 +48,7 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">3000</div>
+                <div className="menu-wallet__amount">{wallet.data.tokens.staked}</div>
                 <div className="menu-wallet__status">Stacked, UOS</div>
                 <div
                   className="menu-wallet__action"
@@ -55,23 +60,23 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">0.000000001</div>
+                <div className="menu-wallet__amount">{wallet.data.tokens.emission}</div>
                 <div className="menu-wallet__status">Emission, UOS</div>
                 <div className="menu-wallet__action">Get Emission</div>
               </div>
             </div>
           </div>
 
-          <div className="menu-wallet__block menu-wallet__block_resources">
+          <div className="menu-wallet__block">
             <h2 className="menu-wallet__title">Resources</h2>
 
             <div className="inline inline_flex inline_large inline_resp">
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={0.05}
-                  fullAmount={5.47}
+                  partAmount={wallet.data.resources.ram.free}
+                  fullAmount={wallet.data.resources.ram.total}
+                  label={wallet.data.resources.ram.dimension}
                   title="RAM"
-                  label="kB"
                   description="Free"
                 />
                 <div className="inline">
@@ -98,10 +103,10 @@ class MenuWallet extends PureComponent {
 
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={0.0004}
-                  fullAmount={0.0034}
+                  partAmount={wallet.data.resources.cpu.free}
+                  fullAmount={wallet.data.resources.cpu.total}
+                  label={wallet.data.resources.cpu.dimension}
                   title="CPU Time"
-                  label="sec"
                 />
                 <div
                   className="menu-wallet__action"
@@ -114,10 +119,10 @@ class MenuWallet extends PureComponent {
 
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={0.5}
-                  fullAmount={5.47}
+                  partAmount={wallet.data.resources.net.free}
+                  fullAmount={wallet.data.resources.net.total}
+                  label={wallet.data.resources.net.dimension}
                   title="Network BW"
-                  label="kB"
                 />
                 <div
                   className="menu-wallet__action"
@@ -151,13 +156,13 @@ class MenuWallet extends PureComponent {
                         <td className="menu-table__cell" data-title="Received account">
                           <div className="menu-wallet__account-card">
                             <Avatar size="xmsmall" />
-                            <span className="bold">@cryptoplant</span>
+                            <strong>@cryptoplant</strong>
                           </div>
                         </td>
                         <td className="menu-table__cell" data-title="Tx hash">177oEJ4****32eyOK213</td>
                         <td className="menu-table__cell" data-title="Block">7764342</td>
                         <td className="bold menu-table__cell" data-title="Amount, UOS">
-                          <span className="bold">0.32424</span>
+                          <strong>0.32424</strong>
                         </td>
                         <td className="menu-table__cell" data-title="">
                           12/24/2018, 1:08:03 PM
@@ -202,4 +207,12 @@ class MenuWallet extends PureComponent {
     );
   }
 }
-export default MenuWallet;
+
+MenuWallet.propTypes = {
+  wallet: PropTypes.objectOf(PropTypes.any),
+};
+
+export default connect(state => ({
+  auth: state.auth,
+  wallet: state.wallet,
+}))(MenuWallet);

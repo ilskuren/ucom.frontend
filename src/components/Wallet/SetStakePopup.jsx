@@ -11,33 +11,36 @@ class SetStakePopup extends PureComponent {
 
   render() {
     return (
-      <div className="menu-tokens-popup menu-tokens-popup_buy-ram left">
-        <div className="menu-tokens-popup__title title_small"><strong>{this.props.title} Tokens</strong></div>
-
-        <div className="menu-tokens-popup__fields">
-          <TextInput
-            label="UOS for CPU Time"
-            placeholder="6664"
-            className="menu-tokens-popup__input"
-            value={this.state.UOSforCPUtime}
-            onChange={UOSforCPUtime => this.setState({ UOSforCPUtime })}
-          />
-          <TextInput
-            label="UOS for CPU Time"
-            placeholder="6664"
-            className="menu-tokens-popup__input"
-            value={this.state.UOSforNetworkBW}
-            onChange={UOSforNetworkBW => this.setState({ UOSforNetworkBW })}
-          />
+      <div className="tokens-popup">
+        <div className="tokens-popup__title">
+          <h2 className="title title_small title_light">Set Stake</h2>
+        </div>
+        <div className="tokens-popup__fields">
+          <div className="tokens-popup__input">
+            <TextInput
+              label="UOS for CPU Time"
+              placeholder="6664"
+              value={this.state.UOSforCPUtime}
+              onChange={UOSforCPUtime => this.setState({ UOSforCPUtime })}
+            />
+          </div>
+          <div className="tokens-popup__input">
+            <TextInput
+              label="UOS for CPU Time"
+              placeholder="6664"
+              value={this.state.UOSforNetworkBW}
+              onChange={UOSforNetworkBW => this.setState({ UOSforNetworkBW })}
+            />
+          </div>
         </div>
 
-        <div className="menu-tokens-popup__tip menu-tokens-popup__tip_stake">
+        <div className="tokens-popup__tip tokens-popup__tip_stake">
           Any EOS unstaked from either Bandwidth or CPU will
           be unavailable for 3 days. After this waiting period it will appear as available.
         </div>
 
-        <div className="menu-tokens-popup__error">
-          <div className="menu-tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+        <div className="tokens-popup__error">
+          <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
           <div>Not enough UOS </div>
         </div>
 

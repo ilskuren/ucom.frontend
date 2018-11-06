@@ -259,6 +259,11 @@
         "tippy.js": "^3.0.0"
       }
     },
+    "@types/jest": {
+      "version": "23.3.9",
+      "resolved": "https://registry.npmjs.org/@types/jest/-/jest-23.3.9.tgz",
+      "integrity": "sha512-wNMwXSUcwyYajtbayfPp55tSayuDVU6PfY5gzvRSj80UvxdXEJOVPnUVajaOp7NgXLm+1e2ZDLULmpsU9vDvQw=="
+    },
     "@webassemblyjs/ast": {
       "version": "1.5.13",
       "resolved": "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.5.13.tgz",
@@ -1825,7 +1830,6 @@
       "version": "6.26.0",
       "resolved": "https://registry.npmjs.org/babel-polyfill/-/babel-polyfill-6.26.0.tgz",
       "integrity": "sha1-N5k3q8Z9eJWXCtxiHyhM2WbPIVM=",
-      "dev": true,
       "requires": {
         "babel-runtime": "^6.26.0",
         "core-js": "^2.5.0",
@@ -1835,14 +1839,12 @@
         "core-js": {
           "version": "2.5.7",
           "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.5.7.tgz",
-          "integrity": "sha512-RszJCAxg/PP6uzXVXL6BsxSXx/B05oJAQ2vkJRjyjrEcNVycaqOmNb5OTxZPE3xa5gwZduqza6L9JOCenh/Ecw==",
-          "dev": true
+          "integrity": "sha512-RszJCAxg/PP6uzXVXL6BsxSXx/B05oJAQ2vkJRjyjrEcNVycaqOmNb5OTxZPE3xa5gwZduqza6L9JOCenh/Ecw=="
         },
         "regenerator-runtime": {
           "version": "0.10.5",
           "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz",
-          "integrity": "sha1-M2w+/BIgrc7dosn6tntaeVWjNlg=",
-          "dev": true
+          "integrity": "sha1-M2w+/BIgrc7dosn6tntaeVWjNlg="
         }
       }
     },
@@ -12472,6 +12474,11 @@
       "integrity": "sha512-dQRhbNQkRnaqauC7WqSJ21EEksgT0fYZX2lqXzGkpo8JNig9zGZTYoMGvyI2nWmXlE2VSVXVDu7wLVGu/mQEsg==",
       "dev": true
     },
+    "text-encoding": {
+      "version": "0.6.4",
+      "resolved": "http://registry.npmjs.org/text-encoding/-/text-encoding-0.6.4.tgz",
+      "integrity": "sha1-45mpgiV6J22uQou5KEXLcb3CbRk="
+    },
     "text-table": {
       "version": "0.2.0",
       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
@@ -12947,8 +12954,30 @@
       }
     },
     "uos.app.wallet": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#81d4ab9ab65b2806c7eb7913b2dd7c25234b02db",
-      "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git"
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#03bb588d3ea7cf83df6f762cb51e03077506b7e5",
+      "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
+      "requires": {
+        "eosjs": "20.0.0-beta2",
+        "node-fetch": "2.2.0"
+      },
+      "dependencies": {
+        "eosjs": {
+          "version": "20.0.0-beta2",
+          "resolved": "https://registry.npmjs.org/eosjs/-/eosjs-20.0.0-beta2.tgz",
+          "integrity": "sha512-CtlM3Cy8Fh3sKik5h8of66Tj1zALlU48xQJB25HJ1DLUm58f9z2jPCZ0hfkOcCXMsRIxZu01NpPufN08qZjFnQ==",
+          "requires": {
+            "@types/jest": "^23.3.1",
+            "babel-polyfill": "^6.26.0",
+            "eosjs-ecc": "^4.0.1",
+            "text-encoding": "^0.6.4"
+          }
+        },
+        "node-fetch": {
+          "version": "2.2.0",
+          "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.2.0.tgz",
+          "integrity": "sha512-OayFWziIxiHY8bCUyLX6sTpDH8Jsbp4FfYd1j1f7vZyfgkcOnAyM4oQR16f8a0s7Gl/viMGRey8eScYk4V4EZA=="
+        }
+      }
     },
     "upath": {
       "version": "1.1.0",

@@ -11,5 +11,5 @@ export const getTextContent = (content) => {
   const text = document.createElement('div');
   text.innerHTML = content;
 
-  return text.textContent.trim();
+  return text.textContent;
 };

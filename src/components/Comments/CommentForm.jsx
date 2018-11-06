@@ -39,7 +39,7 @@ class CommentForm extends PureComponent {
     if (typeof this.props.onSubmit === 'function') {
       const text = getTextContent(this.el.value);
 
-      this.props.onSubmit(text);
+      this.props.onSubmit(text.trim());
     }
 
     this.reset();

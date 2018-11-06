@@ -80,6 +80,7 @@ class PostFormEditor extends PureComponent {
               className="drop-zone_line"
               text="Add cover image"
               accept="image/jpeg, image/png"
+              maxSize={1000000}
               onDrop={(files) => {
                 getBase64FromFile(files[0]).then((base64Cover) => {
                   this.props.setPostData({ main_image_filename: files[0] });

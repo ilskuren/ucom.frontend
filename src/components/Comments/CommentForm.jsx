@@ -8,6 +8,7 @@ import Button from '../Button';
 import { getFileUrl } from '../../utils/upload';
 import { showAuthPopup } from '../../actions';
 import { selectUser } from '../../store/selectors';
+import { getTextContent } from '../../utils/text';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -36,7 +37,9 @@ class CommentForm extends PureComponent {
     }
 
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(this.state.comment.trim());
+      const text = getTextContent(this.el.value);
+
+      this.props.onSubmit(text);
     }
 
     this.reset();
@@ -70,6 +73,7 @@ class CommentForm extends PureComponent {
 
           <div className="toolbar__main">
             <textarea
+              ref={(el) => { this.el = el; }}
               autoFocus={this.props.autoFocus} //eslint-disable-line
               value={this.state.comment}
               rows={this.state.active ? 3 : 1}

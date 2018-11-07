@@ -29,14 +29,11 @@ class PostFeedContent extends PureComponent {
   }
 
   render() {
-    console.log(this.props);
-    const post = getPostById(this.props.posts, this.props.id);
+    const post = getPostById(this.props.posts, this.props.postId);
 
     if (!post) {
       return null;
     }
-
-    console.log(post);
 
     return (
       <div className="post__content">
@@ -61,7 +58,7 @@ class PostFeedContent extends PureComponent {
                 <div className="toolbar__main">
                   <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
                 </div>
-                {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
+                {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
                   <div className="toolbar__side">
                     <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
                       <IconEdit />
@@ -92,14 +89,10 @@ class PostFeedContent extends PureComponent {
 }
 
 PostFeedContent.propTypes = {
-  // post: PropTypes.object,
-  // postTypeId: PropTypes.string,
-  // updatedAt: PropTypes.string,
-  // postId: PropTypes.number,
-  // userName: PropTypes.string,
-  // accountName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  // profileLink: PropTypes.string,
-  // avatarUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  postId: PropTypes.number,
+  userId: PropTypes.number,
+  updatePost: PropTypes.func,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

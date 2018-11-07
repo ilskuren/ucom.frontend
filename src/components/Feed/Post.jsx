@@ -1,72 +1,17 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import IconComment from '../Icons/Comment';
-import IconShare from '../Icons/Share';
-import IconEdit from '../Icons/Edit';
-import Comments from '../Comments/Comments';
-import ShareBlock from './ShareBlock';
-import LastUserComments from '../Comments/LastUserComments';
-import FeedForm from './FeedForm';
-import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
-import { getFileUrl } from '../../utils/upload';
-import { getUserName, getUserUrl } from '../../utils/user';
-import { escapeQuotes } from '../../utils/text';
+import { getPostTypeById } from '../../utils/posts';
 import { getPostById } from '../../store/posts';
-import { getUserById } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
-import { updatePost } from '../../actions/posts';
-import { scrollTo } from '../../utils/scroll';
-
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
-
-const POST_TOP_OFFSET = 20;
+import PostFeedFooter from './PostFeedFooter';
 
 class Post extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      commentsIsVisible: false,
-      sharePopup: false,
-      timestamp: (new Date()).getTime(),
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.pinned && nextProps.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  showOnFeed() {
-    scrollTo(this.el, POST_TOP_OFFSET);
-    this.toggleComments();
-  }
-
-  toggleComments = () => {
-    this.setState({
-      timestamp: (new Date()).getTime(),
-      commentsIsVisible: !this.state.commentsIsVisible,
-    });
-  };
-
-  toggleShare = () => {
-    this.setState({ sharePopup: !this.state.sharePopup });
-  }
-
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
@@ -74,73 +19,26 @@ class Post extends PureComponent {
       return null;
     }
 
-    const user = getUserById(this.props.users, post.userId);
-
     return (
       <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
         <PostFeedHeader
           postTypeId={getPostTypeById(post.postTypeId)}
           updatedAt={moment(post.updatedAt).fromNow()}
           postId={post.id}
-
-          userName={getUserName(user)}
-          accountName={user.accountName}
-          profileLink={getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
+          userId={post.userId}
         />
 
-        <PostFeedContent id={this.props.id} />
+        <PostFeedContent
+          postId={this.props.id}
+          userId={this.props.user.id}
+        />
 
-        <div className="post__footer">
-          <span
-            role="presentation"
-            className={classNames(
-              'post__comment-count',
-              { 'post__comment-count_active': this.state.commentsIsVisible },
-            )}
-            onClick={this.toggleComments}
-          >
-            <span className="inline inline_small">
-              <span className="inline__item">
-                <IconComment />
-              </span>
-              <span className="inline__item">{post.commentsCount}</span>
-            </span>
-          </span>
-          <span
-            role="presentation"
-            className={classNames(
-              'post__share',
-              { 'post__share_active': this.state.sharePopup },
-            )}
-            onClick={this.toggleShare}
-          >
-            <span className="inline inline_small">
-              <span className="inline__item">
-                <IconShare />
-              </span>
-              <span className="inline__item">Share</span>
-            </span>
-          </span>
-        </div>
-        {this.state.sharePopup ? (
-          <div className="post__share-popup">
-            <ShareBlock
-              link={getPinnedPostUrl(post)}
-              postId={post.id}
-              onClickClose={() => { this.setState({ sharePopup: false }); }}
-            />
-          </div>
-        ) : null }
-
-        <div className="post__comments">
-          {this.state.commentsIsVisible ? (
-            <Comments postId={post.id} />
-          ) : (
-            <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
-          )}
-        </div>
-
+        <PostFeedFooter
+          commentsCount={post.commentsCount}
+          post={post}
+          pinned={this.props.pinned}
+          el={this.el}
+        />
       </div>
     );
   }
@@ -149,9 +47,7 @@ class Post extends PureComponent {
 Post.propTypes = {
   id: PropTypes.number,
   pinned: PropTypes.bool,
-  updatePost: PropTypes.func,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
-  users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(
@@ -163,6 +59,5 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     createComment,
-    updatePost,
   }, dispatch),
 )(Post);

@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import PostRating from '../Rating/PostRating';
 import UserCard from '../UserCard';
+import { selectUser } from '../../store/selectors/user';
+import { getUserById } from '../../store/users';
+import { getFileUrl } from '../../utils/upload';
+import { getUserName, getUserUrl } from '../../utils/user';
 
 class PostFeedHeader extends PureComponent {
   render() {
+    const user = getUserById(this.props.users, this.props.userId);
+
     return (
       <div className="post__header">
         <div className="post__info-block">
@@ -16,14 +23,14 @@ class PostFeedHeader extends PureComponent {
         </div>
 
 
-        {this.props.userName && (
+        {user && (
           <div className="post__user">
             <UserCard
               sign="@"
-              userName={this.props.userName}
-              accountName={this.props.accountName}
-              profileLink={this.props.profileLink}
-              avatarUrl={this.props.avatarUrl}
+              userName={getUserName(user)}
+              accountName={user.accountName}
+              profileLink={getUserUrl(user.id)}
+              avatarUrl={getFileUrl(user.avatarFilename)}
             />
           </div>
         )}
@@ -36,10 +43,11 @@ PostFeedHeader.propTypes = {
   postTypeId: PropTypes.string,
   updatedAt: PropTypes.string,
   postId: PropTypes.number,
-  userName: PropTypes.string,
-  accountName: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  profileLink: PropTypes.string,
-  avatarUrl: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  userId: PropTypes.number,
+  users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default PostFeedHeader;
+export default connect(state => ({
+  users: state.users,
+  user: selectUser(state),
+}))(PostFeedHeader);

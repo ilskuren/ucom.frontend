@@ -407,8 +407,8 @@ class Api {
     const response = await WalletApi.stakeOrUnstakeTokens(
       accountName,
       privateKey,
-      Number(netAmount),
-      Number(cpuAmount),
+      netAmount,
+      cpuAmount,
     );
 
     return humps(response);
@@ -426,6 +426,31 @@ class Api {
     const brainkey = getBrainkey();
     const privateKey = getActivePrivateKey(brainkey);
     const response = await WalletApi.claimEmission(accountName, privateKey);
+
+    return humps(response);
+  }
+
+  @bind
+  async getApproximateRamPriceByBytesAmount(bytesAmount) {
+    const response = await WalletApi.getApproximateRamPriceByBytesAmount(bytesAmount);
+
+    return humps(response);
+  }
+
+  @bind
+  async buyRam(accountName, bytesAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.buyRam(accountName, privateKey, bytesAmount);
+
+    return humps(response);
+  }
+
+  @bind
+  async sellRam(accountName, bytesAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.sellRam(accountName, privateKey, bytesAmount);
 
     return humps(response);
   }

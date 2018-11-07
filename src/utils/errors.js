@@ -27,3 +27,16 @@ export const parseErrors = (error) => {
 
   return errors;
 };
+
+export const parseWalletErros = (error) => {
+  try {
+    const { message } = error;
+    const data = JSON.parse(message);
+
+    return data.errors;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return null;
+};

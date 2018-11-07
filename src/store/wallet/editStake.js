@@ -5,6 +5,7 @@ const getInitialState = () => ({
   loading: false,
   isValid: false,
   errors: {},
+  serverErrors: [],
   data: {
     netAmount: '',
     cpuAmount: '',
@@ -41,6 +42,11 @@ const editStake = (state = getInitialState(), action) => {
     case 'SET_WALLET_EDIT_STAKE_VISIBLE':
       return {
         ...state, visible: action.payload,
+      };
+
+    case 'SET_WALLET_EDIT_STAKE_SERVER_ERRORS':
+      return {
+        ...state, serverErrors: action.payload,
       };
 
     default:

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Button from '../Button';
 import TextInput from '../TextInput';
-// import InputErrorIcon from '../Icons/InputError';
+import InputErrorIcon from '../Icons/InputError';
 import UserSearchInput from '../UserSearchInput';
 import { setWalletSendTokensData, sendTokens } from '../../actions/wallet';
 
@@ -54,10 +54,12 @@ const SendTokensPopup = props => (
       </div>
     </div>
 
-    {/* <div className="tokens-popup__error">
-      <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
-      <div>Destination account doesn’t exist, check spelling</div>
-    </div> */}
+    {props.wallet.sendTokens.serverErrors.length > 0 &&
+      <div className="tokens-popup__error">
+        <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+        <div>{props.wallet.sendTokens.serverErrors[0].message}</div>
+      </div>
+    }
 
     <Button
       isUpper

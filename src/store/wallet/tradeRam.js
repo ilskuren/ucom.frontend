@@ -4,25 +4,24 @@ const getInitialState = () => ({
   visible: false,
   loading: false,
   isValid: false,
+  isBuy: false,
   errors: {},
   serverErrors: [],
   data: {
-    user: null,
-    amount: '',
-    memo: '',
+    price: '',
+    bytesAmount: '',
   },
   rules: {
-    user: 'required',
-    amount: 'required|integer',
+    bytesAmount: 'required|integer',
   },
 });
 
-const sendTokens = (state = getInitialState(), action) => {
+const tradeRam = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_WALLET_SEND_TOKENS':
+    case 'RESET_WALLET_TRADE_RAM':
       return getInitialState();
 
-    case 'SET_WALLET_SEND_TOKENS_DATA': {
+    case 'SET_WALLET_TRADE_RAM_DATA': {
       const keys = Object.keys(action.payload);
       const data = { ...state.data, ...action.payload };
       const validation = new Validator(data, state.rules);
@@ -35,17 +34,22 @@ const sendTokens = (state = getInitialState(), action) => {
       };
     }
 
-    case 'SET_WALLET_SEND_TOKENS_LOADING':
+    case 'SET_WALLET_TRADE_RAM_LOADING':
       return {
         ...state, loading: action.payload,
       };
 
-    case 'SET_WALLET_SEND_TOKENS_VISIBLE':
+    case 'SET_WALLET_TRADE_RAM_VISIBLE':
       return {
         ...state, visible: action.payload,
       };
 
-    case 'SET_WALLET_SEND_TOKENS_SERVER_ERRORS':
+    case 'SET_WALLET_TRADE_RAM_IS_BUY':
+      return {
+        ...state, isBuy: action.payload,
+      };
+
+    case 'SET_WALLET_TRADE_RAM_SERVER_ERRORS':
       return {
         ...state, serverErrors: action.payload,
       };
@@ -55,4 +59,4 @@ const sendTokens = (state = getInitialState(), action) => {
   }
 };
 
-export default sendTokens;
+export default tradeRam;

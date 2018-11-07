@@ -12943,24 +12943,13 @@
       }
     },
     "uos.app.wallet": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#999440b6d6f691dad44582095b6c73c08f06e668",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#93afb13aee621e55190995ae8614b5f9064511a4",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
       "requires": {
         "eosjs": "20.0.0-beta2",
         "node-fetch": "2.2.0"
       },
       "dependencies": {
-        "eosjs": {
-          "version": "20.0.0-beta2",
-          "resolved": "https://registry.npmjs.org/eosjs/-/eosjs-20.0.0-beta2.tgz",
-          "integrity": "sha512-CtlM3Cy8Fh3sKik5h8of66Tj1zALlU48xQJB25HJ1DLUm58f9z2jPCZ0hfkOcCXMsRIxZu01NpPufN08qZjFnQ==",
-          "requires": {
-            "@types/jest": "^23.3.1",
-            "babel-polyfill": "^6.26.0",
-            "eosjs-ecc": "^4.0.1",
-            "text-encoding": "^0.6.4"
-          }
-        },
         "node-fetch": {
           "version": "2.2.0",
           "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.2.0.tgz",

@@ -6,7 +6,7 @@ import { enableGtm } from '../utils/gtm';
 import { addErrorNotification } from './notifications';
 import { setUser } from './';
 import { setUnreadNotificationsAmount } from './siteNotifications';
-import { startFetchAccountState } from './wallet';
+import { getAccountState } from './wallet';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
 export const addUserIFollow = payload => ({ type: 'ADD_USER_I_FOLLOW', payload });
@@ -28,7 +28,7 @@ export const fetchMyself = () => (dispatch) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
       dispatch(setUser(data));
       dispatch(setUnreadNotificationsAmount(data.unreadMessagesCount));
-      dispatch(startFetchAccountState(data.accountName));
+      dispatch(getAccountState());
 
       // TODO: Сделать disable
       if (process.env.NODE_ENV === 'production' && data.isTrackingAllowed) {

@@ -7,6 +7,3 @@ export const getActivePrivateKey = memoize((brainkey) => {
 
   return activeKey;
 });
-
-export const getPrivateKey = memoize(brainkey =>
-  ecc.seedPrivate(brainkey));

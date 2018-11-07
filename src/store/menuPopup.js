@@ -11,9 +11,7 @@ const menuPopup = (state = getInitialState(), action) => {
     case 'HIDE_MENU_POPUP': {
       return { ...state, menuPopupVisibility: false };
     }
-    case 'TRIGGER_MENU_POPUP': {
-      return { ...state, menuPopupVisibility: !state.menuPopupVisibility };
-    }
+
     default: {
       return state;
     }

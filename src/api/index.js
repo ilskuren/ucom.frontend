@@ -5,7 +5,7 @@ import { bind } from 'decko';
 import HttpActions from './HttpActions';
 import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-import { getActivePrivateKey, getPrivateKey } from '../utils/keys';
+import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 
@@ -386,19 +386,48 @@ class Api {
 
   @bind
   async getAccountState(accountName) {
-    const accountState = await WalletApi.getAccountState(accountName);
+    const response = await WalletApi.getAccountState(accountName);
 
-    return humps(accountState);
+    return humps(response);
   }
 
   @bind
   async sendTokens(accountNameFrom, accountNameTo, amount, memo) {
     const brainkey = getBrainkey();
     const privateKey = getActivePrivateKey(brainkey);
-    const sendTokensResponse = await WalletApi.sendTokens(accountNameFrom, privateKey, accountNameTo, amount, memo);
+    const response = await WalletApi.sendTokens(accountNameFrom, privateKey, accountNameTo, amount, memo);
 
+    return humps(response);
+  }
 
-    return humps(sendTokensResponse);
+  @bind
+  async stakeOrUnstakeTokens(accountName, netAmount, cpuAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.stakeOrUnstakeTokens(
+      accountName,
+      privateKey,
+      Number(netAmount),
+      Number(cpuAmount),
+    );
+
+    return humps(response);
+  }
+
+  @bind
+  async getCurrentNetAndCpuStakedTokens(accountName) {
+    const response = await WalletApi.getCurrentNetAndCpuStakedTokens(accountName);
+
+    return humps(response);
+  }
+
+  @bind
+  async claimEmission(accountName) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.claimEmission(accountName, privateKey);
+
+    return humps(response);
   }
 }
 

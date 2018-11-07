@@ -6,22 +6,21 @@ const getInitialState = () => ({
   isValid: false,
   errors: {},
   data: {
-    user: null,
-    amount: '',
-    memo: '',
+    netAmount: '',
+    cpuAmount: '',
   },
   rules: {
-    user: 'required',
-    amount: 'required|integer',
+    netAmount: 'required|integer',
+    cpuAmount: 'required|integer',
   },
 });
 
-const sendTokens = (state = getInitialState(), action) => {
+const editStake = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_WALLET_SEND_TOKENS':
+    case 'RESET_WALLET_EDIT_STAKE':
       return getInitialState();
 
-    case 'SET_WALLET_SEND_TOKENS_DATA': {
+    case 'SET_WALLET_EDIT_STAKE_DATA': {
       const keys = Object.keys(action.payload);
       const data = { ...state.data, ...action.payload };
       const validation = new Validator(data, state.rules);
@@ -34,12 +33,12 @@ const sendTokens = (state = getInitialState(), action) => {
       };
     }
 
-    case 'SET_WALLET_SEND_TOKENS_LOADING':
+    case 'SET_WALLET_EDIT_STAKE_LOADING':
       return {
         ...state, loading: action.payload,
       };
 
-    case 'SET_WALLET_SEND_TOKENS_VISIBLE':
+    case 'SET_WALLET_EDIT_STAKE_VISIBLE':
       return {
         ...state, visible: action.payload,
       };
@@ -49,4 +48,4 @@ const sendTokens = (state = getInitialState(), action) => {
   }
 };
 
-export default sendTokens;
+export default editStake;

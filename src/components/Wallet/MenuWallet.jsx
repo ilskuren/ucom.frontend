@@ -7,20 +7,18 @@ import TradeRAMPopup from './TradeRAMPopup';
 import SetStakePopup from './SetStakePopup';
 import Popup from '../Popup';
 import ProgressBar from './ProgressBar';
-import { setWalletSendTokensVisible } from '../../actions/wallet';
+import { setWalletSendTokensVisible, setWalletEditStakeVisible, claimEmission } from '../../actions/wallet';
 
 class MenuWallet extends PureComponent {
   state = {
     buyRAMVisibility: false,
     sellRAMVisibility: false,
-    setStakeVisibility: false,
   }
 
   hidePopups = () => {
     this.setState({
       buyRAMVisibility: false,
       sellRAMVisibility: false,
-      setStakeVisibility: false,
     });
   }
 
@@ -56,7 +54,7 @@ class MenuWallet extends PureComponent {
                 <div
                   className="menu-wallet__action"
                   role="presentation"
-                  onClick={() => this.setState({ setStakeVisibility: true })}
+                  onClick={() => this.props.setWalletEditStakeVisible(true)}
                 >
                   Edit Stake
                 </div>
@@ -65,7 +63,13 @@ class MenuWallet extends PureComponent {
               <div className="inline__item">
                 <div className="menu-wallet__amount">{wallet.state.data.tokens.emission}</div>
                 <div className="menu-wallet__status">Emission, UOS</div>
-                <div className="menu-wallet__action">Get Emission</div>
+                <div
+                  role="presentation"
+                  className="menu-wallet__action"
+                  onClick={() => this.props.claimEmission()}
+                >
+                  Get Emission
+                </div>
               </div>
             </div>
           </div>
@@ -114,7 +118,7 @@ class MenuWallet extends PureComponent {
                 <div
                   className="menu-wallet__action"
                   role="presentation"
-                  onClick={() => this.setState({ setStakeVisibility: true })}
+                  onClick={() => this.props.setWalletEditStakeVisible(true)}
                 >
                   Edit Stake
                 </div>
@@ -130,7 +134,7 @@ class MenuWallet extends PureComponent {
                 <div
                   className="menu-wallet__action"
                   role="presentation"
-                  onClick={() => this.setState({ setStakeVisibility: true })}
+                  onClick={() => this.props.setWalletEditStakeVisible(true)}
                 >
                   Edit Stake
                 </div>
@@ -187,24 +191,28 @@ class MenuWallet extends PureComponent {
             </div>
           </div> */}
         </div>
+
         {this.props.wallet.sendTokens.visible && (
           <Popup onClickClose={() => this.props.setWalletSendTokensVisible(false)}>
             <SendTokensPopup />
           </Popup>
         )}
+
+        {this.props.wallet.editStake.visible && (
+          <Popup onClickClose={() => this.props.setWalletEditStakeVisible(false)}>
+            <SetStakePopup />
+          </Popup>
+        )}
+
         {this.state.buyRAMVisibility && (
           <Popup onClickClose={this.hidePopups}>
             <TradeRAMPopup title="Buy" />
           </Popup>
         )}
+
         {this.state.sellRAMVisibility && (
           <Popup onClickClose={this.hidePopups}>
             <TradeRAMPopup title="Sell" />
-          </Popup>
-        )}
-        {this.state.setStakeVisibility && (
-          <Popup onClickClose={this.hidePopups}>
-            <SetStakePopup />
           </Popup>
         )}
       </Fragment>
@@ -223,5 +231,7 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     setWalletSendTokensVisible,
+    setWalletEditStakeVisible,
+    claimEmission,
   }, dispatch),
 )(MenuWallet);

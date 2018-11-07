@@ -1,69 +1,82 @@
-import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import React from 'react';
 import Button from '../Button';
 import TextInput from '../TextInput';
-import InputErrorIcon from '../Icons/InputError';
+// import InputErrorIcon from '../Icons/InputError';
+import UserSearchInput from '../UserSearchInput';
+import { setWalletSendTokensData, sendTokens } from '../../actions/wallet';
 
-class SendTokensPopup extends PureComponent {
-  state = {
-    UOSAmount: '',
-    destinationAccount: '',
-    memo: '',
-  }
+const SendTokensPopup = props => (
+  <div className="tokens-popup">
+    <div className="tokens-popup__title">
+      <h2 className="title title_small title_light">Send Tokens</h2>
+    </div>
 
-  render() {
-    return (
-      <div className="tokens-popup">
-        <div className="tokens-popup__title">
-          <h2 className="title title_small title_light">Send Tokens</h2>
-        </div>
-
-        <div className="tokens-popup__field">
-          <div className="tokens-popup__input">
-            <TextInput
-              label="UOS Amount"
-              placeholder="0"
-              value={this.state.UOSAmount}
-              onChange={UOSAmount => this.setState({ UOSAmount })}
-            />
-          </div>
-        </div>
-        <div className="tokens-popup__field">
-          <div className="tokens-popup__input">
-            <TextInput
-              label="Destination Account"
-              placeholder="@"
-              value={this.state.destinationAccount}
-              onChange={destinationAccount => this.setState({ destinationAccount })}
-              isSearch
-            />
-          </div>
-        </div>
-        <div className="tokens-popup__field">
-          <div className="tokens-popup__input">
-            <TextInput
-              label="Memo"
-              placeholder="Example"
-              className="tokens-popup__input"
-              value={this.state.memo}
-              onChange={memo => this.setState({ memo })}
-            />
-          </div>
-        </div>
-
-        <div className="tokens-popup__error">
-          <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
-          <div>Destination account doesn’t exist, check spelling</div>
-        </div>
-
-        <Button
-          isUpper
-          isStretched
-          text="Send"
-          size="big"
-          theme="red"
+    <div className="tokens-popup__field">
+      <div className="tokens-popup__input">
+        <TextInput
+          touched
+          label="UOS Amount"
+          placeholder="0"
+          value={props.wallet.sendTokens.data.amount}
+          onChange={amount => props.setWalletSendTokensData({ amount })}
+          error={props.wallet.sendTokens.errors.amount && props.wallet.sendTokens.errors.amount[0]}
         />
       </div>
-    );
-  }
-}
-export default SendTokensPopup;
+    </div>
+
+    <div className="tokens-popup__field">
+      <div className="tokens-popup__input">
+        <div className="tokens-popup__label">Destination Account</div>
+        <UserSearchInput
+          isMulti={false}
+          value={props.wallet.sendTokens.data.user}
+          onChange={user => props.setWalletSendTokensData({ user: user.accountName ? user : null })}
+
+        />
+        {props.wallet.sendTokens.errors.user &&
+          <div className="tokens-popup__field-error">{props.wallet.sendTokens.errors.user[0]}</div>
+        }
+      </div>
+    </div>
+
+    <div className="tokens-popup__field">
+      <div className="tokens-popup__input">
+        <TextInput
+          label="Memo"
+          placeholder="Example"
+          className="tokens-popup__input"
+          value={props.wallet.sendTokens.data.memo}
+          onChange={memo => props.setWalletSendTokensData({ memo })}
+          error={props.wallet.sendTokens.errors.memo && props.wallet.sendTokens.errors.memo[0]}
+        />
+      </div>
+    </div>
+
+    {/* <div className="tokens-popup__error">
+      <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+      <div>Destination account doesn’t exist, check spelling</div>
+    </div> */}
+
+    <Button
+      isUpper
+      isStretched
+      text="Send"
+      size="big"
+      theme="red"
+      isDisabled={!props.wallet.sendTokens.isValid}
+      onClick={() => props.sendTokens()}
+    />
+  </div>
+);
+
+export default connect(
+  state => ({
+    wallet: state.wallet,
+  }),
+  dispatch => bindActionCreators({
+    setWalletSendTokensData,
+    sendTokens,
+  }, dispatch),
+)(SendTokensPopup);

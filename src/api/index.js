@@ -1,15 +1,16 @@
+import ecc from 'eosjs-ecc';
 import humps from 'lodash-humps';
 import param from 'jquery-param';
 import { bind } from 'decko';
 import HttpActions from './HttpActions';
 import { getToken } from '../utils/token';
 import { convertServerUser, convertServerUserLogin } from './convertors';
-import { getActivePrivateKey } from '../utils/keys';
+import { getActivePrivateKey, getPrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 
-const AppTransaction = require('uos-app-transaction');
 const { WalletApi } = require('uos.app.wallet');
+const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
 
@@ -18,10 +19,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   TransactionFactory.initForStagingEnv();
 }
-
-const Eos = require('eosjs');
-
-const { ecc } = Eos.modules;
 
 class Api {
   constructor() {
@@ -392,6 +389,16 @@ class Api {
     const accountState = await WalletApi.getAccountState(accountName);
 
     return humps(accountState);
+  }
+
+  @bind
+  async sendTokens(accountNameFrom, accountNameTo, amount, memo) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const sendTokensResponse = await WalletApi.sendTokens(accountNameFrom, privateKey, accountNameTo, amount, memo);
+
+
+    return humps(sendTokensResponse);
   }
 }
 

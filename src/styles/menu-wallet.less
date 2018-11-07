@@ -72,13 +72,14 @@
         }
       }
     }
-
   }
 }
 
 .tokens-popup {
-  padding: 40px;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 560px;
+  padding: 40px;
   margin: 0 auto;
   background: white;
   box-shadow: 0px 5px 38px rgba(60, 68, 75, 0.37);
@@ -97,10 +98,15 @@
     justify-content: space-between;
   }
 
-  .tokens-popup__input {
-    .text-input__input {
-      height: 56px;
-    }
+  .tokens-popup__label {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .tokens-popup__field-error {
+    font-size: 16px;
+    margin-top: 12px;
+    color: @red;
   }
 
   .tokens-popup__error {

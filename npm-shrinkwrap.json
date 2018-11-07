@@ -4187,31 +4187,20 @@
       "dev": true
     },
     "eosjs": {
-      "version": "16.0.5",
-      "resolved": "https://registry.npmjs.org/eosjs/-/eosjs-16.0.5.tgz",
-      "integrity": "sha512-JTq7/oXDcZR59XoJMvRrMpTPkkw7vh/oC48vaWPjfg8nqWrCklGA2ApeFs0tfRrlpccDVCmVuNu5Bwvscg9lZA==",
+      "version": "20.0.0-beta2",
+      "resolved": "https://registry.npmjs.org/eosjs/-/eosjs-20.0.0-beta2.tgz",
+      "integrity": "sha512-CtlM3Cy8Fh3sKik5h8of66Tj1zALlU48xQJB25HJ1DLUm58f9z2jPCZ0hfkOcCXMsRIxZu01NpPufN08qZjFnQ==",
       "requires": {
-        "babel-runtime": "6.26.0",
-        "binaryen": "^37.0.0",
-        "create-hash": "^1.1.3",
-        "eosjs-api": "7.0.3",
-        "eosjs-ecc": "4.0.3",
-        "fcbuffer": "^2.2.1"
-      }
-    },
-    "eosjs-api": {
-      "version": "7.0.3",
-      "resolved": "https://registry.npmjs.org/eosjs-api/-/eosjs-api-7.0.3.tgz",
-      "integrity": "sha512-DpBZew6UMRbCC9aMPfxzuElAjtfwq6+tD0jQR5oT857MJMaD8FtXQ2g293PZgVqWOo4eifJQ5S7rbvPr4HYJWg==",
-      "requires": {
-        "camel-case": "^3.0.0",
-        "isomorphic-fetch": "^2.2.1"
+        "@types/jest": "^23.3.1",
+        "babel-polyfill": "^6.26.0",
+        "eosjs-ecc": "^4.0.1",
+        "text-encoding": "^0.6.4"
       }
     },
     "eosjs-ecc": {
-      "version": "4.0.3",
-      "resolved": "https://registry.npmjs.org/eosjs-ecc/-/eosjs-ecc-4.0.3.tgz",
-      "integrity": "sha512-WC9G+SJ5jwKibuH/ihWWyqbqbn3LcFqUiqh4hRaQPRbRNIHRqJX4ROK5BluLSL9kSGsk4FPnT0CmcapyiPsF3g==",
+      "version": "4.0.4",
+      "resolved": "https://registry.npmjs.org/eosjs-ecc/-/eosjs-ecc-4.0.4.tgz",
+      "integrity": "sha512-9wAYefts4TidHOu+eN9nAisZdWpUzlUimZrB63oP7+/s4xRNJEn2Vvep2ICRODpxpidbshM1L7WaSYW9oiV5gA==",
       "requires": {
         "bigi": "^1.4.2",
         "browserify-aes": "^1.0.6",
@@ -12954,7 +12943,7 @@
       }
     },
     "uos.app.wallet": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#03bb588d3ea7cf83df6f762cb51e03077506b7e5",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#999440b6d6f691dad44582095b6c73c08f06e668",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
       "requires": {
         "eosjs": "20.0.0-beta2",

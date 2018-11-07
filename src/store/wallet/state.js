@@ -2,13 +2,12 @@ const getInitialState = () => ({
   data: {},
 });
 
-const wallet = (state = getInitialState(), action) => {
+const state = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_WALLET': {
+    case 'RESET_WALLET_STATE':
       return getInitialState();
-    }
 
-    case 'SET_WALLET_DATA': {
+    case 'SET_WALLET_STATE_DATA':
       return {
         ...state,
         data: {
@@ -16,12 +15,10 @@ const wallet = (state = getInitialState(), action) => {
           ...action.payload,
         },
       };
-    }
 
-    default: {
+    default:
       return state;
-    }
   }
 };
 
-export default wallet;
+export default state;

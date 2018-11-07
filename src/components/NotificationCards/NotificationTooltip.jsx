@@ -1,10 +1,10 @@
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { bindActionCreators } from 'redux';
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import IconClose from 'components/Icons/Close';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import IconClose from '../Icons/Close';
 import NotificationCard from './NotificationCard';
 import {
   addSiteNotifications,

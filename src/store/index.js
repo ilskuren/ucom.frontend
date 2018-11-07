@@ -16,7 +16,7 @@ import comments from './comments';
 import organizations from './organizations';
 import menuPopup from './menuPopup';
 import feeds from './feeds';
-import wallet from './wallet';
+import wallet from './wallet/index';
 import { reducer as user } from './user';
 
 const app = combineReducers({

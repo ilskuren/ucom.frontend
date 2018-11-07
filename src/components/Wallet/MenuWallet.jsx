@@ -1,4 +1,4 @@
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Fragment, PureComponent } from 'react';
@@ -7,10 +7,10 @@ import TradeRAMPopup from './TradeRAMPopup';
 import SetStakePopup from './SetStakePopup';
 import Popup from '../Popup';
 import ProgressBar from './ProgressBar';
+import { setWalletSendTokensVisible } from '../../actions/wallet';
 
 class MenuWallet extends PureComponent {
   state = {
-    sendTokensVisibility: false,
     buyRAMVisibility: false,
     sellRAMVisibility: false,
     setStakeVisibility: false,
@@ -18,7 +18,6 @@ class MenuWallet extends PureComponent {
 
   hidePopups = () => {
     this.setState({
-      sendTokensVisibility: false,
       buyRAMVisibility: false,
       sellRAMVisibility: false,
       setStakeVisibility: false,
@@ -28,6 +27,10 @@ class MenuWallet extends PureComponent {
   render() {
     const { wallet } = this.props;
 
+    if (!wallet.state.data.tokens || !wallet.state.data.resources) {
+      return null;
+    }
+
     return (
       <Fragment>
         <div className="menu-wallet">
@@ -36,11 +39,11 @@ class MenuWallet extends PureComponent {
 
             <div className="inline inline_flex inline_large inline_resp">
               <div className="inline__item">
-                <div className="menu-wallet__amount">{wallet.data.tokens.active}</div>
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.active}</div>
                 <div className="menu-wallet__status">Active, UOS</div>
                 <div
                   role="presentation"
-                  onClick={() => this.setState({ sendTokensVisibility: true })}
+                  onClick={() => this.props.setWalletSendTokensVisible(true)}
                   className="menu-wallet__action"
                 >
                   Send
@@ -48,7 +51,7 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">{wallet.data.tokens.staked}</div>
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.staked}</div>
                 <div className="menu-wallet__status">Stacked, UOS</div>
                 <div
                   className="menu-wallet__action"
@@ -60,7 +63,7 @@ class MenuWallet extends PureComponent {
               </div>
 
               <div className="inline__item">
-                <div className="menu-wallet__amount">{wallet.data.tokens.emission}</div>
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.emission}</div>
                 <div className="menu-wallet__status">Emission, UOS</div>
                 <div className="menu-wallet__action">Get Emission</div>
               </div>
@@ -73,9 +76,9 @@ class MenuWallet extends PureComponent {
             <div className="inline inline_flex inline_large inline_resp">
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={wallet.data.resources.ram.free}
-                  fullAmount={wallet.data.resources.ram.total}
-                  label={wallet.data.resources.ram.dimension}
+                  partAmount={+wallet.state.data.resources.ram.free}
+                  fullAmount={+wallet.state.data.resources.ram.total}
+                  label={wallet.state.data.resources.ram.dimension}
                   title="RAM"
                   description="Free"
                 />
@@ -103,9 +106,9 @@ class MenuWallet extends PureComponent {
 
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={wallet.data.resources.cpu.free}
-                  fullAmount={wallet.data.resources.cpu.total}
-                  label={wallet.data.resources.cpu.dimension}
+                  partAmount={+wallet.state.data.resources.cpu.free}
+                  fullAmount={+wallet.state.data.resources.cpu.total}
+                  label={wallet.state.data.resources.cpu.dimension}
                   title="CPU Time"
                 />
                 <div
@@ -113,22 +116,23 @@ class MenuWallet extends PureComponent {
                   role="presentation"
                   onClick={() => this.setState({ setStakeVisibility: true })}
                 >
-                Edit Stake
+                  Edit Stake
                 </div>
               </div>
 
               <div className="inline__item">
                 <ProgressBar
-                  partAmount={wallet.data.resources.net.free}
-                  fullAmount={wallet.data.resources.net.total}
-                  label={wallet.data.resources.net.dimension}
+                  partAmount={+wallet.state.data.resources.net.free}
+                  fullAmount={+wallet.state.data.resources.net.total}
+                  label={wallet.state.data.resources.net.dimension}
                   title="Network BW"
                 />
                 <div
                   className="menu-wallet__action"
                   role="presentation"
                   onClick={() => this.setState({ setStakeVisibility: true })}
-                >Edit Stake
+                >
+                  Edit Stake
                 </div>
               </div>
             </div>
@@ -183,8 +187,8 @@ class MenuWallet extends PureComponent {
             </div>
           </div> */}
         </div>
-        {this.state.sendTokensVisibility && (
-          <Popup onClickClose={this.hidePopups}>
+        {this.props.wallet.sendTokens.visible && (
+          <Popup onClickClose={() => this.props.setWalletSendTokensVisible(false)}>
             <SendTokensPopup />
           </Popup>
         )}
@@ -212,7 +216,12 @@ MenuWallet.propTypes = {
   wallet: PropTypes.objectOf(PropTypes.any),
 };
 
-export default connect(state => ({
-  auth: state.auth,
-  wallet: state.wallet,
-}))(MenuWallet);
+export default connect(
+  state => ({
+    auth: state.auth,
+    wallet: state.wallet,
+  }),
+  dispatch => bindActionCreators({
+    setWalletSendTokensVisible,
+  }, dispatch),
+)(MenuWallet);

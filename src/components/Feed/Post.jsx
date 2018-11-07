@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import PostRating from '../Rating/PostRating';
-import UserCard from '../UserCard';
 import IconComment from '../Icons/Comment';
 import IconShare from '../Icons/Share';
 import IconEdit from '../Icons/Edit';
@@ -25,6 +23,9 @@ import { createComment } from '../../actions/comments';
 import { updatePost } from '../../actions/posts';
 import { scrollTo } from '../../utils/scroll';
 
+import PostFeedHeader from './PostFeedHeader';
+import PostFeedContent from './PostFeedContent';
+
 const POST_TOP_OFFSET = 20;
 
 class Post extends PureComponent {
@@ -32,7 +33,6 @@ class Post extends PureComponent {
     super(props);
 
     this.state = {
-      formIsVisible: false,
       commentsIsVisible: false,
       sharePopup: false,
       timestamp: (new Date()).getTime(),
@@ -67,14 +67,6 @@ class Post extends PureComponent {
     this.setState({ sharePopup: !this.state.sharePopup });
   }
 
-  showForm = () => {
-    this.setState({ formIsVisible: true });
-  }
-
-  hideForm = () => {
-    this.setState({ formIsVisible: false });
-  }
-
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
@@ -86,75 +78,18 @@ class Post extends PureComponent {
 
     return (
       <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
-        <div className="post__info-block">
-          <div className="post__type"><strong>{getPostTypeById(post.postTypeId)}</strong></div>
-          <div className="toolbar__main">{moment(post.updatedAt).fromNow()}</div>
-          <div className="toolbar__side">
-            <PostRating postId={post.id} />
-          </div>
-        </div>
+        <PostFeedHeader
+          postTypeId={getPostTypeById(post.postTypeId)}
+          updatedAt={moment(post.updatedAt).fromNow()}
+          postId={post.id}
 
+          userName={getUserName(user)}
+          accountName={user.accountName}
+          profileLink={getUserUrl(user.id)}
+          avatarUrl={getFileUrl(user.avatarFilename)}
+        />
 
-        {user && (
-          <div className="post__user">
-            <UserCard
-              sign="@"
-              userName={getUserName(user)}
-              accountName={user.accountName}
-              profileLink={getUserUrl(user.id)}
-              avatarUrl={getFileUrl(user.avatarFilename)}
-            />
-          </div>
-        )}
-
-        <div className="post__content">
-          {this.state.formIsVisible ? (
-            <div className="post__form">
-              <FeedForm
-                message={post.description}
-                onCancel={this.hideForm}
-                onSubmit={(description) => {
-                  this.hideForm();
-                  this.props.updatePost({
-                    postId: post.id,
-                    data: { description },
-                  });
-                }}
-              />
-            </div>
-          ) : (
-            <h1 className="post__title">
-              {post.postTypeId === 10 ? (
-                <div className="toolbar toolbar_fluid toolbar_small">
-                  <div className="toolbar__main">
-                    <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
-                  </div>
-                  {post.userId === this.props.user.id && postIsEditable(post.createdAt) && (
-                    <div className="toolbar__side">
-                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
-                        <IconEdit />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
-              )}
-            </h1>
-          )}
-
-          {post.mainImageFilename && (
-            <div className="post__cover">
-              <Link to={getPostUrl(post.id)}>
-                <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
-              </Link>
-            </div>
-          )}
-
-          {post.leadingText && (
-            <h2 className="post__title post__title_leading">{escapeQuotes(post.leadingText)}</h2>
-          )}
-        </div>
+        <PostFeedContent id={this.props.id} />
 
         <div className="post__footer">
           <span

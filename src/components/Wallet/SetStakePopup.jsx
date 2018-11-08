@@ -17,6 +17,7 @@ const SetStakePopup = props => (
           touched
           label="UOS for CPU Time"
           placeholder="6664"
+          disabled={props.wallet.editStake.loading}
           value={props.wallet.editStake.data.cpuAmount}
           onChange={cpuAmount => props.setWalletEditStakeData({ cpuAmount })}
           error={props.wallet.editStake.errors.cpuAmount && props.wallet.editStake.errors.cpuAmount[0]}
@@ -27,6 +28,7 @@ const SetStakePopup = props => (
           touched
           label="UOS for Network BW"
           placeholder="6664"
+          disabled={props.wallet.editStake.loading}
           value={props.wallet.editStake.data.netAmount}
           onChange={netAmount => props.setWalletEditStakeData({ netAmount })}
           error={props.wallet.editStake.errors.netAmount && props.wallet.editStake.errors.netAmount[0]}

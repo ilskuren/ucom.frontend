@@ -39,14 +39,20 @@ export const getCurrentNetAndCpuStakedTokens = () => async (dispatch, getState) 
   }
 
   try {
+    loader.start();
     const data = await api.getCurrentNetAndCpuStakedTokens(user.accountName);
-
+    dispatch(setWalletEditStakeLoading(true));
     dispatch(setWalletEditStakeData({
       netAmount: String(data.net),
       cpuAmount: String(data.cpu),
     }));
+    loader.done();
+    dispatch(setWalletEditStakeLoading(false));
   } catch (e) {
     console.error(e);
+    const errors = parseWalletErros(e);
+    dispatch(setWalletEditStakeServerErrors(errors));
+    loader.done();
   }
 };
 

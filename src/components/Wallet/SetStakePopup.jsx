@@ -37,8 +37,7 @@ const SetStakePopup = props => (
     </div>
 
     <div className="tokens-popup__tip tokens-popup__tip_stake">
-      Any EOS unstaked from either Bandwidth or CPU will
-      be unavailable for 3 days. After this waiting period it will appear as available.
+      Unstaking UOS from Bandwidth or CPU takes 3 days. After 3 days, you can claim your unstaked UOS.
     </div>
 
     {props.wallet.editStake.serverErrors.length > 0 &&

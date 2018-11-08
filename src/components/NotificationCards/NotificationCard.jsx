@@ -62,8 +62,12 @@ const getAvatarIcon = (eventId) => {
 };
 
 const getTitle = (props) => {
+  if (!props.eventId) return null;
+
   switch (props.eventId) {
     case USER_FOLLOWS_YOU:
+      if (!(props.data && props.data.user)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -75,6 +79,8 @@ const getTitle = (props) => {
 
     case USER_UPVOTES_YOUR_POST:
     case USER_DOWNVOTES_YOUR_POST:
+      if (!(props.data && props.data.user && props.targetEntity && props.targetEntity.post)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -87,6 +93,8 @@ const getTitle = (props) => {
         </Fragment>
       );
     case USER_SHARE_YOUR_POST:
+      if (!(props.data && props.data.post)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.post.user.id)}>
@@ -100,6 +108,8 @@ const getTitle = (props) => {
       );
     case USER_DOWNVOTES_YOUR_COMMENT:
     case USER_UPVOTES_YOUR_COMMENT:
+      if (!(props.data && props.data.user)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -110,6 +120,8 @@ const getTitle = (props) => {
       );
 
     case USER_FOLLOWS_ORG:
+      if (!(props.data && props.data.user && props.targetEntity && props.targetEntity.organization)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -124,6 +136,8 @@ const getTitle = (props) => {
 
     case USER_DOWNVOTES_ORG_POST:
     case USER_UPVOTES_ORG_POST:
+      if (!(props.data && props.data.user && props.targetEntity && props.targetEntity.post)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -139,6 +153,8 @@ const getTitle = (props) => {
 
     case USER_DOWNVOTES_ORG_COMMENT:
     case USER_UPVOTES_ORG_COMMENT:
+      if (!(props.data && props.data.user && props.targetEntity && props.targetEntity.organization)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -153,6 +169,8 @@ const getTitle = (props) => {
       );
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
+      if (!(props.data && props.data.post && props.data.post.user)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.post.user.id)}>
@@ -166,6 +184,8 @@ const getTitle = (props) => {
       );
 
     case USER_COMMENTS_YOUR_POST:
+      if (!(props.data && props.data.comment && props.data.comment.user && props.data.comment.post)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.comment.user.id)}>
@@ -179,6 +199,8 @@ const getTitle = (props) => {
       );
 
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
+      if (!(props.data && props.data.comment && props.data.comment.user && props.data.comment.userId)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.comment.userId)}>
@@ -189,6 +211,8 @@ const getTitle = (props) => {
       );
 
     case USER_CREATES_DIRECT_POST_FOR_ORG:
+      if (!(props.data && props.data.post && props.data.post.user && props.targetEntity && props.targetEntity.organization && props.targetEntity.organization.nickname)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.post.user.id)}>
@@ -203,6 +227,8 @@ const getTitle = (props) => {
       );
 
     case USER_COMMENTS_ORG_POST:
+      if (!(props.data && props.data.user && props.targetEntity.organization)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -215,6 +241,8 @@ const getTitle = (props) => {
       );
 
     case USER_LEAVES_COMMENT_ON_ORG_COMMENT:
+      if (!(props.data && props.data.user && props.targetEntity.organization)) return null;
+
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
@@ -227,6 +255,8 @@ const getTitle = (props) => {
       );
 
     case CONGRATULATIONS_EVENT_ID:
+      if (!(props.data && props.data.user && props.data.organization)) return null;
+
       return (
         <Fragment>
           {props.data.user && (
@@ -252,16 +282,20 @@ const getTitle = (props) => {
 const getCover = (props) => {
   switch (props.eventId) {
     case CONGRATULATIONS_EVENT_ID:
-      return props.data.organization && props.data.organization.avatar_filename ? (
+      if (!(props.data && props.data.user && props.data.organization && props.data.organization.avatarFilename)) return null;
+
+      return (
         <div className="site-notification__cover">
           <Link to={getPostUrl(props.data.organization.id)}>
             <Avatar src={getFileUrl(props.data.organization.avatarFilename)} square />
           </Link>
         </div>
-      ) : null;
+      );
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
+      if (!(props.data && props.data.post)) return null;
+
       return (
         <div className="site-notification__cover">
           <Link to={getPinnedPostUrl(props.data.post)}>
@@ -285,7 +319,7 @@ const getCover = (props) => {
         );
       }
 
-      if (props.targetEntity.organization && props.targetEntity.organization.avatarFilename) {
+      if (props.targetEntity.organization) {
         return (
           <div className="site-notification__cover">
             <Link to={getOrganizationUrl(props.targetEntity.organization.id)}>
@@ -305,6 +339,8 @@ const getAvatar = (props) => {
     case USER_CREATES_DIRECT_POST_FOR_ORG:
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
+      if (!(props.data && props.data.post && props.data.post.user)) return null;
+
       return (
         <div className="site-notification__avatar">
           <Link to={getUserUrl(props.data.post.user.id)}>
@@ -319,6 +355,8 @@ const getAvatar = (props) => {
 
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
     case USER_COMMENTS_YOUR_POST:
+      if (!(props.data && props.data.comment && props.data.comment.user)) return null;
+
       return (
         <div className="site-notification__avatar">
           <Link to={getUserUrl(props.data.comment.user.id)}>
@@ -399,6 +437,8 @@ const getContent = (props) => {
     case USER_COMMENTS_ORG_POST:
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
     case USER_COMMENTS_YOUR_POST:
+      if (!(props.data && props.data.comment && props.data.comment.description && props.createdAt)) return null;
+
       return (
         <div className="site-notification__content">
           <div className="site-notification__title">{getTitle(props)}</div>

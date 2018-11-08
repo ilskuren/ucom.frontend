@@ -26,6 +26,7 @@ class PostFormEditor extends PureComponent {
             type="text"
             placeholder="Title"
             className="editor__input"
+            maxLength="1000"
             value={escapeQuotes(this.props.post.data.title) || ''}
             onChange={(e) => {
               this.props.setPostData({ title: getTextContent(e.target.value) });
@@ -43,6 +44,7 @@ class PostFormEditor extends PureComponent {
             type="text"
             placeholder="Lead text"
             className="editor__input editor__input_medium"
+            maxLength="1000"
             value={escapeQuotes(this.props.post.data.leading_text) || ''}
             onChange={(e) => {
               this.props.setPostData({ leading_text: e.target.value });

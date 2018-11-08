@@ -23,8 +23,6 @@ const MenuWallet = (props) => {
     return null;
   }
 
-  console.log(wallet);
-
   return (
     <Fragment>
       <div className="menu-wallet">

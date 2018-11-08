@@ -110,6 +110,13 @@ class Api {
   }
 
   @bind
+  async repostPost(postId) {
+    const response = await this.actions.post(`/api/v1/posts/${postId}/repost`);
+
+    return response.data;
+  }
+
+  @bind
   async updatePost(data, id) {
     const response = await this.actions.patch(`/api/v1/posts/${id}`, data);
 
@@ -355,6 +362,7 @@ class Api {
 
     return humps(response.data);
   }
+
   @bind
   async getNotifications(perPage, page) {
     const response = await this.actions.get(`/api/v1/myself/notifications?per_page=${perPage}&page=${page}`);

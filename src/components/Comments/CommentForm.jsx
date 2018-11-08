@@ -8,6 +8,7 @@ import Button from '../Button';
 import { getFileUrl } from '../../utils/upload';
 import { showAuthPopup } from '../../actions';
 import { selectUser } from '../../store/selectors';
+import { getTextContent } from '../../utils/text';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -36,7 +37,9 @@ class CommentForm extends PureComponent {
     }
 
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(this.state.comment.trim());
+      const text = getTextContent(this.el.value);
+
+      this.props.onSubmit(text);
     }
 
     this.reset();
@@ -70,18 +73,20 @@ class CommentForm extends PureComponent {
 
           <div className="toolbar__main">
             <textarea
+              ref={(el) => { this.el = el; }}
               autoFocus={this.props.autoFocus} //eslint-disable-line
               value={this.state.comment}
               rows={this.state.active ? 3 : 1}
               className="comment-form__input"
               placeholder="Leave a comment"
+              maxLength="2000"
               onFocus={() => this.show()}
               onBlur={() => this.hide()}
               onChange={(e) => {
                 this.setState({ comment: e.target.value });
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN) {
+                if (e.keyCode === KEY_RETURN && this.state.comment.trim().length !== 0) {
                   e.target.blur();
                   e.preventDefault();
                   this.submit();

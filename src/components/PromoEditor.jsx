@@ -46,10 +46,10 @@ const BUYERS = [{
 const TABS = [{
   id: 1,
   title: 'Media-posts',
-}, {
+}, /* {
   id: 2,
   title: 'Offers',
-}];
+} */];
 
 class PromoEditor extends PureComponent {
   constructor(props) {

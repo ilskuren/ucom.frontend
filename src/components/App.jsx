@@ -29,9 +29,11 @@ import Auth from './Auth';
 import Notifications from './Notifications';
 import socket from '../api/socket';
 import config from '../../package.json';
+import { enableGtm } from '../utils/gtm';
 
 class App extends PureComponent {
   componentDidMount() {
+    enableGtm();
     this.props.fetchMyself();
     this.props.initNotificationsListeners();
 

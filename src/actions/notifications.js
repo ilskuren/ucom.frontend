@@ -13,7 +13,7 @@ export const addValidationErrorNotification = () => (dispatch) => {
 };
 
 export const addErrorNotification = error => (dispatch) => {
-  if ((error.response && error.response.status) === 401) {
+  if ((error && error.response && error.response.status) === 401 || (error && error.status) === 401) {
     dispatch(showAuthPopup());
   } else {
     dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message: parseErrors(error).general }));

@@ -6,3 +6,10 @@ export const escapeQuotes = (text) => {
   }
   return null;
 };
+
+export const getTextContent = (content) => {
+  const text = document.createElement('div');
+  text.innerHTML = content;
+
+  return text.textContent.trim();
+};

@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { getPostUrl, getPinnedPostUrl } from '../../utils/posts';
-import { DownvoteIcon, UpvoteIcon, SuccessIcon } from '../Icons/FeedIcons';
+import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
 import { getUserName, getUserUrl } from '../../utils/user';
@@ -33,6 +33,7 @@ import {
   USER_COMMENTS_ORG_POST,
   USER_LEAVES_COMMENT_ON_ORG_COMMENT,
   CONGRATULATIONS_EVENT_ID,
+  USER_SHARE_YOUR_POST,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -53,6 +54,8 @@ const getAvatarIcon = (eventId) => {
     case USER_DOWNVOTES_YOUR_POST:
       return <DownvoteIcon />;
 
+    case USER_SHARE_YOUR_POST:
+      return <ShareIcon />;
     default:
       return null;
   }
@@ -83,7 +86,18 @@ const getTitle = (props) => {
           </Link>
         </Fragment>
       );
-
+    case USER_SHARE_YOUR_POST:
+      return (
+        <Fragment>
+          <Link to={getUserUrl(props.data.post.user.id)}>
+            <strong>{getUserName(props.data.post.user)}</strong>
+          </Link>
+          &nbsp;shared your&nbsp;
+          <Link to={getPinnedPostUrl(props.data.post)}>
+            <strong>post</strong>
+          </Link>
+        </Fragment>
+      );
     case USER_DOWNVOTES_YOUR_COMMENT:
     case USER_UPVOTES_YOUR_COMMENT:
       return (
@@ -131,8 +145,8 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_COMMENT ? ' upvote ' : ' downvote '}
-          <Link to={getOrganizationUrl(props.targetEntity.organization.id)}>
-            <strong>{props.targetEntity.organization.title}</strong>
+          <Link to={getOrganizationUrl(props.targetEntity.comment.organizationId)}>
+            <strong>{props.targetEntity.comment.post.title}</strong>
           </Link>
           ’s comment
         </Fragment>
@@ -247,6 +261,7 @@ const getCover = (props) => {
       ) : null;
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
+    case USER_SHARE_YOUR_POST:
       return (
         <div className="site-notification__cover">
           <Link to={getPinnedPostUrl(props.data.post)}>
@@ -289,6 +304,7 @@ const getAvatar = (props) => {
   switch (props.eventId) {
     case USER_CREATES_DIRECT_POST_FOR_ORG:
     case USER_CREATES_DIRECT_POST_FOR_YOU:
+    case USER_SHARE_YOUR_POST:
       return (
         <div className="site-notification__avatar">
           <Link to={getUserUrl(props.data.post.user.id)}>
@@ -310,7 +326,6 @@ const getAvatar = (props) => {
           </Link>
         </div>
       );
-
     default: {
       return props.data && props.data.user ? (
         <div className="site-notification__avatar">

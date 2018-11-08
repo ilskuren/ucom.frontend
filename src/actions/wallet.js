@@ -150,6 +150,7 @@ export const claimEmission = () => async (dispatch, getState) => {
   try {
     loader.start();
     await api.claimEmission(user.accountName);
+    dispatch(addSuccessNotification({ message: 'Successfully get emission' }));
     loader.done();
     dispatch(getAccountState());
   } catch (e) {

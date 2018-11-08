@@ -24,10 +24,18 @@ const getInitialState = () => ({
   metadata: {},
   tooltipVisibilty: false,
   totalUnreadAmount: 0,
+  loading: false,
 });
 
 const siteNotifications = (state = getInitialState(), action) => {
   switch (action.type) {
+    case 'REQUEST_NOTIFICATIONS_TOOLTIP_DATA': {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
     case 'RESET_NOTIFICATIONS_TOOLTIP': {
       return getInitialState();
     }
@@ -62,6 +70,7 @@ const siteNotifications = (state = getInitialState(), action) => {
     case 'ADD_SITE_NOTIFICATIONS': {
       return {
         ...state,
+        loading: false,
         list: {
           ...state.list,
           ...action.payload.data.reduce((accumulator, currentValue) => {

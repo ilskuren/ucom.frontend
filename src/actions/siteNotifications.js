@@ -25,6 +25,7 @@ export const hideNotificationTooltip = () => {
 
 export const resetNotificationTooltip = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP' });
 export const resetNotificationTooltipData = () => ({ type: 'RESET_NOTIFICATIONS_TOOLTIP_DATA' });
+export const requestNotificationTooltipData = () => ({ type: 'REQUEST_NOTIFICATIONS_TOOLTIP_DATA' });
 export const addSiteNotifications = payload => ({ type: 'ADD_SITE_NOTIFICATIONS', payload });
 export const deleteSiteNotification = payload => ({ type: 'DELETE_SITE_NOTIFICATION', payload });
 export const setUnreadNotificationsAmount = payload => ({ type: 'SET_UNREAD_NOTIFICATIONS_AMOUNT', payload });
@@ -35,6 +36,7 @@ export const fetchNotifications = (payload = {}) => async (dispatch) => {
     page: payload.page || INITTIAL_PAGE,
   };
   loader.start();
+  dispatch(requestNotificationTooltipData());
   try {
     const res = await api.getNotifications(payload.perPage, payload.page);
     dispatch(addSiteNotifications({ data: res.data, metadata: res.metadata }));

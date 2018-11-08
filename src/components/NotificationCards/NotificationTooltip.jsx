@@ -92,7 +92,7 @@ class NotificationTooltip extends Component {
               </div>
             }
 
-            {!Object.values(list).length &&
+            {!Object.values(list).length && !this.props.loading &&
               <div className="notification-tooltip__header notification-tooltip__header_center">
                 <h3 className="notification-tooltip__title">No notifications</h3>
               </div>
@@ -154,12 +154,14 @@ NotificationTooltip.propTypes = {
   fetchNotifications: PropTypes.func.isRequired,
   list: PropTypes.objectOf(PropTypes.any),
   notificationsMetadata: PropTypes.objectOf(PropTypes.any),
+  loading: PropTypes.bool,
 };
 
 export default connect(
   state => ({
     tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
     list: state.siteNotifications.list,
+    loading: state.siteNotifications.loading,
     notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => bindActionCreators({

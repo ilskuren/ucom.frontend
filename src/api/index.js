@@ -9,7 +9,7 @@ import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 
-const { WalletApi } = require('uos.app.wallet');
+const { WalletApi } = require('uos-app-wallet');
 const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;

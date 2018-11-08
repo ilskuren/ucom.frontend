@@ -105,7 +105,7 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "uos-app-transaction": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
-    "uos.app.wallet": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
+    "uos-app-wallet": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
     "uuid": "^3.3.2",
     "validatorjs": "^3.14.2"
   }

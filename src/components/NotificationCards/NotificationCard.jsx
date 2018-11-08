@@ -109,13 +109,17 @@ const getTitle = (props) => {
     case USER_DOWNVOTES_YOUR_COMMENT:
     case USER_UPVOTES_YOUR_COMMENT:
       if (!(props.data && props.data.user)) return null;
+      if (!(props.targetEntity && props.targetEntity.comment && props.targetEntity.comment.post)) return null;
 
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
-          {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvote' : ' downvote'} your comment`}
+          {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvote' : ' downvote'} your`}
+          <Link to={getPinnedPostUrl(props.targetEntity.comment.post)}>
+            <strong>comment</strong>
+          </Link>
         </Fragment>
       );
 
@@ -200,13 +204,18 @@ const getTitle = (props) => {
 
     case USER_LEAVES_COMMENT_ON_YOUR_COMMENT:
       if (!(props.data && props.data.comment && props.data.comment.user && props.data.comment.userId)) return null;
+      if (!(props.targetEntity && props.targetEntity.comment && props.targetEntity.comment.post)) return null;
 
       return (
         <Fragment>
           <Link to={getUserUrl(props.data.comment.userId)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
-          &nbsp;replied to your comment
+          &nbsp;replied to your&nbsp;
+          <Link to={getPinnedPostUrl(props.targetEntity.comment.post)}>
+            <strong>comment</strong>
+          </Link>
+
         </Fragment>
       );
 

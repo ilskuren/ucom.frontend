@@ -4197,6 +4197,15 @@
         "text-encoding": "^0.6.4"
       }
     },
+    "eosjs-api": {
+      "version": "7.0.4",
+      "resolved": "https://registry.npmjs.org/eosjs-api/-/eosjs-api-7.0.4.tgz",
+      "integrity": "sha512-oLbM39rcyWYkqu6nIEQ50I92yT2vvD7WZPZ3FujbydG2ssR5Re/uSvbkFfZTB02g3I4D+UDUA1jd65HlM7r3MQ==",
+      "requires": {
+        "camel-case": "^3.0.0",
+        "isomorphic-fetch": "^2.2.1"
+      }
+    },
     "eosjs-ecc": {
       "version": "4.0.4",
       "resolved": "https://registry.npmjs.org/eosjs-ecc/-/eosjs-ecc-4.0.4.tgz",
@@ -12897,7 +12906,7 @@
       }
     },
     "uos-app-transaction": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#32c7955bbeb2db9619ac86aa78a94496e49e2f65",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git#f3a896653233c9fc5a71aea01f44920025754535",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
       "requires": {
         "eosjs": "16.0.8"
@@ -12914,30 +12923,6 @@
             "eosjs-api": "7.0.4",
             "eosjs-ecc": "4.0.4",
             "fcbuffer": "2.2.1"
-          }
-        },
-        "eosjs-api": {
-          "version": "7.0.4",
-          "resolved": "https://registry.npmjs.org/eosjs-api/-/eosjs-api-7.0.4.tgz",
-          "integrity": "sha512-oLbM39rcyWYkqu6nIEQ50I92yT2vvD7WZPZ3FujbydG2ssR5Re/uSvbkFfZTB02g3I4D+UDUA1jd65HlM7r3MQ==",
-          "requires": {
-            "camel-case": "^3.0.0",
-            "isomorphic-fetch": "^2.2.1"
-          }
-        },
-        "eosjs-ecc": {
-          "version": "4.0.4",
-          "resolved": "https://registry.npmjs.org/eosjs-ecc/-/eosjs-ecc-4.0.4.tgz",
-          "integrity": "sha512-9wAYefts4TidHOu+eN9nAisZdWpUzlUimZrB63oP7+/s4xRNJEn2Vvep2ICRODpxpidbshM1L7WaSYW9oiV5gA==",
-          "requires": {
-            "bigi": "^1.4.2",
-            "browserify-aes": "^1.0.6",
-            "bs58": "^4.0.1",
-            "bytebuffer": "^5.0.1",
-            "create-hash": "^1.1.3",
-            "create-hmac": "^1.1.6",
-            "ecurve": "^1.0.5",
-            "randombytes": "^2.0.5"
           }
         }
       }

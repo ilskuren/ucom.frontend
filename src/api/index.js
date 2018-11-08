@@ -16,8 +16,10 @@ const { TransactionFactory } = AppTransaction;
 
 if (process.env.NODE_ENV === 'production') {
   TransactionFactory.initForProductionEnv();
+  WalletApi.initForProductionEnv();
 } else {
   TransactionFactory.initForStagingEnv();
+  WalletApi.initForStagingEnv();
 }
 
 class Api {

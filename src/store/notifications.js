@@ -1,6 +1,7 @@
 import { uniqueId } from 'lodash';
 
 export const NOTIFICATION_TYPE_ERROR = 1;
+export const NOTIFICATION_TYPE_SUCCESS = 2;
 
 const getInitialState = () => ({
   list: [],

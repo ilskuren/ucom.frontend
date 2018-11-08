@@ -69,7 +69,7 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
       hash: true,
     }),
-    process.env.NODE_ENV === 'production' ? new FaviconsWebpackPlugin('favicon.png') : null,
+    process.env.NODE_ENV === 'production' ? new FaviconsWebpackPlugin('./src/favicon.png') : null,
   ].filter(i => i),
   resolve: {
     extensions: ['*', '.js', '.jsx'],

@@ -46,7 +46,7 @@ const TradeRAMPopup = props => (
       size="big"
       theme="red"
       text={props.wallet.tradeRam.isBuy ? 'Buy' : 'Sell'}
-      isDisabled={!props.wallet.tradeRam.isValid}
+      isDisabled={!props.wallet.tradeRam.isValid || props.wallet.tradeRam.loading}
       onClick={() => props.tradeRam(props.wallet.tradeRam.isBuy)}
     />
   </div>

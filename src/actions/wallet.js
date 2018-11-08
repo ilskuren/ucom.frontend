@@ -1,6 +1,8 @@
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { parseWalletErros } from '../utils/errors';
+import { addSuccessNotification } from './notifications';
+import loader from '../utils/loader';
 
 export const resetWalletState = payload => ({ type: 'RESET_WALLET_STATE', payload });
 export const setWalletStateData = payload => ({ type: 'SET_WALLET_STATE_DATA', payload });
@@ -37,14 +39,20 @@ export const getCurrentNetAndCpuStakedTokens = () => async (dispatch, getState) 
   }
 
   try {
+    loader.start();
     const data = await api.getCurrentNetAndCpuStakedTokens(user.accountName);
-
+    dispatch(setWalletEditStakeLoading(true));
     dispatch(setWalletEditStakeData({
       netAmount: String(data.net),
       cpuAmount: String(data.cpu),
     }));
+    loader.done();
+    dispatch(setWalletEditStakeLoading(false));
   } catch (e) {
     console.error(e);
+    const errors = parseWalletErros(e);
+    dispatch(setWalletEditStakeServerErrors(errors));
+    loader.done();
   }
 };
 
@@ -68,9 +76,12 @@ export const getAccountState = () => async (dispatch, getState) => {
   }
 
   try {
-    const accountState = await api.getAccountState(user.accountName);
-    dispatch(setWalletStateData(accountState));
+    loader.start();
+    const data = await api.getAccountState(user.accountName);
+    dispatch(setWalletStateData(data));
+    loader.done();
   } catch (e) {
+    loader.done();
     console.error(e);
   }
 };
@@ -88,12 +99,19 @@ export const sendTokens = () => async (dispatch, getState) => {
   const { amount, memo } = state.wallet.sendTokens.data;
 
   try {
+    loader.start();
+    dispatch(setWalletSendTokensLoading(true));
     await api.sendTokens(accountNameFrom, accountNameTo, +amount, memo);
     dispatch(setWalletSendTokensVisible(false));
+    dispatch(setWalletSendTokensLoading(false));
+    dispatch(addSuccessNotification({ message: 'Successfully sent tokens' }));
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletSendTokensServerErrors(errors));
+    dispatch(setWalletSendTokensLoading(false));
+    loader.done();
     console.error(e);
   }
 };
@@ -110,12 +128,19 @@ export const stakeOrUnstakeTokens = () => async (dispatch, getState) => {
   const { accountName } = user;
 
   try {
+    loader.start();
+    dispatch(setWalletEditStakeLoading(true));
     await api.stakeOrUnstakeTokens(accountName, +netAmount, +cpuAmount);
-    dispatch(getAccountState());
     dispatch(setWalletEditStakeVisible(false));
+    dispatch(setWalletEditStakeLoading(false));
+    dispatch(addSuccessNotification({ message: 'Successfully set stake' }));
+    loader.done();
+    dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletEditStakeServerErrors(errors));
+    dispatch(setWalletEditStakeLoading(false));
+    loader.done();
     console.error(e);
   }
 };
@@ -129,10 +154,14 @@ export const claimEmission = () => async (dispatch, getState) => {
   }
 
   try {
+    loader.start();
     await api.claimEmission(user.accountName);
+    dispatch(addSuccessNotification({ message: 'Successfully get emission' }));
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     console.error(e);
+    loader.done();
   }
 };
 
@@ -167,12 +196,19 @@ export const tradeRam = isBuy => async (dispatch, getState) => {
   const trade = isBuy ? api.buyRam : api.sellRam;
 
   try {
+    loader.start();
+    dispatch(setWalletTradeRamLoading(true));
     await trade(user.accountName, +state.wallet.tradeRam.data.bytesAmount);
     dispatch(setWalletTradeRamVisible(false));
+    dispatch(setWalletTradeRamLoading(false));
+    dispatch(addSuccessNotification({ message: 'Successfully trade ram' }));
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletTradeRamServerErrors(errors));
+    dispatch(setWalletTradeRamLoading(false));
+    loader.done();
     console.error(e);
   }
 };

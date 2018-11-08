@@ -89,16 +89,17 @@ class PostFeedFooter extends PureComponent {
               <span className="inline__item">Share</span>
             </span>
           </span>
+          {this.state.sharePopup ? (
+            <div className="post__share-popup">
+              <ShareBlock
+                link={getPinnedPostUrl(post)}
+                postId={post.id}
+                postTypeId={this.props.postTypeId}
+                onClickClose={() => { this.setState({ sharePopup: false }); }}
+              />
+            </div>
+          ) : null }
         </div>
-        {this.state.sharePopup ? (
-          <div className="post__share-popup">
-            <ShareBlock
-              link={getPinnedPostUrl(post)}
-              postId={post.id}
-              onClickClose={() => { this.setState({ sharePopup: false }); }}
-            />
-          </div>
-        ) : null }
 
         <div className="post__comments">
           {this.state.commentsIsVisible ? (
@@ -115,6 +116,7 @@ class PostFeedFooter extends PureComponent {
 PostFeedFooter.propTypes = {
   commentsCount: PropTypes.number,
   pinned: PropTypes.bool,
+  postTypeId: PropTypes.number,
 };
 
 export default connect(

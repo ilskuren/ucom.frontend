@@ -40,12 +40,12 @@ class PostFeedContent extends PureComponent {
         {this.state.formIsVisible ? (
           <div className="post__form">
             <FeedForm
-              message={post.message}
+              message={post.description}
               onCancel={this.hideForm}
               onSubmit={(description) => {
                 this.hideForm();
                 this.props.updatePost({
-                  postId: post.postId,
+                  postId: post.id,
                   data: { description },
                 });
               }}
@@ -53,7 +53,7 @@ class PostFeedContent extends PureComponent {
           </div>
         ) : (
           <h1 className="post__title">
-            {post.postTypeId === 10 ? (
+            {(this.props.postTypeId === 10 || post.postTypeId === 10) ? (
               <div className="toolbar toolbar_fluid toolbar_small">
                 <div className="toolbar__main">
                   <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
@@ -93,6 +93,7 @@ PostFeedContent.propTypes = {
   userId: PropTypes.number,
   updatePost: PropTypes.func,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  postTypeId: PropTypes.number,
 };
 
 export default connect(

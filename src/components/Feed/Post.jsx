@@ -8,9 +8,9 @@ import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserUrl } from '../../utils/user';
-import { getPostTypeById } from '../../utils/posts';
 import { getUserById } from '../../store/users';
-import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
+import { getPinnedPostUrl } from '../../utils/posts';
+import { escapeQuotes } from '../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
@@ -18,17 +18,19 @@ import PostFeedFooter from './PostFeedFooter';
 class Post extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
-
     if (!post) {
       return null;
     }
 
     const user = getUserById(this.props.users, post.userId);
+    if (!user) {
+      return null;
+    }
 
     return (
       <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
         <PostFeedHeader
-          postTypeId={getPostTypeById(post.postTypeId)}
+          postTypeId={post.postTypeId}
           updatedAt={moment(post.updatedAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
@@ -42,11 +44,13 @@ class Post extends PureComponent {
           userId={this.props.user.id}
           postTypeId={post.postTypeId}
           linkUrl={getPinnedPostUrl(post)}
+          linkText={escapeQuotes(post.description)}
         />
 
         <PostFeedFooter
           commentsCount={post.commentsCount}
           post={post}
+          postTypeId={post.postTypeId}
           pinned={this.props.pinned}
           el={this.el}
         />
@@ -59,6 +63,7 @@ Post.propTypes = {
   id: PropTypes.number,
   pinned: PropTypes.bool,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

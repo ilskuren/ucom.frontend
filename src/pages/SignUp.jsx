@@ -33,7 +33,7 @@ class SignUp extends React.PureComponent {
       accountNameIsValid: false,
       passphraseIsValid: false,
       termsAccpeted: false,
-      isTrackingAllowed: false,
+      isTrackingAllowed: true,
       errors: [],
       loading: false,
       visibilityOfPopup: false,

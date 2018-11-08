@@ -8,6 +8,7 @@ const Checkbox = ({ isChecked, onChange }) => (
         type="checkbox"
         className="checkbox-input__input"
         value={isChecked}
+        checked={isChecked ? 'checked' : null}
         onChange={(e) => {
           if (typeof onChange === 'function') {
             onChange(e.target.checked);

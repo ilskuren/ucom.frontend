@@ -71,7 +71,7 @@ const MenuWallet = (props) => {
         {wallet.state.data.tokens.unstakingRequest &&
           <div className="menu-wallet__block">
             <div className="menu-wallet__info">
-              You have unstaking <strong>{wallet.state.data.tokens.unstakingRequest.amount} {wallet.state.data.tokens.unstakingRequest.currency}</strong>, {moment(wallet.state.data.tokens.unstakingRequest.requestDatetime).fromNow()}
+              You are unstaking <strong>{wallet.state.data.tokens.unstakingRequest.amount} {wallet.state.data.tokens.unstakingRequest.currency}</strong>, {moment(wallet.state.data.tokens.unstakingRequest.requestDatetime).fromNow()}
             </div>
           </div>
         }
@@ -93,8 +93,8 @@ const MenuWallet = (props) => {
                   <div
                     role="presentation"
                     onClick={() => {
-                      props.setWalletTradeRamIsBuy(true);
                       props.setWalletTradeRamVisible(true);
+                      props.setWalletTradeRamIsBuy(true);
                     }}
                     className="menu-wallet__action"
                   >
@@ -106,8 +106,8 @@ const MenuWallet = (props) => {
                     role="presentation"
                     className="menu-wallet__action"
                     onClick={() => {
-                      props.setWalletTradeRamIsBuy(false);
                       props.setWalletTradeRamVisible(true);
+                      props.setWalletTradeRamIsBuy(false);
                     }}
                   >
                     Sell
@@ -136,7 +136,7 @@ const MenuWallet = (props) => {
               <ProgressBar
                 partAmount={+wallet.state.data.resources.net.free}
                 fullAmount={+wallet.state.data.resources.net.total}
-                label={wallet.state.data.resources.net.dimension}
+                label="kb"
                 title="Network BW"
               />
               <div

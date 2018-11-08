@@ -3,10 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getPostTypeById } from '../../utils/posts';
 import { getPostById } from '../../store/posts';
 import { selectUser } from '../../store/selectors/user';
 import { createComment } from '../../actions/comments';
+import { getFileUrl } from '../../utils/upload';
+import { getUserName, getUserUrl } from '../../utils/user';
+import { getPostTypeById } from '../../utils/posts';
+import { getUserById } from '../../store/users';
+import { getPostUrl, getPostTypeById, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
@@ -19,18 +23,25 @@ class Post extends PureComponent {
       return null;
     }
 
+    const user = getUserById(this.props.users, post.userId);
+
     return (
       <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
         <PostFeedHeader
           postTypeId={getPostTypeById(post.postTypeId)}
           updatedAt={moment(post.updatedAt).fromNow()}
           postId={post.id}
-          userId={post.userId}
+          userName={getUserName(user)}
+          accountName={user.accountName}
+          profileLink={getUserUrl(user.id)}
+          avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
         <PostFeedContent
           postId={this.props.id}
           userId={this.props.user.id}
+          postTypeId={post.postTypeId}
+          linkUrl={getPinnedPostUrl(post)}
         />
 
         <PostFeedFooter

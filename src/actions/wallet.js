@@ -1,6 +1,7 @@
 import api from '../api';
 import { selectUser } from '../store/selectors/user';
 import { parseWalletErros } from '../utils/errors';
+import loader from '../utils/loader';
 
 export const resetWalletState = payload => ({ type: 'RESET_WALLET_STATE', payload });
 export const setWalletStateData = payload => ({ type: 'SET_WALLET_STATE_DATA', payload });
@@ -68,9 +69,12 @@ export const getAccountState = () => async (dispatch, getState) => {
   }
 
   try {
+    loader.start();
     const accountState = await api.getAccountState(user.accountName);
     dispatch(setWalletStateData(accountState));
+    loader.done();
   } catch (e) {
+    loader.done();
     console.error(e);
   }
 };
@@ -88,12 +92,18 @@ export const sendTokens = () => async (dispatch, getState) => {
   const { amount, memo } = state.wallet.sendTokens.data;
 
   try {
+    loader.start();
+    dispatch(setWalletSendTokensLoading(true));
     await api.sendTokens(accountNameFrom, accountNameTo, +amount, memo);
     dispatch(setWalletSendTokensVisible(false));
+    dispatch(setWalletSendTokensLoading(false));
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletSendTokensServerErrors(errors));
+    dispatch(setWalletSendTokensLoading(false));
+    loader.done();
     console.error(e);
   }
 };
@@ -110,12 +120,18 @@ export const stakeOrUnstakeTokens = () => async (dispatch, getState) => {
   const { accountName } = user;
 
   try {
+    loader.start();
+    dispatch(setWalletEditStakeLoading(true));
     await api.stakeOrUnstakeTokens(accountName, +netAmount, +cpuAmount);
-    dispatch(getAccountState());
     dispatch(setWalletEditStakeVisible(false));
+    dispatch(setWalletEditStakeLoading(false));
+    loader.done();
+    dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletEditStakeServerErrors(errors));
+    dispatch(setWalletEditStakeLoading(false));
+    loader.done();
     console.error(e);
   }
 };
@@ -129,10 +145,13 @@ export const claimEmission = () => async (dispatch, getState) => {
   }
 
   try {
+    loader.start();
     await api.claimEmission(user.accountName);
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     console.error(e);
+    loader.done();
   }
 };
 
@@ -167,12 +186,18 @@ export const tradeRam = isBuy => async (dispatch, getState) => {
   const trade = isBuy ? api.buyRam : api.sellRam;
 
   try {
+    loader.start();
+    dispatch(setWalletTradeRamLoading(true));
     await trade(user.accountName, +state.wallet.tradeRam.data.bytesAmount);
     dispatch(setWalletTradeRamVisible(false));
+    dispatch(setWalletTradeRamLoading(false));
+    loader.done();
     dispatch(getAccountState());
   } catch (e) {
     const errors = parseWalletErros(e);
     dispatch(setWalletTradeRamServerErrors(errors));
+    dispatch(setWalletTradeRamLoading(false));
+    loader.done();
     console.error(e);
   }
 };

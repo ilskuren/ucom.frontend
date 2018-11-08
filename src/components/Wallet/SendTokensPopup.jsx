@@ -67,7 +67,7 @@ const SendTokensPopup = props => (
       text="Send"
       size="big"
       theme="red"
-      isDisabled={!props.wallet.sendTokens.isValid}
+      isDisabled={!props.wallet.sendTokens.isValid || props.wallet.sendTokens.loading}
       onClick={() => props.sendTokens()}
     />
   </div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Button from '../Button';
 import TextInput from '../TextInput';
-// import InputErrorIcon from '../Icons/InputError';
+import InputErrorIcon from '../Icons/InputError';
 import { setWalletEditStakeData, stakeOrUnstakeTokens } from '../../actions/wallet';
 
 const SetStakePopup = props => (
@@ -39,10 +39,12 @@ const SetStakePopup = props => (
       be unavailable for 3 days. After this waiting period it will appear as available.
     </div>
 
-    {/* <div className="tokens-popup__error">
-      <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
-      <div>Not enough UOS </div>
-    </div> */}
+    {props.wallet.editStake.serverErrors.length > 0 &&
+      <div className="tokens-popup__error">
+        <div className="tokens-popup__error-icon"><InputErrorIcon isBig /></div>
+        <div>{props.wallet.editStake.serverErrors[0].message}</div>
+      </div>
+    }
 
     <Button
       isUpper
@@ -50,7 +52,7 @@ const SetStakePopup = props => (
       text="Update"
       size="big"
       theme="red"
-      isDisabled={!props.wallet.editStake.isValid}
+      isDisabled={!props.wallet.editStake.isValid || props.wallet.editStake.loading}
       onClick={() => props.stakeOrUnstakeTokens()}
     />
   </div>

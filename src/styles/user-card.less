@@ -1,5 +1,6 @@
 .user-card {
   display: inline-block;
+  vertical-align: top;
   text-align: left;
   font-size: 16px;
   line-height: 1.25;
@@ -7,6 +8,26 @@
 
 .user-card_size_big {
   font-size: 20px;
+}
+
+.user-card_size_small {
+  .user-card__inner {
+    align-items: flex-start;
+  }
+
+  .user-card__name {
+    margin-top: -3px;
+    margin-bottom: 0;
+  }
+
+  .user-card__rate {
+    font-weight: normal;
+  }
+
+  .avatar {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .user-card__inner {
@@ -17,6 +38,11 @@
   grid-row-gap: 5px;
 }
 
+.user-card__side {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
 .user-card_with-caption {
   padding: 0 0 16px;
 }
@@ -25,11 +51,14 @@
   margin: 0 0 3px;
   font-weight: bold;
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: inherit;
 }
 
 .user-card__account {
-  font-size: 0.875em;
+  font-size: 14px;
   color: inherit;
   opacity: 0.7;
 

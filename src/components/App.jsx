@@ -19,7 +19,8 @@ import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
 import { initNotificationsListeners, setUnreadNotificationsAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
-import Header from './Header';
+import Header from './Header/Header';
+import UserMenu from './UserMenu/UserMenu';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
@@ -50,36 +51,39 @@ class App extends PureComponent {
           <Page>
             <Header />
 
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/my-profile" component={MyProfilePage} />
-              <Route path="/settings" component={SettingsPage} />
-              <Route path="/notifications" component={NotificationsPage} />
-              <Route exact path="/user/:id" component={UserPage} />
-              <Route exact path="/user/:id/:postId" component={UserPage} />
-              <Route path="/posts/new/:postTypeId" component={CreatePost} />
-              <Route path="/posts/:id/edit" component={CreatePost} />
-              <Route exact path="/posts/:id" component={Post} />
-              <Route path="/publications" component={EventsPage} />
-              <Route path="/users" component={UsersPage} />
-              <Route exact path="/products" component={ProductsPage} />
-              <Route exact path="/communities" component={OrganizationsPage} />
-              <Route exact path="/communities/new" component={OrganizationsCreatePage} />
-              <Route exact path="/communities/:id" component={OrganizationPage} />
-              <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
-              <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <div className="page__content">
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-profile" component={MyProfilePage} />
+                <Route path="/settings" component={SettingsPage} />
+                <Route path="/notifications" component={NotificationsPage} />
+                <Route exact path="/user/:id" component={UserPage} />
+                <Route exact path="/user/:id/:postId" component={UserPage} />
+                <Route path="/posts/new/:postTypeId" component={CreatePost} />
+                <Route path="/posts/:id/edit" component={CreatePost} />
+                <Route exact path="/posts/:id" component={Post} />
+                <Route path="/publications" component={EventsPage} />
+                <Route path="/users" component={UsersPage} />
+                <Route exact path="/products" component={ProductsPage} />
+                <Route exact path="/communities" component={OrganizationsPage} />
+                <Route exact path="/communities/new" component={OrganizationsCreatePage} />
+                <Route exact path="/communities/:id" component={OrganizationPage} />
+                <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
+                <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </div>
 
-            {this.props.auth.showPopup && (
+            {this.props.auth.showPopup &&
               <Popup onClickClose={() => this.props.hideAuthPopup()}>
                 <Auth onClickClose={() => this.props.hideAuthPopup()} />
               </Popup>
-            )}
+            }
 
             <Notifications />
+            <UserMenu />
           </Page>
         </Router>
       </Fragment>

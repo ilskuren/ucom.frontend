@@ -55,14 +55,19 @@ const Input = props => (
   </div>
 );
 
-const UserSearchInput = ({ onChange, value }) => (
+const UserSearchInput = ({
+  onChange,
+  value,
+  isMulti,
+  placeholder,
+}) => (
   <div className="dropdown">
     <AsyncSelect
       value={value}
-      isMulti
+      isMulti={isMulti}
       isSearchable
       isClearable={false}
-      placeholder="Find people"
+      placeholder={placeholder}
       className="dropdown"
       classNamePrefix="dropdown"
       loadOptions={api.searchUsers}
@@ -85,8 +90,15 @@ const UserSearchInput = ({ onChange, value }) => (
 );
 
 UserSearchInput.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onChange: PropTypes.func,
+  isMulti: PropTypes.bool,
+  placeholder: PropTypes.string,
+};
+
+UserSearchInput.defaultProps = {
+  isMulti: true,
+  placeholder: 'Find people',
 };
 
 export default UserSearchInput;

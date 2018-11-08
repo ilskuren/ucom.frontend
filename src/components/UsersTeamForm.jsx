@@ -17,6 +17,7 @@ const UsersTeamForm = props => (
   <div className="board-form">
     <div className="board-form__input">
       <UserSearchInput
+        isMulti
         value={[]}
         onChange={(data) => {
           if (typeof props.onChange === 'function') {

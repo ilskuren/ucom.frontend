@@ -14,6 +14,7 @@ class OfferFormEditor extends PureComponent {
             placeholder="Lead text"
             className="editor__input editor__input_medium"
             value={this.props.post.data.leading_text}
+            maxLength="1000"
             onChange={(e) => {
               this.props.setPostData({ leading_text: e.target.value });
               this.props.validatePostField('leading_text');

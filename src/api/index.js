@@ -1,3 +1,4 @@
+import ecc from 'eosjs-ecc';
 import humps from 'lodash-humps';
 import param from 'jquery-param';
 import { bind } from 'decko';
@@ -8,6 +9,7 @@ import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 
+const { WalletApi } = require('uos-app-wallet');
 const AppTransaction = require('uos-app-transaction');
 
 const { TransactionFactory } = AppTransaction;
@@ -17,10 +19,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   TransactionFactory.initForStagingEnv();
 }
-
-const Eos = require('eosjs');
-
-const { ecc } = Eos.modules;
 
 class Api {
   constructor() {
@@ -364,6 +362,7 @@ class Api {
 
     return humps(response.data);
   }
+
   @bind
   async getNotifications(perPage, page) {
     const response = await this.actions.get(`/api/v1/myself/notifications?per_page=${perPage}&page=${page}`);
@@ -391,6 +390,77 @@ class Api {
     const response = await this.actions.post(`/api/v1/myself/notifications/${id}/seen`);
 
     return humps(response.data);
+  }
+
+  @bind
+  async getAccountState(accountName) {
+    const response = await WalletApi.getAccountState(accountName);
+
+    return humps(response);
+  }
+
+  @bind
+  async sendTokens(accountNameFrom, accountNameTo, amount, memo) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.sendTokens(accountNameFrom, privateKey, accountNameTo, amount, memo);
+
+    return humps(response);
+  }
+
+  @bind
+  async stakeOrUnstakeTokens(accountName, netAmount, cpuAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.stakeOrUnstakeTokens(
+      accountName,
+      privateKey,
+      netAmount,
+      cpuAmount,
+    );
+
+    return humps(response);
+  }
+
+  @bind
+  async getCurrentNetAndCpuStakedTokens(accountName) {
+    const response = await WalletApi.getCurrentNetAndCpuStakedTokens(accountName);
+
+    return humps(response);
+  }
+
+  @bind
+  async claimEmission(accountName) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.claimEmission(accountName, privateKey);
+
+    return humps(response);
+  }
+
+  @bind
+  async getApproximateRamPriceByBytesAmount(bytesAmount) {
+    const response = await WalletApi.getApproximateRamPriceByBytesAmount(bytesAmount);
+
+    return humps(response);
+  }
+
+  @bind
+  async buyRam(accountName, bytesAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.buyRam(accountName, privateKey, bytesAmount);
+
+    return humps(response);
+  }
+
+  @bind
+  async sellRam(accountName, bytesAmount) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.sellRam(accountName, privateKey, bytesAmount);
+
+    return humps(response);
   }
 }
 

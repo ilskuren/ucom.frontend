@@ -3,6 +3,20 @@
   margin: -8px;
 }
 
+.inline_flex {
+  display: flex;
+
+  &.inline_resp {
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+
+  > .inline__item {
+    flex: 1;
+  }
+}
+
 .inline__item {
   display: inline-block;
   margin: 8px;

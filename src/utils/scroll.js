@@ -1,11 +1,3 @@
-export const disableScroll = () => {
-  document.documentElement.classList.add('no-scroll');
-};
-
-export const enableScroll = () => {
-  document.documentElement.classList.remove('no-scroll');
-};
-
 export const scrollTo = (el, topOffset = 0) => {
   if (!el) {
     return;

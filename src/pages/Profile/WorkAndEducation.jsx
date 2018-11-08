@@ -6,9 +6,9 @@ import { reduxForm } from 'redux-form';
 import { Element } from 'react-scroll';
 import PropTypes from 'prop-types';
 
-import { PTCommunication } from 'utils/GlobalPropTypes';
+import { PTCommunication } from '../../utils/GlobalPropTypes';
 
-import { validate } from 'utils/validators/pages/profile/workAndEducation';
+import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 
 import { selectUserWorkAndEducation } from '../../store/selectors/user';
 import { selectCommunication } from '../../store/selectors/communication/user';

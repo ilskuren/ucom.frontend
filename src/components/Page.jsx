@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { hideAuthPopup } from '../actions';
 import { hideNotificationTooltip } from '../actions/siteNotifications';
+import { hideMenuPopup } from '../actions/menuPopup';
 
 class Page extends PureComponent {
   componentDidUpdate(prevProps) {
@@ -12,6 +13,7 @@ class Page extends PureComponent {
       window.scrollTo(0, 0);
       this.props.hideAuthPopup();
       this.props.hideNotificationTooltip();
+      this.props.hideMenuPopup();
     }
   }
 
@@ -27,6 +29,7 @@ class Page extends PureComponent {
 Page.propTypes = {
   hideAuthPopup: PropTypes.func,
   hideNotificationTooltip: PropTypes.func,
+  hideMenuPopup: PropTypes.func,
 };
 
 export default withRouter(connect(
@@ -34,5 +37,6 @@ export default withRouter(connect(
   dispatch => bindActionCreators({
     hideAuthPopup,
     hideNotificationTooltip,
+    hideMenuPopup,
   }, dispatch),
 )(Page));

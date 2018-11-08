@@ -8,11 +8,11 @@ import classNames from 'classnames';
 import { Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
 
-import { emptyValues } from 'utils/constants';
+import { emptyValues } from '../../utils/constants';
 
-import { PTCommunication } from 'utils/GlobalPropTypes';
+import { PTCommunication } from '../../utils/GlobalPropTypes';
 
-import { validate } from 'utils/validators/pages/profile/contacts';
+import { validate } from '../../utils/validators/pages/profile/contacts';
 
 import { selectUserId, selectUserContacts } from '../../store/selectors';
 import { selectCommunication } from '../../store/selectors/communication/user';

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
 import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../../actions/siteNotifications';
@@ -27,13 +27,13 @@ class NotificationTrigger extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <div className="notification-tooltip-trigger">
         <CSSTransition
-          timeout={300}
           appear
-          in={this.props.tooltipVisibilty}
-          classNames="fade"
           unmountOnExit
+          timeout={300}
+          classNames="fade"
+          in={this.props.tooltipVisibilty}
         >
           <NotificationTooltip hideTooltip={this.hideTooltip} />
         </CSSTransition>
@@ -52,7 +52,7 @@ class NotificationTrigger extends PureComponent {
             <span className="counter counter_top">{this.props.totalUnreadAmount ? this.props.totalUnreadAmount : ''}</span>
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

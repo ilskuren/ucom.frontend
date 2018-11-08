@@ -7,8 +7,8 @@ import classNames from 'classnames';
 
 import { Element } from 'react-scroll';
 
-import { PTCommunication } from 'utils/GlobalPropTypes';
-import { validate } from 'utils/validators/pages/profile/generalInfo';
+import { PTCommunication } from '../../utils/GlobalPropTypes';
+import { validate } from '../../utils/validators/pages/profile/generalInfo';
 
 
 import { selectUserGeneralInfo, selectUserAvatarFilename } from '../../store/selectors';

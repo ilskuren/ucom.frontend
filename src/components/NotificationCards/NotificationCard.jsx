@@ -403,7 +403,7 @@ const getActions = (props) => {
                     text="Confirm"
                     isStretched
                     onClick={() => props.confirmNotification({
-                      id: props,
+                      id: props.id,
                       idOfOrg: props.data.organization.id,
                     })}
                   />

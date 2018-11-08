@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -66,6 +67,14 @@ const MenuWallet = (props) => {
             </div>
           </div>
         </div>
+
+        {wallet.state.data.tokens.unstakingRequest &&
+          <div className="menu-wallet__block">
+            <div className="menu-wallet__info">
+              You have unstaking <strong>{wallet.state.data.tokens.unstakingRequest.amount} {wallet.state.data.tokens.unstakingRequest.currency}</strong>, {moment(wallet.state.data.tokens.unstakingRequest.requestDatetime).fromNow()}
+            </div>
+          </div>
+        }
 
         <div className="menu-wallet__block">
           <h2 className="menu-wallet__title">Resources</h2>

@@ -77,8 +77,8 @@ export const getAccountState = () => async (dispatch, getState) => {
 
   try {
     loader.start();
-    const accountState = await api.getAccountState(user.accountName);
-    dispatch(setWalletStateData(accountState));
+    const data = await api.getAccountState(user.accountName);
+    dispatch(setWalletStateData(data));
     loader.done();
   } catch (e) {
     loader.done();

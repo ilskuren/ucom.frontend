@@ -93,8 +93,8 @@ const MenuWallet = (props) => {
                   <div
                     role="presentation"
                     onClick={() => {
-                      props.setWalletTradeRamIsBuy(true);
                       props.setWalletTradeRamVisible(true);
+                      props.setWalletTradeRamIsBuy(true);
                     }}
                     className="menu-wallet__action"
                   >
@@ -106,8 +106,8 @@ const MenuWallet = (props) => {
                     role="presentation"
                     className="menu-wallet__action"
                     onClick={() => {
-                      props.setWalletTradeRamIsBuy(false);
                       props.setWalletTradeRamVisible(true);
+                      props.setWalletTradeRamIsBuy(false);
                     }}
                   >
                     Sell

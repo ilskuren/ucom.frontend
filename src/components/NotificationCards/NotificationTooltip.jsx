@@ -98,6 +98,12 @@ class NotificationTooltip extends Component {
               </div>
             }
 
+            {!Object.values(list).length && this.props.loading &&
+              <div className="notification-tooltip__header notification-tooltip__header_center">
+                <h3 className="notification-tooltip__title">Loading...</h3>
+              </div>
+            }
+
             {newNotifications && newNotifications.length > 0 &&
               <div className="notification-tooltip__list notification-tooltip__list_new">
                 <TransitionGroup>

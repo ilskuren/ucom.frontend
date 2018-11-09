@@ -23,7 +23,7 @@
       "socketEndpoint": "https://websocket-staging.u.community:443"
     },
     "production": {
-      "httpEndpoint": "https://new-backend.u.community",
+      "httpEndpoint": "https://backend.u.community",
       "socketEndpoint": "https://websocket.u.community:443"
     }
   },

@@ -9,6 +9,7 @@ import LoadMore from './LoadMore';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
 import { fetchPost } from '../../actions/posts';
+import { POST_TYPE_REPOST_ID } from '../../utils/posts';
 
 class Feed extends PureComponent {
   componentDidMount() {
@@ -58,7 +59,7 @@ class Feed extends PureComponent {
             <div className="feed__list">
               {posts.map(item => (
                 <div className="feed__item" key={item.id}>
-                  {(item.postTypeId === 11) ? (
+                  {(item.postTypeId === POST_TYPE_REPOST_ID) ? (
                     <Repost
                       id={item.id}
                       pinned={+this.props.pinnedPostId === +item.id}

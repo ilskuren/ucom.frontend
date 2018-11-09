@@ -58,7 +58,7 @@ class Offer extends PureComponent {
 
   render() {
     const { post } = this.state;
-
+    console.log();
     return (
       <div className="content">
         <div className="content__inner">

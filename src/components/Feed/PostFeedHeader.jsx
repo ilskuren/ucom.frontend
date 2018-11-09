@@ -12,7 +12,7 @@ class PostFeedHeader extends PureComponent {
         <div className="post__info-block">
           {this.props.postTypeId === POST_TYPE_REPOST_ID ? <IconRepost className="icon-repost" /> : null}
           <div className="post__type"><strong>{getPostTypeById(this.props.postTypeId)}</strong></div>
-          <div className="toolbar__main">{this.props.updatedAt}</div>
+          <div className="toolbar__main">{this.props.createdAt}</div>
           <div className="toolbar__side">
             <PostRating postId={this.props.postId} />
           </div>
@@ -36,7 +36,7 @@ class PostFeedHeader extends PureComponent {
 
 PostFeedHeader.propTypes = {
   postTypeId: PropTypes.number,
-  updatedAt: PropTypes.string,
+  createdAt: PropTypes.string,
   postId: PropTypes.number,
   accountName: PropTypes.string,
   userName: PropTypes.string,

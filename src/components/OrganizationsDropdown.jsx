@@ -1,3 +1,5 @@
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { Tooltip } from 'react-tippy';
@@ -5,6 +7,7 @@ import UserCard from '../components/UserCard';
 import { selectUser } from '../store/selectors';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';
+import { fetchMyself } from '../actions/users';
 
 class OrganizationsDropdown extends PureComponent {
   state = {
@@ -16,6 +19,7 @@ class OrganizationsDropdown extends PureComponent {
   }
 
   showTooltip = () => {
+    this.props.fetchMyself();
     this.setState({ tooltipIsVisible: true });
   }
 
@@ -86,6 +90,16 @@ class OrganizationsDropdown extends PureComponent {
   }
 }
 
-export default connect(state => ({
-  user: selectUser(state),
-}))(OrganizationsDropdown);
+OrganizationsDropdown.propTypes = {
+  onSelect: PropTypes.func,
+  fetchMyself: PropTypes.func,
+};
+
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    fetchMyself,
+  }, dispatch),
+)(OrganizationsDropdown);

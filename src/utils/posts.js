@@ -2,6 +2,9 @@ export const UPVOTE_STATUS = 'upvote';
 export const DOWNVOTE_STATUS = 'downvote';
 export const NOVOTE_STATUS = 'no_vote';
 
+export const POST_TYPE_POST_ID = 10;
+export const POST_TYPE_REPOST_ID = 11;
+
 export const POST_TYPES = [{
   id: 1,
   description: 'Story',
@@ -58,13 +61,13 @@ export const getRulesByPostTypeId = (postTypeId) => {
 
 export const getPostTypeById = (postTypeId) => {
   switch (postTypeId) {
-    case 10:
+    case POST_TYPE_POST_ID:
       return 'post';
     case 2:
       return 'offer';
     case 1:
       return 'story';
-    case 11:
+    case POST_TYPE_REPOST_ID:
       return 'repost';
     default:
       return null;

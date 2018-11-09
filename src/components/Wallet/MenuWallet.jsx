@@ -68,10 +68,13 @@ const MenuWallet = (props) => {
           </div>
         </div>
 
-        {wallet.state.data.tokens.unstakingRequest &&
+        {
+          wallet.state.data.tokens.unstakingRequest &&
+          wallet.state.data.tokens.unstakingRequest.requestDatetime &&
+          wallet.state.data.tokens.unstakingRequest.amount &&
           <div className="menu-wallet__block">
             <div className="menu-wallet__info">
-              You have unstaking <strong>{wallet.state.data.tokens.unstakingRequest.amount} {wallet.state.data.tokens.unstakingRequest.currency}</strong>, {moment(wallet.state.data.tokens.unstakingRequest.requestDatetime).fromNow()}
+              You are unstaking <strong>{wallet.state.data.tokens.unstakingRequest.amount} {wallet.state.data.tokens.unstakingRequest.currency}</strong>, {moment(wallet.state.data.tokens.unstakingRequest.requestDatetime).fromNow()}
             </div>
           </div>
         }
@@ -136,7 +139,7 @@ const MenuWallet = (props) => {
               <ProgressBar
                 partAmount={+wallet.state.data.resources.net.free}
                 fullAmount={+wallet.state.data.resources.net.total}
-                label={wallet.state.data.resources.net.dimension}
+                label="kb"
                 title="Network BW"
               />
               <div

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import DefaultNotification from './Error';
+import DefaultNotification from './DefaultNotification';
 import {
   NOTIFICATION_TYPE_ERROR,
   NOTIFICATION_TYPE_SUCCESS,

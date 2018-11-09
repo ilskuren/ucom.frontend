@@ -38,17 +38,19 @@ class ShareBlock extends PureComponent {
   render() {
     return (
       <div className="share-btn" ref={(el) => { this.el = el; }}>
-        <div
-          className="repost__block"
-          role="presentation"
-          onClick={() => {
-            this.props.addRepost(this.props.postId);
-            this.props.onClickClose();
-          }}
-        >
-          <IconRepost className="repost__icon" />
-          <span>Repost to my profile</span>
-        </div>
+        {this.props.postTypeId !== 11 &&
+          <div
+            className="repost__block"
+            role="presentation"
+            onClick={() => {
+              this.props.addRepost(this.props.postId);
+              this.props.onClickClose();
+            }}
+          >
+            <IconRepost className="repost__icon" />
+            <span>Repost to my profile</span>
+          </div>
+        }
         <div className="copylink__block">
           <span>Copy link</span>
           <div className="copylink">
@@ -65,6 +67,8 @@ ShareBlock.propTypes = {
   link: PropTypes.string,
   addRepost: PropTypes.func,
   onClickClose: PropTypes.func,
+  postTypeId: PropTypes.number,
+  postId: PropTypes.number,
 };
 
 export default connect(

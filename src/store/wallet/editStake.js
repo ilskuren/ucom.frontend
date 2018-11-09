@@ -1,4 +1,4 @@
-import Validator from 'validatorjs';
+import { validateFields } from '../../utils/validateFields';
 
 const getInitialState = () => ({
   visible: false,
@@ -22,32 +22,24 @@ const editStake = (state = getInitialState(), action) => {
       return getInitialState();
 
     case 'SET_WALLET_EDIT_STAKE_DATA': {
-      const keys = Object.keys(action.payload);
+      const fields = Object.keys(action.payload);
       const data = { ...state.data, ...action.payload };
-      const validation = new Validator(data, state.rules);
-      const isValid = validation.passes();
-      const currentErrors = keys.reduce((value, key) => ({ ...value, [key]: validation.errors.get(key) }), {});
-      const errors = { ...state.errors, ...currentErrors };
+      const validation = validateFields(data, fields, state.rules);
+      const errors = { ...state.errors, ...validation.errors };
 
       return {
-        ...state, data, errors, isValid,
+        ...state, data, errors, isValid: validation.isValid,
       };
     }
 
     case 'SET_WALLET_EDIT_STAKE_LOADING':
-      return {
-        ...state, loading: action.payload,
-      };
+      return { ...state, loading: action.payload };
 
     case 'SET_WALLET_EDIT_STAKE_VISIBLE':
-      return {
-        ...state, visible: action.payload,
-      };
+      return { ...state, visible: action.payload };
 
     case 'SET_WALLET_EDIT_STAKE_SERVER_ERRORS':
-      return {
-        ...state, serverErrors: action.payload,
-      };
+      return { ...state, serverErrors: action.payload };
 
     default:
       return state;

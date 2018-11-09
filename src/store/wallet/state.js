@@ -9,11 +9,7 @@ const state = (state = getInitialState(), action) => {
 
     case 'SET_WALLET_STATE_DATA':
       return {
-        ...state,
-        data: {
-          ...state.data,
-          ...action.payload,
-        },
+        ...state, data: { ...state.data, ...action.payload },
       };
 
     default:

@@ -17,7 +17,7 @@ import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
-import { initNotificationsListeners, setUnreadNotificationsAmount } from '../actions/siteNotifications';
+import { initNotificationsListeners, siteNotificationsSetUnreadAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
 import Header from './Header/Header';
 import UserMenu from './UserMenu/UserMenu';
@@ -108,6 +108,6 @@ export default connect(
     fetchMyself: () => dispatch(fetchMyself()),
     hideAuthPopup: () => dispatch(hideAuthPopup()),
     initNotificationsListeners: () => dispatch(initNotificationsListeners()),
-    setUnreadNotificationsAmount: data => dispatch(setUnreadNotificationsAmount(data)),
+    siteNotificationsSetUnreadAmount: data => dispatch(siteNotificationsSetUnreadAmount(data)),
   }),
 )(App);

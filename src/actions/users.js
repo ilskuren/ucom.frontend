@@ -5,7 +5,7 @@ import loader from '../utils/loader';
 // import { enableGtm } from '../utils/gtm';
 import { addErrorNotification } from './notifications';
 import { setUser } from './';
-import { setUnreadNotificationsAmount } from './siteNotifications';
+import { siteNotificationsSetUnreadAmount } from './siteNotifications';
 import { getAccountState } from './wallet';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
@@ -27,7 +27,7 @@ export const fetchMyself = () => (dispatch) => {
     .then((data) => {
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
       dispatch(setUser(data));
-      dispatch(setUnreadNotificationsAmount(data.unreadMessagesCount));
+      dispatch(siteNotificationsSetUnreadAmount(data.unreadMessagesCount));
       dispatch(getAccountState());
 
       // TODO: Сделать disable

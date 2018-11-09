@@ -7,8 +7,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconClose from '../Icons/Close';
 import NotificationCard from './NotificationCard';
 import {
-  addSiteNotifications,
-  deleteSiteNotification,
+  siteNotificationsAddItems,
+  siteNotificationsDeleteItems,
   fetchNotifications,
 } from '../../actions/siteNotifications';
 
@@ -81,7 +81,9 @@ class NotificationTooltip extends Component {
         <PerfectScrollbar
           className="notification-tooltip__container"
           onYReachEnd={() => {
-          window.dispatchEvent(notificationTrigger);
+            try {
+              window.dispatchEvent(notificationTrigger);
+            } catch (e) {} // eslint-disable-line 
         }}
         >
           <div>
@@ -171,8 +173,8 @@ export default connect(
     notificationsMetadata: state.siteNotifications.metadata,
   }),
   dispatch => bindActionCreators({
-    addSiteNotifications,
-    deleteSiteNotification,
+    siteNotificationsAddItems,
+    siteNotificationsDeleteItems,
     fetchNotifications,
   }, dispatch),
 )(NotificationTooltip);

@@ -6,14 +6,14 @@ import { CSSTransition } from 'react-transition-group';
 import React, { PureComponent } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
-import { showAndFetchNotifications, hideNotificationTooltip, resetNotificationTooltipData } from '../../actions/siteNotifications';
+import { showAndFetchNotifications, hideNotificationTooltip, siteNotificationsResetTooltipData } from '../../actions/siteNotifications';
 
 class NotificationTrigger extends PureComponent {
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
 
     setTimeout(() => {
-      this.props.resetNotificationTooltipData();
+      this.props.siteNotificationsResetTooltipData();
     }, 300);
   }
 
@@ -59,7 +59,7 @@ class NotificationTrigger extends PureComponent {
 
 NotificationTrigger.propTypes = {
   hideNotificationTooltip: PropTypes.func,
-  resetNotificationTooltipData: PropTypes.func,
+  siteNotificationsResetTooltipData: PropTypes.func,
   showAndFetchNotifications: PropTypes.func,
   tooltipVisibilty: PropTypes.bool,
   totalUnreadAmount: PropTypes.number,
@@ -74,6 +74,6 @@ export default connect(
   dispatch => bindActionCreators({
     showAndFetchNotifications,
     hideNotificationTooltip,
-    resetNotificationTooltipData,
+    siteNotificationsResetTooltipData,
   }, dispatch),
 )(NotificationTrigger);

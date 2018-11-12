@@ -49,11 +49,13 @@ class Repost extends PureComponent {
             profileLink={getUserUrl(post.post.user.id)}
             avatarUrl={getFileUrl(post.post.user.avatarFilename)}
           />
+
           <PostFeedContent
             postId={post.post.id}
             userId={post.post.user.id}
           />
         </div>
+
         <PostFeedFooter
           commentsCount={post.commentsCount}
           post={post}

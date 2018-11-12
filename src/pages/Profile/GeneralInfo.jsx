@@ -19,7 +19,6 @@ import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
 import DropZone from '../../components/DropZone';
 import Avatar from '../../components/Avatar';
-import Loading from '../../components/Loading';
 import { getFileUrl } from '../../utils/upload';
 
 import TextInputField from '../../components/Field/TextInputField';
@@ -69,7 +68,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
   render() {
     const { avatarFilename } = this.props;
-    const { editingGeneralInfo, uploadingAvatar } = this.props;
+    const { uploadingAvatar } = this.props;
     return (
       <Fragment>
         <div className="grid grid_profile">
@@ -86,7 +85,6 @@ class ProfileGeneralInfoPage extends PureComponent {
               className="person-form"
               onSubmit={this.handleSubmit}
             >
-              <Loading loading={editingGeneralInfo.isRequesting} className="loading_block" />
 
               <div className="profile__info-block">
                 <Element name="PersonalInfo">
@@ -215,7 +213,6 @@ ProfileGeneralInfoPage.propTypes = {
   handleSubmit: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   uploadingAvatar: PTCommunication,
-  editingGeneralInfo: PTCommunication,
   avatarFilename: PropTypes.string,
   editGeneralInfo: PropTypes.func,
   uploadUserAvatar: PropTypes.func,

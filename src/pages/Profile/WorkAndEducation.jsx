@@ -6,8 +6,6 @@ import { reduxForm } from 'redux-form';
 import { Element } from 'react-scroll';
 import PropTypes from 'prop-types';
 
-import { PTCommunication } from '../../utils/GlobalPropTypes';
-
 import { validate } from '../../utils/validators/pages/profile/workAndEducation';
 
 import { selectUserWorkAndEducation } from '../../store/selectors/user';
@@ -15,7 +13,6 @@ import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
-import Loading from '../../components/Loading';
 
 import TextInputField from '../../components/Field/TextInputField';
 import WorkAndEducationFieldArray from '../../components/Field/WorkAndEducationFieldArray';
@@ -63,7 +60,6 @@ class ProfileWorkAndEducationPage extends PureComponent {
   }
 
   render() {
-    const { editingWorkAndEducation } = this.props;
     return (
       <div className="grid grid_profile">
         <div className="grid__item">
@@ -80,7 +76,6 @@ class ProfileWorkAndEducationPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={editingWorkAndEducation.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Blockchain">
@@ -138,7 +133,6 @@ ProfileWorkAndEducationPage.propTypes = {
     firstCurrency: PropTypes.string,
     firstCurrencyYear: PropTypes.string,
   }),
-  editingWorkAndEducation: PTCommunication,
   handleSubmit: PropTypes.func,
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,

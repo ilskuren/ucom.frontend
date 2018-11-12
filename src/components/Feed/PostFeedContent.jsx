@@ -9,7 +9,7 @@ import { escapeQuotes } from '../../utils/text';
 import { getFileUrl } from '../../utils/upload';
 import { updatePost } from '../../actions/posts';
 import { getPostById } from '../../store/posts';
-import { getPostUrl, postIsEditable, getPinnedPostUrl } from '../../utils/posts';
+import { getPostUrl, postIsEditable } from '../../utils/posts';
 
 class PostFeedContent extends PureComponent {
   constructor(props) {
@@ -56,7 +56,7 @@ class PostFeedContent extends PureComponent {
             {(this.props.postTypeId === 10 || post.postTypeId === 10) ? (
               <div className="toolbar toolbar_fluid toolbar_small">
                 <div className="toolbar__main">
-                  <Link to={getPinnedPostUrl(post)}>{escapeQuotes(post.description)}</Link>
+                  {escapeQuotes(post.description)}
                 </div>
                 {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
                   <div className="toolbar__side">

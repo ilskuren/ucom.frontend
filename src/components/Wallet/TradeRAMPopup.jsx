@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
-// import PropTypes from 'prop-types';
 import Button from '../Button';
 import TextInput from '../TextInput';
 import InputErrorIcon from '../Icons/InputError';
@@ -10,7 +9,6 @@ import { setWalletTradeRamDataAndGetPrice, tradeRam } from '../../actions/wallet
 const TradeRAMPopup = props => (
   <div className="tokens-popup tokens-popup_buy-ram">
     <div className="tokens-popup__title">
-      {console.log(props.wallet.tradeRam.isBuy)}
       <h2 className="title title_small title_light">{props.wallet.tradeRam.isBuy ? 'Buy' : 'Sell'} RAM</h2>
     </div>
 

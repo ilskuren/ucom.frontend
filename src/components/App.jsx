@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { Router, Route, Switch } from 'react-router';
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
@@ -16,7 +16,8 @@ import OrganizationsPage from '../pages/Organizations';
 import NotificationsPage from '../pages/Notifications';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
-import { setUser, hideAuthPopup } from '../actions';
+import { setUser } from '../actions';
+import { authSetVisibility } from '../actions/auth';
 import { initNotificationsListeners, siteNotificationsSetUnreadAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
 import Header from './Header/Header';
@@ -76,9 +77,9 @@ class App extends PureComponent {
               </Switch>
             </div>
 
-            {this.props.auth.showPopup &&
-              <Popup onClickClose={() => this.props.hideAuthPopup()}>
-                <Auth onClickClose={() => this.props.hideAuthPopup()} />
+            {this.props.auth.visibility &&
+              <Popup onClickClose={() => this.props.authSetVisibility(false)}>
+                <Auth onClickClose={() => this.props.authSetVisibility(false)} />
               </Popup>
             }
 
@@ -91,23 +92,15 @@ class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-  auth: PropTypes.objectOf(PropTypes.any),
-  hideAuthPopup: PropTypes.func,
-  initNotificationsListeners: PropTypes.func,
-  fetchMyself: PropTypes.func,
-};
-
 export default connect(
   state => ({
     auth: state.auth,
   }),
-  dispatch => ({
-    setUser: data => dispatch(setUser(data)),
-    fetchMyself: () => dispatch(fetchMyself()),
-    hideAuthPopup: () => dispatch(hideAuthPopup()),
-    initNotificationsListeners: () => dispatch(initNotificationsListeners()),
-    siteNotificationsSetUnreadAmount: data => dispatch(siteNotificationsSetUnreadAmount(data)),
-  }),
+  dispatch => bindActionCreators({
+    setUser,
+    fetchMyself,
+    authSetVisibility,
+    initNotificationsListeners,
+    siteNotificationsSetUnreadAmount,
+  }, dispatch),
 )(App);

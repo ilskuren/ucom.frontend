@@ -8,10 +8,9 @@ import { showAuthPopup } from '../../actions';
 import { triggerMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
 import { selectUser } from '../../store/selectors';
 import Avatar from '../Avatar';
-import IconLogo from '../Icons/Logo';
-import MiniIconLogo from '../Icons/MiniLogo';
 import NotificationTrigger from '../NotificationCards/NotificationTrigger';
 import UserMenuTrigger from '../UserMenu/UserMenuTrigger';
+import Logo from '../Logo/Logo';
 
 const HeaderSide = ({
   user, showAuthPopup, triggerMenuPopup, menuPopupVisibility,
@@ -21,8 +20,8 @@ const HeaderSide = ({
       <nav className="menu menu_header">
         <div className="menu__item">
           <Link to="/" className="menu__link">
-            <span className="only-pad"><IconLogo /></span>
-            <span className="else-pad"><MiniIconLogo /></span>
+            <span className="only-pad"><Logo /></span>
+            <span className="else-pad"><Logo mod="small" /></span>
           </Link>
         </div>
 
@@ -42,7 +41,7 @@ const HeaderSide = ({
       <div className="inline">
         <div className="inline__item">
           <Link to="/">
-            <MiniIconLogo />
+            <Logo mod="small" />
           </Link>
         </div>
 

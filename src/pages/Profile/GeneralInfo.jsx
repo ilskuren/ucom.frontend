@@ -111,7 +111,7 @@ class ProfileGeneralInfoPage extends PureComponent {
 
                         <div className="profile__text-block">
                           You can upload an image in JPG or PNG format.
-                          Size is not more than 10 mb.
+                          Size is not more than 1 mb.
                         </div>
                       </div>
                     </div>

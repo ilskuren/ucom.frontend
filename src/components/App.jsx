@@ -14,6 +14,7 @@ import UsersPage from '../pages/Users';
 import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
 import NotificationsPage from '../pages/Notifications';
+import AboutPage from '../pages/About';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser, hideAuthPopup } from '../actions';
@@ -67,6 +68,7 @@ class App extends PureComponent {
                 <Route path="/publications" component={EventsPage} />
                 <Route path="/users" component={UsersPage} />
                 <Route exact path="/products" component={ProductsPage} />
+                <Route path="/about" component={AboutPage} />
                 <Route exact path="/communities" component={OrganizationsPage} />
                 <Route exact path="/communities/new" component={OrganizationsCreatePage} />
                 <Route exact path="/communities/:id" component={OrganizationPage} />

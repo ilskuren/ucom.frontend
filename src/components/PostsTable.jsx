@@ -128,7 +128,7 @@ class PostsTable extends PureComponent {
                   <td className="list-table__cell list-table__cell_views" data-title="Views">{Number.isInteger(item.postStats && item.postStats.viewsCount) ? item.postStats.viewsCount : '—'}</td>
                   <td className="list-table__cell list-table__cell_comments" data-title="Comments">{Number.isInteger(item.postStats && item.postStats.commentsCount) ? item.postStats.commentsCount : '—'}</td>
                   <td className="list-table__cell list-table__cell_rate" data-title="Rate">
-                    <span className="title title_xsmall title_light">{item.currentRate}°</span>
+                    <span className="title title_xsmall title_light">{(+item.currentRate).toLocaleString()}°</span>
                   </td>
                 </tr>
               ))}

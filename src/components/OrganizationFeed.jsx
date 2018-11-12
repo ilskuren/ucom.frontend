@@ -41,7 +41,7 @@ class OrganizationFeed extends PureComponent {
             <div className="feed__item" key={item.id}>
               <Post
                 postId={item.id}
-                updatedAt={item.updatedAt}
+                createdAt={item.createdAt}
                 postType={getPostTypeById(item.postTypeId)}
                 rating={item.currentVote}
                 title={item.title}

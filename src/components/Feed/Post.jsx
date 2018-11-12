@@ -31,7 +31,7 @@ class Post extends PureComponent {
       <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
         <PostFeedHeader
           postTypeId={post.postTypeId}
-          updatedAt={moment(post.updatedAt).fromNow()}
+          createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}

@@ -31,7 +31,7 @@ class Repost extends PureComponent {
       <div className="repost">
         <PostFeedHeader
           postTypeId={post.postTypeId}
-          updatedAt={moment(post.updatedAt).fromNow()}
+          createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
@@ -42,7 +42,7 @@ class Repost extends PureComponent {
         <div className="post post--grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
             postTypeId={post.post.postTypeId}
-            updatedAt={moment(post.post.updatedAt).fromNow()}
+            createdAt={moment(post.post.createdAt).fromNow()}
             postId={post.post.id}
             userName={getUserName(post.post.user)}
             accountName={post.post.user.accountName}

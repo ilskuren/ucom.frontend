@@ -61,7 +61,7 @@ class EventsPage extends PureComponent {
                       <td className="list-table__cell" data-title="Views">{item.views || '—'}</td>
                       <td className="list-table__cell" data-title="Comments">{item.commentsCount || '—'}</td>
                       <td className="list-table__cell" data-title="Rate">
-                        <span className="title title_xsmall title_light">{item.currentRate}°</span>
+                        <span className="title title_xsmall title_light">{(+item.currentRate).toLocaleString()}°</span>
                       </td>
                     </tr>
                   ))}

@@ -24,7 +24,7 @@ import { getFileUrl } from '../../utils/upload';
 
 import TextInputField from '../../components/Field/TextInputField';
 import TextAreaField from '../../components/Field/TextAreaField';
-import DateInputField from '../../components/Field/DateInputField';
+// import DateInputField from '../../components/Field/DateInputField';
 
 import * as actions from '../../actions';
 
@@ -50,7 +50,7 @@ class ProfileGeneralInfoPage extends PureComponent {
   componentDidUpdate() {
     const { submitSucceeded, history } = this.props;
     if (submitSucceeded) {
-      history.push('/profile/work-and-education');
+      history.push('/profile/contacts');
     }
   }
 
@@ -77,7 +77,7 @@ class ProfileGeneralInfoPage extends PureComponent {
             <VerticalMenu
               sections={[
                 { title: 'Personal Info', name: 'PersonalInfo' },
-                { title: 'Location', name: 'Location' },
+                // { title: 'Location', name: 'Location' },
               ]}
             />
           </div>
@@ -118,6 +118,13 @@ class ProfileGeneralInfoPage extends PureComponent {
 
                     <div className="profile__block">
                       <TextInputField
+                        label="Displayed name"
+                        name="firstName"
+                      />
+                    </div>
+
+                    {/* <div className="profile__block">
+                      <TextInputField
                         label="First name"
                         name="firstName"
                       />
@@ -128,7 +135,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                         label="Second name"
                         name="lastName"
                       />
-                    </div>
+                    </div> */}
 
                     <div className="profile__block">
                       <TextInputField
@@ -146,12 +153,12 @@ class ProfileGeneralInfoPage extends PureComponent {
                       />
                     </div>
 
-                    <div className="profile__block">
+                    {/* <div className="profile__block">
                       <DateInputField
                         name="birthday"
                         label="Birthday"
                       />
-                    </div>
+                    </div> */}
 
                     <div className={classNames('profile__block', 'profile__block_textarea')}>
                       <TextAreaField
@@ -166,7 +173,7 @@ class ProfileGeneralInfoPage extends PureComponent {
               </div>
 
               <div className="profile__info-block">
-                <Element name="Location">
+                {/* <Element name="Location">
                   <InfoBlock title="Location">
                     <div className="profile__block">
                       <TextInputField
@@ -190,7 +197,7 @@ class ProfileGeneralInfoPage extends PureComponent {
                       />
                     </div>
                   </InfoBlock>
-                </Element>
+                </Element> */}
                 <div className="profile__block">
                   <Button type="submit" text="PROCEED" theme="red" size="big" isStretched />
                 </div>

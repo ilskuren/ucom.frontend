@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 import { Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
@@ -117,7 +117,7 @@ class ProfileContactsPage extends PureComponent {
             <div className="profile__info-block">
               <Element name="Contacts">
                 <InfoBlock title="Contacts">
-                  <div className="profile__block">
+                  {/* <div className="profile__block">
                     <TextInputField
                       label="Email"
                       name="email"
@@ -133,7 +133,7 @@ class ProfileContactsPage extends PureComponent {
                       label="Phone number"
                       name="phoneNumber"
                     />
-                  </div>
+                  </div> */}
                   <div className="profile__block">
                     <TextInputField
                       label="Your website"

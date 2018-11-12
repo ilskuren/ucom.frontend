@@ -135,21 +135,21 @@ class ProfileGeneralInfoPage extends PureComponent {
                       />
                     </div> */}
 
-                    <div className="profile__block">
+                    {/* <div className="profile__block">
                       <TextInputField
                         label="Nickname"
                         name="nickname"
                         placeholder="@nickname"
                       />
-                    </div>
+                    </div> */}
 
-                    <div className="profile__block">
+                    {/* <div className="profile__block">
                       <TextInputField
                         label="Asset to show"
                         name="currencyToShow"
                         placeholder="Example Kickcoin"
                       />
-                    </div>
+                    </div> */}
 
                     {/* <div className="profile__block">
                       <DateInputField

@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
+// import { Element } from 'react-scroll';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import { selectUser } from '../store/selectors/user';
+// import VerticalMenu from './VerticalMenu';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 // import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
@@ -15,59 +16,21 @@ class ProfilePage extends PureComponent {
   }
 
   render() {
-    console.log(this.props.user);
     return this.props.user.id ? (
       <Fragment>
-        <div className="content content_separated">
-          <div className="content__inner">
-            <div className="nav-bar nav-bar_simple">
-              <div className="nav-bar__title">
-                <h1 className="title">Edit Profile</h1>
-              </div>
-              <div className="nav-bar__menu">
-                <div className="toolbar toolbar_responsive">
-                  <div className="toolbar__main">
-                    <div className="menu menu_simple-tabs">
-                      <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to="/profile/general-info"
-                          isActive={() => this.props.location.pathname === '/profile/general-info'}
-                        >
-                          General Info
-                        </NavLink>
-                      </div>
-                      {/* <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to="/profile/work-and-education"
-                          isActive={() => this.props.location.pathname === '/profile/work-and-education'}
-                        >
-                          Work & Education
-                        </NavLink>
-                      </div> */}
-                      <div className="menu__item">
-                        <NavLink
-                          className="menu__link"
-                          activeClassName="menu__link_active"
-                          to="/profile/contacts"
-                          isActive={() => this.props.location.pathname === '/profile/contacts'}
-                        >
-                          Contacts
-                        </NavLink>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="toolbar__side">
-                    <div className="inline">
-                      <div className="inline__item">
-                        <Link to={`/user/${this.props.user.id}`} className="button button_theme_transparent button_size_small">
-                          Back to Profile
-                        </Link>
-                      </div>
+        <div className="content__inner">
+          <div className="nav-bar nav-bar_simple">
+            <div className="nav-bar__title">
+              <h1 className="title">Edit Profile</h1>
+            </div>
+            <div className="nav-bar__menu">
+              <div className="toolbar toolbar_responsive">
+                <div className="toolbar__side">
+                  <div className="inline">
+                    <div className="inline__item">
+                      <Link to={`/user/${this.props.user.id}`} className="button button_theme_transparent button_size_small">
+                        Back to Profile
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -93,10 +56,6 @@ class ProfilePage extends PureComponent {
     );
   }
 }
-
-ProfilePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
-};
 
 export default connect(state => ({
   user: selectUser(state),

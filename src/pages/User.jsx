@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Footer from '../components/Footer';
 import UserFeed from '../components/Feed/UserFeed';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
@@ -16,6 +14,7 @@ import UserEducation from '../components/User/UserEducation';
 import UserCreatedAt from '../components/User/UserCreatedAt';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
+import { getUserById } from '../store/users';
 
 class UserPage extends PureComponent {
   componentDidMount() {
@@ -33,50 +32,47 @@ class UserPage extends PureComponent {
   }
 
   render() {
+    const userId = +this.props.match.params.id;
+    const user = getUserById(this.props.users, userId);
+
+    if (!user) {
+      return null;
+    }
+
     return (
-      <div className="content">
+      <div className="content content_sheet">
         <div className="content__inner">
+          <UserHead userId={userId} />
 
-          <div className="sheets">
-            <div className="sheets__content">
-              <UserHead userId={+this.props.match.params.id} />
+          <div className="grid grid_user">
+            <div className="grid__item">
+              <UserAbout userId={userId} />
+              <UserOrganizations userId={userId} />
+              <UserFeed
+                userId={userId}
+                pinnedPostId={+this.props.match.params.postId}
+              />
+            </div>
 
-              <div className="grid grid_user">
-                <div className="grid__item">
-                  <UserAbout userId={+this.props.match.params.id} />
-                  <UserOrganizations userId={+this.props.match.params.id} />
-                  <UserFeed
-                    userId={+this.props.match.params.id}
-                    pinnedPostId={+this.props.match.params.postId}
-                  />
-                </div>
-
-                <div className="grid__item">
-                  <UserLocation userId={+this.props.match.params.id} />
-                  <UserBlockchainSince userId={+this.props.match.params.id} />
-                  <UserNetworks userId={+this.props.match.params.id} />
-                  <UserSocialNetworks userId={+this.props.match.params.id} />
-                  <UserJobs userId={+this.props.match.params.id} />
-                  <UserEducation userId={+this.props.match.params.id} />
-                  <UserCreatedAt userId={+this.props.match.params.id} />
-                </div>
-              </div>
+            <div className="grid__item">
+              <UserLocation userId={userId} />
+              <UserBlockchainSince userId={userId} />
+              <UserNetworks userId={userId} />
+              <UserSocialNetworks userId={userId} />
+              <UserJobs userId={userId} />
+              <UserEducation userId={userId} />
+              <UserCreatedAt userId={userId} />
             </div>
           </div>
-
-          <Footer />
         </div>
       </div>
     );
   }
 }
 
-UserPage.propTypes = {
-  fetchUser: PropTypes.func.isRequired,
-};
-
 export default connect(
   state => ({
+    users: state.users,
     user: selectUser(state),
   }),
   dispatch => bindActionCreators({

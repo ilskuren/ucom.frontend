@@ -15,6 +15,7 @@ class ProfilePage extends PureComponent {
   }
 
   render() {
+    console.log(this.props.user);
     return this.props.user.id ? (
       <Fragment>
         <div className="content content_separated">

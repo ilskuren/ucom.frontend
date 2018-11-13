@@ -5,7 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import { selectUser } from '../store/selectors/user';
 import ProfileGeneralInfoPage from './Profile/GeneralInfo';
-import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
+// import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 import ProfileContactsPage from './Profile/Contacts';
 import Footer from '../components/Footer';
 
@@ -37,7 +37,7 @@ class ProfilePage extends PureComponent {
                           General Info
                         </NavLink>
                       </div>
-                      <div className="menu__item">
+                      {/* <div className="menu__item">
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
@@ -46,7 +46,7 @@ class ProfilePage extends PureComponent {
                         >
                           Work & Education
                         </NavLink>
-                      </div>
+                      </div> */}
                       <div className="menu__item">
                         <NavLink
                           className="menu__link"
@@ -79,7 +79,7 @@ class ProfilePage extends PureComponent {
           <div className="content__inner">
             <Fragment>
               <Route exact path="/profile/general-info" component={ProfileGeneralInfoPage} />
-              <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} />
+              {/* <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} /> */}
               <Route exact path="/profile/contacts" component={ProfileContactsPage} />
             </Fragment>
 

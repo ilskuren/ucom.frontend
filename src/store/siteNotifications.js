@@ -24,15 +24,16 @@ const getInitialState = () => ({
   metadata: {},
   tooltipVisibilty: false,
   totalUnreadAmount: 0,
+  loading: false,
 });
 
 const siteNotifications = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_NOTIFICATIONS_TOOLTIP': {
+    case 'SITE_NOTIFICATIONS__RESET_TOOLTIP': {
       return getInitialState();
     }
 
-    case 'RESET_NOTIFICATIONS_TOOLTIP_DATA': {
+    case 'SITE_NOTIFICATIONS__RESET_TOOLTIP_DATA': {
       return {
         ...state,
         list: getInitialState().list,
@@ -40,26 +41,32 @@ const siteNotifications = (state = getInitialState(), action) => {
       };
     }
 
-    case 'HIDE_NOTIFICATIONS_TOOLTIP': {
+    case 'SITE_NOTIFICATIONS__HIDE_TOOLTIP': {
       return {
         ...state,
         tooltipVisibilty: false,
       };
     }
 
-    case 'SHOW_NOTIFICATIONS_TOOLTIP': {
+    case 'SITE_NOTIFICATIONS__SHOW_TOOLTIP': {
       return {
         ...state, tooltipVisibilty: true,
       };
     }
 
-    case 'SET_UNREAD_NOTIFICATIONS_AMOUNT': {
+    case 'SITE_NOTIFICATIONS__SET_UNREAD_AMOUNT': {
       return {
         ...state, totalUnreadAmount: action.payload,
       };
     }
 
-    case 'ADD_SITE_NOTIFICATIONS': {
+    case 'SITE_NOTIFICATIONS__SET_LOADING': {
+      return {
+        ...state, loading: action.payload,
+      };
+    }
+
+    case 'SITE_NOTIFICATIONS__ADD_ITEMS': {
       return {
         ...state,
         list: {
@@ -76,7 +83,7 @@ const siteNotifications = (state = getInitialState(), action) => {
       };
     }
 
-    case 'DELETE_SITE_NOTIFICATION': {
+    case 'SITE_NOTIFICATIONS__DELETE_ITEMS': {
       const list = { ...state.list };
       delete list[action.payload.id];
 

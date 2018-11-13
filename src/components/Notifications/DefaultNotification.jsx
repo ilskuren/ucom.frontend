@@ -16,7 +16,7 @@ class Notification extends PureComponent {
   render() {
     return (
       <div
-        classNames={classNames(
+        className={classNames(
           'notification',
           { 'notification_error': this.props.typeId === NOTIFICATION_TYPE_ERROR },
           { 'notification_success': this.props.typeId === NOTIFICATION_TYPE_SUCCESS },

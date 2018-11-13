@@ -1,33 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getFileUrl } from '../../utils/upload';
-import { showAuthPopup } from '../../actions';
+import { authShowPopup } from '../../actions/auth';
 import { triggerMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
 import { selectUser } from '../../store/selectors';
 import Avatar from '../Avatar';
-import IconLogo from '../Icons/Logo';
-import MiniIconLogo from '../Icons/MiniLogo';
 import NotificationTrigger from '../NotificationCards/NotificationTrigger';
 import UserMenuTrigger from '../UserMenu/UserMenuTrigger';
+import Logo from '../Logo/Logo';
 
 const HeaderSide = ({
-  user, showAuthPopup, triggerMenuPopup, menuPopupVisibility,
+  user, authShowPopup, triggerMenuPopup, menuPopupVisibility,
 }) => (
   <div className="header__side">
     {!user.id ? (
       <nav className="menu menu_header">
         <div className="menu__item">
           <Link to="/" className="menu__link">
-            <span className="only-pad"><IconLogo /></span>
-            <span className="else-pad"><MiniIconLogo /></span>
+            <span className="only-pad"><Logo /></span>
+            <span className="else-pad"><Logo mod="small" /></span>
           </Link>
         </div>
 
         <div className="menu__item">
-          <button className="menu__link menu__link_upper " onClick={() => showAuthPopup()}>SIGN in</button>
+          <button
+            className="menu__link menu__link_upper"
+            onClick={() => authShowPopup()}
+          >
+            SIGN in
+          </button>
         </div>
 
         <div className="menu__item else-desktop">
@@ -42,7 +45,7 @@ const HeaderSide = ({
       <div className="inline">
         <div className="inline__item">
           <Link to="/">
-            <MiniIconLogo />
+            <Logo mod="small" />
           </Link>
         </div>
 
@@ -71,20 +74,13 @@ const HeaderSide = ({
   </div>
 );
 
-HeaderSide.propTypes = {
-  triggerMenuPopup: PropTypes.func,
-  showAuthPopup: PropTypes.func,
-  user: PropTypes.objectOf(PropTypes.any),
-  menuPopupVisibility: PropTypes.bool,
-};
-
 export default connect(
   state => ({
     user: selectUser(state),
     menuPopupVisibility: state.menuPopup.menuPopupVisibility,
   }),
   dispatch => bindActionCreators({
-    showAuthPopup,
+    authShowPopup,
     triggerMenuPopup,
     hideMenuPopup,
   }, dispatch),

@@ -14,6 +14,20 @@ export const getError = (errors, fieldName) => {
   return fieldError.message;
 };
 
+export const getValidationError = (errors, fieldName) => {
+  if (!errors) {
+    return null;
+  }
+
+  const error = errors[fieldName];
+
+  if (!error) {
+    return null;
+  }
+
+  return error[0];
+};
+
 export const parseErrors = (error) => {
   if (error.response && error.response.data && error.response.data.errors) {
     return Array.isArray(error.response.data.errors) ?

@@ -118,7 +118,7 @@ const getTitle = (props) => {
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvote' : ' downvote'} your`}
           <Link to={getPinnedPostUrl(props.targetEntity.comment.post)}>
-            <strong>comment</strong>
+            <strong> comment</strong>
           </Link>
         </Fragment>
       );

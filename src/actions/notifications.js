@@ -1,4 +1,4 @@
-import { showAuthPopup } from './';
+import { authShowPopup } from './auth';
 import { parseErrors } from '../utils/errors';
 import {
   NOTIFICATION_TYPE_ERROR,
@@ -26,7 +26,7 @@ export const addValidationErrorNotification = () => (dispatch) => {
 
 export const addErrorNotification = error => (dispatch) => {
   if ((error && error.response && error.response.status) === 401 || (error && error.status) === 401) {
-    dispatch(showAuthPopup());
+    dispatch(authShowPopup());
   } else {
     dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message: parseErrors(error).general }));
   }

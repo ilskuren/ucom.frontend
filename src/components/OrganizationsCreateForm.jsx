@@ -78,7 +78,7 @@ const OrganizationsCreatePage = (props) => {
                         </div>
                         <div className="field__section">
                           <div className="field__hint">
-                            You can upload an image in JPG or PNG format. Size is not more than 10 mb.
+                            You can upload an image in JPG or PNG format. Size is not more than 1 mb.
                           </div>
                         </div>
                       </div>

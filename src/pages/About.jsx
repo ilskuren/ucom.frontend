@@ -32,7 +32,7 @@ class AboutPage extends PureComponent {
                             General Info
                           </NavLink>
                         </div>
-                        <div className="menu__item">
+                        {/* <div className="menu__item">
                           <NavLink
                             className="menu__link"
                             activeClassName="menu__link_active"
@@ -61,7 +61,7 @@ class AboutPage extends PureComponent {
                           >
                             Legal registration
                           </NavLink>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

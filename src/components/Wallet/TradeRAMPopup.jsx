@@ -51,10 +51,6 @@ const TradeRAMPopup = props => (
   </div>
 );
 
-TradeRAMPopup.propTypes = {
-
-};
-
 export default connect(
   state => ({
     wallet: state.wallet,

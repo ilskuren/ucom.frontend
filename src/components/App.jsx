@@ -28,6 +28,7 @@ import Post from '../pages/Post';
 import Popup from './Popup';
 import Auth from './Auth';
 import Notifications from './Notifications';
+import Registration from './Registration/Registration';
 import socket from '../api/socket';
 import config from '../../package.json';
 import { enableGtm } from '../utils/gtm';
@@ -46,8 +47,6 @@ class App extends PureComponent {
   render() {
     return (
       <Fragment>
-        <div id="portal-root" />
-
         <Router history={this.props.history}>
           <Page>
             <Header />
@@ -56,6 +55,7 @@ class App extends PureComponent {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signup" component={SignUp} />
+                <Route path="/registration" component={Registration} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />

@@ -55,6 +55,7 @@ const SendTokensPopup = props => (
           label="Memo"
           placeholder="Example"
           className="tokens-popup__input"
+          maxLength="100"
           value={props.wallet.sendTokens.data.memo}
           onChange={memo => props.setWalletSendTokensData({ memo })}
           error={props.wallet.sendTokens.errors.memo && props.wallet.sendTokens.errors.memo[0]}

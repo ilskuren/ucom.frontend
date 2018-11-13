@@ -3,14 +3,12 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { bind } from 'decko';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 import { Element } from 'react-scroll';
 import { reduxForm } from 'redux-form';
 
 import { emptyValues } from '../../utils/constants';
-
-import { PTCommunication } from '../../utils/GlobalPropTypes';
 
 import { validate } from '../../utils/validators/pages/profile/contacts';
 
@@ -20,7 +18,6 @@ import { selectCommunication } from '../../store/selectors/communication/user';
 import Button from '../../components/Button';
 import InfoBlock from '../../components/InfoBlock';
 import VerticalMenu from '../../components/VerticalMenu';
-import Loading from '../../components/Loading';
 
 import TextInputField from '../../components/Field/TextInputField';
 import SocialNetworksFieldArray from '../../components/Field/SocialNetworksFieldArray';
@@ -95,7 +92,6 @@ class ProfileContactsPage extends PureComponent {
 
   render() {
     const sourceUrls = this.getSourceUrls();
-    const { editingContacts } = this.props;
 
     return (
       <div className="grid grid_profile">
@@ -112,12 +108,11 @@ class ProfileContactsPage extends PureComponent {
             className="person-form"
             onSubmit={this.handleSubmit}
           >
-            <Loading loading={editingContacts.isRequesting} className="loading_block" />
 
             <div className="profile__info-block">
               <Element name="Contacts">
                 <InfoBlock title="Contacts">
-                  <div className="profile__block">
+                  {/* <div className="profile__block">
                     <TextInputField
                       label="Email"
                       name="email"
@@ -133,7 +128,7 @@ class ProfileContactsPage extends PureComponent {
                       label="Phone number"
                       name="phoneNumber"
                     />
-                  </div>
+                  </div> */}
                   <div className="profile__block">
                     <TextInputField
                       label="Your website"
@@ -175,7 +170,6 @@ ProfileContactsPage.propTypes = {
   initialize: PropTypes.func,
   submitSucceeded: PropTypes.bool,
   editContacts: PropTypes.func,
-  editingContacts: PTCommunication,
   handleSubmit: PropTypes.func,
   userId: PropTypes.number,
   userContacts: PropTypes.shape({

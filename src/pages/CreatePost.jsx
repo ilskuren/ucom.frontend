@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 // import OfferForm from '../components/OfferForm';
-import { setPostData, validatePost, resetPost, showAuthPopup } from '../actions';
+import { setPostData, validatePost, resetPost } from '../actions';
+import { authShowPopup } from '../actions/auth';
 import api from '../api';
 import { getPostUrl } from '../utils/posts';
 import { selectUser } from '../store/selectors';
@@ -50,7 +51,7 @@ class CreatePost extends PureComponent {
 
   save() {
     if (!this.props.user.id) {
-      this.props.showAuthPopup();
+      this.props.authShowPopup();
       return;
     }
 
@@ -94,7 +95,7 @@ CreatePost.propTypes = {
   resetPost: PropTypes.func,
   setPostData: PropTypes.func,
   validatePost: PropTypes.func,
-  showAuthPopup: PropTypes.func,
+  authShowPopup: PropTypes.func,
   post: PropTypes.objectOf(PropTypes.any),
 };
 
@@ -107,6 +108,6 @@ export default connect(
     resetPost: () => dispatch(resetPost()),
     setPostData: data => dispatch(setPostData(data)),
     validatePost: () => dispatch(validatePost()),
-    showAuthPopup: () => dispatch(showAuthPopup()),
+    authShowPopup: () => dispatch(authShowPopup()),
   }),
 )(CreatePost);

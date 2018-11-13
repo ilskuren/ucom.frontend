@@ -6,7 +6,7 @@ import IconArrowUp from '../components/Icons/ArrowUp';
 import IconArrowDown from '../components/Icons/ArrowDown';
 import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS } from '../utils/posts';
-import { showAuthPopup } from '../actions';
+import { authShowPopup } from '../actions/auth';
 import { addNotification } from '../actions/notifications';
 import { selectUser } from '../store/selectors';
 import { parseErrors } from '../utils/errors';
@@ -38,7 +38,7 @@ class Rating extends PureComponent {
 
   vote(isUp) {
     if (!this.props.user.id) {
-      this.props.showAuthPopup();
+      this.props.authShowPopup();
       return;
     }
 
@@ -100,7 +100,7 @@ Rating.propTypes = {
   postId: PropTypes.number,
   commentId: PropTypes.number,
   rating: PropTypes.number,
-  showAuthPopup: PropTypes.func,
+  authShowPopup: PropTypes.func,
   choice: PropTypes.oneOf([UPVOTE_STATUS, DOWNVOTE_STATUS, NOVOTE_STATUS]),
 };
 
@@ -113,7 +113,7 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => ({
-    showAuthPopup: () => dispatch(showAuthPopup()),
+    authShowPopup: () => dispatch(authShowPopup()),
     addNotification: data => dispatch(addNotification(data)),
   }),
 )(Rating);

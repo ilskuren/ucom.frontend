@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import Button from './Button';
 import api from '../api';
 import { getToken } from '../utils/token';
-import { showAuthPopup } from '../actions';
+import { authShowPopup } from '../actions/auth';
 import { selectUser } from '../store/selectors/user';
 
 class FollowButton extends PureComponent {
@@ -22,7 +22,7 @@ class FollowButton extends PureComponent {
 
   toggleFollow() {
     if (!this.props.user.id) {
-      this.props.showAuthPopup();
+      this.props.authShowPopup();
       return;
     }
 
@@ -66,7 +66,7 @@ class FollowButton extends PureComponent {
 }
 
 FollowButton.propTypes = {
-  showAuthPopup: PropTypes.func,
+  authShowPopup: PropTypes.func,
   follow: PropTypes.bool,
   isStretched: PropTypes.bool,
   userId: PropTypes.number,
@@ -83,6 +83,6 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => ({
-    showAuthPopup: () => dispatch(showAuthPopup()),
+    authShowPopup: () => dispatch(authShowPopup()),
   }),
 )(FollowButton);

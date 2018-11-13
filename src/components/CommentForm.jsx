@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import Avatar from './Avatar';
 import Button from './Button';
 import { getFileUrl } from '../utils/upload';
-import { showAuthPopup } from '../actions';
+import { authShowPopup } from '../actions/auth';
 import { selectUser } from '../store/selectors';
 
 class CommentForm extends PureComponent {
@@ -20,7 +20,7 @@ class CommentForm extends PureComponent {
 
   show() {
     if (!this.props.user.id) {
-      this.props.showAuthPopup();
+      this.props.authShowPopup();
       return;
     }
 
@@ -124,7 +124,7 @@ CommentForm.propTypes = {
   active: PropTypes.bool,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
-  showAuthPopup: PropTypes.func,
+  authShowPopup: PropTypes.func,
 };
 
 export default connect(
@@ -132,6 +132,6 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => ({
-    showAuthPopup: () => dispatch(showAuthPopup()),
+    authShowPopup: () => dispatch(authShowPopup()),
   }),
 )(CommentForm);

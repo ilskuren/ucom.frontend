@@ -4,21 +4,19 @@ import cn from 'classnames';
 import IconSearch from '../components/Icons/Search';
 import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
-import Eye from '../components/Icons/Eye';
 
 const TextInput = ({
   value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ...rest
 }) => {
-  const isIconExist = isSearch || error || isValid || type === 'password';
+  const isIconExist = isSearch || error || isValid;
   let icon;
+
   if (isSearch) {
     icon = <div className="text-input__icon"><IconSearch /></div>;
   } else if (error && touched) {
     icon = <div className="text-input__icon"><InputErrorIcon /></div>;
   } else if (isValid) {
     icon = <div className="text-input__icon"><InputCompleteIcon /></div>;
-  } else if (type === 'password') {
-    icon = <div className="text-input__icon text-input__icon_password"><Eye /></div>;
   }
 
   return (

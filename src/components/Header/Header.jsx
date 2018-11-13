@@ -1,7 +1,5 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
-import { showAuthPopup } from '../../actions';
 import { selectUser } from '../../store/selectors';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
@@ -41,11 +39,6 @@ class Header extends PureComponent {
   }
 }
 
-export default connect(
-  state => ({
-    user: selectUser(state),
-  }),
-  dispatch => bindActionCreators({
-    showAuthPopup,
-  }, dispatch),
-)(Header);
+export default connect(state => ({
+  user: selectUser(state),
+}))(Header);

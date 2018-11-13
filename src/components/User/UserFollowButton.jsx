@@ -6,7 +6,7 @@ import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { followUser, unfollowUser } from '../../actions/users';
 import { getUserById } from '../../store/users';
-import { showAuthPopup } from '../../actions';
+import { authShowPopup } from '../../actions/auth';
 
 const UserFollowButton = (props) => {
   if (!props.userId) {
@@ -34,7 +34,7 @@ const UserFollowButton = (props) => {
       text={userIsFollow || isOwner ? 'Following' : 'Follow'}
       onClick={() => {
         if (!props.user.id) {
-          props.showAuthPopup();
+          props.authShowPopup();
           return;
         }
 
@@ -47,7 +47,7 @@ const UserFollowButton = (props) => {
 UserFollowButton.propTypes = {
   unfollowUser: PropTypes.func.isRequired,
   followUser: PropTypes.func.isRequired,
-  showAuthPopup: PropTypes.func.isRequired,
+  authShowPopup: PropTypes.func.isRequired,
   userId: PropTypes.number.isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
@@ -60,6 +60,6 @@ export default connect(
   dispatch => bindActionCreators({
     followUser,
     unfollowUser,
-    showAuthPopup,
+    authShowPopup,
   }, dispatch),
 )(UserFollowButton);

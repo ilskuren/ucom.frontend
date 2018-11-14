@@ -1,6 +1,7 @@
 .text {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 28px;
+  white-space: pre-wrap;
 
   p {
     margin: 0 0 20px;
@@ -9,4 +10,30 @@
       margin: 0;
     }
   }
+}
+
+.text__content_minimized {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  max-height: 7em;
+
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5em;
+    background: #fff;
+    opacity: 0.8;
+  }
+}
+
+.text__show-more {
+  margin: 0.5em 0 0;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
 }

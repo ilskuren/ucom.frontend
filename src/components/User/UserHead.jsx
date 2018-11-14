@@ -5,7 +5,7 @@ import React from 'react';
 import Avatar from '../Avatar';
 import IconEdit from '../Icons/Edit';
 import Rate from '../Rate';
-import UserStatus from './UserStatus';
+import UserStatus from './UserStatus/UserStatus';
 import UserFollowButton from './UserFollowButton';
 import Followers from '../Followers/Followers';
 import { getUserById } from '../../store/users';

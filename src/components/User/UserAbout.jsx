@@ -24,7 +24,7 @@ class UserAbout extends PureComponent {
     return (
       <div className="user-section">
         <div className="user-section__title">
-          <h2 className="title title_xxsmall title_light">About</h2>
+          <h2 className="title title_xxsmall title_medium">About</h2>
         </div>
 
         <div className="user-section__text">

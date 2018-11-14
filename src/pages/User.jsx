@@ -47,7 +47,6 @@ class UserPage extends PureComponent {
           <div className="grid grid_user">
             <div className="grid__item">
               <UserAbout userId={userId} />
-              <UserOrganizations userId={userId} />
               <UserFeed
                 userId={userId}
                 pinnedPostId={+this.props.match.params.postId}
@@ -55,13 +54,14 @@ class UserPage extends PureComponent {
             </div>
 
             <div className="grid__item">
-              <UserLocation userId={userId} />
-              <UserBlockchainSince userId={userId} />
-              <UserNetworks userId={userId} />
-              <UserSocialNetworks userId={userId} />
-              <UserJobs userId={userId} />
-              <UserEducation userId={userId} />
-              <UserCreatedAt userId={userId} />
+              <UserOrganizations userId={userId} />
+              {/* <UserLocation userId={userId} /> */}
+              {/* <UserBlockchainSince userId={userId} /> */}
+              {/* <UserNetworks userId={userId} /> */}
+              {/* <UserSocialNetworks userId={userId} /> */}
+              {/* <UserJobs userId={userId} /> */}
+              {/* <UserEducation userId={userId} /> */}
+              {/* <UserCreatedAt userId={userId} /> */}
             </div>
           </div>
         </div>

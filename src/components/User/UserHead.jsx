@@ -28,7 +28,7 @@ const UserHead = (props) => {
         </div>
         <div className="user-header__account">
           <div className="user-header__name">
-            <h2 className="title title_light">{getUserName(user)}</h2>
+            <h2 className="title title_medium">{getUserName(user)}</h2>
           </div>
           <div className="user-header__account-name">@{user.nickname}</div>
           <div className="user-header__status">

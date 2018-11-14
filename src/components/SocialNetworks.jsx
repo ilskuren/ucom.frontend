@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { bind } from 'decko';
-import TextInputField from './Field/TextInputField';
+import TextInput from './TextInput';
 import Button from './Button';
 
 class SocialNetworks extends PureComponent {
@@ -15,7 +14,7 @@ class SocialNetworks extends PureComponent {
   @bind
   removeField(index) {
     const { fields } = this.props;
-    return () => fields.remove(index);
+    return () => fields.splice(index);
   }
 
   @bind
@@ -28,13 +27,12 @@ class SocialNetworks extends PureComponent {
     const { fields } = this.props;
     return (
       <div className="social-networks">
-        {fields.map((name, index) => (
+        {fields.map((value, index) => (
           <div className="social-networks__block" key={index}>
             <div className="social-networks__block">
-              <TextInputField
+              <TextInput
                 label="Your website"
-                name={name}
-                formatter={this.formatValue}
+                value={this.formatValue(value)}
               />
             </div>
             {fields.length > 1 && (
@@ -61,11 +59,5 @@ class SocialNetworks extends PureComponent {
     );
   }
 }
-
-SocialNetworks.propTypes = {
-  fields: PropTypes.shape({
-    length: PropTypes.number,
-  }),
-};
 
 export default SocialNetworks;

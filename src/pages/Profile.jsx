@@ -8,17 +8,18 @@ import VerticalMenu from '../components/VerticalMenu';
 import TextInput from '../components/TextInput';
 import Textarea from '../components/Textarea';
 import Footer from '../components/Footer';
+import SocialNetworks from '../components/SocialNetworks';
 
 // import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 // import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 // import ProfileContactsPage from './Profile/Contacts';
 
 class ProfilePage extends PureComponent {
-  componentDidMount() {
-
+  state={
+    sourceUrls: [{ sourceUrl: 'tu' }, { sourceUrl: '23y33' }],
   }
-
   render() {
+    console.log(this.props.user);
     return this.props.user.id ? (
       <div className="content">
         <div className="content__inner content__inner_medium">
@@ -93,14 +94,15 @@ class ProfilePage extends PureComponent {
                         <div className="fields__title">
                           <h1 className="title title_small">Social networks</h1>
                         </div>
-                        <div className="fields__item">
+                        <SocialNetworks fields={this.state.sourceUrls} />
+                        {/* <div className="fields__item">
                           <div className="field">
                             <div className="field__label">Your website</div>
                             <div className="field__input">
                               <TextInput />
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </Element>
                     </div>
                   </div>

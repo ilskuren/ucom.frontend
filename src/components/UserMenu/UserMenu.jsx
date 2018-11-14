@@ -96,7 +96,7 @@ const UserMenu = (props) => {
 
                       <div className="menu__item">
                         <NavLink
-                          to="/profile/general-info"
+                          to="/profile/"
                           className="menu__link menu__link_upper"
                           activeClassName="menu__link_active"
                           isActive={() => props.location.pathname === '/profile/general-info'}

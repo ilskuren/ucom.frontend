@@ -24,7 +24,6 @@ const userForm = (state = getInitialState(), action) => {
       const validation = validateFields(form, fields, state.rules);
       const errors = { ...state.errors, ...validation.errors };
       const { isValid } = validation;
-
       return {
         ...state, form, errors, isValid,
       };

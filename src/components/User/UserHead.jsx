@@ -40,7 +40,7 @@ const UserHead = (props) => {
 
                   {props.user.id && +props.user.id === +user.id && (
                     <span className="inline__item">
-                      <Link className="button-icon button-icon_edit" to="/profile/general-info">
+                      <Link className="button-icon button-icon_edit" to="/profile/">
                         <IconEdit />
                       </Link>
                     </span>

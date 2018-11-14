@@ -92,7 +92,7 @@ class ProfileContactsPage extends PureComponent {
 
   render() {
     const sourceUrls = this.getSourceUrls();
-
+    console.log(this.props, sourceUrls);
     return (
       <div className="grid grid_profile">
         <div className="grid__item">

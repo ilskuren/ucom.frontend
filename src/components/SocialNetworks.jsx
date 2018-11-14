@@ -1,30 +1,21 @@
 import React, { PureComponent } from 'react';
-import { bind } from 'decko';
 import TextInput from './TextInput';
 import Button from './Button';
 
 class SocialNetworks extends PureComponent {
-  formatValue(value) {
-    if (typeof value === 'object') {
-      return value.sourceUrl;
-    }
-    return value;
+  removeField = (index) => {
+    const { fields, onChange } = this.props;
+    onChange([...fields.filter((_, i) => index !== i)]);
   }
 
-  @bind
-  removeField(index) {
-    const { fields } = this.props;
-    return () => fields.splice(index);
-  }
-
-  @bind
-  addField() {
-    const { fields } = this.props;
-    fields.push('');
+  addField = () => {
+    const { fields, onChange } = this.props;
+    onChange([...fields, { sourceUrl: '' }]);
   }
 
   render() {
-    const { fields } = this.props;
+    const { fields, onChange } = this.props;
+    if (!fields) return null;
     return (
       <div className="social-networks">
         {fields.map((value, index) => (
@@ -32,7 +23,8 @@ class SocialNetworks extends PureComponent {
             <div className="social-networks__block">
               <TextInput
                 label="Your website"
-                value={this.formatValue(value)}
+                value={value.sourceUrl}
+                onChange={sourceUrl => onChange(Object.assign([], fields, { [index]: { ...fields[index], sourceUrl } }))}
               />
             </div>
             {fields.length > 1 && (
@@ -41,7 +33,7 @@ class SocialNetworks extends PureComponent {
                   size="small"
                   theme="transparent"
                   text="Remove"
-                  onClick={this.removeField(index)}
+                  onClick={() => this.removeField(index)}
                 />
               </div>
             )}

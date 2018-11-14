@@ -56,7 +56,7 @@ class App extends PureComponent {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signup" component={SignUp} />
-                <Route path="/profile" component={ProfilePage} />
+                <Route exact path="/profile" component={ProfilePage} />
                 <Route path="/my-profile" component={MyProfilePage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/notifications" component={NotificationsPage} />

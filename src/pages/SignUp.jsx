@@ -113,7 +113,7 @@ class SignUp extends React.PureComponent {
 
   render() {
     if (this.props.user.id) {
-      return <Redirect to="/profile/general-info" />;
+      return <Redirect to="/profile/" />;
     }
 
     return (

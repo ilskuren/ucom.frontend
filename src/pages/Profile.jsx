@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { Element } from 'react-scroll';
 import React, { PureComponent, Fragment } from 'react';
@@ -9,17 +10,28 @@ import TextInput from '../components/TextInput';
 import Textarea from '../components/Textarea';
 import Footer from '../components/Footer';
 import SocialNetworks from '../components/SocialNetworks';
+import { userFormSetForm, userFormSetData } from '../actions/userForm';
 
 // import ProfileGeneralInfoPage from './Profile/GeneralInfo';
 // import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
 // import ProfileContactsPage from './Profile/Contacts';
 
 class ProfilePage extends PureComponent {
-  state={
-    sourceUrls: [{ sourceUrl: 'tu' }, { sourceUrl: '23y33' }],
+  componentDidMount() {
+    const {
+      firstName, about, usersSources, personalWebsiteUrl,
+    } = this.props.user;
+    this.props.userFormSetData({
+      form: {
+        firstName, about, usersSources, personalWebsiteUrl,
+      },
+    });
   }
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
+    const {
+      firstName, about, usersSources, personalWebsiteUrl,
+    } = this.props.userForm.form;
     return this.props.user.id ? (
       <div className="content">
         <div className="content__inner content__inner_medium">
@@ -45,7 +57,6 @@ class ProfilePage extends PureComponent {
                     <VerticalMenu
                       sections={[
                         { name: 'PersonalInfo', title: 'Personal info' },
-                        { name: 'PersonalContacts', title: 'Personal contacts' },
                         { name: 'SocialNetworks', title: 'Social networks' },
                       ]}
                     />
@@ -61,7 +72,7 @@ class ProfilePage extends PureComponent {
                           <div className="field">
                             <div className="field__label">Displayed name</div>
                             <div className="field__input">
-                              <TextInput />
+                              <TextInput value={firstName} onChange={firstName => this.props.userFormSetForm({ firstName })} />
                             </div>
                           </div>
                         </div>
@@ -72,20 +83,20 @@ class ProfilePage extends PureComponent {
                               <Textarea
                                 placeholder="Type something..."
                                 rows={6}
+                                value={about}
+                                onChange={about => this.props.userFormSetForm({ about })}
                               />
                             </div>
                           </div>
-                        </div>
-                      </Element>
-                      <Element name="PersonalContacts">
-                        <div className="fields__title">
-                          <h1 className="title title_small">Personal contacts</h1>
                         </div>
                         <div className="fields__item">
                           <div className="field">
                             <div className="field__label">Your website</div>
                             <div className="field__input">
-                              <TextInput />
+                              <TextInput
+                                value={personalWebsiteUrl}
+                                onChange={personalWebsiteUrl => this.props.userFormSetForm({ personalWebsiteUrl })}
+                              />
                             </div>
                           </div>
                         </div>
@@ -94,7 +105,11 @@ class ProfilePage extends PureComponent {
                         <div className="fields__title">
                           <h1 className="title title_small">Social networks</h1>
                         </div>
-                        <SocialNetworks fields={this.state.sourceUrls} />
+                        <SocialNetworks
+                          fields={usersSources}
+                          onChange={usersSources => this.props.userFormSetForm({ usersSources })}
+                        />
+
                         {/* <div className="fields__item">
                           <div className="field">
                             <div className="field__label">Your website</div>
@@ -108,7 +123,7 @@ class ProfilePage extends PureComponent {
                   </div>
                 </div>
               </form>
-              {/* <Route exact path="/profile/general-info" component={ProfileGeneralInfoPage} /> */}
+              {/* <Route exact path="/profile/" component={ProfileGeneralInfoPage} /> */}
               {/* <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} /> */}
               {/* <Route exact path="/profile/contacts" component={ProfileContactsPage} /> */}
             </Fragment>
@@ -123,6 +138,13 @@ class ProfilePage extends PureComponent {
   }
 }
 
-export default connect(state => ({
-  user: selectUser(state),
-}), null)(ProfilePage);
+export default connect(
+  state => ({
+    user: selectUser(state),
+    userForm: state.userForm,
+  }),
+  dispatch => bindActionCreators({
+    userFormSetForm,
+    userFormSetData,
+  }, dispatch),
+)(ProfilePage);

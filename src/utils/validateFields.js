@@ -1,9 +1,17 @@
 import Validator from 'validatorjs';
 
-export const validateFields = (data = {}, fields = [], rules = {}) => {
+export const validateFields = (
+  data = {}, fields = [], rules = {}, isAll = false,
+  customNames = {},
+) => {
   const validation = new Validator(data, rules);
-  const isValid = validation.passes();
-  const errors = fields.reduce((value, field) => ({ ...value, [field]: validation.errors.get(field) }), {});
+  if (customNames.customName) {
+    validation.setAttributeFormatter(() => customNames.customName);
+  }
 
+  const isValid = validation.passes();
+  const errors = isAll ?
+    validation.errors.all() :
+    fields.reduce((value, field) => ({ ...value, [field]: validation.errors.get(field) }), {});
   return { isValid, errors };
 };

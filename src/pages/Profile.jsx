@@ -28,10 +28,10 @@ class ProfilePage extends PureComponent {
     });
   }
   render() {
-    // console.log(this.props.user);
     const {
       firstName, about, usersSources, personalWebsiteUrl,
     } = this.props.userForm.form;
+    const { errors } = this.props.userForm;
     return this.props.user.id ? (
       <div className="content">
         <div className="content__inner content__inner_medium">
@@ -49,7 +49,6 @@ class ProfilePage extends PureComponent {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  // props.setOrganizationActiveTab(STEPS_ID_COMMUNITY);
                 }}
               >
                 <div className="grid grid_settings">
@@ -94,8 +93,10 @@ class ProfilePage extends PureComponent {
                             <div className="field__label">Your website</div>
                             <div className="field__input">
                               <TextInput
+                                touched
                                 value={personalWebsiteUrl}
                                 onChange={personalWebsiteUrl => this.props.userFormSetForm({ personalWebsiteUrl })}
+                                error={errors.personalWebsiteUrl && errors.personalWebsiteUrl[0]}
                               />
                             </div>
                           </div>
@@ -108,6 +109,7 @@ class ProfilePage extends PureComponent {
                         <SocialNetworks
                           fields={usersSources}
                           onChange={usersSources => this.props.userFormSetForm({ usersSources })}
+                          errors={errors}
                         />
 
                         {/* <div className="fields__item">

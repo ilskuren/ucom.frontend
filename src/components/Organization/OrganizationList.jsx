@@ -1,9 +1,70 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import React, { PureComponent, Fragment } from 'react';
+import { getOrganizationById } from '../../store/organizations';
+import { getFileUrl } from '../../utils/upload';
+import OrganizationCard from './OrganizationCard';
+import { getOrganizationUrl } from '../../utils/organization';
+import OrganizationListPopup from './OrganizationListPopup';
 
-const OrganizationList = (props) => {
-  if (!props.organizationsIds || !props.organizationsIds.length) {
-    return null;
+class OrganizationList extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      popupVisible: false,
+    };
   }
-};
 
-export default OrganizationList;
+  render() {
+    if (!this.props.organizationsIds || !this.props.organizationsIds.length) {
+      return null;
+    }
+
+    const visibleOrganizations = this.props.organizationsIds
+      .sort()
+      .slice(0, this.props.limit)
+      .map(id => getOrganizationById(this.props.organizations, id));
+
+    return (
+      <Fragment>
+        <div className="organization-list">
+          <div className="organization-list__list">
+            {visibleOrganizations.map(item => (
+              <div className="organization-list__item" key={item.id}>
+                <OrganizationCard
+                  avatarSrc={getFileUrl(item.avatarFilename)}
+                  title={item.title}
+                  nickname={item.nickname}
+                  currentRate={item.currentRate}
+                  url={getOrganizationUrl(item.id)}
+                />
+              </div>
+            ))}
+          </div>
+
+          {this.props.organizationsIds.length > this.props.limit &&
+            <div className="organization-list__more">
+              <button
+                className="button-clean button-clean_link"
+                onClick={() => this.setState({ popupVisible: true })}
+              >
+                View All
+              </button>
+            </div>
+          }
+        </div>
+
+        {this.state.popupVisible &&
+          <OrganizationListPopup
+            organizationsIds={this.props.organizationsIds}
+            onClickClose={() => this.setState({ popupVisible: false })}
+          />
+        }
+      </Fragment>
+    );
+  }
+}
+
+export default connect(state => ({
+  organizations: state.organizations,
+}))(OrganizationList);

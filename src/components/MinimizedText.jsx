@@ -14,8 +14,8 @@ const MinimizedText = props => (
 
     {props.enabled &&
       <div className="text__show-more">
-        <span
-          role="presentation"
+        <button
+          className="button-clean button-clean_link"
           onClick={() => {
             if (props.onClickShowMore) {
               props.onClickShowMore();
@@ -23,8 +23,7 @@ const MinimizedText = props => (
           }}
         >
           {props.minimized ? 'Show More' : 'Hide More'}
-        </span>
-
+        </button>
       </div>
     }
   </div>

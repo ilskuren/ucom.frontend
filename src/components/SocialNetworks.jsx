@@ -25,7 +25,7 @@ class SocialNetworks extends PureComponent {
     return (
       <Fragment>
         {fields.map((value, index) => (
-          <div className="fields__item" key={index}>
+          <div className="fields__item fields__item_short" key={index}>
             <div className="field">
               <div className="field__label">Your website</div>
               <div className="field__input">

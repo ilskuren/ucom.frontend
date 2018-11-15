@@ -14,6 +14,7 @@ const users = (state = getInitialState(), action) => {
     case 'ADD_USERS': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, action.payload
+          .filter(i => i && i.id)
           .reduce((value, item) => ({ ...value, [item.id]: Object.assign({}, state.data[item.id], item) }), {})),
       });
     }

@@ -27,6 +27,7 @@ import Notifications from './Notifications';
 import socket from '../api/socket';
 import config from '../../package.json';
 import { enableGtm } from '../utils/gtm';
+import Governance from './Governance/Governance';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -65,6 +66,7 @@ class App extends PureComponent {
                 <Route exact path="/communities/:id" component={OrganizationPage} />
                 <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
                 <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
+                <Route exact path="/governance" component={Governance} />
                 <Route component={NotFoundPage} />
               </Switch>
             </div>

@@ -46,6 +46,17 @@ const HeaderMain = ({ location }) => (
           Publications
         </NavLink>
       </div>
+
+      <div className="menu__item only-desktop">
+        <NavLink
+          to="/governance"
+          className="menu__link menu__link_upper"
+          activeClassName="menu__link_active"
+          isActive={() => location.pathname.indexOf('/governance') === 0}
+        >
+          Governance
+        </NavLink>
+      </div>
     </nav>
   </div>
 );

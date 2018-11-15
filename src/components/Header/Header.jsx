@@ -1,3 +1,4 @@
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { selectUser } from '../../store/selectors';
@@ -39,6 +40,6 @@ class Header extends PureComponent {
   }
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
   user: selectUser(state),
-}))(Header);
+}))(Header));

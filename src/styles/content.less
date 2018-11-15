@@ -35,6 +35,7 @@
   }
 }
 
+
 .content__inner_medium {
   padding-left: 100px;
   padding-right: 100px;
@@ -46,6 +47,10 @@
 }
 
 .content__title {
+  margin: 0 0 50px;
+}
+
+.content__section {
   margin: 0 0 50px;
 }
 
@@ -86,5 +91,17 @@
     @media (max-width: 767px) {
       border-radius: 0;
     }
+  }
+}
+
+.content_base {
+  padding: 40px;
+
+  @media (max-width: 767px) {
+    padding: 0;
+  }
+
+  .content__inner {
+    padding: 0 200px 0 100px;
   }
 }

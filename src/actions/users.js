@@ -7,6 +7,7 @@ import { addErrorNotification } from './notifications';
 import { setUser } from './';
 import { siteNotificationsSetUnreadAmount } from './siteNotifications';
 import { getAccountState } from './wallet';
+import { addOrganizations } from './organizations';
 
 export const addUsers = payload => ({ type: 'ADD_USERS', payload });
 export const addUserIFollow = payload => ({ type: 'ADD_USER_I_FOLLOW', payload });
@@ -43,6 +44,7 @@ export const fetchUser = userId => (dispatch) => {
   loader.start();
   api.getUser(userId)
     .then((data) => {
+      dispatch(addOrganizations(data.organizations));
       dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
     })
     .catch(error => dispatch(addErrorNotification(error)))

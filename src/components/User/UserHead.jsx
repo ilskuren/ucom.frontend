@@ -22,11 +22,11 @@ const UserHead = (props) => {
 
   return (
     <div className="user-header">
-      <div className="user-header__main">
-        <div className="user-header__avatar">
+      <div className="user-header__content user-header__content_main">
+        <div className="user-header__section user-header__section_avatar">
           <Avatar size="medium" src={getFileUrl(user.avatarFilename)} />
         </div>
-        <div className="user-header__account">
+        <div className="user-header__section user-header__section_account">
           <div className="user-header__name">
             <h2 className="title title_medium">{getUserName(user)}</h2>
           </div>
@@ -35,41 +35,46 @@ const UserHead = (props) => {
             <UserStatus userId={user.id} />
           </div>
         </div>
-        <div className="user-header__rate">
+        <div className="user-header__section user-header__section_rate">
           <Rate className="rate_big" value={+user.currentRate} />
         </div>
       </div>
-      <div className="user-header__side">
-        {props.user.id && +props.user.id === +user.id ? (
-          <div className="user-header__edit-button">
-            <span className="inline">
-              <span className="inline__item">
-                <Link className="button-icon button-icon_edit button-icon_edit_bordered" to={getUserEditProfileUrl()}>
-                  <IconEdit />
-                </Link>
-              </span>
-              <span className="inline__item">
-                <Link to={getUserEditProfileUrl()}>Edit</Link>
-              </span>
-            </span>
-          </div>
-        ) : (
-          <div className="user-header__follow-button">
-            <UserFollowButton userId={+user.id} />
-          </div>
-        )}
 
-        <div className="inline inline_large">
-          {user.followedBy && (
-            <div className="inline__item">
-              <Followers title="Followers" usersIds={user.followedBy.map(item => item.id)} />
+      <div className="user-header__content">
+        <div className="user-header__section">
+          {props.user.id && +props.user.id === +user.id ? (
+            <div className="user-header__edit-button">
+              <span className="inline">
+                <span className="inline__item">
+                  <Link className="button-icon button-icon_edit button-icon_edit_bordered" to={getUserEditProfileUrl()}>
+                    <IconEdit />
+                  </Link>
+                </span>
+                <span className="inline__item">
+                  <Link to={getUserEditProfileUrl()}>Edit</Link>
+                </span>
+              </span>
+            </div>
+          ) : (
+            <div className="user-header__follow-button">
+              <UserFollowButton userId={+user.id} />
             </div>
           )}
-          {user.iFollow && (
-            <div className="inline__item">
-              <Followers title="Following" usersIds={user.iFollow.map(item => item.id)} />
-            </div>
-          )}
+        </div>
+
+        <div className="user-header__section">
+          <div className="inline inline_large">
+            {user.followedBy && (
+              <div className="inline__item">
+                <Followers title="Followers" usersIds={user.followedBy.map(item => item.id)} />
+              </div>
+            )}
+            {user.iFollow && (
+              <div className="inline__item">
+                <Followers title="Following" usersIds={user.iFollow.map(item => item.id)} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -4,18 +4,27 @@
   border-bottom: 1px solid #EAEAEA;
 }
 
-.user-header__main {
+.user-header__content {
   display: flex;
-  margin: 0 0 50px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: -18px;
 }
 
-.user-header__account {
+.user-header__content_main {
+  margin-bottom: 50px;
+}
+
+.user-header__section {
+  margin: 18px;
+}
+
+.user-header__section_account {
   flex: 1 1 auto;
-  margin: 0 36px 0 0;
 }
 
-.user-header__avatar {
-  margin: 0 36px 0 0;
+.user-header__section_rate {
+  text-align: right;
 }
 
 .user-header__name {
@@ -25,16 +34,6 @@
 .user-header__account-name {
   margin: 0 0 24px;
   color: rgba(0,0,0,0.6);
-}
-
-.user-header__rate {
-  text-align: right;
-}
-
-.user-header__side {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .user-header__follow-button {

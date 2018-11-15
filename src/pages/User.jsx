@@ -11,7 +11,7 @@ import UserSocialNetworks from '../components/User/UserSocialNetworks';
 import UserNetworks from '../components/User/UserNetworks';
 // import UserJobs from '../components/User/UserJobs';
 // import UserEducation from '../components/User/UserEducation';
-// import UserCreatedAt from '../components/User/UserCreatedAt';
+import UserCreatedAt from '../components/User/UserCreatedAt';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
 import { getUserById } from '../store/users';
@@ -57,11 +57,11 @@ class UserPage extends PureComponent {
               <UserOrganizations userId={userId} />
               <UserSocialNetworks userId={userId} />
               <UserNetworks userId={userId} />
+              <UserCreatedAt userId={userId} />
               {/* <UserLocation userId={userId} /> */}
               {/* <UserBlockchainSince userId={userId} /> */}
               {/* <UserJobs userId={userId} /> */}
               {/* <UserEducation userId={userId} /> */}
-              {/* <UserCreatedAt userId={userId} /> */}
             </div>
           </div>
         </div>

@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import Avatar from '../Avatar';
 import Rate from '../Rate';
+// import OrganizationIcon from '../Icons/Organization'
 
 const OrganizationCard = props => (
   <div className="organization-card">
     <div className="organization-card__aside">
       <Link to={props.url}>
-        <Avatar square rounded src={props.avatarSrc} />
+        <Avatar
+          isPost
+          rounded
+          src={props.avatarSrc}
+        />
       </Link>
     </div>
     <div className="organization-card__main">

@@ -5,10 +5,10 @@ import UserFeed from '../components/Feed/UserFeed';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
 import UserAbout from '../components/User/UserAbout';
+import UserSocialNetworks from '../components/User/UserSocialNetworks';
 // import UserLocation from '../components/User/UserLocation';
 // import UserBlockchainSince from '../components/User/UserBlockchainSince';
 // import UserNetworks from '../components/User/UserNetworks';
-// import UserSocialNetworks from '../components/User/UserSocialNetworks';
 // import UserJobs from '../components/User/UserJobs';
 // import UserEducation from '../components/User/UserEducation';
 // import UserCreatedAt from '../components/User/UserCreatedAt';
@@ -55,10 +55,10 @@ class UserPage extends PureComponent {
 
             <div className="grid__item">
               <UserOrganizations userId={userId} />
+              <UserSocialNetworks userId={userId} />
               {/* <UserLocation userId={userId} /> */}
               {/* <UserBlockchainSince userId={userId} /> */}
               {/* <UserNetworks userId={userId} /> */}
-              {/* <UserSocialNetworks userId={userId} /> */}
               {/* <UserJobs userId={userId} /> */}
               {/* <UserEducation userId={userId} /> */}
               {/* <UserCreatedAt userId={userId} /> */}

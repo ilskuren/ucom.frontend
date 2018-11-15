@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import Avatar from '../Avatar';
 import Rate from '../Rate';
-// import OrganizationIcon from '../Icons/Organization';
+import OrganizationIcon from '../Icons/Organization';
 
 const OrganizationCard = props => (
   <div className="organization-card">
@@ -11,7 +11,7 @@ const OrganizationCard = props => (
         <Avatar
           isPost
           rounded
-          // BlankIcon={OrganizationIcon}
+          BlankIcon={OrganizationIcon}
           src={props.avatarSrc}
         />
       </Link>

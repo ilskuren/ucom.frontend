@@ -6,7 +6,6 @@ import { getOrganizationUrl } from '../../utils/organization';
 import OrganizationCard from './OrganizationCard';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
-import OrganizationFollowButton from './OrganizationFollowButton';
 
 const OrganizationListPopup = (props) => {
   if (!props.organizationsIds || !props.organizationsIds.length) {
@@ -26,18 +25,13 @@ const OrganizationListPopup = (props) => {
           <div className="entry-list__list">
             {organizations.map(item => (
               <div className="entry-list__item" key={item.id}>
-                <div className="entry-list__card">
-                  <OrganizationCard
-                    avatarSrc={getFileUrl(item.avatarFilename)}
-                    title={item.title}
-                    nickname={item.nickname}
-                    currentRate={item.currentRate}
-                    url={getOrganizationUrl(item.id)}
-                  />
-                </div>
-                <div className="entry-list__follow">
-                  <OrganizationFollowButton organizationId={item.id} />
-                </div>
+                <OrganizationCard
+                  avatarSrc={getFileUrl(item.avatarFilename)}
+                  title={item.title}
+                  nickname={item.nickname}
+                  currentRate={item.currentRate}
+                  url={getOrganizationUrl(item.id)}
+                />
               </div>
             ))}
           </div>

@@ -38,7 +38,8 @@ class SocialNetworks extends PureComponent {
                       onChange={sourceUrl => onChange(Object.assign([], fields, { [index]: { ...fields[index], sourceUrl } }))}
                     />
                   </div>
-                  <div className="toolbar__side">
+                  {fields.length > 1 &&
+                  <div className="toolbar__side toolbar__side_center">
                     <div
                       role="presentation"
                       className="communitie-list__remove"
@@ -46,7 +47,7 @@ class SocialNetworks extends PureComponent {
                     >
                       <IconRemove />
                     </div>
-                  </div>
+                  </div>}
                 </div>
               </div>
             </div>

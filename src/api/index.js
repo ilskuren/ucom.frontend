@@ -4,7 +4,6 @@ import param from 'jquery-param';
 import { bind } from 'decko';
 import HttpActions from './HttpActions';
 import { getToken } from '../utils/token';
-import { convertServerUser, convertServerUserLogin } from './convertors';
 import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
@@ -42,7 +41,7 @@ class Api {
       account_name,
       public_key: publicKey,
     });
-    return convertServerUserLogin(response.data);
+    return humps(response.data);
   }
 
   @bind
@@ -73,7 +72,7 @@ class Api {
   async patchMyself(data) {
     const response = await this.actions.patch('/api/v1/myself', data);
 
-    return convertServerUser(response.data);
+    return humps(response.data);
   }
 
   @bind

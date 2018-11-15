@@ -14,7 +14,7 @@ import DropZone from '../components/DropZone';
 import Avatar from '../components/Avatar';
 import AvatarFromFile from '../components/AvatarFromFile';
 import SocialNetworks from '../components/SocialNetworks';
-import { userFormSetForm, userFormSetData, userFormHandleSubmit, userFormReset } from '../actions/userForm';
+import { userFormSetForm, userFormSetData, userFormHandleSubmit } from '../actions/userForm';
 import { getFileUrl } from '../utils/upload';
 
 class ProfilePage extends PureComponent {
@@ -23,7 +23,6 @@ class ProfilePage extends PureComponent {
       firstName, about, usersSources, personalWebsiteUrl, avatarFilename,
     } = this.props.user;
 
-    this.props.userFormReset();
     this.props.userFormSetData({
       form: {
         firstName, about, usersSources, personalWebsiteUrl, avatarFilename,
@@ -194,6 +193,5 @@ export default connect(
     userFormSetForm,
     userFormSetData,
     userFormHandleSubmit,
-    userFormReset,
   }, dispatch),
 )(ProfilePage);

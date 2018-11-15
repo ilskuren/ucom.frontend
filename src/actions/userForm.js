@@ -18,6 +18,7 @@ export const userFormHandleSubmit = () => async (dispatch, getState) => {
     const data = await api.patchMyself(snakes({ ...state.userForm.form, usersSources: fixedUsersSources }));
     dispatch(setUser(data));
     dispatch(userFormSetData({ saved: true, loading: false }));
+    dispatch(userFormReset());
   } catch (e) {
     dispatch(userFormSetData({
       serverErrors: parseErrors(e),

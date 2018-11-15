@@ -39,7 +39,7 @@ class Repost extends PureComponent {
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
-        <div className="post post--grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+        <div className="post post_grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}

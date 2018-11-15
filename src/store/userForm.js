@@ -8,6 +8,8 @@ const getInitialState = () => ({
     about: '',
     usersSources: [],
     personalWebsiteUrl: '',
+    avatarFilename: '',
+    saved: false,
   },
   rules: {
     personalWebsiteUrl: 'url',
@@ -23,7 +25,7 @@ const userForm = (state = getInitialState(), action) => {
     case 'USER_FORM__SET_FORM': {
       const fields = Object.keys(action.payload);
       const form = { ...state.form, ...action.payload };
-      const validation = validateFields(form, fields, state.rules, true, { customName: 'field name url' });
+      const validation = validateFields(form, fields, state.rules, true, { name: 'usersSources', customName: 'field name url' });
       const errors = { ...validation.errors };
       const { isValid } = validation;
 

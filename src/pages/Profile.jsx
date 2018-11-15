@@ -9,30 +9,45 @@ import VerticalMenu from '../components/VerticalMenu';
 import TextInput from '../components/TextInput';
 import Textarea from '../components/Textarea';
 import Footer from '../components/Footer';
+import Button from '../components/Button';
+import DropZone from '../components/DropZone';
+import Avatar from '../components/Avatar';
+import AvatarFromFile from '../components/AvatarFromFile';
 import SocialNetworks from '../components/SocialNetworks';
-import { userFormSetForm, userFormSetData } from '../actions/userForm';
-
-// import ProfileGeneralInfoPage from './Profile/GeneralInfo';
-// import ProfileWorkAndEducationPage from './Profile/WorkAndEducation';
-// import ProfileContactsPage from './Profile/Contacts';
+import { userFormSetForm, userFormSetData, userFormHandleSubmit, userFormReset } from '../actions/userForm';
+import { getFileUrl } from '../utils/upload';
 
 class ProfilePage extends PureComponent {
   componentDidMount() {
     const {
-      firstName, about, usersSources, personalWebsiteUrl,
+      firstName, about, usersSources, personalWebsiteUrl, avatarFilename,
     } = this.props.user;
+
+    this.props.userFormReset();
     this.props.userFormSetData({
       form: {
-        firstName, about, usersSources, personalWebsiteUrl,
+        firstName, about, usersSources, personalWebsiteUrl, avatarFilename,
       },
     });
   }
+
   render() {
     const {
-      firstName, about, usersSources, personalWebsiteUrl,
+      firstName, about, usersSources, personalWebsiteUrl, avatarFilename,
     } = this.props.userForm.form;
-    const { errors } = this.props.userForm;
-    return this.props.user.id ? (
+    const {
+      errors, isValid, loading, saved,
+    } = this.props.userForm;
+
+    if (saved) {
+      return <Redirect to={`/user/${this.props.user.id}`} />;
+    }
+
+    if (!this.props.user.id) {
+      return <Redirect to="/" />;
+    }
+
+    return (
       <div className="content">
         <div className="content__inner content__inner_medium">
           <div className="content__title content__title_between">
@@ -49,6 +64,7 @@ class ProfilePage extends PureComponent {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
+                  this.props.userFormHandleSubmit();
                 }}
               >
                 <div className="grid grid_settings">
@@ -65,6 +81,34 @@ class ProfilePage extends PureComponent {
                       <Element name="PersonalInfo">
                         <div className="fields__title">
                           <h1 className="title title_small">Personal info</h1>
+                        </div>
+
+                        <div className="fields__item">
+                          <div className="field field_avatar">
+                            <div className="field__label">
+                              <div className="field__section">Avatar</div>
+                              <div className="field__section">
+                                {avatarFilename && typeof avatarFilename === 'object' ? (
+                                  <AvatarFromFile size="big" file={avatarFilename} />
+                                ) : (
+                                  <Avatar size="big" src={getFileUrl(avatarFilename)} />
+                                )}
+                              </div>
+                            </div>
+                            <div className="field__input">
+                              <div className="field__section">
+                                <DropZone
+                                  onDrop={files => this.props.userFormSetForm({ avatarFilename: files[0] })}
+                                  text="Add or drag img"
+                                />
+                              </div>
+                              <div className="field__section">
+                                <div className="field__hint">
+                                  You can upload an image in JPG or PNG format. Size is not more than 1 mb.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                         <div className="fields__item">
@@ -111,31 +155,32 @@ class ProfilePage extends PureComponent {
                           onChange={usersSources => this.props.userFormSetForm({ usersSources })}
                           errors={errors}
                         />
-
-                        {/* <div className="fields__item">
+                        <div className="fields__item">
                           <div className="field">
-                            <div className="field__label">Your website</div>
                             <div className="field__input">
-                              <TextInput />
+                              <Button
+                                isStretched
+                                isUpper
+                                type="submit"
+                                text="submit"
+                                theme="red"
+                                size="big"
+                                isDisabled={!isValid || loading}
+                              />
                             </div>
                           </div>
-                        </div> */}
+                        </div>
                       </Element>
                     </div>
                   </div>
                 </div>
               </form>
-              {/* <Route exact path="/profile/" component={ProfileGeneralInfoPage} /> */}
-              {/* <Route exact path="/profile/work-and-education" component={ProfileWorkAndEducationPage} /> */}
-              {/* <Route exact path="/profile/contacts" component={ProfileContactsPage} /> */}
             </Fragment>
 
             <Footer />
           </div>
         </div>
       </div>
-    ) : (
-      <Redirect to="/" />
     );
   }
 }
@@ -148,5 +193,7 @@ export default connect(
   dispatch => bindActionCreators({
     userFormSetForm,
     userFormSetData,
+    userFormHandleSubmit,
+    userFormReset,
   }, dispatch),
 )(ProfilePage);

@@ -20,11 +20,6 @@ export const { execute: editContacts, completed: editContactsCompleted, failed: 
 export const { execute: uploadUserAvatar, completed: uploadUserAvatarCompleted, failed: uploadUserAvatarFail } =
   makeCommunicationActionCreators(USER.UPLOAD_AVATAR, USER.UPLOAD_AVATAR_COMPLETED, USER.UPLOAD_AVATAR_FAIL);
 
-// Contacts
-
-export const addUserPersonalWebSite = () => ({ type: 'ADD_USER_PERSONAL_SITE' });
-export const changeUserPersonalWebSiteUrl = payload => ({ type: 'CHANGE_USER_PERSONAL_SITE', payload });
-export const removeUserPersonalWebSite = payload => ({ type: 'REMOVE_USER_PERSONAL_SITE', payload });
 // Validate forms
 
 export const setPostData = payload => ({ type: 'SET_POST_DATA', payload });

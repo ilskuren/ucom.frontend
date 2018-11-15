@@ -23,7 +23,8 @@ class OrganizationList extends PureComponent {
     const visibleOrganizations = this.props.organizationsIds
       .sort()
       .slice(0, this.props.limit)
-      .map(id => getOrganizationById(this.props.organizations, id));
+      .map(id => getOrganizationById(this.props.organizations, id))
+      .filter(item => item && item.id);
 
     return (
       <Fragment>

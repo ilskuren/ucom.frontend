@@ -114,7 +114,12 @@ class ProfilePage extends PureComponent {
                           <div className="field">
                             <div className="field__label">Displayed name</div>
                             <div className="field__input">
-                              <TextInput value={firstName} onChange={firstName => this.props.userFormSetForm({ firstName })} />
+                              <TextInput
+                                touched
+                                error={errors.firstName && errors.firstName[0]}
+                                value={firstName}
+                                onChange={firstName => this.props.userFormSetForm({ firstName })}
+                              />
                             </div>
                           </div>
                         </div>

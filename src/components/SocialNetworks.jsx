@@ -39,7 +39,7 @@ class SocialNetworks extends PureComponent {
                     />
                   </div>
                   {fields.length > 1 &&
-                  <div className="toolbar__side toolbar__side_center">
+                  <div className="toolbar__side toolbar__side_remove-field">
                     <div
                       role="presentation"
                       className="communitie-list__remove"

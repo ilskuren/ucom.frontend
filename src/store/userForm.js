@@ -12,6 +12,7 @@ const getInitialState = () => ({
     saved: false,
   },
   rules: {
+    firstName: 'required',
     personalWebsiteUrl: 'url',
     'usersSources.*.sourceUrl': 'url',
   },

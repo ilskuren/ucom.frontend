@@ -7,23 +7,27 @@ import Panel from '../Panel';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import GovernanceVote from './GovernanceVote';
-import { governanceNodesGet } from '../../actions/governance';
+import { governanceNodesGet, governanceNodesReset } from '../../actions/governance';
 
 class Governance extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedPanelActive: false,
+      selectedPanelActive: true,
       votePopupVisibile: false,
     };
   }
 
   componentDidMount() {
+    this.props.governanceNodesReset();
     this.props.governanceNodesGet();
   }
 
   render() {
+    const selectedNodes = this.props.governance.nodes.data
+      .filter(item => item.myselfData && item.myselfData.bpVote);
+
     return (
       <Fragment>
         {this.state.votePopupVisibile &&
@@ -46,41 +50,47 @@ class Governance extends PureComponent {
               </div>
             </div>
 
-            <div className="content__section content__section_small">
-              <Panel
-                title="Selected (4)"
-                active={this.state.selectedPanelActive}
-                onClickToggler={() => this.setState({ selectedPanelActive: !this.state.selectedPanelActive })}
-              >
-                <div className="governance-selected">
-                  <div className="governance-selected__table">
-                    <GovernanceTable />
-                  </div>
-                  <div className="governance-selected__actions">
-                    <div className="governance-selected__vote">
-                      <Button
-                        isStretched
-                        size="small"
-                        theme="red"
-                        text="Vote"
-                        onClick={() => this.setState({ votePopupVisibile: true })}
-                      />
+            {selectedNodes.length > 0 &&
+              <div className="content__section content__section_small">
+                <Panel
+                  title={`Selected (${selectedNodes.length})`}
+                  active={this.state.selectedPanelActive}
+                  onClickToggler={() => this.setState({ selectedPanelActive: !this.state.selectedPanelActive })}
+                >
+                  <div className="governance-selected">
+                    <div className="governance-selected__table">
+                      <GovernanceTable data={selectedNodes} />
+                    </div>
+                    <div className="governance-selected__actions">
+                      <div className="governance-selected__vote">
+                        <Button
+                          isStretched
+                          size="small"
+                          theme="red"
+                          text="Vote"
+                          onClick={() => this.setState({ votePopupVisibile: true })}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Panel>
-            </div>
+                </Panel>
+              </div>
+            }
 
-            <div className="content__section content__section_small">
-              <div className="governance-all">
-                <div className="governance-all__title">
-                  <h2 className="title title_small">All BP</h2>
-                </div>
-                <div className="governance-all__table">
-                  <GovernanceTable />
+            {this.props.governance.nodes.data.length > 0 &&
+              <div className="content__section content__section_small">
+                <div className="governance-all">
+                  <div className="governance-all__title">
+                    <h2 className="title title_small">All BP</h2>
+                  </div>
+                  <div className="governance-all__table">
+                    <GovernanceTable
+                      data={this.props.governance.nodes.data}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </Fragment>
@@ -94,5 +104,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     governanceNodesGet,
+    governanceNodesReset,
   }, dispatch),
 )(Governance);

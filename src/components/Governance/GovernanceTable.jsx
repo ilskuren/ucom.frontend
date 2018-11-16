@@ -1,16 +1,25 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
 import React from 'react';
 import Checkbox from '../Checkbox';
-import IconTableTriangle from '../Icons/TableTriangle';
+// import IconTableTriangle from '../Icons/TableTriangle';
+import { getBpStatusById, BP_STATUS_ACTIVE_ID } from '../../utils/nodes';
+import { selectUser } from '../../store/selectors/user';
+import { governanceNodesSetVote } from '../../actions/governance';
 
-const GovernanceTable = () => (
+const GovernanceTable = props => (
   <table className="governance-table">
     <thead className="governance-table__head">
       <tr className="governance-table__row">
-        <td className="governance-table__cell governance-table__cell_id">#</td>
-        <td className="governance-table__cell governance-table__cell_name governance-table__cell_sortable">
+        {props.user.id &&
+          <td className="governance-table__cell governance-table__cell_id">#</td>
+        }
+        {/* <td className="governance-table__cell governance-table__cell_name governance-table__cell_sortable"> */}
+        <td className="governance-table__cell governance-table__cell_name">
           <span className="inline inline_small">
             <span className="inline__item">Organization</span>
-            <span className="inline__item"><IconTableTriangle /></span>
+            {/* <span className="inline__item"><IconTableTriangle /></span> */}
           </span>
         </td>
         <td className="governance-table__cell governance-table__cell_votes">Votes</td>
@@ -19,50 +28,49 @@ const GovernanceTable = () => (
       </tr>
     </thead>
     <tbody className="governance-table__body">
-      <tr className="governance-table__row">
-        <td className="governance-table__cell governance-table__cell_id" data-name="#">
-          <div className="inline">
-            <div className="inline__item"><Checkbox /></div>
-            <div className="inline__item">1</div>
-          </div>
-        </td>
-        <td className="governance-table__cell governance-table__cell_name" data-name="Organization">Walmart</td>
-        <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">4321</td>
-        <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">508.266</td>
-        <td className="governance-table__cell governance-table__cell_state" data-name="State">
-          <span className="badge">Actve</span>
-        </td>
-      </tr>
-      <tr className="governance-table__row">
-        <td className="governance-table__cell governance-table__cell_id" data-name="#">
-          <div className="inline">
-            <div className="inline__item"><Checkbox /></div>
-            <div className="inline__item">1</div>
-          </div>
-        </td>
-        <td className="governance-table__cell governance-table__cell_name" data-name="Organization">Walmart</td>
-        <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">4321</td>
-        <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">508.266</td>
-        <td className="governance-table__cell governance-table__cell_state" data-name="State">
-          <span className="badge">Actve</span>
-        </td>
-      </tr>
-      <tr className="governance-table__row">
-        <td className="governance-table__cell governance-table__cell_id" data-name="#">
-          <div className="inline">
-            <div className="inline__item"><Checkbox /></div>
-            <div className="inline__item">1</div>
-          </div>
-        </td>
-        <td className="governance-table__cell governance-table__cell_name" data-name="Organization">Walmart</td>
-        <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">4321</td>
-        <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">508.266</td>
-        <td className="governance-table__cell governance-table__cell_state" data-name="State">
-          <span className="badge">Actve</span>
-        </td>
-      </tr>
+      {props.data.map(item => (
+        <tr className="governance-table__row" key={item.id}>
+          {props.user.id &&
+            <td className="governance-table__cell governance-table__cell_id" data-name="#">
+              <div className="inline">
+                <div className="inline__item">
+                  <Checkbox
+                    isChecked={item.myselfData && item.myselfData.bpVote}
+                    onChange={() => {
+                      if (item.myselfData) {
+                        props.governanceNodesSetVote({ id: item.id, vote: !item.myselfData.bpVote });
+                      }
+                    }}
+                  />
+                </div>
+                <div className="inline__item">{item.id}</div>
+              </div>
+            </td>
+          }
+          <td className="governance-table__cell governance-table__cell_name" data-name="Organization">{item.title}</td>
+          <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">{item.votesCount}</td>
+          <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">{(+item.votesAmount).toLocaleString()}</td>
+          <td className="governance-table__cell governance-table__cell_state" data-name="State">
+            <span
+              className={classNames(
+                'badge',
+                { 'badge_green': item.bp_status === BP_STATUS_ACTIVE_ID },
+              )}
+            >
+              {getBpStatusById(item.bp_status)}
+            </span>
+          </td>
+        </tr>
+      ))}
     </tbody>
   </table>
 );
 
-export default GovernanceTable;
+export default connect(
+  state => ({
+    user: selectUser(state),
+  }),
+  dispatch => bindActionCreators({
+    governanceNodesSetVote,
+  }, dispatch),
+)(GovernanceTable);

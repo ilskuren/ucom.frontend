@@ -1,6 +1,5 @@
 const getInitialState = () => ({
   data: [],
-  metadata: {},
 });
 
 const governanceNodes = (state = getInitialState(), action) => {
@@ -8,12 +7,26 @@ const governanceNodes = (state = getInitialState(), action) => {
     case 'GOVERNANCE_NODES_RESET':
       return getInitialState();
 
-    case 'GOVERNANCE_NODES_SET_DATA':
-      return { ...state, ...action.payload };
+    case 'GOVERNANCE_NODES_ADD_DATA':
+      return {
+        ...state,
+        data: state.data.concat(action.payload),
+      };
 
-    default: {
+    case 'GOVERNANCE_NODES_SET_VOTE':
+      return {
+        ...state,
+        data: state.data.map((item) => {
+          if (+item.id === +action.payload.id && item.myselfData) {
+            item.myselfData.bpVote = action.payload.vote;
+          }
+
+          return item;
+        }),
+      };
+
+    default:
       return state;
-    }
   }
 };
 

@@ -10,6 +10,7 @@ import UserPage from '../pages/User';
 import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
 import OrganizationsPage from '../pages/Organizations';
+import AboutPage from '../pages/About';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser } from '../actions';
@@ -61,6 +62,7 @@ class App extends PureComponent {
                 <Route exact path="/posts/:id" component={Post} />
                 <Route path="/publications" component={EventsPage} />
                 <Route path="/users" component={UsersPage} />
+                <Route path="/about" component={AboutPage} />
                 <Route exact path="/communities" component={OrganizationsPage} />
                 <Route exact path="/communities/new" component={OrganizationsCreatePage} />
                 <Route exact path="/communities/:id" component={OrganizationPage} />

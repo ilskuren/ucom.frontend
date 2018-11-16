@@ -6,6 +6,8 @@ import TextInput from '../TextInput';
 import InputErrorIcon from '../Icons/InputError';
 import UserSearchInput from '../UserSearchInput';
 import { setWalletSendTokensData, sendTokens } from '../../actions/wallet';
+import api from '../../api';
+import { selectUser } from '../../store/selectors/user';
 
 const SendTokensPopup = props => (
   <div className="tokens-popup">
@@ -31,9 +33,15 @@ const SendTokensPopup = props => (
         <div className="tokens-popup__label">Destination Account</div>
         <UserSearchInput
           isMulti={false}
-          value={props.wallet.sendTokens.data.user}
+          loadOptions={q =>
+            api.searchUsers(q)
+            .then((data) => {
+              const arr = data.filter(item => item.id !== props.user.id);
+              return arr;
+            })
+          }
+          value={props.wallet.sendTokens.data.user ? props.wallet.sendTokens.data.user : null}
           onChange={user => props.setWalletSendTokensData({ user: user.accountName ? user : null })}
-
         />
         {props.wallet.sendTokens.errors.user &&
           <div className="tokens-popup__field-error">{props.wallet.sendTokens.errors.user[0]}</div>
@@ -77,6 +85,8 @@ const SendTokensPopup = props => (
 export default connect(
   state => ({
     wallet: state.wallet,
+    users: state.users,
+    user: selectUser(state),
   }),
   dispatch => bindActionCreators({
     setWalletSendTokensData,

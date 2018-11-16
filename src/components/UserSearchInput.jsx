@@ -60,6 +60,7 @@ const UserSearchInput = ({
   value,
   isMulti,
   placeholder,
+  loadOptions,
 }) => (
   <div className="dropdown">
     <AsyncSelect
@@ -70,7 +71,7 @@ const UserSearchInput = ({
       placeholder={placeholder}
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={api.searchUsers}
+      loadOptions={loadOptions || api.searchUsers}
       getOptionLabel={data => getUserName(data)}
       getOptionValue={data => data.id}
       components={{

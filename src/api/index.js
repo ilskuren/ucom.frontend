@@ -463,6 +463,13 @@ class Api {
 
     return humps(response);
   }
+
+  @bind
+  async getNodes() {
+    const response = await this.actions.get('/api/v1/blockchain/nodes/');
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

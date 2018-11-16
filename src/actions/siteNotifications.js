@@ -7,6 +7,16 @@ import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
 import { blockPageContent, unblockPageContent } from '../utils/page';
 import { isMobile } from '../utils/mediaQueries';
 
+const hide = () => ({ type: 'SITE_NOTIFICATIONS__HIDE_TOOLTIP' });
+
+export const siteNotificationsResetTooltip = () => ({ type: 'SITE_NOTIFICATIONS__RESET_TOOLTIP' });
+export const siteNotificationsResetTooltipData = () => ({ type: 'SITE_NOTIFICATIONS__RESET_TOOLTIP_DATA' });
+export const siteNotificationsAddItems = payload => ({ type: 'SITE_NOTIFICATIONS__ADD_ITEMS', payload });
+export const siteNotificationsDeleteItems = payload => ({ type: 'SITE_NOTIFICATIONS__DELETE_ITEMS', payload });
+export const siteNotificationsSetUnreadAmount = payload => ({ type: 'SITE_NOTIFICATIONS__SET_UNREAD_AMOUNT', payload });
+export const siteNotificationsSetTempArray = payload => ({ type: 'SITE_NOTIFICATIONS__SET_TEMP_ARRAY', payload });
+export const siteNotificationsSetLoading = payload => ({ type: 'SITE_NOTIFICATIONS__SET_LOADING', payload });
+
 export const showNotificationTooltip = () => {
   if (isMobile()) {
     blockPageContent();
@@ -15,20 +25,25 @@ export const showNotificationTooltip = () => {
   return ({ type: 'SITE_NOTIFICATIONS__SHOW_TOOLTIP' });
 };
 
-export const hideNotificationTooltip = () => {
+export const hideNotificationTooltip = () => async (dispatch, getState) => {
   if (isMobile()) {
     unblockPageContent();
   }
 
+  const { tempArray } = getState().siteNotifications;
+
+  if (tempArray.length) {
+    try {
+      const res = await Promise.all(tempArray.map(id => api.seenNotification(id)));
+      dispatch(siteNotificationsSetUnreadAmount(res[res.length - 1].myselfData.unreadMessagesCount));
+      dispatch(siteNotificationsSetTempArray([]));
+    } catch (error) {
+      dispatch(addErrorNotification(error));
+    }
+  }
+  dispatch(hide());
   return ({ type: 'SITE_NOTIFICATIONS__HIDE_TOOLTIP' });
 };
-
-export const siteNotificationsResetTooltip = () => ({ type: 'SITE_NOTIFICATIONS__RESET_TOOLTIP' });
-export const siteNotificationsResetTooltipData = () => ({ type: 'SITE_NOTIFICATIONS__RESET_TOOLTIP_DATA' });
-export const siteNotificationsAddItems = payload => ({ type: 'SITE_NOTIFICATIONS__ADD_ITEMS', payload });
-export const siteNotificationsDeleteItems = payload => ({ type: 'SITE_NOTIFICATIONS__DELETE_ITEMS', payload });
-export const siteNotificationsSetUnreadAmount = payload => ({ type: 'SITE_NOTIFICATIONS__SET_UNREAD_AMOUNT', payload });
-export const siteNotificationsSetLoading = payload => ({ type: 'SITE_NOTIFICATIONS__SET_LOADING', payload });
 
 export const fetchNotifications = (payload = {}) => async (dispatch) => {
   payload = {
@@ -77,14 +92,8 @@ export const declineNotification = id => async (dispatch) => {
   loader.done();
 };
 
-export const seenNotification = id => async (dispatch) => {
-  try {
-    const res = await api.seenNotification(id);
-    dispatch(siteNotificationsAddItems({ data: [res] }));
-    dispatch(siteNotificationsSetUnreadAmount(res.myselfData.unreadMessagesCount));
-  } catch (error) {
-    dispatch(addErrorNotification(error));
-  }
+export const seenNotification = id => (dispatch, getState) => {
+  dispatch(siteNotificationsSetTempArray([...getState().siteNotifications.tempArray, id]));
 };
 
 export const initNotificationsListeners = () => (dispatch) => {

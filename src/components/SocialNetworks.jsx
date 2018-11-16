@@ -17,11 +17,14 @@ class SocialNetworks extends PureComponent {
 
   render() {
     const { fields, onChange, errors } = this.props;
+
     if (!fields) return null;
+
     const myErrors = _.isEmpty(errors) ? [] :
       Object.entries(errors)
         .filter(e => e[0].indexOf('usersSources') + 1)
         .map(e => ({ [e[0].replace('usersSources.', '').replace('.sourceUrl', '')]: e[1] }));
+
     return (
       <Fragment>
         {fields.map((value, index) => (
@@ -38,6 +41,7 @@ class SocialNetworks extends PureComponent {
                       onChange={sourceUrl => onChange(Object.assign([], fields, { [index]: { ...fields[index], sourceUrl } }))}
                     />
                   </div>
+
                   {fields.length > 1 &&
                   <div className="toolbar__side toolbar__side_remove-field">
                     <div

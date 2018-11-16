@@ -51,7 +51,11 @@
 }
 
 .content__section {
-  margin: 0 0 50px;
+  margin: 0 auto 50px;
+}
+
+.content__section_small {
+  max-width: 800px;
 }
 
 .content__title_narrow {
@@ -97,11 +101,7 @@
 .content_base {
   padding: 40px;
 
-  @media (max-width: 767px) {
-    padding: 0;
-  }
-
   .content__inner {
-    padding: 0 200px 0 100px;
+    max-width: 1000px;
   }
 }

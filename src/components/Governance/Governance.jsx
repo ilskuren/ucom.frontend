@@ -1,4 +1,5 @@
 import React from 'react';
+import GovernanceTable from './GovernanceTable';
 
 const Governance = () => (
   <div className="content content_base">
@@ -13,8 +14,8 @@ const Governance = () => (
         </div>
       </div>
 
-      <div className="content__section">
-      123
+      <div className="content__section content__section_small">
+        <GovernanceTable />
       </div>
     </div>
   </div>

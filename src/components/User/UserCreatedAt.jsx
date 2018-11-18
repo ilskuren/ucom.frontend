@@ -18,7 +18,7 @@ const UserCreatedAt = (props) => {
   return (
     <div className="user-section">
       <div className="user-section__title">
-        <h3 className="title title_xsmall title_light">Created</h3>
+        <h3 className="title title_xxsmall title_medium">Created</h3>
       </div>
       <div className="user-section__content">
         {moment(user.createdAt).format('D MMM YYYY')}

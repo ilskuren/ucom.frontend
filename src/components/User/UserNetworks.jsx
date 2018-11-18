@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React from 'react';
 import { getUserById } from '../../store/users';
+import { extractHostname } from '../../utils/url';
 
 const UserNetworks = (props) => {
   const user = getUserById(props.users, props.userId);
@@ -10,30 +11,17 @@ const UserNetworks = (props) => {
     return null;
   }
 
-  if (!user.phoneNumber && !user.email) {
+  if (!user.personalWebsiteUrl) {
     return null;
   }
 
   return (
     <div className="user-section">
       <div className="user-section__title">
-        <h3 className="title title_xsmall title_light">Networks</h3>
+        <h3 className="title title_xxsmall title_medium">Networks</h3>
       </div>
       <div className="user-section__content">
-        <div className="data">
-          {user.phoneNumber && (
-            <div className="data__item">
-              <div className="data__value">{user.phoneNumber}</div>
-              <div className="data__label">Phone</div>
-            </div>
-          )}
-          {user.email && (
-            <div className="data__item">
-              <div className="data__value">{user.email}</div>
-              <div className="data__label">Email</div>
-            </div>
-          )}
-        </div>
+        <a href={user.personalWebsiteUrl} target="_blank" rel="noopener noreferrer">{extractHostname(user.personalWebsiteUrl)}</a>
       </div>
     </div>
   );

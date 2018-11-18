@@ -67,7 +67,7 @@ class PromoEditor extends PureComponent {
           <h1 className="title">Ur ideas and offers valued</h1>
         </div>
         <div className="promo-editor__text">
-          Value — your relevance, relations, measured by the community and registered on the blockchain. Your value equals coin emission that you recieve.
+          Value — your relevance, relations, measured by the community and registered on the blockchain. Your value equals the token emission that you receive.
         </div>
         <div className="promo-editor__tabs">
           <div className="promo-tabs">
@@ -88,7 +88,7 @@ class PromoEditor extends PureComponent {
         </div>
         <div className="promo-editor__sub-text">
           {this.state.activeTabId === 1 ? (
-            <Fragment>Ideas, Knowledge sharing and opinions fuel the world. Share your stories, polls, forecasts,  and get immediate response.</Fragment>
+            <Fragment>Ideas, knowledge-sharing and opinions fuel the world. Share your stories, polls, forecasts, and get immediate response.</Fragment>
           ) : (
             <Fragment>Call for an action! Involve people into what matters to you any activity on and outside the platform: sales, meetups, giveaways, promotion, votings</Fragment>
           )}

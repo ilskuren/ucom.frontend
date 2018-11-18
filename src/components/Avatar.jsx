@@ -6,7 +6,11 @@ import UserIcon from './Icons/User';
 import PostIcon from './Icons/Post';
 
 const Avatar = (props) => {
-  const BlankIcon = props.isPost ? PostIcon : UserIcon;
+  let { BlankIcon } = props;
+
+  if (!BlankIcon) {
+    BlankIcon = props.isPost ? PostIcon : UserIcon;
+  }
 
   return (
     <span

@@ -13,6 +13,7 @@ const organizations = (state = getInitialState(), action) => {
     case 'ADD_ORGANIZATIONS': {
       return Object.assign({}, state, {
         data: Object.assign({}, state.data, action.payload
+          .filter(item => item && item.id)
           .reduce((value, item) => ({ ...value, [item.id]: Object.assign({}, state.data[item.id], item) }), {})),
       });
     }

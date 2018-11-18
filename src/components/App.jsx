@@ -4,16 +4,13 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
-import MyProfilePage from '../pages/MyProfile';
 import OrganizationPage from '../pages/Organization';
-import SettingsPage from '../pages/Settings';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
 import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
-import ProductsPage from '../pages/Products';
 import OrganizationsPage from '../pages/Organizations';
-import NotificationsPage from '../pages/Notifications';
+import AboutPage from '../pages/About';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser } from '../actions';
@@ -57,9 +54,6 @@ class App extends PureComponent {
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/profile" component={ProfilePage} />
-                <Route path="/my-profile" component={MyProfilePage} />
-                <Route path="/settings" component={SettingsPage} />
-                <Route path="/notifications" component={NotificationsPage} />
                 <Route exact path="/user/:id" component={UserPage} />
                 <Route exact path="/user/:id/:postId" component={UserPage} />
                 <Route path="/posts/new/:postTypeId" component={CreatePost} />
@@ -67,7 +61,7 @@ class App extends PureComponent {
                 <Route exact path="/posts/:id" component={Post} />
                 <Route path="/publications" component={EventsPage} />
                 <Route path="/users" component={UsersPage} />
-                <Route exact path="/products" component={ProductsPage} />
+                <Route path="/about" component={AboutPage} />
                 <Route exact path="/communities" component={OrganizationsPage} />
                 <Route exact path="/communities/new" component={OrganizationsCreatePage} />
                 <Route exact path="/communities/:id" component={OrganizationPage} />

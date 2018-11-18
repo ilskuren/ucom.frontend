@@ -43,7 +43,7 @@ const Footer = () => (
             <a href="#" className="menu__link">U Token</a>
           </div> */}
           <div className="menu__item">
-            <a href="#" className="menu__link">About</a>
+            <a href="/about" className="menu__link">About</a>
           </div>
         </nav>
       </div>

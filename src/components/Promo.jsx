@@ -14,7 +14,7 @@ const Promo = () => (
             <h1 className="title">A place for you and your audience on the blockchain with a human face.</h1>
           </div>
           <div className="promo-about__text">
-            <p>Unite with other people, communicate, share your ideas and get feedback. Build your own community with u°os-based social rating that distributes a real financial value.</p>
+            <p>Unite with other people, communicate, share your ideas and get feedback. Build your own community with the U°OS-based social rating that distributes the real financial value.</p>
           </div>
           <div className="promo-about__action">
             <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Get started</Link>
@@ -89,9 +89,9 @@ const Promo = () => (
               <div className="promo-features__icon promo-features__icon_content" />
               <h2 className="promo-features__title">Create Content</h2>
               <ul className="promo-features__list">
-                <li className="promo-features__list-item">Media-Posts</li>
+                <li className="promo-features__list-item">Media-posts</li>
+                <li className="promo-features__list-item">Your feed posts</li>
                 <li className="promo-features__list-item">Offers</li>
-                <li className="promo-features__list-item">Fill your feed</li>
               </ul>
             </div>
 
@@ -100,8 +100,8 @@ const Promo = () => (
               <h2 className="promo-features__title">Engage And Interact</h2>
               <ul className="promo-features__list">
                 <li className="promo-features__list-item">Follow other members</li>
-                <li className="promo-features__list-item">Upvote or Downvote</li>
-                <li className="promo-features__list-item">Share Content</li>
+                <li className="promo-features__list-item">Upvote or downvote</li>
+                <li className="promo-features__list-item">Share content</li>
               </ul>
             </div>
           </div>

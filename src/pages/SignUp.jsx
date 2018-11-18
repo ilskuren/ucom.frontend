@@ -113,7 +113,7 @@ class SignUp extends React.PureComponent {
 
   render() {
     if (this.props.user.id) {
-      return <Redirect to="/profile/general-info" />;
+      return <Redirect to="/profile/" />;
     }
 
     return (
@@ -136,7 +136,7 @@ class SignUp extends React.PureComponent {
               )}
             >
               <h3 className="sign-up__title">User Name</h3>
-              <div className="sign-up__text">User name length must exactly 12 characters</div>
+              <div className="sign-up__text">The username must be exactly 12 characters long and can only contain lowercase latin letters and numbers 1-5.</div>
               <div className="sign-up__content sign-up__content_user-name">
                 <div className="sign-up__username-input">
                   <TextInput

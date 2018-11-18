@@ -40,9 +40,11 @@ class Feed extends PureComponent {
 
     return (
       <div className="feed">
-        <div className="feed__title">
-          <h1 className="title title_small">{this.props.title}</h1>
-        </div>
+        {this.props.title &&
+          <div className="feed__title">
+            <h1 className="title title_small">{this.props.title}</h1>
+          </div>
+        }
 
         <FeedInput
           onSubmit={(message) => {
@@ -98,7 +100,6 @@ Feed.propTypes = {
 
 Feed.defaultProps = {
   postsIds: [],
-  title: 'Ur News Feed',
 };
 
 export default connect(

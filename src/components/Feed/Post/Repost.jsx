@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getFileUrl } from '../../utils/upload';
-import { getUserName, getUserUrl } from '../../utils/user';
-import { getPostById } from '../../store/posts';
-import { getUserById } from '../../store/users';
-import { selectUser } from '../../store/selectors/user';
-import { createComment } from '../../actions/comments';
-import { updatePost } from '../../actions/posts';
+import { getFileUrl } from '../../../utils/upload';
+import { getUserName, getUserUrl } from '../../../utils/user';
+import { getPostById } from '../../../store/posts';
+import { getUserById } from '../../../store/users';
+import { selectUser } from '../../../store/selectors/user';
+import { createComment } from '../../../actions/comments';
+import { updatePost } from '../../../actions/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
@@ -28,7 +28,7 @@ class Repost extends PureComponent {
     }
 
     return (
-      <div className="repost">
+      <div className="post_repost">
         <PostFeedHeader
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
@@ -39,7 +39,7 @@ class Repost extends PureComponent {
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
-        <div className="post post--grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+        <div className="post post_grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}
@@ -62,6 +62,11 @@ class Repost extends PureComponent {
           postTypeId={post.postTypeId}
           pinned={this.props.pinned}
           el={this.el}
+          commentsIsVisible={this.props.commentsIsVisible}
+          toggleComments={this.props.toggleComments}
+          sharePopup={this.props.sharePopup}
+          toggleShare={this.props.toggleShare}
+          timestamp={this.props.timestamp}
         />
       </div>
     );

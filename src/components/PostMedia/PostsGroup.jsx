@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import PostCard from './PostCard';
-import PostItem from './PostItem';
-import { getPostUrl, getPostTypeById } from '../utils/posts';
-import { getFileUrl } from '../utils/upload';
-import { getUserUrl, getUserName } from '../utils/user';
-import api from '../api';
+import PostItem from '../PostItem';
+import { getPostUrl, getPostTypeById } from '../../utils/posts';
+import { getFileUrl } from '../../utils/upload';
+import { getUserUrl, getUserName } from '../../utils/user';
+import api from '../../api';
 
 class PostsGroup extends PureComponent {
   constructor(props) {

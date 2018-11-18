@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import FeedForm from './FeedForm';
-import IconEdit from '../Icons/Edit';
-import { escapeQuotes } from '../../utils/text';
-import { getFileUrl } from '../../utils/upload';
-import { updatePost } from '../../actions/posts';
-import { getPostById } from '../../store/posts';
-import { getPostUrl, postIsEditable } from '../../utils/posts';
+import FeedForm from '../FeedForm';
+import IconEdit from '../../Icons/Edit';
+import { escapeQuotes } from '../../../utils/text';
+import { getFileUrl } from '../../../utils/upload';
+import { updatePost } from '../../../actions/posts';
+import { getPostById } from '../../../store/posts';
+import { getPostUrl, postIsEditable } from '../../../utils/posts';
 
 class PostFeedContent extends PureComponent {
   constructor(props) {

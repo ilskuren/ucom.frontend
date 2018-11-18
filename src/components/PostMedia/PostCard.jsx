@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import Rate from './Rate';
-import Tags from './Tags';
-import UserCard from './UserCard';
+import Rate from '../Rate';
+import Tags from '../Tags';
+import UserCard from '../UserCard';
 
 const PostCard = (props) => {
   const PostLink = props.url ? Link : 'span';

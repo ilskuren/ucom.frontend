@@ -3,19 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getPostById } from '../../store/posts';
-import { selectUser } from '../../store/selectors/user';
-import { createComment } from '../../actions/comments';
-import { getFileUrl } from '../../utils/upload';
-import { getUserName, getUserUrl } from '../../utils/user';
-import { getUserById } from '../../store/users';
-import { getPinnedPostUrl } from '../../utils/posts';
-import { escapeQuotes } from '../../utils/text';
+import { getPostById } from '../../../store/posts';
+import { selectUser } from '../../../store/selectors/user';
+import { createComment } from '../../../actions/comments';
+import { getFileUrl } from '../../../utils/upload';
+import { getUserName, getUserUrl } from '../../../utils/user';
+import { getUserById } from '../../../store/users';
+import { getPinnedPostUrl } from '../../../utils/posts';
+import { escapeQuotes } from '../../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
 
-class Post extends PureComponent {
+class Direct extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
     if (!post) {
@@ -28,7 +28,7 @@ class Post extends PureComponent {
     }
 
     return (
-      <div className="post" id={`post-${post.id}`} ref={(el) => { this.el = el; }}>
+      <div className="post" id={`post-${post.id}`}>
         <PostFeedHeader
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
@@ -53,13 +53,18 @@ class Post extends PureComponent {
           postTypeId={post.postTypeId}
           pinned={this.props.pinned}
           el={this.el}
+          commentsIsVisible={this.props.commentsIsVisible}
+          toggleComments={this.props.toggleComments}
+          sharePopup={this.props.sharePopup}
+          toggleShare={this.props.toggleShare}
+          timestamp={this.props.timestamp}
         />
       </div>
     );
   }
 }
 
-Post.propTypes = {
+Direct.propTypes = {
   id: PropTypes.number,
   pinned: PropTypes.bool,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -76,4 +81,4 @@ export default connect(
   dispatch => bindActionCreators({
     createComment,
   }, dispatch),
-)(Post);
+)(Direct);

@@ -6,6 +6,7 @@ import { getOrganizationUrl } from '../../utils/organization';
 import OrganizationCard from './OrganizationCard';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
+import Rate from '../Rate';
 
 const OrganizationListPopup = (props) => {
   if (!props.organizationsIds || !props.organizationsIds.length) {
@@ -19,19 +20,23 @@ const OrganizationListPopup = (props) => {
   return (
     <Popup onClickClose={props.onClickClose}>
       <ModalContent onClickClose={props.onClickClose}>
-        <div className="entry-list">
+        <div className="entry-list entry-list_simple">
           <div className="entry-list__title">Organizations</div>
 
           <div className="entry-list__list">
             {organizations.map(item => (
               <div className="entry-list__item" key={item.id}>
-                <OrganizationCard
-                  avatarSrc={getFileUrl(item.avatarFilename)}
-                  title={item.title}
-                  nickname={item.nickname}
-                  currentRate={item.currentRate}
-                  url={getOrganizationUrl(item.id)}
-                />
+                <div className="entry-list__card">
+                  <OrganizationCard
+                    avatarSrc={getFileUrl(item.avatarFilename)}
+                    title={item.title}
+                    nickname={item.nickname}
+                    url={getOrganizationUrl(item.id)}
+                  />
+                </div>
+                <div className="entry-list__rate">
+                  <Rate value={+item.currentRate} className="rate_small" />
+                </div>
               </div>
             ))}
           </div>

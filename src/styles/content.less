@@ -44,6 +44,7 @@
   }
 }
 
+
 .content__inner_medium {
   padding-left: 100px;
   padding-right: 100px;
@@ -58,6 +59,17 @@
   margin: 0 0 50px;
 }
 
+.content__section {
+  margin: 0 auto 50px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.content__section_small {
+  max-width: 800px;
+}
 
 .content__title_between {
   display: flex;
@@ -102,5 +114,13 @@
     @media (max-width: 767px) {
       border-radius: 0;
     }
+  }
+}
+
+.content_base {
+  padding: 40px;
+
+  .content__inner {
+    max-width: 1000px;
   }
 }

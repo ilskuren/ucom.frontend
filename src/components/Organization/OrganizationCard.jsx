@@ -24,9 +24,11 @@ const OrganizationCard = props => (
         <Link to={props.url}>@{props.nickname}</Link>
       </div>
     </div>
-    <div className="organization-card__bside">
-      <Rate className="rate_small" value={props.currentRate} />
-    </div>
+    {typeof props.currentRate !== 'undefined' &&
+      <div className="organization-card__bside">
+        <Rate className="rate_small" value={props.currentRate} />
+      </div>
+    }
   </div>
 );
 

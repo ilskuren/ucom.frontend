@@ -1,18 +1,41 @@
-import React from 'react';
+import classNames from 'classnames';
+import React, { PureComponent } from 'react';
 import CloseIcon from './Icons/Close';
+import { blurPage, unblurPage } from '../utils/page';
 
-const ModalContent = props => (
-  <div className="modal-content">
-    <div
-      onClick={props.onClickClose}
-      className="modal-content__close"
-      role="presentation"
-    >
-      <CloseIcon />
-    </div>
+class ModalContent extends PureComponent {
+  componentDidMount() {
+    blurPage();
+  }
 
-    {props.children}
-  </div>
-);
+  componentWillUnmount() {
+    unblurPage();
+  }
+
+  render() {
+    return (
+      <div
+        className={classNames(
+          'modal-content',
+          { [`modal-content_${this.props.mod}`]: Boolean(this.props.mod) },
+        )}
+      >
+        {this.props.onClickClose &&
+          <div
+            onClick={this.props.onClickClose}
+            className="modal-content__close"
+            role="presentation"
+          >
+            <CloseIcon />
+          </div>
+        }
+
+        <div className="modal-content__inner">
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default ModalContent;

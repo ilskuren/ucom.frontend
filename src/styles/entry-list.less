@@ -1,7 +1,7 @@
 .entry-list {
-  padding: 40px;
   max-width: 600px;
   margin: 0 auto;
+  padding: 40px;
 }
 
 .entry-list__title {
@@ -12,18 +12,44 @@
 }
 
 .entry-list__item {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: 'a a a b c c';
+  grid-gap: 20px;
+  align-items: center;
   margin: 0 0 36px;
 
   &:last-child {
     margin-bottom: 0;
   }
+
+  @media (max-width: 679px) {
+    grid-template-areas: 'a a a a b b' 'c c c c c c';
+  }
+}
+
+.entry-list__card {
+  grid-area: a;
+}
+
+.entry-list__rate {
+  grid-area: b;
+
+  @media (max-width: 679px) {
+    text-align: right;
+  }
 }
 
 .entry-list__follow {
-  max-width: 160px;
-  width: 100%;
+  grid-area: c;
+}
 
-  @media (max-width: 679px) {
-    max-width: 100%;
+.entry-list_simple {
+  .entry-list__item {
+    grid-template-areas: 'a a a a b b';
+  }
+
+  .entry-list__rate {
+    text-align: right;
   }
 }

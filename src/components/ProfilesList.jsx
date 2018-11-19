@@ -4,51 +4,42 @@ import UserCard from './UserCard';
 import Rate from './Rate';
 import FollowButton from './FollowButton';
 
+// TODO: Replace with UsersList
 const ProfilesList = props => (
-  <div className="profiles-list">
-    <div className="profiles-list__header">
-      <h3>{props.title}</h3>
-    </div>
-    {props.users.map((user) => {
-      const {
-        userName,
-        accountName,
-        avatarUrl,
-        profileLink,
-        rate,
-        follow,
-        id,
-      } = user;
+  <div className="entry-list">
+    <div className="entry-list__title">{props.title}</div>
 
-      return (
-        <div className="profiles-list__row" key={id}>
-          <div className="profiles-list__user">
+    <div className="entry-list__list">
+      {props.users.map(item => (
+        <div className="entry-list__item" key={item.id}>
+          <div className="entry-list__card">
             <UserCard
-              userName={userName}
-              accountName={accountName}
-              avatarUrl={avatarUrl}
-              profileLink={profileLink}
+              userName={item.userName}
+              accountName={item.accountName}
+              avatarUrl={item.avatarUrl}
+              profileLink={item.profileLink}
               className="user-card_text_left"
               sign={props.noSign ? '' : '@'}
             />
           </div>
-          <div className="profiles-list__info">
-            {rate && <Rate value={rate} className="rate_profile rate_right rate_color_black" />}
 
-            {id && (
-              <div className="profiles-list__button">
-                <FollowButton
-                  follow={follow}
-                  userId={id}
-                  userAccountName={accountName}
-                  isStretched
-                />
-              </div>)
-            }
+          <div className="entry-list__rate">
+            <Rate value={item.rate} className="rate_small" />
           </div>
+
+          {item.id &&
+            <div className="entry-list__follow">
+              <FollowButton
+                follow={item.follow}
+                userId={item.id}
+                userAccountName={item.accountName}
+                isStretched
+              />
+            </div>
+          }
         </div>
-    );
-    })}
+      ))}
+    </div>
   </div>
 );
 

@@ -1,7 +1,6 @@
 import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import settings from './settings';
 import post from '../store/post';
 import auth from './auth';
 import organization from './organization';
@@ -15,12 +14,12 @@ import menuPopup from './menuPopup';
 import feeds from './feeds';
 import userForm from './userForm';
 import wallet from './wallet/index';
+import governance from './governance/index';
 import { reducer as user } from './user';
 
 const app = combineReducers({
   user,
   post,
-  settings,
   auth,
   organization,
   notifications,
@@ -33,6 +32,7 @@ const app = combineReducers({
   menuPopup,
   wallet,
   userForm,
+  governance,
 });
 const middlewares = [thunk];
 

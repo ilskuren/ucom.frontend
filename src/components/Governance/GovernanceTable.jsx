@@ -35,7 +35,7 @@ const GovernanceTable = props => (
               <div className="inline">
                 <div className="inline__item">
                   <Checkbox
-                    isChecked={item.myselfData && item.myselfData.bpVote}
+                    isChecked={Boolean(item.myselfData && item.myselfData.bpVote)}
                     onChange={() => {
                       if (item.myselfData) {
                         props.governanceNodesSetVote({ id: item.id, vote: !item.myselfData.bpVote });

@@ -20,7 +20,7 @@ class Governance extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.governanceNodesReset();
+    // this.props.governanceNodesReset();
     this.props.governanceNodesGet();
   }
 

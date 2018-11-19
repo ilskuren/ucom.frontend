@@ -7,10 +7,10 @@ const governanceNodes = (state = getInitialState(), action) => {
     case 'GOVERNANCE_NODES_RESET':
       return getInitialState();
 
-    case 'GOVERNANCE_NODES_ADD_DATA':
+    case 'GOVERNANCE_NODES_SET_DATA':
       return {
         ...state,
-        data: state.data.concat(action.payload),
+        data: action.payload,
       };
 
     case 'GOVERNANCE_NODES_SET_VOTE':

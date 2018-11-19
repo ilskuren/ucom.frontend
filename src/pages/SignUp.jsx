@@ -180,7 +180,7 @@ class SignUp extends React.PureComponent {
                 <div className="passphrase">
                   {this.state.passphrase.map(word => (
                     <span className="passphrase__word" key={word}>
-                      <span className="passphrase__label">{word}</span>
+                      <span className="passphrase__label ym-hide-content">{word}</span>
                     </span>
                   ))}
                 </div>

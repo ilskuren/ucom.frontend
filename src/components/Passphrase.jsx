@@ -30,12 +30,12 @@ class Passphrase extends PureComponent {
 
   render() {
     return (
-      <div className="passphrase">
+      <div className="passphrase ym-hide-content">
         {this.props.testWords.map((word) => {
           const bindId = uuid(1000);
 
           return (
-            <span className="passphrase__word" key={word}>
+            <span className="passphrase__word ym-hide-content" key={word}>
               <input
                 id={bindId}
                 className="passphrase__checkbox"

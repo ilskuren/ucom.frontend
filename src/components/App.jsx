@@ -14,7 +14,6 @@ import AboutPage from '../pages/About';
 import NotFoundPage from '../pages/NotFoundPage';
 import OrganizationsCreatePage from '../pages/OrganizationsCreate';
 import { setUser } from '../actions';
-import { authSetVisibility } from '../actions/auth';
 import { initNotificationsListeners, siteNotificationsSetUnreadAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
 import Header from './Header/Header';
@@ -22,7 +21,6 @@ import UserMenu from './UserMenu/UserMenu';
 import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
-import Popup from './Popup';
 import Auth from './Auth';
 import Notifications from './Notifications';
 import socket from '../api/socket';
@@ -73,12 +71,7 @@ class App extends PureComponent {
               </Switch>
             </div>
 
-            {this.props.auth.visibility &&
-              <Popup onClickClose={() => this.props.authSetVisibility(false)}>
-                <Auth onClickClose={() => this.props.authSetVisibility(false)} />
-              </Popup>
-            }
-
+            {this.props.auth.visibility && <Auth />}
             <Notifications />
             <UserMenu />
           </Page>
@@ -95,7 +88,6 @@ export default connect(
   dispatch => bindActionCreators({
     setUser,
     fetchMyself,
-    authSetVisibility,
     initNotificationsListeners,
     siteNotificationsSetUnreadAmount,
   }, dispatch),

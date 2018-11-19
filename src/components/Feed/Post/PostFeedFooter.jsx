@@ -10,49 +10,8 @@ import LastUserComments from '../../Comments/LastUserComments';
 import ShareBlock from './ShareBlock';
 import { createComment } from '../../../actions/comments';
 import { getPinnedPostUrl } from '../../../utils/posts';
-// import { scrollTo } from '../../../utils/scroll';
-
-// const POST_TOP_OFFSET = 20;
 
 class PostFeedFooter extends PureComponent {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     commentsIsVisible: false,
-  //     sharePopup: false,
-  //     timestamp: (new Date()).getTime(),
-  //   };
-  // }
-
-  // componentDidMount() {
-  //   if (this.props.pinned) {
-  //     this.showOnFeed();
-  //   }
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (!this.props.pinned && nextProps.pinned) {
-  //     this.showOnFeed();
-  //   }
-  // }
-
-  // showOnFeed() {
-  //   scrollTo(this.props.el, POST_TOP_OFFSET);
-  //   this.toggleComments();
-  // }
-
-  // toggleComments = () => {
-  //   this.setState({
-  //     timestamp: (new Date()).getTime(),
-  //     commentsIsVisible: !this.state.commentsIsVisible,
-  //   });
-  // };
-
-  // toggleShare = () => {
-  //   this.setState({ sharePopup: !this.state.sharePopup });
-  // };
-
   render() {
     const { post } = this.props;
 
@@ -115,7 +74,6 @@ class PostFeedFooter extends PureComponent {
 
 PostFeedFooter.propTypes = {
   commentsCount: PropTypes.number,
-  // pinned: PropTypes.bool,
   postTypeId: PropTypes.number,
 };
 

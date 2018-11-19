@@ -14,7 +14,7 @@ import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
 import PostCardSmall from '../../PostMedia/PostCardSmall';
-import { getPostUrl, getPostTypeById } from '../../../utils/posts';
+import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
 
 class Repost extends PureComponent {
   render() {
@@ -30,7 +30,7 @@ class Repost extends PureComponent {
     }
 
     return (
-      <div className="post_repost">
+      <div className="post post_repost">
         <PostFeedHeader
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
@@ -52,7 +52,7 @@ class Repost extends PureComponent {
             avatarUrl={getFileUrl(post.post.user.avatarFilename)}
           />
 
-          {post.post.postTypeId === 1 ? (
+          {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
             <PostCardSmall
               onFeed
               coverUrl={getFileUrl(post.mainImageFilename)}

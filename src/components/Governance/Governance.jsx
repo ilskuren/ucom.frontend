@@ -7,31 +7,28 @@ import Panel from '../Panel';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import GovernanceVote from './GovernanceVote';
-import { governanceNodesGet, governanceNodesReset } from '../../actions/governance';
+import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup } from '../../actions/governance';
+import { getSelectedNodes } from '../../store/governance';
+import { selectUser } from '../../store/selectors/user';
 
 class Governance extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedPanelActive: true,
-      votePopupVisibile: false,
+      selectedPanelActive: false,
     };
   }
 
   componentDidMount() {
-    // this.props.governanceNodesReset();
     this.props.governanceNodesGet();
   }
 
   render() {
-    const selectedNodes = this.props.governance.nodes.data
-      .filter(item => item.myselfData && item.myselfData.bpVote);
-
     return (
       <Fragment>
-        {this.state.votePopupVisibile &&
-          <Popup onClickClose={() => this.setState({ votePopupVisibile: false })}>
+        {this.props.governance.nodes.votePopupVisibile &&
+          <Popup onClickClose={() => this.props.governanceHideVotePopup()}>
             <ModalContent mod="governance-vote">
               <GovernanceVote />
             </ModalContent>
@@ -50,16 +47,16 @@ class Governance extends PureComponent {
               </div>
             </div>
 
-            {selectedNodes.length > 0 &&
+            {this.props.user.id &&
               <div className="content__section content__section_small">
                 <Panel
-                  title={`Selected (${selectedNodes.length})`}
+                  title={`Selected (${this.props.selectedNodes.length})`}
                   active={this.state.selectedPanelActive}
                   onClickToggler={() => this.setState({ selectedPanelActive: !this.state.selectedPanelActive })}
                 >
                   <div className="governance-selected">
                     <div className="governance-selected__table">
-                      <GovernanceTable data={selectedNodes} />
+                      <GovernanceTable data={this.props.selectedNodes} />
                     </div>
                     <div className="governance-selected__actions">
                       <div className="governance-selected__vote">
@@ -68,7 +65,8 @@ class Governance extends PureComponent {
                           size="small"
                           theme="red"
                           text="Vote"
-                          onClick={() => this.setState({ votePopupVisibile: true })}
+                          isDisabled={this.props.governance.nodes.loading}
+                          onClick={() => this.props.governanceShowVotePopup()}
                         />
                       </div>
                     </div>
@@ -100,10 +98,13 @@ class Governance extends PureComponent {
 
 export default connect(
   state => ({
+    user: selectUser(state),
     governance: state.governance,
+    selectedNodes: getSelectedNodes(state),
   }),
   dispatch => bindActionCreators({
     governanceNodesGet,
-    governanceNodesReset,
+    governanceHideVotePopup,
+    governanceShowVotePopup,
   }, dispatch),
 )(Governance);

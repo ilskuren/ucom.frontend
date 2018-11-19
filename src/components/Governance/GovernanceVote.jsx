@@ -1,6 +1,10 @@
-import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
 import Panel from '../Panel';
 import Button from '../Button';
+import { getSelectedNodes } from '../../store/governance';
+import { voteForBlockProducers } from '../../actions/governance';
 
 class GovernanceVote extends React.PureComponent {
   constructor(props) {
@@ -20,12 +24,18 @@ class GovernanceVote extends React.PureComponent {
               <h1 className="title title_small title_medium">Submit votes for selected producers</h1>
             </div>
 
-            <div className="content__section">
-              <div className="text">
-                <p>You will vote for this produsers:</p>
-                <p><strong>abcd1234www</strong> <strong>abcd1234www</strong> <strong>abcd1234www</strong></p>
+            {this.props.selectedNodes.length > 0 &&
+              <div className="content__section">
+                <div className="text">
+                  <p>You will vote for this produsers:</p>
+                  <p>
+                    {this.props.selectedNodes.map(item => (
+                      <Fragment key={item.id}><strong>{item.title}</strong>&nbsp;</Fragment>
+                    ))}
+                  </p>
+                </div>
               </div>
-            </div>
+            }
 
             <div className="content__section">
               <div className="governance-vote__panel">
@@ -52,6 +62,8 @@ class GovernanceVote extends React.PureComponent {
                   size="big"
                   theme="red"
                   text="Vote"
+                  isDisabled={this.props.governance.nodes.loading}
+                  onClick={() => this.props.voteForBlockProducers()}
                 />
               </div>
             </div>
@@ -62,4 +74,12 @@ class GovernanceVote extends React.PureComponent {
   }
 }
 
-export default GovernanceVote;
+export default connect(
+  state => ({
+    governance: state.governance,
+    selectedNodes: getSelectedNodes(state),
+  }),
+  dispatch => bindActionCreators({
+    voteForBlockProducers,
+  }, dispatch),
+)(GovernanceVote);

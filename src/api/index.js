@@ -470,6 +470,15 @@ class Api {
 
     return humps(response.data);
   }
+
+  @bind
+  async voteForBlockProducers(accountName, producers) {
+    const brainkey = getBrainkey();
+    const privateKey = getActivePrivateKey(brainkey);
+    const response = await WalletApi.voteForBlockProducers(accountName, privateKey, producers);
+
+    return humps(response);
+  }
 }
 
 export default new Api();

@@ -1,6 +1,7 @@
 const getInitialState = () => ({
   data: [],
   votePopupVisibile: false,
+  votePopupErrors: [],
   loading: false,
 });
 
@@ -25,6 +26,12 @@ const governanceNodes = (state = getInitialState(), action) => {
       return {
         ...state,
         loading: action.payload,
+      };
+
+    case 'GOVERNANCE_NODES_SET_VOTE_POPUP_ERROR':
+      return {
+        ...state,
+        votePopupErrors: action.payload,
       };
 
     case 'GOVERNANCE_NODES_SET_VOTE':

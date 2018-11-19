@@ -2,14 +2,19 @@ import api from '../api';
 import loader from '../utils/loader';
 import { selectUser } from '../store/selectors/user';
 import { getSelectedNodes } from '../store/governance';
-import { addErrorNotification } from './notifications';
+import { parseWalletErros } from '../utils/errors';
 
 export const governanceNodesReset = payload => ({ type: 'GOVERNANCE_NODES_RESET', payload });
 export const governanceNodesSetData = payload => ({ type: 'GOVERNANCE_NODES_SET_DATA', payload });
 export const governanceNodesSetVote = payload => ({ type: 'GOVERNANCE_NODES_SET_VOTE', payload });
-export const governanceShowVotePopup = () => ({ type: 'GOVERNANCE_NODES_SET_POPUP_VISIBILE', payload: true });
 export const governanceHideVotePopup = () => ({ type: 'GOVERNANCE_NODES_SET_POPUP_VISIBILE', payload: false });
 export const governanceNodesSetLoading = payload => ({ type: 'GOVERNANCE_NODES_SET_LOADING', payload });
+export const governanceNodesSetPopupErrors = payload => ({ type: 'GOVERNANCE_NODES_SET_VOTE_POPUP_ERROR', payload });
+
+export const governanceShowVotePopup = () => (dispatch) => {
+  dispatch(governanceNodesSetPopupErrors([]));
+  dispatch({ type: 'GOVERNANCE_NODES_SET_POPUP_VISIBILE', payload: true });
+};
 
 export const governanceNodesGet = () => async (dispatch) => {
   loader.start();
@@ -44,7 +49,9 @@ export const voteForBlockProducers = () => async (dispatch, getState) => {
     await api.voteForBlockProducers(user.accountName, selectedNodesAccountNames);
     dispatch(governanceHideVotePopup());
   } catch (e) {
-    dispatch(addErrorNotification(e));
+    const errors = parseWalletErros(e);
+
+    dispatch(governanceNodesSetPopupErrors(errors));
     console.error(e);
   }
 

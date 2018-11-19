@@ -55,6 +55,13 @@ class GovernanceVote extends React.PureComponent {
                   </div>
                 </Panel>
               </div>
+
+              {this.props.governance.nodes.votePopupErrors.length > 0 &&
+                <div className="governance-vote__error">
+                  {this.props.governance.nodes.votePopupErrors[0].message}
+                </div>
+              }
+
               <div className="governance-vote__vote">
                 <Button
                   isUpper

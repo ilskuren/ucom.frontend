@@ -6,7 +6,7 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ...rest
+  value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ymDisableKeys, ...rest
 }) => {
   const isIconExist = isSearch || error || isValid;
   let icon;
@@ -42,6 +42,7 @@ const TextInput = ({
             className={cn('text-input__input', {
               'text-input__input_error': Boolean(touched && error),
               'text-input__input_with-icon': Boolean(isIconExist),
+              'ym-disable-keys': ymDisableKeys,
             })}
             type={type || 'text'}
             disabled={disabled}

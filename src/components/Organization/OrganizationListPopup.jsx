@@ -17,7 +17,7 @@ const OrganizationListPopup = (props) => {
     .map(id => getOrganizationById(props.organizations, id));
 
   return (
-    <Popup>
+    <Popup onClickClose={props.onClickClose}>
       <ModalContent onClickClose={props.onClickClose}>
         <div className="entry-list">
           <div className="entry-list__title">Organizations</div>

@@ -21,7 +21,7 @@ const Auth = props => (
 
         <form
           noValidate
-          className="auth__form"
+          className="auth__form ym-hide-content"
           onSubmit={(e) => {
             e.preventDefault();
             props.authLogin();
@@ -31,6 +31,7 @@ const Auth = props => (
             <div className="auth__field">
               <TextInput
                 touched
+                ymDisableKeys
                 maxLength="12"
                 label="Account name"
                 disabled={props.auth.loading}
@@ -46,6 +47,7 @@ const Auth = props => (
             <div className="auth__field">
               <TextInput
                 touched
+                ymDisableKeys
                 label="Brainkey"
                 type="password"
                 disabled={props.auth.loading}

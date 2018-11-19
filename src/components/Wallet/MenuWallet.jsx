@@ -214,7 +214,7 @@ const MenuWallet = (props) => {
 
       {props.wallet.editStake.visible && (
         <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
-          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletSendTokensVisible(false)}>
+          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletEditStakeVisible(false)}>
             <SetStakePopup />
           </ModalContent>
         </Popup>
@@ -222,7 +222,7 @@ const MenuWallet = (props) => {
 
       {props.wallet.tradeRam.visible && (
         <Popup onClickClose={() => props.setWalletTradeRamVisible(false)}>
-          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletSendTokensVisible(false)}>
+          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletTradeRamVisible(false)}>
             <TradeRAMPopup />
           </ModalContent>
         </Popup>

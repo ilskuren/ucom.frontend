@@ -2,6 +2,7 @@ import api from '../api';
 import loader from '../utils/loader';
 import { selectUser } from '../store/selectors/user';
 import { getSelectedNodes } from '../store/governance';
+import { addErrorNotification } from './notifications';
 
 export const governanceNodesReset = payload => ({ type: 'GOVERNANCE_NODES_RESET', payload });
 export const governanceNodesSetData = payload => ({ type: 'GOVERNANCE_NODES_SET_DATA', payload });
@@ -43,6 +44,7 @@ export const voteForBlockProducers = () => async (dispatch, getState) => {
     await api.voteForBlockProducers(user.accountName, selectedNodesAccountNames);
     dispatch(governanceHideVotePopup());
   } catch (e) {
+    dispatch(addErrorNotification(e));
     console.error(e);
   }
 

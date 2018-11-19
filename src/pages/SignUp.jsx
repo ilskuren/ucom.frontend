@@ -16,6 +16,7 @@ import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
 import { saveBrainkey } from '../utils/brainkey';
+import ModalContent from '../components/ModalContent';
 
 class SignUp extends React.PureComponent {
   constructor(props) {
@@ -199,23 +200,25 @@ class SignUp extends React.PureComponent {
                     </CopyToClipboard>
                     {this.state.visibilityOfPopup && (
                       <Popup onClickClose={this.hidePopup}>
-                        <div className="brain-key">
-                          <div className="brain-key__title title_small"><strong>Important</strong></div>
-                          <div className="brain-key__description">
-                            Brainkey used for private keys generation and to restore them in case of loss.
-                            The brainkey generates only once, <strong>if you lose it you won’t be able to restore it!</strong>
+                        <ModalContent mod="brain-key">
+                          <div className="brain-key">
+                            <div className="brain-key__title title_small"><strong>Important</strong></div>
+                            <div className="brain-key__description">
+                              Brainkey used for private keys generation and to restore them in case of loss.
+                              The brainkey generates only once, <strong>if you lose it you won’t be able to restore it!</strong>
+                            </div>
+                            <div className="brain-key__button">
+                              <Button
+                                isUpper
+                                isStretched
+                                text="Got it"
+                                size="big"
+                                theme="red"
+                                onClick={() => this.setState({ activeStep: 2 })}
+                              />
+                            </div>
                           </div>
-                          <div className="brain-key__button">
-                            <Button
-                              isUpper
-                              isStretched
-                              text="Got it"
-                              size="big"
-                              theme="red"
-                              onClick={() => this.setState({ activeStep: 2 })}
-                            />
-                          </div>
-                        </div>
+                        </ModalContent>
                       </Popup>
                     )}
                   </div>

@@ -15,6 +15,7 @@ import {
   setWalletTradeRamIsBuy,
   claimEmission,
 } from '../../actions/wallet';
+import ModalContent from '../ModalContent';
 
 const MenuWallet = (props) => {
   const { wallet } = props;
@@ -205,19 +206,25 @@ const MenuWallet = (props) => {
 
       {props.wallet.sendTokens.visible && (
         <Popup onClickClose={() => props.setWalletSendTokensVisible(false)}>
-          <SendTokensPopup />
+          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletSendTokensVisible(false)}>
+            <SendTokensPopup />
+          </ModalContent>
         </Popup>
       )}
 
       {props.wallet.editStake.visible && (
         <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
-          <SetStakePopup />
+          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletSendTokensVisible(false)}>
+            <SetStakePopup />
+          </ModalContent>
         </Popup>
       )}
 
       {props.wallet.tradeRam.visible && (
         <Popup onClickClose={() => props.setWalletTradeRamVisible(false)}>
-          <TradeRAMPopup />
+          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletSendTokensVisible(false)}>
+            <TradeRAMPopup />
+          </ModalContent>
         </Popup>
       )}
     </Fragment>

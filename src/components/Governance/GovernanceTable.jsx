@@ -54,10 +54,10 @@ const GovernanceTable = props => (
             <span
               className={classNames(
                 'badge',
-                { 'badge_green': item.bp_status === BP_STATUS_ACTIVE_ID },
+                { 'badge_green': item.bpStatus === BP_STATUS_ACTIVE_ID },
               )}
             >
-              {getBpStatusById(item.bp_status)}
+              {getBpStatusById(item.bpStatus)}
             </span>
           </td>
         </tr>

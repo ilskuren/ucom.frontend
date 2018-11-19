@@ -12,7 +12,7 @@ import { getUserById } from '../../../store/users';
 import { getPostUrl, getPostTypeById } from '../../../utils/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedFooter from './PostFeedFooter';
-import PostCardSmall from '../../PostMedia/PostCardSmall';
+import PostCard from '../../PostMedia/PostCard';
 
 class Media extends PureComponent {
   render() {
@@ -38,7 +38,7 @@ class Media extends PureComponent {
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
-        <PostCardSmall
+        <PostCard
           onFeed
           coverUrl={getFileUrl(post.mainImageFilename)}
           rate={post.currentRate}

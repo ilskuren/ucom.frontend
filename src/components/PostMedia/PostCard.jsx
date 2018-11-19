@@ -5,6 +5,7 @@ import React from 'react';
 import Rate from '../Rate';
 import Tags from '../Tags';
 import UserCard from '../UserCard';
+import IconCloud from '../Icons/Cloud';
 
 const PostCard = (props) => {
   const PostLink = props.url ? Link : 'span';
@@ -14,11 +15,17 @@ const PostCard = (props) => {
       className={classNames(
         'post-card',
         { 'post-card_with-cover': props.coverUrl && props.coverUrl.length > 0 },
+        { 'post-card_small': props.onFeed || null },
       )}
     >
-      {props.coverUrl && props.coverUrl.length > 0 && (
+      {(props.coverUrl && props.coverUrl.length > 0) ? (
         <PostLink to={props.url} className="post-card__cover">
           <img className="post-card__img" src={props.coverUrl} alt="" />
+        </PostLink>
+      ) : (
+        <PostLink to={props.url} className="post__cover_head">
+          <div alt="cover" className="post__cover-media" />
+          <IconCloud className="post__icon-cloud" />
         </PostLink>
       )}
 
@@ -53,7 +60,7 @@ const PostCard = (props) => {
                     accountName={props.accountName}
                     profileLink={props.userUrl}
                     avatarUrl={props.userImageUrl}
-                    rate={1000}
+                    rate={props.onFeed ? null : 1000}
                   />
                 </div>
               </div>

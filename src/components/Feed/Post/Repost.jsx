@@ -13,7 +13,7 @@ import { updatePost } from '../../../actions/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
-import PostCardSmall from '../../PostMedia/PostCardSmall';
+import PostCard from '../../PostMedia/PostCard';
 import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
 
 class Repost extends PureComponent {
@@ -53,17 +53,17 @@ class Repost extends PureComponent {
           />
 
           {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
-            <PostCardSmall
+            <PostCard
               onFeed
-              coverUrl={getFileUrl(post.mainImageFilename)}
+              coverUrl={getFileUrl(post.post.mainImageFilename)}
               rate={post.currentRate}
-              title={post.title || post.leadingText}
-              url={getPostUrl(post.id)}
+              title={post.post.title || post.post.leadingText}
+              url={getPostUrl(post.post.id)}
               userUrl={getUserUrl(post.post.user && post.post.user.id)}
               userImageUrl={getFileUrl(post.post.user && post.post.user.avatarFilename)}
               userName={getUserName(post.post.user)}
               accountName={post.post.user && post.post.user.accountName}
-              tags={post.postTypeId && [getPostTypeById(post.postTypeId)]}
+              tags={post.post.postTypeId && [getPostTypeById(post.post.postTypeId)]}
               commentsCount={post.postTypeId && post.commentsCount}
               sharesCount={post.postTypeId && post.sharesCount}
             />

@@ -13,6 +13,8 @@ import { updatePost } from '../../../actions/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
+import PostCardSmall from '../../PostMedia/PostCardSmall';
+import { getPostUrl, getPostTypeById } from '../../../utils/posts';
 
 class Repost extends PureComponent {
   render() {
@@ -50,10 +52,27 @@ class Repost extends PureComponent {
             avatarUrl={getFileUrl(post.post.user.avatarFilename)}
           />
 
-          <PostFeedContent
-            postId={post.post.id}
-            userId={post.post.user.id}
-          />
+          {post.post.postTypeId === 1 ? (
+            <PostCardSmall
+              onFeed
+              coverUrl={getFileUrl(post.mainImageFilename)}
+              rate={post.currentRate}
+              title={post.title || post.leadingText}
+              url={getPostUrl(post.id)}
+              userUrl={getUserUrl(post.post.user && post.post.user.id)}
+              userImageUrl={getFileUrl(post.post.user && post.post.user.avatarFilename)}
+              userName={getUserName(post.post.user)}
+              accountName={post.post.user && post.post.user.accountName}
+              tags={post.postTypeId && [getPostTypeById(post.postTypeId)]}
+              commentsCount={post.postTypeId && post.commentsCount}
+              sharesCount={post.postTypeId && post.sharesCount}
+            />
+          ) : (
+            <PostFeedContent
+              postId={post.post.id}
+              userId={post.post.user.id}
+            />
+          )}
         </div>
 
         <PostFeedFooter

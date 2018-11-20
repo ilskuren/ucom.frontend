@@ -3,56 +3,15 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import IconComment from '../Icons/Comment';
-import IconShare from '../Icons/Share';
-import Comments from '../Comments/Comments';
-import LastUserComments from '../Comments/LastUserComments';
+import IconComment from '../../Icons/Comment';
+import IconShare from '../../Icons/Share';
+import Comments from '../../Comments/Comments';
+import LastUserComments from '../../Comments/LastUserComments';
 import ShareBlock from './ShareBlock';
-import { createComment } from '../../actions/comments';
-import { getPinnedPostUrl } from '../../utils/posts';
-import { scrollTo } from '../../utils/scroll';
-
-const POST_TOP_OFFSET = 20;
+import { createComment } from '../../../actions/comments';
+import { getPinnedPostUrl } from '../../../utils/posts';
 
 class PostFeedFooter extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      commentsIsVisible: false,
-      sharePopup: false,
-      timestamp: (new Date()).getTime(),
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.pinned && nextProps.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  showOnFeed() {
-    scrollTo(this.props.el, POST_TOP_OFFSET);
-    this.toggleComments();
-  }
-
-  toggleComments = () => {
-    this.setState({
-      timestamp: (new Date()).getTime(),
-      commentsIsVisible: !this.state.commentsIsVisible,
-    });
-  };
-
-  toggleShare = () => {
-    this.setState({ sharePopup: !this.state.sharePopup });
-  };
-
   render() {
     const { post } = this.props;
 
@@ -63,9 +22,9 @@ class PostFeedFooter extends PureComponent {
             role="presentation"
             className={classNames(
               'post__comment-count',
-              { 'post__comment-count_active': this.state.commentsIsVisible },
+              { 'post__comment-count_active': this.props.commentsIsVisible },
             )}
-            onClick={this.toggleComments}
+            onClick={this.props.toggleComments}
           >
             <span className="inline inline_small">
               <span className="inline__item">
@@ -78,9 +37,9 @@ class PostFeedFooter extends PureComponent {
             role="presentation"
             className={classNames(
               'post__share',
-              { 'post__share_active': this.state.sharePopup },
+              { 'post__share_active': this.props.sharePopup },
             )}
-            onClick={this.toggleShare}
+            onClick={this.props.toggleShare}
           >
             <span className="inline inline_small">
               <span className="inline__item">
@@ -89,23 +48,23 @@ class PostFeedFooter extends PureComponent {
               <span className="inline__item">Share</span>
             </span>
           </span>
-          {this.state.sharePopup ? (
+          {this.props.sharePopup ? (
             <div className="post__share-popup">
               <ShareBlock
                 link={getPinnedPostUrl(post)}
                 postId={post.id}
                 postTypeId={this.props.postTypeId}
-                onClickClose={() => { this.setState({ sharePopup: false }); }}
+                onClickClose={this.props.toggleShare}
               />
             </div>
           ) : null }
         </div>
 
         <div className="post__comments">
-          {this.state.commentsIsVisible ? (
+          {this.props.commentsIsVisible ? (
             <Comments postId={post.id} />
           ) : (
-            <LastUserComments postId={post.id} timestamp={this.state.timestamp} />
+            <LastUserComments postId={post.id} timestamp={this.props.timestamp} />
           )}
         </div>
       </div>
@@ -115,7 +74,6 @@ class PostFeedFooter extends PureComponent {
 
 PostFeedFooter.propTypes = {
   commentsCount: PropTypes.number,
-  pinned: PropTypes.bool,
   postTypeId: PropTypes.number,
 };
 

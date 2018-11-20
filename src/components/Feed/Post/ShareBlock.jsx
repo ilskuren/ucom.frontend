@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import IconRepost from '../Icons/Repost';
-import IconCopyLink from '../Icons/CopyLink';
-import { addRepost } from '../../actions/posts';
-import { selectUser } from '../../store/selectors/user';
+import IconRepost from '../../Icons/Repost';
+import IconCopyLink from '../../Icons/CopyLink';
+import { addRepost } from '../../../actions/posts';
+import { selectUser } from '../../../store/selectors/user';
 
 class ShareBlock extends PureComponent {
   constructor(props) {

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import PostRating from '../Rating/PostRating';
-import IconRepost from '../Icons/Repost';
-import UserCard from '../UserCard';
-import { getPostTypeById, POST_TYPE_REPOST_ID } from '../../utils/posts';
+import PostRating from '../../Rating/PostRating';
+import IconRepost from '../../Icons/Repost';
+import UserCard from '../../UserCard';
+import { getPostTypeById, POST_TYPE_REPOST_ID } from '../../../utils/posts';
 
 class PostFeedHeader extends PureComponent {
   render() {

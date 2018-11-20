@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent, Fragment } from 'react';
-import UserCard from './UserCard';
-import Popup from './Popup';
-import ModalContent from './ModalContent';
-import ProfilesList from './ProfilesList';
-import { getUserName, getUserUrl } from '../utils/user';
-import { getFileUrl } from '../utils/upload';
+import UserCard from '../UserCard';
+import Popup from '../Popup';
+import ModalContent from '../ModalContent';
+import ProfilesList from '../ProfilesList';
+import { getUserName, getUserUrl } from '../../utils/user';
+import { getFileUrl } from '../../utils/upload';
 
 class UsersGroup extends PureComponent {
   constructor(props) {

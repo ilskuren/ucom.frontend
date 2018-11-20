@@ -176,7 +176,7 @@ class SignUp extends React.PureComponent {
             >
               <h3 className="sign-up__title">Passphrase</h3>
               <div className="sign-up__text">This 12 word is your passphrase. Write them down and remember</div>
-              <div className="sign-up__content sign-up__content_passphrase">
+              <div className="sign-up__content sign-up__content_passphrase ym-hide-content">
                 <div className="passphrase">
                   {this.state.passphrase.map(word => (
                     <span className="passphrase__word" key={word}>

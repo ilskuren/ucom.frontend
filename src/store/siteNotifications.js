@@ -25,6 +25,7 @@ const getInitialState = () => ({
   tooltipVisibilty: false,
   totalUnreadAmount: 0,
   loading: false,
+  tempArray: [],
 });
 
 const siteNotifications = (state = getInitialState(), action) => {
@@ -57,6 +58,12 @@ const siteNotifications = (state = getInitialState(), action) => {
     case 'SITE_NOTIFICATIONS__SET_UNREAD_AMOUNT': {
       return {
         ...state, totalUnreadAmount: action.payload,
+      };
+    }
+
+    case 'SITE_NOTIFICATIONS__SET_TEMP_ARRAY': {
+      return {
+        ...state, tempArray: action.payload,
       };
     }
 

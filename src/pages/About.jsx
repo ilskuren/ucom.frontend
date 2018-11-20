@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import React, { PureComponent, Fragment } from 'react';
 import Footer from '../components/Footer';
 import AboutGeneralInfoPage from './About/AboutGeneralInfo';
+import LayoutBase from '../components/Layout/LayoutBase';
 
 class AboutPage extends PureComponent {
   componentDidMount() {
@@ -10,7 +11,7 @@ class AboutPage extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <LayoutBase>
         <div className="content-wrapper">
           <div className="content content_separated">
             <div className="content__inner">
@@ -85,7 +86,7 @@ class AboutPage extends PureComponent {
             <Footer />
           </div>
         </div>
-      </Fragment>
+      </LayoutBase>
     );
   }
 }

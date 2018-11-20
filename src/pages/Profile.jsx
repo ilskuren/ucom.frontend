@@ -14,6 +14,7 @@ import DropZone from '../components/DropZone';
 import Avatar from '../components/Avatar';
 import AvatarFromFile from '../components/AvatarFromFile';
 import SocialNetworks from '../components/SocialNetworks';
+import LayoutBase from '../components/Layout/LayoutBase';
 import { userFormSetForm, userFormSetData, userFormHandleSubmit } from '../actions/userForm';
 import { getFileUrl } from '../utils/upload';
 
@@ -47,144 +48,146 @@ class ProfilePage extends PureComponent {
     }
 
     return (
-      <div className="content">
-        <div className="content__inner content__inner_medium">
-          <div className="content__title content__title_between">
-            <h1 className="title">Edit Profile</h1>
-            <Link to={`/user/${this.props.user.id}`} className="button button_theme_transparent button_size_small">
-              Back to Profile
-            </Link>
-          </div>
-        </div>
-
+      <LayoutBase>
         <div className="content">
-          <div className="content__inner">
-            <Fragment>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  this.props.userFormHandleSubmit();
-                }}
-              >
-                <div className="grid grid_settings">
-                  <div className="grid__item grid__item_side">
-                    <VerticalMenu
-                      sections={[
-                        { name: 'PersonalInfo', title: 'Personal info' },
-                        { name: 'SocialNetworks', title: 'Social networks' },
-                      ]}
-                    />
-                  </div>
-                  <div className="grid__item grid__item_main">
-                    <div className="fields">
-                      <Element name="PersonalInfo">
-                        <div className="fields__title">
-                          <h1 className="title title_small">Personal info</h1>
-                        </div>
+          <div className="content__inner content__inner_medium">
+            <div className="content__title content__title_between">
+              <h1 className="title">Edit Profile</h1>
+              <Link to={`/user/${this.props.user.id}`} className="button button_theme_transparent button_size_small">
+                Back to Profile
+              </Link>
+            </div>
+          </div>
 
-                        <div className="fields__item">
-                          <div className="field field_avatar">
-                            <div className="field__label">
-                              <div className="field__section">Avatar</div>
-                              <div className="field__section">
-                                {avatarFilename && typeof avatarFilename === 'object' ? (
-                                  <AvatarFromFile size="big" file={avatarFilename} />
-                                ) : (
-                                  <Avatar size="big" src={getFileUrl(avatarFilename)} />
-                                )}
+          <div className="content">
+            <div className="content__inner">
+              <Fragment>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    this.props.userFormHandleSubmit();
+                  }}
+                >
+                  <div className="grid grid_settings">
+                    <div className="grid__item grid__item_side">
+                      <VerticalMenu
+                        sections={[
+                          { name: 'PersonalInfo', title: 'Personal info' },
+                          { name: 'SocialNetworks', title: 'Social networks' },
+                        ]}
+                      />
+                    </div>
+                    <div className="grid__item grid__item_main">
+                      <div className="fields">
+                        <Element name="PersonalInfo">
+                          <div className="fields__title">
+                            <h1 className="title title_small">Personal info</h1>
+                          </div>
+
+                          <div className="fields__item">
+                            <div className="field field_avatar">
+                              <div className="field__label">
+                                <div className="field__section">Avatar</div>
+                                <div className="field__section">
+                                  {avatarFilename && typeof avatarFilename === 'object' ? (
+                                    <AvatarFromFile size="big" file={avatarFilename} />
+                                  ) : (
+                                    <Avatar size="big" src={getFileUrl(avatarFilename)} />
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                            <div className="field__input">
-                              <div className="field__section">
-                                <DropZone
-                                  onDrop={files => this.props.userFormSetForm({ avatarFilename: files[0] })}
-                                  text="Add or drag img"
-                                />
-                              </div>
-                              <div className="field__section">
-                                <div className="field__hint">
-                                  You can upload an image in JPG or PNG format. Size is not more than 1 mb.
+                              <div className="field__input">
+                                <div className="field__section">
+                                  <DropZone
+                                    onDrop={files => this.props.userFormSetForm({ avatarFilename: files[0] })}
+                                    text="Add or drag img"
+                                  />
+                                </div>
+                                <div className="field__section">
+                                  <div className="field__hint">
+                                    You can upload an image in JPG or PNG format. Size is not more than 1 mb.
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="fields__item">
-                          <div className="field">
-                            <div className="field__label">Displayed name</div>
-                            <div className="field__input">
-                              <TextInput
-                                touched
-                                error={errors.firstName && errors.firstName[0]}
-                                value={firstName}
-                                onChange={firstName => this.props.userFormSetForm({ firstName })}
-                              />
+                          <div className="fields__item">
+                            <div className="field">
+                              <div className="field__label">Displayed name</div>
+                              <div className="field__input">
+                                <TextInput
+                                  touched
+                                  error={errors.firstName && errors.firstName[0]}
+                                  value={firstName}
+                                  onChange={firstName => this.props.userFormSetForm({ firstName })}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="fields__item">
-                          <div className="field">
-                            <div className="field__label">About me</div>
-                            <div className="field__input">
-                              <Textarea
-                                placeholder="Type something..."
-                                rows={6}
-                                value={about}
-                                onChange={about => this.props.userFormSetForm({ about })}
-                              />
+                          <div className="fields__item">
+                            <div className="field">
+                              <div className="field__label">About me</div>
+                              <div className="field__input">
+                                <Textarea
+                                  placeholder="Type something..."
+                                  rows={6}
+                                  value={about}
+                                  onChange={about => this.props.userFormSetForm({ about })}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="fields__item">
-                          <div className="field">
-                            <div className="field__label">Your website</div>
-                            <div className="field__input">
-                              <TextInput
-                                touched
-                                value={personalWebsiteUrl}
-                                onChange={personalWebsiteUrl => this.props.userFormSetForm({ personalWebsiteUrl })}
-                                error={errors.personalWebsiteUrl && errors.personalWebsiteUrl[0]}
-                              />
+                          <div className="fields__item">
+                            <div className="field">
+                              <div className="field__label">Your website</div>
+                              <div className="field__input">
+                                <TextInput
+                                  touched
+                                  value={personalWebsiteUrl}
+                                  onChange={personalWebsiteUrl => this.props.userFormSetForm({ personalWebsiteUrl })}
+                                  error={errors.personalWebsiteUrl && errors.personalWebsiteUrl[0]}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Element>
-                      <Element name="SocialNetworks">
-                        <div className="fields__title">
-                          <h1 className="title title_small">Social networks</h1>
-                        </div>
-                        <SocialNetworks
-                          fields={usersSources}
-                          onChange={usersSources => this.props.userFormSetForm({ usersSources })}
-                          errors={errors}
-                        />
-                        <div className="fields__item">
-                          <div className="field">
-                            <div className="field__input">
-                              <Button
-                                isStretched
-                                isUpper
-                                type="submit"
-                                text="submit"
-                                theme="red"
-                                size="big"
-                                isDisabled={!isValid || loading}
-                              />
+                        </Element>
+                        <Element name="SocialNetworks">
+                          <div className="fields__title">
+                            <h1 className="title title_small">Social networks</h1>
+                          </div>
+                          <SocialNetworks
+                            fields={usersSources}
+                            onChange={usersSources => this.props.userFormSetForm({ usersSources })}
+                            errors={errors}
+                          />
+                          <div className="fields__item">
+                            <div className="field">
+                              <div className="field__input">
+                                <Button
+                                  isStretched
+                                  isUpper
+                                  type="submit"
+                                  text="submit"
+                                  theme="red"
+                                  size="big"
+                                  isDisabled={!isValid || loading}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Element>
+                        </Element>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </form>
-            </Fragment>
+                </form>
+              </Fragment>
 
-            <Footer />
+              <Footer />
+            </div>
           </div>
         </div>
-      </div>
+      </LayoutBase>
     );
   }
 }

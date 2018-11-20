@@ -42,41 +42,38 @@ class App extends PureComponent {
 
   render() {
     return (
-      <Fragment>
-        <Router history={this.props.history}>
+      <Router history={this.props.history}>
+        <Fragment>
           <Page>
-            <Header />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              {/* <Route path="/signup" component={SignUp} /> */}
+              <Route path="/registration" component={Registration} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route exact path="/user/:id" component={UserPage} />
+              <Route exact path="/user/:id/:postId" component={UserPage} />
+              <Route path="/posts/new/:postTypeId" component={CreatePost} />
+              <Route path="/posts/:id/edit" component={CreatePost} />
+              <Route exact path="/posts/:id" component={Post} />
+              <Route path="/publications" component={EventsPage} />
+              <Route path="/users" component={UsersPage} />
+              <Route path="/about" component={AboutPage} />
+              <Route exact path="/communities" component={OrganizationsPage} />
+              <Route exact path="/communities/new" component={OrganizationsCreatePage} />
+              <Route exact path="/communities/:id" component={OrganizationPage} />
+              <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
+              <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
+              <Route exact path="/governance" component={Governance} />
+              <Route component={NotFoundPage} />
+            </Switch>
 
-            <div className="page__content">
-              <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/registration" component={Registration} />
-                <Route path="/profile" component={ProfilePage} />
-                <Route exact path="/user/:id" component={UserPage} />
-                <Route exact path="/user/:id/:postId" component={UserPage} />
-                <Route path="/posts/new/:postTypeId" component={CreatePost} />
-                <Route path="/posts/:id/edit" component={CreatePost} />
-                <Route exact path="/posts/:id" component={Post} />
-                <Route path="/publications" component={EventsPage} />
-                <Route path="/users" component={UsersPage} />
-                <Route path="/about" component={AboutPage} />
-                <Route exact path="/communities" component={OrganizationsPage} />
-                <Route exact path="/communities/new" component={OrganizationsCreatePage} />
-                <Route exact path="/communities/:id" component={OrganizationPage} />
-                <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
-                <Route exact path="/communities/:id/:postId" component={OrganizationPage} />
-                <Route exact path="/governance" component={Governance} />
-                <Route component={NotFoundPage} />
-              </Switch>
-            </div>
-
-            {this.props.auth.visibility && <Auth />}
-            <Notifications />
+            <Auth />
             <UserMenu />
           </Page>
-        </Router>
-      </Fragment>
+
+          <Notifications />
+        </Fragment>
+      </Router>
     );
   }
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 // import OfferForm from '../components/OfferForm';
+import LayoutBase from '../components/Layout/LayoutBase';
 import { setPostData, validatePost, resetPost } from '../actions';
 import { authShowPopup } from '../actions/auth';
 import api from '../api';
@@ -82,10 +83,12 @@ class CreatePost extends PureComponent {
       //   );
       default:
         return (
-          <PostForm
-            onClickSave={() => this.save()}
-            loading={this.state.loading}
-          />
+          <LayoutBase>
+            <PostForm
+              onClickSave={() => this.save()}
+              loading={this.state.loading}
+            />
+          </LayoutBase>
         );
     }
   }

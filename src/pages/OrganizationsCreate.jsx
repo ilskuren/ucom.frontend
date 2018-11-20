@@ -1,10 +1,11 @@
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import OrganizationsCreateForm from '../components/OrganizationsCreateForm';
 import { setOrganizationActiveTab, fetchOrganization, resetOrganizationData } from '../actions/organization';
 import { selectUser } from '../store/selectors/user';
+import LayoutBase from '../components/Layout/LayoutBase';
 
 class OrganizationsCreatePage extends PureComponent {
   componentDidMount() {
@@ -43,7 +44,7 @@ class OrganizationsCreatePage extends PureComponent {
     }
 
     return (
-      <Fragment>
+      <LayoutBase>
         <div className="content">
           <div className="content__inner content__inner_medium">
             <div className="content__title">
@@ -73,7 +74,7 @@ class OrganizationsCreatePage extends PureComponent {
             <OrganizationsCreateForm />
           </div>
         </div>
-      </Fragment>
+      </LayoutBase>
     );
   }
 }

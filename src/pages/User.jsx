@@ -12,6 +12,7 @@ import UserNetworks from '../components/User/UserNetworks';
 // import UserJobs from '../components/User/UserJobs';
 // import UserEducation from '../components/User/UserEducation';
 import UserCreatedAt from '../components/User/UserCreatedAt';
+import LayoutBase from '../components/Layout/LayoutBase';
 import { selectUser } from '../store/selectors/user';
 import { fetchUser } from '../actions/users';
 import { getUserById } from '../store/users';
@@ -40,32 +41,34 @@ class UserPage extends PureComponent {
     }
 
     return (
-      <div className="content content_sheet">
-        <div className="content__inner">
-          <UserHead userId={userId} />
+      <LayoutBase>
+        <div className="content content_sheet">
+          <div className="content__inner">
+            <UserHead userId={userId} />
 
-          <div className="grid grid_user">
-            <div className="grid__item">
-              <UserAbout userId={userId} />
-              <UserFeed
-                userId={userId}
-                pinnedPostId={+this.props.match.params.postId}
-              />
-            </div>
+            <div className="grid grid_user">
+              <div className="grid__item">
+                <UserAbout userId={userId} />
+                <UserFeed
+                  userId={userId}
+                  pinnedPostId={+this.props.match.params.postId}
+                />
+              </div>
 
-            <div className="grid__item">
-              <UserOrganizations userId={userId} />
-              <UserSocialNetworks userId={userId} />
-              <UserNetworks userId={userId} />
-              <UserCreatedAt userId={userId} />
-              {/* <UserLocation userId={userId} /> */}
-              {/* <UserBlockchainSince userId={userId} /> */}
-              {/* <UserJobs userId={userId} /> */}
-              {/* <UserEducation userId={userId} /> */}
+              <div className="grid__item">
+                <UserOrganizations userId={userId} />
+                <UserSocialNetworks userId={userId} />
+                <UserNetworks userId={userId} />
+                <UserCreatedAt userId={userId} />
+                {/* <UserLocation userId={userId} /> */}
+                {/* <UserBlockchainSince userId={userId} /> */}
+                {/* <UserJobs userId={userId} /> */}
+                {/* <UserEducation userId={userId} /> */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </LayoutBase>
     );
   }
 }

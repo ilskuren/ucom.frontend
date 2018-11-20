@@ -1,8 +1,10 @@
 import React from 'react';
 
 const RegistrationStepFirst = () => (
-  <div className="registration__section registration__section_first">
-    <h2 className="registration__title">U°OS Account Creation</h2>
+  <div className="registration__section registration__section_intro registration__section_active">
+    <div className="registration__title">
+      <h2 className="title">U°OS Account Creation</h2>
+    </div>
   </div>
 );
 

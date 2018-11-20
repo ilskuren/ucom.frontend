@@ -1,7 +1,196 @@
 .registration {
   box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .registration__section {
+  position: relative;
+  // opacity: 0.1;
+  transition: opacity 0.2s ease;
+  padding: 0 0 82px;
+}
 
+.registration__section_active {
+  opacity: 1;
+}
+
+.registration__section_intro {
+  padding: 215px 0 170px 0;
+}
+
+.registration__step {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  margin: 0 28px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 34px;
+}
+
+.registration__title {
+  margin: 0 0 64px;
+}
+
+.registration__title_medium {
+  margin: 0 0 24px;
+}
+
+.registration__action {
+  max-width: 200px;
+  width: 100%;
+}
+
+.registration__action_fluid {
+  min-width: 200px;
+  max-width: none;
+}
+
+.registration__text {
+  margin: 0 0 64px;
+}
+
+.registration-account-info {
+  display: flex;
+  margin: 0 0 60px;
+  font-size: 16px;
+  line-height: 20px;
+
+  strike {
+    color: @red;
+
+    span {
+      color: rgba(0,0,0,0.5);
+    }
+  }
+}
+
+.registration-account-info__section {
+  flex: 1 1 auto;
+}
+
+.registration-account-info__title {
+  margin: 0 0 15px;
+  line-height: 1;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.registration-account-field {
+  margin: 0 0 64px;
+}
+
+.registration-account-field__label {
+  font-size: 16px;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.registration-account-field__input {
+  position: relative;
+  display: inline-block;
+}
+
+.registration-account-field__data {
+  box-sizing: border-box;
+  max-width: 246px;
+  width: 100%;
+  margin: 0;
+  padding: 18px 18px 18px 34px;
+  border: 1px solid #B1B1B1;
+  font-size: 16px;
+  border-radius: 4px;
+  color: #000;
+}
+
+.registration-account-field__sign {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  margin: -0.5em 0 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.registration-account-field__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 10%;
+  border-radius: 0 0 0 4px;
+  background: @red;
+}
+
+.registration-account-field__progress_success {
+  background: #40C58B;
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+}
+
+.registration-account-field__hint {
+  margin: 13px 0 0;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.registration-brainkey-generate__title {
+  margin: 0 0 36px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.registration-brainkey-generate__progress {
+  width: 50%;
+  height: 2px;
+  margin: 0 0 24px;
+  border-radius: 1px;
+  background: @red;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    z-index: -1;
+    border-radius: 1px;
+    background: #C4C4C4;
+  }
+}
+
+.registration-brainkey-generate__bytes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.registration-brainkey-generate__byte {
+  width: 53px;
+  font-size: 16px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 3px;
+  background: #E8ECEC;
+}
+
+.registration-brainkey {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 64px;
+  line-height: 28px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.registration-brainkey__item {
+  position: relative;
+
+  &:before {
+    content: attr(data-index);
+    position: absolute;
+    bottom: 100%;
+    line-height: 1;
+    color: #E4E4E4;
+  }
 }

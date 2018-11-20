@@ -151,7 +151,7 @@ const getTitle = (props) => {
           <Link to={getOrganizationUrl(props.targetEntity.post.id)}>
             <strong>{props.targetEntity.post.title}</strong>
           </Link>
-          ’s post
+          &#160;post
         </Fragment>
       );
 
@@ -168,7 +168,7 @@ const getTitle = (props) => {
           <Link to={getOrganizationUrl(props.targetEntity.comment.organizationId)}>
             <strong>{props.targetEntity.comment.post.title}</strong>
           </Link>
-          ’s comment
+          &#160;comment
         </Fragment>
       );
 
@@ -231,7 +231,7 @@ const getTitle = (props) => {
           <Link to={getPinnedPostUrl(props.data.post)}>
             <strong>{props.targetEntity.organization.nickname}</strong>
           </Link>
-          ’s feed
+          ’feed
         </Fragment>
       );
 
@@ -245,7 +245,7 @@ const getTitle = (props) => {
           </Link>
           &nbsp;commented&nbsp;
           {props.targetEntity.organization.title}
-          ’s post
+          &#160;post
         </Fragment>
       );
 
@@ -259,7 +259,7 @@ const getTitle = (props) => {
           </Link>
           &nbsp;replied to&nbsp;
           {props.targetEntity.organization.title}
-          ’s comment
+          &#160;comment
         </Fragment>
       );
 

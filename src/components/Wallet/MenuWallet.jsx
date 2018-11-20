@@ -45,7 +45,7 @@ const MenuWallet = (props) => {
 
             <div className="inline__item">
               <div className="menu-wallet__amount">{wallet.state.data.tokens.staked}</div>
-              <div className="menu-wallet__status">Stacked, UOS</div>
+              <div className="menu-wallet__status">Staked, UOS</div>
               <div
                 className="menu-wallet__action"
                 role="presentation"

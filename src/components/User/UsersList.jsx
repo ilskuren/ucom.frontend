@@ -1,4 +1,3 @@
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -18,40 +17,35 @@ const UsersList = (props) => {
   const users = props.usersIds.map(userId => getUserById(props.users, userId));
 
   return (
-    <div className="profiles-list">
-      <div className="profiles-list__header">
-        <h3>{props.title}</h3>
-      </div>
+    <div className="entry-list">
+      <div className="entry-list__title">{props.title}</div>
 
-      <TransitionGroup className="profiles-list__content">
+      <div className="entry-list__list">
         {users.map(item => (
-          <CSSTransition
-            key={item.id}
-            timeout={500}
-            classNames="fade"
-          >
-            <div className="profiles-list__row" key={item.id}>
-              <div className="profiles-list__user">
-                <UserCard
-                  className="user-card_text_left"
-                  userName={getUserName(item)}
-                  accountName={item.accountName}
-                  avatarUrl={getFileUrl(item.avatarFilename)}
-                  profileLink={getUserUrl(item.id)}
-                  sign={props.noSign ? '' : '@'}
-                />
-              </div>
-              <div className="profiles-list__info">
-                <Rate value={+item.currentRate} className="rate_profile rate_right rate_color_black" />
-
-                <div className="profiles-list__button">
-                  <UserFollowButton userId={item.id} />
-                </div>
-              </div>
+          <div className="entry-list__item" key={item.id}>
+            <div className="entry-list__card">
+              <UserCard
+                className="user-card_text_left"
+                userName={getUserName(item)}
+                accountName={item.accountName}
+                avatarUrl={getFileUrl(item.avatarFilename)}
+                profileLink={getUserUrl(item.id)}
+                sign={props.noSign ? '' : '@'}
+              />
             </div>
-          </CSSTransition>
+
+            <div className="entry-list__rate">
+              <Rate value={+item.currentRate} className="rate_small" />
+            </div>
+
+            {item.id &&
+              <div className="entry-list__follow">
+                <UserFollowButton userId={item.id} />
+              </div>
+            }
+          </div>
         ))}
-      </TransitionGroup>
+      </div>
     </div>
   );
 };

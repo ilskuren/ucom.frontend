@@ -1,0 +1,13 @@
+export const BP_STATUS_ACTIVE_ID = 1;
+export const BP_STATUS_BACKUP_ID = 2;
+
+export const getBpStatusById = (id) => {
+  switch (id) {
+    case BP_STATUS_ACTIVE_ID:
+      return 'Actve';
+
+    case BP_STATUS_BACKUP_ID:
+    default:
+      return 'Backup';
+  }
+};

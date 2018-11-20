@@ -12,9 +12,7 @@ const Links = props => (
         <li key={index} className="links__item">
           <span className="inline">
             <span className="inline__item">
-              <span className="icon">
-                <SocialIcon sourceUrl={hostName} />
-              </span>
+              <SocialIcon sourceUrl={hostName} />
             </span>
             <span className="inline__item">
               <a href={item.sourceUrl} target="blank">{hostName}</a>

@@ -1,11 +1,7 @@
 import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
-import settings from './settings';
 import post from '../store/post';
-import userSaga from './sagas/userSaga';
 import auth from './auth';
 import organization from './organization';
 import notifications from './notifications';
@@ -16,13 +12,14 @@ import comments from './comments';
 import organizations from './organizations';
 import menuPopup from './menuPopup';
 import feeds from './feeds';
+import userForm from './userForm';
 import wallet from './wallet/index';
+import governance from './governance/index';
 import { reducer as user } from './user';
 
 const app = combineReducers({
   user,
   post,
-  settings,
   auth,
   organization,
   notifications,
@@ -34,12 +31,11 @@ const app = combineReducers({
   feeds,
   menuPopup,
   wallet,
-  form: formReducer,
+  userForm,
+  governance,
 });
-const sagaMiddleware = createSagaMiddleware();
-const middlewares = [thunk, sagaMiddleware];
+const middlewares = [thunk];
 
 const store = createStore(app, composeWithDevTools(applyMiddleware(...middlewares)));
-sagaMiddleware.run(userSaga);
 
 export default store;

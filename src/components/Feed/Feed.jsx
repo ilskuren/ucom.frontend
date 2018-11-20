@@ -3,13 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Fragment, PureComponent } from 'react';
-import Post from './Post';
-import Repost from './Repost';
+import Post from './Post/Post';
 import LoadMore from './LoadMore';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
 import { fetchPost } from '../../actions/posts';
-import { POST_TYPE_REPOST_ID } from '../../utils/posts';
 
 class Feed extends PureComponent {
   componentDidMount() {
@@ -42,9 +40,11 @@ class Feed extends PureComponent {
 
     return (
       <div className="feed">
-        <div className="feed__title">
-          <h1 className="title title_small">{this.props.title}</h1>
-        </div>
+        {this.props.title &&
+          <div className="feed__title">
+            <h1 className="title title_small">{this.props.title}</h1>
+          </div>
+        }
 
         <FeedInput
           onSubmit={(message) => {
@@ -59,17 +59,12 @@ class Feed extends PureComponent {
             <div className="feed__list">
               {posts.map(item => (
                 <div className="feed__item" key={item.id}>
-                  {(item.postTypeId === POST_TYPE_REPOST_ID) ? (
-                    <Repost
-                      id={item.id}
-                      pinned={+this.props.pinnedPostId === +item.id}
-                    />
-                  ) : (
-                    <Post
-                      id={item.id}
-                      pinned={+this.props.pinnedPostId === +item.id}
-                    />
-                  )}
+                  <Post
+                    ref={(el) => { this.el = el; }}
+                    id={item.id}
+                    postTypeId={item.postTypeId}
+                    pinned={+this.props.pinnedPostId === +item.id}
+                  />
                 </div>
               ))}
             </div>
@@ -105,7 +100,6 @@ Feed.propTypes = {
 
 Feed.defaultProps = {
   postsIds: [],
-  title: 'Ur News Feed',
 };
 
 export default connect(

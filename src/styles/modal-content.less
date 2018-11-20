@@ -1,51 +1,45 @@
 .modal-content {
   position: relative;
-  background-color: @white;
-  min-height: 100vh;
+  box-sizing: border-box;
   width: 100%;
-  margin: 0 auto;
+  padding: 40px;
+  margin: auto;
+}
 
-  &__close {
-    position: fixed;
-    top: 30px;
-    right: 40px;
-    padding: 5px;
-    z-index: 10;
-    font-size: 1.142rem;
-    background-color: @white;
+.modal-content__close {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  padding: 5px;
+  z-index: 10;
+  font-size: 1.142rem;
+  background: #fff;
+  cursor: pointer;
+}
 
-    &:hover {
-      cursor: pointer;
-    }
-  }
+.modal-content__inner {
+  position: relative;
+  z-index: 2;
+  border-radius: 5px;
+  background: #fff;
+}
 
-  &__close-text {
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
+.modal-content_governance-vote {
+  box-sizing: content-box;
+  min-height: auto;
+  max-width: 800px;
+}
 
-  &__search {
-    font-size: 1.142rem;
-    display: flex;
-    align-items: center;
-    padding: 20px 60px 20px 40px;
-    border-bottom: 1px solid @gray-lighter;
-  }
+.modal-content_auth {
+  box-sizing: content-box;
+  min-height: auto;
+  max-width: 600px;
+}
 
-  &__input {
-    width: 100%;
+.modal-content_wallet-popup {
+  max-width: 560px;
+}
 
-    & input {
-      border: none;
-
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-
-  &__main {
-    overflow-y: scroll;
-  }
+.modal-content_brain-key {
+  max-width: 800px;
 }

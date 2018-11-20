@@ -16,6 +16,7 @@ import { setUser } from '../actions';
 import { saveToken } from '../utils/token';
 import { getError } from '../utils/errors';
 import { saveBrainkey } from '../utils/brainkey';
+import ModalContent from '../components/ModalContent';
 
 class SignUp extends React.PureComponent {
   constructor(props) {
@@ -113,7 +114,7 @@ class SignUp extends React.PureComponent {
 
   render() {
     if (this.props.user.id) {
-      return <Redirect to="/profile/general-info" />;
+      return <Redirect to="/profile/" />;
     }
 
     return (
@@ -136,7 +137,7 @@ class SignUp extends React.PureComponent {
               )}
             >
               <h3 className="sign-up__title">User Name</h3>
-              <div className="sign-up__text">User name length must exactly 12 characters</div>
+              <div className="sign-up__text">The username must be exactly 12 characters long and can only contain lowercase latin letters and numbers 1-5.</div>
               <div className="sign-up__content sign-up__content_user-name">
                 <div className="sign-up__username-input">
                   <TextInput
@@ -175,11 +176,11 @@ class SignUp extends React.PureComponent {
             >
               <h3 className="sign-up__title">Passphrase</h3>
               <div className="sign-up__text">This 12 word is your passphrase. Write them down and remember</div>
-              <div className="sign-up__content sign-up__content_passphrase">
+              <div className="sign-up__content sign-up__content_passphrase ym-hide-content">
                 <div className="passphrase">
                   {this.state.passphrase.map(word => (
                     <span className="passphrase__word" key={word}>
-                      <span className="passphrase__label">{word}</span>
+                      <span className="passphrase__label ym-hide-content">{word}</span>
                     </span>
                   ))}
                 </div>
@@ -199,23 +200,25 @@ class SignUp extends React.PureComponent {
                     </CopyToClipboard>
                     {this.state.visibilityOfPopup && (
                       <Popup onClickClose={this.hidePopup}>
-                        <div className="brain-key">
-                          <div className="brain-key__title title_small"><strong>Important</strong></div>
-                          <div className="brain-key__description">
-                            Brainkey used for private keys generation and to restore them in case of loss.
-                            The brainkey generates only once, <strong>if you lose it you won’t be able to restore it!</strong>
+                        <ModalContent mod="brain-key">
+                          <div className="brain-key">
+                            <div className="brain-key__title title_small"><strong>Important</strong></div>
+                            <div className="brain-key__description">
+                              Brainkey used for private keys generation and to restore them in case of loss.
+                              The brainkey generates only once, <strong>if you lose it you won’t be able to restore it!</strong>
+                            </div>
+                            <div className="brain-key__button">
+                              <Button
+                                isUpper
+                                isStretched
+                                text="Got it"
+                                size="big"
+                                theme="red"
+                                onClick={() => this.setState({ activeStep: 2 })}
+                              />
+                            </div>
                           </div>
-                          <div className="brain-key__button">
-                            <Button
-                              isUpper
-                              isStretched
-                              text="Got it"
-                              size="big"
-                              theme="red"
-                              onClick={() => this.setState({ activeStep: 2 })}
-                            />
-                          </div>
-                        </div>
+                        </ModalContent>
                       </Popup>
                     )}
                   </div>

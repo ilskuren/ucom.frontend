@@ -15,12 +15,14 @@ import { getOrganizationEditUrl } from '../../utils/organization';
 const OrganizationHeader = (props) => {
   const organization = getOrganizationById(props.organizations, props.organizationId);
 
-  if (!organization) {
+  if (!organization || !organization.usersTeam || !organization.user) {
     return null;
   }
+
   const users = organization.usersTeam
     .filter(item => item.usersTeamStatus === 1)
     .concat([organization.user]);
+
   return (
     <div className="organization-header">
       <div className="organization-header__top">

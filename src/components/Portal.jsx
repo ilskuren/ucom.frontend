@@ -5,15 +5,22 @@ class Portal extends Component {
   constructor(props) {
     super(props);
     this.el = document.createElement('div');
-    this.modalRoot = document.getElementById('app-portal-root');
   }
 
   componentDidMount() {
-    this.modalRoot.appendChild(this.el);
+    const modalRoot = document.getElementById('app-portal-root');
+
+    if (modalRoot) {
+      modalRoot.appendChild(this.el);
+    }
   }
 
   componentWillUnmount() {
-    this.modalRoot.removeChild(this.el);
+    const modalRoot = document.getElementById('app-portal-root');
+
+    if (modalRoot) {
+      modalRoot.removeChild(this.el);
+    }
   }
 
   render() {

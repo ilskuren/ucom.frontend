@@ -13,9 +13,12 @@ const Registration = () => (
       <ModalContent>
         <div className="registration">
           <RegistrationStepIntro />
-          <RegistrationStepFirst />
-          <RegistrationStepSecond />
-          <RegistrationStepThird />
+
+          <div className="registration__sections">
+            <RegistrationStepFirst />
+            <RegistrationStepSecond />
+            <RegistrationStepThird />
+          </div>
         </div>
       </ModalContent>
     </Popup>

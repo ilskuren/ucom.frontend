@@ -1,5 +1,6 @@
 import React from 'react';
 import Popup from '../Popup';
+import RegistrationStepIntro from './RegistrationStepIntro';
 import RegistrationStepFirst from './RegistrationStepFirst';
 import RegistrationStepSecond from './RegistrationStepSecond';
 import RegistrationStepThird from './RegistrationStepThird';
@@ -11,6 +12,7 @@ const Registration = () => (
     <Popup>
       <ModalContent>
         <div className="registration">
+          <RegistrationStepIntro />
           <RegistrationStepFirst />
           <RegistrationStepSecond />
           <RegistrationStepThird />

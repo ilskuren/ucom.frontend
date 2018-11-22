@@ -1,55 +1,50 @@
-import { validateFields } from '../utils/validateFields';
-
 export const FIRST_STEP_ID = 1;
 export const SECOND_STEP_ID = 2;
 export const THIRD_STEP_ID = 3;
-export const FOURTH_STEP_ID = 4;
 
 const getInitialState = () => ({
+  accountName: '',
+  accountNameIsValid: false,
+  accountNameError: '',
   brainkey: '',
-  brainkeyVerification: '',
-  currentStepId: FIRST_STEP_ID,
+  brainkeyIsValid: false,
   acceptTerms: false,
-  sendStatistic: false,
-  loading: false,
-  errors: {},
-  serverErrors: [],
-  form: {
-    accountName: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  rules: {
-    accountName: 'required|alpha|max:12|min:12',
-    password: 'required',
-    passwordConfirm: 'required',
-  },
+  acceptSendStatistic: false,
+  activeStepId: FIRST_STEP_ID,
 });
 
-const registrationn = (state = getInitialState(), action) => {
+const registration = (state = getInitialState(), action) => {
   switch (action.type) {
     case 'REGISTRATION_RESET':
       return getInitialState();
 
-    case 'REGISTRATION_SET_FORM': {
-      const fields = Object.keys(action.payload);
-      const form = { ...state.form, ...action.payload };
-      const validation = validateFields(form, fields, state.rules);
-      const errors = { ...state.errors, ...validation.errors };
-      const { isValid } = validation;
-
+    case 'REGISTRATION_SET_STEP':
       return {
-        ...state, form, errors, isValid,
+        ...state,
+        activeStepId: action.payload,
       };
-    }
 
-    case 'REGISTRATION_SET_DATA':
-      return { ...state, ...action.payload };
+    case 'REGISTRATION_SET_ACCOUNT_NAME':
+      return {
+        ...state,
+        accountName: action.payload,
+      };
 
-    default: {
+    case 'REGISTRATION_SET_ACCOUNT_NAME_ERROR':
+      return {
+        ...state,
+        accountNameError: action.payload,
+      };
+
+    case 'REGISTRATION_SET_ACCOUNT_NAME_IS_VALID':
+      return {
+        ...state,
+        accountNameIsValid: action.payload,
+      };
+
+    default:
       return state;
-    }
   }
 };
 
-export default registrationn;
+export default registration;

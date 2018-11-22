@@ -132,6 +132,12 @@
   font-size: 16px;
   border-radius: 4px;
   color: #000;
+  outline: none;
+
+  &::placeholder {
+    opacity: 1;
+    color: #C4C4C4;
+  }
 }
 
 .registration-account-field__sign {
@@ -151,12 +157,26 @@
   width: 10%;
   border-radius: 0 0 0 4px;
   background: @red;
+  transition: width 0.2s ease;
 }
 
 .registration-account-field__progress_success {
   background: #40C58B;
+}
+
+.registration-account-field__progress_full {
   border-radius: 0 0 4px 4px;
-  width: 100%;
+}
+
+.registration-account-field__counter {
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  margin-top: -0.5em;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #C4C4C4;
 }
 
 .registration-account-field__hint {

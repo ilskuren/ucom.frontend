@@ -1,9 +1,13 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
 import React from 'react';
 import Button from '../Button';
 import RegistrationBrainkeyGenerate from './RegistrationBrainkeyGenerate';
 import RegistrationBrainkey from './RegistrationBrainkey';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
+import { SECOND_STEP_ID } from '../../store/registration';
 
 class RegistrationStepSecond extends React.PureComponent {
   constructor(props) {
@@ -16,7 +20,14 @@ class RegistrationStepSecond extends React.PureComponent {
 
   render() {
     return (
-      <div className="registration__section registration__section_second">
+      // <div className="registration__section registration__section_second">
+      <div
+        className={classNames(
+          'registration__section',
+          'registration__section_second',
+          { 'registration__section_active': this.props.registration.activeStepId === SECOND_STEP_ID },
+        )}
+      >
         <div className="registration__step">2/3</div>
 
         <div className="registration__title">
@@ -115,4 +126,10 @@ class RegistrationStepSecond extends React.PureComponent {
   }
 }
 
-export default RegistrationStepSecond;
+export default connect(
+  state => ({
+    registration: state.registration,
+  }),
+  dispatch => bindActionCreators({
+  }, dispatch),
+)(RegistrationStepSecond);

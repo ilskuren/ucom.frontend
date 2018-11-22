@@ -5,6 +5,7 @@ export const validateFields = (
   customNames = {},
 ) => {
   const validation = new Validator(data, rules);
+
   if (customNames.customName) {
     validation.setAttributeFormatter(() => customNames.customName);
   }

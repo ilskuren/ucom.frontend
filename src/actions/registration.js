@@ -1,9 +1,12 @@
 import Validator from '../utils/validator';
+import { generateBrainkey } from '../utils/brainkey';
 
 export const registrationSetStep = payload => ({ type: 'REGISTRATION_SET_STEP', payload });
 export const registrationSetAccountName = payload => ({ type: 'REGISTRATION_SET_ACCOUNT_NAME', payload });
 export const registrationSetAccountNameError = payload => ({ type: 'REGISTRATION_SET_ACCOUNT_NAME_ERROR', payload });
 export const registrationSetAccountNameIsValid = payload => ({ type: 'REGISTRATION_SET_ACCOUNT_NAME_IS_VALID', payload });
+export const registrationSetBrainkeyStep = payload => ({ type: 'REGISTRATION_SET_BRAINKEY_STEP', payload });
+export const registrationSetBrainkey = payload => ({ type: 'REGISTRATION_SET_BRAINKEY', payload });
 
 export const registrationValidateAccountName = () => (dispatch, getState) => {
   const state = getState();
@@ -29,4 +32,8 @@ export const registrationValidateAccountName = () => (dispatch, getState) => {
 export const registrationSetAndValidateAccountName = payload => (dispatch) => {
   dispatch(registrationSetAccountName(payload));
   dispatch(registrationValidateAccountName(payload));
+};
+
+export const registrationGenerateBrainkey = () => (dispatch) => {
+  dispatch(registrationSetBrainkey(generateBrainkey()));
 };

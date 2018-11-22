@@ -2,6 +2,10 @@ export const FIRST_STEP_ID = 1;
 export const SECOND_STEP_ID = 2;
 export const THIRD_STEP_ID = 3;
 
+export const FIRST_BRAINKEY_STEP_ID = 1;
+export const SECOND_BRAINKEY_STEP_ID = 2;
+export const THIRD_BRAINKEY_STEP_ID = 3;
+
 const getInitialState = () => ({
   accountName: '',
   accountNameIsValid: false,
@@ -11,6 +15,7 @@ const getInitialState = () => ({
   acceptTerms: false,
   acceptSendStatistic: false,
   activeStepId: FIRST_STEP_ID,
+  activeBrainkeyStepId: FIRST_BRAINKEY_STEP_ID,
 });
 
 const registration = (state = getInitialState(), action) => {
@@ -19,28 +24,22 @@ const registration = (state = getInitialState(), action) => {
       return getInitialState();
 
     case 'REGISTRATION_SET_STEP':
-      return {
-        ...state,
-        activeStepId: action.payload,
-      };
+      return { ...state, activeStepId: action.payload };
 
     case 'REGISTRATION_SET_ACCOUNT_NAME':
-      return {
-        ...state,
-        accountName: action.payload,
-      };
+      return { ...state, accountName: action.payload };
 
     case 'REGISTRATION_SET_ACCOUNT_NAME_ERROR':
-      return {
-        ...state,
-        accountNameError: action.payload,
-      };
+      return { ...state, accountNameError: action.payload };
 
     case 'REGISTRATION_SET_ACCOUNT_NAME_IS_VALID':
-      return {
-        ...state,
-        accountNameIsValid: action.payload,
-      };
+      return { ...state, accountNameIsValid: action.payload };
+
+    case 'REGISTRATION_SET_BRAINKEY_STEP':
+      return { ...state, activeBrainkeyStepId: action.payload };
+
+    case 'REGISTRATION_SET_BRAINKEY':
+      return { ...state, brainkey: action.payload };
 
     default:
       return state;

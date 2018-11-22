@@ -20,9 +20,17 @@
 }
 
 .registration__sections {
+  opacity: 0.1;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 80px);
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.registration__sections_active {
+  opacity: 1;
+  cursor: initial;
 }
 
 .registration__section {
@@ -193,11 +201,12 @@
 }
 
 .registration-brainkey-generate__progress {
-  width: 50%;
+  width: 0%;
   height: 2px;
   margin: 0 0 24px;
   border-radius: 1px;
   background: @red;
+  transition: width 0.4s ease;
 
   &:after {
     content: '';

@@ -84,7 +84,7 @@ const PostContent = (props) => {
               </div>
             )}
             {post.leadingText && (
-              <div className="posts__lead-text posts__lead-text_offer">{escapeQuotes(post.leadingText)}</div>
+              <div className="posts__lead-text">{escapeQuotes(post.leadingText)}</div>
             )}
             {post.description && (
               <div className="posts__text" dangerouslySetInnerHTML={{ __html: post.description }} />

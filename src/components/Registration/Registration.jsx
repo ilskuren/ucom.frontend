@@ -1,3 +1,5 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import Popup from '../Popup';
@@ -7,6 +9,7 @@ import RegistrationStepSecond from './RegistrationStepSecond';
 import RegistrationStepThird from './RegistrationStepThird';
 import ModalContent from '../ModalContent';
 import LayotuPopup from '../Layout/LayoutPopup';
+import { registrationReset } from '../../actions/registration';
 
 class Registration extends PureComponent {
   constructor(props) {
@@ -15,6 +18,10 @@ class Registration extends PureComponent {
     this.state = {
       active: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.registrationReset();
   }
 
   render() {
@@ -50,4 +57,11 @@ class Registration extends PureComponent {
   }
 }
 
-export default Registration;
+export default connect(
+  state => ({
+    registration: state.registration,
+  }),
+  dispatch => bindActionCreators({
+    registrationReset,
+  }, dispatch),
+)(Registration);

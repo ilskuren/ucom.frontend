@@ -15,6 +15,7 @@ import feeds from './feeds';
 import userForm from './userForm';
 import wallet from './wallet/index';
 import governance from './governance/index';
+import registration from './registration';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -33,6 +34,7 @@ const app = combineReducers({
   wallet,
   userForm,
   governance,
+  registration,
 });
 const middlewares = [thunk];
 

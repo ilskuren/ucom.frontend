@@ -1,0 +1,345 @@
+.registration {
+  padding: 0 40px 0 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @media (max-width: 1023px) {
+    padding: 0 40px;
+  }
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.registration__intro {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 245px);
+  margin: 0;
+  padding: 64px 0 0;
+}
+
+.registration__sections {
+  opacity: 0.1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.registration__sections_active {
+  opacity: 1;
+  cursor: initial;
+}
+
+.registration__section {
+  position: relative;
+  padding: 0 0 32px;
+  transition: opacity 0.2s ease;
+  opacity: 0.1;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.registration__section_active {
+  flex: 1 1 auto;
+  opacity: 1;
+
+  .registration__content {
+    display: block;
+  }
+}
+
+.registration__content {
+  display: none;
+}
+
+.registration__title {
+  display: flex;
+  align-items: top;
+  margin: 0 0 24px;
+}
+
+.registration__step {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  margin: 0 28px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 34px;
+
+  @media (max-width: 1023px) {
+    position: static;
+  }
+}
+
+.registration__action {
+  max-width: 200px;
+  width: 100%;
+}
+
+.registration__action_fluid {
+  min-width: 200px;
+  max-width: none;
+}
+
+.registration__text {
+  margin: 0 0 64px;
+}
+
+.registration__link {
+  color: @red;
+}
+
+.registration-account-info {
+  display: flex;
+  // margin: 64px 0 60px;
+  margin: 44px -20px 40px;
+  font-size: 16px;
+  line-height: 20px;
+  flex-wrap: wrap;
+
+  strike {
+    color: @red;
+
+    span {
+      color: rgba(0,0,0,0.5);
+    }
+  }
+}
+
+.registration-account-info__section {
+  flex: 1 1 auto;
+  padding: 20px;
+}
+
+.registration-account-info__title {
+  margin: 0 0 15px;
+  line-height: 1;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.registration-account-field {
+  margin: 0 0 64px;
+}
+
+.registration-account-field__label {
+  font-size: 16px;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.registration-account-field__input {
+  position: relative;
+  display: inline-block;
+}
+
+.registration-account-field__data {
+  box-sizing: border-box;
+  max-width: 246px;
+  width: 100%;
+  margin: 0;
+  padding: 18px 18px 18px 34px;
+  border: 1px solid #B1B1B1;
+  font-size: 16px;
+  border-radius: 4px;
+  color: #000;
+  outline: none;
+
+  &::placeholder {
+    opacity: 1;
+    color: #C4C4C4;
+  }
+}
+
+.registration-account-field__sign {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  margin: -0.5em 0 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.registration-account-field__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 10%;
+  border-radius: 0 0 0 4px;
+  background: @red;
+  transition: width 0.2s ease;
+}
+
+.registration-account-field__progress_success {
+  background: #40C58B;
+}
+
+.registration-account-field__progress_full {
+  border-radius: 0 0 4px 4px;
+}
+
+.registration-account-field__counter {
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  margin-top: -0.5em;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #C4C4C4;
+}
+
+.registration-account-field__hint {
+  margin: 13px 0 0;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.registration-brainkey-generate__title {
+  margin: 0 0 36px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.registration-brainkey-generate__progress {
+  width: 0%;
+  height: 2px;
+  margin: 0 0 24px;
+  border-radius: 1px;
+  background: @red;
+  transition: width 0.4s ease;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    z-index: -1;
+    border-radius: 1px;
+    background: #C4C4C4;
+  }
+}
+
+.registration-brainkey-generate__bytes {
+  display: flex;
+  justify-content: space-between;
+  margin: -10px;
+
+  @media (max-width: 1023px) {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+.registration-brainkey-generate__byte {
+  width: 55px;
+  margin: 10px;
+  font-size: 16px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 3px;
+  background: #E8ECEC;
+}
+
+.registration-brainkey-generate__byte_active {
+  animation-name: byte;
+  animation-duration: 0.3s;
+}
+
+@keyframes byte {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+.registration-brainkey {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 0 64px;
+  line-height: 28px;
+  font-size: 16px;
+  font-weight: bold;
+
+  @media (max-width: 1023px) {
+    margin: -10px -10px 54px;
+    justify-content: flex-start;
+  }
+}
+
+.registration-brainkey__item {
+  position: relative;
+
+  @media (max-width: 1023px) {
+    padding: 10px;
+  }
+
+  &:before {
+    content: attr(data-index);
+    position: absolute;
+    bottom: 100%;
+    line-height: 1;
+    color: #E4E4E4;
+
+    @media (max-width: 1023px) {
+      bottom: auto;
+      top: 0;
+    }
+  }
+}
+
+.registration-brainkey__item_input {
+  width: 110px;
+}
+
+.registration-terms {
+  margin: 0 0 64px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.registration-terms__item {
+  margin: 0 0 15px;
+}
+
+.registration-footer {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1023px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}
+
+.registration-footer__action {
+  max-width: 200px;
+  width: 100%;
+}
+
+.registration-footer__error {
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0 0 0 40px;
+  color: @red;
+
+  @media (max-width: 1023px) {
+    padding: 0 0 40px;
+  }
+}

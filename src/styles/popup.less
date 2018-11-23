@@ -10,17 +10,11 @@
   height: 100vh;
   z-index: 1000;
   overflow-y: scroll;
+  background: rgba(151, 151, 151, 0.6);
+}
 
-  &:after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    background: rgba(151, 151, 151, 0.6);
-    z-index: 0;
-  }
+.popup_blur {
+  filter: blur(5px);
 }
 
 .popup_user-menu {

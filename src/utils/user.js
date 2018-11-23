@@ -21,7 +21,7 @@ export const getUserUrl = (userId) => {
   return `/user/${userId}`;
 };
 
-export const getUserEditProfileUrl = () => '/profile/general-info';
+export const getUserEditProfileUrl = () => '/profile/';
 
 export const getYearOfDate = (date) => {
   if (!date) {

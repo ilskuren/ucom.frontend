@@ -1,7 +1,11 @@
 .registration {
-  box-sizing: border-box;
+  padding: 0 40px 0 100px;
   max-width: 1000px;
   margin: 0 auto;
+
+  @media (max-width: 1023px) {
+    padding: 0 40px;
+  }
 
   &:after {
     content: '';
@@ -35,7 +39,7 @@
 
 .registration__section {
   position: relative;
-  padding: 0 0 54px;
+  padding: 0 0 32px;
   transition: opacity 0.2s ease;
   opacity: 0.1;
 
@@ -57,6 +61,12 @@
   display: none;
 }
 
+.registration__title {
+  display: flex;
+  align-items: top;
+  margin: 0 0 24px;
+}
+
 .registration__step {
   position: absolute;
   top: 0;
@@ -65,10 +75,10 @@
   font-size: 18px;
   font-weight: bold;
   line-height: 34px;
-}
 
-.registration__title {
-  margin: 0 0 24px;
+  @media (max-width: 1023px) {
+    position: static;
+  }
 }
 
 .registration__action {
@@ -91,9 +101,11 @@
 
 .registration-account-info {
   display: flex;
-  margin: 64px 0 60px;
+  // margin: 64px 0 60px;
+  margin: 44px -20px 40px;
   font-size: 16px;
   line-height: 20px;
+  flex-wrap: wrap;
 
   strike {
     color: @red;
@@ -106,6 +118,7 @@
 
 .registration-account-info__section {
   flex: 1 1 auto;
+  padding: 20px;
 }
 
 .registration-account-info__title {
@@ -222,10 +235,17 @@
 .registration-brainkey-generate__bytes {
   display: flex;
   justify-content: space-between;
+  margin: -10px;
+
+  @media (max-width: 1023px) {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }
 
 .registration-brainkey-generate__byte {
-  width: 53px;
+  width: 55px;
+  margin: 10px;
   font-size: 16px;
   line-height: 33px;
   text-align: center;
@@ -233,18 +253,42 @@
   background: #E8ECEC;
 }
 
+.registration-brainkey-generate__byte_active {
+  animation-name: byte;
+  animation-duration: 0.3s;
+}
+
+@keyframes byte {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
 .registration-brainkey {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin: 0 0 64px;
   line-height: 28px;
   font-size: 16px;
   font-weight: bold;
+
+  @media (max-width: 1023px) {
+    margin: -10px -10px 54px;
+    justify-content: flex-start;
+  }
 }
 
 .registration-brainkey__item {
   position: relative;
+
+  @media (max-width: 1023px) {
+    padding: 10px;
+  }
 
   &:before {
     content: attr(data-index);
@@ -252,6 +296,11 @@
     bottom: 100%;
     line-height: 1;
     color: #E4E4E4;
+
+    @media (max-width: 1023px) {
+      bottom: auto;
+      top: 0;
+    }
   }
 }
 
@@ -272,6 +321,11 @@
 .registration-footer {
   display: flex;
   align-items: center;
+
+  @media (max-width: 1023px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
 }
 
 .registration-footer__action {
@@ -284,4 +338,8 @@
   line-height: 24px;
   padding: 0 0 0 40px;
   color: @red;
+
+  @media (max-width: 1023px) {
+    padding: 0 0 40px;
+  }
 }

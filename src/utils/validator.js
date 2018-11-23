@@ -2,6 +2,11 @@ import Validator from 'validatorjs';
 import api from '../api';
 
 Validator.registerAsync('accountname', (accountName, attribute, req, passes) => {
+  if (!/^[a-z1-5]{12}$/.test(accountName)) {
+    passes(false);
+    return;
+  }
+
   api.checkAccountName(accountName)
     .then(() => {
       passes();

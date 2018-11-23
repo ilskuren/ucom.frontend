@@ -17,7 +17,6 @@ import { setUser } from '../actions';
 import { initNotificationsListeners, siteNotificationsSetUnreadAmount } from '../actions/siteNotifications';
 import { fetchMyself } from '../actions/users';
 import UserMenu from './UserMenu/UserMenu';
-// import SignUp from '../pages/SignUp';
 import Page from './Page';
 import Post from '../pages/Post';
 import Auth from './Auth';
@@ -46,7 +45,6 @@ class App extends PureComponent {
           <Page>
             <Switch>
               <Route exact path="/" component={HomePage} />
-              {/* <Route path="/signup" component={SignUp} /> */}
               <Route path="/registration" component={Registration} />
               <Route path="/profile" component={ProfilePage} />
               <Route exact path="/user/:id" component={UserPage} />

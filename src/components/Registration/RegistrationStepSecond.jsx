@@ -20,9 +20,8 @@ const RegistrationStepSecond = props => (
       { 'registration__section_active': props.registration.activeStepId === SECOND_STEP_ID },
     )}
   >
-    <div className="registration__step">2/3</div>
-
     <div className="registration__title">
+      <div className="registration__step">2/3</div>
       <h3 className="title title_small">Brainkey</h3>
     </div>
 

@@ -15,9 +15,8 @@ const RegistrationStepFirst = props => (
       { 'registration__section_active': props.registration.activeStepId === FIRST_STEP_ID },
     )}
   >
-    <div className="registration__step">1/3</div>
-
     <div className="registration__title">
+      <div className="registration__step">1/3</div>
       <h3 className="title title_small">
         {props.registration.activeStepId === FIRST_STEP_ID ? (
           <Fragment>Choose Account Name</Fragment>
@@ -45,20 +44,27 @@ const RegistrationStepFirst = props => (
         </div>
       </div>
 
-      <RegistrationAccountField />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.registrationSetStep(SECOND_STEP_ID);
+        }}
+      >
+        <RegistrationAccountField />
 
-      <div className="registration__action">
-        <Button
-          isStretched
-          isUpper
-          isDisabled={!props.registration.accountNameIsValid}
-          size="big"
-          theme="red"
-          type="submit"
-          text="Proceed"
-          onClick={() => props.registrationSetStep(SECOND_STEP_ID)}
-        />
-      </div>
+        <div className="registration__action">
+          <Button
+            isStretched
+            isUpper
+            isDisabled={!props.registration.accountNameIsValid}
+            size="big"
+            theme="red"
+            type="submit"
+            text="Proceed"
+            // onClick={() => props.registrationSetStep(SECOND_STEP_ID)}
+          />
+        </div>
+      </form>
     </div>
   </div>
 );

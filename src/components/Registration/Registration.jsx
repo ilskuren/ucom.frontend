@@ -31,7 +31,7 @@ class Registration extends PureComponent {
     return (
       <LayotuPopup>
         <Popup>
-          <ModalContent>
+          <ModalContent mod="registration">
             <div className="registration">
               <RegistrationStepIntro />
 

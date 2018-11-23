@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import crypto from 'crypto';
@@ -71,7 +72,15 @@ class RegistrationBrainkeyStepSecond extends PureComponent {
 
           <div className="registration-brainkey-generate__bytes">
             {this.state.bytes.map((item, index) => (
-              <div key={index} className="registration-brainkey-generate__byte">{item}</div>
+              <div
+                key={index}
+                className={classNames(
+                  'registration-brainkey-generate__byte',
+                  { 'registration-brainkey-generate__byte_active': item !== '00' },
+                )}
+              >
+                {item}
+              </div>
             ))}
           </div>
         </div>

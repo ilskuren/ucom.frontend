@@ -11,9 +11,6 @@ const getInitialState = () => ({
   accountNameIsValid: false,
   accountNameError: '',
   brainkey: '',
-  brainkeyIsValid: false,
-  acceptTerms: false,
-  acceptSendStatistic: false,
   activeStepId: FIRST_STEP_ID,
   activeBrainkeyStepId: FIRST_BRAINKEY_STEP_ID,
 });
@@ -40,6 +37,9 @@ const registration = (state = getInitialState(), action) => {
 
     case 'REGISTRATION_SET_BRAINKEY':
       return { ...state, brainkey: action.payload };
+
+    case 'REGISTRATION_SET_BRAINKEY_IS_VALID':
+      return { ...state, brainkeyIsValid: action.payload };
 
     default:
       return state;

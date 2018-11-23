@@ -1,5 +1,8 @@
 import Validator from '../utils/validator';
-import { generateBrainkey } from '../utils/brainkey';
+import api from '../api';
+import { generateBrainkey, saveBrainkey } from '../utils/brainkey';
+import { saveToken } from '../utils/token';
+import urls from '../utils/urls';
 
 export const registrationSetStep = payload => ({ type: 'REGISTRATION_SET_STEP', payload });
 export const registrationSetAccountName = payload => ({ type: 'REGISTRATION_SET_ACCOUNT_NAME', payload });
@@ -36,4 +39,25 @@ export const registrationSetAndValidateAccountName = payload => (dispatch) => {
 
 export const registrationGenerateBrainkey = () => (dispatch) => {
   dispatch(registrationSetBrainkey(generateBrainkey()));
+};
+
+export const registrationRegister = () => async (dispatch, getState) => {
+  const state = getState();
+  const { brainkey, accountName } = state.registration;
+
+  setTimeout(async () => {
+    try {
+      const data = await api.register({
+        brainkey,
+        accountName,
+        isTrackingAllowed: true,
+      });
+
+      saveToken(data.token);
+      saveBrainkey(brainkey);
+      window.location.replace(urls.getUserUrl(data.user.id));
+    } catch (e) {
+      console.error(e);
+    }
+  }, 10);
 };

@@ -10,6 +10,7 @@ import TextInput from './TextInput';
 import Button from './Button';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
+import urls from '../utils/urls';
 
 const Auth = (props) => {
   if (!props.auth.visibility) {
@@ -82,7 +83,7 @@ const Auth = (props) => {
               <div className="inline inline_small">
                 <span className="inline__item">No account?</span>
                 <span className="inline__item">
-                  <Link className="auth__link" to="/signup">Create one</Link>
+                  <Link className="auth__link" to={urls.getRegistrationUrl()}>Create one</Link>
                 </span>
               </div>
             </div>

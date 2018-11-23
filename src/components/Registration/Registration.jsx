@@ -17,23 +17,17 @@ class Registration extends PureComponent {
     };
   }
 
-  activate() {
-    if (!this.state.active && this.sectionsEl) {
-      this.setState({ active: true });
-
-      this.sectionsEl.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
-  }
-
   render() {
     return (
       <LayotuPopup>
         <Popup>
-          <ModalContent mod="registration">
+          <ModalContent
+            mod="registration"
+            onClickClose={() => {
+              window.history.back();
+            }}
+          >
             <div className="registration">
-              <RegistrationStepIntro />
 
               <div
                 role="presentation"
@@ -42,8 +36,8 @@ class Registration extends PureComponent {
                   'registration__sections',
                   { 'registration__sections_active': this.state.active },
                 )}
-                onClick={() => this.activate()}
               >
+                <RegistrationStepIntro />
                 <RegistrationStepFirst />
                 <RegistrationStepSecond />
                 <RegistrationStepThird />

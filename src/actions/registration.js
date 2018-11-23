@@ -10,6 +10,7 @@ export const registrationSetAccountNameError = payload => ({ type: 'REGISTRATION
 export const registrationSetAccountNameIsValid = payload => ({ type: 'REGISTRATION_SET_ACCOUNT_NAME_IS_VALID', payload });
 export const registrationSetBrainkeyStep = payload => ({ type: 'REGISTRATION_SET_BRAINKEY_STEP', payload });
 export const registrationSetBrainkey = payload => ({ type: 'REGISTRATION_SET_BRAINKEY', payload });
+export const registrationSetLoading = payload => ({ type: 'REGISTRATION_SET_LOADING', payload });
 
 export const registrationValidateAccountName = () => (dispatch, getState) => {
   const state = getState();
@@ -44,6 +45,8 @@ export const registrationGenerateBrainkey = () => (dispatch) => {
 export const registrationRegister = () => async (dispatch, getState) => {
   const state = getState();
   const { brainkey, accountName } = state.registration;
+
+  dispatch(registrationSetLoading(true));
 
   setTimeout(async () => {
     try {

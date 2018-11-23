@@ -7,6 +7,7 @@ export const SECOND_BRAINKEY_STEP_ID = 2;
 export const THIRD_BRAINKEY_STEP_ID = 3;
 
 const getInitialState = () => ({
+  loading: false,
   accountName: '',
   accountNameIsValid: false,
   accountNameError: '',
@@ -40,6 +41,9 @@ const registration = (state = getInitialState(), action) => {
 
     case 'REGISTRATION_SET_BRAINKEY_IS_VALID':
       return { ...state, brainkeyIsValid: action.payload };
+
+    case 'REGISTRATION_SET_LOADING':
+      return { ...state, loading: action.payload };
 
     default:
       return state;

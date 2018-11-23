@@ -18,28 +18,19 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  min-height: calc(100vh - 245px);
   margin: 0;
-  padding: 64px 0 0;
+  padding: 128px 0;
 }
 
 .registration__sections {
-  opacity: 0.1;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 80px);
-  transition: opacity 0.2s ease;
-  cursor: pointer;
-}
-
-.registration__sections_active {
-  opacity: 1;
-  cursor: initial;
 }
 
 .registration__section {
   position: relative;
-  padding: 0 0 32px;
+  padding: 0 0 64px;
   transition: opacity 0.2s ease;
   opacity: 0.1;
 
@@ -55,6 +46,10 @@
   .registration__content {
     display: block;
   }
+
+  .registration__title {
+    margin: 0 0 24px;
+  }
 }
 
 .registration__content {
@@ -64,7 +59,6 @@
 .registration__title {
   display: flex;
   align-items: top;
-  margin: 0 0 24px;
 }
 
 .registration__step {
@@ -129,6 +123,7 @@
 }
 
 .registration-account-field {
+  position: relative;
   margin: 0 0 64px;
 }
 
@@ -201,6 +196,8 @@
 }
 
 .registration-account-field__hint {
+  position: absolute;
+  top: 100%;
   margin: 13px 0 0;
   line-height: 1;
   font-size: 16px;

@@ -20,6 +20,7 @@ class RegistrationStepThird extends PureComponent {
       brainkeyVerificationIsComplete: false,
       brainkeyVerificationIsValid: false,
       termsAccepted: false,
+      statsAccepted: false,
     };
   }
 
@@ -85,7 +86,12 @@ class RegistrationStepThird extends PureComponent {
             </div>
             <div className="registration-terms__item">
               <span className="toolbar">
-                <span className="toolbar__side"><Checkbox /></span>
+                <span className="toolbar__side">
+                  <Checkbox
+                    isChecked={this.state.statsAccepted}
+                    onChange={checked => this.setState({ statsAccepted: checked })}
+                  />
+                </span>
                 <span className="toolbar__main">Allow to send anonymous usage data for developer.</span>
               </span>
             </div>
@@ -100,7 +106,7 @@ class RegistrationStepThird extends PureComponent {
                 theme="red"
                 type="submit"
                 text="Finish"
-                isDisabled={!this.state.brainkeyVerificationIsValid || !this.state.termsAccepted}
+                isDisabled={this.props.registration.loading || !this.state.brainkeyVerificationIsValid || !this.state.termsAccepted}
                 onClick={() => this.props.registrationRegister()}
               />
             </div>

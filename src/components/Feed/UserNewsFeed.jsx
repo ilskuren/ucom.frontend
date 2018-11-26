@@ -48,15 +48,6 @@ class UserNewsFeed extends PureComponent {
         loadMoreIsVisible={userNewsFeed.metadata && userNewsFeed.postsIds.length < userNewsFeed.metadata.totalAmount}
         typeFeed={USER_WALL_FEED_ID}
         userId={this.props.userId}
-        // onSubmitNewPost={(description) => {
-        //   this.props.createSelfCommentPost({
-        //     userId: this.props.userId,
-        //     data: {
-        //       description,
-        //       post_type_id: 10,
-        //     },
-        //   });
-        // }}
       />
     );
   }

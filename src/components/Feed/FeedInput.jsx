@@ -24,9 +24,9 @@ class FeedInput extends PureComponent {
     this.setState({ active: false });
   }
 
-  createPost = (message) => {
+  createPost = (message, fileImg) => {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(message);
+      this.props.onSubmit(message, fileImg);
     }
 
     this.hideForm();

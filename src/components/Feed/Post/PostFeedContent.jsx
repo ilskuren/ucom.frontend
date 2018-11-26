@@ -26,10 +26,13 @@ class PostFeedContent extends PureComponent {
 
   hideForm = () => {
     this.setState({ formIsVisible: false });
+    console.log('exit');
   }
 
   render() {
     const post = getPostById(this.props.posts, this.props.postId);
+    console.log(123)
+    console.log(post);
 
     if (!post) {
       return null;
@@ -41,12 +44,13 @@ class PostFeedContent extends PureComponent {
           <div className="post__form">
             <FeedForm
               message={post.description}
+              // mainImageFilename={post.mainImageFilename}
               onCancel={this.hideForm}
-              onSubmit={(description) => {
+              onSubmit={(description, mainImageFilename) => {
                 this.hideForm();
                 this.props.updatePost({
                   postId: post.id,
-                  data: { description },
+                  data: { description, mainImageFilename },
                 });
               }}
             />
@@ -72,11 +76,9 @@ class PostFeedContent extends PureComponent {
           </h1>
         )}
 
-        {post.mainImageFilename && (
+        {post.mainImageFilename && !this.state.formIsVisible && (
           <div className="post__cover">
-            <Link to={getPostUrl(post.id)}>
-              <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
-            </Link>
+            <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
           </div>
         )}
 

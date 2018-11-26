@@ -6,6 +6,7 @@ import Feed from './Feed';
 import { createSelfCommentPost } from '../../actions/posts';
 import { getNewsFeedIdsByUserId } from '../../store/feeds';
 import { resetFeeds, getUserNewsFeed } from '../../actions/feeds';
+import { USER_WALL_FEED_ID } from '../../utils/feed';
 
 class UserNewsFeed extends PureComponent {
   componentDidMount() {
@@ -49,15 +50,17 @@ class UserNewsFeed extends PureComponent {
         postsIds={userNewsFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={userNewsFeed.metadata && userNewsFeed.postsIds.length < userNewsFeed.metadata.totalAmount}
-        onSubmitNewPost={(description) => {
-          this.props.createSelfCommentPost({
-            userId: this.props.userId,
-            data: {
-              description,
-              post_type_id: 10,
-            },
-          });
-        }}
+        typeFeed={USER_WALL_FEED_ID}
+        userId={this.props.userId}
+        // onSubmitNewPost={(description) => {
+        //   this.props.createSelfCommentPost({
+        //     userId: this.props.userId,
+        //     data: {
+        //       description,
+        //       post_type_id: 10,
+        //     },
+        //   });
+        // }}
       />
     );
   }
@@ -66,7 +69,6 @@ class UserNewsFeed extends PureComponent {
 UserNewsFeed.propTypes = {
   userId: PropTypes.number,
   feeds: PropTypes.objectOf(PropTypes.any),
-  createSelfCommentPost: PropTypes.func,
   resetFeeds: PropTypes.func,
   getUserNewsFeed: PropTypes.func,
 };

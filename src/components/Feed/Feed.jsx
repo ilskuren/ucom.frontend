@@ -7,7 +7,8 @@ import Post from './Post/Post';
 import LoadMore from './LoadMore';
 import FeedInput from './FeedInput';
 import { getPostById } from '../../store/posts';
-import { fetchPost } from '../../actions/posts';
+import { fetchPost, createUserCommentPost, createSelfCommentPost, createOrganizationsCommentPost } from '../../actions/posts';
+import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORG_FEED_ID } from '../../utils/feed';
 
 class Feed extends PureComponent {
   componentDidMount() {
@@ -38,6 +39,35 @@ class Feed extends PureComponent {
 
     posts = uniqBy(posts, item => item.id);
 
+    const createDirectPost = (description, main_image_filename) => {
+      let fn;
+
+      switch (this.props.typeFeed) {
+        case (USER_NEWS_FEED_ID):
+          fn = this.props.createUserCommentPost;
+          console.log('yep im here');
+          break;
+        case (USER_WALL_FEED_ID):
+          fn = this.props.createSelfCommentPost;
+          console.log('yep im here too');
+          break;
+        case (ORG_FEED_ID):
+          fn = this.props.createOrganizationsCommentPost;
+          break;
+        default:
+          break;
+      }
+      fn({
+        organizationId: this.props.organizationId ? this.props.organizationId : null,
+        userId: this.props.userId,
+        data: {
+          post_type_id: 10,
+          description,
+          main_image_filename,
+        },
+      });
+    };
+
     return (
       <div className="feed">
         {this.props.title &&
@@ -47,11 +77,7 @@ class Feed extends PureComponent {
         }
 
         <FeedInput
-          onSubmit={(message) => {
-            if (typeof this.props.onSubmitNewPost === 'function') {
-              this.props.onSubmitNewPost(message);
-            }
-          }}
+          onSubmit={createDirectPost}
         />
 
         {posts.length > 0 && (
@@ -88,7 +114,7 @@ class Feed extends PureComponent {
 
 Feed.propTypes = {
   title: PropTypes.string,
-  onSubmitNewPost: PropTypes.func,
+  createUserCommentPost: PropTypes.func,
   pinnedPostId: PropTypes.number,
   postsIds: PropTypes.arrayOf(PropTypes.number),
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -109,5 +135,8 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     fetchPost,
+    createUserCommentPost,
+    createSelfCommentPost,
+    createOrganizationsCommentPost,
   }, dispatch),
 )(Feed);

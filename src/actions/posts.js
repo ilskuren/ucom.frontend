@@ -30,8 +30,6 @@ export const updatePost = payload => (dispatch) => {
   loader.start();
   api.updatePost(snakes(payload.data), payload.postId)
     .then((data) => {
-      const nextData = { ...data, id: payload.postId };
-      console.log(snakes(data));
       dispatch(addPosts([data]));
     })
     .catch((error) => {
@@ -79,7 +77,7 @@ export const postVote = payload => (dispatch) => {
 
 export const createUserCommentPost = payload => (dispatch) => {
   loader.start();
-  api.createUserCommentPost(payload.userId, snakes(payload.data))
+  api.createUserCommentPost(payload.userId, payload.data)
     .then((data) => {
       dispatch(addPosts([data]));
       dispatch(addFeedPosts({
@@ -96,7 +94,7 @@ export const createUserCommentPost = payload => (dispatch) => {
 
 export const createSelfCommentPost = payload => (dispatch) => {
   loader.start();
-  api.createUserCommentPost(payload.userId, snakes(payload.data))
+  api.createUserCommentPost(payload.userId, payload.data)
     .then((data) => {
       dispatch(addPosts([data]));
       dispatch(addFeedPosts({

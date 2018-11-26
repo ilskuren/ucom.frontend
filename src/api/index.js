@@ -121,7 +121,7 @@ class Api {
   async updatePost(data, id) {
     const response = await this.actions.patch(`/api/v1/posts/${id}`, data);
 
-    return response.data;
+    return humps(response.data);
   }
 
   @bind

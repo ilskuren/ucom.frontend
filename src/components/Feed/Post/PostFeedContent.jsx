@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FeedForm from '../FeedForm';
 import IconEdit from '../../Icons/Edit';
@@ -9,9 +9,9 @@ import { escapeQuotes } from '../../../utils/text';
 import { getFileUrl } from '../../../utils/upload';
 import { updatePost } from '../../../actions/posts';
 import { getPostById } from '../../../store/posts';
-import { getPostUrl, postIsEditable } from '../../../utils/posts';
+import { postIsEditable } from '../../../utils/posts';
 
-class PostFeedContent extends PureComponent {
+class PostFeedContent extends Component {
   constructor(props) {
     super(props);
 
@@ -26,13 +26,10 @@ class PostFeedContent extends PureComponent {
 
   hideForm = () => {
     this.setState({ formIsVisible: false });
-    console.log('exit');
   }
 
   render() {
     const post = getPostById(this.props.posts, this.props.postId);
-    console.log(123)
-    console.log(post);
 
     if (!post) {
       return null;
@@ -44,7 +41,8 @@ class PostFeedContent extends PureComponent {
           <div className="post__form">
             <FeedForm
               message={post.description}
-              // mainImageFilename={post.mainImageFilename}
+              postId={post.id}
+              mainImageFilename={post.mainImageFilename}
               onCancel={this.hideForm}
               onSubmit={(description, mainImageFilename) => {
                 this.hideForm();
@@ -56,10 +54,15 @@ class PostFeedContent extends PureComponent {
             />
           </div>
         ) : (
-          <h1 className="post__title">
+          <div className="post__title">
             {(this.props.postTypeId === 10 || post.postTypeId === 10) ? (
-              <div className="toolbar toolbar_fluid toolbar_small">
-                <div className="toolbar__main">
+              <div>
+                {post.mainImageFilename && !this.state.formIsVisible && (
+                  <div className="post__cover">
+                    <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
+                  </div>
+                )}
+                <div className="toolbar__main_small">
                   {escapeQuotes(post.description)}
                 </div>
                 {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
@@ -71,14 +74,9 @@ class PostFeedContent extends PureComponent {
                 )}
               </div>
             ) : (
-              <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
+              null
+              // <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
             )}
-          </h1>
-        )}
-
-        {post.mainImageFilename && !this.state.formIsVisible && (
-          <div className="post__cover">
-            <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
           </div>
         )}
 

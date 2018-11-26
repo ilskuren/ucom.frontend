@@ -45,11 +45,9 @@ class Feed extends PureComponent {
       switch (this.props.typeFeed) {
         case (USER_NEWS_FEED_ID):
           fn = this.props.createUserCommentPost;
-          console.log('yep im here');
           break;
         case (USER_WALL_FEED_ID):
           fn = this.props.createSelfCommentPost;
-          console.log('yep im here too');
           break;
         case (ORG_FEED_ID):
           fn = this.props.createOrganizationsCommentPost;

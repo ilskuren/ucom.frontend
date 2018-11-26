@@ -11,6 +11,7 @@ import { escapeQuotes } from '../../utils/text';
 import IconClip from '../Icons/Clip';
 import IconClose from '../Icons/Close';
 import DropZone from '../DropZone';
+import { updatePost } from '../../actions/posts';
 
 class FeedForm extends PureComponent {
   constructor(props) {
@@ -57,19 +58,21 @@ class FeedForm extends PureComponent {
             <div className="cover cover_small">
               <div className="cover__inner">
                 <div className="cover__remove">
-                  <div
-                    // type="button"
-                    role="button"
+                  <button
+                    type="button"
                     className="button-clean button-clean_close"
                     onClick={() => {
-                      console.log('lol');
+                      this.props.updatePost({
+                          data: {
+                            mainImageFilename: '',
+                          },
+                          postId: this.props.postId,
+                        });
                       this.setState({ base64Cover: '' });
-                      this.props.setPostData({ mainImageFilename: '' });
-                      this.props.validatePostField('mainImageFilename');
                     }}
                   >
                     <IconClose />
-                  </div>
+                  </button>
                 </div>
 
                 <img className="cover__img" src={this.state.base64Cover || getFileUrl(this.props.mainImageFilename)} alt="" />
@@ -153,6 +156,7 @@ export default connect(
     user: selectUser(state),
   }),
   dispatch => ({
+    updatePost,
     setPostData: data => dispatch(setPostData(data)),
     validatePostField: data => dispatch(validatePostField(data)),
   }),

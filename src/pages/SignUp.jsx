@@ -137,7 +137,7 @@ class SignUp extends React.PureComponent {
               )}
             >
               <h3 className="sign-up__title">User Name</h3>
-              <div className="sign-up__text">The username must be exactly 12 characters long and can only contain lowercase latin letters and numbers 1-5.</div>
+              <div className="sign-up__text">The username length must be exactly 12 characters long and can only contain lowercase latin letters and numbers 1-5.</div>
               <div className="sign-up__content sign-up__content_user-name">
                 <div className="sign-up__username-input">
                   <TextInput

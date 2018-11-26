@@ -38,9 +38,7 @@ export const getUserName = (user) => {
 
   const userData = humps(user);
 
-  if (userData.firstName && userData.lastName) {
-    return `${userData.firstName} ${userData.lastName}`;
-  } else if (userData.firstName) {
+  if (userData.firstName) {
     return userData.firstName;
   }
 

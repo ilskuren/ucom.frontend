@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Footer from '../components/Footer';
 import PostsGroupTabs from '../components/PostMedia/PostsGroupTabs';
 import UserNewsFeed from '../components/Feed/UserNewsFeed';
 import UsersGroup from '../components/PostMedia/UsersGroup';
 import Promo from '../components/Promo';
+import LayoutBase from '../components/Layout/LayoutBase';
 import { selectUser } from '../store/selectors';
 import { fetchUser } from '../actions/users';
 
@@ -18,7 +19,7 @@ class HomePage extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <LayoutBase>
         <div className="content">
           <div className="content__inner">
             <PostsGroupTabs />
@@ -52,7 +53,7 @@ class HomePage extends PureComponent {
             <Footer />
           </div>
         </div>
-      </Fragment>
+      </LayoutBase>
     );
   }
 }

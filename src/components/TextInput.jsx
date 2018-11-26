@@ -6,14 +6,14 @@ import InputErrorIcon from '../components/Icons/InputError';
 import InputCompleteIcon from '../components/Icons/InputComplete';
 
 const TextInput = ({
-  value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, touched, ymDisableKeys, ...rest
+  value, error, label, topLabel, placeholder, subtext, isSearch, inputWidth, isRequired, type, onChange, disabled, maxLength, isValid, className, ymDisableKeys, ...rest
 }) => {
   const isIconExist = isSearch || error || isValid;
   let icon;
 
   if (isSearch) {
     icon = <div className="text-input__icon"><IconSearch /></div>;
-  } else if (error && touched) {
+  } else if (error) {
     icon = <div className="text-input__icon"><InputErrorIcon /></div>;
   } else if (isValid) {
     icon = <div className="text-input__icon"><InputCompleteIcon /></div>;
@@ -40,7 +40,7 @@ const TextInput = ({
             maxLength={maxLength}
             value={value === null || value === undefined ? '' : value}
             className={cn('text-input__input', {
-              'text-input__input_error': Boolean(touched && error),
+              'text-input__input_error': Boolean(error),
               'text-input__input_with-icon': Boolean(isIconExist),
               'ym-disable-keys': ymDisableKeys,
             })}
@@ -59,7 +59,7 @@ const TextInput = ({
         </div>
       </label>
       { subtext && <div className="text-input__subtext">{subtext}</div> }
-      { touched && error && <div className="text-input__error">{error}</div> }
+      { error && <div className="text-input__error">{error}</div> }
     </div>
   );
 };
@@ -80,7 +80,6 @@ TextInput.propTypes = {
   disabled: PropTypes.bool,
   maxLength: PropTypes.string,
   isValid: PropTypes.bool,
-  touched: PropTypes.bool,
 };
 
 export default TextInput;

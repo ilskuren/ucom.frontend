@@ -39,11 +39,7 @@ class UserNewsFeed extends PureComponent {
   }
 
   render() {
-    const userNewsFeed = getNewsFeedIdsByUserId(this.props.feeds, this.props.userId);
-
-    if (!userNewsFeed) {
-      return null;
-    }
+    const userNewsFeed = getNewsFeedIdsByUserId(this.props.feeds, this.props.userId) || {};
 
     return (
       <Feed

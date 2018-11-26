@@ -40,11 +40,7 @@ class UserFeed extends PureComponent {
   }
 
   render() {
-    const userWallFeed = getWallFeedIdsByUserId(this.props.feeds, this.props.userId);
-
-    if (!userWallFeed) {
-      return null;
-    }
+    const userWallFeed = getWallFeedIdsByUserId(this.props.feeds, this.props.userId) || {};
 
     return (
       <Feed

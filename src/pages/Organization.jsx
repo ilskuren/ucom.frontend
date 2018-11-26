@@ -16,6 +16,7 @@ import { fetchOrganizationPosts } from '../actions/posts';
 import { getOrganization, getOrganizationWallFeed } from '../actions/organizations';
 import { selectUser } from '../store/selectors';
 import api from '../api';
+import LayoutBase from '../components/Layout/LayoutBase';
 
 class OrganizationPage extends PureComponent {
   constructor(props) {
@@ -53,124 +54,126 @@ class OrganizationPage extends PureComponent {
       .filter(item => item.sourceUrl && item.sourceUrl.length > 0);
 
     return (
-      <div className="content">
-        <div className="content__inner">
-          <div className="sheets">
-            <div className="sheets__list">
-              <div className="sheets__item">
-                <PostHeader userId={organization.user && organization.user.id} />
-              </div>
-            </div>
-
-            <div className="sheets__content sheets__content_theme_organization">
-              <div className="organization">
-                <div className="organization__header">
-                  <OrganizationHeader organizationId={+this.props.match.params.id} />
+      <LayoutBase>
+        <div className="content">
+          <div className="content__inner">
+            <div className="sheets">
+              <div className="sheets__list">
+                <div className="sheets__item">
+                  <PostHeader userId={organization.user && organization.user.id} />
                 </div>
-                <div className="organization__content">
-                  <div className="grid grid_organization">
-                    <div className="grid__item">
-                      {organization.about && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">Mission</h3>
-                          </div>
-                          <div className="user-section__content">{organization.about}</div>
-                        </div>
-                      )}
+              </div>
 
-                      <div className="user-section">
-                        <OrganizationFeed
-                          organizationId={+this.props.match.params.id}
-                          pinnedPostId={+this.props.match.params.postId}
-                        />
+              <div className="sheets__content sheets__content_theme_organization">
+                <div className="organization">
+                  <div className="organization__header">
+                    <OrganizationHeader organizationId={+this.props.match.params.id} />
+                  </div>
+                  <div className="organization__content">
+                    <div className="grid grid_organization">
+                      <div className="grid__item">
+                        {organization.about && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">Mission</h3>
+                            </div>
+                            <div className="user-section__content">{organization.about}</div>
+                          </div>
+                        )}
+
+                        <div className="user-section">
+                          <OrganizationFeed
+                            organizationId={+this.props.match.params.id}
+                            pinnedPostId={+this.props.match.params.postId}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="grid__item">
-                      {(organization.country || organization.city) && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">Location</h3>
+                      <div className="grid__item">
+                        {(organization.country || organization.city) && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">Location</h3>
+                            </div>
+                            <div className="user-section__content">
+                              {organization.country && organization.city ? `${organization.country}, ${organization.city}` : (organization.country || organization.city)}
+                            </div>
                           </div>
-                          <div className="user-section__content">
-                            {organization.country && organization.city ? `${organization.country}, ${organization.city}` : (organization.country || organization.city)}
-                          </div>
-                        </div>
-                      )}
+                        )}
 
-                      {organization.partnershipSources && organization.partnershipSources.length > 0 && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">Partners</h3>
+                        {organization.partnershipSources && organization.partnershipSources.length > 0 && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">Partners</h3>
+                            </div>
+                            <div className="user-section__content">
+                              <VerticalCards
+                                title="Partners"
+                                userCards={organization.partnershipSources.map(item => ({
+                                  id: item.id,
+                                  userName: item.title,
+                                  avatarUrl: getFileUrl(item.avatarFilename),
+                                  accountName: item.nickname || item.description,
+                                  profileLink: getSourceUrl(item),
+                                }))}
+                              />
+                            </div>
                           </div>
-                          <div className="user-section__content">
-                            <VerticalCards
-                              title="Partners"
-                              userCards={organization.partnershipSources.map(item => ({
-                                id: item.id,
-                                userName: item.title,
-                                avatarUrl: getFileUrl(item.avatarFilename),
-                                accountName: item.nickname || item.description,
-                                profileLink: getSourceUrl(item),
-                              }))}
-                            />
-                          </div>
-                        </div>
-                      )}
+                        )}
 
-                      {organization.communitySources && organization.communitySources.length > 0 && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">Communities</h3>
+                        {organization.communitySources && organization.communitySources.length > 0 && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">Communities</h3>
+                            </div>
+                            <div className="user-section__content">
+                              <VerticalCards
+                                title="Communities"
+                                userCards={organization.communitySources.map(item => ({
+                                  id: item.id,
+                                  userName: item.title,
+                                  avatarUrl: getFileUrl(item.avatarFilename),
+                                  accountName: item.nickname || item.description,
+                                  profileLink: getSourceUrl(item),
+                                }))}
+                              />
+                            </div>
                           </div>
-                          <div className="user-section__content">
-                            <VerticalCards
-                              title="Communities"
-                              userCards={organization.communitySources.map(item => ({
-                                id: item.id,
-                                userName: item.title,
-                                avatarUrl: getFileUrl(item.avatarFilename),
-                                accountName: item.nickname || item.description,
-                                profileLink: getSourceUrl(item),
-                              }))}
-                            />
-                          </div>
-                        </div>
-                      )}
+                        )}
 
-                      {socialNetworks && socialNetworks.length > 0 && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">
-                              Social Networks
-                            </h3>
+                        {socialNetworks && socialNetworks.length > 0 && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">
+                                Social Networks
+                              </h3>
+                            </div>
+                            <div className="user-section__content">
+                              <Links userSources={socialNetworks} />
+                            </div>
                           </div>
-                          <div className="user-section__content">
-                            <Links userSources={socialNetworks} />
-                          </div>
-                        </div>
-                      )}
+                        )}
 
-                      {organization.createdAt && (
-                        <div className="user-section">
-                          <div className="user-section__title">
-                            <h3 className="title title_xsmall title_light">Created</h3>
+                        {organization.createdAt && (
+                          <div className="user-section">
+                            <div className="user-section__title">
+                              <h3 className="title title_xsmall title_light">Created</h3>
+                            </div>
+                            <div className="user-section__content">
+                              {moment(organization.createdAt).format('D MMM YYYY')}
+                            </div>
                           </div>
-                          <div className="user-section__content">
-                            {moment(organization.createdAt).format('D MMM YYYY')}
-                          </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
-      </div>
+      </LayoutBase>
     );
   }
 }

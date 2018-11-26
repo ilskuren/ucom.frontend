@@ -1,3 +1,6 @@
+import crypto from 'crypto';
+import wordsDict from './wordsDict';
+
 export const saveBrainkey = (token) => {
   localStorage.setItem('brainkey', token);
 };
@@ -9,3 +12,28 @@ export const getBrainkey = () => (
 export const removeBrainkey = () => (
   localStorage.removeItem('brainkey')
 );
+
+export const generateBrainkey = () => {
+  const words = wordsDict.en.split(',');
+  const bytes = [];
+
+  for (let i = 0; i < 16; i++) {
+    bytes.push(crypto.randomBytes(1)[0]);
+  }
+
+  const result = bytes.map((item) => {
+    let index = Math.floor(Math.random() * words.length);
+
+    if (index > item) {
+      index -= item;
+    } else {
+      index = item - index;
+    }
+
+    return words[index];
+  });
+
+  result.splice(4, 4);
+
+  return result.join(' ');
+};

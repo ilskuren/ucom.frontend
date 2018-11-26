@@ -38,11 +38,8 @@ class OrganizationFeed extends PureComponent {
   }
 
   render() {
-    const organizationWallFeed = getWallFeedIdsByOrganizationId(this.props.feeds, this.props.organizationId);
+    const organizationWallFeed = getWallFeedIdsByOrganizationId(this.props.feeds, this.props.organizationId) || {};
 
-    if (!organizationWallFeed) {
-      return null;
-    }
     return (
       <Feed
         pinnedPostId={this.props.pinnedPostId}

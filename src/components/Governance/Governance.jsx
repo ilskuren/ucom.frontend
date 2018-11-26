@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import GovernanceTable from './GovernanceTable';
 import Button from '../Button';
 import Panel from '../Panel';
@@ -10,6 +10,7 @@ import GovernanceVote from './GovernanceVote';
 import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup } from '../../actions/governance';
 import { getSelectedNodes } from '../../store/governance';
 import { selectUser } from '../../store/selectors/user';
+import LayoutBase from '../Layout/LayoutBase';
 
 class Governance extends PureComponent {
   constructor(props) {
@@ -26,7 +27,7 @@ class Governance extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <LayoutBase>
         {this.props.governance.nodes.votePopupVisibile &&
           <Popup onClickClose={() => this.props.governanceHideVotePopup()}>
             <ModalContent mod="governance-vote">
@@ -91,7 +92,7 @@ class Governance extends PureComponent {
             }
           </div>
         </div>
-      </Fragment>
+      </LayoutBase>
     );
   }
 }

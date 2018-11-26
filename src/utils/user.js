@@ -21,7 +21,7 @@ export const getUserUrl = (userId) => {
   return `/user/${userId}`;
 };
 
-export const getUserEditProfileUrl = () => '/profile/general-info';
+export const getUserEditProfileUrl = () => '/profile/';
 
 export const getYearOfDate = (date) => {
   if (!date) {
@@ -38,9 +38,7 @@ export const getUserName = (user) => {
 
   const userData = humps(user);
 
-  if (userData.firstName && userData.lastName) {
-    return `${userData.firstName} ${userData.lastName}`;
-  } else if (userData.firstName) {
+  if (userData.firstName) {
     return userData.firstName;
   }
 

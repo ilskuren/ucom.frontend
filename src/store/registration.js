@@ -14,6 +14,7 @@ const getInitialState = () => ({
   brainkey: '',
   activeStepId: FIRST_STEP_ID,
   activeBrainkeyStepId: FIRST_BRAINKEY_STEP_ID,
+  isTrackingAllowed: true,
 });
 
 const registration = (state = getInitialState(), action) => {
@@ -44,6 +45,9 @@ const registration = (state = getInitialState(), action) => {
 
     case 'REGISTRATION_SET_LOADING':
       return { ...state, loading: action.payload };
+
+    case 'REGISTRATION_SET_IS_TRACKING_ALLOWED':
+      return { ...state, isTrackingAllowed: action.payload };
 
     default:
       return state;

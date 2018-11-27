@@ -6,7 +6,7 @@ import Button from '../Button';
 import Checkbox from '../Checkbox';
 import RegistrationBrainkeyVerification from './RegistrationBrainkeyVerification';
 import { THIRD_STEP_ID } from '../../store/registration';
-import { registrationRegister } from '../../actions/registration';
+import { registrationRegister, registrationSetIsTrackingAllowed } from '../../actions/registration';
 
 class RegistrationStepThird extends PureComponent {
   constructor(props) {
@@ -20,7 +20,6 @@ class RegistrationStepThird extends PureComponent {
       brainkeyVerificationIsComplete: false,
       brainkeyVerificationIsValid: false,
       termsAccepted: false,
-      statsAccepted: false,
     };
   }
 
@@ -68,8 +67,8 @@ class RegistrationStepThird extends PureComponent {
               <span className="toolbar">
                 <span className="toolbar__side">
                   <Checkbox
-                    isChecked={this.state.statsAccepted}
-                    onChange={checked => this.setState({ statsAccepted: checked })}
+                    isChecked={this.props.registration.isTrackingAllowed}
+                    onChange={checked => this.props.registrationSetIsTrackingAllowed(checked)}
                   />
                 </span>
                 <span className="toolbar__main">Allow to send anonymous usage data for developer.</span>
@@ -108,5 +107,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     registrationRegister,
+    registrationSetIsTrackingAllowed,
   }, dispatch),
 )(RegistrationStepThird);

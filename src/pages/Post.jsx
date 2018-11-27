@@ -4,10 +4,7 @@ import cn from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import api from '../api';
-import { getFileUrl } from '../utils/upload';
-import { getUserName, getUserUrl } from '../utils/user';
 import PostHeader from '../components/Post/PostHeader';
-import EventTitle from '../components/EventTitle';
 import PostContent from '../components/Post/PostContent';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
@@ -70,31 +67,6 @@ class Offer extends PureComponent {
                   <PostHeader userId={post.User && post.User.id} />
                 </div>
               </div>
-
-              {this.state.post.post_type_id === 2 && (
-                <EventTitle
-                  big
-                  id={this.state.post.id}
-                  userId={this.state.post.User && this.state.post.User.id}
-                  imgSrc={getFileUrl(this.state.post.main_image_filename)}
-                  tags={['sell']}
-                  rate={+this.state.post.current_rate}
-                  title={this.state.post.title}
-                  actionButtonTitle={this.state.post.action_button_title}
-                  actionDurationInDays={this.state.post.action_duration_in_days}
-                  actionButtonUrl={this.state.post.action_button_url}
-                  createdAt={this.state.post.created_at}
-                  join={this.state.post.myselfData && this.state.post.myselfData.join}
-                  team={this.state.post.post_users_team && this.state.post.post_users_team.map(item => ({
-                    id: item.id,
-                    avatarUrl: getFileUrl(item.avatar_filename),
-                    accountName: item.account_name,
-                    rate: +item.current_rate,
-                    profileLink: getUserUrl(item.id),
-                    userName: getUserName(item),
-                  }))}
-                />
-              )}
 
               <div
                 className={cn(

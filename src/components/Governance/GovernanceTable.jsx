@@ -32,8 +32,8 @@ const GovernanceTable = props => (
         <tr className="governance-table__row" key={item.id}>
           {props.user.id &&
             <td className="governance-table__cell governance-table__cell_id" data-name="#">
-              <div className="inline">
-                <div className="inline__item">
+              <div className="governance-table-checkbox">
+                <div className="governance-table-checkbox__input">
                   <Checkbox
                     isChecked={Boolean(item.myselfData && item.myselfData.bpVote)}
                     onChange={() => {
@@ -43,7 +43,9 @@ const GovernanceTable = props => (
                     }}
                   />
                 </div>
-                <div className="inline__item">{item.id}</div>
+                <div className="governance-table-checkbox__label">
+                  {item.id}
+                </div>
               </div>
             </td>
           }

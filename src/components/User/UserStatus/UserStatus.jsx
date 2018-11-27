@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import { selectUser } from '../../../store/selectors/user';
 import { getUserById } from '../../../store/users';
 import { updateUser } from '../../../actions/users';
@@ -11,40 +11,32 @@ import UserStatusForm from './UserStatusForm';
 export const PLACEHOLDER = 'What’s Ur Passion…';
 export const STATUS_MAX_LENGTH = 130;
 
-class UserStatus extends PureComponent {
-  constructor(props) {
-    super(props);
+const UserStatus = (props) => {
+  const [formVisibility, setFormVisibility] = useState(false);
+  const showForm = () => {
+    setFormVisibility(true);
+  };
 
-    this.state = {
-      formVisibility: false,
-    };
+  const hideForm = () => {
+    setFormVisibility(false);
+  };
+
+  const user = getUserById(props.users, props.userId);
+
+  if (!user) {
+    return null;
   }
 
-  showForm() {
-    this.setState({ formVisibility: true });
+  if (!user.moodMessage && +props.user.id !== +user.id) {
+    return null;
   }
 
-  hideForm() {
-    this.setState({ formVisibility: false });
-  }
-
-  render() {
-    const user = getUserById(this.props.users, this.props.userId);
-
-    if (!user) {
-      return null;
-    }
-
-    if (!user.moodMessage && +this.props.user.id !== +user.id) {
-      return null;
-    }
-
-    return (
-      <div className="status" ref={(el) => { this.el = el; }}>
-        {this.props.user.id !== +user.id ? (
-          <div className="status__message">
-            {user.moodMessage || 'What’s Ur @Passion…'}
-          </div>
+  return (
+    <div className="status">
+      {props.user.id !== +user.id ? (
+        <div className="status__message">
+          {user.moodMessage || 'What’s Ur @Passion…'}
+        </div>
         ) : (
           <div
             role="presentation"
@@ -53,7 +45,7 @@ class UserStatus extends PureComponent {
               'status__message_editable',
               { 'status__message_empty': !user.moodMessage },
             )}
-            onClick={() => this.showForm()}
+            onClick={() => showForm()}
           >
             {user.moodMessage || PLACEHOLDER}
 
@@ -63,17 +55,16 @@ class UserStatus extends PureComponent {
           </div>
         )}
 
-        {this.state.formVisibility &&
-          <UserStatusForm
-            moodMessage={user.moodMessage}
-            onClickHide={() => this.hideForm()}
-            onClickSave={moodMessage => this.props.updateUser({ moodMessage })}
-          />
-        }
-      </div>
-    );
-  }
-}
+      {formVisibility && <UserStatusForm
+        moodMessage={user.moodMessage}
+        onClickHide={() => hideForm()}
+        onClickSave={moodMessage => props.updateUser({ moodMessage })}
+      />
+      }
+    </div>
+  );
+};
+
 
 export default connect(
   state => ({

@@ -5,8 +5,8 @@ import React, { PureComponent } from 'react';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import RegistrationBrainkeyVerification from './RegistrationBrainkeyVerification';
-import { THIRD_STEP_ID, SECOND_STEP_ID, FIRST_BRAINKEY_STEP_ID } from '../../store/registration';
-import { registrationSetStep, registrationSetBrainkeyStep, registrationRegister } from '../../actions/registration';
+import { THIRD_STEP_ID } from '../../store/registration';
+import { registrationRegister } from '../../actions/registration';
 
 class RegistrationStepThird extends PureComponent {
   constructor(props) {
@@ -46,26 +46,6 @@ class RegistrationStepThird extends PureComponent {
         </div>
 
         <div className="registration__content">
-          <div className="registration__text">
-            <div className="text">
-              <p>
-                Type in the words number 2 and 4 from your Brainkey.<br />
-                If you didn&apos;t save your Brainkey,&nbsp;
-                <span className="registration__link">
-                  <button
-                    className="button-clean button-clean_link"
-                    onClick={() => {
-                      this.props.registrationSetStep(SECOND_STEP_ID);
-                      this.props.registrationSetBrainkeyStep(FIRST_BRAINKEY_STEP_ID);
-                    }}
-                  >
-                    generate a new one
-                  </button>
-                </span>.
-              </p>
-            </div>
-          </div>
-
           <RegistrationBrainkeyVerification
             brainkey={this.props.registration.brainkey}
             onChange={isValid => this.setState({ brainkeyVerificationIsValid: isValid })}
@@ -127,8 +107,6 @@ export default connect(
     registration: state.registration,
   }),
   dispatch => bindActionCreators({
-    registrationSetStep,
-    registrationSetBrainkeyStep,
     registrationRegister,
   }, dispatch),
 )(RegistrationStepThird);

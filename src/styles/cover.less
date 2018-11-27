@@ -13,3 +13,41 @@
   display: block;
   max-width: 100%;
 }
+
+.cover_small {
+  position: absolute;
+  right: 20px;
+  width: 80px;
+
+  .cover__inner:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .cover__remove {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+
+    .button-clean_close {
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      fill: #fff;
+      border: none;
+
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}
+

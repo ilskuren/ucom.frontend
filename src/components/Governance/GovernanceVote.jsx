@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { Fragment } from 'react';
+import React from 'react';
 import Panel from '../Panel';
 import Button from '../Button';
 import { getSelectedNodes } from '../../store/governance';
@@ -28,11 +28,13 @@ class GovernanceVote extends React.PureComponent {
               <div className="content__section">
                 <div className="text">
                   <p>You will vote for this produsers:</p>
-                  <p>
+                  <div className="inline inline_small">
                     {this.props.selectedNodes.map(item => (
-                      <Fragment key={item.id}><strong>{item.title}</strong>&nbsp;</Fragment>
+                      <span key={item.id} className="inline__item">
+                        <strong>{item.title}</strong>
+                      </span>
                     ))}
-                  </p>
+                  </div>
                 </div>
               </div>
             }

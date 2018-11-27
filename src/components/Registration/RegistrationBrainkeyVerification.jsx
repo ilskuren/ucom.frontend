@@ -1,6 +1,10 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { random } from 'lodash';
 import React, { PureComponent, Fragment } from 'react';
 import TextInput from '../TextInput';
+import { SECOND_STEP_ID, FIRST_BRAINKEY_STEP_ID } from '../../store/registration';
+import { registrationSetStep, registrationSetBrainkeyStep } from '../../actions/registration';
 
 class RegistrationBrainkeyVerification extends PureComponent {
   constructor(props) {
@@ -50,28 +54,56 @@ class RegistrationBrainkeyVerification extends PureComponent {
 
   render() {
     return (
-      <div className="registration-brainkey-verification">
-        <div className="registration-brainkey">
-          {this.props.brainkey.split(' ').map((item, index) => (
-            <Fragment key={index}>
-              {this.state.verificationWordsIndexes.indexOf(index) > -1 ? (
-                <div className="registration-brainkey__item registration-brainkey__item_input">
-                  <TextInput
-                    ymDisableKeys
-                    placeholder={`word ${index + 1}`}
-                    value={this.getVerificationWord(index)}
-                    onChange={value => this.setVerificationWord(index, value)}
-                  />
-                </div>
-              ) : (
-                <div className="registration-brainkey__item" data-index={index + 1}>{item}&nbsp;</div>
-              )}
-            </Fragment>
-          ))}
+      <Fragment>
+        <div className="registration__text">
+          <div className="text">
+            <p>
+              Type in the words number {this.state.verificationWordsIndexes[0] + 1} and {this.state.verificationWordsIndexes[1] + 1} from your Brainkey.<br />
+              If you didn&apos;t save your Brainkey,&nbsp;
+              <span className="registration__link">
+                <button
+                  className="button-clean button-clean_link"
+                  onClick={() => {
+                    this.props.registrationSetStep(SECOND_STEP_ID);
+                    this.props.registrationSetBrainkeyStep(FIRST_BRAINKEY_STEP_ID);
+                  }}
+                >
+                  generate a new one
+                </button>
+              </span>.
+            </p>
+          </div>
         </div>
-      </div>
+
+        <div className="registration-brainkey-verification">
+          <div className="registration-brainkey">
+            {this.props.brainkey.split(' ').map((item, index) => (
+              <Fragment key={index}>
+                {this.state.verificationWordsIndexes.indexOf(index) > -1 ? (
+                  <div className="registration-brainkey__item registration-brainkey__item_input">
+                    <TextInput
+                      ymDisableKeys
+                      placeholder={`word ${index + 1}`}
+                      value={this.getVerificationWord(index)}
+                      onChange={value => this.setVerificationWord(index, value)}
+                    />
+                  </div>
+                ) : (
+                  <div className="registration-brainkey__item" data-index={index + 1}>{item}&nbsp;</div>
+                )}
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      </Fragment>
     );
   }
 }
 
-export default RegistrationBrainkeyVerification;
+export default connect(
+  null,
+  dispatch => bindActionCreators({
+    registrationSetStep,
+    registrationSetBrainkeyStep,
+  }, dispatch),
+)(RegistrationBrainkeyVerification);

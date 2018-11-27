@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Feed from './Feed';
-import { createOrganizationsCommentPost } from '../../actions/posts';
 import { getWallFeedIdsByOrganizationId } from '../../store/feeds';
 import { resetFeeds, getOrganizationWallFeed } from '../../actions/feeds';
+import { ORG_FEED_ID } from '../../utils/feed';
 
 class OrganizationFeed extends PureComponent {
   componentDidMount() {
@@ -46,15 +46,8 @@ class OrganizationFeed extends PureComponent {
         postsIds={organizationWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={organizationWallFeed.metadata && organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
-        onSubmitNewPost={(description) => {
-          this.props.createOrganizationsCommentPost({
-            organizationId: this.props.organizationId,
-            data: {
-              description,
-              post_type_id: 10,
-            },
-          });
-        }}
+        typeFeed={ORG_FEED_ID}
+        organizationId={this.props.organizationId}
       />
     );
   }
@@ -63,7 +56,6 @@ class OrganizationFeed extends PureComponent {
 OrganizationFeed.propTypes = {
   organizationId: PropTypes.number,
   pinnedPostId: PropTypes.number,
-  createOrganizationsCommentPost: PropTypes.func,
   resetFeeds: PropTypes.func,
   getOrganizationWallFeed: PropTypes.func,
   feeds: PropTypes.objectOf(PropTypes.any),
@@ -75,7 +67,7 @@ export default connect(
     feeds: state.feeds,
   }),
   dispatch => bindActionCreators({
-    createOrganizationsCommentPost,
+    // createOrganizationsCommentPost,
     resetFeeds,
     getOrganizationWallFeed,
   }, dispatch),

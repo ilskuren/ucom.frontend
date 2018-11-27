@@ -66,7 +66,7 @@ class DropZone extends PureComponent {
           onDrop={this.onDropHandler}
         >
           <Loading className="loading_small" loading={this.props.loading} />
-          <span className="drop-zone__text">{this.props.text}</span>
+          {this.props.text && <span className="drop-zone__text">{this.props.text}</span>}
         </Dropzone>
         {this.state.error && (
           <div className="drop-zone__error">
@@ -79,7 +79,7 @@ class DropZone extends PureComponent {
 }
 
 DropZone.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   accept: PropTypes.string,
   onDrop: PropTypes.func,
   loading: PropTypes.bool,

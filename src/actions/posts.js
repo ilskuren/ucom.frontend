@@ -5,6 +5,7 @@ import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { addErrorNotification } from './notifications';
 import { addComments } from './comments';
 import { addFeedPosts } from './feeds';
+import snakes from '../utils/snakes';
 import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 import loader from '../utils/loader';
 
@@ -27,7 +28,7 @@ export const fetchPost = postId => (dispatch) => {
 
 export const updatePost = payload => (dispatch) => {
   loader.start();
-  api.updatePost(payload.data, payload.postId)
+  api.updatePost(snakes(payload.data), payload.postId)
     .then((data) => {
       dispatch(addPosts([data]));
     })

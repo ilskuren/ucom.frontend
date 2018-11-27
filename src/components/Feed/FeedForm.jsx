@@ -5,8 +5,13 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { getUserById } from '../../store/users';
-import { getFileUrl } from '../../utils/upload';
+import { getFileUrl, getBase64FromFile } from '../../utils/upload';
+import { setPostData, validatePostField } from '../../actions';
 import { escapeQuotes } from '../../utils/text';
+import IconClip from '../Icons/Clip';
+import IconClose from '../Icons/Close';
+import DropZone from '../DropZone';
+import { updatePost } from '../../actions/posts';
 
 class FeedForm extends PureComponent {
   constructor(props) {
@@ -14,12 +19,14 @@ class FeedForm extends PureComponent {
 
     this.state = {
       message: escapeQuotes(this.props.message) || '',
+      base64Cover: null,
+      fileImg: null,
     };
   }
 
-  sumbitForm = (e) => {
+  sumbitForm = (message, fileImg) => {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(e);
+      this.props.onSubmit(message, fileImg);
     }
   }
 
@@ -35,13 +42,57 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-          this.sumbitForm(this.state.message.trim());
+          this.sumbitForm(this.state.message.trim(), this.state.fileImg);
         }}
       >
         <div className="feed-form__field">
           <div className="feed-form__avatar">
             <Avatar src={getFileUrl(user.avatarFilename)} />
           </div>
+
+          <label name="img" className="feed-form__clip">
+            <IconClip />
+          </label>
+
+          {(this.state.base64Cover || this.props.mainImageFilename) ? (
+            <div className="cover cover_small">
+              <div className="cover__inner">
+                <div className="cover__remove">
+                  <button
+                    type="button"
+                    className="button-clean button-clean_close"
+                    onClick={() => {
+                      this.props.updatePost({
+                          data: {
+                            mainImageFilename: '',
+                          },
+                          postId: this.props.postId,
+                        });
+                      this.setState({ base64Cover: '' });
+                    }}
+                  >
+                    <IconClose />
+                  </button>
+                </div>
+
+                <img className="cover__img" src={this.state.base64Cover || getFileUrl(this.props.mainImageFilename)} alt="" />
+              </div>
+            </div>
+          ) : (
+            <DropZone
+              className="drop-zone_clip"
+              accept="image/jpeg, image/png"
+              maxSize={1000000}
+              onDrop={(files) => {
+                getBase64FromFile(files[0]).then((base64Cover) => {
+                  this.setState({
+                    base64Cover,
+                    fileImg: files[0],
+                  });
+                });
+              }}
+            />
+          )}
 
           <div className="feed-form__message">
             <textarea
@@ -54,12 +105,13 @@ class FeedForm extends PureComponent {
               onKeyDown={(e) => {
                 if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
                   e.preventDefault();
-                  this.sumbitForm(this.state.message);
+                  this.sumbitForm(this.state.message, this.state.fileImg);
                 }
               }}
             />
           </div>
         </div>
+
         <div className="feed-form__actions">
           <div className="inline">
             <div className="inline__item">
@@ -97,8 +149,15 @@ FeedForm.propTypes = {
   message: PropTypes.string,
 };
 
-export default connect(state => ({
-  users: state.users,
-  posts: state.posts,
-  user: selectUser(state),
-}))(FeedForm);
+export default connect(
+  state => ({
+    users: state.users,
+    posts: state.posts,
+    user: selectUser(state),
+  }),
+  dispatch => ({
+    updatePost,
+    setPostData: data => dispatch(setPostData(data)),
+    validatePostField: data => dispatch(validatePostField(data)),
+  }),
+)(FeedForm);

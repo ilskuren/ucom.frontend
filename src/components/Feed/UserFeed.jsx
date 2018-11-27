@@ -6,6 +6,8 @@ import Feed from './Feed';
 import { getWallFeedIdsByUserId } from '../../store/feeds';
 import { createUserCommentPost } from '../../actions/posts';
 import { getUserWallFeed, resetFeeds } from '../../actions/feeds';
+import { USER_NEWS_FEED_ID } from '../../utils/feed';
+
 
 class UserFeed extends PureComponent {
   componentDidMount() {
@@ -46,15 +48,8 @@ class UserFeed extends PureComponent {
         postsIds={userWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={userWallFeed.metadata && userWallFeed.postsIds.length < userWallFeed.metadata.totalAmount}
-        onSubmitNewPost={(description) => {
-          this.props.createUserCommentPost({
-            userId: this.props.userId,
-            data: {
-              description,
-              post_type_id: 10,
-            },
-          });
-        }}
+        typeFeed={USER_NEWS_FEED_ID}
+        userId={this.props.userId}
       />
     );
   }
@@ -63,7 +58,6 @@ class UserFeed extends PureComponent {
 UserFeed.propTypes = {
   userId: PropTypes.number,
   feeds: PropTypes.objectOf(PropTypes.any),
-  createUserCommentPost: PropTypes.func,
   getUserWallFeed: PropTypes.func,
   resetFeeds: PropTypes.func,
   pinnedPostId: PropTypes.number,

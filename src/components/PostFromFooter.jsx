@@ -15,7 +15,7 @@ const PostFromFooter = (props) => {
       <div className="post-form__content">
         <div className="toolbar">
           <div className="toolbar__main">
-            <a href="#top" className="create-post__back-link">Back to settings ↑</a>
+            {/* <a href="#top" className="create-post__back-link">Back to settings ↑</a> */}
           </div>
           <div className="toolbar__side">
             <div className="inline">

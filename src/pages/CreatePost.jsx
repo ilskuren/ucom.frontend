@@ -1,10 +1,12 @@
+import { Redirect } from 'react-router';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
 // import OfferForm from '../components/OfferForm';
 import LayoutBase from '../components/Layout/LayoutBase';
-import { setPostData, validatePost, resetPost } from '../actions';
+import { postSetSaved, setPostData, validatePost, resetPost } from '../actions';
 import { authShowPopup } from '../actions/auth';
 import api from '../api';
 import { getPostUrl } from '../utils/posts';
@@ -67,12 +69,17 @@ class CreatePost extends PureComponent {
       saveFn(this.props.post.data, this.props.match.params.id)
         .then((data) => {
           this.setState({ loading: false });
-          this.props.history.push(getPostUrl(data.id || data.post_id));
+          this.props.postSetSaved(true);
+          this.props.setPostData({ id: data.postId });
         });
     });
   }
 
   render() {
+    if (this.props.post.data.id && this.props.post.saved) {
+      return <Redirect to={getPostUrl(this.props.post.data.id)} />;
+    }
+
     switch (this.props.post.data.post_type_id) {
       // case 2:
       //   return (
@@ -107,10 +114,11 @@ export default connect(
     user: selectUser(state),
     post: state.post,
   }),
-  dispatch => ({
-    resetPost: () => dispatch(resetPost()),
-    setPostData: data => dispatch(setPostData(data)),
-    validatePost: () => dispatch(validatePost()),
-    authShowPopup: () => dispatch(authShowPopup()),
-  }),
+  dispatch => bindActionCreators({
+    resetPost,
+    setPostData,
+    validatePost,
+    authShowPopup,
+    postSetSaved,
+  }, dispatch),
 )(CreatePost);

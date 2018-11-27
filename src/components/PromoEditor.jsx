@@ -129,7 +129,7 @@ class PromoEditor extends PureComponent {
         )}
 
         <div className="promo-editor__action">
-          <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Publish</Link>
+          <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/registration">Publish</Link>
         </div>
       </div>
     );

@@ -17,7 +17,7 @@ const Promo = () => (
             <p>Unite with other people, communicate, share your ideas and get feedback. Build your own community with the U°OS-based social rating that distributes the real financial value.</p>
           </div>
           <div className="promo-about__action">
-            <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Get started</Link>
+            <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/registration">Get started</Link>
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ const Promo = () => (
           <h3 className="promo-users__sub-title">Convert Your Value° Into Currency</h3>
 
           <div className="promo-users__action">
-            <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Get started</Link>
+            <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/registration">Get started</Link>
           </div>
         </div>
       </div>

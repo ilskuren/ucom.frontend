@@ -13,8 +13,8 @@ const getInitialState = () => ({
   },
   rules: {
     firstName: 'required',
-    personalWebsiteUrl: 'url',
-    'usersSources.*.sourceUrl': 'url',
+    personalWebsiteUrl: 'shortUrl',
+    'usersSources.*.sourceUrl': 'shortUrl',
   },
 });
 

@@ -1,4 +1,4 @@
-import Validator from 'validatorjs';
+import Validator from './../utils/validator';
 import { getRulesByPostTypeId } from '../utils/posts';
 
 const getInitialState = () => ({

@@ -13,7 +13,7 @@ export const registerPhoneNumber = {
 };
 
 export const registerUrl = {
-  name: 'Url',
+  name: 'shortUrl',
   rule: (Validator) => {
     Validator.register(registerUrl.name, (value) => {
       const regexUrl = new RegExp(urlRegex);

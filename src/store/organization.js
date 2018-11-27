@@ -1,4 +1,4 @@
-import Validator from 'validatorjs';
+import Validator from './../utils/validator';
 
 export const SOURCES_ID_FACEBOOK = 1;
 export const SOURCES_ID_REDDIT = 2;
@@ -77,7 +77,7 @@ const getInitialState = () => ({
     name: 'Contacts',
     rules: {
       email: 'email',
-      personalWebsiteUrl: 'url',
+      personalWebsiteUrl: 'shortUrl',
     },
     fields: [
       'email',

@@ -70,7 +70,7 @@ class CreatePost extends PureComponent {
         .then((data) => {
           this.setState({ loading: false });
           this.props.postSetSaved(true);
-          this.props.setPostData({ id: data.postId });
+          this.props.setPostData({ id: data.id || data.postId });
         });
     });
   }

@@ -1,101 +1,62 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import api from '../api';
 import PostHeader from '../components/Post/PostHeader';
 import PostContent from '../components/Post/PostContent';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { fetchPost } from '../actions/posts';
-import { selectUser } from '../store/selectors';
+import { getPostById } from '../store/posts';
 
-class Offer extends PureComponent {
-  constructor(props) {
-    super(props);
+const Post = (props) => {
+  useEffect(() => {
+    props.fetchPost(props.match.params.id);
+  }, [props.match.params.id]);
 
-    this.state = {
-      post: {},
-    };
+  const post = getPostById(props.posts, props.match.params.id);
+
+  if (!post) {
+    return null;
   }
 
-  componentDidMount() {
-    this.getData(this.props.match.params.id);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.id !== nextProps.match.params.id) {
-      this.getData(nextProps.match.params.id);
-    }
-  }
-
-  getData(postId) {
-    api.getPost(postId)
-      .then((data) => {
-        this.setState({ post: data });
-      });
-
-    this.props.fetchPost(postId);
-  }
-
-  createComment(commentData, commentId) {
-    return api.createComment(commentData, this.props.match.params.id, commentId)
-      .then((data) => {
-        if (data.errors) {
-          return;
-        }
-
-        const post = Object.assign({}, this.state.post, {
-          comments: [{ ...data, ...commentData }].concat(this.state.post.comments),
-        });
-
-        this.setState({ post });
-      });
-  }
-
-  render() {
-    const { post } = this.state;
-
-    return (
-      <LayoutBase>
+  return (
+    <LayoutBase>
+      <div className="content-wrapper">
         <div className="content">
           <div className="content__inner">
             <div className="sheets">
               <div className="sheets__list">
                 <div className="sheets__item">
-                  <PostHeader userId={post.User && post.User.id} />
+                  <PostHeader postId={Number(props.match.params.id)} />
                 </div>
               </div>
 
-              <div
-                className={cn(
-                  'sheets__content',
-                  'sheets__content_posts',
-                  { 'sheets__content_no-radius': this.state.post.post_type_id === 2 },
-                )}
-              >
-                <PostContent postId={post && post.id} />
+              <div className="sheets__content sheets__content_posts">
+                <PostContent postId={Number(props.match.params.id)} />
               </div>
             </div>
-
-            <Footer />
           </div>
         </div>
-      </LayoutBase>
-    );
-  }
-}
+      </div>
+      <div className="content">
+        <div className="content__inner">
+          <Footer />
+        </div>
+      </div>
+    </LayoutBase>
+  );
+};
 
-Offer.propTypes = {
+Post.propTypes = {
   fetchPost: PropTypes.func.isRequired,
 };
 
 export default connect(
   state => ({
-    user: selectUser(state),
+    posts: state.posts,
   }),
   dispatch => bindActionCreators({
     fetchPost,
   }, dispatch),
-)(Offer);
+)(Post);

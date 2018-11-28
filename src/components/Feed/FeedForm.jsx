@@ -21,6 +21,7 @@ class FeedForm extends PureComponent {
       message: escapeQuotes(this.props.message) || '',
       base64Cover: null,
       fileImg: null,
+      fileUrl: getFileUrl(this.props.mainImageFilename) || null,
     };
   }
 
@@ -50,50 +51,6 @@ class FeedForm extends PureComponent {
             <Avatar src={getFileUrl(user.avatarFilename)} />
           </div>
 
-          <label name="img" className="feed-form__clip">
-            <IconClip />
-          </label>
-
-          {(this.state.base64Cover || this.props.mainImageFilename) ? (
-            <div className="cover cover_small">
-              <div className="cover__inner">
-                <div className="cover__remove">
-                  <button
-                    type="button"
-                    className="button-clean button-clean_close"
-                    onClick={() => {
-                      this.props.updatePost({
-                          data: {
-                            mainImageFilename: '',
-                          },
-                          postId: this.props.postId,
-                        });
-                      this.setState({ base64Cover: '' });
-                    }}
-                  >
-                    <IconClose />
-                  </button>
-                </div>
-
-                <img className="cover__img" src={this.state.base64Cover || getFileUrl(this.props.mainImageFilename)} alt="" />
-              </div>
-            </div>
-          ) : (
-            <DropZone
-              className="drop-zone_clip"
-              accept="image/jpeg, image/png"
-              maxSize={1000000}
-              onDrop={(files) => {
-                getBase64FromFile(files[0]).then((base64Cover) => {
-                  this.setState({
-                    base64Cover,
-                    fileImg: files[0],
-                  });
-                });
-              }}
-            />
-          )}
-
           <div className="feed-form__message">
             <textarea
               autoFocus
@@ -109,6 +66,52 @@ class FeedForm extends PureComponent {
                 }
               }}
             />
+          </div>
+
+          <div>
+            <label name="img" className="feed-form__clip">
+              <IconClip />
+            </label>
+
+            {(this.state.base64Cover || this.state.fileUrl) ? (
+              <div className="cover cover_small">
+                <div className="cover__inner">
+                  <div className="cover__remove">
+                    <button
+                      type="button"
+                      className="button-clean button-clean_close"
+                      onClick={() => {
+                        this.props.updatePost({
+                            data: {
+                              mainImageFilename: '',
+                            },
+                            postId: this.props.postId,
+                          });
+                        this.setState({ base64Cover: '', fileUrl: '' });
+                      }}
+                    >
+                      <IconClose />
+                    </button>
+                  </div>
+
+                  <img className="cover__img" src={this.state.base64Cover || this.state.fileUrl} alt="" />
+                </div>
+              </div>
+            ) : (
+              <DropZone
+                className="drop-zone_clip"
+                accept="image/jpeg, image/png"
+                maxSize={1000000}
+                onDrop={(files) => {
+                  getBase64FromFile(files[0]).then((base64Cover) => {
+                    this.setState({
+                      base64Cover,
+                      fileImg: files[0],
+                    });
+                  });
+                }}
+              />
+            )}
           </div>
         </div>
 

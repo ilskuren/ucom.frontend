@@ -42,26 +42,6 @@ class AboutPage extends PureComponent {
                           >
                             User agreement
                           </NavLink>
-                        </div>
-                        <div className="menu__item">
-                          <NavLink
-                            className="menu__link"
-                            activeClassName="menu__link_active"
-                            to="/about/privacy-policy"
-                            isActive={() => this.props.location.pathname === '/about/contacts'}
-                          >
-                            Privacy policy
-                          </NavLink>
-                        </div>
-                        <div className="menu__item">
-                          <NavLink
-                            className="menu__link"
-                            activeClassName="menu__link_active"
-                            to="/about/legal-registration"
-                            isActive={() => this.props.location.pathname === '/about/contacts'}
-                          >
-                            Legal registration
-                          </NavLink>
                         </div> */}
                       </div>
                     </div>

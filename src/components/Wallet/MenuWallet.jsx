@@ -2,7 +2,7 @@ import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import SendTokensPopup from './SendTokensPopup';
 import TradeRAMPopup from './TradeRAMPopup';
 import SetStakePopup from './SetStakePopup';
@@ -24,50 +24,79 @@ const MenuWallet = (props) => {
     return null;
   }
 
+  const [route, setRoute] = useState(1);
+
   return (
     <Fragment>
       <div className="menu-wallet">
-        <div className="menu-wallet__block">
-          <h2 className="menu-wallet__title">Tokens</h2>
-
-          <div className="inline inline_flex inline_large inline_resp">
-            <div className="inline__item">
-              <div className="menu-wallet__amount">{wallet.state.data.tokens.active}</div>
-              <div className="menu-wallet__status">Active, UOS</div>
-              <div
-                role="presentation"
-                onClick={() => props.setWalletSendTokensVisible(true)}
-                className="menu-wallet__action"
-              >
-                Send
-              </div>
-            </div>
-
-            <div className="inline__item">
-              <div className="menu-wallet__amount">{wallet.state.data.tokens.staked}</div>
-              <div className="menu-wallet__status">Staked, UOS</div>
-              <div
-                className="menu-wallet__action"
-                role="presentation"
-                onClick={() => props.setWalletEditStakeVisible(true)}
-              >
-                Edit Stake
-              </div>
-            </div>
-
-            <div className="inline__item">
-              <div className="menu-wallet__amount">{wallet.state.data.tokens.emission}</div>
-              <div className="menu-wallet__status">Emission, UOS</div>
-              <div
-                role="presentation"
-                className="menu-wallet__action"
-                onClick={() => props.claimEmission()}
-              >
-                Get Emission
+        <div className="nav-bar__menu">
+          <div className="toolbar toolbar_responsive">
+            <div className="toolbar__main">
+              <div className="menu menu_simple-tabs">
+                <div className="menu__item">
+                  <div
+                    className={`menu__link ${route === 1 ? 'menu__link_active' : ''}`}
+                    onClick={() => setRoute(1)}
+                    role="presentation"
+                  >
+                    Tokens
+                  </div>
+                </div>
+                <div className="menu__item">
+                  <div
+                    className={`menu__link ${route === 2 ? 'menu__link_active' : ''}`}
+                    onClick={() => setRoute(2)}
+                    role="presentation"
+                  >
+                    Resources
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        {route === 1 ?
+          <div className="menu-wallet__block">
+            <div className="inline inline_flex inline_large inline_resp">
+              <div className="inline__item">
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.active}</div>
+                <div className="menu-wallet__status">Active, UOS</div>
+                <div
+                  role="presentation"
+                  onClick={() => props.setWalletSendTokensVisible(true)}
+                  className="menu-wallet__action"
+                >
+                  Send
+                </div>
+              </div>
+
+              <div className="inline__item">
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.staked}</div>
+                <div className="menu-wallet__status">Staked, UOS</div>
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => props.setWalletEditStakeVisible(true)}
+                >
+                  Edit Stake
+                </div>
+              </div>
+
+              <div className="inline__item">
+                <div className="menu-wallet__amount">{wallet.state.data.tokens.emission}</div>
+                <div className="menu-wallet__status">Emission, UOS</div>
+                <div
+                  role="presentation"
+                  className="menu-wallet__action"
+                  onClick={() => props.claimEmission()}
+                >
+                  Get Emission
+                </div>
+              </div>
+            </div>
+          </div>
+          : null }
 
         {
           wallet.state.data.tokens.unstakingRequest &&
@@ -80,80 +109,80 @@ const MenuWallet = (props) => {
           </div>
         }
 
-        <div className="menu-wallet__block">
-          <h2 className="menu-wallet__title">Resources</h2>
+        {route === 2 ?
+          <div className="menu-wallet__block">
 
-          <div className="inline inline_flex inline_large inline_resp">
-            <div className="inline__item">
-              <ProgressBar
-                partAmount={+wallet.state.data.resources.ram.free}
-                fullAmount={+wallet.state.data.resources.ram.total}
-                label={wallet.state.data.resources.ram.dimension}
-                title="RAM"
-                description="Free"
-              />
-              <div className="inline">
-                <div className="inline__item">
-                  <div
-                    role="presentation"
-                    onClick={() => {
-                      props.setWalletTradeRamVisible(true);
-                      props.setWalletTradeRamIsBuy(true);
-                    }}
-                    className="menu-wallet__action"
-                  >
-                    Buy
+            <div className="inline inline_flex inline_large inline_resp">
+              <div className="inline__item">
+                <ProgressBar
+                  partAmount={+wallet.state.data.resources.ram.free}
+                  fullAmount={+wallet.state.data.resources.ram.total}
+                  label={wallet.state.data.resources.ram.dimension}
+                  title="RAM"
+                  description="Free"
+                />
+                <div className="inline">
+                  <div className="inline__item">
+                    <div
+                      role="presentation"
+                      onClick={() => {
+                        props.setWalletTradeRamVisible(true);
+                        props.setWalletTradeRamIsBuy(true);
+                      }}
+                      className="menu-wallet__action"
+                    >
+                      Buy
+                    </div>
                   </div>
-                </div>
-                <div className="inline__item">
-                  <div
-                    role="presentation"
-                    className="menu-wallet__action"
-                    onClick={() => {
-                      props.setWalletTradeRamVisible(true);
-                      props.setWalletTradeRamIsBuy(false);
-                    }}
-                  >
-                    Sell
+                  <div className="inline__item">
+                    <div
+                      role="presentation"
+                      className="menu-wallet__action"
+                      onClick={() => {
+                        props.setWalletTradeRamVisible(true);
+                        props.setWalletTradeRamIsBuy(false);
+                      }}
+                    >
+                      Sell
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="inline__item">
-              <ProgressBar
-                partAmount={+wallet.state.data.resources.cpu.free}
-                fullAmount={+wallet.state.data.resources.cpu.total}
-                label={wallet.state.data.resources.cpu.dimension}
-                title="CPU Time"
-              />
-              <div
-                className="menu-wallet__action"
-                role="presentation"
-                onClick={() => props.setWalletEditStakeVisible(true)}
-              >
-                Edit Stake
+              <div className="inline__item">
+                <ProgressBar
+                  partAmount={+wallet.state.data.resources.cpu.free}
+                  fullAmount={+wallet.state.data.resources.cpu.total}
+                  label={wallet.state.data.resources.cpu.dimension}
+                  title="CPU Time"
+                />
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => props.setWalletEditStakeVisible(true)}
+                >
+                  Edit Stake
+                </div>
               </div>
-            </div>
 
-            <div className="inline__item">
-              <ProgressBar
-                partAmount={+wallet.state.data.resources.net.free}
-                fullAmount={+wallet.state.data.resources.net.total}
-                label="kb"
-                title="Network BW"
-              />
-              <div
-                className="menu-wallet__action"
-                role="presentation"
-                onClick={() => props.setWalletEditStakeVisible(true)}
-              >
-                Edit Stake
+              <div className="inline__item">
+                <ProgressBar
+                  partAmount={+wallet.state.data.resources.net.free}
+                  fullAmount={+wallet.state.data.resources.net.total}
+                  label="kb"
+                  title="Network BW"
+                />
+                <div
+                  className="menu-wallet__action"
+                  role="presentation"
+                  onClick={() => props.setWalletEditStakeVisible(true)}
+                >
+                  Edit Stake
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
+          : null }
         {/* <div className="menu-wallet__block menu-wallet__block_resources">
           <h2 className="menu-wallet__title">Activity</h2>
 

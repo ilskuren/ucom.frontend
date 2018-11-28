@@ -10,6 +10,10 @@ const urls = {
 
     return `/user/${userId}`;
   },
+
+  getGovernanceUrl() {
+    return '/governance';
+  },
 };
 
 export default urls;

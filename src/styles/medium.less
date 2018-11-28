@@ -1,6 +1,12 @@
 #app {
   .medium-editor-element,
   .posts__content {
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
     blockquote {
       border-left: 3px solid rgba(0,0,0,.84);
       margin-left: 0;

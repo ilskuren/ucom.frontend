@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FeedForm from '../FeedForm';
 import IconEdit from '../../Icons/Edit';
@@ -10,8 +9,9 @@ import { getFileUrl } from '../../../utils/upload';
 import { updatePost } from '../../../actions/posts';
 import { getPostById } from '../../../store/posts';
 import { postIsEditable } from '../../../utils/posts';
+import DescDirectPost from './DescDirectPost';
 
-class PostFeedContent extends Component {
+class PostFeedContent extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -62,26 +62,28 @@ class PostFeedContent extends Component {
                     <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
                   </div>
                 )}
-                <div className="toolbar__main_small">
-                  {escapeQuotes(post.description)}
+                <div className="toolbar">
+                  {post.description &&
+                    <div className="toolbar__main toolbar__main_small">
+                      <DescDirectPost
+                        desc={escapeQuotes(post.description)}
+                        limit={100}
+                      />
+                    </div>
+                  }
+                  {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
+                    <div className="toolbar__side">
+                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
+                        <IconEdit />
+                      </button>
+                    </div>
+                  )}
                 </div>
-                {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
-                  <div className="toolbar__side">
-                    <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
-                      <IconEdit />
-                    </button>
-                  </div>
-                )}
               </div>
             ) : (
               null
-              // <Link to={getPostUrl(post.id)}>{escapeQuotes(post.title)}</Link>
             )}
           </div>
-        )}
-
-        {post.leadingText && (
-          <h2 className="post__title post__title_leading">{escapeQuotes(post.leadingText)}</h2>
         )}
       </div>
     );

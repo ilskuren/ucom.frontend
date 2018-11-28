@@ -2,14 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   box-sizing: border-box;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   z-index: 1000;
-  overflow-y: scroll;
   background: rgba(151, 151, 151, 0.6);
 }
 
@@ -17,14 +16,22 @@
   filter: blur(5px);
 }
 
+.popup_blocked {
+  position: fixed;
+}
+
 .popup_user-menu {
   top: 91px;
   z-index: 99;
-  height: calc(100vh - 91px);
+  min-height: calc(100vh - 91px);
   background: #fff;
 
   &:after {
     display: none;
+  }
+
+  &.popup_blocked {
+    margin-top: 91px;
   }
 }
 

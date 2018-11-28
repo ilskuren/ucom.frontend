@@ -62,17 +62,23 @@ class PostFeedContent extends PureComponent {
                     <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
                   </div>
                 )}
-                <div className="toolbar__main_small">
-                  <DescDirectPost
-                    desc={escapeQuotes(post.description)}
-                    limit={100}
-                  />
+                <div className="toolbar">
+                  {post.description &&
+                    <div className="toolbar__main toolbar__main_small">
+                      <DescDirectPost
+                        desc={escapeQuotes(post.description)}
+                        limit={100}
+                      />
+                    </div>
+                  }
+                  {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
+                    <div className="toolbar__side">
+                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
+                        <IconEdit />
+                      </button>
+                    </div>
+                  )}
                 </div>
-                {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
-                  <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
-                    <IconEdit />
-                  </button>
-                )}
               </div>
             ) : (
               null

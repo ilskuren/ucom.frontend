@@ -1,4 +1,4 @@
-import Validator from 'validatorjs';
+import Validator from './../utils/validator';
 
 export const validateFields = (
   data = {}, fields = [], rules = {}, isAll = false,

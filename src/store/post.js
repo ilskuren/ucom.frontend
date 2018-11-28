@@ -1,8 +1,9 @@
-import Validator from 'validatorjs';
+import Validator from './../utils/validator';
 import { getRulesByPostTypeId } from '../utils/posts';
 
 const getInitialState = () => ({
   data: {
+    id: null,
     post_type_id: 1,
     organization_id: null,
     title: '',
@@ -16,13 +17,13 @@ const getInitialState = () => ({
   },
   errors: {},
   isValid: false,
+  saved: false,
 });
 
 const post = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_POST': {
+    case 'RESET_POST':
       return getInitialState();
-    }
 
     case 'SET_POST_DATA': {
       const data = Object.assign({}, state.data, action.payload);
@@ -56,9 +57,11 @@ const post = (state = getInitialState(), action) => {
       });
     }
 
-    default: {
+    case 'POST_SET_SAVED':
+      return { ...state, saved: action.payload };
+
+    default:
       return state;
-    }
   }
 };
 

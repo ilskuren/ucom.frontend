@@ -21,7 +21,9 @@ const UserStatusForm = (props) => {
   useEffect(() => {
     document.addEventListener('click', hideFormOnClick);
 
-    return document.removeEventListener('click', hideFormOnClick);
+    return () => {
+      document.removeEventListener('click', hideFormOnClick);
+    };
   });
 
 

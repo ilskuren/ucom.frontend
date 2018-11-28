@@ -13,6 +13,7 @@ export const STATUS_MAX_LENGTH = 130;
 
 const UserStatus = (props) => {
   const [formVisibility, setFormVisibility] = useState(false);
+
   const showForm = () => {
     setFormVisibility(true);
   };

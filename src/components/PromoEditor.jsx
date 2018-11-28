@@ -1,55 +1,14 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PostFormEditor from './PostFormEditor';
-import OfferFormEditor from './OfferFormEditor';
-import EventTitle from './EventTitle';
-import { getFileUrl } from '../utils/upload';
 import { setPostData } from '../actions';
-
-import user1Image from '../static/promo_team/1.png';
-import user2Image from '../static/promo_team/2.jpeg';
-import user3Image from '../static/promo_team/3.png';
-import user4Image from '../static/promo_team/4.png';
-
-import buyer1Image from '../static/promo_buyers/1.jpeg';
-import buyer2Image from '../static/promo_buyers/2.jpeg';
-import buyer3Image from '../static/promo_buyers/3.jpeg';
-
-const TEAM = [{
-  avatarUrl: user1Image,
-  id: 1,
-}, {
-  avatarUrl: user2Image,
-  id: 2,
-}, {
-  avatarUrl: user3Image,
-  id: 3,
-}, {
-  avatarUrl: user4Image,
-  id: 4,
-}];
-
-const BUYERS = [{
-  avatarUrl: buyer1Image,
-  id: 1,
-}, {
-  avatarUrl: buyer2Image,
-  id: 2,
-}, {
-  avatarUrl: buyer3Image,
-  id: 3,
-}];
 
 const TABS = [{
   id: 1,
   title: 'Media-posts',
-}, /* {
-  id: 2,
-  title: 'Offers',
-} */];
+}];
 
 class PromoEditor extends PureComponent {
   constructor(props) {
@@ -87,58 +46,20 @@ class PromoEditor extends PureComponent {
           </div>
         </div>
         <div className="promo-editor__sub-text">
-          {this.state.activeTabId === 1 ? (
-            <Fragment>Ideas, knowledge-sharing and opinions fuel the world. Share your stories, polls, forecasts, and get immediate response.</Fragment>
-          ) : (
-            <Fragment>Call for an action! Involve people into what matters to you any activity on and outside the platform: sales, meetups, giveaways, promotion, votings</Fragment>
-          )}
-
+          Ideas, knowledge-sharing and opinions fuel the world. Share your stories, polls, forecasts, and get immediate response.
         </div>
 
-        {this.state.activeTabId === 1 ? (
-          <div className="promo-editor__editor">
-            <PostFormEditor />
-          </div>
-        ) : (
-          <Fragment>
-            <div className="promo-editor__event-title">
-              <EventTitle
-                black
-                editableTitle
-                editableCover
-                rate={9200}
-                tags={['sale']}
-                title={this.props.post.data.title}
-                actionButtonTitle={this.props.post.data.action_button_title || 'Buy now'}
-                actionButtonUrl={this.props.post.data.action_button_url}
-                actionDurationInDays={this.props.post.data.action_duration_in_days || 1}
-                createdAt={(new Date()).getTime() - 10000}
-                imgSrc={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)}
-                team={TEAM}
-                teamTitle="Invite your Partners"
-                buyers={BUYERS}
-                buyersCount={8923}
-                buyersTitle="See your Buyers"
-                timerTitle="Set countdown"
-              />
-            </div>
-            <div className="promo-editor__editor promo-editor__editor_offer">
-              <OfferFormEditor />
-            </div>
-          </Fragment>
-        )}
+        <div className="promo-editor__editor">
+          <PostFormEditor />
+        </div>
 
         <div className="promo-editor__action">
-          <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/signup">Publish</Link>
+          <Link className="button button_upper button_theme_red button_size_big button_stretched" to="/registration">Publish</Link>
         </div>
       </div>
     );
   }
 }
-
-PromoEditor.propTypes = {
-  post: PropTypes.objectOf(PropTypes.any),
-};
 
 export default connect(
   state => ({

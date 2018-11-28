@@ -1,9 +1,9 @@
-import Validator from 'validatorjs';
 import React, { PureComponent } from 'react';
 import TextInput from './TextInput';
 import Button from './Button';
 import AvatarFromFile from './AvatarFromFile';
 import DropZone from './DropZone';
+import Validator from './../utils/validator';
 
 class SourceForm extends PureComponent {
   constructor(props) {

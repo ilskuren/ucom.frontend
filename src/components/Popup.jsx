@@ -9,10 +9,36 @@ import { blockPageContent, unblockPageContent } from '../utils/page';
 class Popup extends PureComponent {
   componentDidMount() {
     blockPageContent();
+    this.blockAnotherPopups();
   }
 
   componentWillUnmount() {
     unblockPageContent();
+    this.unblockAnotherPopups();
+  }
+
+  getAnotherPopups() {
+    return Array.from(document.querySelectorAll('.popup'))
+      .filter(item => item !== this.el);
+  }
+
+  blockAnotherPopups() {
+    this.getAnotherPopups()
+      .forEach((item) => {
+        item.style.top = `-${window.pageYOffset}px`;
+        item.classList.add('popup_blocked');
+      });
+  }
+
+  unblockAnotherPopups() {
+    this.getAnotherPopups()
+      .forEach((item) => {
+        const topOffset = parseInt(item.style.top, 10);
+
+        item.classList.remove('popup_blocked');
+        item.style.top = '';
+        window.scrollTo(0, Math.abs(topOffset));
+      });
   }
 
   render() {
@@ -21,13 +47,13 @@ class Popup extends PureComponent {
         <Portal>
           <div
             role="presentation"
-            ref={(el) => { this.popup = el; }}
+            ref={(el) => { this.el = el; }}
             className={classNames(
               'popup',
               { [`popup_${this.props.mod}`]: Boolean(this.props.mod) },
             )}
             onClick={(e) => {
-              if (e.target === this.popup && typeof this.props.onClickClose === 'function') {
+              if (e.target === this.el && typeof this.props.onClickClose === 'function') {
                 this.props.onClickClose();
               }
             }}

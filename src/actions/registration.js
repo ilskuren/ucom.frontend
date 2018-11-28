@@ -12,6 +12,7 @@ export const registrationSetAccountNameIsValid = payload => ({ type: 'REGISTRATI
 export const registrationSetBrainkeyStep = payload => ({ type: 'REGISTRATION_SET_BRAINKEY_STEP', payload });
 export const registrationSetBrainkey = payload => ({ type: 'REGISTRATION_SET_BRAINKEY', payload });
 export const registrationSetLoading = payload => ({ type: 'REGISTRATION_SET_LOADING', payload });
+export const registrationSetIsTrackingAllowed = payload => ({ type: 'REGISTRATION_SET_IS_TRACKING_ALLOWED', payload });
 
 export const registrationValidateAccountName = () => (dispatch, getState) => {
   const state = getState();
@@ -45,7 +46,7 @@ export const registrationGenerateBrainkey = () => (dispatch) => {
 
 export const registrationRegister = () => async (dispatch, getState) => {
   const state = getState();
-  const { brainkey, accountName } = state.registration;
+  const { brainkey, accountName, isTrackingAllowed } = state.registration;
 
   dispatch(registrationSetLoading(true));
 
@@ -54,7 +55,7 @@ export const registrationRegister = () => async (dispatch, getState) => {
       const data = await api.register({
         brainkey,
         accountName,
-        isTrackingAllowed: true,
+        isTrackingAllowed,
       });
 
       saveToken(data.token);

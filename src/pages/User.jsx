@@ -1,4 +1,3 @@
-import MetaTags from 'react-meta-tags';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -43,10 +42,6 @@ class UserPage extends PureComponent {
 
     return (
       <LayoutBase>
-        <MetaTags>
-          <title>U°Community - {user.firstName}</title>
-        </MetaTags>
-
         <div className="content content_sheet">
           <div className="content__inner">
             <UserHead userId={userId} />

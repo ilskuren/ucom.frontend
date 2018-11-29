@@ -91,7 +91,6 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.7.0-alpha.2",
     "react-dropzone": "^5.0.1",
-    "react-meta-tags": "^0.7.2",
     "react-perfect-scrollbar": "^1.2.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",

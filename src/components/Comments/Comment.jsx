@@ -13,6 +13,7 @@ import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import { makeLink } from '../../utils/url';
+import { sanitizeCommentText } from '../../utils/text';
 
 class Comment extends PureComponent {
   constructor(props) {
@@ -69,7 +70,7 @@ class Comment extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="comment__text" dangerouslySetInnerHTML={{ __html: makeLink(comment.description) }} />
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: sanitizeCommentText(makeLink(comment.description)) }} />
             <div className="comment__actions">
               <div className="inline">
                 {this.props.user.id && (

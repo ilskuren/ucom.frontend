@@ -44,6 +44,7 @@ class Followers extends PureComponent {
     const users = this.props.usersIds
       .map(userId => getUserById(this.props.users, userId))
       .filter(item => !!item);
+
     const avatarUsers = users.slice(0, 2);
 
     return (

@@ -1,79 +1,100 @@
 import { uniqBy, compact } from 'lodash';
 
 const getInitialState = () => ({
-  data: {
-  },
+  data: {},
 });
 
 const users = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_POST': {
+    case 'RESET_POST':
       return getInitialState();
-    }
 
     case 'ADD_USERS': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, action.payload
-          .filter(i => i && i.id)
-          .reduce((value, item) => ({ ...value, [item.id]: Object.assign({}, state.data[item.id], item) }), {})),
-      });
-    }
+      const users = action.payload.filter(i => i.id);
 
-    case 'ADD_USER_I_FOLLOW': {
+      if (!users.length) {
+        return state;
+      }
+
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            iFollow: uniqBy([].concat(
-              state.data[action.payload.userId].iFollow,
-              action.payload.user,
-            ), item => item.id),
+          ...users.reduce((result, user) => ({ ...result, [user.id]: { ...state.data[user.id], ...user } }), {}),
+        },
+      };
+    }
+
+    case 'ADD_USER_I_FOLLOW': {
+      const user = state.data[action.payload.userId];
+
+      if (!user) {
+        return state;
+      }
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [user.id]: {
+            ...user,
+            iFollow: uniqBy([].concat(user.iFollow, action.payload.user), i => i.id),
           },
         },
       };
     }
 
     case 'REMOVE_USER_I_FOLLOW': {
+      const user = state.data[action.payload.userId];
+
+      if (!user || !user.iFollow) {
+        return state;
+      }
+
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            iFollow: state.data[action.payload.userId].iFollow
-              .filter(item => item.id !== action.payload.user.id),
+          [user.id]: {
+            ...user,
+            iFollow: user.iFollow.filter(i => i.id !== action.payload.user.id),
           },
         },
       };
     }
 
     case 'ADD_USER_FOLLOWED_BY': {
+      const user = state.data[action.payload.userId];
+
+      if (!user) {
+        return state;
+      }
+
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            followedBy: uniqBy(compact([].concat(
-              state.data[action.payload.userId].followedBy,
-              action.payload.user,
-            )), item => item.id),
+          [user.id]: {
+            ...user,
+            followedBy: uniqBy(compact([].concat(user.followedBy, action.payload.user)), item => item.id),
           },
         },
       };
     }
 
     case 'REMOVE_USER_FOLLOWED_BY': {
+      const user = state.data[action.payload.userId];
+
+      if (!user || !user.followedBy) {
+        return state;
+      }
+
       return {
         ...state,
         data: {
-          ...state.data,
           [action.payload.userId]: {
-            ...state.data[action.payload.userId],
-            followedBy: state.data[action.payload.userId].followedBy
-              .filter(item => item.id !== action.payload.user.id),
+            ...user,
+            followedBy: user.followedBy.filter(i => i.id !== action.payload.user.id),
           },
         },
       };

@@ -6,6 +6,7 @@ import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
 import api from '../api';
+import loader from '../utils/loader';
 
 class PostsTable extends PureComponent {
   constructor(props) {
@@ -23,7 +24,7 @@ class PostsTable extends PureComponent {
     this.loadMore();
   }
 
-  loadMore() {
+  loadMore = async () => {
     const params = {
       page: this.state.page + 1,
       post_type_id: this.props.postTypeId,
@@ -31,17 +32,23 @@ class PostsTable extends PureComponent {
       per_page: 20,
     };
 
-    api.getPosts(params)
-      .then((data) => {
-        this.setState(prevState => ({
-          posts: prevState.posts.concat(data.data),
-          hasMore: data.metadata.hasMore,
-          page: params.page,
-        }));
-      });
+    loader.start();
+
+    try {
+      const data = await api.getPosts(params);
+      this.setState(prevState => ({
+        posts: prevState.posts.concat(data.data),
+        hasMore: data.metadata.hasMore,
+        page: params.page,
+      }));
+    } catch (e) {
+      console.error(e);
+    }
+
+    loader.done();
   }
 
-  changeSort(sortBy) {
+  changeSort = async (sortBy) => {
     const params = {
       page: 1,
       post_type_id: this.props.postTypeId,
@@ -49,18 +56,28 @@ class PostsTable extends PureComponent {
       per_page: 20,
     };
 
-    api.getPosts(params)
-      .then((data) => {
-        this.setState({
-          posts: data.data,
-          hasMore: data.metadata.hasMore,
-          sortBy,
-          page: 1,
-        });
+    loader.start();
+
+    try {
+      const data = await api.getPosts(params);
+      this.setState({
+        posts: data.data,
+        hasMore: data.metadata.hasMore,
+        sortBy,
+        page: 1,
       });
+    } catch (e) {
+      console.error(e);
+    }
+
+    loader.done();
   }
 
   render() {
+    if (!this.state.posts || !(this.state.posts.length > 0)) {
+      return null;
+    }
+
     return (
       <div className="table-content">
         <div className="table-content__table">
@@ -71,10 +88,6 @@ class PostsTable extends PureComponent {
                   title: 'Name',
                   name: 'title',
                   sortable: true,
-                }, {
-                  title: 'Views',
-                  name: 'views_count',
-                  sortable: false,
                 }, {
                   title: 'Comments',
                   name: 'comments_count',
@@ -125,8 +138,7 @@ class PostsTable extends PureComponent {
                       sign="#"
                     />
                   </td>
-                  <td className="list-table__cell list-table__cell_views" data-title="Views">{Number.isInteger(item.postStats && item.postStats.viewsCount) ? item.postStats.viewsCount : '—'}</td>
-                  <td className="list-table__cell list-table__cell_comments" data-title="Comments">{Number.isInteger(item.postStats && item.postStats.commentsCount) ? item.postStats.commentsCount : '—'}</td>
+                  <td className="list-table__cell list-table__cell_comments" data-title="Comments">{item.commentsCount}</td>
                   <td className="list-table__cell list-table__cell_rate" data-title="Rate">
                     <span className="title title_xsmall title_light">{(+item.currentRate).toLocaleString()}°</span>
                   </td>

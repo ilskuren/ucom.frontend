@@ -19,15 +19,21 @@ class FeedForm extends PureComponent {
 
     this.state = {
       message: escapeQuotes(this.props.message) || '',
-      base64Cover: null,
-      fileImg: null,
-      fileUrl: getFileUrl(this.props.mainImageFilename) || null,
+      base64Cover: '',
+      fileImg: '',
+      fileUrl: getFileUrl(this.props.mainImageFilename) || '',
     };
   }
 
   sumbitForm = (message, fileImg) => {
-    if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit(message, fileImg);
+    if (typeof this.props.onSubmit === 'function' && (message.trim().length !== 0 || (fileImg || this.state.fileUrl))) {
+      if (fileImg !== '') {
+        this.props.onSubmit(message, fileImg);
+      } else if (fileImg === '' && this.state.fileUrl === '') {
+        this.props.onSubmit(message, fileImg);
+      } else if (fileImg === '' && this.state.fileUrl !== '') {
+        this.props.onSubmit(message);
+      }
     }
   }
 
@@ -43,7 +49,7 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-          this.sumbitForm(this.state.message.trim(), this.state.fileImg);
+          this.sumbitForm(this.state.message.trim().replace(/(^[ \t]*\n)/gm, ''), this.state.fileImg);
         }}
       >
         <div className="feed-form__field">
@@ -60,7 +66,7 @@ class FeedForm extends PureComponent {
               value={this.state.message}
               onChange={e => this.setState({ message: e.target.value })}
               onKeyDown={(e) => {
-                if ((e.ctrlKey && e.keyCode === 13) || (e.keyCode <= 90 && e.keyCode === 13)) {
+                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
                   e.preventDefault();
                   this.sumbitForm(this.state.message, this.state.fileImg);
                 }
@@ -87,7 +93,7 @@ class FeedForm extends PureComponent {
                             },
                             postId: this.props.postId,
                           });
-                        this.setState({ base64Cover: '', fileUrl: '' });
+                        this.setState({ base64Cover: '', fileUrl: '', fileImg: '' });
                       }}
                     >
                       <IconClose />
@@ -131,11 +137,14 @@ class FeedForm extends PureComponent {
             </div>
             <div className="inline__item">
               <Button
-                text={this.props.message ? 'Save' : 'Post'}
+                text={this.props.message || this.props.mainImageFilename ? 'Save' : 'Post'}
                 type="submit"
                 size="small"
                 theme="red"
-                isDisabled={this.state.message.trim().length === 0}
+                isDisabled={(this.state.message.trim().length === 0 && this.state.base64Cover === '' && this.state.fileUrl === '') ||
+                ((this.state.message.trim().length === 0 && this.state.base64Cover !== '') &&
+                (this.state.message.trim().length === 0 && this.props.mainImageFilename !== '') &&
+                (this.state.message.trim().length === 0 && this.state.fileUrl !== ''))}
               />
             </div>
           </div>

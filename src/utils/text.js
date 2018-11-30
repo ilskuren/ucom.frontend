@@ -2,7 +2,7 @@ import { memoize } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
 export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
-export const removeMultipleNewLines = memoize((str = '') => str.replace(/[\r\n]+/g, '\n\n'));
+export const removeMultipleNewLines = memoize((str = '') => str.replace(/(\r\n|\r|\n){2,}/g, '$1\n'));
 export const textFilter = memoize((text = '') => escapeQuotes(removeMultipleNewLines(text)));
 
 export const getTextContent = memoize((content) => {

@@ -1,9 +1,12 @@
 import { memoize } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
+const URL_REGEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
 export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
 export const removeMultipleNewLines = memoize((str = '') => str.replace(/(\r\n|\r|\n){2,}/g, '$1\n'));
-export const textFilter = memoize((text = '') => escapeQuotes(removeMultipleNewLines(text)));
+export const makeLink = memoize((text = '') => text.replace(URL_REGEX, url => `<a target="_blank" href="${url}">${url}</a>`));
+export const textFilter = memoize((text = '') => escapeQuotes(removeMultipleNewLines(makeLink(text))));
 
 export const getTextContent = memoize((content) => {
   const text = document.createElement('div');

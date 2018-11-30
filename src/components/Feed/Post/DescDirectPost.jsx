@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { sanitizeCommentText } from '../../../utils/text';
 
 class DescDirectPost extends PureComponent {
   constructor(props) {
@@ -41,7 +42,7 @@ class DescDirectPost extends PureComponent {
             </span>
           </div>
         ) : (
-          <span>{this.props.desc}</span>
+          <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(this.props.desc) }} />
         )}
       </div>
     );

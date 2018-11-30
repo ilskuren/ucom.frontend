@@ -12,7 +12,6 @@ import { selectUser } from '../../store/selectors';
 import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
-import { makeLink } from '../../utils/url';
 import { sanitizeCommentText } from '../../utils/text';
 
 class Comment extends PureComponent {
@@ -70,7 +69,7 @@ class Comment extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="comment__text" dangerouslySetInnerHTML={{ __html: sanitizeCommentText(makeLink(comment.description)) }} />
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: sanitizeCommentText(comment.description) }} />
             <div className="comment__actions">
               <div className="inline">
                 {this.props.user.id && (

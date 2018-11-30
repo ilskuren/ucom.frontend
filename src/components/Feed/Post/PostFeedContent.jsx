@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FeedForm from '../FeedForm';
 import IconEdit from '../../Icons/Edit';
-import { sanitizePostText } from '../../../utils/text';
 import { getFileUrl } from '../../../utils/upload';
 import { updatePost } from '../../../actions/posts';
 import { getPostById } from '../../../store/posts';
@@ -66,7 +65,7 @@ class PostFeedContent extends PureComponent {
                   {post.description &&
                     <div className="toolbar__main toolbar__main_small">
                       <DescDirectPost
-                        desc={sanitizePostText(post.description)}
+                        desc={post.description}
                         limit={100}
                       />
                     </div>

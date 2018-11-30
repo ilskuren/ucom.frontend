@@ -86,7 +86,11 @@ class CommentForm extends PureComponent {
                 this.setState({ comment: e.target.value });
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN && this.state.comment.trim().length !== 0) {
+                if (this.state.comment.trim().length === 0) {
+                  return;
+                }
+
+                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
                   e.target.blur();
                   e.preventDefault();
                   this.submit();

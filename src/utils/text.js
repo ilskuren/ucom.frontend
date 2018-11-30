@@ -1,22 +1,16 @@
 import { memoize } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
-window.sanitizeHtml = sanitizeHtml;
+export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
+export const removeMultipleNewLines = memoize((str = '') => str.replace(/[\r\n]+/g, '\n\n'));
+export const textFilter = memoize((text = '') => escapeQuotes(removeMultipleNewLines(text)));
 
-export const escapeQuotes = (text) => {
-  if (!text) {
-    return null;
-  }
-
-  return text.replace(/&quot;/g, '"');
-};
-
-export const getTextContent = (content) => {
+export const getTextContent = memoize((content) => {
   const text = document.createElement('div');
   text.innerHTML = content;
 
   return text.textContent;
-};
+});
 
 export const sanitizePostText = memoize(html => sanitizeHtml(html, {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'h2']),
@@ -37,6 +31,7 @@ export const sanitizePostText = memoize(html => sanitizeHtml(html, {
       'medium-insert-embed',
     ],
   },
+  textFilter,
 }));
 
 export const sanitizeCommentText = memoize(html => sanitizeHtml(html, {
@@ -45,4 +40,5 @@ export const sanitizeCommentText = memoize(html => sanitizeHtml(html, {
   allowedAttributes: {
     a: ['href', 'target'],
   },
+  textFilter,
 }));

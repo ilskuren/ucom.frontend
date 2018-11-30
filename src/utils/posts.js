@@ -27,18 +27,6 @@ export const getPostEditUrl = (postId) => {
   return `/posts/${postId}/edit`;
 };
 
-export const getPinnedPostUrl = (post) => {
-  if (!post || !post.id || !post.entityIdFor || !post.entityNameFor) {
-    return null;
-  }
-
-  if (post.entityNameFor.trim() === 'org') {
-    return `/communities/${post.entityIdFor}/${post.id}`;
-  }
-
-  return `/user/${post.entityIdFor}/${post.id}`;
-};
-
 export const getRulesByPostTypeId = (postTypeId) => {
   switch (postTypeId) {
     case 2:

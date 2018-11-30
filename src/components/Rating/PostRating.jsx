@@ -10,6 +10,10 @@ import { selectUser } from '../../store/selectors/user';
 const PostRating = (props) => {
   const post = getPostById(props.posts, props.postId);
 
+  if (!post) {
+    return null;
+  }
+
   return (
     <Rating
       disabled={post.userId === props.user.id}

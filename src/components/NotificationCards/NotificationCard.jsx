@@ -6,7 +6,8 @@ import moment from 'moment';
 import React, { Fragment } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
-import { getPostUrl, getPinnedPostUrl } from '../../utils/posts';
+// import { urls.getPostUrl, urls.getPostUrl } from '../../utils/posts';
+import urls from '../../utils/urls';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
@@ -87,7 +88,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvotes' : ' downvotes'} your `}
-          <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+          <Link to={urls.getPostUrl(props.targetEntity.post)}>
             <strong>post</strong>
           </Link>
         </Fragment>
@@ -101,7 +102,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;shared your&nbsp;
-          <Link to={getPinnedPostUrl(props.data.post)}>
+          <Link to={urls.getPostUrl(props.data.post)}>
             <strong>post</strong>
           </Link>
         </Fragment>
@@ -117,7 +118,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvotes' : ' downvotes'} your`}
-          <Link to={getPinnedPostUrl(props.targetEntity.comment.post)}>
+          <Link to={urls.getPostUrl(props.targetEntity.comment.post)}>
             <strong> comment</strong>
           </Link>
         </Fragment>
@@ -181,7 +182,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted on your&nbsp;
-          <Link to={getPinnedPostUrl(props.data.post)}>
+          <Link to={urls.getPostUrl(props.data.post)}>
             <strong>profile</strong>
           </Link>
         </Fragment>
@@ -196,7 +197,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your&nbsp;
-          <Link to={getPinnedPostUrl(props.data.comment.post)}>
+          <Link to={urls.getPostUrl(props.data.comment.post)}>
             <strong>post</strong>
           </Link>
         </Fragment>
@@ -212,7 +213,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;replied to your&nbsp;
-          <Link to={getPinnedPostUrl(props.targetEntity.comment.post)}>
+          <Link to={urls.getPostUrl(props.targetEntity.comment.post)}>
             <strong>comment</strong>
           </Link>
 
@@ -228,7 +229,7 @@ const getTitle = (props) => {
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted in&nbsp;
-          <Link to={getPinnedPostUrl(props.data.post)}>
+          <Link to={urls.getPostUrl(props.data.post)}>
             <strong>{props.targetEntity.organization.nickname}</strong>
           </Link>
           ’feed
@@ -295,7 +296,7 @@ const getCover = (props) => {
 
       return (
         <div className="site-notification__cover">
-          <Link to={getPostUrl(props.data.organization.id)}>
+          <Link to={getOrganizationUrl(props.data.organization.id)}>
             <Avatar src={getFileUrl(props.data.organization.avatarFilename)} square />
           </Link>
         </div>
@@ -307,7 +308,7 @@ const getCover = (props) => {
 
       return (
         <div className="site-notification__cover">
-          <Link to={getPinnedPostUrl(props.data.post)}>
+          <Link to={urls.getPostUrl(props.data.post)}>
             <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
           </Link>
         </div>
@@ -321,7 +322,7 @@ const getCover = (props) => {
       if (props.targetEntity.post) {
         return (
           <div className="site-notification__cover">
-            <Link to={getPinnedPostUrl(props.targetEntity.post)}>
+            <Link to={urls.getPostUrl(props.targetEntity.post)}>
               <Avatar square isPost src={getFileUrl(props.targetEntity.post.mainImageFilename)} />
             </Link>
           </div>

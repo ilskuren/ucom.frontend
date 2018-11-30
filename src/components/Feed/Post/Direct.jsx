@@ -9,7 +9,6 @@ import { createComment } from '../../../actions/comments';
 import { getFileUrl } from '../../../utils/upload';
 import { getUserName, getUserUrl } from '../../../utils/user';
 import { getUserById } from '../../../store/users';
-import { getPinnedPostUrl } from '../../../utils/posts';
 import { escapeQuotes } from '../../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
@@ -43,7 +42,6 @@ class Direct extends PureComponent {
           postId={this.props.id}
           userId={this.props.user.id}
           postTypeId={post.postTypeId}
-          linkUrl={getPinnedPostUrl(post)}
           linkText={escapeQuotes(post.description)}
         />
 
@@ -51,7 +49,6 @@ class Direct extends PureComponent {
           commentsCount={post.commentsCount}
           post={post}
           postTypeId={post.postTypeId}
-          pinned={this.props.pinned}
           el={this.el}
           commentsIsVisible={this.props.commentsIsVisible}
           toggleComments={this.props.toggleComments}
@@ -66,7 +63,6 @@ class Direct extends PureComponent {
 
 Direct.propTypes = {
   id: PropTypes.number,
-  pinned: PropTypes.bool,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
 };

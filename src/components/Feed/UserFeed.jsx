@@ -44,7 +44,6 @@ class UserFeed extends PureComponent {
 
     return (
       <Feed
-        pinnedPostId={this.props.pinnedPostId}
         postsIds={userWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={userWallFeed.metadata && userWallFeed.postsIds.length < userWallFeed.metadata.totalAmount}
@@ -60,7 +59,6 @@ UserFeed.propTypes = {
   feeds: PropTypes.objectOf(PropTypes.any),
   getUserWallFeed: PropTypes.func,
   resetFeeds: PropTypes.func,
-  pinnedPostId: PropTypes.number,
 };
 
 export default connect(

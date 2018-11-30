@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Avatar from '../Avatar';

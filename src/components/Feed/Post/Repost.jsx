@@ -79,7 +79,6 @@ class Repost extends PureComponent {
           commentsCount={post.commentsCount}
           post={post}
           postTypeId={post.postTypeId}
-          pinned={this.props.pinned}
           el={this.el}
           commentsIsVisible={this.props.commentsIsVisible}
           toggleComments={this.props.toggleComments}
@@ -95,7 +94,6 @@ class Repost extends PureComponent {
 Repost.propTypes = {
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
-  pinned: PropTypes.bool,
 };
 
 export default connect(

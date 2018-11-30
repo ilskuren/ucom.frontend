@@ -13,17 +13,20 @@ export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
 
-export const fetchPost = postId => (dispatch) => {
+export const fetchPost = postId => async (dispatch) => {
   loader.start();
-  api.getPost(postId)
-    .then(humps)
-    .then((data) => {
-      dispatch(addComments(humps(data.comments)));
-      dispatch(addPosts([data]));
-      dispatch(addUsers([data.user]));
-    })
-    .catch(() => loader.done())
-    .then(() => loader.done());
+
+  try {
+    const data = humps(await api.getPost(postId));
+
+    dispatch(addComments(humps(data.comments)));
+    dispatch(addPosts([data]));
+    dispatch(addUsers([data.user]));
+  } catch (e) {
+    console.error(e);
+  }
+
+  loader.done();
 };
 
 export const updatePost = payload => (dispatch) => {

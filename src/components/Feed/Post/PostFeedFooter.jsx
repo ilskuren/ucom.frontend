@@ -9,7 +9,7 @@ import Comments from '../../Comments/Comments';
 import LastUserComments from '../../Comments/LastUserComments';
 import ShareBlock from './ShareBlock';
 import { createComment } from '../../../actions/comments';
-import { getPinnedPostUrl } from '../../../utils/posts';
+import urls from '../../../utils/urls';
 
 class PostFeedFooter extends PureComponent {
   render() {
@@ -51,7 +51,7 @@ class PostFeedFooter extends PureComponent {
           {this.props.sharePopup ? (
             <div className="post__share-popup">
               <ShareBlock
-                link={getPinnedPostUrl(post)}
+                link={urls.getPostUrl(post)}
                 postId={post.id}
                 postTypeId={this.props.postTypeId}
                 onClickClose={this.props.toggleShare}

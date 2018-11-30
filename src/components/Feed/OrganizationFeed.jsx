@@ -42,7 +42,6 @@ class OrganizationFeed extends PureComponent {
 
     return (
       <Feed
-        pinnedPostId={this.props.pinnedPostId}
         postsIds={organizationWallFeed.postsIds}
         onClickMore={this.getMoreData}
         loadMoreIsVisible={organizationWallFeed.metadata && organizationWallFeed.postsIds.length < organizationWallFeed.metadata.totalAmount}
@@ -55,7 +54,6 @@ class OrganizationFeed extends PureComponent {
 
 OrganizationFeed.propTypes = {
   organizationId: PropTypes.number,
-  pinnedPostId: PropTypes.number,
   resetFeeds: PropTypes.func,
   getOrganizationWallFeed: PropTypes.func,
   feeds: PropTypes.objectOf(PropTypes.any),
@@ -67,7 +65,6 @@ export default connect(
     feeds: state.feeds,
   }),
   dispatch => bindActionCreators({
-    // createOrganizationsCommentPost,
     resetFeeds,
     getOrganizationWallFeed,
   }, dispatch),

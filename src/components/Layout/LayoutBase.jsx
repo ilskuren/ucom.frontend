@@ -1,14 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Header from '../Header/Header';
 
-const LayoutBase = props => (
-  <Fragment>
-    <Header />
+const LayoutBase = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    <div className="page__content">
-      {props.children}
-    </div>
-  </Fragment>
-);
+  return (
+    <Fragment>
+      <Header />
+
+      <div className="page__content">
+        {props.children}
+      </div>
+    </Fragment>
+  );
+};
 
 export default LayoutBase;

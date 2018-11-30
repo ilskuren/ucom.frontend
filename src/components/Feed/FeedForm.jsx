@@ -49,7 +49,7 @@ class FeedForm extends PureComponent {
         className="feed-form"
         onSubmit={(e) => {
           e.preventDefault();
-          this.sumbitForm(this.state.message.trim().replace(/(^[ \t]*\n)/gm, ''), this.state.fileImg);
+          this.sumbitForm(this.state.message, this.state.fileImg);
         }}
       >
         <div className="feed-form__field">

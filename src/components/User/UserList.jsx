@@ -8,6 +8,7 @@ import UserCard from '../UserCard';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import { getUserName } from '../../utils/user';
+import Rate from '../Rate';
 
 const UserList = (props) => {
   const [popupVisible, setPopupVisible] = useState(false);
@@ -31,6 +32,10 @@ const UserList = (props) => {
               avatarUrl={getFileUrl(item.avatarFilename)}
               sign="@"
             />
+
+            <div className="organization-list__rate">
+              <Rate value={item.currentRate} />
+            </div>
           </div>
         ))}
       </div>

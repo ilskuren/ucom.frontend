@@ -35,6 +35,7 @@ import {
   USER_LEAVES_COMMENT_ON_ORG_COMMENT,
   CONGRATULATIONS_EVENT_ID,
   USER_SHARE_YOUR_POST,
+  USER_SHARE_YOUR_MEDIA_POST,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -56,6 +57,7 @@ const getAvatarIcon = (eventId) => {
       return <DownvoteIcon />;
 
     case USER_SHARE_YOUR_POST:
+    case USER_SHARE_YOUR_MEDIA_POST:
       return <ShareIcon />;
     default:
       return null;
@@ -94,6 +96,7 @@ const getTitle = (props) => {
         </Fragment>
       );
     case USER_SHARE_YOUR_POST:
+    case USER_SHARE_YOUR_MEDIA_POST:
       if (!(props.data && props.data.post)) return null;
 
       return (
@@ -304,6 +307,7 @@ const getCover = (props) => {
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
+    case USER_SHARE_YOUR_MEDIA_POST:
       if (!(props.data && props.data.post)) return null;
 
       return (
@@ -349,6 +353,7 @@ const getAvatar = (props) => {
     case USER_CREATES_DIRECT_POST_FOR_ORG:
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
+    case USER_SHARE_YOUR_MEDIA_POST:
       if (!(props.data && props.data.post && props.data.post.user)) return null;
 
       return (

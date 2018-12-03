@@ -18,6 +18,7 @@ export const USER_CREATES_DIRECT_POST_FOR_ORG = 90;
 export const USER_COMMENTS_ORG_POST = 91;
 export const USER_LEAVES_COMMENT_ON_ORG_COMMENT = 92;
 export const USER_SHARE_YOUR_POST = 73;
+export const USER_SHARE_YOUR_MEDIA_POST = 93;
 
 const getInitialState = () => ({
   list: {},

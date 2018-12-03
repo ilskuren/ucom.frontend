@@ -19,6 +19,13 @@ export const setWalletTradeRamIsBuy = payload => ({ type: 'SET_WALLET_TRADE_RAM_
 export const setWalletTradeRamServerErrors = payload => ({ type: 'SET_WALLET_TRADE_RAM_SERVER_ERRORS', payload });
 export const setWalletSendTokensServerErrors = payload => ({ type: 'SET_WALLET_SEND_TOKENS_SERVER_ERRORS', payload });
 export const setWalletEditStakeServerErrors = payload => ({ type: 'SET_WALLET_EDIT_STAKE_SERVER_ERRORS', payload });
+export const setWalletTransactions = payload => ({ type: 'SET_WALLET_TRANSACTIONS', payload });
+
+
+export const fetchTransactionsList = () => async (dispatch) => {
+  const res = await api.getTransactions();
+  dispatch(setWalletTransactions(res));
+};
 
 export const setWalletSendTokensVisible = payload => (dispatch) => {
   dispatch(resetWalletSendTokens());

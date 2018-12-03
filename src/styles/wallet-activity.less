@@ -1,0 +1,75 @@
+.wallet-activity__item {
+  border-top: 1px solid #EFEFEF;
+  padding: 20px 54px 24px 8px;
+  display: grid;
+  grid-template-columns: 10fr 3fr 9fr;
+
+  &:last-child {
+    border-bottom: 1px solid #EFEFEF;
+  }
+
+  &:hover {
+    background-color: #F8F8F9;
+  }
+}
+
+.wallet-activity__main {
+  display: flex;
+  margin-right: 20px;
+}
+
+.wallet-activity__title {
+  margin-bottom: 48px;
+}
+
+.wallet-activity__group {
+  display: flex;
+}
+
+.wallet-activity__side {
+  display: flex;
+  margin-left: 20px;
+  align-self: end;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.wallet-activity__date {
+  margin-bottom: 12px;
+}
+
+.wallet-activity__time {
+  font-size: 12px;
+  color: @gray-dark;
+  margin-right: 16px;
+}
+
+.wallet-activity__type {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: @black;
+}
+
+.wallet-activity__amount {
+  font-size: 16px;
+  align-self: end;
+}
+
+.wallet-activity__avatar {
+  margin-right: 16px;
+}
+
+.wallet-activity__group {
+  margin-bottom: 15px;
+}
+
+.wallet-activity__comment {
+  margin-left: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wallet-activity__block {
+  margin-top: 32px;
+}

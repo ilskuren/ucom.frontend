@@ -14,6 +14,7 @@ import Popup from '../Popup';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
+import WalletActivity from '../Wallet/WalletActivity';
 import { removeBrainkey } from '../../utils/brainkey';
 import { removeToken } from '../../utils/token';
 
@@ -143,7 +144,11 @@ const UserMenu = (props) => {
                       </div>
                     </div>
                   </div>
-                  {props.user.id && <MenuWallet />}
+                  <div>
+                    {props.user.id && <MenuWallet />}
+                    <WalletActivity />
+                  </div>
+
                 </div>
               </div>
             </div>

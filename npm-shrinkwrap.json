@@ -12906,7 +12906,7 @@
       }
     },
     "uos-app-wallet": {
-      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#89cfcc26e3c58862cc03a7f457705697ed31e877",
+      "version": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git#6c62b07194ef5224dfbaf9254f5b8d3e69b9e084",
       "from": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
       "requires": {
         "eosjs": "20.0.0-beta2",

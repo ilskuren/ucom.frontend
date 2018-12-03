@@ -481,8 +481,8 @@ class Api {
   }
 
   @bind
-  async getTransactions() {
-    const response = await this.actions.get('/api/v1/myself/blockchain/transactions');
+  async getTransactions(perPage, page) {
+    const response = await this.actions.get(`/api/v1/myself/blockchain/transactions?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);
   }

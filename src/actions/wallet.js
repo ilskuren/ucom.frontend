@@ -22,8 +22,8 @@ export const setWalletEditStakeServerErrors = payload => ({ type: 'SET_WALLET_ED
 export const setWalletTransactions = payload => ({ type: 'SET_WALLET_TRANSACTIONS', payload });
 
 
-export const fetchTransactionsList = () => async (dispatch) => {
-  const res = await api.getTransactions();
+export const fetchTransactionsList = (perPage, page) => async (dispatch) => {
+  const res = await api.getTransactions(perPage, page);
   dispatch(setWalletTransactions(res));
 };
 

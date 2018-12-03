@@ -1,6 +1,11 @@
 const getInitialState = () => ({
   data: {},
-  list: {},
+  list: {
+    data: [],
+    metadata: {
+      hasMore: false,
+    },
+  },
 });
 
 const state = (state = getInitialState(), action) => {
@@ -15,7 +20,7 @@ const state = (state = getInitialState(), action) => {
 
     case 'SET_WALLET_TRANSACTIONS':
       return {
-        ...state, list: { ...state.list, ...action.payload },
+        ...state, list: { ...state.list, ...action.payload, data: [...state.list.data, ...action.payload.data] },
       };
 
     default:

@@ -169,6 +169,9 @@ const getActionText = (props) => {
       return <div>Got UOS  <strong>Emission</strong></div>;
 
     case types.TR_TYPE_VOTE_FOR_BP:
+      if (!props.producers.length) {
+        return <div>Not voted for anyone</div>;
+      }
       return (
         <div>Voted for {props.producers.map((i, index) =>
           <span key={index}><strong>{i}</strong>{props.producers.length === index - 1 ? '' : ','} </span>)}

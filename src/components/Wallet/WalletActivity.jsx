@@ -5,11 +5,14 @@ import moment from 'moment';
 import WalletActivityItem from './WalletActivityItem';
 import { fetchTransactionsList } from '../../actions/wallet';
 
+moment.suppressDeprecationWarnings = true;
 
 const WalletActivity = (props) => {
   useEffect(() => {
-    props.fetchTransactionsList();
+    props.fetchTransactionsList(2, 1);
   }, []);
+
+  const loadMore = () => props.fetchTransactionsList(2, props.wallet.state.list.metadata.page + 1);
 
   const fixList = (list) => {
     const fixedList = [];
@@ -36,6 +39,16 @@ const WalletActivity = (props) => {
           </div>
         </div>
         ))}
+      {(props.wallet.state.list.metadata.hasMore) && (
+        <div className="wallet-activity__showmore">
+          <button
+            className="button-clean button-clean_link"
+            onClick={loadMore}
+          >
+            Show More
+          </button>
+        </div>
+      )}
     </div>
   );
 };

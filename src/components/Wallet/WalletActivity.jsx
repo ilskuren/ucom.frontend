@@ -9,10 +9,10 @@ moment.suppressDeprecationWarnings = true;
 
 const WalletActivity = (props) => {
   useEffect(() => {
-    props.fetchTransactionsList(2, 1);
+    props.fetchTransactionsList(20, 1);
   }, []);
 
-  const loadMore = () => props.fetchTransactionsList(2, props.wallet.state.list.metadata.page + 1);
+  const loadMore = () => props.fetchTransactionsList(20, props.wallet.state.list.metadata.page + 1);
 
   const fixList = (list) => {
     const fixedList = [];

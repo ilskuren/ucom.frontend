@@ -13,32 +13,34 @@ const UserFollowButton = (props) => {
     return null;
   }
 
-  const owner = getUserById(props.users, props.user.id) || {};
+  const owner = getUserById(props.users, props.user.id);
   const user = getUserById(props.users, props.userId);
 
   if (!user) {
     return null;
   }
 
-  const userIsFollow = props.user.id ? (owner.iFollow || []).some(item => +item.id === +props.userId) : false;
+  const userIsFollowing = owner && owner.iFollow && owner.iFollow.length > 0 ?
+    owner.iFollow.some(id => id === Number(props.userId)) :
+    false;
 
-  const isOwner = props.user.id && +owner.id === +user.id;
+  const userIsOwner = owner && Number(owner.id) === Number(user.id);
 
   return (
     <Button
       isStretched
-      isDisabled={isOwner}
+      isDisabled={userIsOwner}
       size="medium"
       theme="transparent"
-      withCheckedIcon={userIsFollow || isOwner}
-      text={userIsFollow || isOwner ? 'Following' : 'Follow'}
+      withCheckedIcon={userIsFollowing || userIsOwner}
+      text={(userIsFollowing || userIsOwner) ? 'Following' : 'Follow'}
       onClick={() => {
         if (!props.user.id) {
           props.authShowPopup();
           return;
         }
 
-        (userIsFollow ? props.unfollowUser : props.followUser)({ user, owner });
+        (userIsFollowing ? props.unfollowUser : props.followUser)({ user, owner });
       }}
     />
   );

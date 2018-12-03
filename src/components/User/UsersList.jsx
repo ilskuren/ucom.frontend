@@ -5,7 +5,7 @@ import UserCard from '../UserCard';
 import Rate from '../Rate';
 import UserFollowButton from './UserFollowButton';
 import { selectUser } from '../../store/selectors/user';
-import { getUserById } from '../../store/users';
+import { getUsersByIds } from '../../store/users';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 
@@ -14,7 +14,7 @@ const UsersList = (props) => {
     return null;
   }
 
-  const users = props.usersIds.map(userId => getUserById(props.users, userId));
+  const users = getUsersByIds(props.users, props.usersIds);
 
   return (
     <div className="entry-list">

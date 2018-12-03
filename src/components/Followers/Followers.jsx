@@ -8,7 +8,7 @@ import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import UsersList from '../User/UsersList';
 import { getFileUrl } from '../../utils/upload';
-import { getUserById } from '../../store/users';
+import { getUsersByIds } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
 
 class Followers extends PureComponent {
@@ -41,10 +41,7 @@ class Followers extends PureComponent {
       return null;
     }
 
-    const users = this.props.usersIds
-      .map(userId => getUserById(this.props.users, userId))
-      .filter(item => !!item);
-
+    const users = getUsersByIds(this.props.users, this.props.usersIds);
     const avatarUsers = users.slice(0, 2);
 
     return (

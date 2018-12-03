@@ -1,4 +1,4 @@
-import { uniqBy, compact } from 'lodash';
+import { compact, uniq } from 'lodash';
 
 const getInitialState = () => ({
   data: {},
@@ -25,8 +25,8 @@ const users = (state = getInitialState(), action) => {
       };
     }
 
-    case 'ADD_USER_I_FOLLOW': {
-      const user = state.data[action.payload.userId];
+    case 'USERS_ADD_I_FOLLOW': {
+      const user = state.data[action.payload.ownerId];
 
       if (!user) {
         return state;
@@ -38,14 +38,14 @@ const users = (state = getInitialState(), action) => {
           ...state.data,
           [user.id]: {
             ...user,
-            iFollow: uniqBy([].concat(user.iFollow, action.payload.user), i => i.id),
+            iFollow: uniq(compact([].concat(user.iFollow, action.payload.userId))),
           },
         },
       };
     }
 
-    case 'REMOVE_USER_I_FOLLOW': {
-      const user = state.data[action.payload.userId];
+    case 'USERS_REMOVE_I_FOLLOW': {
+      const user = state.data[action.payload.ownerId];
 
       if (!user || !user.iFollow) {
         return state;
@@ -57,14 +57,14 @@ const users = (state = getInitialState(), action) => {
           ...state.data,
           [user.id]: {
             ...user,
-            iFollow: user.iFollow.filter(i => i.id !== action.payload.user.id),
+            iFollow: user.iFollow.filter(id => id !== action.payload.userId),
           },
         },
       };
     }
 
-    case 'ADD_USER_FOLLOWED_BY': {
-      const user = state.data[action.payload.userId];
+    case 'USERS_ADD_FOLLOWED_BY': {
+      const user = state.data[action.payload.ownerId];
 
       if (!user) {
         return state;
@@ -76,14 +76,14 @@ const users = (state = getInitialState(), action) => {
           ...state.data,
           [user.id]: {
             ...user,
-            followedBy: uniqBy(compact([].concat(user.followedBy, action.payload.user)), item => item.id),
+            followedBy: uniq(compact([].concat(user.followedBy, action.payload.userId))),
           },
         },
       };
     }
 
-    case 'REMOVE_USER_FOLLOWED_BY': {
-      const user = state.data[action.payload.userId];
+    case 'USERS_REMOVE_FOLLOWED_BY': {
+      const user = state.data[action.payload.ownerId];
 
       if (!user || !user.followedBy) {
         return state;
@@ -92,20 +92,24 @@ const users = (state = getInitialState(), action) => {
       return {
         ...state,
         data: {
-          [action.payload.userId]: {
+          ...state.data,
+          [user.id]: {
             ...user,
-            followedBy: user.followedBy.filter(i => i.id !== action.payload.user.id),
+            followedBy: user.followedBy.filter(id => id !== action.payload.userId),
           },
         },
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };
 
 export const getUserById = (users, userId) => users.data[userId];
+
+export const getUsersByIds = (users, ids = []) => ids
+  .map(id => getUserById(users, id))
+  .filter(user => Boolean(user));
 
 export default users;

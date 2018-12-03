@@ -9,12 +9,30 @@ import { siteNotificationsSetUnreadAmount } from './siteNotifications';
 import { getAccountState } from './wallet';
 import { addOrganizations } from './organizations';
 
-export const addUsers = payload => ({ type: 'ADD_USERS', payload });
-export const addUserIFollow = payload => ({ type: 'ADD_USER_I_FOLLOW', payload });
-export const removeUserIFollow = payload => ({ type: 'REMOVE_USER_I_FOLLOW', payload });
-export const addUserFollowedBy = payload => ({ type: 'ADD_USER_FOLLOWED_BY', payload });
-export const removeUserFollowedBy = payload => ({ type: 'REMOVE_USER_FOLLOWED_BY', payload });
-export const removeUserFollower = payload => ({ type: 'REMOVE_USER_FOLLOWER', payload });
+export const usersAddIFollow = payload => ({ type: 'USERS_ADD_I_FOLLOW', payload });
+export const usersRemoveIFollow = payload => ({ type: 'USERS_REMOVE_I_FOLLOW', payload });
+export const usersAddFollowedBy = payload => ({ type: 'USERS_ADD_FOLLOWED_BY', payload });
+export const usersRemoveFollowedBy = payload => ({ type: 'USERS_REMOVE_FOLLOWED_BY', payload });
+
+export const addUsers = (payload = []) => {
+  let users = [];
+
+  payload.forEach((user) => {
+    if (user.followedBy) {
+      users = users.concat(user.followedBy);
+      user.followedBy = user.followedBy.map(u => u.id);
+    }
+
+    if (user.iFollow) {
+      users = users.concat(user.iFollow);
+      user.iFollow = user.iFollow.map(u => u.id);
+    }
+
+    users.push(user);
+  });
+
+  return ({ type: 'ADD_USERS', payload: users });
+};
 
 export const fetchMyself = () => async (dispatch) => {
   const token = getToken();
@@ -28,7 +46,7 @@ export const fetchMyself = () => async (dispatch) => {
   try {
     const data = await api.getMyself(token);
 
-    dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
+    dispatch(addUsers([data]));
     dispatch(setUser(data));
     dispatch(siteNotificationsSetUnreadAmount(data.unreadMessagesCount));
     dispatch(getAccountState());
@@ -52,7 +70,7 @@ export const fetchUser = userId => async (dispatch) => {
     const data = await api.getUser(userId);
 
     dispatch(addOrganizations(data.organizations));
-    dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
+    dispatch(addUsers([data]));
   } catch (e) {
     console.error(e);
     dispatch(addErrorNotification(e));
@@ -69,7 +87,7 @@ export const updateUser = payload => async (dispatch) => {
 
     delete data.currentRate;
 
-    dispatch(addUsers([data].concat(data.followedBy, data.iFollow)));
+    dispatch(addUsers([data]));
   } catch (e) {
     console.error(e);
     dispatch(addErrorNotification(e));
@@ -84,14 +102,14 @@ export const followUser = data => async (dispatch) => {
   try {
     await api.follow(data.user.id, getToken(), data.owner.accountName, data.user.accountName);
 
-    dispatch(addUserIFollow({
-      userId: Number(data.owner.id),
-      user: data.user,
+    dispatch(usersAddIFollow({
+      ownerId: Number(data.owner.id),
+      userId: data.user.id,
     }));
 
-    dispatch(addUserFollowedBy({
-      userId: Number(data.user.id),
-      user: data.owner,
+    dispatch(usersAddFollowedBy({
+      ownerId: Number(data.user.id),
+      userId: data.owner.id,
     }));
   } catch (e) {
     console.error(e);
@@ -107,14 +125,14 @@ export const unfollowUser = data => async (dispatch) => {
   try {
     await api.unfollow(data.user.id, getToken(), data.owner.accountName, data.user.accountName);
 
-    dispatch(removeUserIFollow({
-      userId: data.owner.id,
-      user: data.user,
+    dispatch(usersRemoveIFollow({
+      ownerId: Number(data.owner.id),
+      userId: data.user.id,
     }));
 
-    dispatch(removeUserFollowedBy({
-      userId: data.user.id,
-      user: data.owner,
+    dispatch(usersRemoveFollowedBy({
+      ownerId: Number(data.user.id),
+      userId: data.owner.id,
     }));
   } catch (e) {
     console.error(e);

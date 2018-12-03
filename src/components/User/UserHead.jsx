@@ -66,12 +66,12 @@ const UserHead = (props) => {
           <div className="inline inline_large">
             {user.followedBy && (
               <div className="inline__item">
-                <Followers title="Followers" usersIds={user.followedBy.map(item => item.id)} />
+                <Followers title="Followers" usersIds={user.followedBy} />
               </div>
             )}
             {user.iFollow && (
               <div className="inline__item">
-                <Followers title="Following" usersIds={user.iFollow.map(item => item.id)} />
+                <Followers title="Following" usersIds={user.iFollow} />
               </div>
             )}
           </div>

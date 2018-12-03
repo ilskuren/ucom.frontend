@@ -83,7 +83,9 @@ class NotificationTooltip extends Component {
           onYReachEnd={() => {
             try {
               window.dispatchEvent(notificationTrigger);
-            } catch (e) {} // eslint-disable-line 
+            } catch (e) {
+              console.error(e);
+            }
         }}
         >
           <div>

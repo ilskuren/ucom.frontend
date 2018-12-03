@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
 import React, { PureComponent } from 'react';
 import NotificationTooltip from './NotificationTooltip';
 import IconBell from '../Icons/Bell';
@@ -12,9 +11,7 @@ class NotificationTrigger extends PureComponent {
   hideTooltip = () => {
     this.props.hideNotificationTooltip();
 
-    setTimeout(() => {
-      this.props.siteNotificationsResetTooltipData();
-    }, 300);
+    this.props.siteNotificationsResetTooltipData();
   }
 
   showTooltip = () => {
@@ -28,15 +25,9 @@ class NotificationTrigger extends PureComponent {
   render() {
     return (
       <div className="notification-tooltip-trigger">
-        <CSSTransition
-          appear
-          unmountOnExit
-          timeout={300}
-          classNames="fade"
-          in={this.props.tooltipVisibilty}
-        >
+        {this.props.tooltipVisibilty &&
           <NotificationTooltip hideTooltip={this.hideTooltip} />
-        </CSSTransition>
+        }
         <div
           role="presentation"
           onClick={this.triggerTooltip}

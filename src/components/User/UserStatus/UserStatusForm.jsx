@@ -26,7 +26,6 @@ const UserStatusForm = (props) => {
     };
   });
 
-
   const save = () => {
     props.onClickSave(moodMessage);
     props.onClickHide();

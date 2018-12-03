@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Avatars from './Avatars';
 import Popup from './Popup';
 import ModalContent from './ModalContent';
-import UsersList from './User/UsersList';
+import UserListPopup from './User/UserListPopup';
 import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
@@ -38,7 +38,7 @@ class Board extends PureComponent {
         {this.state.popupVisible && (
           <Popup onClickClose={this.hidePopup}>
             <ModalContent onClickClose={this.hidePopup}>
-              <UsersList title={this.props.title} usersIds={usersIds} />
+              <UserListPopup title={this.props.title} usersIds={usersIds} />
             </ModalContent>
           </Popup>
         )}

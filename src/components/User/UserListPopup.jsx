@@ -9,7 +9,7 @@ import { getUsersByIds } from '../../store/users';
 import { getUserName, getUserUrl } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 
-const UsersList = (props) => {
+const UserListPopup = (props) => {
   if (!props.usersIds) {
     return null;
   }
@@ -50,17 +50,17 @@ const UsersList = (props) => {
   );
 };
 
-UsersList.propTypes = {
+UserListPopup.propTypes = {
   title: PropTypes.string,
   noSign: PropTypes.bool,
   usersIds: PropTypes.arrayOf(PropTypes.number),
 };
 
-UsersList.defaultTypes = {
+UserListPopup.defaultTypes = {
   title: 'Followers',
 };
 
 export default connect(state => ({
   users: state.users,
   user: selectUser(state),
-}))(UsersList);
+}))(UserListPopup);

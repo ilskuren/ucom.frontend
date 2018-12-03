@@ -36,9 +36,6 @@ const UserPage = (props) => {
   const user = getUserById(props.users, userId);
   const post = getPostById(props.posts, postId);
 
-  // console.log('state', props.users);
-  // console.log('user', user);
-
   if (!user) {
     return null;
   }

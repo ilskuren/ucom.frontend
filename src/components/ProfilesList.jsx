@@ -4,7 +4,7 @@ import UserCard from './UserCard';
 import Rate from './Rate';
 import FollowButton from './FollowButton';
 
-// TODO: Replace with UsersList
+// TODO: Replace with UserListPopup
 const ProfilesList = props => (
   <div className="entry-list">
     <div className="entry-list__title">{props.title}</div>

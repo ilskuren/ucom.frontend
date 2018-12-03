@@ -6,7 +6,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Avatar from '../Avatar';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
-import UsersList from '../User/UsersList';
+import UserListPopup from '../User/UserListPopup';
 import { getFileUrl } from '../../utils/upload';
 import { getUsersByIds } from '../../store/users';
 import { selectUser } from '../../store/selectors/user';
@@ -49,7 +49,7 @@ class Followers extends PureComponent {
         {this.state.popupVisible && (
           <Popup onClickClose={() => this.hidePopup()}>
             <ModalContent onClickClose={() => this.hidePopup()}>
-              <UsersList title={this.props.title} usersIds={this.props.usersIds} />
+              <UserListPopup title={this.props.title} usersIds={this.props.usersIds} />
             </ModalContent>
           </Popup>
         )}

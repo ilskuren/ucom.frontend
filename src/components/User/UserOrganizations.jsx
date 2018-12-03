@@ -18,9 +18,7 @@ const UserOrganizations = (props) => {
       <div className="user-section__title">
         <h2 className="title title_xxsmall title_medium">
           Organizations&nbsp;
-          {user.organizations.length > ORGANIZATION_LIMIT &&
-            <em>{user.organizations.length}</em>
-          }
+          {user.organizations.length > ORGANIZATION_LIMIT && <em>{user.organizations.length}</em>}
         </h2>
       </div>
 

@@ -1,23 +1,22 @@
-import humps from 'lodash-humps';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
 import UserFollowButton from '../User/UserFollowButton';
 import UserCard from '../UserCard';
 import { getUserById } from '../../store/users';
-import { getPostById } from '../../store/posts';
 import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { selectUser } from '../../store/selectors/user';
+import { getOrganizationById } from '../../store/organizations';
 
-const PostHeader = (props) => {
-  const post = humps(getPostById(props.posts, props.postId));
+const OrganizationHead = (props) => {
+  const organization = getOrganizationById(props.organizations, props.organizationId);
 
-  if (!post || !post.user || !post.user.id) {
+  if (!organization || !organization.user || !organization.user.id) {
     return null;
   }
 
-  const user = getUserById(props.users, post.user.id);
+  const user = getUserById(props.users, organization.user.id);
 
   if (!user) {
     return null;
@@ -37,8 +36,8 @@ const PostHeader = (props) => {
         </div>
         <div className="toolbar__side">
           <div className="post-header__follow-button">
-            {props.user.id && props.user.id === post.user.id ? null : (
-              <UserFollowButton userId={post.user.id} />
+            {props.user.id && props.user.id === user.id ? null : (
+              <UserFollowButton userId={user.id} />
             )}
           </div>
         </div>
@@ -47,12 +46,12 @@ const PostHeader = (props) => {
   );
 };
 
-PostHeader.propTypes = {
+OrganizationHead.propTypes = {
   users: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(state => ({
   users: state.users,
-  posts: state.posts,
+  organizations: state.organizations,
   user: selectUser(state),
-}))(PostHeader);
+}))(OrganizationHead);

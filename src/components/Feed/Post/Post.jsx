@@ -3,9 +3,6 @@ import Direct from './Direct';
 import Repost from './Repost';
 import Media from './Media';
 import { POST_TYPE_REPOST_ID, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
-import { scrollTo } from '../../../utils/scroll';
-
-const POST_TOP_OFFSET = 20;
 
 class Post extends PureComponent {
   constructor(props) {
@@ -16,23 +13,6 @@ class Post extends PureComponent {
       sharePopup: false,
       timestamp: (new Date()).getTime(),
     };
-  }
-
-  componentDidMount() {
-    if (this.props.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.pinned && nextProps.pinned) {
-      this.showOnFeed();
-    }
-  }
-
-  showOnFeed() {
-    scrollTo(this.props.el, POST_TOP_OFFSET);
-    this.toggleComments();
   }
 
   toggleComments = () => {
@@ -52,7 +32,6 @@ class Post extends PureComponent {
         return (
           <Repost
             id={this.props.id}
-            pinned={+this.props.pinnedPostId === +this.props.id}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}
@@ -65,7 +44,6 @@ class Post extends PureComponent {
         return (
           <Media
             id={this.props.id}
-            pinned={+this.props.pinnedPostId === +this.props.id}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}
@@ -77,7 +55,6 @@ class Post extends PureComponent {
         return (
           <Direct
             id={this.props.id}
-            pinned={+this.props.pinnedPostId === +this.props.id}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}

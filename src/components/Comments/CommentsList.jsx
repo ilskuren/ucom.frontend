@@ -14,7 +14,8 @@ const CommentsList = (props) => {
     return null;
   }
 
-  const comments = props.commentsIds.map(id => getCommentById(props.comments, id));
+  const comments = props.commentsIds
+    .map(id => getCommentById(props.comments, id));
 
   if (!comments.length) {
     return null;

@@ -1,7 +1,6 @@
 // import { Route } from 'react-router';
 // import { NavLink } from 'react-router-dom';
 import React from 'react';
-import Footer from '../components/Footer';
 // import MediaList from '../components/MediaList';
 // import OffersList from '../components/OffersList';
 import PostsTable from '../components/PostsTable';
@@ -55,8 +54,6 @@ const EventsPage = () => (
           <Route exact path="/publications/media" component={MediaList} />
           <Route exact path="/publications/offers" component={OffersList} />
         </Fragment> */}
-
-        <Footer />
       </div>
     </div>
   </LayoutBase>

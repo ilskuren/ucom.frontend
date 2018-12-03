@@ -9,7 +9,6 @@ import { hideMenuPopup } from '../actions/menuPopup';
 class Page extends PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      window.scrollTo(0, 0);
       this.props.authSetVisibility(false);
       this.props.hideNotificationTooltip();
       this.props.hideMenuPopup();

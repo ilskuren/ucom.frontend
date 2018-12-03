@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { KEY_RETURN } from 'keycode-js';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import Avatar from '../Avatar';
@@ -86,7 +85,11 @@ class CommentForm extends PureComponent {
                 this.setState({ comment: e.target.value });
               }}
               onKeyDown={(e) => {
-                if (e.keyCode === KEY_RETURN && this.state.comment.trim().length !== 0) {
+                if (this.state.comment.trim().length === 0) {
+                  return;
+                }
+
+                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
                   e.target.blur();
                   e.preventDefault();
                   this.submit();

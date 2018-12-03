@@ -57,7 +57,6 @@ class Media extends PureComponent {
           commentsCount={post.commentsCount}
           post={post}
           postTypeId={post.postTypeId}
-          pinned={this.props.pinned}
           el={this.el}
           commentsIsVisible={this.props.commentsIsVisible}
           toggleComments={this.props.toggleComments}
@@ -72,7 +71,6 @@ class Media extends PureComponent {
 
 Media.propTypes = {
   id: PropTypes.number,
-  pinned: PropTypes.bool,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
 };

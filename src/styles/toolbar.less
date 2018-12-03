@@ -45,7 +45,23 @@
 
 .toolbar__main_small {
   font-size: 16px;
-  line-height: 28px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  white-space: pre-wrap;
+
+  .button-icon_edit_small {
+    margin-left: 10px;
+  }
+
+  .post__btn_more {
+    color: #D8352F;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
 
 .toolbar__side {
@@ -71,4 +87,8 @@
       margin: -6px;
     }
   }
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
 }

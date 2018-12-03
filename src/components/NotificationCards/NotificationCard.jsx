@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
-// import { urls.getPostUrl, urls.getPostUrl } from '../../utils/posts';
 import urls from '../../utils/urls';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
@@ -479,20 +478,21 @@ const getContent = (props) => {
   }
 };
 
-const NotificationCardDefault = props => (
-  <div
-    className="site-notification"
-    onMouseEnter={() => {
-      if (!props.finished) {
-        props.seenNotification(props.id);
-      }
-    }}
-  >
-    {getAvatar(props)}
-    {getContent(props)}
-    {getCover(props)}
-  </div>
-);
+const NotificationCardDefault = (props) => {
+  useEffect(() => {
+    if (!props.finished) {
+      props.seenNotification(props.id);
+    }
+  }, []);
+
+  return (
+    <div className="site-notification">
+      {getAvatar(props)}
+      {getContent(props)}
+      {getCover(props)}
+    </div>
+  );
+};
 
 getContent.propTypes = {
   createdAt: PropTypes.string,
@@ -510,7 +510,6 @@ getCover.propTypes = {
 NotificationCardDefault.propTypes = {
   id: PropTypes.number,
   seenNotification: PropTypes.func,
-  finished: PropTypes.bool,
 };
 
 export default connect(

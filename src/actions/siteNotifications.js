@@ -30,6 +30,8 @@ export const hideNotificationTooltip = () => async (dispatch, getState) => {
     unblockPageContent();
   }
 
+  dispatch(hide());
+
   const { tempArray } = getState().siteNotifications;
 
   if (tempArray.length) {
@@ -38,11 +40,10 @@ export const hideNotificationTooltip = () => async (dispatch, getState) => {
       dispatch(siteNotificationsSetUnreadAmount(res[res.length - 1].myselfData.unreadMessagesCount));
       dispatch(siteNotificationsSetTempArray([]));
     } catch (error) {
+      console.error(error);
       dispatch(addErrorNotification(error));
     }
   }
-  dispatch(hide());
-  return ({ type: 'SITE_NOTIFICATIONS__HIDE_TOOLTIP' });
 };
 
 export const fetchNotifications = (payload = {}) => async (dispatch) => {

@@ -52,6 +52,14 @@ const urls = {
 
     return `/communities/${id}`;
   },
+
+  getPublicationsCategoryUrl(name) {
+    return `/publications/${name}`;
+  },
+
+  getPublicationsUrl() {
+    return '/publications';
+  },
 };
 
 export default urls;

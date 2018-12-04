@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { selectUser } from '../../store/selectors';
+import urls from '../../utils/urls';
 
 const HeaderMain = ({ location }) => (
   <div className="header__main">
@@ -38,10 +39,10 @@ const HeaderMain = ({ location }) => (
 
       <div className="menu__item only-desktop">
         <NavLink
-          to="/publications/media"
+          to={urls.getPublicationsUrl()}
           className="menu__link menu__link_upper"
           activeClassName="menu__link_active"
-          isActive={() => location.pathname.indexOf('/publications') === 0}
+          isActive={() => location.pathname.indexOf(urls.getPublicationsUrl()) === 0}
         >
           Publications
         </NavLink>

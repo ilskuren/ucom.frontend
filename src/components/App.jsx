@@ -26,6 +26,7 @@ import socket from '../api/socket';
 import config from '../../package.json';
 import { enableGtm } from '../utils/gtm';
 import Governance from './Governance/Governance';
+import Publications from '../pages/Publications';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -52,7 +53,7 @@ class App extends PureComponent {
               <Route path="/posts/new/:postTypeId" component={CreatePost} />
               <Route path="/posts/:id/edit" component={CreatePost} />
               <Route exact path="/posts/:id" component={Post} />
-              <Route path="/publications" component={EventsPage} />
+              <Route path="/publications" component={Publications} />
               <Route path="/users" component={UsersPage} />
               <Route path="/about" component={AboutPage} />
               <Route exact path="/communities" component={OrganizationsPage} />

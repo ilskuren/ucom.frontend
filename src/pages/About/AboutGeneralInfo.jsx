@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AboutGeneralInfo = () => (
-  <div className="content-text">
+  <div className="text">
     U°Community is a social platform with a transparent dynamic reputation system.
     It is built on the U°OS blockchain-protocol.
     U°Community provides an opportunity to capitalize social interaction through

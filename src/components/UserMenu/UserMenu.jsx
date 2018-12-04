@@ -160,31 +160,7 @@ const UserMenu = (props) => {
                   </div>
                   <div>
                     {props.user.id && <MenuWallet />}
-
-                    <div className="user-menu__section else-desktop">
-                      <div className="user-menu__title">Communities</div>
-                      <div className="user-menu__communities">
-                        {props.user.organizations && props.user.organizations.map(item => (
-                          <UserCard
-                            key={item.id}
-                            squareAvatar
-                            roundedAvatar
-                            size="small"
-                            rate={item.currentRate}
-                            userName={item.title}
-                            accountName={item.nickname}
-                            avatarUrl={getFileUrl(item.avatarFilename)}
-                            profileLink={getOrganizationUrl(item.id)}
-                          />
-                        ))}
-                        <Link to="/communities/new" className="button-create-new">
-                          <span className="button-create-new__icon">+</span>
-                          <span className="button-create-new__title">Create new</span>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <WalletActivity />
+                    {props.user.id && <WalletActivity />}
                   </div>
 
                 </div>

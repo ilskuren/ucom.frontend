@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import WalletActivityItem from './WalletActivityItem';
-import { fetchTransactionsList } from '../../actions/wallet';
+import { fetchTransactionsList, walletTransactionsReset } from '../../actions/wallet';
 
 moment.suppressDeprecationWarnings = true;
 
 const WalletActivity = (props) => {
   useEffect(() => {
+    props.walletTransactionsReset();
     props.fetchTransactionsList(20, 1);
   }, []);
 
-  const loadMore = () => props.fetchTransactionsList(20, props.wallet.state.list.metadata.page + 1);
+  const loadMore = () => props.fetchTransactionsList(20, props.wallet.transactions.list.metadata.page + 1);
 
   const fixList = (list) => {
     const fixedList = [];
@@ -27,7 +28,9 @@ const WalletActivity = (props) => {
     }
     return fixedList;
   };
-  const fixedList = fixList(props.wallet.state.list.data);
+
+  const fixedList = fixList(props.wallet.transactions.list.data);
+
   return (
     <div className="wallet-activity">
       <div className="wallet-activity__title title">Activity</div>
@@ -39,7 +42,7 @@ const WalletActivity = (props) => {
           </div>
         </div>
         ))}
-      {(props.wallet.state.list.metadata.hasMore) && (
+      {(props.wallet.transactions.list.metadata.hasMore) && (
         <div className="wallet-activity__showmore">
           <button
             className="button-clean button-clean_link"
@@ -59,5 +62,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     fetchTransactionsList,
+    walletTransactionsReset,
   }, dispatch),
 )(WalletActivity);

@@ -479,6 +479,13 @@ class Api {
 
     return humps(response);
   }
+
+  @bind
+  async getTransactions(perPage, page) {
+    const response = await this.actions.get(`/api/v1/myself/blockchain/transactions?per_page=${perPage}&page=${page}`);
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

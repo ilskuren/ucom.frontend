@@ -14,6 +14,7 @@ import Popup from '../Popup';
 import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
+import WalletActivity from '../Wallet/WalletActivity';
 import { removeBrainkey } from '../../utils/brainkey';
 import { removeToken } from '../../utils/token';
 import urls from '../../utils/urls';
@@ -39,9 +40,9 @@ const UserMenu = (props) => {
           >
             <div className="user-menu__content">
               <div className="content">
-                <div className="content__inner">
-                  <div className="user-menu__section">
-                    <div className="menu menu_wrap">
+                <div className="content__inner content__inner_grid">
+                  <div className="user-menu__side">
+                    <div className="menu menu_vertical">
                       <div className="menu__item else-desktop">
                         <NavLink
                           to="/posts/new/1"
@@ -134,39 +135,58 @@ const UserMenu = (props) => {
                         </div>
                       }
                     </div>
-                  </div>
-
-                  {props.user.id && <MenuWallet />}
-
-                  {props.user.id &&
-                    <div className="user-menu__section">
+                    <div className="user-menu__section only-desktop">
                       <div className="user-menu__title">Communities</div>
                       <div className="user-menu__communities">
-                        <div className="user-cards-grid">
-                          {props.user.organizations && props.user.organizations.map(item => (
-                            <div className="user-cards-grid__item" key={item.id}>
-                              <UserCard
-                                squareAvatar
-                                roundedAvatar
-                                size="small"
-                                rate={item.currentRate}
-                                userName={item.title}
-                                accountName={item.nickname}
-                                avatarUrl={getFileUrl(item.avatarFilename)}
-                                profileLink={getOrganizationUrl(item.id)}
-                              />
-                            </div>
-                          ))}
-                          <div className="user-cards-grid__item">
-                            <Link to="/communities/new" className="button-create-new">
-                              <span className="button-create-new__icon">+</span>
-                              <span className="button-create-new__title">Create new</span>
-                            </Link>
-                          </div>
-                        </div>
+                        {props.user.organizations && props.user.organizations.map(item => (
+                          <UserCard
+                            key={item.id}
+                            squareAvatar
+                            roundedAvatar
+                            size="small"
+                            rate={item.currentRate}
+                            userName={item.title}
+                            accountName={item.nickname}
+                            avatarUrl={getFileUrl(item.avatarFilename)}
+                            profileLink={getOrganizationUrl(item.id)}
+                          />
+                        ))}
+                        <Link to="/communities/new" className="button-create-new">
+                          <span className="button-create-new__icon">+</span>
+                          <span className="button-create-new__title">Create new</span>
+                        </Link>
                       </div>
                     </div>
-                  }
+                  </div>
+                  <div>
+                    {props.user.id && <MenuWallet />}
+
+                    <div className="user-menu__section else-desktop">
+                      <div className="user-menu__title">Communities</div>
+                      <div className="user-menu__communities">
+                        {props.user.organizations && props.user.organizations.map(item => (
+                          <UserCard
+                            key={item.id}
+                            squareAvatar
+                            roundedAvatar
+                            size="small"
+                            rate={item.currentRate}
+                            userName={item.title}
+                            accountName={item.nickname}
+                            avatarUrl={getFileUrl(item.avatarFilename)}
+                            profileLink={getOrganizationUrl(item.id)}
+                          />
+                        ))}
+                        <Link to="/communities/new" className="button-create-new">
+                          <span className="button-create-new__icon">+</span>
+                          <span className="button-create-new__title">Create new</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    <WalletActivity />
+                  </div>
+
                 </div>
               </div>
             </div>

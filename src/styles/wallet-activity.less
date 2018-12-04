@@ -8,6 +8,12 @@
   display: grid;
   grid-template-columns: 10fr 3fr 9fr;
 
+
+  @media (max-width: 767px) {
+    grid-template-columns: 4fr 1fr;
+    padding-right: 20px;
+  }
+
   &:last-child {
     border-bottom: 1px solid #EFEFEF;
   }
@@ -36,6 +42,11 @@
   align-self: end;
   max-width: 100%;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
 }
 
 .wallet-activity__date {

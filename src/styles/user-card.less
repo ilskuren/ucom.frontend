@@ -1,47 +1,13 @@
 .user-card {
   display: inline-block;
-  vertical-align: top;
-  text-align: left;
-  font-size: 16px;
-  line-height: 1.25;
-  margin-bottom: 16px;
-}
-
-.user-card_size_big {
-  font-size: 20px;
-}
-
-.user-card_size_small {
-  .user-card__inner {
-    align-items: flex-start;
-  }
-
-  .user-card__name {
-    margin-top: -3px;
-    margin-bottom: 0;
-  }
-
-  .user-card__rate {
-    font-weight: normal;
-  }
-
-  .avatar {
-    width: 24px;
-    height: 24px;
-  }
 }
 
 .user-card__inner {
-  display: flex;
-}
-
-.user-card__main {
-  margin-right: 8px;
-}
-
-.user-card__side {
-  flex: 1 1 auto;
-  overflow: hidden;
+  display: grid;
+  align-items: center;
+  grid-template: 'a a';
+  grid-column-gap: 10px;
+  grid-row-gap: 5px;
 }
 
 .user-card_with-caption {
@@ -50,18 +16,16 @@
 
 .user-card__name {
   margin: 0 0 3px;
+  line-height: 20px;
+  font-size: 16px;
   font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-transform: capitalize;
   color: inherit;
 }
 
 .user-card__account {
-  font-size: 14px;
   color: inherit;
   opacity: 0.7;
-
   &_theme {
     &_vertical {
       font-size: 1rem;
@@ -70,7 +34,6 @@
 }
 
 .user-card__rate {
-  font-size: 0.875em;
   font-weight: 600;
   color: #767676;
 }

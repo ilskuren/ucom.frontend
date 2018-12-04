@@ -305,14 +305,24 @@ const getCover = (props) => {
       );
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
-    case USER_SHARE_YOUR_POST:
-    case USER_SHARE_YOUR_MEDIA_POST:
       if (!(props.data && props.data.post)) return null;
 
       return (
         <div className="site-notification__cover">
           <Link to={urls.getPostUrl(props.data.post)}>
             <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
+          </Link>
+        </div>
+      );
+
+    case USER_SHARE_YOUR_POST:
+    case USER_SHARE_YOUR_MEDIA_POST:
+      if (!(props.targetEntity && props.targetEntity.post)) return null;
+
+      return (
+        <div className="site-notification__cover">
+          <Link to={urls.getPostUrl(props.targetEntity.post)}>
+            <Avatar square isPost src={getFileUrl(props.targetEntity.post.mainImageFilename)} />
           </Link>
         </div>
       );

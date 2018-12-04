@@ -4,7 +4,7 @@ const getInitialState = () => ({
 
 const posts = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_POST': {
+    case 'POSTS_RESET': {
       return getInitialState();
     }
 

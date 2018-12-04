@@ -6,10 +6,10 @@ const getInitialState = () => ({
 
 const users = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_POST':
+    case 'USERS_RESET':
       return getInitialState();
 
-    case 'ADD_USERS': {
+    case 'USERS_ADD': {
       const users = action.payload.filter(i => i.id);
 
       if (!users.length) {

@@ -6,7 +6,7 @@ const getInitialState = () => ({
 
 const organizations = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_POST': {
+    case 'ORGANIZATIONS_RESET': {
       return getInitialState();
     }
 

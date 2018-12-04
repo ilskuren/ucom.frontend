@@ -31,7 +31,7 @@ export const addUsers = (payload = []) => {
     users.push(user);
   });
 
-  return ({ type: 'ADD_USERS', payload: users });
+  return ({ type: 'USERS_ADD', payload: users });
 };
 
 export const fetchMyself = () => async (dispatch) => {
@@ -46,8 +46,8 @@ export const fetchMyself = () => async (dispatch) => {
   try {
     const data = await api.getMyself(token);
 
-    dispatch(addUsers([data]));
     dispatch(setUser(data));
+    dispatch(addUsers([data]));
     dispatch(siteNotificationsSetUnreadAmount(data.unreadMessagesCount));
     dispatch(getAccountState());
 

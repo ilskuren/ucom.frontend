@@ -48,6 +48,11 @@
 .content__inner_grid {
   display: grid;
   grid-template-columns: 2fr 10fr;
+
+  @media (max-width: 1199px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .content__inner_medium {

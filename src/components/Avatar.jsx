@@ -48,7 +48,7 @@ const Avatar = (props) => {
       )}
       {props.icon && (
         <div
-          className="avatar__icon"
+          className={`avatar__icon ${props.size === 'medium' ? 'avatar__icon-medium' : ''}`}
           title={props.iconTitle}
         >
           {props.icon}

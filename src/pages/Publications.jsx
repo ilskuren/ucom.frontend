@@ -7,7 +7,7 @@ import urls from '../utils/urls';
 import FeedCategories from '../components/Feed/FeedCategories';
 import {
   POSTS_CATREGORIES_HOT_ID,
-  POSTS_CATREGORIES_TRENDING_ID,
+  // POSTS_CATREGORIES_TRENDING_ID,
   POSTS_CATREGORIES_FRESH_ID,
   POSTS_CATREGORIES_TOP_ID,
 } from '../utils/posts';
@@ -15,9 +15,9 @@ import {
 const POSTS_CATREGORIES = [{
   id: POSTS_CATREGORIES_HOT_ID,
   name: 'hot',
-}, {
-  id: POSTS_CATREGORIES_TRENDING_ID,
-  name: 'trending',
+// }, {
+//   id: POSTS_CATREGORIES_TRENDING_ID,
+//   name: 'trending',
 }, {
   id: POSTS_CATREGORIES_FRESH_ID,
   name: 'fresh',

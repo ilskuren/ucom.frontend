@@ -23,57 +23,50 @@ const types = {
   TR_TYPE_SELL_RAM: 61,
 };
 
-const getAvatar = (props, isPopup = false) => {
+const getAvatar = (props) => {
   let cpu;
   let net;
-  let WalletAvatar;
-
-  if (isPopup) {
-    WalletAvatar = ({ ...props }) => <Avatar {...props} size="medium" />;
-  } else {
-    WalletAvatar = Avatar;
-  }
 
   switch (props.trType) {
     case types.TR_TYPE__TRANSFER_FROM:
       if (!props.user) return null;
-      return <WalletAvatar src={getFileUrl(props.user.avatarFilename)} icon={<WalletFromIcon />} />;
+      return <Avatar src={getFileUrl(props.user.avatarFilename)} icon={<WalletFromIcon />} />;
 
     case types.TR_TYPE__TRANSFER_TO:
       if (!props.user) return null;
-      return <WalletAvatar src={getFileUrl(props.user.avatarFilename)} icon={<WalletToIcon />} />;
+      return <Avatar src={getFileUrl(props.user.avatarFilename)} icon={<WalletToIcon />} />;
 
     case types.TR_TYPE_BUY_RAM:
-      return <WalletAvatar srcComponent={<WalletRAMIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletFromIcon />} />;
+      return <Avatar srcComponent={<WalletRAMIcon />} icon={<WalletFromIcon />} />;
 
     case types.TR_TYPE_SELL_RAM:
-      return <WalletAvatar srcComponent={<WalletRAMIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletToIcon />} />;
+      return <Avatar srcComponent={<WalletRAMIcon />} icon={<WalletToIcon />} />;
 
     case types.TR_TYPE_VOTE_FOR_BP:
-      return <WalletAvatar srcComponent={<WalletVoteIcon dimension={isPopup ? '100px' : '52px'} />} />;
+      return <Avatar srcComponent={<WalletVoteIcon />} />;
 
     case types.TR_TYPE_STAKE_RESOURCES:
       net = props.resources.net.tokens.selfDelegated;
       cpu = props.resources.cpu.tokens.selfDelegated;
       if (cpu && net) {
-        return <WalletAvatar srcComponent={<WalletCPUNETIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletSnowflakeIcon />} />;
+        return <Avatar srcComponent={<WalletCPUNETIcon />} icon={<WalletSnowflakeIcon />} />;
       } else if (cpu) {
-        return <WalletAvatar srcComponent={<WalletCPUIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletSnowflakeIcon />} />;
+        return <Avatar srcComponent={<WalletCPUIcon />} icon={<WalletSnowflakeIcon />} />;
       }
-      return <WalletAvatar srcComponent={<WalletNetIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletSnowflakeIcon />} />;
+      return <Avatar srcComponent={<WalletNetIcon />} icon={<WalletSnowflakeIcon />} />;
 
     case types.TR_TYPE_UNSTAKING_REQUEST:
       net = props.resources.net.unstakingRequest.amount;
       cpu = props.resources.cpu.unstakingRequest.amount;
       if (cpu && net) {
-        return <WalletAvatar srcComponent={<WalletCPUNETIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletDropIcon />} />;
+        return <Avatar srcComponent={<WalletCPUNETIcon />} icon={<WalletDropIcon />} />;
       } else if (cpu) {
-        return <WalletAvatar srcComponent={<WalletCPUIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletDropIcon />} />;
+        return <Avatar srcComponent={<WalletCPUIcon />} icon={<WalletDropIcon />} />;
       }
-      return <WalletAvatar srcComponent={<WalletNetIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletDropIcon />} />;
+      return <Avatar srcComponent={<WalletNetIcon />} icon={<WalletDropIcon />} />;
 
     case types.TR_TYPE_CLAIM_EMISSION:
-      return <WalletAvatar srcComponent={<WalletEmissionIcon dimension={isPopup ? '100px' : '52px'} />} icon={<WalletToIcon />} />;
+      return <Avatar srcComponent={<WalletEmissionIcon />} icon={<WalletToIcon />} />;
 
     default:
       return null;
@@ -201,6 +194,17 @@ const WalletActivityItem = (props) => {
   }
 
   const [visibility, setVisibility] = useState(false);
+
+  const show = () => {
+    document.querySelector('.user-menu').classList.add('user-menu_blur');
+    setVisibility(true);
+  };
+  const hide = () => {
+    document.querySelector('.user-menu').classList.remove('user-menu_blur');
+    setVisibility(false);
+  };
+
+
   const action = getActionText(props);
   const walletAvatar = getAvatar(props);
   const trType = getTrType(props);
@@ -208,7 +212,7 @@ const WalletActivityItem = (props) => {
 
   return (
     <Fragment>
-      <div className="wallet-activity__item" onClick={() => setVisibility(true)} role="presentation">
+      <div className="wallet-activity__item" onClick={show} role="presentation">
         <div className="wallet-activity__main">
           <div className="wallet-activity__avatar">
             {walletAvatar}
@@ -237,10 +241,10 @@ const WalletActivityItem = (props) => {
         </div>
       </div>
       {visibility && (
-        <Popup onClickClose={() => setVisibility(false)}>
-          <ModalContent mod="wallet-activity-popup" >
+        <Popup onClickClose={hide}>
+          <ModalContent onClickClose={hide} mod="wallet-activity-popup" >
             <WalletActivityPopup {...{
-              ...props, action, trType, amount, walletAvatar: getAvatar(props, true),
+              ...props, action, trType, amount, walletAvatar,
               }}
             />
           </ModalContent>

@@ -44,7 +44,7 @@ const WalletActivityPopup = (props) => {
             {minimazed ? <WalletPlus /> : <WalletMinus />}
           </div>
         </div>
-        <pre>{!minimazed && JSON.stringify(info, null, 4)}</pre>
+        <pre className="wallet-activity-popup__detailed-info">{!minimazed && JSON.stringify(info, null, 4)}</pre>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { getToken } from '../utils/token';
 import { getActivePrivateKey } from '../utils/keys';
 import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
+import snakes from '../utils/snakes';
 
 const { WalletApi } = require('uos-app-wallet');
 const AppTransaction = require('uos-app-transaction');
@@ -140,7 +141,7 @@ class Api {
 
   @bind
   async getPosts(params) {
-    const response = await this.actions.get(`/api/v1/posts?${param(params)}`);
+    const response = await this.actions.get(`/api/v1/posts?${param(snakes(params))}`);
 
     return humps(response.data);
   }

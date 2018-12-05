@@ -4,6 +4,7 @@ import React from 'react';
 import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
+import PostsCategoriesList from '../components/Feed/PostsCategoriesList';
 
 const PUBLICATIONS_CATREGORIES = [{
   id: 1,
@@ -33,7 +34,7 @@ const Publications = props => (
                 <div className="toolbar__main">
                   <div className="menu menu_simple-tabs">
                     {PUBLICATIONS_CATREGORIES.map(item => (
-                      <div className="menu__item">
+                      <div className="menu__item" key={item.id}>
                         <NavLink
                           className="menu__link"
                           activeClassName="menu__link_active"
@@ -54,8 +55,12 @@ const Publications = props => (
         <hr className="content__separator" />
 
         <div className="content__inner">
-          <Route path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(PUBLICATIONS_CATREGORIES[0].name)} />} />
-          {/* <Route exact path="/about/general-info" component={AboutGeneralInfoPage} /> */}
+          <div className="content__section content__section_small">
+            <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(PUBLICATIONS_CATREGORIES[0].name)} />} />
+            {PUBLICATIONS_CATREGORIES.map(item => (
+              <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <PostsCategoriesList categoryName={item.name} />} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -70,6 +70,7 @@ const Feed = (props) => {
           {props.loadMoreIsVisible && (
             <div className="feed__loadmore">
               <LoadMore
+                disabled={props.feeds.loading}
                 onClick={() => {
                   if (!props.feeds.loading && typeof props.onClickMore === 'function') {
                     props.onClickMore();

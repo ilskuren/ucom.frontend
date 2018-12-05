@@ -25,6 +25,7 @@ class Repost extends PureComponent {
     }
 
     const user = getUserById(this.props.users, post.userId);
+
     if (!user) {
       return null;
     }

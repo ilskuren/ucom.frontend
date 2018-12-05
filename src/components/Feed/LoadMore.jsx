@@ -8,8 +8,6 @@ class LoadMore extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
     this.onScroll = throttle(() => {
       if (!this.el) {
         return;
@@ -43,7 +41,7 @@ class LoadMore extends PureComponent {
           theme="thin"
           size="medium"
           text="Load more"
-          isDisabled={this.props.feeds.loading}
+          isDisabled={this.props.disabled}
           onClick={() => {
             if (typeof this.props.onClick === 'function') {
               this.props.onClick();
@@ -57,7 +55,6 @@ class LoadMore extends PureComponent {
 
 LoadMore.propTypes = {
   onClick: PropTypes.func,
-  feeds: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(state => ({

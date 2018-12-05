@@ -9,9 +9,24 @@ import snakes from '../utils/snakes';
 import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 import loader from '../utils/loader';
 
-export const addPosts = payload => ({ type: 'ADD_POSTS', payload });
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
+
+export const addPosts = (payload = []) => (dispatch) => {
+  const posts = [];
+  const users = [];
+
+  payload.forEach((post) => {
+    if (post.user) {
+      users.push(post.user);
+    }
+
+    posts.push(post);
+  });
+
+  dispatch(addUsers(users));
+  dispatch({ type: 'ADD_POSTS', payload: posts });
+};
 
 export const fetchPost = postId => async (dispatch) => {
   loader.start();
@@ -21,7 +36,6 @@ export const fetchPost = postId => async (dispatch) => {
 
     dispatch(addComments(humps(data.comments)));
     dispatch(addPosts([data]));
-    dispatch(addUsers([data.user]));
   } catch (e) {
     console.error(e);
   }
@@ -54,7 +68,6 @@ export const fetchOrganizationPosts = organizationId => (dispatch) => {
   loader.start();
   api.getOrganizationPosts(organizationId)
     .then((data) => {
-      dispatch(addUsers(data.data.map(item => item.user)));
       dispatch(addPosts(data.data));
     })
     .catch(() => loader.done())

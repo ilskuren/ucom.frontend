@@ -7,7 +7,6 @@ import ProfilePage from '../pages/Profile';
 import OrganizationPage from '../pages/Organization';
 import CreatePost from '../pages/CreatePost';
 import UserPage from '../pages/User';
-import EventsPage from '../pages/Events';
 import UsersPage from '../pages/Users';
 import OrganizationsPage from '../pages/Organizations';
 import AboutPage from '../pages/About';

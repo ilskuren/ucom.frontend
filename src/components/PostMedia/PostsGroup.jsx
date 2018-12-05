@@ -29,7 +29,7 @@ class PostsGroup extends PureComponent {
   getData(postTypeId) {
     const params = {
       post_type_id: postTypeId,
-      sort_by: '-rate_delta',
+      sort_by: '-current_rate',
     };
 
     this.setState({ posts: [] }, () => {

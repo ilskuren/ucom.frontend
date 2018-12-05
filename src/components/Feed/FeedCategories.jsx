@@ -6,6 +6,20 @@ import loader from '../../utils/loader';
 import { addPosts } from '../../actions/posts';
 import LoadMore from './LoadMore';
 import Post from './Post/Post';
+import {
+  POSTS_CATREGORIES_HOT_ID,
+  POSTS_CATREGORIES_TRENDING_ID,
+  POSTS_CATREGORIES_FRESH_ID,
+  POSTS_CATREGORIES_TOP_ID,
+  POST_TYPE_MEDIA_ID,
+} from '../../utils/posts';
+
+const sortByForCategories = {
+  [POSTS_CATREGORIES_HOT_ID]: '-created_at_date,-current_rate',
+  [POSTS_CATREGORIES_TRENDING_ID]: '-current_rate_delta_daily',
+  [POSTS_CATREGORIES_FRESH_ID]: '-id',
+  [POSTS_CATREGORIES_TOP_ID]: '-current_rate',
+};
 
 const FeedCategories = (props) => {
   const [postIds, setPostIds] = useState([]);
@@ -17,7 +31,11 @@ const FeedCategories = (props) => {
     setLoading(true);
 
     try {
-      const data = await api.getPosts(params);
+      const data = await api.getPosts({
+        ...params,
+        postTypeId: POST_TYPE_MEDIA_ID,
+        sortBy: sortByForCategories[props.categoryId],
+      });
       props.addPosts(data.data);
       setMetadata(data.metadata);
       setPostIds(postIds.concat(data.data.map(i => i.id)));

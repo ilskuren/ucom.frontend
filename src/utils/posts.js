@@ -6,6 +6,11 @@ export const POST_TYPE_MEDIA_ID = 1;
 export const POST_TYPE_DIRECT_ID = 10;
 export const POST_TYPE_REPOST_ID = 11;
 
+export const POSTS_CATREGORIES_HOT_ID = 1;
+export const POSTS_CATREGORIES_TRENDING_ID = 2;
+export const POSTS_CATREGORIES_FRESH_ID = 3;
+export const POSTS_CATREGORIES_TOP_ID = 4;
+
 export const POST_TYPES = [{
   id: 1,
   description: 'Story',

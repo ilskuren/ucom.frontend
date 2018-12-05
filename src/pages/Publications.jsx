@@ -5,18 +5,24 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import FeedCategories from '../components/Feed/FeedCategories';
+import {
+  POSTS_CATREGORIES_HOT_ID,
+  POSTS_CATREGORIES_TRENDING_ID,
+  POSTS_CATREGORIES_FRESH_ID,
+  POSTS_CATREGORIES_TOP_ID,
+} from '../utils/posts';
 
-const PUBLICATIONS_CATREGORIES = [{
-  id: 1,
+const POSTS_CATREGORIES = [{
+  id: POSTS_CATREGORIES_HOT_ID,
   name: 'hot',
 }, {
-  id: 2,
+  id: POSTS_CATREGORIES_TRENDING_ID,
   name: 'trending',
 }, {
-  id: 3,
+  id: POSTS_CATREGORIES_FRESH_ID,
   name: 'fresh',
 }, {
-  id: 4,
+  id: POSTS_CATREGORIES_TOP_ID,
   name: 'top',
 }];
 
@@ -33,7 +39,7 @@ const Publications = props => (
               <div className="toolbar toolbar_responsive">
                 <div className="toolbar__main">
                   <div className="menu menu_simple-tabs">
-                    {PUBLICATIONS_CATREGORIES.map(item => (
+                    {POSTS_CATREGORIES.map(item => (
                       <div className="menu__item" key={item.id}>
                         <NavLink
                           className="menu__link"
@@ -56,9 +62,9 @@ const Publications = props => (
 
         <div className="content__inner">
           <div className="content__section content__section_small">
-            <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(PUBLICATIONS_CATREGORIES[0].name)} />} />
-            {PUBLICATIONS_CATREGORIES.map(item => (
-              <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories categoryName={item.name} />} />
+            <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(POSTS_CATREGORIES[0].name)} />} />
+            {POSTS_CATREGORIES.map(item => (
+              <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories categoryId={item.id} categoryName={item.name} />} />
             ))}
           </div>
         </div>

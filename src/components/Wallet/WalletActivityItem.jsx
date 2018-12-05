@@ -141,10 +141,10 @@ const getActionText = (props) => {
       return <div>You sent <strong>{props.user.accountName}</strong> tokens</div>;
 
     case types.TR_TYPE_SELL_RAM:
-      return <div>Sold {props.resources.ram.amount}{props.resources.ram.dimension} <strong>RAM</strong></div>;
+      return <div>Sold {round(props.resources.ram.amount)}{props.resources.ram.dimension} <strong>RAM</strong></div>;
 
     case types.TR_TYPE_BUY_RAM:
-      return <div>Bought {props.resources.ram.amount}{props.resources.ram.dimension} <strong>RAM</strong></div>;
+      return <div>Bought {round(props.resources.ram.amount)}{props.resources.ram.dimension} <strong>RAM</strong></div>;
 
     case types.TR_TYPE_STAKE_RESOURCES:
       net = props.resources.net.tokens.selfDelegated;

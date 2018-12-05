@@ -78,20 +78,7 @@ const WalletRAMIcon = () => (
   </svg>
 );
 
-const WalletPlus = () => (
-  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="7.30859" y="0.611328" width="2" height="16" rx="1" fill="black" />
-    <rect x="0.308594" y="9.61133" width="2" height="16" rx="1" transform="rotate(-90 0.308594 9.61133)" fill="black" />
-  </svg>
-);
-
-const WalletMinus = () => (
-  <svg width="17" height="3" viewBox="0 0 17 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0.308594" y="2.61133" width="2" height="16" rx="1" transform="rotate(-90 0.308594 2.61133)" fill="black" />
-  </svg>
-);
-
 export {
   WalletCommentIcon, WalletVoteIcon, WalletNetIcon, WalletCPUIcon, WalletEmissionIcon, WalletCPUNETIcon, WalletFromIcon,
-  WalletToIcon, WalletSnowflakeIcon, WalletDropIcon, WalletRAMIcon, WalletMinus, WalletPlus,
+  WalletToIcon, WalletSnowflakeIcon, WalletDropIcon, WalletRAMIcon,
 };

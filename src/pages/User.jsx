@@ -25,6 +25,7 @@ const UserPage = (props) => {
   const postId = Number(props.match.params.postId);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     props.fetchUser(userId);
   }, [userId]);
 

@@ -6,7 +6,6 @@ import Links from '../components/Links';
 import Footer from '../components/Footer';
 import OrganizationHead from '../components/Organization/OrganizationHead';
 import VerticalCards from '../components/VerticalCards';
-import OrganizationFeed from '../components/Feed/OrganizationFeed';
 import OrganizationHeader from '../components/Organization/OrganizationHeader';
 import { getFileUrl } from '../utils/upload';
 import { getSourceUrl } from '../utils/sources';
@@ -20,6 +19,8 @@ import ModalContent from '../components/ModalContent';
 import Post from '../components/Feed/Post/Post';
 import urls from '../utils/urls';
 import { fetchPost } from '../actions/posts';
+import Feed from '../components/Feed/Feed';
+import { ORGANIZATION_FEED_ID } from '../utils/feed';
 
 const OrganizationPage = (props) => {
   const organizationId = Number(props.match.params.id);
@@ -82,7 +83,7 @@ const OrganizationPage = (props) => {
                       )}
 
                       <div className="user-section">
-                        <OrganizationFeed organizationId={organizationId} />
+                        <Feed organizationId={organizationId} feedTypeId={ORGANIZATION_FEED_ID} />
                       </div>
                     </div>
 

@@ -11,7 +11,6 @@ import users from './users';
 import comments from './comments';
 import organizations from './organizations';
 import menuPopup from './menuPopup';
-import feeds from './feeds';
 import userForm from './userForm';
 import wallet from './wallet/index';
 import governance from './governance/index';
@@ -29,7 +28,6 @@ const app = combineReducers({
   users,
   comments,
   organizations,
-  feeds,
   menuPopup,
   wallet,
   userForm,

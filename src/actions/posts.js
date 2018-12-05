@@ -4,9 +4,7 @@ import { addUsers } from './users';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { addErrorNotification } from './notifications';
 import { addComments } from './comments';
-import { addFeedPosts } from './feeds';
 import snakes from '../utils/snakes';
-import { USER_FEED_TYPE_ID, USER_NEWS_FEED_TYPE_ID, ORGANIZATION_FEED_TYPE_ID } from '../store/feeds';
 import loader from '../utils/loader';
 
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
@@ -16,14 +14,19 @@ export const addPosts = (payload = []) => (dispatch) => {
   const posts = [];
   const users = [];
 
-  payload.forEach((post) => {
+  const parsePost = (post) => {
+    posts.push(post);
+
     if (post.user) {
       users.push(post.user);
     }
 
-    posts.push(post);
-  });
+    if (post.post) {
+      parsePost(post.post);
+    }
+  };
 
+  payload.forEach(parsePost);
   dispatch(addUsers(users));
   dispatch({ type: 'ADD_POSTS', payload: posts });
 };
@@ -64,16 +67,6 @@ export const addRepost = postId => (dispatch) => {
     .then(() => loader.done());
 };
 
-export const fetchOrganizationPosts = organizationId => (dispatch) => {
-  loader.start();
-  api.getOrganizationPosts(organizationId)
-    .then((data) => {
-      dispatch(addPosts(data.data));
-    })
-    .catch(() => loader.done())
-    .then(() => loader.done());
-};
-
 export const postVote = payload => (dispatch) => {
   loader.start();
   api.vote(payload.isUp, payload.postId)
@@ -83,62 +76,6 @@ export const postVote = payload => (dispatch) => {
         id: payload.postId,
         currentVote: data.currentVote,
         myselfVote: payload.isUp ? UPVOTE_STATUS : DOWNVOTE_STATUS,
-      }));
-    })
-    .catch((error) => {
-      dispatch(addErrorNotification(error));
-    })
-    .then(() => loader.done());
-};
-
-export const createUserCommentPost = payload => (dispatch) => {
-  loader.start();
-  api.createUserCommentPost(payload.userId, payload.data)
-    .then((data) => {
-      dispatch(addPosts([data]));
-      dispatch(addFeedPosts({
-        id: payload.userId,
-        feedTypeId: USER_FEED_TYPE_ID,
-        postsIds: [data.id],
-      }));
-    })
-    .catch((error) => {
-      dispatch(addErrorNotification(error));
-    })
-    .then(() => loader.done());
-};
-
-export const createSelfCommentPost = payload => (dispatch) => {
-  loader.start();
-  api.createUserCommentPost(payload.userId, payload.data)
-    .then((data) => {
-      dispatch(addPosts([data]));
-      dispatch(addFeedPosts({
-        id: payload.userId,
-        feedTypeId: USER_FEED_TYPE_ID,
-        postsIds: [data.id],
-      }));
-      dispatch(addFeedPosts({
-        id: payload.userId,
-        feedTypeId: USER_NEWS_FEED_TYPE_ID,
-        postsIds: [data.id],
-      }));
-    })
-    .catch((error) => {
-      dispatch(addErrorNotification(error));
-    })
-    .then(() => loader.done());
-};
-
-export const createOrganizationsCommentPost = payload => (dispatch) => {
-  loader.start();
-  api.createOrganizationsCommentPost(payload.organizationId, payload.data)
-    .then((data) => {
-      dispatch(addPosts([data]));
-      dispatch(addFeedPosts({
-        id: payload.organizationId,
-        feedTypeId: ORGANIZATION_FEED_TYPE_ID,
-        postsIds: [data.id],
       }));
     })
     .catch((error) => {

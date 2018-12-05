@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
 import PostsGroupTabs from '../components/PostMedia/PostsGroupTabs';
-import UserNewsFeed from '../components/Feed/UserNewsFeed';
 import Promo from '../components/Promo';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { selectUser } from '../store/selectors';
 import { fetchUser } from '../actions/users';
 import UserPeoples from '../components/User/UserPeoples';
 import { getUserById } from '../store/users';
+import Feed from '../components/Feed/Feed';
+import { USER_NEWS_FEED_ID } from '../utils/feed';
 
 const HomePage = (props) => {
   useEffect(() => {
@@ -33,7 +34,7 @@ const HomePage = (props) => {
           <div className="content__inner">
             <div className="grid grid_content">
               <div className="grid__item grid__item_main">
-                <UserNewsFeed userId={user.id} />
+                <Feed userId={user.id} feedTypeId={USER_NEWS_FEED_ID} />
               </div>
 
               <div className="grid__item grid__item_side">

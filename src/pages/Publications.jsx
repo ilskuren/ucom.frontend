@@ -4,7 +4,7 @@ import React from 'react';
 import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
-import PostsCategoriesList from '../components/Feed/PostsCategoriesList';
+import FeedCategories from '../components/Feed/FeedCategories';
 
 const PUBLICATIONS_CATREGORIES = [{
   id: 1,
@@ -58,7 +58,7 @@ const Publications = props => (
           <div className="content__section content__section_small">
             <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(PUBLICATIONS_CATREGORIES[0].name)} />} />
             {PUBLICATIONS_CATREGORIES.map(item => (
-              <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <PostsCategoriesList categoryName={item.name} />} />
+              <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories categoryName={item.name} />} />
             ))}
           </div>
         </div>

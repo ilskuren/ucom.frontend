@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import UserFeed from '../components/Feed/UserFeed';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
 import UserAbout from '../components/User/UserAbout';
@@ -18,6 +17,8 @@ import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import Post from '../components/Feed/Post/Post';
 import urls from '../utils/urls';
+import Feed from '../components/Feed/Feed';
+import { USER_WALL_FEED_ID } from '../utils/feed';
 
 const UserPage = (props) => {
   const userId = Number(props.match.params.id);
@@ -57,7 +58,7 @@ const UserPage = (props) => {
           <div className="grid grid_user">
             <div className="grid__item">
               <UserAbout userId={userId} />
-              <UserFeed userId={userId} />
+              <Feed userId={userId} feedTypeId={USER_WALL_FEED_ID} />
             </div>
 
             <div className="grid__item">

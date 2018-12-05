@@ -293,8 +293,8 @@ class Api {
   }
 
   @bind
-  async getOrganizationWallFeed(id, perPage, page) {
-    const url = `/api/v1/organizations/${id}/wall-feed?per_page=${perPage}&page=${page}`;
+  async getOrganizationWallFeed({ organizationId, perPage, page }) {
+    const url = `/api/v1/organizations/${organizationId}/wall-feed?per_page=${perPage}&page=${page}`;
 
     const response = await this.actions.get(url);
 
@@ -320,9 +320,9 @@ class Api {
   }
 
   @bind
-  async createUserCommentPost(userId, data) {
+  async createUserCommentPost({ userId, data }) {
     const url = `/api/v1/users/${userId}/posts`;
-    const response = await this.actions.post(url, data);
+    const response = await this.actions.post(url, snakes(data));
 
     return humps(response.data);
   }
@@ -336,9 +336,9 @@ class Api {
   }
 
   @bind
-  async createOrganizationsCommentPost(orgId, data) {
-    const url = `/api/v1/organizations/${orgId}/posts`;
-    const response = await this.actions.post(url, data);
+  async createOrganizationsCommentPost({ organizationId, data }) {
+    const url = `/api/v1/organizations/${organizationId}/posts`;
+    const response = await this.actions.post(url, snakes(data));
 
     return humps(response.data);
   }
@@ -352,14 +352,14 @@ class Api {
   }
 
   @bind
-  async getUserWallFeed(userId, perPage, page) {
+  async getUserWallFeed({ userId, perPage, page }) {
     const response = await this.actions.get(`/api/v1/users/${userId}/wall-feed?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);
   }
 
   @bind
-  async getUserNewsFeed(perPage, page) {
+  async getUserNewsFeed({ perPage, page }) {
     const response = await this.actions.get(`/api/v1/myself/news-feed?per_page=${perPage}&page=${page}`);
 
     return humps(response.data);

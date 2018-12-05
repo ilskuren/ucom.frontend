@@ -7,7 +7,7 @@ import { addPosts } from '../../actions/posts';
 import LoadMore from './LoadMore';
 import Post from './Post/Post';
 
-const PostsCategoriesList = (props) => {
+const FeedCategories = (props) => {
   const [postIds, setPostIds] = useState([]);
   const [metadata, setMetadata] = useState({ page: 1, perPage: 20 });
   const [loading, setLoading] = useState(true);
@@ -73,4 +73,4 @@ export default connect(
   dispatch => bindActionCreators({
     addPosts,
   }, dispatch),
-)(PostsCategoriesList);
+)(FeedCategories);

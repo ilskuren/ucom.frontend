@@ -14,17 +14,27 @@ import {
   POST_TYPE_MEDIA_ID,
 } from '../../utils/posts';
 
-const sortByForCategories = {
-  [POSTS_CATREGORIES_HOT_ID]: '-created_at_date,-current_rate',
-  [POSTS_CATREGORIES_TRENDING_ID]: '-current_rate_delta_daily',
-  [POSTS_CATREGORIES_FRESH_ID]: '-id',
-  [POSTS_CATREGORIES_TOP_ID]: '-current_rate',
+const paramsForCategories = {
+  [POSTS_CATREGORIES_HOT_ID]: {
+    sortBy: '-current_rate',
+    createdAt: '24_hours',
+  },
+  [POSTS_CATREGORIES_TRENDING_ID]: {
+    sortBy: '-current_rate_delta_daily',
+  },
+  [POSTS_CATREGORIES_FRESH_ID]: {
+    sortBy: '-id',
+  },
+  [POSTS_CATREGORIES_TOP_ID]: {
+    sortBy: '-current_rate',
+  },
 };
 
 const FeedCategories = (props) => {
   const [postIds, setPostIds] = useState([]);
   const [metadata, setMetadata] = useState({ page: 1, perPage: 20 });
   const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const fetchPosts = async (params) => {
     loader.start();
@@ -33,8 +43,8 @@ const FeedCategories = (props) => {
     try {
       const data = await api.getPosts({
         ...params,
+        ...paramsForCategories[props.categoryId],
         postTypeId: POST_TYPE_MEDIA_ID,
-        sortBy: sortByForCategories[props.categoryId],
       });
       props.addPosts(data.data);
       setMetadata(data.metadata);
@@ -45,6 +55,7 @@ const FeedCategories = (props) => {
 
     loader.done();
     setLoading(false);
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -54,8 +65,18 @@ const FeedCategories = (props) => {
     });
   }, []);
 
-  if (!postIds.length) {
+  if (!loaded) {
     return null;
+  }
+
+  if (loaded && !postIds.length) {
+    return (
+      <div className="feed">
+        <div className="feed__empty">
+          <div className="text">No posts to display</div>
+        </div>
+      </div>
+    );
   }
 
   return (

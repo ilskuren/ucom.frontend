@@ -68,6 +68,7 @@ class PostsGroup extends PureComponent {
                 tags={mainPost.postTypeId && [getPostTypeById(mainPost.postTypeId)]}
                 commentsCount={mainPost.postTypeId && mainPost.commentsCount}
                 sharesCount={mainPost.postTypeId && mainPost.sharesCount}
+                userRate={mainPost.user && mainPost.user.currentRate}
               />
             </div>
 

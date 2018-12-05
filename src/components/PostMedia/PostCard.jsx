@@ -60,7 +60,7 @@ const PostCard = (props) => {
                     accountName={props.accountName}
                     profileLink={props.userUrl}
                     avatarUrl={props.userImageUrl}
-                    rate={props.onFeed ? null : 1000}
+                    rate={props.userRate}
                   />
                 </div>
               </div>

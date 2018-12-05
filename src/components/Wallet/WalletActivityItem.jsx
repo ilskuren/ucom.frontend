@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import moment from 'moment';
 import Avatar from '../Avatar';
 import {
@@ -6,7 +6,11 @@ import {
   WalletToIcon, WalletSnowflakeIcon, WalletDropIcon, WalletRAMIcon,
 } from '../Icons/WalletIcons';
 import { getFileUrl } from '../../utils/upload';
+import WalletActivityPopup from './WalletActivityPopup';
+import ModalContent from '../ModalContent';
+import Popup from '../Popup';
 
+const round = amount => Math.round(amount * 100) / 100;
 
 const types = {
   TR_TYPE__TRANSFER_FROM: 10,
@@ -22,6 +26,7 @@ const types = {
 const getAvatar = (props) => {
   let cpu;
   let net;
+
   switch (props.trType) {
     case types.TR_TYPE__TRANSFER_FROM:
       if (!props.user) return null;
@@ -95,29 +100,29 @@ const getAmount = (props) => {
   let net;
   switch (props.trType) {
     case types.TR_TYPE__TRANSFER_TO:
-      return `${props.tokens.active} ${props.tokens.currency}`;
+      return `${round(props.tokens.active)} ${props.tokens.currency}`;
 
     case types.TR_TYPE__TRANSFER_FROM:
-      return `-${props.tokens.active} ${props.tokens.currency}`;
+      return `-${round(props.tokens.active)} ${props.tokens.currency}`;
 
     case types.TR_TYPE_SELL_RAM:
-      return `${props.resources.ram.tokens.amount} ${props.resources.ram.tokens.currency}`;
+      return `${round(props.resources.ram.tokens.amount)} ${props.resources.ram.tokens.currency}`;
 
     case types.TR_TYPE_BUY_RAM:
-      return `-${props.resources.ram.tokens.amount} ${props.resources.ram.tokens.currency}`;
+      return `-${round(props.resources.ram.tokens.amount)} ${props.resources.ram.tokens.currency}`;
 
     case types.TR_TYPE_STAKE_RESOURCES:
-      net = props.resources.net.tokens.selfDelegated;
-      cpu = props.resources.cpu.tokens.selfDelegated;
+      net = round(props.resources.net.tokens.selfDelegated);
+      cpu = round(props.resources.cpu.tokens.selfDelegated);
       return `-${cpu && net ? cpu + net : cpu || net} ${props.resources.net.tokens.currency}`;
 
     case types.TR_TYPE_UNSTAKING_REQUEST:
-      net = props.resources.net.unstakingRequest.amount;
-      cpu = props.resources.cpu.unstakingRequest.amount;
+      net = round(props.resources.net.unstakingRequest.amount);
+      cpu = round(props.resources.cpu.unstakingRequest.amount);
       return `${cpu && net ? cpu + net : cpu || net} ${props.resources.net.unstakingRequest.currency}`;
 
     case types.TR_TYPE_CLAIM_EMISSION:
-      return `${props.tokens.emission} ${props.tokens.currency}`;
+      return `${round(props.tokens.emission)} ${props.tokens.currency}`;
 
     default:
       return null;
@@ -187,35 +192,65 @@ const WalletActivityItem = (props) => {
     console.error(`Unknown type of transaction ${props.trType}`);
     return null;
   }
+
+  const [visibility, setVisibility] = useState(false);
+
+  const show = () => {
+    document.querySelector('.user-menu').classList.add('user-menu_blur');
+    setVisibility(true);
+  };
+  const hide = () => {
+    document.querySelector('.user-menu').classList.remove('user-menu_blur');
+    setVisibility(false);
+  };
+
+
+  const action = getActionText(props);
+  const walletAvatar = getAvatar(props);
+  const trType = getTrType(props);
+  const amount = getAmount(props);
+
   return (
-    <div className="wallet-activity__item">
-      <div className="wallet-activity__main">
-        <div className="wallet-activity__avatar">
-          {getAvatar(props)}
-        </div>
-        <div>
-          <div className="wallet-activity__group">
-            <div className="wallet-activity__time">{moment(props.updatedAt).format('HH:mm:ss')}</div>
-            <div className="wallet-activity__type">{getTrType(props)}</div>
+    <Fragment>
+      <div className="wallet-activity__item" onClick={show} role="presentation">
+        <div className="wallet-activity__main">
+          <div className="wallet-activity__avatar">
+            {walletAvatar}
           </div>
-          <div className="wallet-activity__action">
-            {getActionText(props)}
-          </div>
-        </div>
-
-      </div>
-      <div className="wallet-activity__amount"><strong>{getAmount(props)}</strong></div>
-
-      <div className="wallet-activity__side">
-        {props.memo &&
-        <Fragment>
           <div>
-            <WalletCommentIcon />
+            <div className="wallet-activity__group">
+              <div className="wallet-activity__time">{moment(props.updatedAt).format('HH:mm:ss')}</div>
+              <div className="wallet-activity__type">{trType}</div>
+            </div>
+            <div className="wallet-activity__action">
+              {action}
+            </div>
           </div>
-          <div className="wallet-activity__comment">{props.memo}</div>
-        </Fragment>}
+
+        </div>
+        <div className="wallet-activity__amount"><strong>{amount}</strong></div>
+
+        <div className="wallet-activity__side">
+          {props.memo &&
+          <Fragment>
+            <div>
+              <WalletCommentIcon />
+            </div>
+            <div className="wallet-activity__comment">{props.memo}</div>
+          </Fragment>}
+        </div>
       </div>
-    </div>
+      {visibility && (
+        <Popup onClickClose={hide}>
+          <ModalContent onClickClose={hide} mod="wallet-activity-popup" >
+            <WalletActivityPopup {...{
+              ...props, action, trType, amount, walletAvatar,
+              }}
+            />
+          </ModalContent>
+        </Popup>
+      )}
+    </Fragment>
   );
 };
 

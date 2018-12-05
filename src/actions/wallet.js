@@ -23,8 +23,17 @@ export const walletTransactionsSetData = payload => ({ type: 'WALLET_TRANSACTION
 export const walletTransactionsReset = payload => ({ type: 'WALLET_TRANSACTIONS_RESET', payload });
 
 export const fetchTransactionsList = (perPage, page) => async (dispatch) => {
-  const res = await api.getTransactions(perPage, page);
-  dispatch(walletTransactionsSetData(res));
+  try {
+    loader.start();
+    const res = await api.getTransactions(perPage, page);
+    dispatch(walletTransactionsSetData(res));
+    loader.done();
+  } catch (e) {
+    console.error(e);
+    const errors = parseWalletErros(e);
+    dispatch(setWalletEditStakeServerErrors(errors));
+    loader.done();
+  }
 };
 
 export const setWalletSendTokensVisible = payload => (dispatch) => {

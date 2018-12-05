@@ -6,7 +6,6 @@ import React, { Fragment, useState } from 'react';
 import SendTokensPopup from './SendTokensPopup';
 import TradeRAMPopup from './TradeRAMPopup';
 import SetStakePopup from './SetStakePopup';
-import Popup from '../Popup';
 import ProgressBar from './ProgressBar';
 import {
   setWalletSendTokensVisible,
@@ -16,6 +15,7 @@ import {
   claimEmission,
 } from '../../actions/wallet';
 import ModalContent from '../ModalContent';
+import Popup from '../Popup';
 
 const MenuWallet = (props) => {
   const { wallet } = props;

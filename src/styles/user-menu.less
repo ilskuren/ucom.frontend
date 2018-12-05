@@ -29,10 +29,51 @@
 .user-menu__communities {
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1199px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-gap: 10px 15px;
+  }
+
+  .user-card {
+    vertical-align: top;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+
+  .user-card__side {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .user-card__inner {
+    align-items: flex-start;
+    display: flex;
+    max-width: 200px;
+  }
+
+  .user-card__name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-card__main {
+    margin-right: 8px;
+  }
+
+  .user-card_size_small .avatar {
+    width: 24px;
+    height: 24px;
+  }
 }
+
 .user-menu__side {
-  max-width: 80%;
-  padding-bottom: 40px
+  padding-bottom: 40px;
+  margin-right: 50px;
 }
 
 .user-menu__title {

@@ -25,7 +25,7 @@ const createCommentPostFunctions = {
 
 const Feed = (props) => {
   const [postIds, setPostIds] = useState([]);
-  const [metadata, setMetadata] = useState({ page: 1, perPage: 10 });
+  const [metadata, setMetadata] = useState({});
   const [loading, setLoading] = useState(true);
 
   const fetchPosts = async ({ perPage, page }) => {
@@ -43,7 +43,8 @@ const Feed = (props) => {
       const data = await getFeedFunctions[props.feedTypeId](params);
       props.addPosts(data.data);
       setMetadata(data.metadata);
-      setPostIds(postIds.concat(data.data.map(i => i.id)));
+      const newPostIds = data.data.map(i => i.id);
+      setPostIds(page === 1 ? newPostIds : postIds.concat(newPostIds));
     } catch (e) {
       console.error(e);
     }
@@ -79,11 +80,8 @@ const Feed = (props) => {
   };
 
   useEffect(() => {
-    fetchPosts({
-      page: metadata.page,
-      perPage: metadata.perPage,
-    });
-  }, []);
+    fetchPosts({ page: 1, perPage: 10 });
+  }, [props.userId, props.organizationId]);
 
   return (
     <div className="feed">

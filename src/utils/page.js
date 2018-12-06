@@ -4,13 +4,17 @@ let pageIsBlured = false;
 let pageBluredQueue = 0;
 
 export const blockPageContent = () => {
+  const pageContent = document.querySelector('.page__content');
+
+  if (!pageContent) {
+    return;
+  }
+
   pageContentBlockedQueue++;
 
   if (pageContentIsBlocked) {
     return;
   }
-
-  const pageContent = document.querySelector('.page__content');
 
   pageContent.style.top = `-${window.pageYOffset}px`;
   pageContent.classList.add('page__content_blocked');
@@ -19,6 +23,12 @@ export const blockPageContent = () => {
 };
 
 export const unblockPageContent = () => {
+  const pageContent = document.querySelector('.page__content');
+
+  if (!pageContent) {
+    return;
+  }
+
   if (pageContentBlockedQueue > 0) {
     pageContentBlockedQueue--;
   }
@@ -27,7 +37,6 @@ export const unblockPageContent = () => {
     return;
   }
 
-  const pageContent = document.querySelector('.page__content');
   const topOffset = parseInt(pageContent.style.top, 10);
 
   pageContent.classList.remove('page__content_blocked');

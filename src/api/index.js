@@ -33,8 +33,7 @@ class Api {
 
   @bind
   async login({ brainkey, account_name }) {
-    const ownerKey = ecc.seedPrivate(brainkey);
-    const activeKey = ecc.seedPrivate(ownerKey);
+    const activeKey = getActivePrivateKey(brainkey);
     const sign = ecc.sign(account_name, activeKey);
     const publicKey = ecc.privateToPublic(activeKey);
     const response = await this.actions.post('/api/v1/auth/login', {
@@ -47,8 +46,7 @@ class Api {
 
   @bind
   async register({ brainkey, accountName, isTrackingAllowed }) {
-    const ownerKey = ecc.seedPrivate(brainkey);
-    const activeKey = ecc.seedPrivate(ownerKey);
+    const activeKey = getActivePrivateKey(brainkey);
     const sign = ecc.sign(accountName, activeKey);
     const publicKey = ecc.privateToPublic(activeKey);
     const response = await this.actions.post('/api/v1/auth/registration', {

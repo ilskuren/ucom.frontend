@@ -1,5 +1,4 @@
 import { camelCase } from 'lodash';
-import dict from '../utils/dict';
 
 export const getError = (errors, fieldName) => {
   if (!errors) {
@@ -54,8 +53,8 @@ export const parseWalletErros = (error) => {
   }
 
   const defaultErrors = [{
+    message: 'Could not complete request, please try again later',
     field: 'general',
-    message: dict.ajaxError,
   }];
 
   return defaultErrors;

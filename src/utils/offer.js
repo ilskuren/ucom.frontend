@@ -1,30 +1,6 @@
 import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format'; // eslint-disable-line no-unused-vars
 
-export const OFFER_TYPES = [{
-  id: 1,
-  description: 'Sale',
-}];
-// , {
-//   id: 2,
-//   description: 'Token Sale',
-// }, {
-//   id: 3,
-//   description: 'Event',
-// }, {
-//   id: 4,
-//   description: 'Service',
-// }, {
-//   id: 5,
-//   description: 'Whitelist',
-// }, {
-//   id: 6,
-//   description: 'Charity',
-// }, {
-//   id: 7,
-//   description: 'Giveaway',
-// }];
-
 export const getOfferEditUrl = (offerId) => {
   if (!offerId) {
     return null;

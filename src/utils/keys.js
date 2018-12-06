@@ -1,5 +1,5 @@
-import { memoize } from 'lodash';
 import ecc from 'eosjs-ecc';
+import { memoize } from 'lodash';
 
 export const getActivePrivateKey = memoize((brainkey) => {
   const ownerKey = ecc.seedPrivate(brainkey);

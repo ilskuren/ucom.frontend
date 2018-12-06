@@ -1,5 +1,4 @@
 import humps from 'lodash-humps';
-import dict from './dict';
 
 export const getYearsFromBirthday = (value) => {
   if (!value) {
@@ -43,26 +42,6 @@ export const getUserName = (user) => {
   }
 
   return userData.accountName;
-};
-
-export const validateAuth = (fields = {}) => {
-  const errors = [];
-
-  if (!fields.account_name) {
-    errors.push({
-      field: 'account_name',
-      message: dict.accountNameIsRequired,
-    });
-  }
-
-  if (!(fields.brainkey && fields.brainkey.trim().split(' ').length === 12)) {
-    errors.push({
-      field: 'brainkey',
-      message: dict.brainkeyValidationError,
-    });
-  }
-
-  return errors;
 };
 
 export const userIsFollowed = (followers, userId) => {

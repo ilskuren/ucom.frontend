@@ -1,17 +1,5 @@
 import humps from 'lodash-humps';
 
-export const getYearsFromBirthday = (value) => {
-  if (!value) {
-    return null;
-  }
-
-  const birthday = new Date(value);
-  const ageDifMs = Date.now() - birthday.getTime();
-  const ageDate = new Date(ageDifMs);
-
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-};
-
 export const getUserUrl = (userId) => {
   if (!userId) {
     return null;

@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { scroller } from 'react-scroll';
-import { scrollAnimation } from '../utils/constants';
 
 class VerticalMenu extends PureComponent {
   constructor(props) {
@@ -29,7 +28,11 @@ class VerticalMenu extends PureComponent {
   }
 
   changeActiveSection(sectionName) {
-    scroller.scrollTo(sectionName, scrollAnimation);
+    scroller.scrollTo(sectionName, {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+    });
     this.setActiveSectionName(sectionName);
   }
 

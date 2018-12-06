@@ -5,7 +5,6 @@ import Panel from '../Panel';
 
 const WalletActivityPopup = (props) => {
   const [active, setActive] = useState(false);
-  const { action, walletAvatar, ...info } = props;
 
   return (
     <div className="wallet-activity-popup">
@@ -39,15 +38,17 @@ const WalletActivityPopup = (props) => {
             </div>
           </div> : null
         }
-        <div className="wallet-activity-popup__switch">
-          <Panel
-            title="Detailed info"
-            active={active}
-            onClickToggler={() => setActive(!active)}
-          >
-            <pre className="wallet-activity-popup__detailed-info">{JSON.stringify(info, null, 4)}</pre>
-          </Panel>
-        </div>
+        {props.rawTrData &&
+          <div className="wallet-activity-popup__switch">
+            <Panel
+              title="Detailed info"
+              active={active}
+              onClickToggler={() => setActive(!active)}
+            >
+              <pre className="wallet-activity-popup__detailed-info">{JSON.stringify(props.rawTrData, null, 4)}</pre>
+            </Panel>
+          </div>
+        }
       </div>
     </div>
   );

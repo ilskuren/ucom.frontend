@@ -13,11 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "ipfs": {
-    "host": "93.95.99.205",
-    "port": "5001",
-    "api-path": "/api/v0/"
-  },
   "backend": {
     "staging": {
       "httpEndpoint": "https://staging-backend.u.community",

@@ -9,8 +9,8 @@ import { getBrainkey } from '../utils/brainkey';
 import { getBackendConfig } from '../utils/config';
 import snakes from '../utils/snakes';
 
-const { WalletApi } = require('uos-app-wallet');
-const AppTransaction = require('uos-app-transaction');
+const { WalletApi } = require('ucom-libs-wallet');
+const AppTransaction = require('ucom-libs-social-transactions');
 
 const { TransactionFactory } = AppTransaction;
 

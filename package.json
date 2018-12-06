@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm i uos-app-transaction; npm i uos-app-wallet; NODE_ENV=staging webpack-dev-server --config ./webpack.config.js --mode development;",
+    "start": "NODE_ENV=staging webpack-dev-server --config ./webpack.config.js --mode development;",
     "staging": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development",
     "production": "NODE_ENV=production webpack --config ./webpack.config.js --mode production",
     "production_local": "NODE_ENV=production webpack-dev-server --config ./webpack.config.js --mode production;",
@@ -101,8 +101,8 @@
     "sanitize-html": "^1.19.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
-    "uos-app-transaction": "git+ssh://git@bitbucket.org/gravityprotocol/uos.app.transaction.git",
-    "uos-app-wallet": "git+ssh://git@bitbucket.org/gravityprotocol/uos-app-wallet.git",
+    "ucom-libs-social-transactions": "^0.15.0",
+    "ucom-libs-wallet": "^0.15.0",
     "uuid": "^3.3.2",
     "validatorjs": "^3.14.2"
   }

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { WalletCommentIcon, WalletMinus, WalletPlus } from '../Icons/WalletIcons';
+import { WalletCommentIcon } from '../Icons/WalletIcons';
+import Panel from '../Panel';
 
 const WalletActivityPopup = (props) => {
-  const [minimazed, setMinimazed] = useState(true);
-  const { action, walletAvatar, ...info } = props;
+  const [active, setActive] = useState(false);
 
   return (
     <div className="wallet-activity-popup">
@@ -38,13 +38,17 @@ const WalletActivityPopup = (props) => {
             </div>
           </div> : null
         }
-        <div className="wallet-activity-popup__switch">
-          Detailed info
-          <div className="wallet-activity-popup__switcher" onClick={() => setMinimazed(!minimazed)} role="presentation">
-            {minimazed ? <WalletPlus /> : <WalletMinus />}
+        {props.rawTrData &&
+          <div className="wallet-activity-popup__switch">
+            <Panel
+              title="Detailed info"
+              active={active}
+              onClickToggler={() => setActive(!active)}
+            >
+              <pre className="wallet-activity-popup__detailed-info">{JSON.stringify(props.rawTrData, null, 4)}</pre>
+            </Panel>
           </div>
-        </div>
-        <pre className="wallet-activity-popup__detailed-info">{!minimazed && JSON.stringify(info, null, 4)}</pre>
+        }
       </div>
     </div>
   );

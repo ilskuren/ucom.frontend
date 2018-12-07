@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PostForm from '../components/PostForm';
-// import OfferForm from '../components/OfferForm';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { postSetSaved, setPostData, validatePost, resetPost } from '../actions';
 import { authShowPopup } from '../actions/auth';
@@ -80,24 +79,14 @@ class CreatePost extends PureComponent {
       return <Redirect to={getPostUrl(this.props.post.data.id)} />;
     }
 
-    switch (this.props.post.data.post_type_id) {
-      // case 2:
-      //   return (
-      //     <OfferForm
-      //       onClickSave={() => this.save()}
-      //       loading={this.state.loading}
-      //     />
-      //   );
-      default:
-        return (
-          <LayoutBase>
-            <PostForm
-              onClickSave={() => this.save()}
-              loading={this.state.loading}
-            />
-          </LayoutBase>
-        );
-    }
+    return (
+      <LayoutBase>
+        <PostForm
+          onClickSave={() => this.save()}
+          loading={this.state.loading}
+        />
+      </LayoutBase>
+    );
   }
 }
 

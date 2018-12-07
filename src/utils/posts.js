@@ -11,11 +11,6 @@ export const POSTS_CATREGORIES_TRENDING_ID = 2;
 export const POSTS_CATREGORIES_FRESH_ID = 3;
 export const POSTS_CATREGORIES_TOP_ID = 4;
 
-export const POST_TYPES = [{
-  id: 1,
-  description: 'Story',
-}];
-
 export const getPostUrl = (postId) => {
   if (!postId) {
     return null;

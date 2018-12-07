@@ -1,50 +1,14 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
-import { getBackendConfig } from '../utils/config';
+import { MediumUpload } from '../utils/medium';
+import { addErrorNotification } from '../actions/notifications';
 
-const $ = require('jquery');
+// const $ = require('jquery');
 
-require('medium-editor-insert-plugin')($);
-
-const UosExtension = MediumEditor.Extension.extend({
-  name: 'uos',
-
-  init() {
-    let el;
-    const trigger = document.createElement('div');
-
-    trigger.className = 'medium-trigger';
-    trigger.innerHTML = '+';
-
-    document.body.appendChild(trigger);
-
-    trigger.addEventListener('click', () => {
-      if (!el) {
-        this.base.origElements.innerHTML = '<p>123</p>';
-        console.log(this.base.origElements);
-      } else {
-        el.innerHTML = '123';
-      }
-    });
-
-    this.base.subscribe('editableKeyup', (e) => {
-      console.log(this.base.getSelectedParentElement());
-
-      if (e.which === 13) {
-        el = this.base.getSelectedParentElement();
-        const rect = this.base.getSelectedParentElement().getBoundingClientRect();
-
-        trigger.style.top = `${rect.y}px`;
-        trigger.style.left = `${rect.x}px`;
-      }
-    });
-  },
-
-  handleKeydown() {
-    console.log('qwe');
-  },
-});
+// require('medium-editor-insert-plugin')($);
 
 class Medium extends PureComponent {
   componentDidMount() {
@@ -66,7 +30,11 @@ class Medium extends PureComponent {
         text: 'Text',
       },
       extensions: {
-        uos: new UosExtension(),
+        uos: new MediumUpload({
+          onUploadError: (message) => {
+            this.props.addErrorNotification(message);
+          },
+        }),
       },
     });
 
@@ -125,4 +93,9 @@ Medium.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Medium;
+export default connect(
+  null,
+  dispatch => bindActionCreators({
+    addErrorNotification,
+  }, dispatch),
+)(Medium);

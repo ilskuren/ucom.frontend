@@ -485,6 +485,13 @@ class Api {
 
     return humps(response.data);
   }
+
+  @bind
+  async uploadPostImage(file) {
+    const response = await this.actions.post('/api/v1/posts/image', { image: file });
+
+    return humps(response.data);
+  }
 }
 
 export default new Api();

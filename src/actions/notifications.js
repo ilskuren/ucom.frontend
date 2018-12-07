@@ -27,10 +27,14 @@ export const addValidationErrorNotification = () => (dispatch) => {
   }));
 };
 
-export const addErrorNotification = error => (dispatch) => {
+export const addServerErrorNotification = error => (dispatch) => {
   if ((error && error.response && error.response.status) === 401 || (error && error.status) === 401) {
     dispatch(authShowPopup());
   } else {
     dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message: parseErrors(error).general }));
   }
+};
+
+export const addErrorNotification = message => (dispatch) => {
+  dispatch(addNotification({ type: NOTIFICATION_TYPE_ERROR, message }));
 };

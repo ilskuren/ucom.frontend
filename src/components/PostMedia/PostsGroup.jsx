@@ -46,8 +46,9 @@ class PostsGroup extends PureComponent {
     let { posts } = this.state;
 
     posts = posts.filter(item => item.title || item.leadingText);
-
-    const mainPost = posts.length ? posts[0] : {};
+    const randomIndex = Math.floor(Math.random() * 10);
+    const mainPost = posts.length ? posts[randomIndex] : {};
+    posts.splice(randomIndex - 1, 1);
     const sidePosts = posts.length ? posts.slice(1, 5) : [{}, {}, {}, {}];
     const footerPosts = posts.length ? posts.slice(6, 9) : [{}, {}, {}];
 

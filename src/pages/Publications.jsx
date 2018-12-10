@@ -55,6 +55,7 @@ const Publications = (props) => {
                             activeClassName="menu__link_active"
                             to={urls.getPublicationsCategoryUrl(item.name)}
                             isActive={() => props.location.pathname === urls.getPublicationsCategoryUrl(item.name)}
+                            onClick={() => setUserIds([])}
                           >
                             {item.name}
                           </NavLink>
@@ -76,10 +77,19 @@ const Publications = (props) => {
                 <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
               ))}
             </div>
+
             <div className="grid__item grid__item_side">
               <div className="feed_side">
                 <div className="sidebar">
-                  <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
+                  <div className="user-section">
+                    <div className="user-section__title">
+                      <h2 className="title title_xxsmall title_medium">
+                        People&nbsp;
+                        {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
+                      </h2>
+                    </div>
+                    <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
+                  </div>
                 </div>
               </div>
             </div>

@@ -49,6 +49,7 @@ const FeedCategories = (props) => {
       props.addPosts(data.data);
       setMetadata(data.metadata);
       setPostIds(postIds.concat(data.data.map(i => i.id)));
+      props.onOrgsAdd(data.data.map(i => i.organizationId));
       props.onUsersAdd(data.data.map(i => i.userId));
     } catch (e) {
       console.error(e);

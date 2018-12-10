@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import FeedCategories from '../components/Feed/FeedCategories';
 import UserList from '../components/User/UserList';
+import OrganizationList from '../components/Organization/OrganizationList';
 import {
   POSTS_CATREGORIES_HOT_ID,
   POSTS_CATREGORIES_TRENDING_ID,
@@ -28,11 +29,17 @@ const POSTS_CATREGORIES = [{
 }];
 
 const USERS_LIMIT = 5;
+const ORGANIZATION_LIMIT = 5;
 
 const Publications = (props) => {
   const [usersIds, setUserIds] = useState([]);
+  const [orgsIds, setOrgIds] = useState([]);
   const sortUserIds = usersIds.filter((item, pos) => (
     usersIds.indexOf(item) === pos
+  ));
+  const sortOrgIds = orgsIds.filter((item, pos) => (
+    orgsIds.indexOf(item) === pos && item !== null
+
   ));
 
   return (
@@ -55,7 +62,10 @@ const Publications = (props) => {
                             activeClassName="menu__link_active"
                             to={urls.getPublicationsCategoryUrl(item.name)}
                             isActive={() => props.location.pathname === urls.getPublicationsCategoryUrl(item.name)}
-                            onClick={() => setUserIds([])}
+                            onClick={() => {
+                              setUserIds([]);
+                              setOrgIds([]);
+                            }}
                           >
                             {item.name}
                           </NavLink>
@@ -74,22 +84,35 @@ const Publications = (props) => {
             <div className="grid__item grid__item_main">
               <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(POSTS_CATREGORIES[0].name)} />} />
               {POSTS_CATREGORIES.map(item => (
-                <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
+                <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} onOrgsAdd={data => setOrgIds(orgsIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
               ))}
             </div>
 
             <div className="grid__item grid__item_side">
               <div className="feed_side">
                 <div className="sidebar">
-                  <div className="user-section">
-                    <div className="user-section__title">
-                      <h2 className="title title_xxsmall title_medium">
-                        People&nbsp;
-                        {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
-                      </h2>
+                  {sortUserIds.length !== 0 && (
+                    <div className="user-section">
+                      <div className="user-section__title">
+                        <h2 className="title title_xxsmall title_medium">
+                          People&nbsp;
+                          {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
+                        </h2>
+                      </div>
+                      <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
                     </div>
-                    <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
-                  </div>
+                  )}
+                  {sortOrgIds.length !== 0 && (
+                    <div className="user-section">
+                      <div className="user-section__title">
+                        <h2 className="title title_xxsmall title_medium">
+                          Organizations&nbsp;
+                          {sortOrgIds.length > ORGANIZATION_LIMIT && <em>{sortOrgIds.length}</em>}
+                        </h2>
+                      </div>
+                      <OrganizationList limit={ORGANIZATION_LIMIT} organizationsIds={sortOrgIds} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

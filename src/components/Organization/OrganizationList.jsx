@@ -25,7 +25,6 @@ class OrganizationList extends PureComponent {
       .slice(0, this.props.limit)
       .map(id => getOrganizationById(this.props.organizations, id))
       .filter(item => item && item.id);
-
     return (
       <Fragment>
         <div className="organization-list">

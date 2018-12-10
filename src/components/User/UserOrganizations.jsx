@@ -12,6 +12,7 @@ const UserOrganizations = (props) => {
   if (!user || !user.organizations || !user.organizations.length) {
     return null;
   }
+  console.log(user);
 
   return (
     <div className="user-section">

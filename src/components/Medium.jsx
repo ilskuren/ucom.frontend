@@ -6,10 +6,6 @@ import React, { PureComponent } from 'react';
 import { MediumUpload } from '../utils/medium';
 import { addErrorNotification } from '../actions/notifications';
 
-// const $ = require('jquery');
-
-// require('medium-editor-insert-plugin')($);
-
 class Medium extends PureComponent {
   componentDidMount() {
     this.mediumEditor = new MediumEditor(this.el, {
@@ -47,24 +43,6 @@ class Medium extends PureComponent {
         this.props.onChange(this.getValue());
       });
     }
-
-    // $(this.el).mediumInsert({
-    //   editor: this.mediumEditor,
-    //   addons: {
-    //     images: {
-    //       captions: false,
-    //       fileUploadOptions: {
-    //         url: `${getBackendConfig().httpEndpoint}/api/v1/posts/image`,
-    //         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-    //         singleFileUploads: true,
-    //         paramName: 'image',
-    //       },
-    //     },
-    //     embeds: {
-    //       oembedProxy: 'https://iframely.u.community/iframely?',
-    //     },
-    //   },
-    // });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +61,7 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <div ref={(el) => { this.el = el; }} />
+      <div className="post-content" ref={(el) => { this.el = el; }} />
     );
   }
 }

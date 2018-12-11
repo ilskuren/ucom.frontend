@@ -1,11 +1,13 @@
+import * as axios from 'axios';
 import MediumEditor from 'medium-editor';
 import api from '../api';
 import loader from './loader';
 import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../utils/upload';
+import config from '../../package.json';
+import { sanitizePostText } from './text';
 
 class UploadButtons {
-  constructor({ onImageSelect }) {
-    this.onImageSelect = onImageSelect;
+  constructor({ onImageSelect, onEmbedSelect }) {
     this.el = document.createElement('div');
     this.el.className = 'medium-upload';
 
@@ -16,7 +18,14 @@ class UploadButtons {
     });
 
     this.el.querySelector('.js-file-input').addEventListener('change', (e) => {
-      this.onImageSelect(e.target.files[0]);
+      onImageSelect(e.target.files[0]);
+      e.target.value = '';
+      this.hide();
+    });
+
+    this.el.querySelector('.js-embed').addEventListener('click', () => {
+      const url = prompt('Paste a YouTube link and press Enter'); // eslint-disable-line
+      onEmbedSelect(url);
       this.hide();
     });
 
@@ -43,7 +52,7 @@ class UploadButtons {
           </label>
         </div>
         <div class="medium-upload__item">
-          <div class="medium-upload__button">
+          <div class="medium-upload__button js-embed">
             <svg width="21" height="21" viewBox="0 0 576 512" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" />
             </svg>
@@ -91,6 +100,7 @@ export class MediumUpload extends MediumEditor.Extension {
     this.onUploadError = params.onUploadError;
     this.uploadButtons = new UploadButtons({
       onImageSelect: this.uplaodImage,
+      onEmbedSelect: this.getEmbed,
     });
   }
 
@@ -127,19 +137,23 @@ export class MediumUpload extends MediumEditor.Extension {
     sel.addRange(range);
   }
 
-  appendImage = (imageUrl) => {
+  insertEl = (el) => {
     const parentEl = this.currentEl.parentNode;
     const newLine = document.createElement('p');
 
     newLine.innerHTML = '<br>';
-    this.currentEl.innerHTML = `<img src=${imageUrl} />`;
+    this.currentEl.innerHTML = '';
+    this.currentEl.appendChild(el);
     parentEl.insertBefore(newLine, this.currentEl.nextSibling);
     this.setCursorToElemnt(newLine);
     this.currentEl = newLine;
+    setTimeout(() => {
+      this.uploadButtons.show(this.currentEl);
+    }, 0);
   }
 
   uplaodImage = async (file) => {
-    if (!file.type.indexOf('image/') === 0) {
+    if (!file || !file.type.indexOf('image/') === 0) {
       return;
     }
 
@@ -148,21 +162,58 @@ export class MediumUpload extends MediumEditor.Extension {
       return;
     }
 
-    // const img = document.createElement('img');
+    const div = document.createElement('div');
+    const img = document.createElement('img');
+
+    div.contentEditable = false;
+    div.appendChild(img);
 
     loader.start();
 
-    getBase64FromFile(file).then((base64) => {
-      this.appendImage(base64);
-    });
+    try {
+      const base64 = await getBase64FromFile(file);
+      img.src = base64;
+    } catch (e) {
+      console.error(e);
+    }
 
-    // try {
-    //   const data = await api.uploadPostImage(file);
-    //   this.appendImage(data.files[0].url);
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    this.insertEl(div);
+
+    try {
+      const data = await api.uploadPostImage(file);
+      img.src = data.files[0].url;
+    } catch (e) {
+      console.error(e);
+    }
 
     loader.done();
+  }
+
+  getEmbed = async (url) => {
+    if (!url) {
+      return;
+    }
+
+    try {
+      const data = await axios.get(config.iframely.httpEndpoint, { params: { url } });
+      const html = sanitizePostText(data.data.html);
+
+      if (!html) {
+        return;
+      }
+
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      div.contentEditable = false;
+      const iframe = div.querySelector('iframe');
+
+      if (iframe) {
+        iframe.parentNode.classList.add('medium-upload-iframe-wrapper');
+      }
+
+      this.insertEl(div);
+    } catch (e) {
+      console.error(e);
+    }
   }
 }

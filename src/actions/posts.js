@@ -24,7 +24,7 @@ export const addPosts = (payload = []) => (dispatch) => {
     }
 
     if (post.organization) {
-      organizations.push(post.organization);
+      organizations.concat(post.organization);
     }
 
     if (post.post) {

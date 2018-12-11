@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@tippy.js/react": "^1.0.0",
+    "autosize": "^4.0.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",

@@ -8,7 +8,7 @@ import RegistrationStepFirst from './RegistrationStepFirst';
 import RegistrationStepSecond from './RegistrationStepSecond';
 import RegistrationStepThird from './RegistrationStepThird';
 import ModalContent from '../ModalContent';
-import LayotuPopup from '../Layout/LayoutPopup';
+import LayoutClean from '../Layout/LayoutClean';
 import { registrationReset } from '../../actions/registration';
 
 class Registration extends PureComponent {
@@ -26,7 +26,7 @@ class Registration extends PureComponent {
 
   render() {
     return (
-      <LayotuPopup>
+      <LayoutClean>
         <Popup>
           <ModalContent
             mod="registration"
@@ -52,7 +52,7 @@ class Registration extends PureComponent {
             </div>
           </ModalContent>
         </Popup>
-      </LayotuPopup>
+      </LayoutClean>
     );
   }
 }

@@ -12,15 +12,12 @@ const CreateBy = (props) => {
     .find(i => i.id === props.post.data.organization_id);
 
   return (
-    <div className="inline inline_small">
-      <div className="inline__item">
-        <span className="post-form__light">By</span>
-      </div>
+    <div className="inline">
       <div className="inline__item">
         <Avatar size="xsmall" src={getFileUrl(organization ? organization.avatarFilename : props.user.avatarFilename)} />
       </div>
       <div className="inline__item">
-        <div className="title title_xsmall title_light">{organization ? organization.title : getUserName(props.user)}</div>
+        <div className="title title_xxsmall title_medium">{organization ? organization.title : getUserName(props.user)}</div>
       </div>
       <div className="inline__item">
         <OrganizationsDropdown

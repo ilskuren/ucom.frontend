@@ -1,6 +1,11 @@
 import { POST_TYPE_MEDIA_ID } from './posts';
+import { getBackendConfig } from './config';
 
 const urls = {
+  getNewPostUrl() {
+    return '/posts/new';
+  },
+
   getRegistrationUrl() {
     return '/registration';
   },
@@ -18,7 +23,7 @@ const urls = {
   },
 
   getPostUrl(post) {
-    if (!post || !post.id || !post.entityIdFor || !post.entityNameFor) {
+    if (!post || !post.id) {
       return null;
     }
 
@@ -26,11 +31,15 @@ const urls = {
       return `/posts/${post.id}`;
     }
 
-    if (post.entityNameFor.trim() === 'org') {
+    if (post.entityNameFor && post.entityNameFor.trim() === 'org') {
       return `/communities/${post.entityIdFor}/${post.id}`;
     }
 
-    return `/user/${post.entityIdFor}/${post.id}`;
+    if (post.entityIdFor) {
+      return `/user/${post.entityIdFor}/${post.id}`;
+    }
+
+    return null;
   },
 
   getFeedPostUrl(post) {
@@ -59,6 +68,14 @@ const urls = {
 
   getPublicationsUrl() {
     return '/publications';
+  },
+
+  getFileUrl(filename) {
+    if (!filename) {
+      return null;
+    }
+
+    return `${getBackendConfig().httpEndpoint}/upload/${filename}`;
   },
 };
 

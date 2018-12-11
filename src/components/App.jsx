@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
 import OrganizationPage from '../pages/Organization';
-import CreatePost from '../pages/CreatePost';
+import EditPost from '../pages/EditPost';
 import UserPage from '../pages/User';
 import UsersPage from '../pages/Users';
 import OrganizationsPage from '../pages/Organizations';
@@ -49,8 +49,8 @@ class App extends PureComponent {
               <Route path="/profile" component={ProfilePage} />
               <Route exact path="/user/:id" component={UserPage} />
               <Route exact path="/user/:id/:postId" component={UserPage} />
-              <Route path="/posts/new/:postTypeId" component={CreatePost} />
-              <Route path="/posts/:id/edit" component={CreatePost} />
+              <Route exact path="/posts/new" component={EditPost} />
+              <Route path="/posts/:id/edit" component={EditPost} />
               <Route exact path="/posts/:id" component={Post} />
               <Route path="/publications" component={Publications} />
               <Route path="/users" component={UsersPage} />

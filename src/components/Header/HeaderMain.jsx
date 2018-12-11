@@ -10,7 +10,7 @@ const HeaderMain = ({ location }) => (
     <nav className="menu menu_responsive menu_header">
 
       <div className="menu__item only-desktop">
-        <Link to="/posts/new/1" className="menu__link-button">
+        <Link to={urls.getNewPostUrl()} className="menu__link-button">
           <strong>Add publication</strong>
         </Link>
       </div>

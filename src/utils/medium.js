@@ -105,24 +105,30 @@ export class MediumUpload extends MediumEditor.Extension {
   }
 
   init() {
-    this.base.subscribe('editableKeyup', () => {
-      this.currentEl = this.base.getSelectedParentElement();
-
-      if (this.hasShowUploadButtons()) {
-        this.uploadButtons.show(this.currentEl);
-      } else {
-        this.uploadButtons.hide();
-      }
-    });
+    this.base.subscribe('editableKeyup', this.onEdit);
+    this.base.subscribe('editableClick', this.onEdit);
   }
 
   destroy() {
     this.uploadButtons.remove();
   }
 
+  onEdit = () => {
+    this.currentEl = this.base.getSelectedParentElement();
+
+    if (this.hasShowUploadButtons()) {
+      this.uploadButtons.show(this.currentEl);
+    } else {
+      this.uploadButtons.hide();
+    }
+  }
+
+
   hasShowUploadButtons() {
     const div = document.createElement('div');
     div.appendChild(this.currentEl.cloneNode(true));
+
+    // return div.innerHTML === '<p><br></p>' || this.currentEl === this.base.origElements;
 
     return div.innerHTML === '<p><br></p>';
   }

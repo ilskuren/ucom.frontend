@@ -1,6 +1,7 @@
 import humps from 'lodash-humps';
 import api from '../api';
 import { addUsers } from './users';
+import { addOrganizations } from './organizations';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { addErrorNotification } from './notifications';
 import { addComments } from './comments';
@@ -13,12 +14,17 @@ export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT',
 export const addPosts = (payload = []) => (dispatch) => {
   const posts = [];
   const users = [];
+  const organizations = [];
 
   const parsePost = (post) => {
     posts.push(post);
 
     if (post.user) {
       users.push(post.user);
+    }
+
+    if (post.organization) {
+      organizations.push(post.organization);
     }
 
     if (post.post) {
@@ -28,6 +34,7 @@ export const addPosts = (payload = []) => (dispatch) => {
 
   payload.forEach(parsePost);
   dispatch(addUsers(users));
+  dispatch(addOrganizations(organizations));
   dispatch({ type: 'ADD_POSTS', payload: posts });
 };
 

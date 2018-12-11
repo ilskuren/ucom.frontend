@@ -142,13 +142,14 @@ export class MediumUpload extends MediumEditor.Extension {
     const newLine = document.createElement('p');
 
     newLine.innerHTML = '<br>';
-    this.currentEl.innerHTML = '';
-    this.currentEl.appendChild(el);
+    parentEl.replaceChild(el, this.currentEl);
     parentEl.insertBefore(newLine, this.currentEl.nextSibling);
     this.setCursorToElemnt(newLine);
     this.currentEl = newLine;
+
     setTimeout(() => {
       this.uploadButtons.show(this.currentEl);
+      this.base.checkContentChanged(this.base.origElements);
     }, 0);
   }
 
@@ -162,11 +163,11 @@ export class MediumUpload extends MediumEditor.Extension {
       return;
     }
 
-    const div = document.createElement('div');
+    const p = document.createElement('p');
     const img = document.createElement('img');
 
-    div.contentEditable = false;
-    div.appendChild(img);
+    p.contentEditable = false;
+    p.appendChild(img);
 
     loader.start();
 
@@ -177,11 +178,12 @@ export class MediumUpload extends MediumEditor.Extension {
       console.error(e);
     }
 
-    this.insertEl(div);
+    this.insertEl(p);
 
     try {
       const data = await api.uploadPostImage(file);
       img.src = data.files[0].url;
+      this.base.checkContentChanged(this.base.origElements);
     } catch (e) {
       console.error(e);
     }
@@ -208,7 +210,7 @@ export class MediumUpload extends MediumEditor.Extension {
       const iframe = div.querySelector('iframe');
 
       if (iframe) {
-        iframe.parentNode.classList.add('medium-upload-iframe-wrapper');
+        div.classList.add('medium-upload-iframe-wrapper');
       }
 
       this.insertEl(div);

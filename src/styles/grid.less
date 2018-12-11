@@ -47,6 +47,25 @@
   }
 }
 
+.grid_publications {
+  grid-column-gap: 100px;
+  grid-template-columns: 7fr 2fr;
+  grid-template-areas: 'a b';
+
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'b' 'a';
+  }
+
+  .grid__item_main {
+    grid-area: a;
+  }
+
+  .grid__item_side {
+    grid-area: b;
+  }
+}
+
 .grid_user {
   grid-column-gap: 100px;
   grid-template-columns: 6fr 3fr;

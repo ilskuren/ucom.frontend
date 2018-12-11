@@ -80,39 +80,41 @@ const Publications = (props) => {
 
           <hr className="content__separator" />
 
-          <div className="grid grid_content">
-            <div className="grid__item grid__item_main">
-              <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(POSTS_CATREGORIES[0].name)} />} />
-              {POSTS_CATREGORIES.map(item => (
-                <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} onOrgsAdd={data => setOrgIds(orgsIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
-              ))}
-            </div>
+          <div className="content__inner">
+            <div className="grid grid_publications">
+              <div className="grid__item grid__item_main">
+                <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(POSTS_CATREGORIES[0].name)} />} />
+                {POSTS_CATREGORIES.map(item => (
+                  <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} onOrgsAdd={data => setOrgIds(orgsIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
+                ))}
+              </div>
 
-            <div className="grid__item grid__item_side">
-              <div className="feed_side">
-                <div className="sidebar">
-                  {sortUserIds.length !== 0 && (
-                    <div className="user-section">
-                      <div className="user-section__title">
-                        <h2 className="title title_xxsmall title_medium">
-                          People&nbsp;
-                          {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
-                        </h2>
+              <div className="grid__item grid__item_side">
+                <div className="feed_side">
+                  <div className="sidebar">
+                    {sortUserIds.length !== 0 && (
+                      <div className="user-section">
+                        <div className="user-section__title">
+                          <h2 className="title title_xxsmall title_medium">
+                            People&nbsp;
+                            {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
+                          </h2>
+                        </div>
+                        <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
                       </div>
-                      <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
-                    </div>
-                  )}
-                  {sortOrgIds.length !== 0 && (
-                    <div className="user-section">
-                      <div className="user-section__title">
-                        <h2 className="title title_xxsmall title_medium">
-                          Organizations&nbsp;
-                          {sortOrgIds.length > ORGANIZATION_LIMIT && <em>{sortOrgIds.length}</em>}
-                        </h2>
+                    )}
+                    {sortOrgIds.length !== 0 && (
+                      <div className="user-section">
+                        <div className="user-section__title">
+                          <h2 className="title title_xxsmall title_medium">
+                            Organizations&nbsp;
+                            {sortOrgIds.length > ORGANIZATION_LIMIT && <em>{sortOrgIds.length}</em>}
+                          </h2>
+                        </div>
+                        <OrganizationList limit={ORGANIZATION_LIMIT} organizationsIds={sortOrgIds} />
                       </div>
-                      <OrganizationList limit={ORGANIZATION_LIMIT} organizationsIds={sortOrgIds} />
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

@@ -26,6 +26,7 @@ import config from '../../package.json';
 import { enableGtm } from '../utils/gtm';
 import Governance from './Governance/Governance';
 import Publications from '../pages/Publications';
+import Faq from '../pages/Faq';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -61,6 +62,7 @@ class App extends PureComponent {
               <Route exact path="/communities/:id/edit" component={OrganizationsCreatePage} />
               <Route exact path="/communities/:id/:postId" component={OrganizationPage} params={{ 'test': 1 }} />
               <Route exact path="/governance" component={Governance} />
+              <Route exact path="/faq" component={Faq} />
               <Route component={NotFoundPage} />
             </Switch>
 

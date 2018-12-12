@@ -1,6 +1,6 @@
 import React from 'react';
-import IconPlus from './Icons/Plus';
-import IconMinus from './Icons/Minus';
+import IconPlus from '../Icons/Plus';
+import IconMinus from '../Icons/Minus';
 
 const Panel = props => (
   <div className="panel">

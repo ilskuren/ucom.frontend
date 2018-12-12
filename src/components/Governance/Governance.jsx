@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import GovernanceTable from './GovernanceTable';
 import Button from '../Button';
-import Panel from '../Panel';
+import Panel from '../Panel/Panel';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import GovernanceVote from './GovernanceVote';

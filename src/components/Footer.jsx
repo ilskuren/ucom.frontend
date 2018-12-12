@@ -33,18 +33,18 @@ const Footer = () => (
       </div> */}
       <div className="toolbar__side">
         <nav className="menu menu_footer">
-          {/* <div className="menu__item">
-            <a href="#" className="menu__link">Assets</a>
-          </div>
           <div className="menu__item">
-            <a href="#" className="menu__link">FAQ</a>
+            <a href="/faq" className="menu__link">FAQ</a>
           </div>
-          <div className="menu__item">
-            <a href="#" className="menu__link">U Token</a>
-          </div> */}
           <div className="menu__item">
             <a href="/about" className="menu__link">About</a>
           </div>
+          {/* <div className="menu__item">
+            <a href="#" className="menu__link">U Token</a>
+          </div>
+          <div className="menu__item">
+            <a href="#" className="menu__link">Assets</a>
+          </div> */}
         </nav>
       </div>
     </div>

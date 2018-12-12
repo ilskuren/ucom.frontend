@@ -16,7 +16,7 @@ export const usersRemoveFollowedBy = payload => ({ type: 'USERS_REMOVE_FOLLOWED_
 
 export const addUsers = (payload = []) => (dispatch) => {
   let users = [];
-  // let organizations = [];
+  let organizations = [];
 
   payload.forEach((user) => {
     if (user.followedBy) {
@@ -29,16 +29,14 @@ export const addUsers = (payload = []) => (dispatch) => {
       user.iFollow = user.iFollow.map(u => u.id);
     }
 
-    // console.log('user: ', user);
-    // console.log('user.org: ', user.organizations);
-
-    // if (user.organizations) {
-    //   organizations.push(user.organizations);
-    // }
+    if (user.organizations) {
+      organizations = organizations.concat(user.organizations);
+    }
 
     users.push(user);
   });
-  // dispatch(addOrganizations(organizations));
+
+  dispatch(addOrganizations(organizations));
   dispatch({ type: 'USERS_ADD', payload: users });
 };
 

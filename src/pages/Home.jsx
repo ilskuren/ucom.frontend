@@ -39,7 +39,7 @@ const HomePage = (props) => {
               </div>
 
               <div className="grid__item grid__item_side">
-                <div className="sidebar">
+                <div className="sidebar sidebar_main">
                   <UserPeoples userId={user.id} />
                   <UserOrganizations userId={user.id} />
                 </div>

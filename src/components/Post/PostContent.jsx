@@ -40,15 +40,15 @@ const PostContent = (props) => {
                       <div className="inline__item">
                         {escapeQuotes(post.title)}
                       </div>
-                      <div className="inline__item">
-                        {props.user.id === post.userId ? (
+                      {props.user.id === post.userId ? (
+                        <div className="inline__item">
                           <Link to={getPostEditUrl(post.id)}>
                             <span className="post-item__edit">
                               <EditIcon />
                             </span>
                           </Link>
-                        ) : null}
-                      </div>
+                        </div>
+                      ) : null}
                     </div>
                   </h1>
                 </div>

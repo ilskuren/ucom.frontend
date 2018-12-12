@@ -31,6 +31,7 @@ export const sanitizePostText = memoize(html => sanitizeHtml(html, {
       'medium-insert-embeds',
       'medium-insert-embeds-wide',
       'medium-insert-embed',
+      'medium-upload-iframe-wrapper',
     ],
   },
   transformTags: {

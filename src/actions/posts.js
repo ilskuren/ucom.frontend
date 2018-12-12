@@ -3,7 +3,7 @@ import api from '../api';
 import { addUsers } from './users';
 import { addOrganizations } from './organizations';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
-import { addErrorNotification } from './notifications';
+import { addServerErrorNotification } from './notifications';
 import { addComments } from './comments';
 import snakes from '../utils/snakes';
 import loader from '../utils/loader';
@@ -60,7 +60,7 @@ export const updatePost = payload => (dispatch) => {
       dispatch(addPosts([data]));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -69,7 +69,7 @@ export const addRepost = postId => (dispatch) => {
   loader.start();
   api.repostPost(postId)
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -86,7 +86,7 @@ export const postVote = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };

@@ -87,7 +87,7 @@ const PostContent = (props) => {
               <div className="posts__lead-text">{escapeQuotes(post.leadingText)}</div>
             )}
             {post.description && (
-              <div className="posts__text" dangerouslySetInnerHTML={{ __html: sanitizePostText(post.description) }} />
+              <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(post.description) }} />
             )}
           </div>
           <div className="posts__comments">

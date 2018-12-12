@@ -23,6 +23,9 @@
       "socketEndpoint": "https://websocket.u.community:443"
     }
   },
+  "iframely": {
+    "httpEndpoint": "https://iframely.u.community/iframely"
+  },
   "socketEnabled": true,
   "devDependencies": {
     "autoprefixer": "^8.6.3",
@@ -62,6 +65,7 @@
   },
   "dependencies": {
     "@tippy.js/react": "^1.0.0",
+    "autosize": "^4.0.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "crypto": "^1.0.1",
@@ -70,7 +74,6 @@
     "eosjs-ecc": "^4.0.4",
     "history": "^4.7.2",
     "imports-loader": "^0.8.0",
-    "jquery": "^3.3.1",
     "jquery-param": "^1.0.1",
     "keycode-js": "^1.0.0",
     "lodash": "^4.17.10",

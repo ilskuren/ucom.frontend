@@ -1,32 +1,23 @@
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import DropZone from './DropZone';
-import IconClose from './Icons/Close';
 import Medium from './Medium';
 import { setPostData, validatePostField } from '../actions';
-import { getFileUrl, getBase64FromFile } from '../utils/upload';
 import { escapeQuotes, getTextContent } from '../utils/text';
 import { selectUser } from '../store/selectors';
+import TextareaAutosize from './TextareaAutosize';
+import PostFormEditorCover from './PostFormEditorCover';
 
 class PostFormEditor extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      base64Cover: null,
-    };
-  }
-
   render() {
     return (
       <div className="editor">
         <div className="editor__item">
-          <input
-            type="text"
+          <TextareaAutosize
+            rows="1"
+            maxLength="1000"
             placeholder="Title"
             className="editor__input"
-            maxLength="1000"
             value={escapeQuotes(this.props.post.data.title) || ''}
             onChange={(e) => {
               this.props.setPostData({ title: getTextContent(e.target.value) });
@@ -40,11 +31,29 @@ class PostFormEditor extends PureComponent {
         </div>
 
         <div className="editor__item">
-          <input
-            type="text"
+          <PostFormEditorCover
+            file={this.props.post.data.main_image_filename}
+            onClickRemove={() => {
+              this.props.setPostData({ main_image_filename: '' });
+              this.props.validatePostField('main_image_filename');
+            }}
+            onChangeFile={(file) => {
+              this.props.setPostData({ main_image_filename: file });
+              this.props.validatePostField('main_image_filename');
+            }}
+          />
+
+          {this.props.post.errors.main_image_filename && this.props.post.errors.main_image_filename.length > 0 ? (
+            <div className="editor__error">{this.props.post.errors.main_image_filename}</div>
+          ) : null}
+        </div>
+
+        <div className="editor__item">
+          <TextareaAutosize
+            rows="1"
+            maxLength="1000"
             placeholder="Lead text"
             className="editor__input editor__input_medium"
-            maxLength="1000"
             value={escapeQuotes(this.props.post.data.leading_text) || ''}
             onChange={(e) => {
               this.props.setPostData({ leading_text: e.target.value });
@@ -54,47 +63,6 @@ class PostFormEditor extends PureComponent {
 
           {this.props.post.errors.leading_text && this.props.post.errors.leading_text.length > 0 ? (
             <div className="editor__error">{this.props.post.errors.leading_text[0]}</div>
-          ) : null}
-        </div>
-
-        <div className="editor__item">
-          {(this.state.base64Cover || this.props.post.data.main_image_filename) ? (
-            <div className="cover">
-              <div className="cover__inner">
-                <div className="cover__remove">
-                  <button
-                    className="button-clean button-clean_close"
-                    onClick={() => {
-                      this.setState({ base64Cover: '' });
-                      this.props.setPostData({ main_image_filename: '' });
-                      this.props.validatePostField('main_image_filename');
-                    }}
-                  >
-                    <IconClose />
-                  </button>
-                </div>
-
-                <img className="cover__img" src={this.state.base64Cover || getFileUrl(this.props.post.data.main_image_filename)} alt="" />
-              </div>
-            </div>
-          ) : (
-            <DropZone
-              className="drop-zone_line"
-              text="Add cover image"
-              accept="image/jpeg, image/png"
-              maxSize={1000000}
-              onDrop={(files) => {
-                getBase64FromFile(files[0]).then((base64Cover) => {
-                  this.props.setPostData({ main_image_filename: files[0] });
-                  this.props.validatePostField('main_image_filename');
-                  this.setState({ base64Cover });
-                });
-              }}
-            />
-          )}
-
-          {this.props.post.errors.main_image_filename && this.props.post.errors.main_image_filename.length > 0 ? (
-            <div className="editor__error">{this.props.post.errors.main_image_filename}</div>
           ) : null}
         </div>
 

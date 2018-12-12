@@ -1,11 +1,10 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import MediumEditor from 'medium-editor';
 import React, { PureComponent } from 'react';
-import { getBackendConfig } from '../utils/config';
-
-const $ = require('jquery');
-
-require('medium-editor-insert-plugin')($);
+import { MediumUpload } from '../utils/medium';
+import { addErrorNotification } from '../actions/notifications';
 
 class Medium extends PureComponent {
   componentDidMount() {
@@ -26,6 +25,13 @@ class Medium extends PureComponent {
       placeholder: {
         text: 'Text',
       },
+      extensions: {
+        uos: new MediumUpload({
+          onUploadError: (message) => {
+            this.props.addErrorNotification(message);
+          },
+        }),
+      },
     });
 
     if (this.props.value) {
@@ -37,24 +43,6 @@ class Medium extends PureComponent {
         this.props.onChange(this.getValue());
       });
     }
-
-    $(this.el).mediumInsert({
-      editor: this.mediumEditor,
-      addons: {
-        images: {
-          captions: false,
-          fileUploadOptions: {
-            url: `${getBackendConfig().httpEndpoint}/api/v1/posts/image`,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            singleFileUploads: true,
-            paramName: 'image',
-          },
-        },
-        embeds: {
-          oembedProxy: 'https://iframely.u.community/iframely?',
-        },
-      },
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,7 +61,7 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <div ref={(el) => { this.el = el; }} />
+      <div className="post-content" ref={(el) => { this.el = el; }} />
     );
   }
 }
@@ -83,4 +71,9 @@ Medium.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Medium;
+export default connect(
+  null,
+  dispatch => bindActionCreators({
+    addErrorNotification,
+  }, dispatch),
+)(Medium);

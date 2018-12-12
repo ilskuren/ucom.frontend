@@ -3,7 +3,7 @@ import snakes from '../utils/snakes';
 import { getToken, removeToken } from '../utils/token';
 import loader from '../utils/loader';
 // import { enableGtm } from '../utils/gtm';
-import { addErrorNotification } from './notifications';
+import { addServerErrorNotification } from './notifications';
 import { setUser } from './';
 import { siteNotificationsSetUnreadAmount } from './siteNotifications';
 import { getAccountState } from './wallet';
@@ -73,7 +73,7 @@ export const fetchUser = userId => async (dispatch) => {
     dispatch(addUsers([data]));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();
@@ -90,7 +90,7 @@ export const updateUser = payload => async (dispatch) => {
     dispatch(addUsers([data]));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();
@@ -113,7 +113,7 @@ export const followUser = data => async (dispatch) => {
     }));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();
@@ -136,7 +136,7 @@ export const unfollowUser = data => async (dispatch) => {
     }));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();

@@ -1,5 +1,8 @@
 import { getBackendConfig } from '../utils/config';
 
+export const UPLOAD_SIZE_LIMIT = 1000000;
+export const UPLOAD_SIZE_LIMIT_ERROR = 'File exceed the 1 Mb limit';
+
 export const getFileUrl = (filename) => {
   if (!filename || filename === 'null') {
     return null;

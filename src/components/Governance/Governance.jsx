@@ -4,6 +4,7 @@ import React, { useEffect /* , useState */ } from 'react';
 import GovernanceTable from './GovernanceTable';
 // import Button from '../Button';
 // import Panel from '../Panel';
+import { ArrowIcon } from '../Icons/GovernanceIcons';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import GovernanceVote from './GovernanceVote';
@@ -55,22 +56,25 @@ const Governance = (props) => {
               <div className="governance__text">
                 Govern the U°OS protocol through voting. You can currently vote for active and standby Block Producers. Vote with your staked UOS.
               </div>
-              <div className="governance__status">
-                <div className="governance__edit-stake">
-                  <span className="governance__status-text">Staked</span>
-                  <h3 className="title_small">
-                    {props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked}
-                  </h3>
-                  <span className="governance__status-text">UOS</span>
+
+              {props.user.id &&
+                <div className="governance__status">
+                  <div className="governance__edit-stake">
+                    <span className="governance__status-text">Staked</span>
+                    <h3 className="title_small">
+                      {props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked}
+                    </h3>
+                    <span className="governance__status-text">UOS</span>
+                  </div>
+                  <div
+                    className="governance__action"
+                    role="presentation"
+                    onClick={() => props.setWalletEditStakeVisible(true)}
+                  >
+                    Edit Stake
+                  </div>
                 </div>
-                <div
-                  className="governance__action"
-                  role="presentation"
-                  onClick={() => props.setWalletEditStakeVisible(true)}
-                >
-                  Edit Stake
-                </div>
-              </div>
+              }
             </div>
           </div>
         </div>
@@ -118,6 +122,9 @@ const Governance = (props) => {
                   <div className="governance-all">
                     <div className="governance-all__title">
                       <h2 className="title title_bold">Block Producers </h2>
+                      <div className="governance__exercise">
+                       Exercise your election rights <div className="governance__arrow-icon"><ArrowIcon /></div>
+                      </div>
                     </div>
                     <div className="governance__text governance__text_description">
                     The Block Producers are decentralized entities that keep the chain running by producing blocks. The Block Producers are elected through voting.
@@ -125,7 +132,6 @@ const Governance = (props) => {
                     <div className="governance-all__table">
                       <GovernanceTable
                         data={props.governance.nodes.data}
-                        isPreview
                       />
                     </div>
                   </div>

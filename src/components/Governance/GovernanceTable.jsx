@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 import Checkbox from '../Checkbox';
 import Avatar from '../Avatar';
-import IconOK from '../Icons/IconOK';
+import { IconOK } from '../Icons/GovernanceIcons';
 // import IconTableTriangle from '../Icons/TableTriangle';
 import { getBpStatusById, BP_STATUS_ACTIVE_ID } from '../../utils/nodes';
 import { getFileUrl } from '../../utils/upload';
@@ -56,7 +56,7 @@ const GovernanceTable = props => (
                 </div>
               </td>
             :
-              <td className="governance-table__cell governance-table__cell_id" data-name="" />
+              null
           }
           <td className="governance-table__cell governance-table__cell_name" data-name="Organization">{item.title}</td>
           <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">{item.votesCount}</td>

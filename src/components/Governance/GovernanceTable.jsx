@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React from 'react';
 import Checkbox from '../Checkbox';
+import Avatar from '../Avatar';
+import IconOK from '../Icons/IconOK';
 // import IconTableTriangle from '../Icons/TableTriangle';
 import { getBpStatusById, BP_STATUS_ACTIVE_ID } from '../../utils/nodes';
+import { getFileUrl } from '../../utils/upload';
 import { selectUser } from '../../store/selectors/user';
 import { governanceNodesSetVote } from '../../actions/governance';
 
@@ -13,7 +16,7 @@ const GovernanceTable = props => (
     <thead className="governance-table__head">
       <tr className="governance-table__row">
         {props.user.id &&
-          <td className="governance-table__cell governance-table__cell_id">#</td>
+          <td className="governance-table__cell governance-table__cell_id" />
         }
         {/* <td className="governance-table__cell governance-table__cell_name governance-table__cell_sortable"> */}
         <td className="governance-table__cell governance-table__cell_name">
@@ -30,24 +33,30 @@ const GovernanceTable = props => (
     <tbody className="governance-table__body">
       {props.data.map(item => (
         <tr className="governance-table__row" key={item.id}>
-          {props.user.id &&
-            <td className="governance-table__cell governance-table__cell_id" data-name="#">
-              <div className="governance-table-checkbox">
-                <div className="governance-table-checkbox__input">
-                  <Checkbox
-                    isChecked={Boolean(item.myselfData && item.myselfData.bpVote)}
-                    onChange={() => {
-                      if (item.myselfData) {
-                        props.governanceNodesSetVote({ id: item.id, vote: !item.myselfData.bpVote });
-                      }
-                    }}
-                  />
-                </div>
-                <div className="governance-table-checkbox__label">
-                  {item.id}
-                </div>
-              </div>
+          {props.user.id && props.isPreview && item.myselfData && item.myselfData.bpVote ?
+            <td className="governance-table__cell governance-table__cell_avatar" data-name="">
+              <Avatar src={getFileUrl(props.user.avatarFilename)} size="xsmall" icon={<IconOK />} />
             </td>
+            : props.user.id && !props.isPreview ?
+              <td className="governance-table__cell governance-table__cell_id" data-name="">
+                <div className="governance-table-checkbox">
+                  <div className="governance-table-checkbox__input">
+                    <Checkbox
+                      isChecked={Boolean(item.myselfData && item.myselfData.bpVote)}
+                      onChange={() => {
+                        if (item.myselfData) {
+                          props.governanceNodesSetVote({ id: item.id, vote: !item.myselfData.bpVote });
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="governance-table-checkbox__label">
+                    {item.id}
+                  </div>
+                </div>
+              </td>
+            :
+              <td className="governance-table__cell governance-table__cell_id" data-name="" />
           }
           <td className="governance-table__cell governance-table__cell_name" data-name="Organization">{item.title}</td>
           <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">{item.votesCount}</td>

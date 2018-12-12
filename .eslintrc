@@ -25,6 +25,7 @@
     "class-methods-use-this": "off",
     "no-console": [1, {"allow": ["error"] }],
     "jsx-a11y/no-autofocus": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "no-nested-ternary": "off"
   }
 }

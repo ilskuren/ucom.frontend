@@ -9,3 +9,13 @@ export const getBackendConfig = () => {
 
   return conf;
 };
+
+export const getUosGroupId = () => {
+  let id = config.uosGroupId.staging;
+
+  if (process.env.NODE_ENV === 'production') {
+    id = config.uosGroupId.production;
+  }
+
+  return id;
+};

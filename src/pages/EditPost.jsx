@@ -66,6 +66,11 @@ const EditPost = (props) => {
 
     if (postId) {
       getPost(postId);
+    } else {
+      // if (localStorage.hasOwnProperty('post_data')) {
+      // const value = localStorage.getItem('post_data');
+      // props.setPostData(value);
+      // }
     }
 
     return () => {

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Medium from './Medium';
-import { setPostData, validatePostField } from '../actions';
+import { setPostData, setDataToStoreToLS, validatePostField } from '../actions';
 import { escapeQuotes, getTextContent } from '../utils/text';
 import { selectUser } from '../store/selectors';
 import TextareaAutosize from './TextareaAutosize';
@@ -20,7 +20,8 @@ class PostFormEditor extends PureComponent {
             className="editor__input"
             value={escapeQuotes(this.props.post.data.title) || ''}
             onChange={(e) => {
-              this.props.setPostData({ title: getTextContent(e.target.value) });
+              // this.props.setPostData({ title: getTextContent(e.target.value) });
+              this.props.setDataToStoreToLS({ title: getTextContent(e.target.value) });
               this.props.validatePostField('title');
             }}
           />
@@ -56,7 +57,8 @@ class PostFormEditor extends PureComponent {
             className="editor__input editor__input_medium"
             value={escapeQuotes(this.props.post.data.leading_text) || ''}
             onChange={(e) => {
-              this.props.setPostData({ leading_text: e.target.value });
+              // this.props.setPostData({ leading_text: e.target.value });
+              this.props.setDataToStoreToLS({ leading_text: e.target.value });
               this.props.validatePostField('leading_text');
             }}
           />
@@ -71,7 +73,8 @@ class PostFormEditor extends PureComponent {
             <Medium
               value={this.props.post.data.description}
               onChange={(description) => {
-                this.props.setPostData({ description });
+                // this.props.setPostData({ description });
+                this.props.setDataToStoreToLS({ description });
                 this.props.validatePostField('description');
               }}
             />
@@ -99,6 +102,7 @@ export default connect(
   }),
   dispatch => ({
     setPostData: data => dispatch(setPostData(data)),
+    setDataToStoreToLS: data => dispatch(setDataToStoreToLS(data)),
     validatePostField: data => dispatch(validatePostField(data)),
   }),
 )(PostFormEditor);

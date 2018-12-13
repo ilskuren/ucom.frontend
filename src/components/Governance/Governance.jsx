@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import React, { useEffect /* , useState */ } from 'react';
+import React, { useEffect, useState } from 'react';
 import GovernanceTable from './GovernanceTable';
 // import Button from '../Button';
 // import Panel from '../Panel';
@@ -17,6 +17,7 @@ import { selectUser } from '../../store/selectors/user';
 import LayoutBase from '../Layout/LayoutBase';
 import { getUosGroupId } from '../../utils/config';
 import SetStakePopup from '../Wallet/SetStakePopup';
+import GovernanceElection from './GovernanceElection';
 
 const Governance = (props) => {
   const organizationId = getUosGroupId();
@@ -29,6 +30,10 @@ const Governance = (props) => {
   }, [organizationId]);
 
   // const [selectedPanelActive, setSelectedPanelActive] = useState(false);
+  const stakedTokens = (props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked) || 0;
+  const table = props.governance.nodes.data;
+  const { selectedNodes } = props;
+  const [electionVisibility, setElectionVisibility] = useState(false);
   return (
     <LayoutBase>
       {props.governance.nodes.votePopupVisibile &&
@@ -42,6 +47,14 @@ const Governance = (props) => {
         <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
           <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletEditStakeVisible(false)}>
             <SetStakePopup />
+          </ModalContent>
+        </Popup>
+      )}
+
+      {electionVisibility && (
+        <Popup onClickClose={() => setElectionVisibility(false)}>
+          <ModalContent mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
+            <GovernanceElection {...{ stakedTokens, table, selectedNodes }} />
           </ModalContent>
         </Popup>
       )}
@@ -62,7 +75,7 @@ const Governance = (props) => {
                   <div className="governance__edit-stake">
                     <span className="governance__status-text">Staked</span>
                     <h3 className="title_small">
-                      {props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked}
+                      {stakedTokens}
                     </h3>
                     <span className="governance__status-text">UOS</span>
                   </div>
@@ -122,7 +135,7 @@ const Governance = (props) => {
                   <div className="governance-all">
                     <div className="governance-all__title">
                       <h2 className="title title_bold">Block Producers </h2>
-                      <div className="governance__exercise">
+                      <div className="governance__exercise" role="presentation" onClick={() => setElectionVisibility(true)}>
                        Exercise your election rights <div className="governance__arrow-icon"><ArrowIcon /></div>
                       </div>
                     </div>
@@ -131,7 +144,8 @@ const Governance = (props) => {
                     </div>
                     <div className="governance-all__table">
                       <GovernanceTable
-                        data={props.governance.nodes.data}
+                        data={table}
+                        isPreview
                       />
                     </div>
                   </div>

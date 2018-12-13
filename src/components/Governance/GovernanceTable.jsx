@@ -55,6 +55,8 @@ const GovernanceTable = props => (
                   </div>
                 </div>
               </td>
+            : props.user.id && props.isPreview ?
+              <td className="governance-table__cell governance-table__cell_id" data-name="" />
             :
               null
           }

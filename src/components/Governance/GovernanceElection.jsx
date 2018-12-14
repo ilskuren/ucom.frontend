@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import GovernanceTable from './GovernanceTable';
+import Button from '../Button';
 
 const GovernanceElection = (props) => {
   const [route, setRoute] = useState(1);
+
   return (
     <div className="governance governance-election">
       <div className="content content_base">
@@ -58,6 +60,13 @@ const GovernanceElection = (props) => {
                     >
                       {props.selectedNodes.length} Selected
                     </div>
+                  </div>
+                  <div className="menu__item menu__item_left">
+                    <Button
+                      theme="red-white"
+                      text="Cast your vote"
+                      onClick={() => props.setConfirmationVisibility(true)}
+                    />
                   </div>
                 </div>
               </div>

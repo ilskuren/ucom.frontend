@@ -43,6 +43,7 @@ const GovernanceTable = props => (
                   <div className="governance-table-checkbox__input">
                     <Checkbox
                       isChecked={Boolean(item.myselfData && item.myselfData.bpVote)}
+                      isDisabled={!item.myselfData.bpVote && props.data.filter(i => i.myselfData.bpVote).length >= 3}
                       onChange={() => {
                         if (item.myselfData) {
                           props.governanceNodesSetVote({ id: item.id, vote: !item.myselfData.bpVote });
@@ -50,9 +51,7 @@ const GovernanceTable = props => (
                       }}
                     />
                   </div>
-                  <div className="governance-table-checkbox__label">
-                    {item.id}
-                  </div>
+                  <div className="governance-table-checkbox__label" />
                 </div>
               </td>
             : props.user.id && props.isPreview ?
@@ -61,7 +60,9 @@ const GovernanceTable = props => (
               null
           }
           <td className="governance-table__cell governance-table__cell_name" data-name="Organization">{item.title}</td>
-          <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">{item.votesCount}</td>
+          <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">
+            {item.votesCount} <div className="governance-table__percentage">{item.votesPercentage}%</div>
+          </td>
           <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">{(+item.votesAmount).toLocaleString()}</td>
           <td className="governance-table__cell governance-table__cell_state" data-name="State">
             <span

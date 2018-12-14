@@ -2,14 +2,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import GovernanceTable from './GovernanceTable';
-// import Button from '../Button';
-// import Panel from '../Panel';
+import Button from '../Button';
 import { ArrowIcon } from '../Icons/GovernanceIcons';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
-import GovernanceVote from './GovernanceVote';
 import OrganizationHead from '../Organization/OrganizationHead';
-import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup } from '../../actions/governance';
+import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup, voteForBlockProducers } from '../../actions/governance';
 import { getOrganization } from '../../actions/organizations';
 import { setWalletEditStakeVisible, getAccountState, stakeOrUnstakeTokens } from '../../actions/wallet';
 import { getSelectedNodes } from '../../store/governance';
@@ -18,6 +16,7 @@ import LayoutBase from '../Layout/LayoutBase';
 import { getUosGroupId } from '../../utils/config';
 import SetStakePopup from '../Wallet/SetStakePopup';
 import GovernanceElection from './GovernanceElection';
+import GovernanceConfirmation from './GovernanceConfirmation';
 
 const Governance = (props) => {
   const organizationId = getUosGroupId();
@@ -29,20 +28,26 @@ const Governance = (props) => {
     props.stakeOrUnstakeTokens();
   }, [organizationId]);
 
-  // const [selectedPanelActive, setSelectedPanelActive] = useState(false);
   const stakedTokens = (props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked) || 0;
   const table = props.governance.nodes.data;
-  const { selectedNodes } = props;
+  const { selectedNodes, user } = props;
   const [electionVisibility, setElectionVisibility] = useState(false);
+  const [confirmationVisibility, setConfirmationVisibility] = useState(false);
+  const [closeVisibility, setCloseVisibility] = useState(false);
+  const setVotes = () => {
+    setConfirmationVisibility(false);
+    setElectionVisibility(false);
+    props.voteForBlockProducers();
+  };
+
+  const close = () => {
+    setConfirmationVisibility(false);
+    setElectionVisibility(false);
+    setCloseVisibility(false);
+  };
+
   return (
     <LayoutBase>
-      {props.governance.nodes.votePopupVisibile &&
-        <Popup onClickClose={() => props.governanceHideVotePopup()}>
-          <ModalContent mod="governance-vote">
-            <GovernanceVote />
-          </ModalContent>
-        </Popup>
-      }
       {props.wallet.editStake.visible && (
         <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
           <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletEditStakeVisible(false)}>
@@ -54,10 +59,55 @@ const Governance = (props) => {
       {electionVisibility && (
         <Popup onClickClose={() => setElectionVisibility(false)}>
           <ModalContent mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
-            <GovernanceElection {...{ stakedTokens, table, selectedNodes }} />
+            <GovernanceElection {...{
+              stakedTokens, table, selectedNodes, setConfirmationVisibility,
+            }}
+            />
           </ModalContent>
         </Popup>
       )}
+
+      {confirmationVisibility && (
+        <Popup onClickClose={() => setCloseVisibility(true)}>
+          <ModalContent mod="governance-election" onClickClose={() => setCloseVisibility(true)}>
+            <GovernanceConfirmation {...{
+              selectedNodes, table, user, setVotes,
+            }}
+            />
+          </ModalContent>
+        </Popup>
+      )}
+
+      {closeVisibility && (
+        <Popup onClickClose={() => setCloseVisibility(false)}>
+          <ModalContent mod="governance-close" onClickClose={() => setCloseVisibility(false)}>
+            <div className="governance-close">
+              <h3 className="title_small title_bold governance-close__title">You didn&apos;t vote for the 30 selected Block Producers</h3>
+              <div className="governance-buttons">
+                <div className="governance-button">
+                  <Button
+                    isStretched
+                    text="Close"
+                    size="medium"
+                    theme="light-black"
+                    onClick={close}
+                  />
+                </div>
+                <div className="governance-button">
+                  <Button
+                    isStretched
+                    text="Vote"
+                    size="medium"
+                    theme="red"
+                    onClick={setVotes}
+                  />
+                </div>
+              </div>
+            </div>
+          </ModalContent>
+        </Popup>
+      )}
+
       <div className="governance">
         <div className="content content_base">
           <div className="content__inner">
@@ -135,9 +185,10 @@ const Governance = (props) => {
                   <div className="governance-all">
                     <div className="governance-all__title">
                       <h2 className="title title_bold">Block Producers </h2>
-                      <div className="governance__exercise" role="presentation" onClick={() => setElectionVisibility(true)}>
-                       Exercise your election rights <div className="governance__arrow-icon"><ArrowIcon /></div>
-                      </div>
+                      {props.user.id &&
+                        <div className="governance__exercise" role="presentation" onClick={() => setElectionVisibility(true)}>
+                        Exercise your election rights <div className="governance__arrow-icon"><ArrowIcon /></div>
+                        </div>}
                     </div>
                     <div className="governance__text governance__text_description">
                     The Block Producers are decentralized entities that keep the chain running by producing blocks. The Block Producers are elected through voting.
@@ -174,5 +225,6 @@ export default connect(
     setWalletEditStakeVisible,
     getAccountState,
     stakeOrUnstakeTokens,
+    voteForBlockProducers,
   }, dispatch),
 )(Governance);

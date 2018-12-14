@@ -3,6 +3,7 @@ export const DOWNVOTE_STATUS = 'downvote';
 export const NOVOTE_STATUS = 'no_vote';
 
 export const POST_TYPE_MEDIA_ID = 1;
+export const POST_TYPE_OFFER_ID = 2;
 export const POST_TYPE_DIRECT_ID = 10;
 export const POST_TYPE_REPOST_ID = 11;
 
@@ -27,32 +28,11 @@ export const getPostEditUrl = (postId) => {
   return `/posts/${postId}/edit`;
 };
 
-export const getRulesByPostTypeId = (postTypeId) => {
-  switch (postTypeId) {
-    case 2:
-      return {
-        title: 'required',
-        leading_text: 'required',
-        description: 'required',
-        action_button_title: 'required',
-        action_button_url: 'required|url',
-        action_duration_in_days: 'required|numeric',
-        main_image_filename: 'required',
-      };
-    default:
-      return {
-        title: 'required',
-        leading_text: 'required',
-        description: 'required',
-      };
-  }
-};
-
 export const getPostTypeById = (postTypeId) => {
   switch (postTypeId) {
     case POST_TYPE_DIRECT_ID:
       return 'post';
-    case 2:
+    case POST_TYPE_OFFER_ID:
       return 'offer';
     case POST_TYPE_MEDIA_ID:
       return 'story';

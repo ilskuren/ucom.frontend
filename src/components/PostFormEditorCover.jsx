@@ -51,7 +51,9 @@ const PostFormEditorCover = (props) => {
     }
   };
 
-  useEffect(onChangeFile, [props.file]);
+  useEffect(() => {
+    onChangeFile();
+  }, [props.file]);
 
   return (
     <div className="post-form-editor-cover">

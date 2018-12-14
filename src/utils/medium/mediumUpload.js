@@ -1,13 +1,14 @@
 import * as axios from 'axios';
 import MediumEditor from 'medium-editor';
-import api from '../api';
-import loader from './loader';
-import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../utils/upload';
-import config from '../../package.json';
-import { sanitizePostText } from './text';
+import api from '../../api';
+import loader from '../loader';
+import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../upload';
+import config from '../../../package.json';
+import { sanitizePostText } from '../text';
 
 class UploadButtons {
   constructor({ onImageSelect, onEmbedSelect }) {
+    this.currentEl = null;
     this.el = document.createElement('div');
     this.el.className = 'medium-upload';
 
@@ -63,11 +64,27 @@ class UploadButtons {
   }
 
   toggleButtons() {
-    this.el.classList.toggle('medium-upload_active');
+    if (this.el.classList.contains('medium-upload_active')) {
+      this.hideButtons();
+    } else {
+      this.showButton();
+    }
+  }
+
+  showButton() {
+    this.el.classList.add('medium-upload_active');
+
+    if (this.currentEl) {
+      this.currentEl.style.opacity = 0;
+    }
   }
 
   hideButtons() {
     this.el.classList.remove('medium-upload_active');
+
+    if (this.currentEl) {
+      this.currentEl.style.opacity = '';
+    }
   }
 
   show(el) {
@@ -75,8 +92,11 @@ class UploadButtons {
     const top = rect.top + window.scrollY;
     const left = rect.left + window.scrollX;
 
+    this.currentEl = el;
+
     this.el.style.top = `${top}px`;
     this.el.style.left = `${left}px`;
+    this.el.style.height = `${rect.height}px`;
     this.el.classList.add('medium-upload_visible');
   }
 
@@ -90,7 +110,7 @@ class UploadButtons {
   }
 }
 
-export class MediumUpload extends MediumEditor.Extension {
+class MediumUpload extends MediumEditor.Extension {
   name = 'MediumUpload';
   currentEl = null;
 
@@ -123,14 +143,8 @@ export class MediumUpload extends MediumEditor.Extension {
     }
   }
 
-
   hasShowUploadButtons() {
-    const div = document.createElement('div');
-    div.appendChild(this.currentEl.cloneNode(true));
-
-    // return div.innerHTML === '<p><br></p>' || this.currentEl === this.base.origElements;
-
-    return div.innerHTML === '<p><br></p>';
+    return this.currentEl.parentNode === this.base.origElements && this.currentEl.textContent === '';
   }
 
   setCursorToElemnt(el) {
@@ -180,6 +194,7 @@ export class MediumUpload extends MediumEditor.Extension {
     try {
       const base64 = await getBase64FromFile(file);
       img.src = base64;
+      img.dataset.file = file;
     } catch (e) {
       console.error(e);
     }
@@ -225,3 +240,5 @@ export class MediumUpload extends MediumEditor.Extension {
     }
   }
 }
+
+export default MediumUpload;

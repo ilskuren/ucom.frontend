@@ -18,6 +18,7 @@ import Close from '../components/Close';
 const EditPost = (props) => {
   const postId = props.match.params.id;
   const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const getPost = async () => {
     loader.start();
@@ -31,6 +32,7 @@ const EditPost = (props) => {
     }
 
     loader.done();
+    setLoaded(true);
     setLoading(false);
   };
 
@@ -90,7 +92,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
               </div>
               <div className="edit-post-toolbar__close">
                 <Close />
@@ -102,7 +104,9 @@ const EditPost = (props) => {
         <div className="edit-post__content">
           <div className="edit-post__container">
             <div className="edit-post__form">
-              <PostFormEditor />
+              {(!postId || loaded) &&
+                <PostFormEditor />
+              }
             </div>
           </div>
         </div>
@@ -114,7 +118,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
               </div>
             </div>
           </div>

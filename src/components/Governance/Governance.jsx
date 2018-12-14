@@ -37,6 +37,7 @@ const Governance = (props) => {
   const setVotes = () => {
     setConfirmationVisibility(false);
     setElectionVisibility(false);
+    setCloseVisibility(false);
     props.voteForBlockProducers();
   };
 

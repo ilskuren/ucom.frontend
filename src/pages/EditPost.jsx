@@ -63,14 +63,11 @@ const EditPost = (props) => {
 
   useEffect(() => {
     props.resetPost();
-
     if (postId) {
       getPost(postId);
-    } else {
-      // if (localStorage.hasOwnProperty('post_data')) {
-      // const value = localStorage.getItem('post_data');
-      // props.setPostData(value);
-      // }
+    } else if (localStorage.post_data) {
+      const value = localStorage.getItem('post_data');
+      props.setPostData(JSON.parse(value));
     }
 
     return () => {
@@ -79,6 +76,7 @@ const EditPost = (props) => {
   }, [postId]);
 
   if (props.post.data.id && props.post.saved) {
+    localStorage.removeItem('post_data');
     return <Redirect to={urls.getPostUrl(humps(props.post.data))} />;
   }
 

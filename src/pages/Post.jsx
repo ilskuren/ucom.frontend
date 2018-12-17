@@ -8,6 +8,9 @@ import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { fetchPost } from '../actions/posts';
 import { getPostById } from '../store/posts';
+import { getUserById } from '../store/users';
+import { UserCardSimpleWrapper } from '../components/User/UserCardSimple';
+import UserFollowButton from '../components/User/UserFollowButton';
 
 const Post = (props) => {
   useEffect(() => {
@@ -16,13 +19,30 @@ const Post = (props) => {
 
   const post = getPostById(props.posts, props.match.params.id);
 
-  if (!post) {
+  if (!post || !post.user || !post.user.id) {
+    return null;
+  }
+
+  const user = getUserById(props.users, post.user.id);
+
+  if (!user) {
     return null;
   }
 
   return (
     <LayoutBase>
-      <div className="content-wrapper">
+      <div className="post-page">
+        <div className="post-page-header">
+          <div className="post-page-header__section post-page-header__section_user-card">
+            <UserCardSimpleWrapper userId={user.id} />
+          </div>
+          <div className="post-page-header__section post-page-header__section_follow-button">
+            <UserFollowButton userId={user.id} />
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="content-wrapper">
         <div className="content">
           <div className="content__inner">
             <div className="sheets">
@@ -43,7 +63,7 @@ const Post = (props) => {
         <div className="content__inner">
           <Footer />
         </div>
-      </div>
+      </div> */}
     </LayoutBase>
   );
 };
@@ -55,6 +75,7 @@ Post.propTypes = {
 export default connect(
   state => ({
     posts: state.posts,
+    users: state.users,
   }),
   dispatch => bindActionCreators({
     fetchPost,

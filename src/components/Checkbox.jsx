@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Checkbox = ({ isChecked = false, onChange }) => (
-  <div className="checkbox-input">
+const Checkbox = ({ isChecked = false, onChange, isDisabled }) => (
+  <div className={`checkbox-input ${isDisabled ? 'checkbox-input_disabled' : ''}`}>
     <label className="checkbox-input__label">
       <input
         type="checkbox"
         className="checkbox-input__input"
         value={isChecked}
         checked={isChecked ? 'checked' : ''}
+        disabled={isDisabled}
         onChange={(e) => {
           if (typeof onChange === 'function') {
             onChange(e.target.checked);

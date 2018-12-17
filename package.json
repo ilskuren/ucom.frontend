@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=staging webpack-dev-server --config ./webpack.config.js --mode development;",
-    "staging": "NODE_ENV=staging webpack --config ./webpack.config.js --mode production",
+    "staging": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development",
     "production": "NODE_ENV=production webpack --config ./webpack.config.js --mode production",
     "production_local": "NODE_ENV=production webpack-dev-server --config ./webpack.config.js --mode production;",
     "fix_live_reloading": "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
@@ -13,6 +13,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "uosGroupId": {
+    "staging": 89,
+    "production": 4
+  },
   "backend": {
     "staging": {
       "httpEndpoint": "https://staging-backend.u.community",

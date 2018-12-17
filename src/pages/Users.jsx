@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import classNames from 'classnames';
 import UserCard from '../components/UserCard';
 import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
+import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
 
@@ -13,6 +15,7 @@ class EventsPage extends PureComponent {
     this.state = {
       page: 0,
       hasMore: true,
+      sortBy: '-current_rate',
       users: [],
     };
   }
@@ -24,6 +27,7 @@ class EventsPage extends PureComponent {
   loadMore = async () => {
     const params = {
       page: this.state.page + 1,
+      sort_by: this.state.sortBy,
       per_page: 20,
     };
 
@@ -35,6 +39,29 @@ class EventsPage extends PureComponent {
         users: [...prevState.users, ...data],
         page: params.page,
       }));
+    } catch (e) {
+      console.error(e);
+    }
+
+    loader.done();
+  }
+
+  changeSort = async (sortBy) => {
+    const params = {
+      page: 1,
+      sort_by: sortBy,
+      per_page: 20,
+    };
+
+    loader.start();
+
+    try {
+      const data = await api.getUsers(params);
+      this.setState({
+        users: data,
+        sortBy,
+        page: 1,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -58,8 +85,41 @@ class EventsPage extends PureComponent {
                     <thead className="list-table__head">
                       <tr className="list-table__row">
                         <td className="list-table__cell list-table__cell_index">#</td>
-                        <td className="list-table__cell list-table__cell_name">Name</td>
-                        <td className="list-table__cell">Rate</td>
+                        {[{
+                          title: 'Name',
+                          name: 'account_name',
+                          sortable: true,
+                        }, {
+                          title: 'Rate',
+                          name: 'current_rate',
+                          sortable: true,
+                        }].map(item => (
+                          <td
+                            key={item.name}
+                            role="presentation"
+                            className={classNames(
+                              'list-table__cell',
+                              { 'list-table__cell_sortable': item.sortable },
+                            )}
+                            onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '' : '-'}${item.name}`)}
+                          >
+                            <div className="list-table__title">
+                              {item.title}
+
+                              {this.state.sortBy === `-${item.name}` && (
+                                <div className="list-table__sort-icon">
+                                  <IconTableTriangle />
+                                </div>
+                              )}
+
+                              {this.state.sortBy === `${item.name}` && (
+                                <div className="list-table__sort-icon list-table__sort-icon_flip">
+                                  <IconTableTriangle />
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="list-table__body">

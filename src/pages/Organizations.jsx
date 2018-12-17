@@ -85,9 +85,6 @@ class EventsPage extends PureComponent {
                   <table className="list-table list-table_indexed list-table_organizations list-table_responsive">
                     <thead className="list-table__head">
                       <tr className="list-table__row">
-                        {/* <td className="list-table__cell list-table__cell_index">#</td>
-                        <td className="list-table__cell list-table__cell_name">Name</td>
-                        <td className="list-table__cell">Rate</td> */}
                         <td className="list-table__cell list-table__cell_index">#</td>
                         {[{
                           title: 'Name',

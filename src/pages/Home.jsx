@@ -8,6 +8,7 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import { selectUser } from '../store/selectors';
 import { fetchUser } from '../actions/users';
 import UserPeoples from '../components/User/UserPeoples';
+import UserOrganizations from '../components/User/UserOrganizations';
 import { getUserById } from '../store/users';
 import Feed from '../components/Feed/Feed';
 import { USER_NEWS_FEED_ID } from '../utils/feed';
@@ -38,8 +39,9 @@ const HomePage = (props) => {
               </div>
 
               <div className="grid__item grid__item_side">
-                <div className="sidebar">
+                <div className="sidebar sidebar_main">
                   <UserPeoples userId={user.id} />
+                  <UserOrganizations userId={user.id} />
                 </div>
               </div>
             </div>

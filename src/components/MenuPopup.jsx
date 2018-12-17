@@ -19,6 +19,7 @@ import { showMenuPopup, hideMenuPopup } from '../actions/menuPopup';
 import { removeBrainkey } from '../utils/brainkey';
 import { removeToken } from '../utils/token';
 import { removeUser } from '../actions';
+import urls from '../utils/urls';
 
 import av1 from '../static/avatars/1.png';
 import av2 from '../static/avatars/2.png';
@@ -103,7 +104,7 @@ class MenuPopup extends PureComponent {
                       }
                       <div className="menu__item only-pad">
                         <NavLink
-                          to="/posts/new/1"
+                          to={urls.getNewPostUrl()}
                           className="menu__link"
                         >
                           Add&nbsp;publication

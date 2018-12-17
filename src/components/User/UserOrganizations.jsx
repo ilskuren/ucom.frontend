@@ -4,7 +4,7 @@ import React from 'react';
 import { getUserById } from '../../store/users';
 import OrganizationList from '../Organization/OrganizationList';
 
-const ORGANIZATION_LIMIT = 4;
+const ORGANIZATION_LIMIT = 5;
 
 const UserOrganizations = (props) => {
   const user = getUserById(props.users, props.userId);

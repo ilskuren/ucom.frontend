@@ -45,7 +45,7 @@ const UserMenu = (props) => {
                     <div className="menu menu_vertical">
                       <div className="menu__item else-desktop">
                         <NavLink
-                          to="/posts/new/1"
+                          to={urls.getNewPostUrl()}
                           className="menu__link menu__link_upper"
                           activeClassName="menu__link_active"
                           isActive={() => props.location.pathname === '/posts/new/1'}

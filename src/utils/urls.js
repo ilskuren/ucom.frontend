@@ -54,6 +54,14 @@ const urls = {
     return `/user/${post.entityIdFor}/${post.id}`;
   },
 
+  getPostEditUrl(postId) {
+    if (!postId) {
+      return null;
+    }
+
+    return `/posts/${postId}/edit`;
+  },
+
   getOrganizationUrl(id) {
     if (!id) {
       return null;

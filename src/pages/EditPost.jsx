@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import LayoutClean from '../components/Layout/LayoutClean';
 import CreateBy from '../components/CreateBy';
 import Button from '../components/Button';
-import PostFormEditor from '../components/PostFormEditor';
+import Medium from '../components/Medium';
 import api from '../api';
 import { selectUser } from '../store/selectors';
 import { postSetSaved, setPostData, validatePost, resetPost } from '../actions';
@@ -14,6 +14,7 @@ import { authShowPopup } from '../actions/auth';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 import Close from '../components/Close';
+import { parseContent } from '../utils/medium/mediumPost';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
@@ -105,7 +106,21 @@ const EditPost = (props) => {
           <div className="edit-post__container">
             <div className="edit-post__form">
               {(!postId || loaded) &&
-                <PostFormEditor />
+                <Medium
+                  value={props.post.data.description}
+                  onChange={(description) => {
+                    props.setPostData(parseContent(description));
+                    props.validatePost();
+                  }}
+                  onUploadStart={() => {
+                    setLoading(true);
+                    loader.start();
+                  }}
+                  onUploadDone={() => {
+                    setLoading(false);
+                    loader.done();
+                  }}
+                />
               }
             </div>
           </div>

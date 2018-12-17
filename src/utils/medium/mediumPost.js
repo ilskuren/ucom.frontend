@@ -8,7 +8,7 @@ export const parseContent = (html) => {
 
   let title = null;
   let leadingText = null;
-  let mainImageFilename = null;
+  let entityImages = null;
 
   for (let i = 0; i < childNodes.length; i++) {
     if (childNodes[i].textContent) {
@@ -30,11 +30,15 @@ export const parseContent = (html) => {
   }
 
   if (img) {
-    mainImageFilename = img.src;
+    entityImages = {
+      articleTitle: [{
+        url: img.src,
+      }],
+    };
   }
 
   return ({
-    title, leadingText, mainImageFilename, description: html,
+    title, leadingText, entityImages, description: html,
   });
 };
 

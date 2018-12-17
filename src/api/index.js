@@ -118,7 +118,7 @@ class Api {
 
   @bind
   async updatePost(data, id) {
-    const response = await this.actions.patch(`/api/v1/posts/${id}`, data);
+    const response = await this.actions.patch(`/api/v1/posts/${id}`, snakes(data));
 
     return humps(response.data);
   }

@@ -1,3 +1,5 @@
+import urls from './urls';
+
 export const UPVOTE_STATUS = 'upvote';
 export const DOWNVOTE_STATUS = 'downvote';
 export const NOVOTE_STATUS = 'no_vote';
@@ -49,4 +51,38 @@ export const postIsEditable = (createdAt) => {
   }
 
   return (new Date()).getTime() - (new Date(createdAt)).getTime() < 600000;
+};
+
+export const getPostBody = (post) => {
+  const createdAtTime = (new Date(post.createdAt)).getTime();
+  const newPostsTime = 1545061174406;
+  const postIsNewEditor = createdAtTime - newPostsTime > 0;
+
+  if (postIsNewEditor) {
+    return post.description;
+  }
+
+  let postBody = post.description;
+
+  if (post.mainImageFilename) {
+    postBody = `<p><img src="${urls.getFileUrl(post.mainImageFilename)}" /></p>`.concat(postBody);
+  }
+
+  if (post.leadingText) {
+    postBody = `<h2>${post.leadingText}</h2>`.concat(postBody);
+  }
+
+  if (post.title) {
+    postBody = `<h1>${post.title}</h1>`.concat(postBody);
+  }
+
+  return postBody;
+};
+
+export const getPostCover = (post) => {
+  try {
+    return post.entityImages.articleTitle[0].url;
+  } catch (e) {
+    return null;
+  }
 };

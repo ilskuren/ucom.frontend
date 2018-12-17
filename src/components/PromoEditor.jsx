@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
-import PostFormEditor from './PostFormEditor';
 import { setPostData } from '../actions';
+import Medium from './Medium';
 
 const TABS = [{
   id: 1,
@@ -50,7 +50,7 @@ class PromoEditor extends PureComponent {
         </div>
 
         <div className="promo-editor__editor">
-          <PostFormEditor />
+          <Medium />
         </div>
 
         <div className="promo-editor__action">

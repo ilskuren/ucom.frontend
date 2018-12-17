@@ -1,7 +1,6 @@
 import * as axios from 'axios';
 import MediumEditor from 'medium-editor';
 import api from '../../api';
-import loader from '../loader';
 import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../upload';
 import config from '../../../package.json';
 import { sanitizePostText } from '../text';
@@ -117,6 +116,8 @@ class MediumUpload extends MediumEditor.Extension {
   constructor(params) {
     super(params);
 
+    this.onUploadStart = params.onUploadStart;
+    this.onUploadDone = params.onUploadDone;
     this.onUploadError = params.onUploadError;
     this.uploadButtons = new UploadButtons({
       onImageSelect: this.uplaodImage,
@@ -166,10 +167,10 @@ class MediumUpload extends MediumEditor.Extension {
     parentEl.insertBefore(newLine, this.currentEl.nextSibling);
     this.setCursorToElemnt(newLine);
     this.currentEl = newLine;
+    this.base.checkContentChanged(this.base.origElements);
 
     setTimeout(() => {
       this.uploadButtons.show(this.currentEl);
-      this.base.checkContentChanged(this.base.origElements);
     }, 0);
   }
 
@@ -189,8 +190,6 @@ class MediumUpload extends MediumEditor.Extension {
     p.contentEditable = false;
     p.appendChild(img);
 
-    loader.start();
-
     try {
       const base64 = await getBase64FromFile(file);
       img.src = base64;
@@ -201,6 +200,10 @@ class MediumUpload extends MediumEditor.Extension {
 
     this.insertEl(p);
 
+    if (typeof this.onUploadStart === 'function') {
+      this.onUploadStart();
+    }
+
     try {
       const data = await api.uploadPostImage(file);
       img.src = data.files[0].url;
@@ -209,7 +212,9 @@ class MediumUpload extends MediumEditor.Extension {
       console.error(e);
     }
 
-    loader.done();
+    if (typeof this.onUploadDone === 'function') {
+      this.onUploadDone();
+    }
   }
 
   getEmbed = async (url) => {

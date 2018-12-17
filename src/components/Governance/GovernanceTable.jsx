@@ -18,11 +18,9 @@ const GovernanceTable = props => (
         {props.user.id &&
           <td className="governance-table__cell governance-table__cell_id" />
         }
-        {/* <td className="governance-table__cell governance-table__cell_name governance-table__cell_sortable"> */}
         <td className="governance-table__cell governance-table__cell_name">
           <span className="inline inline_small">
             <span className="inline__item">Organization</span>
-            {/* <span className="inline__item"><IconTableTriangle /></span> */}
           </span>
         </td>
         <td className="governance-table__cell governance-table__cell_votes">Votes</td>

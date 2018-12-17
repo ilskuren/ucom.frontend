@@ -44,6 +44,9 @@ const Governance = (props) => {
     setConfirmationVisibility(false);
     setElectionVisibility(false);
     setCloseVisibility(false);
+    props.getAccountState();
+    props.governanceNodesGet();
+    props.getOrganization(organizationId);
   };
 
   return (

@@ -11,20 +11,30 @@ class EventsPage extends PureComponent {
     super(props);
 
     this.state = {
+      page: 0,
+      hasMore: true,
       users: [],
     };
   }
 
   componentDidMount() {
-    this.getData();
+    this.loadMore();
   }
 
-  getData = async () => {
+  loadMore = async () => {
+    const params = {
+      page: this.state.page + 1,
+      per_page: 20,
+    };
+
     loader.start();
 
     try {
-      const users = await api.getUsers();
-      this.setState({ users });
+      const data = await api.getUsers(params);
+      this.setState(prevState => ({
+        users: [...prevState.users, ...data],
+        page: params.page,
+      }));
     } catch (e) {
       console.error(e);
     }
@@ -73,6 +83,16 @@ class EventsPage extends PureComponent {
                     </tbody>
                   </table>
                 </div>
+                {this.state.hasMore && (
+                  <div className="table-content__showmore">
+                    <button
+                      className="button-clean button-clean_link"
+                      onClick={() => this.loadMore()}
+                    >
+                      Show More
+                    </button>
+                  </div>
+                )}
               </div>
             }
           </div>

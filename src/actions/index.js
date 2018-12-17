@@ -9,7 +9,9 @@ export const setPostDataToLS = () => (dispatch, getState) => {
     leading_text: data.post.data.leading_text,
     description: data.post.data.description,
   };
-  localStorage.setItem('post_data', JSON.stringify(postData));
+  if (window.location.href.match(/new/)) {
+    localStorage.setItem('post_data', JSON.stringify(postData));
+  }
 };
 export const setDataToStoreToLS = data => (dispatch) => {
   dispatch(setPostData(data));

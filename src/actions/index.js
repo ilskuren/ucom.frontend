@@ -9,7 +9,7 @@ export const setPostDataToLS = () => (dispatch, getState) => {
     leading_text: data.post.data.leading_text,
     description: data.post.data.description,
   };
-  if (window.location.href.match(/new/)) {
+  if (!data.post.data.id) {
     localStorage.setItem('post_data', JSON.stringify(postData));
   }
 };

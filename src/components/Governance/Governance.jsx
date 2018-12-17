@@ -25,7 +25,6 @@ const Governance = (props) => {
     props.getAccountState();
     props.getOrganization(organizationId);
     props.governanceNodesGet();
-    props.stakeOrUnstakeTokens();
   }, [organizationId]);
 
   const stakedTokens = (props.wallet.state.data.tokens && props.wallet.state.data.tokens.staked) || 0;

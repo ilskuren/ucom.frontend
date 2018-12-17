@@ -9,7 +9,7 @@ import ModalContent from '../ModalContent';
 import OrganizationHead from '../Organization/OrganizationHead';
 import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup, voteForBlockProducers } from '../../actions/governance';
 import { getOrganization } from '../../actions/organizations';
-import { setWalletEditStakeVisible, getAccountState, stakeOrUnstakeTokens } from '../../actions/wallet';
+import { setWalletEditStakeVisible, getAccountState } from '../../actions/wallet';
 import { getSelectedNodes } from '../../store/governance';
 import { selectUser } from '../../store/selectors/user';
 import LayoutBase from '../Layout/LayoutBase';
@@ -224,7 +224,6 @@ export default connect(
     getOrganization,
     setWalletEditStakeVisible,
     getAccountState,
-    stakeOrUnstakeTokens,
     voteForBlockProducers,
   }, dispatch),
 )(Governance);

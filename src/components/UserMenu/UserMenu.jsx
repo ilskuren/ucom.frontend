@@ -78,7 +78,7 @@ const UserMenu = (props) => {
 
                       <div className="menu__item else-desktop">
                         <NavLink
-                          to="/publications/media"
+                          to={urls.getPublicationsCategoryUrl('trending')}
                           className="menu__link menu__link_upper"
                           activeClassName="menu__link_active"
                           isActive={() => props.location.pathname.indexOf('/publications') === 0}

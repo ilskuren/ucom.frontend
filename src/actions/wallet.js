@@ -86,6 +86,7 @@ export const setWalletEditStakeVisible = payload => async (dispatch) => {
 export const getAccountState = () => async (dispatch, getState) => {
   const state = getState();
   const user = selectUser(state);
+
   if (!user.accountName) {
     return;
   }

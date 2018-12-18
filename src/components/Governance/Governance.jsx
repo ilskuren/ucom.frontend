@@ -9,7 +9,7 @@ import ModalContent from '../ModalContent';
 import OrganizationHead from '../Organization/OrganizationHead';
 import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup, voteForBlockProducers } from '../../actions/governance';
 import { getOrganization } from '../../actions/organizations';
-import { setWalletEditStakeVisible, getAccountState } from '../../actions/wallet';
+import { getAccountState, setWalletEditStakeVisible } from '../../actions/wallet';
 import { getSelectedNodes } from '../../store/governance';
 import { selectUser } from '../../store/selectors/user';
 import LayoutBase from '../Layout/LayoutBase';
@@ -51,14 +51,7 @@ const Governance = (props) => {
 
   return (
     <LayoutBase>
-      {props.wallet.editStake.visible && (
-        <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
-          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletEditStakeVisible(false)}>
-            <SetStakePopup />
-          </ModalContent>
-        </Popup>
-      )}
-
+      <SetStakePopup />
       {electionVisibility && (
         <Popup onClickClose={() => setElectionVisibility(false)}>
           <ModalContent mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
@@ -225,8 +218,8 @@ export default connect(
     governanceHideVotePopup,
     governanceShowVotePopup,
     getOrganization,
-    setWalletEditStakeVisible,
     getAccountState,
     voteForBlockProducers,
+    setWalletEditStakeVisible,
   }, dispatch),
 )(Governance);

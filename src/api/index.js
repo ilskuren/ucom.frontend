@@ -82,8 +82,8 @@ class Api {
   }
 
   @bind
-  async getUsers() {
-    const response = await this.actions.get('/api/v1/users');
+  async getUsers(params) {
+    const response = await this.actions.get(`/api/v1/users?${param(params)}`);
 
     return humps(response.data);
   }

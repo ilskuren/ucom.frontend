@@ -20,10 +20,10 @@ const GovernanceConfirmation = (props) => {
   const listToUnvote = list.filter(i => !currentIdList.includes(i.id));
   const listToText = listToVote.map(e => e.title);
   return (
-    <div className="governance governance-election">
-      <div className="content content_base">
+    <div className="governance governance-election governance-confirmation">
+      <div className="content content_base content_base_low">
         <div className="content__inner">
-          <div className="content__title">
+          <div className="content__title_tall">
             <h1 className="title">Vote for these producers</h1>
           </div>
           <div className="governance-vote-title">
@@ -44,7 +44,7 @@ const GovernanceConfirmation = (props) => {
             </div>
             <div className="title title_xxsmall title_bold">Block Producers to Unvote </div>
           </div>
-          <div className="governance-all__table governance-all__table_margin">
+          <div className="governance-all__table governance-all__table_margin_low">
             <GovernanceTable
               data={listToUnvote}
             />
@@ -69,7 +69,7 @@ const GovernanceConfirmation = (props) => {
               </div>
             </Panel>
           </div>
-          <div className="governance-button governance-button_center">
+          <div className="governance-button-tall governance-button_center">
             <Button
               isUpper
               isStretched

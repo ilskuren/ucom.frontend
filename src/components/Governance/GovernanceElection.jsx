@@ -43,7 +43,7 @@ const GovernanceElection = (props) => {
             <div className="toolbar toolbar_responsive">
               <div className="toolbar__main">
                 <div className="menu menu_simple-tabs">
-                  <div className="menu__item">
+                  <div className="menu__item_narrow">
                     <div
                       className={`menu__link title title_small ${route === 1 ? 'menu__link_active' : ''}`}
                       onClick={() => setRoute(1)}
@@ -52,7 +52,7 @@ const GovernanceElection = (props) => {
                        Select Block Producers
                     </div>
                   </div>
-                  <div className="menu__item">
+                  <div className="menu__item_narrow">
                     <div
                       className={`menu__link title title_small ${route === 2 ? 'menu__link_active' : ''}`}
                       onClick={() => setRoute(2)}
@@ -61,7 +61,7 @@ const GovernanceElection = (props) => {
                       {props.selectedNodes.length} Selected
                     </div>
                   </div>
-                  <div className="menu__item menu__item_left">
+                  <div className="menu__item_narrow menu__item_left">
                     <Button
                       theme="red-white"
                       text="Cast your vote"

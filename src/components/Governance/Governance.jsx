@@ -54,7 +54,7 @@ const Governance = (props) => {
       <SetStakePopup />
       {electionVisibility && (
         <Popup onClickClose={() => setElectionVisibility(false)}>
-          <ModalContent mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
+          <ModalContent closeText="Close" mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
             <GovernanceElection {...{
               stakedTokens, table, selectedNodes, setConfirmationVisibility,
             }}
@@ -65,7 +65,7 @@ const Governance = (props) => {
 
       {confirmationVisibility && (
         <Popup onClickClose={() => setCloseVisibility(true)}>
-          <ModalContent mod="governance-election" onClickClose={() => setCloseVisibility(true)}>
+          <ModalContent closeText="Close" mod="governance-election" onClickClose={() => setCloseVisibility(true)}>
             <GovernanceConfirmation {...{
               selectedNodes, table, user, setVotes,
             }}
@@ -143,7 +143,7 @@ const Governance = (props) => {
           <div className="sheets">
             <div className="sheets__list">
               <div className="sheets__item">
-                <OrganizationHead organizationId={organizationId} />
+                <OrganizationHead organizationId={organizationId} isOrganization />
               </div>
             </div>
 

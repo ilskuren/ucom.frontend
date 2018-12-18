@@ -35,7 +35,7 @@ const GovernanceTable = props => (
             if (props.user.id && props.isPreview && item.myselfData && item.myselfData.bpVote) {
               return (
                 <td className="governance-table__cell governance-table__cell_avatar" data-name="">
-                  <Avatar src={getFileUrl(props.user.avatarFilename)} size="xsmall" icon={<IconOK />} />
+                  <Avatar src={getFileUrl(props.user.avatarFilename)} size="xysmall" icon={<IconOK />} />
                 </td>
               );
             } else if (props.user.id && !props.isPreview) {
@@ -67,7 +67,7 @@ const GovernanceTable = props => (
 
           <td className="governance-table__cell governance-table__cell_name" data-name="Organization">{item.title}</td>
           <td className="governance-table__cell governance-table__cell_votes" data-name="Votes">
-            {item.votesCount} <div className="governance-table__percentage">{item.votesPercentage}%</div>
+            <div className="governance-table__cell governance-table__votes-block">{item.votesCount} <div className="governance-table__percentage">{item.votesPercentage}%</div></div>
           </td>
           <td className="governance-table__cell governance-table__cell_amount" data-name="Vote Amount, UOS">{(+item.votesAmount).toLocaleString()}</td>
           <td className="governance-table__cell governance-table__cell_state" data-name="State">

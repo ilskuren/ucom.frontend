@@ -14,6 +14,7 @@ class Medium extends PureComponent {
         buttons: ['h1', 'h2', 'bold', 'italic', 'underline', 'strikethrough', 'anchor', 'quote', 'orderedlist', 'unorderedlist'],
       },
       placeholder: false,
+      imageDragging: false,
       extensions: {
         mediumPost: new MediumPost(),
         mediumUpload: new MediumUpload({

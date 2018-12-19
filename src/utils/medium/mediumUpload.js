@@ -145,7 +145,10 @@ class MediumUpload extends MediumEditor.Extension {
   }
 
   hasShowUploadButtons() {
-    return this.currentEl.parentNode === this.base.origElements && this.currentEl.textContent === '';
+    return this.currentEl.parentNode === this.base.origElements &&
+      this.currentEl.tagName === 'P' &&
+      this.currentEl.className === '' &&
+      this.currentEl.innerHTML === '<br>';
   }
 
   setCursorToElemnt(el) {

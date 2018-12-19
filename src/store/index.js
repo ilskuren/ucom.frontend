@@ -15,6 +15,8 @@ import userForm from './userForm';
 import wallet from './wallet/index';
 import governance from './governance/index';
 import registration from './registration';
+import mainPostGroup from './mainPostGroup';
+import feed from './feed';
 import { reducer as user } from './user';
 
 const app = combineReducers({
@@ -33,9 +35,17 @@ const app = combineReducers({
   userForm,
   governance,
   registration,
+  mainPostGroup,
+  feed,
 });
 const middlewares = [thunk];
 
-const store = createStore(app, composeWithDevTools(applyMiddleware(...middlewares)));
+let preloadedState;
+
+if (typeof window !== 'undefined') {
+  preloadedState = window.APP_STATE;
+}
+
+const store = createStore(app, preloadedState, composeWithDevTools(applyMiddleware(...middlewares)));
 
 export default store;

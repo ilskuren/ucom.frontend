@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
@@ -46,7 +45,7 @@ const FeedCategories = (props) => {
         ...paramsForCategories[props.categoryId],
         postTypeId: POST_TYPE_MEDIA_ID,
       });
-      props.addPosts(data.data);
+      addPosts(data.data);
       setMetadata(data.metadata);
       setPostIds(postIds.concat(data.data.map(i => i.id)));
       props.onOrgsAdd(data.data.map(i => i.organizationId));
@@ -109,9 +108,4 @@ const FeedCategories = (props) => {
   );
 };
 
-export default connect(
-  null,
-  dispatch => bindActionCreators({
-    addPosts,
-  }, dispatch),
-)(FeedCategories);
+export default connect()(FeedCategories);

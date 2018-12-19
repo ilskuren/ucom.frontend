@@ -12,15 +12,15 @@ import LoadMore from './LoadMore';
 import { addPosts } from '../../actions/posts';
 
 const getFeedFunctions = {
-  [USER_NEWS_FEED_ID]: api.getUserNewsFeed,
-  [USER_WALL_FEED_ID]: api.getUserWallFeed,
-  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed,
+  [USER_NEWS_FEED_ID]: api.getUserNewsFeed.bind(api),
+  [USER_WALL_FEED_ID]: api.getUserWallFeed.bind(api),
+  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
 };
 
 const createCommentPostFunctions = {
-  [USER_NEWS_FEED_ID]: api.createUserCommentPost,
-  [USER_WALL_FEED_ID]: api.createUserCommentPost,
-  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost,
+  [USER_NEWS_FEED_ID]: api.createUserCommentPost.bind(api),
+  [USER_WALL_FEED_ID]: api.createUserCommentPost.bind(api),
+  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost.bind(api),
 };
 
 const Feed = (props) => {
@@ -41,7 +41,7 @@ const Feed = (props) => {
       };
 
       const data = await getFeedFunctions[props.feedTypeId](params);
-      props.addPosts(data.data);
+      addPosts(data.data);
       setMetadata(data.metadata);
       const newPostIds = data.data.map(i => i.id);
       setPostIds(page === 1 ? newPostIds : postIds.concat(newPostIds));
@@ -69,7 +69,7 @@ const Feed = (props) => {
       };
 
       const data = await createCommentPostFunctions[props.feedTypeId](params);
-      props.addPosts([data]);
+      addPosts([data]);
       setPostIds([data.id].concat(postIds));
     } catch (e) {
       console.error(e);

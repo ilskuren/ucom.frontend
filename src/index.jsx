@@ -1,3 +1,4 @@
+import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import React from 'react';
@@ -9,10 +10,11 @@ import './index.less';
 
 const history = createBrowserHistory();
 
-const Root = () => (
+ReactDOM.hydrate(
   <Provider store={store}>
-    <App history={history} />
-  </Provider>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('app'),
 );
-
-ReactDOM.render(<Root />, document.getElementById('app'));

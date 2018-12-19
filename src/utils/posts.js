@@ -55,7 +55,7 @@ export const postIsEditable = (createdAt) => {
 
 export const getPostBody = (post) => {
   const createdAtTime = (new Date(post.createdAt)).getTime();
-  const newPostsTime = 1545061174406;
+  const newPostsTime = 1545226768471;
   const postIsNewEditor = createdAtTime - newPostsTime > 0;
 
   if (postIsNewEditor) {

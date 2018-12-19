@@ -8,11 +8,13 @@ import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { selectUser } from '../../store/selectors/user';
 import { getOrganizationById } from '../../store/organizations';
+import OrganizationFollowButton from '.././Organization/OrganizationFollowButton';
+import { getOrganizationUrl } from '../../utils/organization';
 
 const OrganizationHead = (props) => {
   const organization = getOrganizationById(props.organizations, props.organizationId);
 
-  if (!organization || !organization.user || !organization.user.id) {
+  if (!organization || !organization.usersTeam || !organization.user) {
     return null;
   }
 
@@ -24,24 +26,42 @@ const OrganizationHead = (props) => {
 
   return (
     <div className="post-header">
-      <div className="toolbar">
-        <div className="toolbar__main">
-          <UserCard
-            size="big"
-            userName={getUserName(user)}
-            profileLink={getUserUrl(user.id)}
-            avatarUrl={getFileUrl(user.avatarFilename)}
-            rate={Number(user.currentRate)}
-          />
-        </div>
-        <div className="toolbar__side">
-          <div className="post-header__follow-button">
-            {props.user.id && props.user.id === user.id ? null : (
-              <UserFollowButton userId={user.id} />
-            )}
+      {props.isOrganization ?
+        <div className="toolbar">
+          <div className="toolbar__main">
+            <UserCard
+              size="big"
+              userName={organization.nickname}
+              profileLink={getOrganizationUrl(organization.id)}
+              avatarUrl={getFileUrl(organization.avatarFilename)}
+              rate={Number(organization.currentRate)}
+            />
+          </div>
+          <div className="toolbar__side">
+            <div className="post-header__follow-button">
+              <OrganizationFollowButton organizationId={+organization.id} />
+            </div>
+          </div>
+        </div> :
+        <div className="toolbar">
+          <div className="toolbar__main">
+            <UserCard
+              size="big"
+              userName={getUserName(user)}
+              profileLink={getUserUrl(user.id)}
+              avatarUrl={getFileUrl(user.avatarFilename)}
+              rate={Number(user.currentRate)}
+            />
+          </div>
+          <div className="toolbar__side">
+            <div className="post-header__follow-button">
+              {props.user.id && props.user.id === user.id ? null : (
+                <UserFollowButton userId={user.id} />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   );
 };

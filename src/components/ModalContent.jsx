@@ -30,6 +30,7 @@ class ModalContent extends PureComponent {
   }
 
   render() {
+    const { closeText } = this.props;
     return (
       <div
         ref={(el) => { this.el = el; }}
@@ -41,10 +42,10 @@ class ModalContent extends PureComponent {
         {this.props.onClickClose &&
           <div
             onClick={this.props.onClickClose}
-            className="modal-content__close"
+            className={`modal-content__close ${closeText ? 'modal-content__close_text' : ''}`}
             role="presentation"
           >
-            <CloseIcon />
+            {closeText || ''} <CloseIcon />
           </div>
         }
 

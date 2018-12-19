@@ -6,6 +6,7 @@ import { addServerErrorNotification } from './notifications';
 import { setPostCommentCount } from './posts';
 
 export const addComments = payload => ({ type: 'ADD_COMMENTS', payload });
+
 export const setCommentVote = payload => ({ type: 'SET_COMMENT_VOTE', payload });
 
 export const commentVote = payload => (dispatch) => {

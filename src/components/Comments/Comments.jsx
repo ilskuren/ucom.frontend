@@ -15,7 +15,7 @@ import { getOrganizationUrl } from '../../utils/organization';
 
 class Comments extends PureComponent {
   componentDidMount() {
-    this.props.fetchPost(this.props.postId);
+    fetchPost(this.props.postId);
   }
 
   render() {
@@ -58,7 +58,6 @@ class Comments extends PureComponent {
 Comments.propTypes = {
   postId: PropTypes.number,
   comments: PropTypes.objectOf(PropTypes.object),
-  fetchPost: PropTypes.func,
   createComment: PropTypes.func,
   posts: PropTypes.objectOf(PropTypes.object),
 };
@@ -69,7 +68,6 @@ export default connect(
     comments: state.comments,
   }),
   dispatch => bindActionCreators({
-    fetchPost,
     createComment,
   }, dispatch),
 )(Comments);

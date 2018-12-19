@@ -59,7 +59,7 @@ const GovernanceConfirmation = (props) => {
                 <div className="text">
                   <p>The intent of the ‘voteproducer’ action is to cast a valid vote for up to 30 BP candidates.</p>
                   <p>As an authorized party I {props.user.firstName} wish to vote on behalf of {props.user.firstName} in favor of the block produser candidates
-                    {listToText.length ? listToText.map((i, index) => { console.log(listToText.length, index); return (<span key={index}><strong> {i}</strong>{listToText.length === index - 2 ? '' : ','} </span>); }) : <strong> None </strong>}
+                    {listToText.length ? listToText.map((i, index) => (<span key={index}><strong> {i}</strong>{listToText.length === index - 2 ? '' : ','} </span>)) : <strong> None </strong>}
                     with a voting weight equal to all tokens currently owned by {props.user.firstName} and staked for CPU or bandwidth.
                   </p>
                   <p>If I am not the benefitial owner of these shares I stipulate I have proof that I’ve been authorized to vote these shares by their benefitial owner(s).</p>

@@ -56,7 +56,7 @@ const Governance = (props) => {
         <Popup onClickClose={() => setElectionVisibility(false)}>
           <ModalContent closeText="Close" mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
             <GovernanceElection {...{
-              stakedTokens, table, selectedNodes, setConfirmationVisibility,
+              stakedTokens, table, selectedNodes, setConfirmationVisibility, user,
             }}
             />
           </ModalContent>
@@ -177,7 +177,7 @@ const Governance = (props) => {
               } */}
 
               {props.governance.nodes.data.length > 0 &&
-                <div className="content__section content__section_small">
+                <div className="content__section content__section_medium">
                   <div className="governance-all">
                     <div className="governance-all__title">
                       <h2 className="title title_bold">Block Producers </h2>

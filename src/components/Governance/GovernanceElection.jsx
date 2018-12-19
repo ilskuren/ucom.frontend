@@ -71,16 +71,33 @@ const GovernanceElection = (props) => {
                 </div>
               </div>
             </div>
+            <div className="governance-table__head">
+              <div className="governance-table__row governance-table__row_flex">
+                {props.user.id &&
+                  <div className="governance-table__cell governance-table__cell_id" />
+                }
+                <div className="governance-table__cell governance-table__cell_name governance-table__cell_name_flex ">
+                  <span className="inline inline_small">
+                    <span className="inline__item">Organization</span>
+                  </span>
+                </div>
+                <div className="governance-table__cell governance-table__cell_votes">Votes</div>
+                <div className="governance-table__cell governance-table__cell_amount">Vote Amount, UOS</div>
+                <div className="governance-table__cell governance-table__cell_state">State</div>
+              </div>
+            </div>
           </div>
 
           <div className="governance-all__table">
             {route === 1 ?
               <GovernanceTable
+                withoutTable
                 data={props.table}
               /> : null
             }
             {route === 2 ?
               <GovernanceTable
+                withoutTable
                 data={props.selectedNodes}
               /> : null
             }

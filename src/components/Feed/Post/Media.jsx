@@ -6,22 +6,24 @@ import React, { PureComponent } from 'react';
 import { getPostById } from '../../../store/posts';
 import { selectUser } from '../../../store/selectors/user';
 import { createComment } from '../../../actions/comments';
-import { getFileUrl } from '../../../utils/upload';
-import { getUserName, getUserUrl } from '../../../utils/user';
+import { getUserName } from '../../../utils/user';
 import { getUserById } from '../../../store/users';
-import { getPostUrl, getPostTypeById } from '../../../utils/posts';
+import { getPostTypeById, getPostCover } from '../../../utils/posts';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedFooter from './PostFeedFooter';
 import PostCard from '../../PostMedia/PostCard';
+import urls from '../../../utils/urls';
 
 class Media extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
+
     if (!post) {
       return null;
     }
 
     const user = getUserById(this.props.users, post.userId);
+
     if (!user) {
       return null;
     }
@@ -34,18 +36,18 @@ class Media extends PureComponent {
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
-          profileLink={getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
+          profileLink={urls.getUserUrl(user.id)}
+          avatarUrl={urls.getFileUrl(user.avatarFilename)}
         />
 
         <PostCard
           onFeed
-          coverUrl={getFileUrl(post.mainImageFilename)}
+          coverUrl={getPostCover(post)}
           rate={post.currentRate}
           title={post.title || post.leadingText}
-          url={getPostUrl(post.id)}
-          userUrl={getUserUrl(post.user && post.user.id)}
-          userImageUrl={getFileUrl(post.user && post.user.avatarFilename)}
+          url={urls.getPostUrl(post)}
+          userUrl={urls.getUserUrl(post.userId)}
+          userImageUrl={urls.getFileUrl(user.avatarFilename)}
           userName={getUserName(post.user)}
           accountName={post.user && post.user.accountName}
           tags={post.postTypeId && [getPostTypeById(post.postTypeId)]}

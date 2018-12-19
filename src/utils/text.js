@@ -15,7 +15,7 @@ export const getTextContent = memoize((content) => {
 });
 
 export const sanitizePostText = memoize(html => sanitizeHtml(html, {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'h2']),
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'h2', 'h1']),
   allowedIframeHostnames: ['www.youtube.com'],
   allowedSchemes: ['http', 'https'],
   allowedAttributes: {

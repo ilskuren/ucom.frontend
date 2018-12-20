@@ -29,9 +29,9 @@ class DescDirectPost extends PureComponent {
         {this.props.desc.length >= 100 ? (
           <div>
             {this.state.isHidden ? (
-              <span>{this.resctrictText(this.props.desc)} </span>
+              <span>{this.resctrictText(this.props.desc)}</span>
             ) : (
-              <span>{this.props.desc} </span>
+              <span>{this.props.desc}</span>
             )}
             <span
               role="presentation"

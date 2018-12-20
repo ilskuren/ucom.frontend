@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import loader from '../../utils/loader';
 import api from '../../api';
-import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID } from '../../utils/feed';
+import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID, TAG_FEED_ID } from '../../utils/feed';
 import FeedInput from './FeedInput';
 import { POST_TYPE_DIRECT_ID } from '../../utils/posts';
 import Post from './Post/Post';
@@ -15,12 +15,14 @@ const getFeedFunctions = {
   [USER_NEWS_FEED_ID]: api.getUserNewsFeed,
   [USER_WALL_FEED_ID]: api.getUserWallFeed,
   [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed,
+  [TAG_FEED_ID]: api.getTagWallFeed,
 };
 
 const createCommentPostFunctions = {
   [USER_NEWS_FEED_ID]: api.createUserCommentPost,
   [USER_WALL_FEED_ID]: api.createUserCommentPost,
   [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost,
+  [TAG_FEED_ID]: api.createUserCommentPost,
 };
 
 const Feed = (props) => {

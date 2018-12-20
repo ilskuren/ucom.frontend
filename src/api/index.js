@@ -145,6 +145,13 @@ class Api {
   }
 
   @bind
+  async getTag(id) {
+    const response = await this.actions.get(`/api/v1/tags/${id}`);
+
+    return humps(response.data);
+  }
+
+  @bind
   async vote(isUp, postId, commentId) {
     let url = `/api/v1/posts/${postId}`;
 

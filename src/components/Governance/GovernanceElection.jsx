@@ -42,7 +42,7 @@ const GovernanceElection = (props) => {
           <div className="governance-election__nav-bar">
             <div className="toolbar toolbar_responsive">
               <div className="toolbar__main">
-                <div className="menu menu_simple-tabs">
+                <div className="menu menu_simple-tabs meny_bottom">
                   <div className="menu__item">
                     <div
                       className={`menu__link title title_small ${route === 1 ? 'menu__link_active' : ''}`}

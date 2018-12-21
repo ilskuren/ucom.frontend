@@ -145,8 +145,44 @@ class Api {
   }
 
   @bind
-  async getTag(id) {
-    const response = await this.actions.get(`/api/v1/tags/${id}`);
+  async getTag(title) {
+    const response = await this.actions.get(`/api/v1/tags/${title}`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getTagWallFeed({
+    tagTitle,
+    perPage,
+    page,
+    lastId,
+  }) {
+    const response = await this.actions.get(`/api/v1/tags/${tagTitle}/wall-feed/?page=${page}&per_page=${perPage}&last_id=${lastId}`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getTagOrgs({
+    tagTitle,
+    perPage,
+    page,
+    lastId,
+  }) {
+    const response = await this.actions.get(`/api/v1/tags/${tagTitle}/organizations/?page=${page}&per_page=${perPage}&last_id=${lastId}`);
+
+    return humps(response.data);
+  }
+
+  @bind
+  async getTagUsers({
+    tagTitle,
+    perPage,
+    page,
+    lastId,
+  }) {
+    const response = await this.actions.get(`/api/v1/tags/${tagTitle}/users/?&v2=true&page=${page}&per_page=${perPage}&last_id=${lastId}`);
 
     return humps(response.data);
   }

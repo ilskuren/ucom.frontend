@@ -9,28 +9,34 @@ import api from '../api';
 import TagOrganizations from '../components/Tag/TagOrganizations';
 import TagUsers from '../components/Tag/TagUsers';
 import TagCreatedAt from '../components/Tag/TagCreatedAt';
+import { addUsers } from '../actions/users';
+import { addOrganizations } from '../actions/organizations';
+import { addTags } from '../actions/tags';
 
 const Tag = (props) => {
-  const tagId = Number(props.match.params.id);
+  const tagTitle = props.match.params.title;
   const userId = 187;
-  const [tag, setTag] = useState({});
+  const [tag, setTag] = useState([]);
   const [tagOrgs, setTagOrgs] = useState([]);
+  const [tagUsers, setTagUsers] = useState([]);
 
   const getTag = async () => {
     try {
-      const tag = await api.getTag(props.match.params.id);
+      const tag = await api.getTag(props.match.params.title);
       setTag(tag);
+      props.addTags([tag]);
       setTagOrgs(tag.orgs.data);
+      setTagUsers(tag.users.data);
     } catch (e) {
       console.error(e);
     }
   };
 
   useEffect(() => {
-    if (tagId) {
-      getTag(tagId);
+    if (tagTitle) {
+      getTag(tagTitle);
     }
-  }, [tagId]);
+  }, [tagTitle]);
 
   return (
     <LayoutBase>
@@ -48,12 +54,10 @@ const Tag = (props) => {
             </div>
 
             <div className="grid__item">
+              <TagUsers users={tagUsers} />
               <TagOrganizations
                 orgs={tagOrgs}
                 orgsAmount={tag.orgs && tag.orgs.metadata && tag.orgs.metadata.totalAmount}
-              />
-              <TagUsers
-                users={tag.users}
               />
               <TagCreatedAt createdAt={tag.createdAt} />
             </div>
@@ -69,5 +73,8 @@ export default connect(
     posts: state.posts,
   }),
   dispatch => bindActionCreators({
+    addUsers,
+    addOrganizations,
+    addTags,
   }, dispatch),
 )(Tag);

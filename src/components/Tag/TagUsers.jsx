@@ -12,14 +12,14 @@ const TagUsers = (props) => {
     <div className="user-section">
       <div className="user-section__title">
         <h2 className="title title_xxsmall title_medium">
-          People&nbsp;
+          Top uses by&nbsp;
           {props.users.length > USERS_LIMIT && <em>{props.users.length}</em>}
         </h2>
       </div>
 
       <UserList
-        usersIds={props.users.map(item => item.id)}
         limit={USERS_LIMIT}
+        usersIds={props.users.map(item => item.id)}
       />
     </div>
   );

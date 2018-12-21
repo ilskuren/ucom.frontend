@@ -18,12 +18,12 @@ const GovernanceConfirmation = (props) => {
   const currentIdList = props.selectedNodes.map(e => e.id);
   const listToVote = list.filter(i => currentIdList.includes(i.id));
   const listToUnvote = list.filter(i => !currentIdList.includes(i.id));
-
+  const listToText = listToVote.map(e => e.title);
   return (
-    <div className="governance governance-election">
-      <div className="content content_base">
+    <div className="governance governance-election governance-confirmation">
+      <div className="content content_base content_base_low">
         <div className="content__inner">
-          <div className="content__title">
+          <div className="content__title_tall">
             <h1 className="title">Vote for these producers</h1>
           </div>
           <div className="governance-vote-title">
@@ -44,7 +44,7 @@ const GovernanceConfirmation = (props) => {
             </div>
             <div className="title title_xxsmall title_bold">Block Producers to Unvote </div>
           </div>
-          <div className="governance-all__table governance-all__table_margin">
+          <div className="governance-all__table governance-all__table_margin_low">
             <GovernanceTable
               data={listToUnvote}
             />
@@ -58,7 +58,10 @@ const GovernanceConfirmation = (props) => {
               <div className="governance-vote__text">
                 <div className="text">
                   <p>The intent of the ‘voteproducer’ action is to cast a valid vote for up to 30 BP candidates.</p>
-                  <p>As an authorized party I %username% wish to vote on behalf of %username% in favor of the block produser candidates ‘abc1234www’, ‘abc1234www’ with a voting weight equal to all tokens currently owned by %username% and staked for CPU or bandwidth.</p>
+                  <p>As an authorized party I {props.user.firstName} wish to vote on behalf of {props.user.firstName} in favor of the block produser candidates
+                    {listToText.length ? listToText.map((i, index) => (<span key={index}><strong> {i}</strong>{listToText.length === index - 2 ? '' : ','} </span>)) : <strong> None </strong>}
+                    with a voting weight equal to all tokens currently owned by {props.user.firstName} and staked for CPU or bandwidth.
+                  </p>
                   <p>If I am not the benefitial owner of these shares I stipulate I have proof that I’ve been authorized to vote these shares by their benefitial owner(s).</p>
                   <p>I stipulate I have not and will not accept anything of value in exchange for these votes, on penalty of confiscation of these tokens, and other penalties.</p>
                   <p>I acknowledge that using any system of authomatic voting, re-voting, or vote refreshing, or allowing such system to be used on my behalf or on behalf of another, is forbidden and doing so violates this contract.</p>
@@ -66,7 +69,7 @@ const GovernanceConfirmation = (props) => {
               </div>
             </Panel>
           </div>
-          <div className="governance-button governance-button_center">
+          <div className="governance-button-tall governance-button_center">
             <Button
               isUpper
               isStretched

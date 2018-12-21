@@ -9,7 +9,7 @@ import ModalContent from '../ModalContent';
 import OrganizationHead from '../Organization/OrganizationHead';
 import { governanceNodesGet, governanceHideVotePopup, governanceShowVotePopup, voteForBlockProducers } from '../../actions/governance';
 import { getOrganization } from '../../actions/organizations';
-import { setWalletEditStakeVisible, getAccountState } from '../../actions/wallet';
+import { getAccountState, setWalletEditStakeVisible } from '../../actions/wallet';
 import { getSelectedNodes } from '../../store/governance';
 import { selectUser } from '../../store/selectors/user';
 import LayoutBase from '../Layout/LayoutBase';
@@ -51,19 +51,12 @@ const Governance = (props) => {
 
   return (
     <LayoutBase>
-      {props.wallet.editStake.visible && (
-        <Popup onClickClose={() => props.setWalletEditStakeVisible(false)}>
-          <ModalContent mod="wallet-popup" onClickClose={() => props.setWalletEditStakeVisible(false)}>
-            <SetStakePopup />
-          </ModalContent>
-        </Popup>
-      )}
-
+      <SetStakePopup />
       {electionVisibility && (
         <Popup onClickClose={() => setElectionVisibility(false)}>
-          <ModalContent mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
+          <ModalContent closeText="Close" mod="governance-election" onClickClose={() => setElectionVisibility(false)}>
             <GovernanceElection {...{
-              stakedTokens, table, selectedNodes, setConfirmationVisibility,
+              stakedTokens, table, selectedNodes, setConfirmationVisibility, user,
             }}
             />
           </ModalContent>
@@ -72,7 +65,7 @@ const Governance = (props) => {
 
       {confirmationVisibility && (
         <Popup onClickClose={() => setCloseVisibility(true)}>
-          <ModalContent mod="governance-election" onClickClose={() => setCloseVisibility(true)}>
+          <ModalContent closeText="Close" mod="governance-election" onClickClose={() => setCloseVisibility(true)}>
             <GovernanceConfirmation {...{
               selectedNodes, table, user, setVotes,
             }}
@@ -150,7 +143,7 @@ const Governance = (props) => {
           <div className="sheets">
             <div className="sheets__list">
               <div className="sheets__item">
-                <OrganizationHead organizationId={organizationId} />
+                <OrganizationHead organizationId={organizationId} isOrganization />
               </div>
             </div>
 
@@ -184,7 +177,7 @@ const Governance = (props) => {
               } */}
 
               {props.governance.nodes.data.length > 0 &&
-                <div className="content__section content__section_small">
+                <div className="content__section content__section_medium">
                   <div className="governance-all">
                     <div className="governance-all__title">
                       <h2 className="title title_bold">Block Producers </h2>
@@ -225,8 +218,8 @@ export default connect(
     governanceHideVotePopup,
     governanceShowVotePopup,
     getOrganization,
-    setWalletEditStakeVisible,
     getAccountState,
     voteForBlockProducers,
+    setWalletEditStakeVisible,
   }, dispatch),
 )(Governance);

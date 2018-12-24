@@ -7,16 +7,13 @@ import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { getUserById } from '../../store/users';
 import { getFileUrl, getBase64FromFile } from '../../utils/upload';
-import { getUserUrl } from '../../utils/user';
 import { setPostData, validatePostField } from '../../actions';
 import { escapeQuotes } from '../../utils/text';
-import { ITEMS_LIMIT } from '../../utils/feed';
+import { tributeConfig } from '../../utils/feed';
 import IconClip from '../Icons/Clip';
 import IconClose from '../Icons/Close';
 import DropZone from '../DropZone';
 import { updatePost } from '../../actions/posts';
-import api from '../../api';
-import UserHTML from '../Icons/UserHTML.html';
 
 class FeedForm extends PureComponent {
   constructor(props) {
@@ -31,29 +28,12 @@ class FeedForm extends PureComponent {
   }
 
   componentDidMount() {
-    this.tribute = new Tribute({
-      values: (text, cb) => this.remoteSearch(text, users => cb(users)),
-      lookup: 'accountName',
-      fillAttr: 'accountName',
-      menuItemTemplate: item => `
-  <div class="tribute-container__item" contenteditable="false">
-    ${item.original.avatarFilename ?
-    `<img class="tribute-container__avatar" src="${getFileUrl(item.original.avatarFilename)}"/>` :
-    `<div class="tribute-container__avatar">${UserHTML}</div>`}
-    <a class="tribute-container__link" onclick="e => e.stopPropagation()" href="${getUserUrl(item.original.id)}" target="_blank" >${item.original.accountName}</a>
-  </div>`,
-    });
+    this.tribute = new Tribute(tributeConfig);
     this.tribute.attach(this.feedTextarea.current);
   }
 
   componentWillUnmount() {
     this.tribute.detach(this.feedTextarea.current);
-  }
-
-  remoteSearch = (text, cb) => {
-    api.searchUsers(text).then((data) => {
-      cb(data.slice(0, ITEMS_LIMIT));
-    });
   }
 
   sumbitForm = (message, fileImg) => {
@@ -98,11 +78,11 @@ class FeedForm extends PureComponent {
               value={this.state.message}
               onChange={e => this.setState({ message: e.target.value })}
               onKeyDown={(e) => {
-                  if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
-                    e.preventDefault();
-                    this.sumbitForm(this.state.message, this.state.fileImg);
-                  }
-                }}
+                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
+                  e.preventDefault();
+                  this.sumbitForm(this.state.message, this.state.fileImg);
+                }
+              }}
             />
           </div>
 

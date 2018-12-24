@@ -1,28 +1,59 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
+import Tribute from 'tributejs';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
 import { getUserById } from '../../store/users';
 import { getFileUrl, getBase64FromFile } from '../../utils/upload';
+import { getUserUrl } from '../../utils/user';
 import { setPostData, validatePostField } from '../../actions';
 import { escapeQuotes } from '../../utils/text';
+import { ITEMS_LIMIT } from '../../utils/feed';
 import IconClip from '../Icons/Clip';
 import IconClose from '../Icons/Close';
 import DropZone from '../DropZone';
 import { updatePost } from '../../actions/posts';
+import api from '../../api';
+import UserHTML from '../Icons/UserHTML.html';
 
 class FeedForm extends PureComponent {
   constructor(props) {
     super(props);
-
+    this.feedTextarea = React.createRef();
     this.state = {
       message: escapeQuotes(this.props.message) || '',
       base64Cover: '',
       fileImg: '',
       fileUrl: getFileUrl(this.props.mainImageFilename) || '',
     };
+  }
+
+  componentDidMount() {
+    this.tribute = new Tribute({
+      values: (text, cb) => this.remoteSearch(text, users => cb(users)),
+      lookup: 'accountName',
+      fillAttr: 'accountName',
+      menuItemTemplate: item => `
+  <div class="tribute-container__item" contenteditable="false">
+    ${item.original.avatarFilename ?
+    `<img class="tribute-container__avatar" src="${getFileUrl(item.original.avatarFilename)}"/>` :
+    `<div class="tribute-container__avatar">${UserHTML}</div>`}
+    <a class="tribute-container__link" onclick="e => e.stopPropagation()" href="${getUserUrl(item.original.id)}" target="_blank" >${item.original.accountName}</a>
+  </div>`,
+    });
+    this.tribute.attach(this.feedTextarea.current);
+  }
+
+  componentWillUnmount() {
+    this.tribute.detach(this.feedTextarea.current);
+  }
+
+  remoteSearch = (text, cb) => {
+    api.searchUsers(text).then((data) => {
+      cb(data.slice(0, ITEMS_LIMIT));
+    });
   }
 
   sumbitForm = (message, fileImg) => {
@@ -59,6 +90,7 @@ class FeedForm extends PureComponent {
 
           <div className="feed-form__message">
             <textarea
+              ref={this.feedTextarea}
               autoFocus
               rows="4"
               className="feed-form__textarea"
@@ -66,11 +98,11 @@ class FeedForm extends PureComponent {
               value={this.state.message}
               onChange={e => this.setState({ message: e.target.value })}
               onKeyDown={(e) => {
-                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
-                  e.preventDefault();
-                  this.sumbitForm(this.state.message, this.state.fileImg);
-                }
-              }}
+                  if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
+                    e.preventDefault();
+                    this.sumbitForm(this.state.message, this.state.fileImg);
+                  }
+                }}
             />
           </div>
 

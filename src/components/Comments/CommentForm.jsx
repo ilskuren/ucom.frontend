@@ -8,6 +8,7 @@ import { getFileUrl } from '../../utils/upload';
 import { authShowPopup } from '../../actions/auth';
 import { selectUser } from '../../store/selectors';
 import { getTextContent } from '../../utils/text';
+import TributeWrapper from '../TributeWrapper';
 
 class CommentForm extends PureComponent {
   constructor(props) {
@@ -71,31 +72,33 @@ class CommentForm extends PureComponent {
           </div>
 
           <div className="toolbar__main">
-            <textarea
-              ref={(el) => { this.el = el; }}
-              autoFocus={this.props.autoFocus} //eslint-disable-line
-              value={this.state.comment}
-              rows={this.state.active ? 3 : 1}
-              className="comment-form__input"
-              placeholder="Leave a comment"
-              maxLength="2000"
-              onFocus={() => this.show()}
-              onBlur={() => this.hide()}
-              onChange={(e) => {
-                this.setState({ comment: e.target.value });
-              }}
-              onKeyDown={(e) => {
-                if (this.state.comment.trim().length === 0) {
-                  return;
-                }
+            <TributeWrapper>
+              <textarea
+                ref={(el) => { this.el = el; }}
+                autoFocus={this.props.autoFocus} //eslint-disable-line
+                value={this.state.comment}
+                rows={this.state.active ? 3 : 1}
+                className="comment-form__input"
+                placeholder="Leave a comment"
+                maxLength="2000"
+                onFocus={() => this.show()}
+                onBlur={() => this.hide()}
+                onChange={(e) => {
+                  this.setState({ comment: e.target.value });
+                }}
+                onKeyDown={(e) => {
+                  if (this.state.comment.trim().length === 0) {
+                    return;
+                  }
 
-                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
-                  e.target.blur();
-                  e.preventDefault();
-                  this.submit();
-                }
-              }}
-            />
+                  if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
+                    e.target.blur();
+                    e.preventDefault();
+                    this.submit();
+                  }
+                }}
+              />
+            </TributeWrapper>
 
             {this.state.active && (
               <div className="comment-form__actions">

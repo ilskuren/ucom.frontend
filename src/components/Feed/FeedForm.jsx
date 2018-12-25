@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
-import Tribute from 'tributejs';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import { selectUser } from '../../store/selectors/user';
@@ -9,31 +8,21 @@ import { getUserById } from '../../store/users';
 import { getFileUrl, getBase64FromFile } from '../../utils/upload';
 import { setPostData, validatePostField } from '../../actions';
 import { escapeQuotes } from '../../utils/text';
-import { tributeConfig } from '../../utils/feed';
 import IconClip from '../Icons/Clip';
 import IconClose from '../Icons/Close';
 import DropZone from '../DropZone';
+import TributeWrapper from '../TributeWrapper';
 import { updatePost } from '../../actions/posts';
 
 class FeedForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.feedTextarea = React.createRef();
     this.state = {
       message: escapeQuotes(this.props.message) || '',
       base64Cover: '',
       fileImg: '',
       fileUrl: getFileUrl(this.props.mainImageFilename) || '',
     };
-  }
-
-  componentDidMount() {
-    this.tribute = new Tribute(tributeConfig);
-    this.tribute.attach(this.feedTextarea.current);
-  }
-
-  componentWillUnmount() {
-    this.tribute.detach(this.feedTextarea.current);
   }
 
   sumbitForm = (message, fileImg) => {
@@ -69,21 +58,22 @@ class FeedForm extends PureComponent {
           </div>
 
           <div className="feed-form__message">
-            <textarea
-              ref={this.feedTextarea}
-              autoFocus
-              rows="4"
-              className="feed-form__textarea"
-              placeholder="Leave a comment"
-              value={this.state.message}
-              onChange={e => this.setState({ message: e.target.value })}
-              onKeyDown={(e) => {
-                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
-                  e.preventDefault();
-                  this.sumbitForm(this.state.message, this.state.fileImg);
-                }
-              }}
-            />
+            <TributeWrapper>
+              <textarea
+                autoFocus
+                rows="4"
+                className="feed-form__textarea"
+                placeholder="Leave a comment"
+                value={this.state.message}
+                onChange={e => this.setState({ message: e.target.value })}
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
+                    e.preventDefault();
+                    this.sumbitForm(this.state.message, this.state.fileImg);
+                  }
+                }}
+              />
+            </TributeWrapper>
           </div>
 
           <div>

@@ -6,6 +6,7 @@ import React, { PureComponent } from 'react';
 import MediumUpload from '../utils/medium/mediumUpload';
 import MediumPost from '../utils/medium/mediumPost';
 import { addErrorNotification } from '../actions/notifications';
+import TributeWrapper from './TributeWrapper';
 
 class Medium extends PureComponent {
   componentDidMount() {
@@ -58,7 +59,9 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <div className="post-content" ref={(el) => { this.el = el; }} />
+      <TributeWrapper>
+        <div className="post-content" ref={(el) => { this.el = el; }} />
+      </TributeWrapper>
     );
   }
 }

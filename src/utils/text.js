@@ -4,6 +4,11 @@ import sanitizeHtml from 'sanitize-html';
 const URL_REGEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
 export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
+const makeLinkTag = (match) => {
+  const link = match.replace('#', '').trim();
+  return `<a href='/tags/${link}'class='tag_link'>${match}</a>`;
+};
+export const checkHashTag = memoize((text = '') => text.replace(/(^|\s)(#[a-z\d-]+)/ig, makeLinkTag));
 export const removeMultipleNewLines = memoize((str = '') => str.replace(/(\r\n|\r|\n){2,}/g, '$1\n'));
 export const makeLink = memoize((text = '') => text.replace(URL_REGEX, url => `<a target="_blank" href="${url}">${url}</a>`));
 
@@ -20,7 +25,7 @@ export const sanitizePostText = memoize(html => sanitizeHtml(html, {
   allowedSchemes: ['http', 'https'],
   allowedAttributes: {
     iframe: ['src'],
-    a: ['href', 'name', 'target'],
+    a: ['href', 'name', 'target', 'class'],
     img: ['src'],
   },
   allowedClasses: {
@@ -43,7 +48,7 @@ export const sanitizeCommentText = memoize(html => sanitizeHtml(html, {
   allowedTags: ['a'],
   allowedSchemes: ['http', 'https'],
   allowedAttributes: {
-    a: ['href', 'target'],
+    a: ['href', 'target', 'class'],
   },
   textFilter: text => escapeQuotes(removeMultipleNewLines(makeLink(text))),
 }));

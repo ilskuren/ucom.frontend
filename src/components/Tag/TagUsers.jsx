@@ -4,7 +4,7 @@ import UserList from '../User/UserList';
 const USERS_LIMIT = 5;
 
 const TagUsers = (props) => {
-  if (!props.users) {
+  if (props.users === []) {
     return null;
   }
 
@@ -19,7 +19,7 @@ const TagUsers = (props) => {
 
       <UserList
         limit={USERS_LIMIT}
-        usersIds={props.users.map(item => item.id)}
+        usersIds={props.users}
       />
     </div>
   );

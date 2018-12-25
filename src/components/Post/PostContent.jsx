@@ -12,7 +12,7 @@ import { getPostEditUrl, getPostTypeById } from '../../utils/posts';
 import { selectUser } from '../../store/selectors/user';
 import { getPostById } from '../../store/posts';
 import { getFileUrl } from '../../utils/upload';
-import { escapeQuotes, sanitizePostText } from '../../utils/text';
+import { escapeQuotes, sanitizePostText, checkHashTag } from '../../utils/text';
 import { getOrganizationUrl } from '../../utils/organization';
 
 const PostContent = (props) => {
@@ -87,7 +87,7 @@ const PostContent = (props) => {
               <div className="posts__lead-text">{escapeQuotes(post.leadingText)}</div>
             )}
             {post.description && (
-              <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(post.description) }} />
+              <div className="post-content" dangerouslySetInnerHTML={{ __html: checkHashTag(sanitizePostText(post.description)) }} />
             )}
           </div>
           <div className="posts__comments">

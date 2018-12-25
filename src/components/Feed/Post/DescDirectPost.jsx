@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { sanitizeCommentText } from '../../../utils/text';
+import { sanitizeCommentText, checkHashTag, escapeQuotes } from '../../../utils/text';
 
 class DescDirectPost extends PureComponent {
   constructor(props) {
@@ -23,15 +23,18 @@ class DescDirectPost extends PureComponent {
     return text.substring(0, count);
   }
 
+
   render() {
+    let text = escapeQuotes(this.props.desc);
+    text = checkHashTag(this.props.desc);
     return (
       <div>
-        {this.props.desc.length >= 100 ? (
+        {text.length >= 100 ? (
           <div>
             {this.state.isHidden ? (
-              <span>{this.resctrictText(this.props.desc)}</span>
+              <span>{this.resctrictText(text)}</span>
             ) : (
-              <span>{this.props.desc}</span>
+              <span>{text}</span>
             )}
             <span
               role="presentation"
@@ -42,7 +45,7 @@ class DescDirectPost extends PureComponent {
             </span>
           </div>
         ) : (
-          <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(this.props.desc) }} />
+          <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(text) }} />
         )}
       </div>
     );

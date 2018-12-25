@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Rate from '../Rate';
 import { selectUser } from '../../store/selectors/user';
-import UserFollowButton from '../User/UserFollowButton';
-import Followers from '../Followers/Followers';
+// import Followers from '../Followers/Followers';
 
 const TagHead = props => (
   <div className="tag-header">
@@ -20,9 +19,7 @@ const TagHead = props => (
 
     <div className="tag-header__content">
       <div className="tag-header__section">
-        <div className="tag-header__follow-button">
-          <UserFollowButton userId={187} />
-        </div>
+        <div className="tag-header__follow-button" />
       </div>
 
       <div className="tag-header__section">
@@ -48,16 +45,37 @@ const TagHead = props => (
               </div>
             </div>
           </div>
-          {/* user.followedBy && ( */}
+          <div className="inline__item">
+            <div className="follwers">
+              <div className="follwers__main">
+                <div className="follwers__count">
+                  <button
+                    className="button-clean"
+                  >
+                    {props.usersAmount}
+                  </button>
+                </div>
+
+                <div className="follwers__title">
+                  <button
+                    className="button-clean"
+                  >
+                    USES
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* user.followedBy && (
           <div className="inline__item">
             <Followers title="Followers" usersIds={[187, 200]} />
           </div>
-          {/* ) */}
-          {/* user.iFollow && ( */}
+          )
+          user.iFollow && (
           <div className="inline__item">
             <Followers title="Following" usersIds={[187, 200]} />
           </div>
-          {/* )} */}
+          )} */}
         </div>
       </div>
     </div>

@@ -40,8 +40,9 @@ const Feed = (props) => {
         perPage,
         userId: props.userId,
         organizationId: props.organizationId,
+        tagTitle: props.tagTitle,
+        lastTagId: props.lastTagId,
       };
-
       const data = await getFeedFunctions[props.feedTypeId](params);
       props.addPosts(data.data);
       setMetadata(data.metadata);
@@ -83,7 +84,7 @@ const Feed = (props) => {
 
   useEffect(() => {
     fetchPosts({ page: 1, perPage: 10 });
-  }, [props.userId, props.organizationId]);
+  }, [props.userId, props.organizationId, props.tagTitle, props.lastTagId]);
 
   return (
     <div className="feed">

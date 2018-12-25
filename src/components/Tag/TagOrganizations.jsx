@@ -4,7 +4,7 @@ import OrganizationList from '../Organization/OrganizationList';
 const ORGANIZATION_LIMIT = 5;
 
 const TagOrganizations = (props) => {
-  if (!props.orgs) {
+  if (props.orgs.length === 0) {
     return null;
   }
 
@@ -19,7 +19,7 @@ const TagOrganizations = (props) => {
 
       <OrganizationList
         limit={ORGANIZATION_LIMIT}
-        organizationsIds={props.orgs.map(item => item.id)}
+        organizationsIds={props.orgs}
       />
     </div>
   );

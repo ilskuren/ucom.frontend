@@ -194,16 +194,8 @@ const WalletActivityItem = (props) => {
   }
 
   const [visibility, setVisibility] = useState(false);
-
-  const show = () => {
-    document.querySelector('.user-menu').classList.add('user-menu_blur');
-    setVisibility(true);
-  };
-  const hide = () => {
-    document.querySelector('.user-menu').classList.remove('user-menu_blur');
-    setVisibility(false);
-  };
-
+  const show = () => setVisibility(true);
+  const hide = () => setVisibility(false);
 
   const action = getActionText(props);
   const walletAvatar = getAvatar(props);

@@ -1,47 +1,5 @@
 import MediumEditor from 'medium-editor';
 
-export const parseContent = (html) => {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  const childNodes = Array.from(div.childNodes);
-  const img = div.querySelector('img');
-
-  let title = null;
-  let leadingText = null;
-  let entityImages = null;
-
-  for (let i = 0; i < childNodes.length; i++) {
-    if (childNodes[i].textContent) {
-      title = childNodes[i].textContent;
-      childNodes.splice(i, 1);
-      break;
-    }
-  }
-
-  for (let i = 0; i < childNodes.length; i++) {
-    if (childNodes[i].textContent) {
-      leadingText = childNodes[i].textContent;
-      break;
-    }
-  }
-
-  if (!leadingText) {
-    leadingText = title;
-  }
-
-  if (img) {
-    entityImages = {
-      articleTitle: [{
-        url: img.src,
-      }],
-    };
-  }
-
-  return ({
-    title, leadingText, entityImages, description: html,
-  });
-};
-
 class Input {
   constructor(tagName) {
     this.el = document.createElement(tagName);
@@ -91,21 +49,19 @@ export default class MediumPost extends MediumEditor.Extension {
     });
 
     this.base.subscribe('editableInput', (e) => {
-      if (!(e instanceof InputEvent)) {
-        return;
-      }
+      if (e instanceof InputEvent) {
+        const el = this.base.getSelectedParentElement();
+        const hasContent = el.textContent.length > 0;
 
-      const el = this.base.getSelectedParentElement();
-      const hasContent = el.textContent.length > 0;
-
-      if (el === title.el) {
-        title.togglePlaceholder(!hasContent);
-      } else if (el === leadText.el) {
-        leadText.togglePlaceholder(!hasContent);
-      } else if (el === mainText.el) {
-        mainText.togglePlaceholder(!hasContent);
-      } else {
-        el.classList.remove('medium-post-placeholder');
+        if (el === title.el) {
+          title.togglePlaceholder(!hasContent);
+        } else if (el === leadText.el) {
+          leadText.togglePlaceholder(!hasContent);
+        } else if (el === mainText.el) {
+          mainText.togglePlaceholder(!hasContent);
+        } else {
+          el.classList.remove('medium-post-placeholder');
+        }
       }
     });
   }

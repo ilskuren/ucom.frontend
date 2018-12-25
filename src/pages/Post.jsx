@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { fetchPost } from '../actions/posts';
@@ -17,9 +15,9 @@ import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
 import { getPostBody } from '../utils/posts';
 
-const Post = (props) => {
+const PostPage = (props) => {
   useEffect(() => {
-    props.fetchPost(props.match.params.id);
+    fetchPost(props.match.params.id);
   }, [props.match.params.id]);
 
   const post = getPostById(props.posts, props.match.params.id);
@@ -83,17 +81,10 @@ const Post = (props) => {
   );
 };
 
-Post.propTypes = {
-  fetchPost: PropTypes.func.isRequired,
-};
+export const getPostPageData = postId => fetchPost(postId);
 
-export default connect(
-  state => ({
-    user: state.user.data,
-    posts: state.posts,
-    users: state.users,
-  }),
-  dispatch => bindActionCreators({
-    fetchPost,
-  }, dispatch),
-)(Post);
+export default connect(state => ({
+  user: state.user.data,
+  posts: state.posts,
+  users: state.users,
+}))(PostPage);

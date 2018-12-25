@@ -4,8 +4,11 @@ import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import loader from '../utils/loader';
 import { addServerErrorNotification } from './notifications';
 import { setPostCommentCount } from './posts';
+import store from '../store';
 
-export const addComments = payload => ({ type: 'ADD_COMMENTS', payload });
+export const addComments = payload =>
+  store.dispatch({ type: 'ADD_COMMENTS', payload });
+
 export const setCommentVote = payload => ({ type: 'SET_COMMENT_VOTE', payload });
 
 export const commentVote = payload => (dispatch) => {
@@ -29,7 +32,7 @@ export const createComment = payload => (dispatch) => {
   loader.start();
   api.createComment(payload.data, payload.postId, payload.commentId)
     .then((data) => {
-      dispatch(addComments([data]));
+      addComments([data]);
       dispatch(setPostCommentCount({
         postId: payload.postId,
         commentsCount: (payload.commentsCount || 0) + 1,

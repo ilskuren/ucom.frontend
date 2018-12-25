@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
@@ -17,21 +16,22 @@ import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import Post from '../components/Feed/Post/Post';
 import urls from '../utils/urls';
-import Feed from '../components/Feed/Feed';
-import { USER_WALL_FEED_ID } from '../utils/feed';
+import Feed from '../components/Feed/FeedUser';
+import { USER_WALL_FEED_ID, FEED_PER_PAGE } from '../utils/feed';
+import { feedGetUserPosts } from '../actions/feed';
 
 const UserPage = (props) => {
-  const userId = Number(props.match.params.id);
+  const userId = Number(props.match.params.userId);
   const postId = Number(props.match.params.postId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    props.fetchUser(userId);
+    fetchUser(userId);
   }, [userId]);
 
   useEffect(() => {
     if (postId) {
-      props.fetchPost(postId);
+      fetchPost(postId);
     }
   }, [postId]);
 
@@ -44,7 +44,7 @@ const UserPage = (props) => {
 
   return (
     <LayoutBase>
-      {Boolean(post) &&
+      {post &&
         <Popup onClickClose={() => props.history.push(urls.getUserUrl(userId))}>
           <ModalContent mod="post">
             <Post id={post.id} postTypeId={post.postTypeId} />
@@ -59,7 +59,10 @@ const UserPage = (props) => {
           <div className="grid grid_user">
             <div className="grid__item">
               <UserAbout userId={userId} />
-              <Feed userId={userId} feedTypeId={USER_WALL_FEED_ID} />
+              <Feed
+                userId={userId}
+                feedTypeId={USER_WALL_FEED_ID}
+              />
             </div>
 
             <div className="grid__item">
@@ -75,14 +78,20 @@ const UserPage = (props) => {
   );
 };
 
-export default connect(
-  state => ({
-    users: state.users,
-    posts: state.posts,
-    user: selectUser(state),
-  }),
-  dispatch => bindActionCreators({
-    fetchUser,
-    fetchPost,
-  }, dispatch),
-)(UserPage);
+export const getUserPageData = (params) => {
+  const userPromise = fetchUser(params.userId);
+  const postPromise = params.postId ? fetchPost(params.postId) : null;
+  const feedPromise = feedGetUserPosts(USER_WALL_FEED_ID, {
+    page: 1,
+    perPage: FEED_PER_PAGE,
+    userId: params.userId,
+  });
+
+  return Promise.all([userPromise, postPromise, feedPromise]);
+};
+
+export default connect(state => ({
+  users: state.users,
+  posts: state.posts,
+  user: selectUser(state),
+}))(UserPage);

@@ -4,18 +4,22 @@ import loader from '../utils/loader';
 import { addUsers } from './users';
 import { addServerErrorNotification } from './notifications';
 import { getToken } from '../utils/token';
+import store from '../store';
 
-export const addOrganizations = payload => ({ type: 'ADD_ORGANIZATIONS', payload });
+export const addOrganizations = (organizations) => {
+  store.dispatch({ type: 'ADD_ORGANIZATIONS', payload: organizations });
+};
+
 export const addOrganizationFollower = payload => ({ type: 'ADD_ORGANIZATION_FOLLOWER', payload });
 export const removeOrganizationFollower = payload => ({ type: 'REMOVE_ORGANIZATION_FOLLOWER', payload });
 
-export const getOrganization = organizationId => (dispatch) => {
+export const getOrganization = organizationId => () => {
   loader.start();
   api.getOrganization(organizationId)
     .then(humps)
     .then((data) => {
-      dispatch(addUsers([data.data.user].concat(data.data.followedBy, data.data.usersTeam)));
-      dispatch(addOrganizations([data.data]));
+      addUsers([data.data.user].concat(data.data.followedBy, data.data.usersTeam));
+      addOrganizations([data.data]);
     })
     .catch(() => loader.done())
     .then(() => loader.done());

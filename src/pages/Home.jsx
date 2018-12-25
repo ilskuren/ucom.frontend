@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
-import PostsGroupTabs from '../components/PostMedia/PostsGroupTabs';
+import PostsGroupMain from '../components/PostMedia/PostsGroupMain';
 import Promo from '../components/Promo';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { selectUser } from '../store/selectors';
@@ -12,12 +11,15 @@ import UserOrganizations from '../components/User/UserOrganizations';
 import { getUserById } from '../store/users';
 import Feed from '../components/Feed/Feed';
 import { USER_NEWS_FEED_ID } from '../utils/feed';
+import { getMainPostGroupData } from '../actions/mainPostGroup';
 
 const HomePage = (props) => {
   useEffect(() => {
     if (props.user.id) {
-      props.fetchUser(props.user.id);
+      fetchUser(props.user.id);
     }
+
+    getMainPostGroupData();
   }, []);
 
   const user = getUserById(props.users, props.user.id);
@@ -26,7 +28,7 @@ const HomePage = (props) => {
     <LayoutBase>
       <div className="content">
         <div className="content__inner">
-          <PostsGroupTabs />
+          <PostsGroupMain />
         </div>
       </div>
 
@@ -58,16 +60,15 @@ const HomePage = (props) => {
   );
 };
 
-HomePage.propTypes = {
-  fetchUser: PropTypes.func.isRequired,
-};
+export const getHomePageData = () =>
+  Promise.all([
+    getMainPostGroupData(),
+  ]);
 
 export default connect(
   state => ({
     user: selectUser(state),
     users: state.users,
   }),
-  dispatch => ({
-    fetchUser: userId => dispatch(fetchUser(userId)),
-  }),
+  null,
 )(HomePage);

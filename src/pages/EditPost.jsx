@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import LayoutClean from '../components/Layout/LayoutClean';
 import CreateBy from '../components/CreateBy';
 import Button from '../components/Button';
-import PostFormEditor from '../components/PostFormEditor';
+import Medium from '../components/Medium';
 import api from '../api';
 import { selectUser } from '../store/selectors';
 import { postSetSaved, setPostData, validatePost, resetPost } from '../actions';
@@ -14,10 +14,12 @@ import { authShowPopup } from '../actions/auth';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 import Close from '../components/Close';
+import { parseContent } from '../utils/medium/mediumPost';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
   const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const getPost = async () => {
     loader.start();
@@ -31,6 +33,7 @@ const EditPost = (props) => {
     }
 
     loader.done();
+    setLoaded(true);
     setLoading(false);
   };
 
@@ -90,7 +93,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
               </div>
               <div className="edit-post-toolbar__close">
                 <Close />
@@ -102,7 +105,23 @@ const EditPost = (props) => {
         <div className="edit-post__content">
           <div className="edit-post__container">
             <div className="edit-post__form">
-              <PostFormEditor />
+              {(!postId || loaded) &&
+                <Medium
+                  value={props.post.data.description}
+                  onChange={(description) => {
+                    props.setPostData(parseContent(description));
+                    props.validatePost();
+                  }}
+                  onUploadStart={() => {
+                    setLoading(true);
+                    loader.start();
+                  }}
+                  onUploadDone={() => {
+                    setLoading(false);
+                    loader.done();
+                  }}
+                />
+              }
             </div>
           </div>
         </div>
@@ -114,7 +133,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
               </div>
             </div>
           </div>

@@ -42,7 +42,7 @@ const GovernanceElection = (props) => {
           <div className="governance-election__nav-bar">
             <div className="toolbar toolbar_responsive">
               <div className="toolbar__main">
-                <div className="menu menu_simple-tabs">
+                <div className="menu menu_simple-tabs meny_bottom">
                   <div className="menu__item">
                     <div
                       className={`menu__link title title_small ${route === 1 ? 'menu__link_active' : ''}`}
@@ -52,7 +52,7 @@ const GovernanceElection = (props) => {
                        Select Block Producers
                     </div>
                   </div>
-                  <div className="menu__item">
+                  <div className="menu__item_narrow">
                     <div
                       className={`menu__link title title_small ${route === 2 ? 'menu__link_active' : ''}`}
                       onClick={() => setRoute(2)}
@@ -61,7 +61,7 @@ const GovernanceElection = (props) => {
                       {props.selectedNodes.length} Selected
                     </div>
                   </div>
-                  <div className="menu__item menu__item_left">
+                  <div className="menu__item_narrow menu__item_left">
                     <Button
                       theme="red-white"
                       text="Cast your vote"
@@ -71,16 +71,33 @@ const GovernanceElection = (props) => {
                 </div>
               </div>
             </div>
+            <div className="governance-table__head">
+              <div className="governance-table__row governance-table__row_flex">
+                {props.user.id &&
+                  <div className="governance-table__cell governance-table__cell_id" />
+                }
+                <div className="governance-table__cell governance-table__cell_name governance-table__cell_name_flex ">
+                  <span className="inline inline_small">
+                    <span className="inline__item">Organization</span>
+                  </span>
+                </div>
+                <div className="governance-table__cell governance-table__cell_votes">Votes</div>
+                <div className="governance-table__cell governance-table__cell_amount">Vote Amount, UOS</div>
+                <div className="governance-table__cell governance-table__cell_state">State</div>
+              </div>
+            </div>
           </div>
 
           <div className="governance-all__table">
             {route === 1 ?
               <GovernanceTable
+                withoutTable
                 data={props.table}
               /> : null
             }
             {route === 2 ?
               <GovernanceTable
+                withoutTable
                 data={props.selectedNodes}
               /> : null
             }

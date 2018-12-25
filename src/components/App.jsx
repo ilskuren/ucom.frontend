@@ -30,7 +30,10 @@ import Tag from '../pages/Tag';
 
 class App extends PureComponent {
   componentDidMount() {
-    enableGtm();
+    if (process.env.NODE_ENV === 'production') {
+      enableGtm();
+    }
+
     this.props.fetchMyself();
     this.props.initNotificationsListeners();
 

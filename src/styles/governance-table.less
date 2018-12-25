@@ -15,6 +15,8 @@
   line-height: normal;
   font-size: 10px;
   color: #585858;
+  position: absolute;
+  right: 0;
 }
 
 .governance-table__head {
@@ -29,6 +31,7 @@
 
   .governance-table__cell {
     border-bottom: 1px solid #E8ECEC;
+    padding: 24px 18px;
   }
 }
 
@@ -38,10 +41,20 @@
   }
 }
 
+.governance-table__row_flex {
+  display: flex;
+
+  .governance-table__cell {
+    display: flex;
+    align-items: center;
+  }  
+}
+
 .governance-table__cell {
   box-sizing: border-box;
-  padding: 24px;
-  // min-width: 120px;
+  height: 80px;
+  padding-left: 16px;
+  padding-right: 10px;
 
   @media (max-width: 1023px) {
     display: block;
@@ -53,14 +66,29 @@
   cursor: pointer;
 }
 
+.governance-table__cell_avatar {
+  width: 62px;
+}
+
+.governance-table__cell_name_flex {
+  flex: 1;
+}
+
+.governance-table__cell_id {
+  width: 40px;
+}
+
 .governance-table__cell_name {
-  width: 100%;
+  width: auto;
 
   @media (max-width: 1023px) {
     text-align: right;
   }
 }
 
+.governance-table__votes-block {
+  position: relative;
+}
 
 .governance-table__cell_votes,
 .governance-table__cell_amount,
@@ -68,9 +96,21 @@
   text-align: right;
 }
 
+.governance-table__cell_votes {
+  width: 76px;
+}
+
+.governance-table__cell_amount {
+  width: 161px;
+}
+
+.governance-table__cell_state {
+  width: 86px;
+}
 .governance-table__cell_id {
   font-size: 10px;
   text-align: right;
+  padding-right: 0;
 }
 
 .governance-table__body {
@@ -113,16 +153,12 @@
   .governance-table__cell_name {
     font-weight: 700;
   }
-
-  .governance-table__cell_votes,
-  .governance-table__cell_amount {
-    font-weight: 600;
-  }
 }
 
 .governance-table-checkbox {
   display: flex;
   align-items: center;
+  width: 24px;
 }
 
 .governance-table-checkbox__label {

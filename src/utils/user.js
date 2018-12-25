@@ -32,6 +32,16 @@ export const getUserName = (user) => {
   return userData.accountName;
 };
 
+export const getNickname = (user) => {
+  if (!user) {
+    return null;
+  }
+
+  const userData = humps(user);
+
+  return userData.accountName;
+};
+
 export const userIsFollowed = (followers, userId) => {
   if (!followers || !followers.length || !userId) {
     return false;

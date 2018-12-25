@@ -11,7 +11,7 @@ import { UserCardSimpleWrapper } from '../components/User/UserCardSimple';
 import UserFollowButton from '../components/User/UserFollowButton';
 import urls from '../utils/urls';
 import ButtonEdit from '../components/ButtonEdit';
-import { sanitizePostText } from '../utils/text';
+import { sanitizePostText, checkHashTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
@@ -33,6 +33,8 @@ const Post = (props) => {
   if (!user) {
     return null;
   }
+
+  post.description = checkHashTag(post.description);
 
   return (
     <LayoutBase>

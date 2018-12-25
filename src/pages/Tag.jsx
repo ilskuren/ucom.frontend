@@ -48,7 +48,7 @@ const Tag = (props) => {
 
           <div className="grid grid_user">
             <div className="grid__item">
-              {tag && tag.title && tag.posts && tag.posts.data &&
+              {tag &&
                 <Feed
                   userId={props.user.data.id}
                   feedTypeId={TAG_FEED_ID}

@@ -16,41 +16,24 @@ class EventsPage extends PureComponent {
       page: 0,
       hasMore: true,
       sortBy: '-current_rate',
+      perPage: 20,
       users: [],
     };
   }
 
+  componentWillMount() {
+    this.setState({ page: this.props.match.params.page });
+  }
+
   componentDidMount() {
-    this.loadMore();
+    this.setPaging({});
   }
 
-  loadMore = async () => {
+  setPaging = async ({ page, perPage, sortBy }) => {
     const params = {
-      page: this.state.page + 1,
-      sort_by: this.state.sortBy,
-      per_page: 20,
-    };
-
-    loader.start();
-
-    try {
-      const data = await api.getUsers(params);
-      this.setState(prevState => ({
-        users: [...prevState.users, ...data],
-        page: params.page,
-      }));
-    } catch (e) {
-      console.error(e);
-    }
-
-    loader.done();
-  }
-
-  changeSort = async (sortBy) => {
-    const params = {
-      page: 1,
-      sort_by: sortBy,
-      per_page: 20,
+      page: page || this.state.page,
+      sortBy: sortBy || this.state.sortBy,
+      perPage: perPage || this.state.perPage,
     };
 
     loader.start();
@@ -58,9 +41,10 @@ class EventsPage extends PureComponent {
     try {
       const data = await api.getUsers(params);
       this.setState({
-        users: data,
+        users: [...data],
+        page,
         sortBy,
-        page: 1,
+        perPage,
       });
     } catch (e) {
       console.error(e);
@@ -69,7 +53,35 @@ class EventsPage extends PureComponent {
     loader.done();
   }
 
+  // changeSort = async (sortBy) => {
+  //   const params = {
+  //     page: 1,
+  //     sort_by: sortBy,
+  //     per_page: 20,
+  //   };
+
+  //   loader.start();
+
+  //   try {
+  //     const data = await api.getUsers(params);
+  //     this.setState({
+  //       users: data,
+  //       sortBy,
+  //       page: 1,
+  //     });
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+
+  //   loader.done();
+  // }
+
   render() {
+    const {
+      page,
+      sortBy,
+      perPage,
+    } = this.state;
     return (
       <LayoutBase>
         <div className="content">
@@ -77,7 +89,6 @@ class EventsPage extends PureComponent {
             <div className="content__title content__title_narrow">
               <h1 className="title">People</h1>
             </div>
-
             {this.state.users && this.state.users.length > 0 &&
               <div className="table-content">
                 <div className="table-content__table">
@@ -101,7 +112,7 @@ class EventsPage extends PureComponent {
                               'list-table__cell',
                               { 'list-table__cell_sortable': item.sortable },
                             )}
-                            onClick={() => this.changeSort(`${this.state.sortBy === `-${item.name}` ? '' : '-'}${item.name}`)}
+                            onClick={() => this.setPaging({ sortBy: `${sortBy === `-${item.name}` ? '' : '-'}${item.name}` })}
                           >
                             <div className="list-table__title">
                               {item.title}
@@ -143,11 +154,28 @@ class EventsPage extends PureComponent {
                     </tbody>
                   </table>
                 </div>
+                {page &&
+                <div className="table-content__showmore">
+                  <button
+                    className="button-clean button-clean_link"
+                    onClick={() => this.setPaging({ page: page - 1 })}
+                  >
+                    Prev
+                  </button>
+                </div>}
+                <div className="table-content__showmore">
+                  <button
+                    className="button-clean button-clean_link"
+                    onClick={() => this.setPaging({ page: page + 1 })}
+                  >
+                    Next
+                  </button>
+                </div>
                 {this.state.hasMore && (
                   <div className="table-content__showmore">
                     <button
                       className="button-clean button-clean_link"
-                      onClick={() => this.loadMore()}
+                      onClick={() => this.setPaging({ perPage: perPage + 20 })}
                     >
                       Show More
                     </button>

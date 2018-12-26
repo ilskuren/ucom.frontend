@@ -13,7 +13,7 @@ import { sanitizePostText } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
-import { getPostBody } from '../utils/posts';
+import * as postsUtils from '../utils/posts';
 
 const PostPage = (props) => {
   const { postId } = props.match.params;
@@ -58,7 +58,7 @@ const PostPage = (props) => {
 
             <div className="post-body__main">
               <div className="post-body__content">
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(getPostBody(post)) }} />
+                <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(postsUtils.getPostBody(post)) }} />
               </div>
 
               <div className="post-body__comments">
@@ -84,7 +84,10 @@ const PostPage = (props) => {
 };
 
 export const getPostPageData = (store, { postId }) =>
-  store.dispatch(fetchPost(postId));
+  store.dispatch(fetchPost(postId))
+    .then(data => ({
+      contentMetaTags: postsUtils.getContentMetaTags(data),
+    }));
 
 export default connect(state => ({
   user: state.user.data,

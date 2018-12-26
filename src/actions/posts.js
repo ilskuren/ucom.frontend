@@ -43,6 +43,8 @@ export const fetchPost = postId => dispatch =>
     .then((data) => {
       dispatch(addComments(humps(data.comments)));
       dispatch(addPosts([data]));
+
+      return data;
     });
 
 export const updatePost = payload => (dispatch) => {

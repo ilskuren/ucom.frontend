@@ -77,7 +77,7 @@ const urls = {
     let url = `/publications/${name}`;
 
     if (page) {
-      url = `${url}/${page}`;
+      url = `${url}/page/${page}`;
     }
 
     return url;

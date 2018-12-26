@@ -8,16 +8,16 @@ import Feed from './FeedView';
 
 const FeedUser = (props) => {
   const onClickLoadMore = () => {
-    feedGetUserPosts(props.feedTypeId, {
+    props.dispatch(feedGetUserPosts(props.feedTypeId, {
       page: props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
       userId: props.userId,
       organizationId: props.organizationId,
-    });
+    }));
   };
 
   const onSubmitPostForm = (description, mainImageFilename) => {
-    feedCreatePost(props.feedTypeId, {
+    props.dispatch(feedCreatePost(props.feedTypeId, {
       organizationId: props.organizationId || null,
       userId: props.userId || null,
       data: {
@@ -25,17 +25,17 @@ const FeedUser = (props) => {
         mainImageFilename,
         postTypeId: POST_TYPE_DIRECT_ID,
       },
-    });
+    }));
   };
 
   useEffect(() => {
-    feedReset();
-    feedGetUserPosts(props.feedTypeId, {
+    props.dispatch(feedReset());
+    props.dispatch(feedGetUserPosts(props.feedTypeId, {
       page: 1,
       perPage: FEED_PER_PAGE,
       userId: props.userId,
       organizationId: props.organizationId,
-    });
+    }));
   }, [props.userId, props.organizationId]);
 
   return (

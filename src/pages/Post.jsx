@@ -19,7 +19,7 @@ const PostPage = (props) => {
   const { postId } = props.match.params;
 
   useEffect(() => {
-    fetchPost(postId);
+    props.dispatch(fetchPost(postId));
   }, [postId]);
 
   const post = getPostById(props.posts, postId);
@@ -83,7 +83,8 @@ const PostPage = (props) => {
   );
 };
 
-export const getPostPageData = ({ postId }) => fetchPost(postId);
+export const getPostPageData = (store, { postId }) =>
+  store.dispatch(fetchPost(postId));
 
 export default connect(state => ({
   user: state.user.data,

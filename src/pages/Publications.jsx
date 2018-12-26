@@ -17,6 +17,7 @@ import { FEED_PER_PAGE } from '../utils/feed';
 const LIST_LIMIT = 5;
 
 const Publications = (props) => {
+  const page = +props.match.params.page || 1;
   const postsCategoryName = props.match.params.name;
   const postsCategory = postsUtils.POSTS_CATREGORIES.find(i => i.name === postsCategoryName);
 
@@ -29,19 +30,18 @@ const Publications = (props) => {
   const orgsIds = compact(uniq(posts.map(i => i.organizationId)));
 
   const onClickLoadMore = () => {
-    console.log(props.feed.metadata.page);
-    feedActions.feedGetPosts(postsCategory.id, {
+    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
       page: +props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
-    });
+    }));
   };
 
   React.useEffect(() => {
-    // feedActions.feedReset();
-    // feedActions.feedGetPosts(postsCategory.id, {
-    //   page: +props.match.params.page,
-    //   perPage: FEED_PER_PAGE,
-    // });
+    props.dispatch(feedActions.feedReset());
+    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
+      page,
+      perPage: FEED_PER_PAGE,
+    }));
   }, [postsCategoryName]);
 
   return (
@@ -64,7 +64,7 @@ const Publications = (props) => {
                             className="menu__link"
                             activeClassName="menu__link_active"
                             to={urls.getPublicationsCategoryUrl(item.name)}
-                            isActive={() => props.location.pathname === urls.getPublicationsCategoryUrl(item.name, props.match.params.page)}
+                            isActive={() => props.location.pathname.indexOf(urls.getPublicationsCategoryUrl(item.name)) === 0}
                           >
                             {item.name}
                           </NavLink>
@@ -86,7 +86,7 @@ const Publications = (props) => {
                   hasMore={props.feed.metadata.hasMore}
                   postIds={props.feed.postIds}
                   loading={props.feed.loading}
-                  loadMoreUrl={urls.getPublicationsCategoryUrl(postsCategory.name, +props.match.params.page + 1)}
+                  loadMoreUrl={urls.getPublicationsCategoryUrl(postsCategory.name, page + 1)}
                   onClickLoadMore={onClickLoadMore}
                 />
               </div>
@@ -132,10 +132,10 @@ const Publications = (props) => {
   );
 };
 
-export const getPublicationsPageData = ({ name, page = 1 }) => {
+export const getPublicationsPageData = (store, { name, page = 1 }) => {
   const postsCategoryId = postsUtils.POSTS_CATREGORIES.find(i => i.name === name).id;
 
-  return feedActions.feedGetPosts(postsCategoryId, { page, perPage: FEED_PER_PAGE });
+  return store.dispatch(feedActions.feedGetPosts(postsCategoryId, { page, perPage: FEED_PER_PAGE }));
 };
 
 export default connect(state => ({

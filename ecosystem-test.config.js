@@ -8,7 +8,7 @@ module.exports = {
       name: `${NODE_ENV}_frontend_renderer`,
       instance_var: 'INSTANCE_ID',
       script: 'server.js',
-      watch: true,
+      watch: ['public', 'server.js'],
       ignore_watch: IGNORE_WATCH,
       env: {
         PORT: HTTP_SERVER_PORT,

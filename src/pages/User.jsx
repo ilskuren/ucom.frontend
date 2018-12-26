@@ -26,12 +26,12 @@ const UserPage = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchUser(userId);
+    props.dispatch(fetchUser(userId));
   }, [userId]);
 
   useEffect(() => {
     if (postId) {
-      fetchPost(postId);
+      props.dispatch(fetchPost(postId));
     }
   }, [postId]);
 
@@ -78,14 +78,14 @@ const UserPage = (props) => {
   );
 };
 
-export const getUserPageData = (params) => {
-  const userPromise = fetchUser(params.userId);
-  const postPromise = params.postId ? fetchPost(params.postId) : null;
-  const feedPromise = feedGetUserPosts(USER_WALL_FEED_ID, {
+export const getUserPageData = (store, params) => {
+  const userPromise = store.dispatch(fetchUser(params.userId));
+  const postPromise = params.postId ? store.dispatch(fetchPost(params.postId)) : null;
+  const feedPromise = store.dispatch(feedGetUserPosts(USER_WALL_FEED_ID, {
     page: 1,
     perPage: FEED_PER_PAGE,
     userId: params.userId,
-  });
+  }));
 
   return Promise.all([userPromise, postPromise, feedPromise]);
 };

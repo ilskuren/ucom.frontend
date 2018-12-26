@@ -16,7 +16,7 @@ export const feedGetUserPosts = (feedTypeId, params) => (dispatch, getState) => 
     [feedUtils.ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
   };
 
-  feedSetLoading(true);
+  dispatch(feedSetLoading(true));
 
   return getFeedFunctions[feedTypeId](params)
     .then((data) => {
@@ -73,7 +73,7 @@ export const feedGetPosts = (postsCategoryId, params) => (dispatch, getState) =>
     },
   };
 
-  feedSetLoading(true);
+  dispatch(feedSetLoading(true));
 
   return api.getPosts({
     ...params,

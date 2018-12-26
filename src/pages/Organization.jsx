@@ -32,7 +32,7 @@ const OrganizationPage = (props) => {
 
   useEffect(() => {
     if (postId) {
-      fetchPost(postId);
+      props.fetchPost(postId);
     }
   }, [postId]);
 
@@ -183,5 +183,6 @@ export default connect(
   }),
   dispatch => bindActionCreators({
     getOrganization,
+    fetchPost,
   }, dispatch),
 )(OrganizationPage);

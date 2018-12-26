@@ -16,10 +16,10 @@ import { getMainPostGroupData } from '../actions/mainPostGroup';
 const HomePage = (props) => {
   useEffect(() => {
     if (props.user.id) {
-      fetchUser(props.user.id);
+      props.dispatch(fetchUser(props.user.id));
     }
 
-    getMainPostGroupData();
+    props.dispatch(getMainPostGroupData());
   }, []);
 
   const user = getUserById(props.users, props.user.id);

@@ -48,7 +48,7 @@ const EditPost = (props) => {
       return;
     }
 
-    const saveFn = postId ? api.updatePost : api.createPost;
+    const saveFn = postId ? api.updatePost.bind(api) : api.createPost.bind(api);
     loader.start();
     setLoading(true);
 

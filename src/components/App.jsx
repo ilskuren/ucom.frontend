@@ -1,5 +1,5 @@
 import { bindActionCreators } from 'redux';
-import { Router, Route, Switch, Redirect } from 'react-router';
+import { Router, Route, Switch } from 'react-router';
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import HomePage from '../pages/Home';
@@ -56,8 +56,7 @@ class App extends PureComponent {
               <Route path="/posts/:id/edit" component={EditPost} />
               <Route exact path="/posts/:id" component={Post} />
               <Route path="/publications" component={Publications} />
-              <Route exact path="/users" render={() => <Redirect to="/users/1" />} />
-              <Route path="/users/:page" component={UsersPage} />
+              <Route path="/users" component={UsersPage} />
               <Route path="/about" component={AboutPage} />
               <Route exact path="/communities" component={OrganizationsPage} />
               <Route exact path="/communities/new" component={OrganizationsCreatePage} />

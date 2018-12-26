@@ -83,7 +83,7 @@ class Api {
 
   @bind
   async getUsers(params) {
-    const response = await this.actions.get(`/api/v1/users?${param(params)}`);
+    const response = await this.actions.get(`/api/v1/users?${param(snakes({ ...params }))}&v2=true`);
 
     return humps(response.data);
   }

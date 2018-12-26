@@ -1,18 +1,22 @@
+import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import store from './store';
+import { createStore } from './store';
 
 import './index.less';
 
+const store = createStore();
+
 const history = createBrowserHistory();
 
-const Root = () => (
+ReactDOM.hydrate(
   <Provider store={store}>
-    <App history={history} />
-  </Provider>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('app'),
 );
-
-ReactDOM.render(<Root />, document.getElementById('app'));

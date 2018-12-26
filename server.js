@@ -19,18 +19,24 @@ app.use(express.static('public'));
 routes.forEach((route) => {
   app.get(route.path, async (req, res) => {
     const store = createStore();
+    let contentMetaTags;
 
     if (typeof route.getData === 'function') {
       try {
-        await route.getData(store, req.params);
+        const data = await route.getData(store, req.params);
+
+        if (data && data.contentMetaTags) {
+          ({ contentMetaTags } = data);
+        }
       } catch (e) {
         console.error(e);
       }
     }
 
     const templateData = {
-      content: renderStatic(store, req.url),
+      contentMetaTags,
       state: store.getState(),
+      content: renderStatic(store, req.url),
       staticVersion: STATIC_VERSION,
     };
 

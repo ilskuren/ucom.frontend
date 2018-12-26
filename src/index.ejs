@@ -8,7 +8,25 @@
   <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <link href="/app.css?<%- staticVersion %>" rel="stylesheet">
   <title>U°Community</title>
-  <!--content_meta_tags-->
+
+  <% if (typeof contentMetaTags === 'object') { %>
+    <% if (typeof contentMetaTags.path === 'string' ) { %>
+      <meta property="og:url" content="https://u.community<%- contentMetaTags.path %>" />
+    <% } %>
+    <% if (typeof contentMetaTags.type === 'string' ) { %>
+      <meta property="og:type" content="<%- contentMetaTags.type %>" />
+    <% } %>
+    <% if (typeof contentMetaTags.title === 'string' ) { %>
+      <meta property="og:title" content="<%- contentMetaTags.title %>" />
+    <% } %>
+    <% if (typeof contentMetaTags.description === 'string' ) { %>
+      <meta property="og:description" content="<%- contentMetaTags.description %>" />
+    <% } %>
+    <% if (typeof contentMetaTags.image === 'string' ) { %>
+      <meta property="og:image" content="<%- contentMetaTags.image %>" />
+    <% } %>
+  <% } %>
+
 </head>
 <body>
   <div id="app"><%- content %></div>

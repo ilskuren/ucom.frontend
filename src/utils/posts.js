@@ -142,3 +142,16 @@ export const parseMediumContent = (html) => {
     title, leadingText, entityImages, description: html,
   });
 };
+
+export const getContentMetaTags = (post) => {
+  const articleTitle = post.entityImages && post.entityImages.articleTitle;
+  const image = articleTitle && articleTitle[0] && articleTitle[0].url;
+
+  return {
+    image,
+    type: 'article',
+    title: post.title,
+    description: post.leadingText,
+    path: urls.getPostUrl(post),
+  };
+};

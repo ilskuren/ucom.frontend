@@ -9,9 +9,8 @@ module.exports = {
       script: 'server.js',
       instances: 'max',
       exec_mode: 'cluster',
-      watch: true,
+      watch: false,
       autorestart: true,
-      ignore_watch: ['node_modules'],
       env: {
         PORT: HTTP_SERVER_PORT,
         NODE_ENV,

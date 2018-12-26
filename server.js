@@ -2,6 +2,8 @@ require('babel-register')({
   presets: ['env', 'react', 'stage-2', 'es2015', 'stage-0'],
 });
 
+const STATIC_VERSION = (new Date()).getTime();
+
 const path = require('path');
 const ejs = require('ejs');
 const express = require('express');
@@ -29,6 +31,7 @@ routes.forEach((route) => {
     const templateData = {
       content: renderStatic(store, req.url),
       state: store.getState(),
+      staticVersion: STATIC_VERSION,
     };
 
     try {

@@ -1,8 +1,9 @@
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import React, { PureComponent } from 'react';
-import Button from '../Button';
 
 class LoadMore extends PureComponent {
   constructor(props) {
@@ -25,29 +26,37 @@ class LoadMore extends PureComponent {
     }, 100);
   }
 
-  componentWillMount() {
-    window.removeEventListener('scroll', this.onScroll);
-  }
-
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
   render() {
+    const ButtonTag = this.props.url ? Link : 'button';
+
     return (
       <div ref={(el) => { this.el = el; }}>
-        <Button
-          isStretched
-          theme="thin"
-          size="medium"
-          text="Load more"
-          isDisabled={this.props.disabled}
+        <ButtonTag
+          to={this.props.url}
+          className={classNames(
+            'button',
+            'button_theme_thin',
+            'button_size_medium',
+            'button_stretched',
+            { 'button_disabled': this.props.disabled },
+          )}
+          disabled={this.props.disabled}
           onClick={() => {
             if (typeof this.props.onClick === 'function') {
               this.props.onClick();
             }
           }}
-        />
+        >
+          Load more
+        </ButtonTag>
       </div>
     );
   }

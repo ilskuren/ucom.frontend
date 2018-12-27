@@ -12,17 +12,17 @@ import LoadMore from './LoadMore';
 import { addPosts } from '../../actions/posts';
 
 const getFeedFunctions = {
-  [USER_NEWS_FEED_ID]: api.getUserNewsFeed,
-  [USER_WALL_FEED_ID]: api.getUserWallFeed,
-  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed,
-  [TAG_FEED_ID]: api.getTagWallFeed,
+  [USER_NEWS_FEED_ID]: api.getUserNewsFeed.bind(api),
+  [USER_WALL_FEED_ID]: api.getUserWallFeed.bind(api),
+  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
+  [TAG_FEED_ID]: api.getTagWallFeed.bind(api),
 };
 
 const createCommentPostFunctions = {
-  [USER_NEWS_FEED_ID]: api.createUserCommentPost,
-  [USER_WALL_FEED_ID]: api.createUserCommentPost,
-  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost,
-  [TAG_FEED_ID]: api.createUserCommentPost,
+  [USER_NEWS_FEED_ID]: api.createUserCommentPost.bind(api),
+  [USER_WALL_FEED_ID]: api.createUserCommentPost.bind(api),
+  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost.bind(api),
+  [TAG_FEED_ID]: api.createUserCommentPost.bind(api),
 };
 
 const Feed = (props) => {

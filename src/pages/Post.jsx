@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
 import { fetchPost } from '../actions/posts';
@@ -15,14 +13,16 @@ import { sanitizePostText, checkHashTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
-import { getPostBody } from '../utils/posts';
+import * as postsUtils from '../utils/posts';
 
-const Post = (props) => {
+const PostPage = (props) => {
+  const { postId } = props.match.params;
+
   useEffect(() => {
-    props.fetchPost(props.match.params.id);
-  }, [props.match.params.id]);
+    props.dispatch(fetchPost(postId));
+  }, [postId]);
 
-  const post = getPostById(props.posts, props.match.params.id);
+  const post = getPostById(props.posts, postId);
 
   if (!post || !post.user || !post.user.id) {
     return null;
@@ -60,7 +60,7 @@ const Post = (props) => {
 
             <div className="post-body__main">
               <div className="post-body__content">
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(getPostBody(post)) }} />
+                <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(postsUtils.getPostBody(post)) }} />
               </div>
 
               <div className="post-body__comments">
@@ -85,17 +85,14 @@ const Post = (props) => {
   );
 };
 
-Post.propTypes = {
-  fetchPost: PropTypes.func.isRequired,
-};
+export const getPostPageData = (store, { postId }) =>
+  store.dispatch(fetchPost(postId))
+    .then(data => ({
+      contentMetaTags: postsUtils.getContentMetaTags(data),
+    }));
 
-export default connect(
-  state => ({
-    user: state.user.data,
-    posts: state.posts,
-    users: state.users,
-  }),
-  dispatch => bindActionCreators({
-    fetchPost,
-  }, dispatch),
-)(Post);
+export default connect(state => ({
+  user: state.user.data,
+  posts: state.posts,
+  users: state.users,
+}))(PostPage);

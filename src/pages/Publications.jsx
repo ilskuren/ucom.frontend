@@ -1,46 +1,48 @@
-import { Route, Redirect } from 'react-router';
+import { uniq, compact } from 'lodash';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
-import FeedCategories from '../components/Feed/FeedCategories';
+import Feed from '../components/Feed/FeedView';
 import UserList from '../components/User/UserList';
 import OrganizationList from '../components/Organization/OrganizationList';
-import {
-  POSTS_CATREGORIES_HOT_ID,
-  POSTS_CATREGORIES_TRENDING_ID,
-  POSTS_CATREGORIES_FRESH_ID,
-  POSTS_CATREGORIES_TOP_ID,
-} from '../utils/posts';
+import * as postsUtils from '../utils/posts';
+import NotFoundPage from './NotFoundPage';
+import { getPostById } from '../store/posts';
+import * as feedActions from '../actions/feed';
+import { FEED_PER_PAGE } from '../utils/feed';
 
-const POSTS_CATREGORIES = [{
-  id: POSTS_CATREGORIES_HOT_ID,
-  name: 'hot',
-}, {
-  id: POSTS_CATREGORIES_TRENDING_ID,
-  name: 'trending',
-}, {
-  id: POSTS_CATREGORIES_FRESH_ID,
-  name: 'fresh',
-}, {
-  id: POSTS_CATREGORIES_TOP_ID,
-  name: 'top',
-}];
-
-const USERS_LIMIT = 5;
-const ORGANIZATION_LIMIT = 5;
+const LIST_LIMIT = 5;
 
 const Publications = (props) => {
-  const [usersIds, setUserIds] = useState([]);
-  const [orgsIds, setOrgIds] = useState([]);
-  const sortUserIds = usersIds.filter((item, pos) => (
-    usersIds.indexOf(item) === pos
-  ));
-  const sortOrgIds = orgsIds.filter((item, pos) => (
-    orgsIds.indexOf(item) === pos && item !== null
+  const page = +props.match.params.page || 1;
+  const postsCategoryName = props.match.params.name;
+  const postsCategory = postsUtils.POSTS_CATREGORIES.find(i => i.name === postsCategoryName);
 
-  ));
+  if (!postsCategory) {
+    return <NotFoundPage />;
+  }
+
+  const posts = props.feed.postIds.map(id => getPostById(props.posts, id));
+  const usersIds = compact(uniq(posts.map(i => i.userId)));
+  const orgsIds = compact(uniq(posts.map(i => i.organizationId)));
+
+  const onClickLoadMore = () => {
+    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
+      page: +props.feed.metadata.page + 1,
+      perPage: FEED_PER_PAGE,
+    }));
+  };
+
+  React.useEffect(() => {
+    props.dispatch(feedActions.feedReset());
+    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
+      page,
+      perPage: FEED_PER_PAGE,
+    }));
+  }, [postsCategoryName]);
 
   return (
     <LayoutBase>
@@ -51,21 +53,18 @@ const Publications = (props) => {
               <div className="nav-bar__title">
                 <h1 className="title">Publications</h1>
               </div>
+
               <div className="nav-bar__menu">
                 <div className="toolbar toolbar_responsive">
                   <div className="toolbar__main">
                     <div className="menu menu_simple-tabs">
-                      {POSTS_CATREGORIES.map(item => (
+                      {postsUtils.POSTS_CATREGORIES.map(item => (
                         <div className="menu__item" key={item.id}>
                           <NavLink
                             className="menu__link"
                             activeClassName="menu__link_active"
                             to={urls.getPublicationsCategoryUrl(item.name)}
-                            isActive={() => props.location.pathname === urls.getPublicationsCategoryUrl(item.name)}
-                            onClick={() => {
-                              setUserIds([]);
-                              setOrgIds([]);
-                            }}
+                            isActive={() => props.location.pathname.indexOf(urls.getPublicationsCategoryUrl(item.name)) === 0}
                           >
                             {item.name}
                           </NavLink>
@@ -83,37 +82,39 @@ const Publications = (props) => {
           <div className="content__inner">
             <div className="grid grid_publications">
               <div className="grid__item grid__item_main">
-                <Route exact path={urls.getPublicationsUrl()} render={() => <Redirect to={urls.getPublicationsCategoryUrl(POSTS_CATREGORIES[0].name)} />} />
-                {POSTS_CATREGORIES.map(item => (
-                  <Route exact key={item.id} path={urls.getPublicationsCategoryUrl(item.name)} render={() => <FeedCategories onUsersAdd={data => setUserIds(usersIds.concat(data))} onOrgsAdd={data => setOrgIds(orgsIds.concat(data))} categoryId={item.id} categoryName={item.name} />} />
-                ))}
+                <Feed
+                  hasMore={props.feed.metadata.hasMore}
+                  postIds={props.feed.postIds}
+                  loading={props.feed.loading}
+                  loadMoreUrl={urls.getPublicationsCategoryUrl(postsCategory.name, page + 1)}
+                  onClickLoadMore={onClickLoadMore}
+                />
               </div>
 
               <div className="grid__item grid__item_side">
                 <div className="feed_side">
                   <div className="sidebar">
-                    {sortUserIds.length !== 0 && (
+                    {!!usersIds.length &&
                       <div className="user-section">
                         <div className="user-section__title">
                           <h2 className="title title_xxsmall title_medium">
-                            People&nbsp;
-                            {sortUserIds.length > USERS_LIMIT && <em>{sortUserIds.length}</em>}
+                            People {usersIds.length > LIST_LIMIT && <em>{usersIds.length}</em>}
                           </h2>
                         </div>
-                        <UserList usersIds={sortUserIds} limit={USERS_LIMIT} />
+                        <UserList usersIds={usersIds} limit={LIST_LIMIT} />
                       </div>
-                    )}
-                    {sortOrgIds.length !== 0 && (
+                    }
+
+                    {!!orgsIds.length &&
                       <div className="user-section">
                         <div className="user-section__title">
                           <h2 className="title title_xxsmall title_medium">
-                            Organizations&nbsp;
-                            {sortOrgIds.length > ORGANIZATION_LIMIT && <em>{sortOrgIds.length}</em>}
+                            Organizations {orgsIds.length > LIST_LIMIT && <em>{orgsIds.length}</em>}
                           </h2>
                         </div>
-                        <OrganizationList limit={ORGANIZATION_LIMIT} organizationsIds={sortOrgIds} />
+                        <OrganizationList limit={LIST_LIMIT} organizationsIds={orgsIds} />
                       </div>
-                    )}
+                    }
                   </div>
                 </div>
               </div>
@@ -131,4 +132,13 @@ const Publications = (props) => {
   );
 };
 
-export default Publications;
+export const getPublicationsPageData = (store, { name, page = 1 }) => {
+  const postsCategoryId = postsUtils.POSTS_CATREGORIES.find(i => i.name === name).id;
+
+  return store.dispatch(feedActions.feedGetPosts(postsCategoryId, { page, perPage: FEED_PER_PAGE }));
+};
+
+export default connect(state => ({
+  feed: state.feed,
+  posts: state.posts,
+}))(Publications);

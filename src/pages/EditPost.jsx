@@ -14,7 +14,7 @@ import { authShowPopup } from '../actions/auth';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 import Close from '../components/Close';
-import { parseContent } from '../utils/medium/mediumPost';
+import { parseMediumContent } from '../utils/posts';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
@@ -48,7 +48,7 @@ const EditPost = (props) => {
       return;
     }
 
-    const saveFn = postId ? api.updatePost : api.createPost;
+    const saveFn = postId ? api.updatePost.bind(api) : api.createPost.bind(api);
     loader.start();
     setLoading(true);
 
@@ -109,7 +109,7 @@ const EditPost = (props) => {
                 <Medium
                   value={props.post.data.description}
                   onChange={(description) => {
-                    props.setPostData(parseContent(description));
+                    props.setPostData(parseMediumContent(description));
                     props.validatePost();
                   }}
                   onUploadStart={() => {

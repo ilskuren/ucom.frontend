@@ -14,6 +14,20 @@ export const POSTS_CATREGORIES_TRENDING_ID = 2;
 export const POSTS_CATREGORIES_FRESH_ID = 3;
 export const POSTS_CATREGORIES_TOP_ID = 4;
 
+export const POSTS_CATREGORIES = [{
+  id: POSTS_CATREGORIES_TRENDING_ID,
+  name: 'trending',
+}, {
+  id: POSTS_CATREGORIES_HOT_ID,
+  name: 'hot',
+}, {
+  id: POSTS_CATREGORIES_FRESH_ID,
+  name: 'fresh',
+}, {
+  id: POSTS_CATREGORIES_TOP_ID,
+  name: 'top',
+}];
+
 export const getPostUrl = (postId) => {
   if (!postId) {
     return null;
@@ -85,4 +99,59 @@ export const getPostCover = (post) => {
   } catch (e) {
     return null;
   }
+};
+
+export const parseMediumContent = (html) => {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const childNodes = Array.from(div.childNodes);
+  const img = div.querySelector('img');
+
+  let title = null;
+  let leadingText = null;
+  let entityImages = null;
+
+  for (let i = 0; i < childNodes.length; i++) {
+    if (childNodes[i].textContent) {
+      title = childNodes[i].textContent;
+      childNodes.splice(i, 1);
+      break;
+    }
+  }
+
+  for (let i = 0; i < childNodes.length; i++) {
+    if (childNodes[i].textContent) {
+      leadingText = childNodes[i].textContent;
+      break;
+    }
+  }
+
+  if (!leadingText) {
+    leadingText = title;
+  }
+
+  if (img) {
+    entityImages = {
+      articleTitle: [{
+        url: img.src,
+      }],
+    };
+  }
+
+  return ({
+    title, leadingText, entityImages, description: html,
+  });
+};
+
+export const getContentMetaTags = (post) => {
+  const articleTitle = post.entityImages && post.entityImages.articleTitle;
+  const image = articleTitle && articleTitle[0] && articleTitle[0].url;
+
+  return {
+    image,
+    type: 'article',
+    title: post.title,
+    description: post.leadingText,
+    path: urls.getPostUrl(post),
+  };
 };

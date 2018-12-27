@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import kirillRomanov from '../static/img/kirill-romanov.jpeg';
-import bradleyNelson from '../static/img/bradley-nelson.jpeg';
-import mikaOhara from '../static/img/mika-ohara.jpeg';
+// import kirillRomanov from '../static/img/kirill-romanov.jpeg';
+// import bradleyNelson from '../static/img/bradley-nelson.jpeg';
+// import mikaOhara from '../static/img/mika-ohara.jpeg';
 import PromoEditor from './PromoEditor';
 
 const Promo = () => (
@@ -34,7 +34,7 @@ const Promo = () => (
             <div className="toolbar">
               <div className="toolbar__side">
                 <div className="promo-user__avatar">
-                  <img src={kirillRomanov} alt="" />
+                  {/* <img src={kirillRomanov} alt="" /> */}
                 </div>
               </div>
               <div className="toolbar__main">
@@ -50,7 +50,7 @@ const Promo = () => (
             <div className="toolbar">
               <div className="toolbar__side">
                 <div className="promo-user__avatar promo-user__avatar_small">
-                  <img src={bradleyNelson} alt="" />
+                  {/* <img src={bradleyNelson} alt="" /> */}
                 </div>
               </div>
               <div className="toolbar__main">
@@ -66,7 +66,7 @@ const Promo = () => (
             <div className="toolbar">
               <div className="toolbar__side">
                 <div className="promo-user__avatar promo-user__avatar_medium">
-                  <img src={mikaOhara} alt="" />
+                  {/* <img src={mikaOhara} alt="" /> */}
                 </div>
               </div>
               <div className="toolbar__main">

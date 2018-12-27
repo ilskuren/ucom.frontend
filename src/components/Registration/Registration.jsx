@@ -2,14 +2,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
-import Popup from '../Popup';
 import RegistrationStepIntro from './RegistrationStepIntro';
 import RegistrationStepFirst from './RegistrationStepFirst';
 import RegistrationStepSecond from './RegistrationStepSecond';
 import RegistrationStepThird from './RegistrationStepThird';
-import ModalContent from '../ModalContent';
 import LayoutClean from '../Layout/LayoutClean';
 import { registrationReset } from '../../actions/registration';
+import Close from '../Close';
 
 class Registration extends PureComponent {
   constructor(props) {
@@ -27,15 +26,12 @@ class Registration extends PureComponent {
   render() {
     return (
       <LayoutClean>
-        <Popup>
-          <ModalContent
-            mod="registration"
-            onClickClose={() => {
-              window.history.back();
-            }}
-          >
-            <div className="registration">
-
+        <div className="registration">
+          <div className="registration__container">
+            <div className="registration__close">
+              <Close />
+            </div>
+            <div className="registration__inner">
               <div
                 role="presentation"
                 ref={(el) => { this.sectionsEl = el; }}
@@ -50,8 +46,8 @@ class Registration extends PureComponent {
                 <RegistrationStepThird />
               </div>
             </div>
-          </ModalContent>
-        </Popup>
+          </div>
+        </div>
       </LayoutClean>
     );
   }

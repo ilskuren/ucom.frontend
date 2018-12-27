@@ -4,8 +4,6 @@ import loader from '../utils/loader';
 import { addServerErrorNotification } from './notifications';
 import { getOrganization } from './organizations';
 import { PER_PAGE, INITTIAL_PAGE } from '../utils/notifications';
-import { blockPageContent, unblockPageContent } from '../utils/page';
-import { isMobile } from '../utils/mediaQueries';
 
 const hide = () => ({ type: 'SITE_NOTIFICATIONS__HIDE_TOOLTIP' });
 
@@ -16,20 +14,9 @@ export const siteNotificationsDeleteItems = payload => ({ type: 'SITE_NOTIFICATI
 export const siteNotificationsSetUnreadAmount = payload => ({ type: 'SITE_NOTIFICATIONS__SET_UNREAD_AMOUNT', payload });
 export const siteNotificationsSetTempArray = payload => ({ type: 'SITE_NOTIFICATIONS__SET_TEMP_ARRAY', payload });
 export const siteNotificationsSetLoading = payload => ({ type: 'SITE_NOTIFICATIONS__SET_LOADING', payload });
-
-export const showNotificationTooltip = () => {
-  if (isMobile()) {
-    blockPageContent();
-  }
-
-  return ({ type: 'SITE_NOTIFICATIONS__SHOW_TOOLTIP' });
-};
+export const showNotificationTooltip = () => ({ type: 'SITE_NOTIFICATIONS__SHOW_TOOLTIP' });
 
 export const hideNotificationTooltip = () => async (dispatch, getState) => {
-  if (isMobile()) {
-    unblockPageContent();
-  }
-
   dispatch(hide());
 
   const { tempArray } = getState().siteNotifications;

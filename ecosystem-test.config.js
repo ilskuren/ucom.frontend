@@ -1,5 +1,5 @@
 const NODE_ENV = 'staging';
-const HTTP_SERVER_PORT = 3020;
+const HTTP_SERVER_PORT = 8080;
 
 module.exports = {
   apps: [

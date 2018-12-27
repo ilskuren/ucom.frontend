@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development --watch",
+    "start": "npm run server | npm run dev",
+    "server": "pm2 restart ecosystem-test.config.js",
+    "dev": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development --watch",
     "staging": "NODE_ENV=staging webpack --config ./webpack.config.js --mode development",
-    "production": "NODE_ENV=production webpack --config ./webpack.config.js --mode production",
-    "production_local": "NODE_ENV=production webpack-dev-server --config ./webpack.config.js --mode production;",
-    "fix_live_reloading": "echo 65536 | sudo tee -a /proc/sys/fs/inotify/max_user_watches"
+    "production": "NODE_ENV=production webpack --config ./webpack.config.js --mode production"
   },
   "keywords": [],
   "author": "",

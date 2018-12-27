@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -12,6 +13,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),
+
+    new CopyWebpackPlugin([
+      { from: './src/favicon/*', flatten: true },
+    ]),
   ],
 
   module: {

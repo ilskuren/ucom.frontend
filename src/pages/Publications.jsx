@@ -13,6 +13,7 @@ import NotFoundPage from './NotFoundPage';
 import { getPostById } from '../store/posts';
 import * as feedActions from '../actions/feed';
 import { FEED_PER_PAGE } from '../utils/feed';
+import loader from '../utils/loader';
 
 const LIST_LIMIT = 5;
 
@@ -30,18 +31,22 @@ const Publications = (props) => {
   const orgsIds = compact(uniq(posts.map(i => i.organizationId)));
 
   const onClickLoadMore = () => {
+    loader.start();
     props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
       page: +props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
-    }));
+    }))
+      .then(loader.done());
   };
 
   React.useEffect(() => {
+    loader.start();
     props.dispatch(feedActions.feedReset());
     props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
       page,
       perPage: FEED_PER_PAGE,
-    }));
+    }))
+      .then(loader.done);
   }, [postsCategoryName]);
 
   return (

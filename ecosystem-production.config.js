@@ -1,5 +1,5 @@
-const NODE_ENV = 'staging';
-const HTTP_SERVER_PORT = 8080;
+const NODE_ENV = 'production';
+const HTTP_SERVER_PORT = 3030;
 
 module.exports = {
   apps: [
@@ -7,11 +7,13 @@ module.exports = {
       name: `${NODE_ENV}_frontend_renderer`,
       instance_var: 'INSTANCE_ID',
       script: 'server.js',
-      watch: ['public', 'server.js'],
+      instances: 'max',
+      exec_mode: 'cluster',
+      watch: false,
+      autorestart: true,
       env: {
         PORT: HTTP_SERVER_PORT,
         NODE_ENV,
-        autorestart: true,
       },
     },
   ],

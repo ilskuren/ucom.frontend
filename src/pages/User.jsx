@@ -19,19 +19,24 @@ import urls from '../utils/urls';
 import Feed from '../components/Feed/FeedUser';
 import { USER_WALL_FEED_ID, FEED_PER_PAGE } from '../utils/feed';
 import { feedGetUserPosts } from '../actions/feed';
+import loader from '../utils/loader';
 
 const UserPage = (props) => {
   const userId = Number(props.match.params.userId);
   const postId = Number(props.match.params.postId);
 
   useEffect(() => {
+    loader.start();
     window.scrollTo(0, 0);
-    props.dispatch(fetchUser(userId));
+    props.dispatch(fetchUser(userId))
+      .then(loader.done);
   }, [userId]);
 
   useEffect(() => {
     if (postId) {
-      props.dispatch(fetchPost(postId));
+      loader.start();
+      props.dispatch(fetchPost(postId))
+        .then(loader.done);
     }
   }, [postId]);
 

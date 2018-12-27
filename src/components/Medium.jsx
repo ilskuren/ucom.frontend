@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { addErrorNotification } from '../actions/notifications';
+import TributeWrapper from './TributeWrapper';
 
 class Medium extends PureComponent {
   componentDidMount() {
@@ -59,7 +60,9 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <div className="post-content" ref={(el) => { this.el = el; }} />
+      <TributeWrapper>
+        <div className="post-content" ref={(el) => { this.el = el; }} />
+      </TributeWrapper>
     );
   }
 }

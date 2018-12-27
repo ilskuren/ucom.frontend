@@ -20,6 +20,7 @@ const TagOrganizations = (props) => {
       <OrganizationList
         limit={ORGANIZATION_LIMIT}
         organizationsIds={props.orgs}
+        tagTitle={props.tagTitle}
       />
     </div>
   );

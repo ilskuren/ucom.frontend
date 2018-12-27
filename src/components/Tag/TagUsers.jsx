@@ -20,6 +20,7 @@ const TagUsers = (props) => {
       <UserList
         limit={USERS_LIMIT}
         usersIds={props.users}
+        tagTitle={props.tagTitle}
       />
     </div>
   );

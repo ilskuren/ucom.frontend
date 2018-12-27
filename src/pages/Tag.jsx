@@ -60,10 +60,14 @@ const Tag = (props) => {
 
             {tag &&
               <div className="grid__item">
-                <TagUsers users={tag.users.data} />
+                <TagUsers
+                  users={tag.users.data}
+                  tagTitle={tagTitle}
+                />
                 <TagOrganizations
                   orgs={tag.orgs.data}
                   orgsAmount={tag.orgs.metadata.totalAmount}
+                  tagTitle={tagTitle}
                 />
                 <TagCreatedAt createdAt={tag.createdAt} />
               </div>

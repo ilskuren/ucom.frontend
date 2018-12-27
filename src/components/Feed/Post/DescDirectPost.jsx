@@ -26,7 +26,7 @@ class DescDirectPost extends PureComponent {
 
   render() {
     let text = escapeQuotes(this.props.desc);
-    text = checkHashTag(this.props.desc);
+    text = checkHashTag(text);
     return (
       <div>
         {text.length >= 100 ? (

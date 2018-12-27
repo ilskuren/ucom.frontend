@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Tribute from 'tributejs';
 import { tributeConfig } from '../utils/tribute';
 
 class TributeWrapper extends PureComponent {
@@ -9,6 +8,8 @@ class TributeWrapper extends PureComponent {
   }
 
   componentDidMount() {
+    const Tribute = require('tributejs'); //eslint-disable-line
+
     this.tribute = new Tribute(tributeConfig);
     this.tribute.attach(this.element);
   }

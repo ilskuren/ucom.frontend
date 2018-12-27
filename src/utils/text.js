@@ -38,6 +38,9 @@ export const sanitizePostText = memoize(html => sanitizeHtml(html, {
       'medium-insert-embed',
       'medium-upload-iframe-wrapper',
     ],
+    a: [
+      'tag_link',
+    ],
   },
   transformTags: {
     'a': sanitizeHtml.simpleTransform('a', { target: '_blank' }),

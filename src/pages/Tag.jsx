@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LayoutBase from '../components/Layout/LayoutBase';
@@ -17,17 +17,19 @@ import NotFoundPage from './NotFoundPage';
 const Tag = (props) => {
   const tagTitle = props.match.params.title;
 
-  const [loader, setLoader] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const getTag = async () => {
     try {
       const tag = await api.getTag(props.match.params.title);
       props.addTags([tag]);
-      setLoader(true);
     } catch (e) {
       console.error(e);
-      setLoader(false);
     }
+
+    setLoading(false);
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -38,55 +40,57 @@ const Tag = (props) => {
 
   const tag = props.tags.data[props.match.params.title];
 
+  if (loading) {
+    return null;
+  }
+
+  if (loaded && !tag) {
+    return <NotFoundPage />;
+  }
+
   return (
-    <Fragment>
-      {!loader ? (
-        <NotFoundPage />
-      ) : (
-        <LayoutBase>
-          <div className="content content_sheet">
-            <div className="content__inner content__inner_straight">
+    <LayoutBase>
+      <div className="content content_sheet">
+        <div className="content__inner content__inner_straight">
+          {tag &&
+            <TagHead
+              title={tag.title}
+              currentRate={tag.currentRate}
+              postsAmount={tag.posts.metadata.totalAmount}
+              usersAmount={tag.users.metadata.totalAmount}
+            />
+          }
+
+          <div className="grid grid_user">
+            <div className="grid__item">
               {tag &&
-                <TagHead
-                  title={tag.title}
-                  currentRate={tag.currentRate}
-                  postsAmount={tag.posts.metadata.totalAmount}
-                  usersAmount={tag.users.metadata.totalAmount}
+                <Feed
+                  userId={props.user.data.id}
+                  feedTypeId={TAG_FEED_ID}
+                  tagTitle={tag.title}
+                  lastTagId={tag.posts.data[tag.posts.data.length - 1]}
                 />
               }
-
-              <div className="grid grid_user">
-                <div className="grid__item">
-                  {tag &&
-                    <Feed
-                      userId={props.user.data.id}
-                      feedTypeId={TAG_FEED_ID}
-                      tagTitle={tag.title}
-                      lastTagId={tag.posts.data[tag.posts.data.length - 1]}
-                    />
-                  }
-                </div>
-
-                {tag &&
-                  <div className="grid__item">
-                    <TagUsers
-                      users={tag.users.data}
-                      tagTitle={tagTitle}
-                    />
-                    <TagOrganizations
-                      orgs={tag.orgs.data}
-                      orgsAmount={tag.orgs.metadata.totalAmount}
-                      tagTitle={tagTitle}
-                    />
-                    <TagCreatedAt createdAt={tag.createdAt} />
-                  </div>
-                }
-              </div>
             </div>
+
+            {tag &&
+              <div className="grid__item">
+                <TagUsers
+                  users={tag.users.data}
+                  tagTitle={tagTitle}
+                />
+                <TagOrganizations
+                  orgs={tag.orgs.data}
+                  orgsAmount={tag.orgs.metadata.totalAmount}
+                  tagTitle={tagTitle}
+                />
+                <TagCreatedAt createdAt={tag.createdAt} />
+              </div>
+            }
           </div>
-        </LayoutBase>
-      )}
-    </Fragment>
+        </div>
+      </div>
+    </LayoutBase>
   );
 };
 

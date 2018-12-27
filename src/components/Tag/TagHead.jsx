@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Rate from '../Rate';
-import { selectUser } from '../../store/selectors/user';
-// import Followers from '../Followers/Followers';
 
 const TagHead = props => (
   <div className="tag-header">
@@ -66,16 +65,6 @@ const TagHead = props => (
               </div>
             </div>
           </div>
-          {/* user.followedBy && (
-          <div className="inline__item">
-            <Followers title="Followers" usersIds={[187, 200]} />
-          </div>
-          )
-          user.iFollow && (
-          <div className="inline__item">
-            <Followers title="Following" usersIds={[187, 200]} />
-          </div>
-          )} */}
         </div>
       </div>
     </div>
@@ -83,11 +72,12 @@ const TagHead = props => (
 );
 
 TagHead.propTypes = {
-  // users: PropTypes.objectOf(PropTypes.object),
-  // userId: PropTypes.number,
+  title: PropTypes.string,
+  currentRate: PropTypes.number,
+  postsAmount: PropTypes.number,
+  usersAmount: PropTypes.number,
 };
 
 export default connect(state => ({
   users: state.users,
-  user: selectUser(state),
 }))(TagHead);

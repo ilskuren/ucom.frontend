@@ -14,12 +14,15 @@ import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
 import * as postsUtils from '../utils/posts';
+import loader from '../utils/loader';
 
 const PostPage = (props) => {
   const { postId } = props.match.params;
 
   useEffect(() => {
-    props.dispatch(fetchPost(postId));
+    loader.start();
+    props.dispatch(fetchPost(postId))
+      .then(loader.done);
   }, [postId]);
 
   const post = getPostById(props.posts, postId);

@@ -14,11 +14,11 @@ export const usersRemoveIFollow = payload => ({ type: 'USERS_REMOVE_I_FOLLOW', p
 export const usersAddFollowedBy = payload => ({ type: 'USERS_ADD_FOLLOWED_BY', payload });
 export const usersRemoveFollowedBy = payload => ({ type: 'USERS_REMOVE_FOLLOWED_BY', payload });
 
-export const addUsers = (payload = []) => (dispatch) => {
+export const addUsers = (data = []) => (dispatch) => {
   let users = [];
   let organizations = [];
 
-  payload.forEach((user) => {
+  data.forEach((user) => {
     if (user.followedBy) {
       users = users.concat(user.followedBy);
       user.followedBy = user.followedBy.map(u => u.id);
@@ -69,20 +69,11 @@ export const fetchMyself = () => async (dispatch) => {
   loader.done();
 };
 
-export const fetchUser = userId => async (dispatch) => {
-  loader.start();
-  try {
-    const data = await api.getUser(userId);
-
-    dispatch(addOrganizations(data.organizations));
-    dispatch(addUsers([data]));
-  } catch (e) {
-    console.error(e);
-    dispatch(addServerErrorNotification(e));
-  }
-
-  loader.done();
-};
+export const fetchUser = userId => dispatch =>
+  api.getUser(userId)
+    .then((data) => {
+      dispatch(addUsers([data]));
+    });
 
 export const updateUser = payload => async (dispatch) => {
   loader.start();

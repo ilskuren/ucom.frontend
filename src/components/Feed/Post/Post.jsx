@@ -31,6 +31,7 @@ class Post extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
+
     if (!post) {
       return null;
     }

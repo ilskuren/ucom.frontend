@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bind } from 'decko';
 import classNames from 'classnames';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
@@ -13,7 +12,6 @@ class DropZone extends PureComponent {
     };
   }
 
-  @bind
   onDropHandler(files) {
     const {
       minWidth,
@@ -63,7 +61,7 @@ class DropZone extends PureComponent {
           accept={this.props.accept}
           className="drop-zone__input"
           maxSize={this.props.maxSize}
-          onDrop={this.onDropHandler}
+          onDrop={files => this.onDropHandler(files)}
         >
           <Loading className="loading_small" loading={this.props.loading} />
           {this.props.text && <span className="drop-zone__text">{this.props.text}</span>}

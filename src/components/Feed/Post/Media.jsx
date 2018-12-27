@@ -24,9 +24,11 @@ class Media extends PureComponent {
 
     const user = getUserById(this.props.users, post.userId);
 
+
     if (!user) {
       return null;
     }
+
 
     return (
       <div className="post" id={`post-${post.id}`}>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import Pagination from 'rc-pagination';
-// import 'rc-pagination/assets/index.css';
 import UserCard from '../components/UserCard';
 import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
@@ -11,33 +9,33 @@ import { getUserUrl, getUserName } from '../utils/user';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
+import urls from '../utils/urls';
+
+const { getPagingLink } = urls;
 
 const textItemRender = (current, type, element) => {
   if (type === 'prev') {
-    return 'Prev';
+    return <a>Prev</a>;
   }
   if (type === 'next') {
-    return 'Next';
+    return <a>Next</a>;
   }
   return element;
 };
 
 const UsersPage = (props) => {
   const [usersData, setUsersData] = useState({ data: [], metadata: {} });
-
-  const history = createBrowserHistory();
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(props.location.search);
   const page = urlParams.get('page') || 1;
   const sortBy = urlParams.get('sortBy') || '-current_rate';
   const perPage = urlParams.get('perPage') || 20;
 
-  const getLink = params => (`/users?page=${params.page || page}&sortBy=${params.sortBy || sortBy}&perPage=${params.perPage || perPage}`);
-
   const onChangePage = (current) => {
-    props.history.push(getLink({ page: current }));
+    props.history.push(getPagingLink({ page: current, sortBy, perPage }));
+    window.scrollTo(0, 'top');
   };
 
-  const setPaging = async (params) => {
+  const getData = async (params) => {
     loader.start();
 
     try {
@@ -51,14 +49,12 @@ const UsersPage = (props) => {
   };
 
   useEffect(() => {
-    setPaging({ page, perPage, sortBy });
-  }, [history.location.search]);
+    getData({ page, perPage, sortBy });
+  }, [props.location.search]);
 
-
-  const {
-    data: users,
-  } = usersData;
+  const { data: users } = usersData;
   const { hasMore, totalAmount } = usersData.metadata;
+
   return (
     <LayoutBase>
       <div className="content">
@@ -67,7 +63,7 @@ const UsersPage = (props) => {
             <h1 className="title">People</h1>
           </div>
           {users && users.length > 0 &&
-            <div className="table-content_big-bottom">
+            <div className="table-content table-content_big-bottom">
               <div className="table-content__table">
                 <table className="list-table list-table_indexed list-table_users list-table_responsive">
                   <thead className="list-table__head">
@@ -90,7 +86,7 @@ const UsersPage = (props) => {
                             { 'list-table__cell_sortable': item.sortable },
                           )}
                         >
-                          <Link to={getLink({ sortBy: `${sortBy === `-${item.name}` ? '' : '-'}${item.name}` })}>
+                          <Link to={getPagingLink({ sortBy: `${sortBy === `-${item.name}` ? '' : '-'}${item.name}`, page, perPage })}>
                             <div className="list-table__title">
                               {item.title}
 
@@ -136,12 +132,19 @@ const UsersPage = (props) => {
                 {hasMore && (
                   <div className="table-content__showmore">
                     <div className="button-clean button-clean_link">
-                      <Link to={getLink({ perPage: +perPage + 20 })}>Show More</Link>
+                      <Link to={getPagingLink({ perPage: +perPage + 20, page, sortBy })}>Show More</Link>
                     </div>
                   </div>
                 )}
-                <Pagination className="table-content__pagination" showTitle={false} total={totalAmount} pageSize={+perPage} itemRender={textItemRender} current={+page} onChange={onChangePage} />
-
+                <Pagination
+                  className="table-content__pagination"
+                  showTitle={false}
+                  total={totalAmount}
+                  pageSize={+perPage}
+                  itemRender={textItemRender}
+                  current={+page}
+                  onChange={onChangePage}
+                />
               </div>
             </div>
           }

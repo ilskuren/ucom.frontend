@@ -1,14 +1,14 @@
 .table-content {
   margin: 0 0 32px;
 }
+
 .table-content_big-bottom {
   margin-bottom: 80px;  
 }
+
 .table-content__table {
   margin: 0 0 32px;
 }
-
-
 
 .table-content__showmore {
   margin: 0 0 32px;
@@ -72,8 +72,14 @@
   content: "\2022\2022\2022";
   display: block;
   letter-spacing: 2px;
-  color: #ccc;
+  color: #000;
   font-size: 12px;
-  margin-top: 1px;
+  margin-top: 5px;
   cursor: pointer;
+}
+
+.rc-pagination-jump-next, .rc-pagination-jump-prev {
+  &:hover {
+    text-decoration: underline;
+  }
 }

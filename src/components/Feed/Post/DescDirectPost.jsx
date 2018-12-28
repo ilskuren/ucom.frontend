@@ -20,22 +20,23 @@ class DescDirectPost extends PureComponent {
 
   resctrictText = (text) => {
     const count = text.substring(0, 100).lastIndexOf(' ');
-    return text.substring(0, count);
+    text = text.substring(0, count);
+    return checkHashTag(text);
   }
-
 
   render() {
     let text = escapeQuotes(this.props.desc);
     text = checkHashTag(text);
+
     return (
       <div>
-        {text.length >= 100 ? (
+        {this.props.desc.length >= 100 ? (
           <div>
             {this.state.isHidden ? (
-              <span>{this.resctrictText(text)}</span>
+              <span dangerouslySetInnerHTML={{ __html: this.resctrictText(sanitizeCommentText(this.props.desc)) }} />
             ) : (
-              <span>{text}</span>
-            )}
+              <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(text) }} />
+              )}
             <span
               role="presentation"
               onClick={this.toggleHidden}

@@ -72,7 +72,11 @@ class CommentForm extends PureComponent {
           </div>
 
           <div className="toolbar__main">
-            <TributeWrapper>
+            <TributeWrapper
+              onChange={(comment) => {
+                this.setState({ comment });
+              }}
+            >
               <textarea
                 ref={(el) => { this.el = el; }}
                 autoFocus={this.props.autoFocus} //eslint-disable-line

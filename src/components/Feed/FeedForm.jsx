@@ -58,7 +58,9 @@ class FeedForm extends PureComponent {
           </div>
 
           <div className="feed-form__message">
-            <TributeWrapper>
+            <TributeWrapper
+              onChange={message => this.setState({ message })}
+            >
               <textarea
                 autoFocus
                 rows="4"

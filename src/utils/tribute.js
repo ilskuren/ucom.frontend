@@ -16,7 +16,7 @@ const remoteSearch = (text, cb) => {
   });
 };
 
-export const tributeConfig = {
+export const defaultTributeConfig = {
   values: (text, cb) => remoteSearch(text, users => cb(users)),
   lookup: 'accountName',
   fillAttr: 'accountName',

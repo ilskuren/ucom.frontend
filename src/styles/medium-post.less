@@ -1,0 +1,28 @@
+.medium-post-placeholder {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    display: block;
+    color: rgba(0,0,0,0.3);
+    cursor: text;
+  }
+}
+
+h1.medium-post-placeholder {
+  &:before {
+    content: 'Title';
+  }
+}
+
+h2.medium-post-placeholder {
+  &:before {
+    content: 'Lead text';
+  }
+}
+
+p.medium-post-placeholder {
+  &:before {
+    content: 'Text';
+  }
+}

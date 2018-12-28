@@ -21,6 +21,13 @@
   cursor: pointer;
 }
 
+.modal-content__close_text { 
+  width: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .modal-content__inner {
   position: relative;
   z-index: 2;
@@ -79,25 +86,6 @@
 
   .modal-content__inner {
     padding: 40px;
-  }
-}
-
-.modal-content_registration {
-  @media (max-width: 1023px) {
-    padding: 0;
-  }
-
-  .modal-content__inner {
-    @media (max-width: 1023px) {
-      border-radius: 0;
-    }
-  }
-
-  .modal-content__close {
-    @media (max-width: 1023px) {
-      top: 40px;
-      right: 40px;
-    }
   }
 }
 

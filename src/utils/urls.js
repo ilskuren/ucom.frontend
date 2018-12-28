@@ -1,4 +1,4 @@
-import { POST_TYPE_MEDIA_ID } from './posts';
+import * as postsUtils from './posts';
 import { getBackendConfig } from './config';
 
 const urls = {
@@ -27,7 +27,7 @@ const urls = {
       return null;
     }
 
-    if (post.postTypeId === POST_TYPE_MEDIA_ID) {
+    if (post.postTypeId === postsUtils.POST_TYPE_MEDIA_ID) {
       return `/posts/${post.id}`;
     }
 
@@ -54,6 +54,14 @@ const urls = {
     return `/user/${post.entityIdFor}/${post.id}`;
   },
 
+  getPostEditUrl(postId) {
+    if (!postId) {
+      return null;
+    }
+
+    return `/posts/${postId}/edit`;
+  },
+
   getOrganizationUrl(id) {
     if (!id) {
       return null;
@@ -62,8 +70,17 @@ const urls = {
     return `/communities/${id}`;
   },
 
-  getPublicationsCategoryUrl(name) {
-    return `/publications/${name}`;
+  getPublicationsCategoryUrl(
+    name = postsUtils.POSTS_CATREGORIES[0].name,
+    page,
+  ) {
+    let url = `/publications/${name}`;
+
+    if (page) {
+      url = `${url}/page/${page}`;
+    }
+
+    return url;
   },
 
   getPublicationsUrl() {

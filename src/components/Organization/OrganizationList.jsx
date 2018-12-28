@@ -5,6 +5,7 @@ import { getFileUrl } from '../../utils/upload';
 import OrganizationCard from './OrganizationCard';
 import { getOrganizationUrl } from '../../utils/organization';
 import OrganizationListPopup from './OrganizationListPopup';
+import OrganizationListPopupMore from './OrganizationListPopupMore';
 
 class OrganizationList extends PureComponent {
   constructor(props) {
@@ -55,12 +56,20 @@ class OrganizationList extends PureComponent {
           }
         </div>
 
-        {this.state.popupVisible &&
-          <OrganizationListPopup
-            organizationsIds={this.props.organizationsIds}
-            onClickClose={() => this.setState({ popupVisible: false })}
-          />
-        }
+        {this.state.popupVisible && (
+          this.props.tagTitle ? (
+            <OrganizationListPopupMore
+              organizationsIds={this.props.organizationsIds}
+              tagTitle={this.props.tagTitle}
+              onClickClose={() => this.setState({ popupVisible: false })}
+            />
+          ) : (
+            <OrganizationListPopup
+              organizationsIds={this.props.organizationsIds}
+              onClickClose={() => this.setState({ popupVisible: false })}
+            />
+          )
+        )}
       </Fragment>
     );
   }

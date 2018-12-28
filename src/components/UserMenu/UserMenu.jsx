@@ -1,7 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -32,12 +31,7 @@ const UserMenu = (props) => {
     <Fragment>
       {props.menuPopupVisibility &&
         <Popup mod="user-menu">
-          <div
-            className={classNames(
-              'user-menu',
-              { 'user-menu_blur': props.wallet.sendTokens.visible || props.wallet.editStake.visible || props.wallet.tradeRam.visible },
-            )}
-          >
+          <div className="user-menu">
             <div className="user-menu__content">
               <div className="content">
                 <div className="content__inner content__inner_grid">
@@ -78,7 +72,7 @@ const UserMenu = (props) => {
 
                       <div className="menu__item else-desktop">
                         <NavLink
-                          to="/publications/media"
+                          to={urls.getPublicationsCategoryUrl('trending')}
                           className="menu__link menu__link_upper"
                           activeClassName="menu__link_active"
                           isActive={() => props.location.pathname.indexOf('/publications') === 0}

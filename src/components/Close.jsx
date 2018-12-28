@@ -14,11 +14,11 @@ const Close = props => (
     }}
   >
     <div className="close__inner">
-      <div className="close__icon">
-        <IconClose />
-      </div>
       <div className="close__title">
         Close
+      </div>
+      <div className="close__icon">
+        <IconClose />
       </div>
     </div>
   </div>

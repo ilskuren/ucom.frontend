@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import loader from '../../utils/loader';
 import api from '../../api';
-import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID } from '../../utils/feed';
+import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID, TAG_FEED_ID } from '../../utils/feed';
 import FeedInput from './FeedInput';
 import { POST_TYPE_DIRECT_ID } from '../../utils/posts';
 import Post from './Post/Post';
@@ -12,15 +12,17 @@ import LoadMore from './LoadMore';
 import { addPosts } from '../../actions/posts';
 
 const getFeedFunctions = {
-  [USER_NEWS_FEED_ID]: api.getUserNewsFeed,
-  [USER_WALL_FEED_ID]: api.getUserWallFeed,
-  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed,
+  [USER_NEWS_FEED_ID]: api.getUserNewsFeed.bind(api),
+  [USER_WALL_FEED_ID]: api.getUserWallFeed.bind(api),
+  [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
+  [TAG_FEED_ID]: api.getTagWallFeed.bind(api),
 };
 
 const createCommentPostFunctions = {
-  [USER_NEWS_FEED_ID]: api.createUserCommentPost,
-  [USER_WALL_FEED_ID]: api.createUserCommentPost,
-  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost,
+  [USER_NEWS_FEED_ID]: api.createUserCommentPost.bind(api),
+  [USER_WALL_FEED_ID]: api.createUserCommentPost.bind(api),
+  [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost.bind(api),
+  [TAG_FEED_ID]: api.createUserCommentPost.bind(api),
 };
 
 const Feed = (props) => {
@@ -38,8 +40,9 @@ const Feed = (props) => {
         perPage,
         userId: props.userId,
         organizationId: props.organizationId,
+        tagTitle: props.tagTitle,
+        lastTagId: props.lastTagId,
       };
-
       const data = await getFeedFunctions[props.feedTypeId](params);
       props.addPosts(data.data);
       setMetadata(data.metadata);
@@ -81,7 +84,7 @@ const Feed = (props) => {
 
   useEffect(() => {
     fetchPosts({ page: 1, perPage: 10 });
-  }, [props.userId, props.organizationId]);
+  }, [props.userId, props.organizationId, props.tagTitle, props.lastTagId]);
 
   return (
     <div className="feed">

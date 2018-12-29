@@ -7,6 +7,7 @@ import api from '../../api';
 import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID, TAG_FEED_ID } from '../../utils/feed';
 import FeedInput from './FeedInput';
 import { POST_TYPE_DIRECT_ID } from '../../utils/posts';
+import { existHashTag } from '../../utils/text';
 import Post from './Post/Post';
 import LoadMore from './LoadMore';
 import { addPosts } from '../../actions/posts';
@@ -41,7 +42,7 @@ const Feed = (props) => {
         userId: props.userId,
         organizationId: props.organizationId,
         tagTitle: props.tagTitle,
-        lastTagId: props.lastTagId,
+        lastId: props.lastTagId,
       };
       const data = await getFeedFunctions[props.feedTypeId](params);
       props.addPosts(data.data);
@@ -73,7 +74,12 @@ const Feed = (props) => {
 
       const data = await createCommentPostFunctions[props.feedTypeId](params);
       props.addPosts([data]);
-      setPostIds([data.id].concat(postIds));
+
+      const existTag = props.tagTitle ? existHashTag(description, props.tagTitle) : false;
+
+      if (!props.tagTitle || existTag) {
+        setPostIds([data.id].concat(postIds));
+      }
     } catch (e) {
       console.error(e);
     }
@@ -94,7 +100,10 @@ const Feed = (props) => {
         </div>
       }
 
-      <FeedInput onSubmit={createDirectPost} />
+      <FeedInput
+        onSubmit={createDirectPost}
+        initialText={props.tagTitle}
+      />
 
       {postIds.length > 0 &&
         <div className="feed__list">

@@ -5,10 +5,18 @@ const URL_REGEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+
 
 export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
 const makeLinkTag = (match) => {
+  match = match.toLowerCase();
   const link = match.replace('#', '').trim();
   return `<a href='/tags/${link}' class='tag_link' target='_blank'>${match}</a>`;
 };
 export const checkHashTag = memoize((text = '') => text.replace(/#[a-zA-Z]\w*/gm, makeLinkTag));
+export const existHashTag = (text, tag) => {
+  const result = text.match(/#[a-zA-Z]\w*/gm);
+  if (result) {
+    return result.some(item => item === `#${tag}`);
+  }
+  return false;
+};
 export const removeMultipleNewLines = memoize((str = '') => str.replace(/(\r\n|\r|\n){2,}/g, '$1\n'));
 export const makeLink = memoize((text = '') => text.replace(URL_REGEX, url => `<a target="_blank" href="${url}">${url}</a>`));
 

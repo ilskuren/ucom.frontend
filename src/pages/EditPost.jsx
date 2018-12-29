@@ -9,7 +9,7 @@ import Button from '../components/Button';
 import Medium from '../components/Medium';
 import api from '../api';
 import { selectUser } from '../store/selectors';
-import { postSetSaved, setPostData, validatePost, resetPost } from '../actions';
+import { postSetSaved, setPostData, validatePost, resetPost, setDataToStoreToLS } from '../actions';
 import { authShowPopup } from '../actions/auth';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
@@ -66,9 +66,11 @@ const EditPost = (props) => {
 
   useEffect(() => {
     props.resetPost();
-
     if (postId) {
       getPost(postId);
+    } else if (localStorage.post_data) {
+      const value = localStorage.getItem('post_data');
+      props.setPostData(JSON.parse(value));
     }
 
     return () => {
@@ -77,6 +79,7 @@ const EditPost = (props) => {
   }, [postId]);
 
   if (props.post.data.id && props.post.saved) {
+    localStorage.removeItem('post_data');
     return <Redirect to={urls.getPostUrl(humps(props.post.data))} />;
   }
 
@@ -109,7 +112,7 @@ const EditPost = (props) => {
                 <Medium
                   value={props.post.data.description}
                   onChange={(description) => {
-                    props.setPostData(parseMediumContent(description));
+                    props.setDataToStoreToLS(parseMediumContent(description));
                     props.validatePost();
                   }}
                   onUploadStart={() => {
@@ -154,5 +157,6 @@ export default connect(
     validatePost,
     authShowPopup,
     postSetSaved,
+    setDataToStoreToLS,
   }, dispatch),
 )(EditPost);

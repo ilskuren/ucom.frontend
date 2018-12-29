@@ -17,8 +17,10 @@ class FeedForm extends PureComponent {
   constructor(props) {
     super(props);
 
+    const initialText = this.props.initialText ? `#${this.props.initialText} ` : false;
+
     this.state = {
-      message: escapeQuotes(this.props.message) || '',
+      message: escapeQuotes(this.props.message) || initialText || '',
       base64Cover: '',
       fileImg: '',
       fileUrl: getFileUrl(this.props.mainImageFilename) || '',
@@ -36,6 +38,7 @@ class FeedForm extends PureComponent {
       }
     }
   }
+
 
   render() {
     const user = getUserById(this.props.users, this.props.user.id);
@@ -164,6 +167,7 @@ FeedForm.propTypes = {
 export default connect(
   state => ({
     users: state.users,
+    tags: state.tags,
     posts: state.posts,
     user: selectUser(state),
   }),

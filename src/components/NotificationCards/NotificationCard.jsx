@@ -7,7 +7,7 @@ import React, { Fragment, useEffect } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import urls from '../../utils/urls';
-import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
+import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon, AtIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
 import { getUserName, getUserUrl } from '../../utils/user';
@@ -35,6 +35,8 @@ import {
   CONGRATULATIONS_EVENT_ID,
   USER_SHARE_YOUR_POST,
   USER_SHARE_YOUR_MEDIA_POST,
+  USER_HAS_MENTIONED_YOU_IN_POST,
+  USER_HAS_MENTIONED_YOU_IN_COMMENT,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -58,6 +60,9 @@ const getAvatarIcon = (eventId) => {
     case USER_SHARE_YOUR_POST:
     case USER_SHARE_YOUR_MEDIA_POST:
       return <ShareIcon />;
+    case USER_HAS_MENTIONED_YOU_IN_POST:
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      return <AtIcon />;
     default:
       return null;
   }
@@ -286,6 +291,32 @@ const getTitle = (props) => {
         </Fragment>
       );
 
+    case USER_HAS_MENTIONED_YOU_IN_POST:
+      return (
+        <Fragment>
+          <Link to={getUserUrl(props.data.post.user.id)}>
+            <strong>{getUserName(props.data.post.user)}</strong>
+          </Link>
+          &nbsp;mentioned you in the &nbsp;
+          <Link to={urls.getPostUrl(props.data.post)}>
+            <strong>post</strong>
+          </Link>
+        </Fragment>
+      );
+
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      return (
+        <Fragment>
+          <Link to={getUserUrl(props.data.comment.user.id)}>
+            <strong>{getUserName(props.data.comment.user)}</strong>
+          </Link>
+          &nbsp;mentioned you in the &nbsp;
+          <Link to={urls.getPostUrl(props.data.comment.post)}>
+            <strong>comment</strong>
+          </Link>
+        </Fragment>
+      );
+
     default:
       return null;
   }
@@ -305,12 +336,24 @@ const getCover = (props) => {
       );
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
+    case USER_HAS_MENTIONED_YOU_IN_POST:
       if (!(props.data && props.data.post)) return null;
 
       return (
         <div className="site-notification__cover">
           <Link to={urls.getPostUrl(props.data.post)}>
             <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
+          </Link>
+        </div>
+      );
+
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      if (!(props.data && props.data.comment)) return null;
+
+      return (
+        <div className="site-notification__cover">
+          <Link to={urls.getPostUrl(props.data.comment.post)}>
+            <Avatar square isPost src={getFileUrl(props.data.comment.post.mainImageFilename)} />
           </Link>
         </div>
       );
@@ -363,6 +406,7 @@ const getAvatar = (props) => {
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
     case USER_SHARE_YOUR_MEDIA_POST:
+    case USER_HAS_MENTIONED_YOU_IN_POST:
       if (!(props.data && props.data.post && props.data.post.user)) return null;
 
       return (
@@ -371,6 +415,20 @@ const getAvatar = (props) => {
             <Avatar
               isPost
               src={getFileUrl(props.data.post.user.avatarFilename)}
+              icon={getAvatarIcon(props.eventId)}
+            />
+          </Link>
+        </div>
+      );
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      if (!(props.data && props.data.comment && props.data.comment.user)) return null;
+
+      return (
+        <div className="site-notification__avatar">
+          <Link to={getUserUrl(props.data.comment.user.id)}>
+            <Avatar
+              isPost
+              src={getFileUrl(props.data.comment.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}
             />
           </Link>

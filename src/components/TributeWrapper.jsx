@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { tributeConfig } from '../utils/tribute';
+import { defaultTributeConfig } from '../utils/tribute';
 
 class TributeWrapper extends PureComponent {
   constructor(props) {
@@ -10,12 +10,23 @@ class TributeWrapper extends PureComponent {
   componentDidMount() {
     const Tribute = require('tributejs'); //eslint-disable-line
 
-    this.tribute = new Tribute(tributeConfig);
+    this.tribute = new Tribute({ ...defaultTributeConfig, ...this.props.config });
     this.tribute.attach(this.element);
+
+    if (this.props.onChange) {
+      this.element.addEventListener('tribute-replaced', this.onChangeValue);
+    }
   }
 
   componentWillUnmount() {
     this.tribute.detach(this.element);
+    if (this.props.onChange) {
+      this.element.removeEventListener('tribute-replaced', this.onChangeValue);
+    }
+  }
+
+  onChangeValue = () => {
+    this.props.onChange(this.element.value || this.element.innerHTML);
   }
 
   render() {
@@ -31,5 +42,9 @@ class TributeWrapper extends PureComponent {
     );
   }
 }
+
+TributeWrapper.defaultProps = {
+  config: {},
+};
 
 export default TributeWrapper;

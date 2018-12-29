@@ -60,7 +60,9 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <TributeWrapper>
+      <TributeWrapper
+        onChange={e => this.props.onChange(e)}
+      >
         <div className="post-content" ref={(el) => { this.el = el; }} />
       </TributeWrapper>
     );

@@ -92,6 +92,7 @@
     "object-to-formdata": "^1.5.2",
     "pm2": "^3.2.4",
     "prop-types": "^15.6.2",
+    "rc-pagination": "^1.17.7",
     "react": "^16.7.0-alpha.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.7.0-alpha.2",

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import { getFileUrl } from '../../utils/upload';
 import UserListPopup from './UserListPopup';
+import UserListPopupMore from './UserListPopupMore';
 import urls from '../../utils/urls';
 import { getUsersByIds } from '../../store/users';
 import UserCard from '../UserCard';
@@ -54,7 +55,16 @@ const UserList = (props) => {
       {popupVisible &&
         <Popup onClickClose={() => setPopupVisible(false)}>
           <ModalContent onClickClose={() => setPopupVisible(false)}>
-            <UserListPopup usersIds={props.usersIds} />
+            {props.tagTitle ? (
+              <UserListPopupMore
+                usersIds={props.usersIds}
+                tagTitle={props.tagTitle}
+              />
+            ) : (
+              <UserListPopup
+                usersIds={props.usersIds}
+              />
+            )}
           </ModalContent>
         </Popup>
       }

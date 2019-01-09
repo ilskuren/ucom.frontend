@@ -127,13 +127,17 @@
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(184, 184, 184, 0.25);
 
-    @media (max-width: 1023px) {
-      padding: 40px;
-    }
-
-    @media (max-width: 767px) {
-      padding: 20px;
+    &_straight {
       border-radius: 0;
+
+      @media (max-width: 1023px) {
+        padding: 40px;
+      }
+
+      @media (max-width: 767px) {
+        padding: 20px;
+        border-radius: 0;
+      }
     }
   }
 }

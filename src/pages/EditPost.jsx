@@ -15,11 +15,15 @@ import loader from '../utils/loader';
 import urls from '../utils/urls';
 import Close from '../components/Close';
 import { parseMediumContent } from '../utils/posts';
+import Popup from '../components/Popup';
+import ModalContent from '../components/ModalContent';
+import PostSubmitForm from '../components/Post/PostSubmitForm';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [submitPopupVisible, setSubmitPopupVisible] = useState(false);
 
   const getPost = async () => {
     loader.start();
@@ -66,6 +70,7 @@ const EditPost = (props) => {
 
   useEffect(() => {
     props.resetPost();
+
     if (postId) {
       getPost(postId);
     } else if (localStorage.post_data) {
@@ -85,6 +90,14 @@ const EditPost = (props) => {
 
   return (
     <LayoutClean>
+      {submitPopupVisible &&
+        <Popup onClickClose={() => setSubmitPopupVisible(false)}>
+          <ModalContent onClickClose={() => setSubmitPopupVisible(false)} mod="post-submit">
+            <PostSubmitForm />
+          </ModalContent>
+        </Popup>
+      }
+
       <div className="edit-post">
         <div className="edit-post__container">
           <div className="edit-post__toolbar">
@@ -96,7 +109,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={() => setSubmitPopupVisible(true)} isDisabled={loading || !props.post.isValid} />
               </div>
               <div className="edit-post-toolbar__close">
                 <Close />
@@ -136,7 +149,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={() => setSubmitPopupVisible(true)} isDisabled={loading || !props.post.isValid} />
               </div>
             </div>
           </div>

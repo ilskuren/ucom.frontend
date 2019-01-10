@@ -5,6 +5,7 @@ const URL_REGEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+
 
 export const escapeQuotes = memoize((text = '') => text.replace(/&quot;/g, '"'));
 const makeLinkTag = (match) => {
+  match = match.toLowerCase();
   const link = match.replace('#', '').trim();
   return `<a href='/tags/${link}' class='tag_link' target='_blank'>${match}</a>`;
 };

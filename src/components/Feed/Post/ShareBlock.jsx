@@ -38,7 +38,7 @@ class ShareBlock extends PureComponent {
   render() {
     return (
       <div className="share-btn" ref={(el) => { this.el = el; }}>
-        {this.props.postTypeId !== 11 &&
+        {this.props.repostAvailable &&
           <div
             className="repost__block"
             role="presentation"
@@ -67,7 +67,7 @@ ShareBlock.propTypes = {
   link: PropTypes.string,
   addRepost: PropTypes.func,
   onClickClose: PropTypes.func,
-  postTypeId: PropTypes.number,
+  repostAvailable: PropTypes.bool,
   postId: PropTypes.number,
 };
 

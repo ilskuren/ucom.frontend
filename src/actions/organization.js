@@ -18,22 +18,23 @@ export const addOrganizationPartnershipNetwork = payload => ({ type: 'ADD_ORGANI
 export const removeOrganizationPartnershipNetwork = payload => ({ type: 'REMOVE_ORGANIZATION_PARTNERSHIP_NETWORK', payload });
 export const resetOrganizationData = () => ({ type: 'RESET_ORGANIZATION' });
 
-export const saveOrganization = payload => (dispatch) => {
+export const saveOrganization = payload => async (dispatch) => {
   loader.start();
   dispatch(setOrganizationLoading(true));
-  (payload.id ? api.updateOrganization : api.createOrganization)(snakes(payload))
-    .then((data) => {
-      dispatch(setOrganizationData(data));
-      dispatch(setOrganizationSaved(true));
-      dispatch(setOrganizationLoading(false));
-    })
-    .catch((error) => {
-      const errors = parseErrors(error);
-      dispatch(setOrganizationErrors(errors));
-      dispatch(setOrganizationLoading(false));
-      dispatch(addValidationErrorNotification());
-    })
-    .then(() => loader.done());
+
+  try {
+    const saveFn = (payload.id ? api.updateOrganization : api.createOrganization).bind(api);
+    const data = await saveFn(snakes(payload));
+    dispatch(setOrganizationData(data));
+    dispatch(setOrganizationSaved(true));
+  } catch (e) {
+    const errors = parseErrors(e);
+    dispatch(setOrganizationErrors(errors));
+    dispatch(addValidationErrorNotification());
+  }
+
+  loader.done();
+  dispatch(setOrganizationLoading(false));
 };
 
 export const fetchOrganization = payload => (dispatch) => {

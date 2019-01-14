@@ -24,19 +24,40 @@
 }
 
 .tribute-container__avatar {
-  width: 24px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
   object-fit: cover;
   margin-right: 12px;
   border-radius: 50%;
 }
 
-.tribute-container__link {
+.user-option__name {
   font-size: 16px;
   font-weight: bold;
   line-height: normal;
+  cursor: pointer;
+}
+
+.user-option__nickname {
+  font-weight: normal;
+  font-size: 14px;
+  color: #585858;
 }
 
 .tribute-container .highlight {
   background: #F8F8F9;
+}
+
+.highlight .user-option__name,.tribute-container__item:hover .user-option__name {
+  color: @red;
+}
+
+.svg-icon-user {
+  width: 48px;
+  height: 48px;
+}
+
+.tribute-container__block-names {
+  display: flex;
+  flex-direction: column;
 }

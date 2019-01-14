@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 import CloseIcon from './Icons/Close';
+import { getClassNames } from '../utils/bem';
 
 export default (props) => {
   const el = useRef(null);
@@ -9,21 +10,18 @@ export default (props) => {
     <div
       ref={el}
       role="presentation"
-      className={classNames(
-        'modal-content',
-        { [`modal-content_${props.mod}`]: Boolean(props.mod) },
-      )}
+      className={classNames(getClassNames('modal-content', props.mod))}
       onClick={(e) => {
-        if (e.target === el.current && props.onClickClose) {
+        if (props.onClickClose && e.target === el.current) {
           props.onClickClose();
         }
       }}
     >
       {props.onClickClose &&
         <div
-          onClick={props.onClickClose}
-          className="modal-content__close"
           role="presentation"
+          className="modal-content__close"
+          onClick={() => props.onClickClose()}
         >
           <CloseIcon />
         </div>

@@ -17,7 +17,7 @@ const PostSubmitForm = (props) => {
   return (
     <div className="post-submit-form">
       <div className="post-submit-form__title">
-        <h3 className="title title_small">Post preview</h3>
+        <h3 className="title title_small">Publication preview</h3>
       </div>
 
       <div className="post-submit-cover">

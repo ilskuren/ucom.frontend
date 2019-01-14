@@ -25,10 +25,10 @@ const PostSubmitForm = (props) => {
           {entityImages.articleTitle && entityImages.articleTitle[0] ? (
             <Fragment>
               <img className="post-submit-cover__img" src={entityImages.articleTitle[0].url} alt="" />
-              <div className="post-submit-cover__change">Click for change preview image</div>
+              <div className="post-submit-cover__change">Click to change preview image</div>
             </Fragment>
           ) : (
-            <div className="post-submit-cover__text">Click for upload preview image</div>
+            <div className="post-submit-cover__text">Click to upload preview image</div>
           )}
 
           <input

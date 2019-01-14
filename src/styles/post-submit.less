@@ -1,0 +1,103 @@
+.post-submit-form {
+  padding: 40px;
+}
+
+.post-submit-form__title {
+  margin: 0 0 20px;
+}
+
+.post-submit-form__text {
+  margin: 0 0 20px;
+}
+
+.post-submit-form__field {
+  margin: 0 0 20px;
+}
+
+.post-submit-form__data {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  margin: 0;
+  border: 1px solid #eee;
+  border-width: 0 0 1px;
+  font-size: 20px;
+  line-height: 1.5;
+  outline: none;
+  resize: none;
+
+  &::placeholder {
+    opacity: 1;
+    color: rgba(0,0,0,0.3);
+  }
+}
+
+.post-submit-form__data_title {
+  font-weight: 600;
+}
+
+.post-submit-form__data_lead {
+  font-size: 16px;
+}
+
+.post-submit-form__action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-submit-cover {
+  position: relative;
+  z-index: 0;
+  margin: 0 0 20px;
+  border-radius: 2px;
+  background: #eee;
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 50%;
+  }
+
+  &:hover {
+    .post-submit-cover__change {
+      background: rgba(0,0,0,0.6);
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.post-submit-cover__inner {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.post-submit-cover__img {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.post-submit-cover__change {
+  padding: 10px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.5);
+  transition: background 0.2s ease;
+  color: #fff;
+}

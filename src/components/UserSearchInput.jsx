@@ -72,7 +72,7 @@ const UserSearchInput = ({
       placeholder={placeholder}
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={loadOptions || api.searchUsers}
+      loadOptions={loadOptions || api.searchUsers.bind(api)}
       getOptionLabel={data => getUserName(data)}
       getOptionValue={data => data.id}
       components={{

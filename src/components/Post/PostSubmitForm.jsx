@@ -20,12 +20,6 @@ const PostSubmitForm = (props) => {
         <h3 className="title title_small">Post preview</h3>
       </div>
 
-      <div className="post-submit-form__text">
-        <div className="text text_small">
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat eligendi reprehenderit ad sint minima dolores sit cupiditate itaque incidunt. Earum.</p>
-        </div>
-      </div>
-
       <div className="post-submit-cover">
         <label className="post-submit-cover__inner">
           {entityImages.articleTitle && entityImages.articleTitle[0] ? (

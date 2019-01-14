@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
@@ -20,17 +20,21 @@ import Feed from '../components/Feed/FeedUser';
 import { USER_WALL_FEED_ID, FEED_PER_PAGE } from '../utils/feed';
 import { feedGetUserPosts } from '../actions/feed';
 import loader from '../utils/loader';
+import NotFoundPage from './NotFoundPage';
 
 const UserPage = (props) => {
-  const userId = Number(props.match.params.userId);
+  const userIdOrName = props.match.params.userId;
   const postId = Number(props.match.params.postId);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     loader.start();
     window.scrollTo(0, 0);
-    props.dispatch(fetchUser(userId))
-      .then(loader.done);
-  }, [userId]);
+    props.dispatch(fetchUser(userIdOrName))
+      .then(loader.done)
+      .then(() => setLoaded(true))
+      .catch(() => setLoaded(true));
+  }, [userIdOrName]);
 
   useEffect(() => {
     if (postId) {
@@ -40,12 +44,15 @@ const UserPage = (props) => {
     }
   }, [postId]);
 
-  const user = getUserById(props.users, userId);
-  const post = getPostById(props.posts, postId);
-
-  if (!user) {
+  const user = getUserById(props.users, userIdOrName);
+  if (loaded && !user) {
+    return <NotFoundPage />;
+  } else if (!user) {
     return null;
   }
+
+  const post = getPostById(props.posts, postId);
+  const userId = user.id;
 
   return (
     <LayoutBase>

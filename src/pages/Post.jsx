@@ -9,7 +9,7 @@ import { UserCardSimpleWrapper } from '../components/User/UserCardSimple';
 import UserFollowButton from '../components/User/UserFollowButton';
 import urls from '../utils/urls';
 import ButtonEdit from '../components/ButtonEdit';
-import { sanitizePostText, checkHashTag } from '../utils/text';
+import { sanitizePostText, checkHashTag, checkMentionTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
@@ -38,6 +38,7 @@ const PostPage = (props) => {
   }
 
   post.description = checkHashTag(post.description);
+  post.description = checkMentionTag(post.description);
 
   return (
     <LayoutBase>

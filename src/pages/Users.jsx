@@ -7,6 +7,7 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import IconTableTriangle from '../components/Icons/TableTriangle';
+import SearchInput from '../components/SearchInput';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
@@ -25,6 +26,7 @@ const textItemRender = (current, type, element) => {
 
 const UsersPage = (props) => {
   const [usersData, setUsersData] = useState({ data: [], metadata: {} });
+  const [search, setSearch] = useState('');
   const urlParams = new URLSearchParams(props.location.search);
   const page = urlParams.get('page') || 1;
   const sortBy = urlParams.get('sortBy') || '-current_rate';
@@ -49,6 +51,10 @@ const UsersPage = (props) => {
   };
 
   useEffect(() => {
+    // getData({ page, perPage, sortBy, query });
+  }, [search]);
+
+  useEffect(() => {
     getData({ page, perPage, sortBy });
   }, [props.location.search]);
 
@@ -59,8 +65,9 @@ const UsersPage = (props) => {
     <LayoutBase>
       <div className="content">
         <div className="content__inner">
-          <div className="content__title content__title_narrow">
+          <div className="content__title content__title_narrow content__title_searched">
             <h1 className="title">People</h1>
+            <SearchInput {...{ setSearch, search }} />
           </div>
           {users && users.length > 0 &&
             <div className="table-content table-content_big-bottom">

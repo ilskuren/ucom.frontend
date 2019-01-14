@@ -17,6 +17,7 @@ import governance from './governance/index';
 import registration from './registration';
 import mainPostGroup from './mainPostGroup';
 import feed from './feed';
+import tags from './tags';
 import { reducer as user } from './user';
 
 export const createStore = () => {
@@ -38,6 +39,7 @@ export const createStore = () => {
     registration,
     mainPostGroup,
     feed,
+    tags,
   });
   const middlewares = [thunk];
   let preloadedState;

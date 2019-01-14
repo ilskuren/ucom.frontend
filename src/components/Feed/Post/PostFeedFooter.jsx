@@ -53,8 +53,8 @@ class PostFeedFooter extends PureComponent {
               <ShareBlock
                 link={urls.getPostUrl(post)}
                 postId={post.id}
-                postTypeId={this.props.postTypeId}
                 onClickClose={this.props.toggleShare}
+                repostAvailable={post.myselfData.repostAvailable}
               />
             </div>
           ) : null }
@@ -74,7 +74,6 @@ class PostFeedFooter extends PureComponent {
 
 PostFeedFooter.propTypes = {
   commentsCount: PropTypes.number,
-  postTypeId: PropTypes.number,
 };
 
 export default connect(

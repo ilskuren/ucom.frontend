@@ -12,6 +12,7 @@ import OrganizationPage from './pages/Organization';
 import NotFoundPage from './pages/NotFoundPage';
 import RegistrationPage from './components/Registration/Registration';
 import GovernancePage from './components/Governance/Governance';
+import Tag from './pages/Tag';
 
 export default [{
   path: '/',
@@ -73,6 +74,9 @@ export default [{
 }, {
   path: '/governance',
   component: GovernancePage,
+}, {
+  path: '/tags/:title',
+  component: Tag,
 }, {
   path: '*',
   component: NotFoundPage,

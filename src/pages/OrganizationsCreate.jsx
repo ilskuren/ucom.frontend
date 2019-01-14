@@ -43,6 +43,10 @@ class OrganizationsCreatePage extends PureComponent {
       return <Redirect to="/" />;
     }
 
+    if (!this.props.user.id) {
+      return null;
+    }
+
     return (
       <LayoutBase>
         <div className="content">

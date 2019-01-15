@@ -8,7 +8,7 @@ import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR } from '../../utils/upload';
 import { addErrorNotification } from '../../actions/notifications';
 import api from '../../api';
 import loader from '../../utils/loader';
-import { POSTS_TITLE_MAX_LENGTH, POSTS_LEADING_TEXT_MAX_LENGTH } from '../../utils/posts';
+import { POSTS_TITLE_MAX_LENGTH } from '../../utils/posts';
 
 const PostSubmitForm = (props) => {
   const entityImages = props.post.data.entityImages || {};
@@ -71,17 +71,6 @@ const PostSubmitForm = (props) => {
           className="post-submit-form__data post-submit-form__data_title"
           value={props.post.data.title}
           onChange={e => props.setDataToStoreToLS({ title: e.target.value })}
-        />
-      </div>
-
-      <div className="post-submit-form__field">
-        <TextareaAutosize
-          rows="1"
-          maxLength={POSTS_LEADING_TEXT_MAX_LENGTH}
-          placeholder="Preview sub title"
-          className="post-submit-form__data post-submit-form__data_lead"
-          value={props.post.data.leadingText}
-          onChange={e => props.setDataToStoreToLS({ leadingText: e.target.value })}
         />
       </div>
 

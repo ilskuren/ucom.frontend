@@ -12,23 +12,6 @@ import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 
-function throttle(callback, wait, context = this) {
-  let timeout = null;
-  let callbackArgs = null;
-
-  const later = () => {
-    callback.apply(context, callbackArgs);
-    timeout = null;
-  };
-
-  return (...args) => {
-    if (!timeout) {
-      callbackArgs = args;
-      timeout = setTimeout(later, wait);
-    }
-  };
-}
-
 const { getPagingLink } = urls;
 
 const textItemRender = (current, type, element) => {
@@ -59,10 +42,12 @@ const UsersPage = (props) => {
   };
 
   const onChangeSearch = (userName) => {
-    props.history.push(getPagingLink({ ...usersParams, userName, page: 1 }));
+    props.history.push(getPagingLink({
+      ...usersParams, userName, page: 1, perPage: 20,
+    }));
   };
 
-  const notThrottledGetData = async (params) => {
+  const getData = async (params) => {
     loader.start();
 
     try {
@@ -74,8 +59,6 @@ const UsersPage = (props) => {
 
     loader.done();
   };
-
-  const getData = throttle(notThrottledGetData, 500);
 
   useEffect(() => {
     getData({

@@ -7,6 +7,7 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
 import { getUserUrl, getUserName } from '../utils/user';
 import IconTableTriangle from '../components/Icons/TableTriangle';
+import SearchInput from '../components/SearchInput';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
@@ -25,14 +26,24 @@ const textItemRender = (current, type, element) => {
 
 const UsersPage = (props) => {
   const [usersData, setUsersData] = useState({ data: [], metadata: {} });
+  // const [userName, setUserName] = useState('');
   const urlParams = new URLSearchParams(props.location.search);
   const page = urlParams.get('page') || 1;
   const sortBy = urlParams.get('sortBy') || '-current_rate';
   const perPage = urlParams.get('perPage') || 20;
+  const userName = urlParams.get('userName') || '';
+
+  const usersParams = {
+    page, sortBy, perPage, userName,
+  };
 
   const onChangePage = (current) => {
-    props.history.push(getPagingLink({ page: current, sortBy, perPage }));
+    props.history.push(getPagingLink({ ...usersParams, page: current }));
     window.scrollTo(0, 'top');
+  };
+
+  const onChangeSearch = (userName) => {
+    props.history.push(getPagingLink({ ...usersParams, userName }));
   };
 
   const getData = async (params) => {
@@ -49,7 +60,9 @@ const UsersPage = (props) => {
   };
 
   useEffect(() => {
-    getData({ page, perPage, sortBy });
+    getData({
+      page, perPage, sortBy, userName,
+    });
   }, [props.location.search]);
 
   const { data: users } = usersData;
@@ -59,8 +72,9 @@ const UsersPage = (props) => {
     <LayoutBase>
       <div className="content">
         <div className="content__inner">
-          <div className="content__title content__title_narrow">
+          <div className="content__title content__title_narrow content__title_searched">
             <h1 className="title">People</h1>
+            <SearchInput setSearch={onChangeSearch} search={userName} />
           </div>
           {users && users.length > 0 &&
             <div className="table-content table-content_big-bottom">
@@ -86,7 +100,7 @@ const UsersPage = (props) => {
                             { 'list-table__cell_sortable': item.sortable },
                           )}
                         >
-                          <Link to={getPagingLink({ sortBy: `${sortBy === `-${item.name}` ? '' : '-'}${item.name}`, page, perPage })}>
+                          <Link to={getPagingLink({ ...usersParams, sortBy: `${sortBy === `-${item.name}` ? '' : '-'}${item.name}` })}>
                             <div className="list-table__title">
                               {item.title}
 
@@ -132,7 +146,7 @@ const UsersPage = (props) => {
                 {hasMore && (
                   <div className="table-content__showmore">
                     <div className="button-clean button-clean_link">
-                      <Link to={getPagingLink({ perPage: +perPage + 20, page, sortBy })}>Show More</Link>
+                      <Link to={getPagingLink({ ...usersParams, perPage: +perPage + 20 })}>Show More</Link>
                     </div>
                   </div>
                 )}

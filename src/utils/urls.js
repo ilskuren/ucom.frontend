@@ -96,7 +96,7 @@ const urls = {
   },
 
   getPagingLink(params) {
-    return `/users?page=${params.page}&sortBy=${params.sortBy}&perPage=${params.perPage}`;
+    return `/users?page=${params.page}&sortBy=${params.sortBy}&perPage=${params.perPage}&userName=${params.userName}`;
   },
 };
 

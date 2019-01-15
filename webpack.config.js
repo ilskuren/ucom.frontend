@@ -1,7 +1,6 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: [
@@ -10,10 +9,6 @@ module.exports = {
   ],
 
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'app.css',
-    }),
-
     new CopyWebpackPlugin([
       { from: './src/favicon/*', flatten: true },
     ]),
@@ -28,19 +23,33 @@ module.exports = {
       },
 
       {
-        test: /\.(css|less)$/,
+        test: /\.(css)$/,
         loader: [{
-          loader: MiniCssExtractPlugin.loader,
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+          options: {
+            module: true,
+            localIdentName: '[hash:8]',
+          },
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [autoprefixer()],
+          },
+        }],
+      },
+
+      {
+        test: /\.(less)$/,
+        loader: [{
+          loader: 'style-loader',
         }, {
           loader: 'css-loader',
         }, {
           loader: 'postcss-loader',
           options: {
-            plugins: [
-              autoprefixer({
-                browsers: ['ie >= 8', 'last 4 version'],
-              }),
-            ],
+            plugins: [autoprefixer()],
           },
         }, {
           loader: 'less-loader',

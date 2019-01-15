@@ -12,6 +12,23 @@ import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 
+function throttle(callback, wait, context = this) {
+  let timeout = null;
+  let callbackArgs = null;
+
+  const later = () => {
+    callback.apply(context, callbackArgs);
+    timeout = null;
+  };
+
+  return (...args) => {
+    if (!timeout) {
+      callbackArgs = args;
+      timeout = setTimeout(later, wait);
+    }
+  };
+}
+
 const { getPagingLink } = urls;
 
 const textItemRender = (current, type, element) => {
@@ -26,7 +43,6 @@ const textItemRender = (current, type, element) => {
 
 const UsersPage = (props) => {
   const [usersData, setUsersData] = useState({ data: [], metadata: {} });
-  // const [userName, setUserName] = useState('');
   const urlParams = new URLSearchParams(props.location.search);
   const page = urlParams.get('page') || 1;
   const sortBy = urlParams.get('sortBy') || '-current_rate';
@@ -43,10 +59,10 @@ const UsersPage = (props) => {
   };
 
   const onChangeSearch = (userName) => {
-    props.history.push(getPagingLink({ ...usersParams, userName }));
+    props.history.push(getPagingLink({ ...usersParams, userName, page: 1 }));
   };
 
-  const getData = async (params) => {
+  const notThrottledGetData = async (params) => {
     loader.start();
 
     try {
@@ -58,6 +74,8 @@ const UsersPage = (props) => {
 
     loader.done();
   };
+
+  const getData = throttle(notThrottledGetData, 500);
 
   useEffect(() => {
     getData({

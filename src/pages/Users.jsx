@@ -26,7 +26,6 @@ const textItemRender = (current, type, element) => {
 
 const UsersPage = (props) => {
   const [usersData, setUsersData] = useState({ data: [], metadata: {} });
-  // const [userName, setUserName] = useState('');
   const urlParams = new URLSearchParams(props.location.search);
   const page = urlParams.get('page') || 1;
   const sortBy = urlParams.get('sortBy') || '-current_rate';
@@ -43,7 +42,9 @@ const UsersPage = (props) => {
   };
 
   const onChangeSearch = (userName) => {
-    props.history.push(getPagingLink({ ...usersParams, userName }));
+    props.history.push(getPagingLink({
+      ...usersParams, userName, page: 1, perPage: 20,
+    }));
   };
 
   const getData = async (params) => {

@@ -1,0 +1,61 @@
+:local(.form) {
+  display: flex;
+  padding: 20px;
+}
+
+:local(.userPick) {
+  margin: 0 8px 0 0;
+  padding: 6px 0 0;
+}
+
+:local(.field) {
+  display: flex;
+  align-items: flex-end;
+  flex: 1 1 auto;
+  border: 1px solid #B1B1B1;
+  border-radius: 4px;
+}
+
+:local(.inputWrapper) {
+  flex: 1 1 auto;
+}
+
+:local(.input) {
+  display: block;
+  width: 100%;
+  line-height: 1;
+  box-sizing: border-box;
+  padding: 10px 22px 8px;
+  border: none;
+  font-size: 16px;
+  line-height: 28px;
+  resize: none;
+  outline: none;
+  background: transparent;
+}
+
+:local(.input::placeholder) {
+  opacity: 1;
+  color: #C1C1C1;
+}
+
+:local(.actions) {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 10px 0 0;
+}
+
+:local(.action) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  fill: #c4c4c4;
+}
+
+:local(.action:hover) {
+  fill: #767676;
+}

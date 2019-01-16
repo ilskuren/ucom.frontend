@@ -1,8 +1,0 @@
-:local(.comments) {
-  border: 1px solid #E7ECEC;
-  background: #c30;
-}
-
-:local(.comment) {
-  padding: 20px;
-}

@@ -1,0 +1,19 @@
+:local(.showReplies) {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 20px 64px;
+  font-size: 14px;
+}
+
+:local(.icon) {
+  margin: 0 6px 0 0;
+  fill: transparent;
+}
+
+:local(.title) {
+  cursor: pointer;
+}
+
+:local(.title:hover) {
+  text-decoration: underline;
+}

@@ -1,5 +1,6 @@
 const NODE_ENV = 'staging';
 const HTTP_SERVER_PORT = 8080;
+const BABEL_ENV = 'server';
 
 module.exports = {
   apps: [
@@ -10,8 +11,9 @@ module.exports = {
       watch: ['public', 'server.js'],
       env: {
         PORT: HTTP_SERVER_PORT,
-        NODE_ENV,
         autorestart: true,
+        NODE_ENV,
+        BABEL_ENV,
       },
     },
   ],

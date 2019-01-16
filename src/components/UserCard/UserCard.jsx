@@ -6,9 +6,11 @@ import { getUserById } from '../../store/users';
 import { getUserName } from '../../utils/user';
 import urls from '../../utils/urls';
 import styles from './styles.css';
+import { formatRate } from '../../utils/rate';
 
-export const UserCard = (props) => {
+const UserCard = (props) => {
   const LinkTag = props.url ? Link : 'div';
+
 
   return (
     <div className={styles.userCard}>
@@ -19,7 +21,7 @@ export const UserCard = (props) => {
         <LinkTag to={props.url}>{props.name}</LinkTag>
       </div>
       <div className={styles.rate}>
-        {props.rate}°
+        {formatRate(props.rate)}°
       </div>
     </div>
   );

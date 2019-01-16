@@ -1,0 +1,42 @@
+:local(.comment) {
+  padding: 20px;
+}
+
+:local(.comment:hover) {
+  background: #F9F9F9;
+}
+
+:local(.userCard) {
+  margin: 0 0 12px;
+}
+
+:local(.content) {
+  padding: 0 0 0 44px ;
+}
+
+:local(.text) {
+  margin: 0 0 8px;
+  font-size: 16px;
+  line-height: 23px;
+}
+
+:local(.actions) {
+  display: flex;
+  align-items: center;
+}
+
+:local(.reply) {
+  margin: 0 14px 0 0;
+  font-size: 14px;
+  cursor: pointer;
+  color: #D8352F;
+}
+
+:local(.reply:hover) {
+  text-decoration: underline;
+}
+
+:local(.date) {
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+}

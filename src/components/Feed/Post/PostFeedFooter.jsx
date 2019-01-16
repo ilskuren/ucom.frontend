@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import IconComment from '../../Icons/Comment';
 import IconShare from '../../Icons/Share';
-import Comments from '../../Comments/Comments';
-import LastUserComments from '../../Comments/LastUserComments';
+import Comments from '../../Comments_';
 import ShareBlock from './ShareBlock';
 import { createComment } from '../../../actions/comments';
 import urls from '../../../utils/urls';
@@ -61,11 +60,7 @@ class PostFeedFooter extends PureComponent {
         </div>
 
         <div className="post__comments">
-          {this.props.commentsIsVisible ? (
-            <Comments postId={post.id} />
-          ) : (
-            <LastUserComments postId={post.id} timestamp={this.props.timestamp} />
-          )}
+          <Comments postId={post.id} />
         </div>
       </div>
     );

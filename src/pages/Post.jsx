@@ -5,14 +5,14 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import { fetchPost } from '../actions/posts';
 import { getPostById } from '../store/posts';
 import { getUserById } from '../store/users';
-import { UserCard } from '../components/UserCard/UserCard';
+import UserCard from '../components/UserCard/UserCard';
 import UserFollowButton from '../components/User/UserFollowButton';
 import urls from '../utils/urls';
 import ButtonEdit from '../components/ButtonEdit';
 import { sanitizePostText, checkHashTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
-import Comments from '../components/Comments_/Comments';
+import Comments from '../components/Comments/Comments';
 import * as postsUtils from '../utils/posts';
 import loader from '../utils/loader';
 

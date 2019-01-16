@@ -1,17 +1,7 @@
 import React, { createRef } from 'react';
 import IconSearch from './Icons/Search';
 import IconClose from './Icons/Close';
-
-const debounce = (fn, time) => {
-  let timeout;
-
-  return function temp(...args) {
-    const functionCall = () => fn.apply(this, args);
-
-    clearTimeout(timeout);
-    timeout = setTimeout(functionCall, time);
-  };
-};
+import debounce from '../utils/debounce';
 
 class SearchInput extends React.Component {
   constructor(props) {

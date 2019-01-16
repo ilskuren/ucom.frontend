@@ -1,30 +1,31 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
-import UserPick from '../UserPick';
+import UserPick from '../UserPick/UserPick';
 import { getUserById } from '../../store/users';
 import { getUserName } from '../../utils/user';
 import urls from '../../utils/urls';
+import styles from './styles.css';
 
-const UserCardSimple = (props) => {
+export const UserCard = (props) => {
   const LinkTag = props.url ? Link : 'div';
 
   return (
-    <div className="user-card-simple">
-      <div className="user-card-simple__avatar">
+    <div className={styles.userCard}>
+      <div className={styles.avatar}>
         <UserPick url={props.url} src={props.userPickSrc} alt={props.userPickAlt} />
       </div>
-      <div className="user-card-simple__name">
+      <div className={styles.name}>
         <LinkTag to={props.url}>{props.name}</LinkTag>
       </div>
-      <div className="user-card-simple__rate">
+      <div className={styles.rate}>
         {props.rate}°
       </div>
     </div>
   );
 };
 
-export const UserCardSimpleWrapper = connect(
+export default connect(
   state => ({
     users: state.users,
   }),
@@ -37,7 +38,7 @@ export const UserCardSimpleWrapper = connect(
   }
 
   return (
-    <UserCardSimple
+    <UserCard
       userPickSrc={urls.getFileUrl(user.avatarFilename)}
       userPickAlt={getUserName(user)}
       url={urls.getUserUrl(user.id)}
@@ -46,5 +47,3 @@ export const UserCardSimpleWrapper = connect(
     />
   );
 });
-
-export default UserCardSimple;

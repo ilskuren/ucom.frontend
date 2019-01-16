@@ -1,4 +1,5 @@
 import * as postsUtils from './posts';
+import * as overviewUtils from './overview';
 import { getBackendConfig } from './config';
 
 const urls = {
@@ -69,12 +70,13 @@ const urls = {
 
     return `/communities/${id}`;
   },
-
-  getPublicationsCategoryUrl(
-    name = postsUtils.POSTS_CATREGORIES[0].name,
+  // getOverviewCategoryUrl
+  getOverviewCategoryUrl(
+    filter = overviewUtils.OVERVIEW_CATEGORIES[0].name,
     page,
+    route = overviewUtils.OVERVIEW_ROUTES[0].name,
   ) {
-    let url = `/publications/${name}`;
+    let url = `/overview/${route}/filter/${filter}`;
 
     if (page) {
       url = `${url}/page/${page}`;
@@ -82,9 +84,9 @@ const urls = {
 
     return url;
   },
-
+  // getPublicationsUrl
   getPublicationsUrl() {
-    return '/publications';
+    return '/overview/publications';
   },
 
   getFileUrl(filename) {

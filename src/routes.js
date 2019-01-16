@@ -3,7 +3,8 @@ import UserPage, { getUserPageData } from './pages/User';
 import EditPostPage from './pages/EditPost';
 import ProfilePage from './pages/Profile';
 import PostPage, { getPostPageData } from './pages/Post';
-import PublicationsPage, { getPublicationsPageData } from './pages/Publications';
+import OverviewPage from './pages/Overview';
+import { getPublicationsPageData } from './pages/Publications';
 import UsersPage from './pages/Users';
 import AboutPage from './pages/About';
 import OrganizationsPage from './pages/Organizations';
@@ -18,13 +19,14 @@ export default [{
   path: '/',
   component: HomePage,
   getData: getHomePageData,
-}, {
-  path: '/publications/:name',
-  component: PublicationsPage,
+},
+{
+  path: '/overview/publications/filter/:filter',
+  component: OverviewPage,
   getData: getPublicationsPageData,
 }, {
-  path: '/publications/:name/page/:page',
-  component: PublicationsPage,
+  path: '/overview/publications/filter/:filter/page/:page',
+  component: OverviewPage,
   getData: getPublicationsPageData,
 }, {
   path: '/user/:userId',

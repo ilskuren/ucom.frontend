@@ -1,6 +1,7 @@
 import api from '../api';
 import * as feedUtils from '../utils/feed';
 import * as postsUtils from '../utils/posts';
+import * as overviewUtils from '../utils/overview';
 
 import { addPosts } from './posts';
 
@@ -58,17 +59,17 @@ export const feedCreatePost = (feedTypeId, params) => (dispatch, getState) => {
 
 export const feedGetPosts = (postsCategoryId, params) => (dispatch, getState) => {
   const paramsForCategories = {
-    [postsUtils.POSTS_CATREGORIES_HOT_ID]: {
+    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: {
       sortBy: '-current_rate',
       createdAt: '24_hours',
     },
-    [postsUtils.POSTS_CATREGORIES_TRENDING_ID]: {
+    [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: {
       sortBy: '-current_rate_delta_daily',
     },
-    [postsUtils.POSTS_CATREGORIES_FRESH_ID]: {
+    [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: {
       sortBy: '-id',
     },
-    [postsUtils.POSTS_CATREGORIES_TOP_ID]: {
+    [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: {
       sortBy: '-current_rate',
     },
   };

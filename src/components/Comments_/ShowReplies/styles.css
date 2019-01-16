@@ -5,6 +5,14 @@
   font-size: 14px;
 }
 
+:local(.showReplies[level="2"]) {
+  padding-left: 84px;
+}
+
+:local(.showReplies[level="3"]) {
+  padding-left: 104px;
+}
+
 :local(.icon) {
   margin: 0 6px 0 0;
   fill: transparent;

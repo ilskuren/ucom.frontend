@@ -9,9 +9,10 @@ const Comments = () => (
   <div className={styles.comments}>
     <div className={styles.list}>
       <Comment />
-      <ShowReplies />
+      <Comment level="2" />
+      <Form level="2" />
+      <ShowReplies level="2" />
       <ShowNext />
-      <Form />
     </div>
   </div>
 );

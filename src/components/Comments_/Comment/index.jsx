@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css';
 import UserCard from '../../UserCard/UserCard';
 
-const Comment = () => (
-  <div className={styles.comment}>
+const Comment = props => (
+  <div className={styles.comment} level={props.level}>
     <div className={styles.userCard}>
       <UserCard userId={380} />
     </div>
@@ -22,5 +23,13 @@ const Comment = () => (
     </div>
   </div>
 );
+
+Comment.propTypes = {
+  level: PropTypes.number,
+};
+
+Comment.defaultProps = {
+  level: 1,
+};
 
 export default Comment;

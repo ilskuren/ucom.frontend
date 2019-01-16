@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css';
 import UserPick from '../../UserPick/UserPick';
 import TextareaAutosize from '../../TextareaAutosize';
 
-const Form = () => (
-  <div className={styles.form}>
+const Form = props => (
+  <div className={styles.form} level={props.level}>
     <div className={styles.userPick}>
       <UserPick />
     </div>
@@ -29,5 +30,13 @@ const Form = () => (
     </div>
   </div>
 );
+
+Form.propTypes = {
+  level: PropTypes.number,
+};
+
+Form.defaultProps = {
+  level: 1,
+};
 
 export default Form;

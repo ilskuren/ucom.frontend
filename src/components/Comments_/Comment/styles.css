@@ -2,6 +2,14 @@
   padding: 20px;
 }
 
+:local(.comment[level="2"]) {
+  padding-left: 40px;
+}
+
+:local(.comment[level="3"]) {
+  padding-left: 60px;
+}
+
 :local(.comment:hover) {
   background: #F9F9F9;
 }

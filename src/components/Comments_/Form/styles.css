@@ -3,6 +3,14 @@
   padding: 20px;
 }
 
+:local(.form[level="2"]) {
+  padding-left: 40px;
+}
+
+:local(.form[level="3"]) {
+  padding-left: 60px;
+}
+
 :local(.userPick) {
   margin: 0 8px 0 0;
   padding: 6px 0 0;

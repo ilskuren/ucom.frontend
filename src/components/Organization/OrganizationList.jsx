@@ -3,6 +3,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { getOrganizationById } from '../../store/organizations';
 import { getFileUrl } from '../../utils/upload';
 import OrganizationCard from './OrganizationCard';
+import { OrganizationCardSimpleWrapper } from './OrganizationCardSimple';
 import { getOrganizationUrl } from '../../utils/organization';
 import OrganizationListPopup from './OrganizationListPopup';
 import OrganizationListPopupMore from './OrganizationListPopupMore';
@@ -33,13 +34,16 @@ class OrganizationList extends PureComponent {
           <div className="organization-list__list">
             {visibleOrganizations.map(item => (
               <div className="organization-list__item" key={item.id}>
-                <OrganizationCard
-                  avatarSrc={getFileUrl(item.avatarFilename)}
-                  title={item.title}
-                  nickname={item.nickname}
-                  currentRate={item.currentRate}
-                  url={getOrganizationUrl(item.id)}
-                />
+                {this.props.isNew ?
+                  <OrganizationCardSimpleWrapper organizationId={item.id} /> :
+                  <OrganizationCard
+                    avatarSrc={getFileUrl(item.avatarFilename)}
+                    title={item.title}
+                    nickname={item.nickname}
+                    currentRate={item.currentRate}
+                    url={getOrganizationUrl(item.id)}
+                  />
+                }
               </div>
             ))}
           </div>

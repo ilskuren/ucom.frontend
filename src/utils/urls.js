@@ -70,7 +70,7 @@ const urls = {
 
     return `/communities/${id}`;
   },
-  // getOverviewCategoryUrl
+
   getOverviewCategoryUrl(
     filter = overviewUtils.OVERVIEW_CATEGORIES[0].name,
     page,

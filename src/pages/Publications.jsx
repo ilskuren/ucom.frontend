@@ -7,6 +7,7 @@ import urls from '../utils/urls';
 import Feed from '../components/Feed/FeedView';
 import UserList from '../components/User/UserList';
 import OrganizationList from '../components/Organization/OrganizationList';
+import TagList from '../components/Tag/TagList';
 import * as overviewUtils from '../utils/overview';
 import NotFoundPage from './NotFoundPage';
 import { getPostById } from '../store/posts';
@@ -67,18 +68,26 @@ const Publications = (props) => {
               <div className="user-section">
                 <div className="user-section__title">
                   <h2 className="title title_xxsmall title_medium">
-                  Published by  {usersIds.length > LIST_LIMIT && <em>{usersIds.length}</em>}
+                  Published by
                   </h2>
                 </div>
-                <UserList usersIds={usersIds} limit={LIST_LIMIT} />
+                <UserList isNew usersIds={usersIds} limit={LIST_LIMIT} />
               </div>
             }
+            <div className="user-section">
+              <div className="user-section__title">
+                <h2 className="title title_xxsmall title_medium">
+                Included tags
+                </h2>
+              </div>
+              <TagList />
+            </div>
 
             {!!orgsIds.length &&
               <div className="user-section">
                 <div className="user-section__title">
                   <h2 className="title title_xxsmall title_medium">
-                  Communities {orgsIds.length > LIST_LIMIT && <em>{orgsIds.length}</em>}
+                  Communities
                   </h2>
                 </div>
                 <OrganizationList isNew limit={LIST_LIMIT} organizationsIds={orgsIds} />

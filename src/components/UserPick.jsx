@@ -6,7 +6,7 @@ const UserPick = (props) => {
   const LinkTag = props.url ? Link : 'div';
 
   return (
-    <LinkTag className="user-pick" title={props.alt} to={props.url}>
+    <LinkTag className={`user-pick ${props.rounded ? 'user-pick_rounded' : ''}`} title={props.alt} to={props.url}>
       {props.src ? (
         <img src={props.src} alt={props.alt} />
       ) : (

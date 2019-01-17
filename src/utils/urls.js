@@ -71,11 +71,10 @@ const urls = {
     return `/communities/${id}`;
   },
 
-  getOverviewCategoryUrl(
-    filter = overviewUtils.OVERVIEW_CATEGORIES[0].name,
-    page,
-    route = overviewUtils.OVERVIEW_ROUTES[0].name,
-  ) {
+  getOverviewCategoryUrl(params = {}) {
+    const filter = params.filter || overviewUtils.OVERVIEW_CATEGORIES[0].name;
+    const route = params.route || overviewUtils.OVERVIEW_ROUTES[0].name;
+    const { page } = params;
     let url = `/overview/${route}/filter/${filter}`;
 
     if (page) {

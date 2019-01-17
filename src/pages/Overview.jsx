@@ -5,9 +5,14 @@ import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
 import Publications from './Publications';
+import NotFoundPage from './NotFoundPage';
 
 const Overview = (props) => {
-  if (0) console.log('');
+  const overviewCategoryName = props.match.params.filter;
+  const overviewCategory = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === overviewCategoryName);
+  if (!overviewCategory) {
+    return <NotFoundPage />;
+  }
   return (
     <LayoutBase>
       <div className="content-wrapper content_overview">
@@ -16,19 +21,33 @@ const Overview = (props) => {
             <div className="nav-bar">
               <div className="nav-bar__title">
                 <h1 className="title">Overview</h1>
+                <div className="nav-bar__categories">
+                  {overviewUtils.OVERVIEW_CATEGORIES.map(item => (
+                    <div className="menu__item" key={item.id}>
+                      <NavLink
+                        className="overview__link"
+                        activeClassName="overview__link_active"
+                        to={urls.getOverviewCategoryUrl({ filter: item.name })}
+                        isActive={() => props.location.pathname.indexOf(`filter/${item.name}`) !== -1}
+                      >
+                        {item.name}
+                      </NavLink>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="nav-bar__menu">
                 <div className="toolbar toolbar_responsive">
                   <div className="toolbar__main">
                     <div className="menu menu_simple-tabs">
-                      {overviewUtils.OVERVIEW_CATEGORIES.map(item => (
+                      {overviewUtils.OVERVIEW_ROUTES.map(item => (
                         <div className="menu__item" key={item.id}>
                           <NavLink
                             className="menu__link"
                             activeClassName="menu__link_active"
-                            to={urls.getOverviewCategoryUrl(item.name)}
-                            isActive={() => props.location.pathname.indexOf(urls.getOverviewCategoryUrl(item.name)) === 0}
+                            to={urls.getOverviewCategoryUrl({ route: item.name, filter: overviewCategoryName })}
+                            isActive={() => props.location.pathname.indexOf(urls.getOverviewCategoryUrl({ route: item.name, filter: overviewCategoryName })) === 0}
                           >
                             {item.name}
                           </NavLink>

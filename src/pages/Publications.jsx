@@ -9,7 +9,6 @@ import UserList from '../components/User/UserList';
 import OrganizationList from '../components/Organization/OrganizationList';
 import TagList from '../components/Tag/TagList';
 import * as overviewUtils from '../utils/overview';
-import NotFoundPage from './NotFoundPage';
 import { getPostById } from '../store/posts';
 import * as feedActions from '../actions/feed';
 import { FEED_PER_PAGE } from '../utils/feed';
@@ -19,12 +18,8 @@ const LIST_LIMIT = 5;
 
 const Publications = (props) => {
   const page = +props.match.params.page || 1;
-  const postsCategoryName = props.match.params.filter;
-  const postsCategory = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === postsCategoryName);
-
-  if (!postsCategory) {
-    return <NotFoundPage />;
-  }
+  const overviewCategoryName = props.match.params.filter;
+  const overviewCategory = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === overviewCategoryName);
 
   const posts = props.feed.postIds.map(id => getPostById(props.posts, id));
   const usersIds = compact(uniq(posts.map(i => i.userId)));
@@ -32,7 +27,7 @@ const Publications = (props) => {
 
   const onClickLoadMore = () => {
     loader.start();
-    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
+    props.dispatch(feedActions.feedGetPosts(overviewCategory.id, {
       page: +props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
     }))
@@ -42,12 +37,12 @@ const Publications = (props) => {
   React.useEffect(() => {
     loader.start();
     props.dispatch(feedActions.feedReset());
-    props.dispatch(feedActions.feedGetPosts(postsCategory.id, {
+    props.dispatch(feedActions.feedGetPosts(overviewCategory.id, {
       page,
       perPage: FEED_PER_PAGE,
     }))
       .then(loader.done);
-  }, [postsCategoryName]);
+  }, [overviewCategoryName]);
 
   return (
     <div className="grid grid_publications">
@@ -56,7 +51,7 @@ const Publications = (props) => {
           hasMore={props.feed.metadata.hasMore}
           postIds={props.feed.postIds}
           loading={props.feed.loading}
-          loadMoreUrl={urls.getOverviewCategoryUrl(postsCategory.name, page + 1)}
+          loadMoreUrl={urls.getOverviewCategoryUrl({ filter: overviewCategory.name, page: page + 1 })}
           onClickLoadMore={onClickLoadMore}
         />
       </div>
@@ -101,9 +96,9 @@ const Publications = (props) => {
 };
 
 export const getPublicationsPageData = (store, { name, page = 1 }) => {
-  const postsCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
+  const overviewCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
 
-  return store.dispatch(feedActions.feedGetPosts(postsCategoryId, { page, perPage: FEED_PER_PAGE }));
+  return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE }));
 };
 
 export default withRouter(connect(state => ({

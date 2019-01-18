@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
@@ -15,9 +15,16 @@ import Rate from '../components/Rate';
 import Comments from '../components/Comments/Comments';
 import * as postsUtils from '../utils/posts';
 import loader from '../utils/loader';
+import ShareButton from '../components/ShareButton';
+import ShareBlock from '../components/Feed/Post/ShareBlock';
 
 const PostPage = (props) => {
   const { postId } = props.match.params;
+  const [sharePopup, toggleSharePopup] = useState(false);
+
+  const toggleShare = () => {
+    toggleSharePopup(!sharePopup);
+  };
 
   useEffect(() => {
     loader.start();
@@ -78,6 +85,21 @@ const PostPage = (props) => {
               </div>
               <div className="post-body__rating">
                 <PostRating postId={post.id} />
+              </div>
+              <div className="post-body__share">
+                <ShareButton
+                  toggleShare={toggleShare}
+                />
+                {sharePopup ? (
+                  <div className="post-body__share-popup">
+                    <ShareBlock
+                      link={urls.getPostUrl(post)}
+                      postId={post.id}
+                      onClickClose={toggleShare}
+                      repostAvailable={post.myselfData.repostAvailable}
+                    />
+                  </div>
+                ) : null }
               </div>
             </div>
           </div>

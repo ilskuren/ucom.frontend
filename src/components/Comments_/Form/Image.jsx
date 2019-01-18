@@ -21,6 +21,12 @@ const Image = props => (
 Image.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
+  onClickRemove: PropTypes.func,
+};
+
+Image.defaultProps = {
+  alt: null,
+  onClickRemove: null,
 };
 
 export default Image;

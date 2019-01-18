@@ -7,25 +7,25 @@ import Gallery from '../../Gallery';
 const Comment = props => (
   <div className={styles.comment} level={props.level}>
     <div className={styles.userCard}>
-      <UserCard userId={380} />
+      <UserCard userId={props.userId} />
     </div>
     <div className={styles.content}>
       {props.images.length > 0 &&
         <div className={styles.gallery}>
-          <Gallery images={props.images} />
+          <Gallery
+            images={props.images}
+            userId={props.userId}
+            date={props.date}
+          />
         </div>
       }
 
       <div className={styles.text}>
-        Hey CryptoManiac! Im not sure why but the preview of your post on the main page shows no picture which is a shame since its a nice article.
+        {props.text}
       </div>
       <div className={styles.actions}>
-        <div className={styles.reply}>
-          Reply
-        </div>
-        <div className={styles.date}>
-          10 min ago
-        </div>
+        <div className={styles.reply}>Reply</div>
+        <div className={styles.date}>{props.date}</div>
       </div>
     </div>
   </div>
@@ -37,6 +37,9 @@ Comment.propTypes = {
     url: PropTypes.string.isRequired,
     alt: PropTypes.string,
   })),
+  text: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
 };
 
 Comment.defaultProps = {

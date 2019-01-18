@@ -36,10 +36,14 @@ const images = [{
 const Comments = () => (
   <div className={styles.comments}>
     <div className={styles.list}>
-      <Comment images={images} />
-      <Comment level={2} />
-      <Form level={2} />
-      <ShowReplies level={2} />
+      <Comment
+        userId={380}
+        images={images}
+        date="Today at 4:20 PM"
+        text="Hey CryptoManiac! Im not sure why but the preview of your post on the main page shows no picture which is a shame since its a nice article."
+      />
+      <Form />
+      <ShowReplies />
       <ShowNext />
     </div>
   </div>

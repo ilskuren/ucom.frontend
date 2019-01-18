@@ -15,12 +15,12 @@ const GalleryPopup = (props) => {
   return (
     <Popup
       mod="dark"
-      onClickClose={() => props.onClickClose && props.onClickClose()}
+      onClickClose={() => props.onClickClose()}
     >
       <div
         role="presentation"
         className={styles.close}
-        onClick={() => props.onClickClose && props.onClickClose()}
+        onClick={() => props.onClickClose()}
       >
         <IconClose />
       </div>
@@ -32,8 +32,10 @@ const GalleryPopup = (props) => {
 
         <div className={styles.toolbar}>
           <div className={styles.userCard}>
-            <div className={styles.date}>Today at 4:20 PM</div>
-            <UserCard userId={380} />
+            {props.date &&
+              <div className={styles.date}>{props.date}</div>
+            }
+            <UserCard userId={props.userId} />
           </div>
           <div className={styles.thumbs}>
             {props.images.map((image, index) => (
@@ -66,10 +68,15 @@ GalleryPopup.propTypes = {
     url: PropTypes.string.isRequired,
     alt: PropTypes.string,
   })),
+  userId: PropTypes.number,
+  date: PropTypes.string,
+  onClickClose: PropTypes.func.isRequired,
 };
 
 GalleryPopup.defaultProps = {
   images: [],
+  userId: null,
+  date: null,
 };
 
 export default GalleryPopup;

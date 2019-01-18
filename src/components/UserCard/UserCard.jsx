@@ -11,7 +11,6 @@ import { formatRate } from '../../utils/rate';
 const UserCard = (props) => {
   const LinkTag = props.url ? Link : 'div';
 
-
   return (
     <div className={styles.userCard}>
       <div className={styles.avatar}>

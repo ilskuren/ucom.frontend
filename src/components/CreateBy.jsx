@@ -16,7 +16,10 @@ const CreateBy = (props) => {
     .find(i => i.id === props.post.data.organization_id);
 
   return (
-    <div className="inline">
+    <div className="inline inline_small">
+      <div className="inline__item">
+        <span className="title title_xxsmall title_medium">By</span>
+      </div>
       <div className="inline__item">
         <Avatar size="xsmall" src={getFileUrl(organization ? organization.avatarFilename : props.user.avatarFilename)} />
       </div>

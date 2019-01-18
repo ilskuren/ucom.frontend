@@ -21,5 +21,5 @@
 :local(.rate) {
   font-size: 12px;
   font-weight: bold;
-  color: rgba(0,0,0,0.25);
+  opacity: 0.4;
 }

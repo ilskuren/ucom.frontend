@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import styles from './styles.css';
 import Image from './Image';
+import Popup from './Popup';
 
 const Gallery = ({ images }) => {
+  const [popupVisible, setPopupVisible] = useState(false);
   const mainImage = images.length ? images[0] : null;
   const otherImages = images.length > 0 ? images.slice(1, 5) : null;
   const showMoreLabel = images.length > 5 ? `+ ${images.length - 5}` : null;
@@ -13,24 +15,38 @@ const Gallery = ({ images }) => {
   }
 
   return (
-    <div className={styles.gallery}>
-      <div className={styles.mainImage}>
-        <Image src={mainImage.url} alt={mainImage.alt} />
+    <Fragment>
+      <div className={styles.gallery}>
+        <div className={styles.mainImage}>
+          <Image
+            onClick={() => setPopupVisible(true)}
+            src={mainImage.url}
+            alt={mainImage.alt}
+          />
+        </div>
+
+        {otherImages &&
+          <div className={styles.otherImages}>
+            {otherImages.map((image, index) => (
+              <Image
+                key={image.url}
+                src={image.url}
+                alt={image.alt}
+                label={index === 3 ? showMoreLabel : null}
+                onClick={() => setPopupVisible(true)}
+              />
+            ))}
+          </div>
+        }
       </div>
 
-      {otherImages &&
-        <div className={styles.otherImages}>
-          {otherImages.map((image, index) => (
-            <Image
-              key={image.url}
-              src={image.url}
-              alt={image.alt}
-              label={index === 3 ? showMoreLabel : null}
-            />
-          ))}
-        </div>
+      {popupVisible &&
+        <Popup
+          images={images}
+          onClickClose={() => setPopupVisible(false)}
+        />
       }
-    </div>
+    </Fragment>
   );
 };
 

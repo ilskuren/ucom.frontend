@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import UserIcon from '../Icons/User';
@@ -15,6 +16,18 @@ const UserPick = (props) => {
       )}
     </LinkTag>
   );
+};
+
+UserPick.propTypes = {
+  url: PropTypes.string,
+  alt: PropTypes.string,
+  src: PropTypes.string,
+};
+
+UserPick.defaultProps = {
+  url: null,
+  alt: null,
+  src: null,
 };
 
 export default UserPick;

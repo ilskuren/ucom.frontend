@@ -6,11 +6,11 @@
 }
 
 :local(.showReplies[level="2"]) {
-  padding-left: 84px;
+  padding-left: 104px;
 }
 
 :local(.showReplies[level="3"]) {
-  padding-left: 104px;
+  padding-left: 124px;
 }
 
 :local(.icon) {

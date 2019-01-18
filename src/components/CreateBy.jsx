@@ -8,6 +8,10 @@ import { selectUser } from '../store/selectors';
 import { setPostData } from '../actions';
 
 const CreateBy = (props) => {
+  if (props.post.data.id) {
+    return null;
+  }
+
   const organization = (props.user.organizations || [])
     .find(i => i.id === props.post.data.organization_id);
 

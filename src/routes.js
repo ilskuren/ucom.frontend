@@ -20,35 +20,11 @@ export default [{
   component: HomePage,
   getData: getHomePageData,
 }, {
-  path: '/overview/publications/filter/:filter',
+  path: '/overview/:route/filter/:filter',
   component: OverviewPage,
   getData: getPublicationsPageData,
 }, {
-  path: '/overview/publications/filter/:filter/page/:page',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/posts/filter/:filter',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/posts/filter/:filter/page/:page',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/communities/filter/:filter',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/communities/filter/:filter/page/:page',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/tags/filter/:filter',
-  component: OverviewPage,
-  getData: getPublicationsPageData,
-}, {
-  path: '/overview/tags/filter/:filter/page/:page',
+  path: '/overview/:route/filter/:filter/page/:page',
   component: OverviewPage,
   getData: getPublicationsPageData,
 }, {

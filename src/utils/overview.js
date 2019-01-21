@@ -22,16 +22,21 @@ export const OVERVIEW_ROUTES_POSTS_ID = 2;
 export const OVERVIEW_ROUTES_COMMUNITIES_ID = 3;
 export const OVERVIEW_ROUTES_TAGS_ID = 4;
 
-export const OVERVIEW_ROUTES = [{
-  id: OVERVIEW_ROUTES_PUBLICATIONS_ID,
-  name: 'publications',
-}, {
-  id: OVERVIEW_ROUTES_POSTS_ID,
-  name: 'posts',
-}, {
-  id: OVERVIEW_ROUTES_COMMUNITIES_ID,
-  name: 'communities',
-}, {
-  id: OVERVIEW_ROUTES_TAGS_ID,
-  name: 'tags',
-}];
+export const OVERVIEW_ROUTES = process.env.NODE_ENV === 'production' ?
+  [{
+    id: OVERVIEW_ROUTES_PUBLICATIONS_ID,
+    name: 'publications',
+  }] :
+  [{
+    id: OVERVIEW_ROUTES_PUBLICATIONS_ID,
+    name: 'publications',
+  }, {
+    id: OVERVIEW_ROUTES_POSTS_ID,
+    name: 'posts',
+  }, {
+    id: OVERVIEW_ROUTES_COMMUNITIES_ID,
+    name: 'communities',
+  }, {
+    id: OVERVIEW_ROUTES_TAGS_ID,
+    name: 'tags',
+  }];

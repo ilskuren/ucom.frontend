@@ -1,18 +1,33 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import React from 'react';
 import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
 import Publications from './Publications';
+import Communities from './Communities';
 import NotFoundPage from './NotFoundPage';
 
 const Overview = (props) => {
   const overviewCategoryName = props.match.params.filter;
+  const overviewRouteName = props.match.params.route;
   const overviewCategory = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === overviewCategoryName);
-  if (!overviewCategory) {
+
+  if (!overviewCategory || !overviewRouteName) {
     return <NotFoundPage />;
   }
+
+  const overviewComponents = {
+    publications: Publications,
+    posts: () => 'posts',
+    communities: () => 'communities',
+    tags: () => 'tags',
+  };
+
+  const overviewRoutes = overviewUtils.OVERVIEW_ROUTES.map(item => ({
+    path: `/overview/${item.name}/filter/:filter`, component: overviewComponents[item.name],
+  }));
+
   return (
     <LayoutBase>
       <div className="content-wrapper content_overview">
@@ -27,7 +42,7 @@ const Overview = (props) => {
                       <NavLink
                         className="overview__link"
                         activeClassName="overview__link_active"
-                        to={urls.getOverviewCategoryUrl({ filter: item.name })}
+                        to={urls.getOverviewCategoryUrl({ filter: item.name, route: overviewRouteName })}
                         isActive={() => props.location.pathname.indexOf(`filter/${item.name}`) !== -1}
                       >
                         {item.name}
@@ -44,8 +59,7 @@ const Overview = (props) => {
               <div className="toolbar toolbar_responsive">
                 <div className="toolbar__main">
                   <div className="menu menu_simple-tabs">
-                    {overviewUtils.OVERVIEW_ROUTES.slice(0, 1).map(item => (
-                    // {overviewUtils.OVERVIEW_ROUTES.map(item => (
+                    {overviewUtils.OVERVIEW_ROUTES.map(item => (
                       <div className="menu__item" key={item.id}>
                         <NavLink
                           className="menu__link"
@@ -62,7 +76,9 @@ const Overview = (props) => {
               </div>
             </div>
             <hr className="content__separator content__separator_overview" />
-            <Publications />
+            <Switch>
+              {overviewRoutes.map(r => <Route path={r.path} component={r.component} key={r.path} />)}
+            </Switch>
           </div>
         </div>
       </div>

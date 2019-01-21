@@ -1,8 +1,8 @@
 import api from '../api';
 import * as feedUtils from '../utils/feed';
 import * as postsUtils from '../utils/posts';
-
 import { addPosts } from './posts';
+import graphql from '../api/graphql';
 
 export const feedReset = () => ({ type: 'FEED_RESET' });
 export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload });
@@ -12,7 +12,7 @@ export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload }
 export const feedGetUserPosts = (feedTypeId, params) => (dispatch, getState) => {
   const getFeedFunctions = {
     [feedUtils.USER_NEWS_FEED_ID]: api.getUserNewsFeed.bind(api),
-    [feedUtils.USER_WALL_FEED_ID]: api.getUserWallFeed.bind(api),
+    [feedUtils.USER_WALL_FEED_ID]: graphql.getUserWallFeed,
     [feedUtils.ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
   };
 

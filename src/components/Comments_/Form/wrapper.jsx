@@ -7,7 +7,7 @@ import { createComment } from '../../../actions/comments';
 
 export default connect(
   (state, props) => ({
-    level: props.level,
+    ...props,
     userImageUrl: urls.getFileUrl(selectUser(state).avatarFilename),
     userPageUrl: urls.getUserUrl(selectUser(state).id),
     userName: getUserName(selectUser(state)),

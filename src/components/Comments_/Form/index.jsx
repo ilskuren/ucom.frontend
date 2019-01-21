@@ -8,6 +8,7 @@ import Image from './Image';
 
 // TODO: Upload images
 // TODO: Edit comment
+// TODO: Autofocus prop
 
 const Form = (props) => {
   const [message, setMessage] = useState('');

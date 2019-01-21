@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
-import PostRating from '../../Rating/PostRating';
-import IconRepost from '../../Icons/Repost';
-import UserCard from '../../UserCard';
-import { getPostTypeById, POST_TYPE_REPOST_ID } from '../../../utils/posts';
-import urls from '../../../utils/urls';
-import { getPostById } from '../../../store/posts';
+import UserCard from '../../../UserCard';
+// import { POST_TYPE_REPOST_ID } from '../../../../utils/posts';
+import urls from '../../../../utils/urls';
+import { getPostById } from '../../../../store/posts';
+import styles from './PostFeedHeader.css';
+import Avatar from '../../../Avatar';
 
 const PostFeedHeader = (props) => {
   const post = getPostById(props.posts, props.postId);
@@ -17,26 +17,33 @@ const PostFeedHeader = (props) => {
   }
 
   return (
-    <div className="post__header">
-      <div className="post__info-block">
-        {props.postTypeId === POST_TYPE_REPOST_ID ? <IconRepost className="icon-repost" /> : null}
-        <div className="post__type"><strong>{getPostTypeById(props.postTypeId)}</strong></div>
-        <div className="toolbar__main">
+    <div className={styles.header}>
+      <div className={styles.info_block}>
+        {/* props.postTypeId === POST_TYPE_REPOST_ID */}
+        <div className={styles.info}>
           <Link to={urls.getFeedPostUrl(post)}>{props.createdAt}</Link>
         </div>
-        <div className="toolbar__side">
-          <PostRating postId={props.postId} />
+        <div className={styles.avatarSmall}>
+          <Avatar
+            src={urls.getFileUrl(post.user.avatarFilename)}
+            size="xmsmall"
+            square={1}
+          />
+        </div>
+        <div className={styles.info}>
+          <Link to={urls.getFeedPostUrl(post)}>@Molly</Link>
         </div>
       </div>
 
       {props.accountName && (
-        <div className="post__user">
+        <div className={styles.user}>
           <UserCard
             sign="@"
             userName={props.userName}
             accountName={props.accountName}
             profileLink={props.profileLink}
             avatarUrl={props.avatarUrl}
+            rate={props.userRate}
           />
         </div>
       )}
@@ -45,7 +52,7 @@ const PostFeedHeader = (props) => {
 };
 
 PostFeedHeader.propTypes = {
-  postTypeId: PropTypes.number,
+  // postTypeId: PropTypes.number,
   createdAt: PropTypes.string,
   postId: PropTypes.number,
   accountName: PropTypes.string,

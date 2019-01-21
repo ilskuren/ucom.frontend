@@ -1,0 +1,10 @@
+:local(.postBorder) {
+  composes: post from '../Post.css';
+  border: none;
+  border-left: 2px solid #E7ECEC;
+  padding: 0 10px;
+}
+
+:local(.post) {
+  composes: post from '../Post.css';
+}

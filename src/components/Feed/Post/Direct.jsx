@@ -13,6 +13,7 @@ import { escapeQuotes } from '../../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
+import styles from './Post.css';
 
 class Direct extends PureComponent {
   render() {
@@ -27,13 +28,14 @@ class Direct extends PureComponent {
     }
 
     return (
-      <div className="post" id={`post-${post.id}`}>
+      <div className={styles.post} id={`post-${post.id}`}>
         <PostFeedHeader
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
+          userRate={user.currentRate}
           profileLink={getUserUrl(user.id)}
           avatarUrl={getFileUrl(user.avatarFilename)}
         />

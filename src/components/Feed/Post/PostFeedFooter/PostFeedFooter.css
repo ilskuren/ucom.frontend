@@ -1,0 +1,37 @@
+:local(.footer) {
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+:local(.commentСount) {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #C4C4C4;
+  fill: #C4C4C4;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+:local(.commentCountActive) {
+  color: #000;
+  fill: #000;
+}
+
+:local(.share) {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #C4C4C4;
+  fill: #C4C4C4;
+  cursor: pointer;
+  position: relative;
+}
+
+:local(.shareActive) {
+  color: #000;
+  fill: #000;
+}

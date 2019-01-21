@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import UserCard from '../components/UserCard';
+import UserCard from './UserCard';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';

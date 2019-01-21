@@ -1,5 +1,6 @@
 const NODE_ENV = 'production';
 const HTTP_SERVER_PORT = 3030;
+const BABEL_ENV = 'server';
 
 module.exports = {
   apps: [
@@ -14,6 +15,7 @@ module.exports = {
       env: {
         PORT: HTTP_SERVER_PORT,
         NODE_ENV,
+        BABEL_ENV,
       },
     },
   ],

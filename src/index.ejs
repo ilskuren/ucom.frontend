@@ -6,7 +6,6 @@
   <meta name="google-site-verification" content="mhqdpp_Xwfs-HeZvF6fQ1OR-pq3wNylaet4dVvUeLPk" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,600,700,700i,900" rel="stylesheet">
   <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  <link href="/app.css?<%- staticVersion %>" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -34,8 +33,13 @@
     <% } %>
   <% } %>
 
+  <style>
+    .no-js {
+      display: none;
+    }
+  </style>
 </head>
-<body>
+<body class="no-js">
   <div id="app"><%- content %></div>
 
   <!-- Google Tag Manager (noscript) -->
@@ -47,6 +51,5 @@
   </script>
 
   <script type="text/javascript" src="/app.js?<%- staticVersion %>"></script>
-
 </body>
 </html>

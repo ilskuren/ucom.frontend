@@ -20,7 +20,7 @@ const Overview = (props) => {
   const overviewComponents = {
     publications: Publications,
     posts: () => 'posts',
-    communities: () => 'communities',
+    communities: () => Communities,
     tags: () => 'tags',
   };
 

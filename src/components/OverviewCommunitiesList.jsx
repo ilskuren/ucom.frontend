@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadMore from './LoadMore';
 
-const Feed = props => (
+const OverviewCommunitiesList = props => (
   <div className="feed">
     {props.postIds.length > 0 &&
       <div className="feed__list">
@@ -28,4 +28,4 @@ const Feed = props => (
   </div>
 );
 
-export default Feed;
+export default OverviewCommunitiesList;

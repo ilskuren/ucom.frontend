@@ -1,6 +1,6 @@
 import React from 'react';
 import UserList from '../components/User/UserList';
-import CommunitiesList from '../components/CommunitiesList';
+import CommunitiesList from '../components/OverviewCommunitiesList';
 // import * as overviewUtils from '../utils/overview';
 // import loader from '../utils/loader';
 

@@ -63,7 +63,46 @@ export default {
             comments {
               data {
                 id
+                description
+                current_vote
+                blockchain_id
+                commentable_id
+                created_at
+                activity_user_comment
+                organization
+                depth
+                organization_id
+                parent_id
+                path
+                updated_at
+                user_id
+
+                myselfData {
+                  myselfVote
+                  join
+                  organization_member
+                  repost_available
+                  follow
+                  myFollower
+                  editable
+                  member
+                }
+
+                metadata {
+                  next_depth_total_amount
+                }
+
+                User {
+                  id
+                  account_name
+                  first_name
+                  last_name
+                  nickname
+                  avatar_filename
+                  current_rate
+                }
               }
+
               metadata {
                 page
                 per_page

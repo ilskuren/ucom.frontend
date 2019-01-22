@@ -1,23 +1,55 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css';
-import Comment from './Comment/wrapper';
-import ShowReplies from './ShowReplies';
-import ShowNext from './ShowNext';
-import Form from './Form/wrapper';
+import Comment from './Comment';
+import Form from './Form';
 
-const Comments = () => (
+const Comments = props => (
   <div className={styles.comments}>
     <div className={styles.list}>
-      <Comment
-        userId={380}
-        date="Today at 4:20 PM"
-        text="Hey CryptoManiac! Im not sure why but the preview of your post on the main page shows no picture which is a shame since its a nice article."
+      {props.comments.map(comment => (
+        <Comment
+          key={comment.id}
+          text={comment.text}
+          date={comment.date}
+          userId={comment.userId}
+          ownerImageUrl={props.ownerImageUrl}
+          ownerPageUrl={props.ownerPageUrl}
+          ownerName={props.ownerName}
+          onSubmit={props.onSubmit}
+        />
+      ))}
+
+      <Form
+        postId={props.postId}
+        userImageUrl={props.ownerImageUrl}
+        userPageUrl={props.ownerPageUrl}
+        userName={props.ownerName}
+        onSubmit={props.onSubmit}
       />
-      <ShowReplies />
-      <ShowNext />
-      <Form postId={14006} />
     </div>
   </div>
 );
+
+Comments.propTypes = {
+  postId: PropTypes.number.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  })),
+  ownerImageUrl: PropTypes.string,
+  ownerPageUrl: PropTypes.string,
+  ownerName: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+Comments.defaultProps = {
+  comments: [],
+  ownerImageUrl: null,
+  ownerPageUrl: null,
+  ownerName: null,
+};
 
 export default Comments;

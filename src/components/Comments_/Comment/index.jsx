@@ -43,6 +43,7 @@ const Comment = (props) => {
 
       {formVisible &&
         <Form
+          autoFocus
           level={props.level + 1}
           userImageUrl={props.ownerImageUrl}
           userPageUrl={props.ownerPageUrl}

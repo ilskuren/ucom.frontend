@@ -20,7 +20,7 @@ class Repost extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
-    if (!post) {
+    if (!post || !post.post) {
       return null;
     }
 

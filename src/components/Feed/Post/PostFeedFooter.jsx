@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import IconComment from '../../Icons/Comment';
 import IconShare from '../../Icons/Share';
-import Comments from '../../Comments_';
+import Comments from '../../Comments_/wrapper';
 import ShareBlock from './ShareBlock';
 import { createComment } from '../../../actions/comments';
 import urls from '../../../utils/urls';

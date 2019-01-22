@@ -23,7 +23,7 @@ const Form = (props) => {
 
   const submit = () => {
     if (message.length) {
-      props.onSubmit(message);
+      props.onSubmit(message, props.postId);
       reset();
     }
   };
@@ -38,6 +38,7 @@ const Form = (props) => {
         <div className={styles.field}>
           <div className={styles.inputWrapper}>
             <TextareaAutosize
+              autoFocus={props.autoFocus}
               rows="1"
               className={styles.input}
               placeholder="Leave a comment..."
@@ -85,7 +86,9 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
+  postId: PropTypes.number.isRequired,
   level: PropTypes.number,
+  autoFocus: PropTypes.bool,
   images: PropTypes.arrayOf(PropTypes.shape({
     url: PropTypes.string.isRequired,
     alt: PropTypes.string,
@@ -100,6 +103,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
   level: 1,
+  autoFocus: false,
   images: [],
   uploadEnabled: false,
   userImageUrl: null,

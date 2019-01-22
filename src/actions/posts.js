@@ -11,13 +11,17 @@ import loader from '../utils/loader';
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
 
-export const addPosts = (data = []) => (dispatch) => {
+export const addPosts = (postsData = []) => (dispatch) => {
   const posts = [];
   const users = [];
   const organizations = [];
+  let comments = [];
 
   const parsePost = (post) => {
-    posts.push(post);
+    if (post.comments) {
+      comments = comments.concat(post.comments.data);
+      post.comments.data = post.comments.data.map(i => i.id);
+    }
 
     if (post.user) {
       users.push(post.user);
@@ -30,11 +34,14 @@ export const addPosts = (data = []) => (dispatch) => {
     if (post.post) {
       parsePost(post.post);
     }
+
+    posts.push(post);
   };
 
-  data.forEach(parsePost);
+  postsData.forEach(parsePost);
   dispatch(addUsers(users));
   dispatch(addOrganizations(organizations));
+  dispatch(addComments(comments));
   dispatch({ type: 'ADD_POSTS', payload: posts });
 };
 

@@ -196,7 +196,6 @@ class MediumUpload extends MediumEditor.Extension {
     try {
       const base64 = await getBase64FromFile(file);
       img.src = base64;
-      img.dataset.file = file;
     } catch (e) {
       console.error(e);
     }

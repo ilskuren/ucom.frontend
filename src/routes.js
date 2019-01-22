@@ -3,8 +3,7 @@ import UserPage, { getUserPageData } from './pages/User';
 import EditPostPage from './pages/EditPost';
 import ProfilePage from './pages/Profile';
 import PostPage, { getPostPageData } from './pages/Post';
-import OverviewPage from './pages/Overview';
-import { getPublicationsPageData } from './pages/Publications';
+import OverviewPage, { getPageData } from './pages/Overview';
 import UsersPage from './pages/Users';
 import AboutPage from './pages/About';
 import OrganizationsPage from './pages/Organizations';
@@ -22,11 +21,11 @@ export default [{
 }, {
   path: '/overview/:route/filter/:filter',
   component: OverviewPage,
-  getData: getPublicationsPageData,
+  getData: getPageData,
 }, {
   path: '/overview/:route/filter/:filter/page/:page',
   component: OverviewPage,
-  getData: getPublicationsPageData,
+  getData: getPageData,
 }, {
   path: '/user/:userId',
   component: UserPage,

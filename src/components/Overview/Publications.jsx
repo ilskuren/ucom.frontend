@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import urls from '../utils/urls';
-import Feed from '../components/Feed/FeedView';
-import UserList from '../components/User/UserList';
-import OrganizationList from '../components/Organization/OrganizationList';
-// import TagList from '../components/Tag/TagList';
-import * as overviewUtils from '../utils/overview';
-import { getPostById } from '../store/posts';
-import * as feedActions from '../actions/feed';
-import { FEED_PER_PAGE } from '../utils/feed';
-import loader from '../utils/loader';
+import urls from '../../utils/urls';
+import Feed from './../Feed/FeedView';
+import UserList from './../User/UserList';
+import OrganizationList from './../Organization/OrganizationList';
+// import TagList from './../Tag/TagList';
+import * as overviewUtils from '../../utils/overview';
+import { getPostById } from '../../store/posts';
+import * as feedActions from '../../actions/feed';
+import { FEED_PER_PAGE } from '../../utils/feed';
+import loader from '../../utils/loader';
 
 const LIST_LIMIT = 5;
 
@@ -93,12 +93,6 @@ const Publications = (props) => {
       </div>
     </div>
   );
-};
-
-export const getPublicationsPageData = (store, { name, page = 1 }) => {
-  const overviewCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
-
-  return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE }));
 };
 
 export default withRouter(connect(state => ({

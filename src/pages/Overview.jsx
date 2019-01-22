@@ -4,9 +4,12 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
-import Publications from './Publications';
-import Communities from './Communities';
+import Publications from '../components/Overview/Publications';
+import Communities from '../components/Overview/Communities';
 import NotFoundPage from './NotFoundPage';
+import * as feedActions from '../actions/feed';
+import { FEED_PER_PAGE } from '../utils/feed';
+
 
 const Overview = (props) => {
   const overviewCategoryName = props.match.params.filter;
@@ -20,7 +23,7 @@ const Overview = (props) => {
   const overviewComponents = {
     publications: Publications,
     posts: () => 'posts',
-    communities: () => Communities,
+    communities: Communities,
     tags: () => 'tags',
   };
 
@@ -92,5 +95,10 @@ const Overview = (props) => {
   );
 };
 
+export const getPageData = (store, { name, page = 1 }) => {
+  const overviewCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
+
+  return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE }));
+};
 
 export default Overview;

@@ -1,13 +1,14 @@
 import React from 'react';
-import LoadMore from './LoadMore';
+import LoadMore from './../Feed/LoadMore';
+import CommunityCard from './CommunityCard';
 
-const OverviewCommunitiesList = props => (
+const CommunitiesList = props => (
   <div className="feed">
-    {props.postIds.length > 0 &&
+    {props.organizationsIds.length > 0 &&
       <div className="feed__list">
-        {props.organizationsIds.map(id => (
-          <div className="feed__item" key={id}>
-            <Post id={id} />
+        {props.organizationsIds.map((id, i) => (
+          <div className="feed__item" key={i}>
+            <CommunityCard id={id} />
           </div>
         ))}
       </div>
@@ -28,4 +29,4 @@ const OverviewCommunitiesList = props => (
   </div>
 );
 
-export default OverviewCommunitiesList;
+export default CommunitiesList;

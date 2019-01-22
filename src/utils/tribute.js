@@ -24,8 +24,8 @@ export const defaultTributeConfig = {
       `<img class="tribute-container__avatar" src="${getFileUrl(item.original.avatarFilename)}"/>` :
       `<div class="tribute-container__avatar">${UserHTML}</div>`}
       <div class="tribute-container__block-names">
-        <span class="user-option__name" >${item.original.accountName}</span>
-        <span class="user-option__nickname" > @${item.original.nickname}</span>
+        <span class="user-option__name" >${item.original.firstName || item.original.accountName}</span>
+        <span class="user-option__nickname" > @${item.original.accountName}</span>
       </div>
     </div>
   `),

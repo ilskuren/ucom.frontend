@@ -12,7 +12,7 @@ const makeLinkTag = (match) => {
   return `<a href='/tags/${link}' class='tag_link' target='_blank'>${match}</a>`;
 };
 
-export const checkHashTag = memoize((text = '') => text.replace(/\B#[a-zA-Z]\w*/gm, makeLinkTag));
+export const checkHashTag = memoize((text = '') => text.replace(/(^|\s)#[a-zA-Z]\w*/gm, makeLinkTag));
 
 export const existHashTag = (text, tag) => {
   const result = text.match(/#[a-zA-Z]\w*/gm);
@@ -28,7 +28,7 @@ const makeLinkMention = (match) => {
   return `<a href=${urls.getUserUrl(accountName)} class='mention_link' target='_blank'>${match}</a>`;
 };
 
-export const checkMentionTag = memoize((text = '') => text.replace(/\B@[a-zA-Z0-9]\w*/gm, makeLinkMention));
+export const checkMentionTag = memoize((text = '') => text.replace(/(^|\s)@[a-zA-Z0-9]\w*/gm, makeLinkMention));
 
 export const existMentionTag = (text, tag) => {
   const result = text.match(/@[a-zA-Z0-9]\w*/gm);

@@ -7,8 +7,6 @@ import TextareaAutosize from '../../TextareaAutosize';
 import Image from './Image';
 
 // TODO: Upload images
-// TODO: Edit comment
-// TODO: Autofocus prop
 
 const Form = (props) => {
   const [message, setMessage] = useState('');
@@ -23,13 +21,17 @@ const Form = (props) => {
 
   const submit = () => {
     if (message.length) {
-      props.onSubmit(message, props.postId);
+      props.onSubmit({
+        message,
+        postId: props.postId,
+        commentId: props.commentId,
+      });
       reset();
     }
   };
 
   return (
-    <div className={styles.form} level={props.level}>
+    <div className={styles.form} depth={props.depth}>
       <div className={styles.userPick}>
         <UserPick src={props.userImageUrl} url={props.userPageUrl} alt={props.userName} />
       </div>
@@ -87,7 +89,8 @@ const Form = (props) => {
 
 Form.propTypes = {
   postId: PropTypes.number.isRequired,
-  level: PropTypes.number,
+  commentId: PropTypes.number,
+  depth: PropTypes.number,
   autoFocus: PropTypes.bool,
   images: PropTypes.arrayOf(PropTypes.shape({
     url: PropTypes.string.isRequired,
@@ -102,7 +105,8 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  level: 1,
+  commentId: null,
+  depth: 0,
   autoFocus: false,
   images: [],
   uploadEnabled: false,

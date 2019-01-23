@@ -3,11 +3,11 @@
   padding: 20px;
 }
 
-:local(.form[level="2"]) {
+:local(.form[depth="1"]) {
   padding-left: 64px;
 }
 
-:local(.form[level="3"]) {
+:local(.form[depth="2"]) {
   padding-left: 108px;
 }
 

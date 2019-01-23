@@ -179,7 +179,7 @@ class Api {
 
     const response = await this.actions.post(url);
 
-    return response.data;
+    return humps(response.data);
   }
 
   async checkAccountName(accountName) {

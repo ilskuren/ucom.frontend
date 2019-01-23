@@ -8,7 +8,8 @@ import Feed from './FeedView';
 
 const FeedUser = (props) => {
   const onClickLoadMore = () => {
-    props.dispatch(feedGetUserPosts(props.feedTypeId, {
+    props.dispatch(feedGetUserPosts({
+      feedTypeId: props.feedTypeId,
       page: props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
       userId: props.userId,
@@ -30,7 +31,8 @@ const FeedUser = (props) => {
 
   useEffect(() => {
     props.dispatch(feedReset());
-    props.dispatch(feedGetUserPosts(props.feedTypeId, {
+    props.dispatch(feedGetUserPosts({
+      feedTypeId: props.feedTypeId,
       page: 1,
       perPage: FEED_PER_PAGE,
       userId: props.userId,

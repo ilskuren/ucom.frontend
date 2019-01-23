@@ -86,7 +86,8 @@ const UserPage = (props) => {
 export const getUserPageData = (store, params) => {
   const userPromise = store.dispatch(fetchUser(params.userId));
   const postPromise = params.postId ? store.dispatch(fetchPost(params.postId)) : null;
-  const feedPromise = store.dispatch(feedGetUserPosts(USER_WALL_FEED_ID, {
+  const feedPromise = store.dispatch(feedGetUserPosts({
+    feedTypeId: USER_WALL_FEED_ID,
     page: 1,
     perPage: FEED_PER_PAGE,
     userId: params.userId,

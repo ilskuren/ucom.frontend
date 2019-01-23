@@ -10,7 +10,7 @@ const Comment = (props) => {
 
   return (
     <Fragment>
-      <div className={styles.comment} level={props.level}>
+      <div className={styles.comment} depth={props.depth} id={`comment-${props.id}`}>
         <div className={styles.userCard}>
           <UserCard userId={props.userId} />
         </div>
@@ -29,13 +29,15 @@ const Comment = (props) => {
             {props.text}
           </div>
           <div className={styles.actions}>
-            <div
-              role="presentation"
-              className={styles.reply}
-              onClick={() => setFormVisible(!formVisible)}
-            >
-              Reply
-            </div>
+            {props.depth < 2 &&
+              <div
+                role="presentation"
+                className={styles.reply}
+                onClick={() => setFormVisible(!formVisible)}
+              >
+                Reply
+              </div>
+            }
             <div className={styles.date}>{props.date}</div>
           </div>
         </div>
@@ -43,8 +45,10 @@ const Comment = (props) => {
 
       {formVisible &&
         <Form
+          postId={props.postId}
+          commentId={props.id}
           autoFocus
-          level={props.level + 1}
+          depth={props.depth + 1}
           userImageUrl={props.ownerImageUrl}
           userPageUrl={props.ownerPageUrl}
           userName={props.ownerName}
@@ -57,7 +61,9 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
-  level: PropTypes.number,
+  id: PropTypes.number.isRequired,
+  postId: PropTypes.number.isRequired,
+  depth: PropTypes.number.isRequired,
   images: PropTypes.arrayOf(PropTypes.shape({
     url: PropTypes.string.isRequired,
     alt: PropTypes.string,
@@ -72,7 +78,6 @@ Comment.propTypes = {
 };
 
 Comment.defaultProps = {
-  level: 1,
   images: [],
   ownerImageUrl: null,
   ownerPageUrl: null,

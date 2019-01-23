@@ -1,7 +1,10 @@
+import { GraphQLSchema } from 'ucom-libs-graphql-schemas';
 import humps from 'lodash-humps';
 import * as axios from 'axios';
 import { getBackendConfig } from '../utils/config';
 import { getToken } from '../utils/token';
+import { COMMENTS_PER_PAGE } from '../utils/comments';
+import { FEED_PER_PAGE } from '../utils/feed';
 
 const request = (data) => {
   const options = {
@@ -19,110 +22,65 @@ const request = (data) => {
 };
 
 export default {
-  getUserWallFeed({ userId, page, perPage }) {
-    return request({
-      query: `{
-        user_wall_feed(user_id: ${userId}, page: ${page}, per_page: ${perPage}) {
-          data {
-            id
-            title
-            post_type_id
-            main_image_filename
-            description
-            user_id
-            blockchain_id
-            created_at
-            updated_at
-            comments_count
-            current_vote
-            current_rate
-            entity_id_for
-            entity_name_for
+  getUserWallFeed({
+    userId,
+    page,
+    perPage,
+    commentsPage,
+    commentsPerPage,
+  }) {
+    const query = GraphQLSchema.getUserWallFeedQuery(
+      userId,
+      page || 1,
+      perPage || FEED_PER_PAGE,
+      commentsPage || 1,
+      commentsPerPage || COMMENTS_PER_PAGE,
+    );
 
-            myselfData {
-              myselfVote
-              join
-              organization_member
-              repost_available
-              follow
-              myFollower
-              editable
-              member
-            }
-
-            User {
-              id
-              account_name
-              first_name
-              last_name
-              nickname
-              avatar_filename
-              current_rate
-            }
-
-            comments {
-              data {
-                id
-                description
-                current_vote
-                blockchain_id
-                commentable_id
-                created_at
-                activity_user_comment
-                organization
-                depth
-                organization_id
-                parent_id
-                path
-                updated_at
-                user_id
-
-                myselfData {
-                  myselfVote
-                  join
-                  organization_member
-                  repost_available
-                  follow
-                  myFollower
-                  editable
-                  member
-                }
-
-                metadata {
-                  next_depth_total_amount
-                }
-
-                User {
-                  id
-                  account_name
-                  first_name
-                  last_name
-                  nickname
-                  avatar_filename
-                  current_rate
-                }
-              }
-
-              metadata {
-                page
-                per_page
-                has_more
-              }
-            }
-          }
-
-          metadata {
-            page
-            per_page
-            has_more
-          }
-        }
-      }`,
-    })
+    return request({ query })
       .then((resp) => {
         const data = humps(resp.data);
-
         return data.data.userWallFeed;
+      });
+  },
+
+  getFeedComments({
+    commentableId,
+    page,
+    perPage,
+  }) {
+    const query = GraphQLSchema.getPostCommentsQuery(
+      commentableId,
+      page || 1,
+      perPage || COMMENTS_PER_PAGE,
+    );
+
+    return request({ query })
+      .then((resp) => {
+        const data = humps(resp.data);
+        return data.data.feedComments;
+      });
+  },
+
+  getCommentsOnComment({
+    commentableId,
+    parentId,
+    parentDepth,
+    page,
+    perPage,
+  }) {
+    const query = GraphQLSchema.getCommentsOnCommentQuery(
+      commentableId,
+      parentId,
+      parentDepth,
+      page || 1,
+      perPage || COMMENTS_PER_PAGE,
+    );
+
+    return request({ query })
+      .then((resp) => {
+        const data = humps(resp.data);
+        return data.data.commentsOnComment;
       });
   },
 };

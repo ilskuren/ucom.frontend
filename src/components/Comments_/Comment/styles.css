@@ -2,11 +2,11 @@
   padding: 20px;
 }
 
-:local(.comment[level="2"]) {
+:local(.comment[depth="1"]) {
   padding-left: 64px;
 }
 
-:local(.comment[level="3"]) {
+:local(.comment[depth="2"]) {
   padding-left: 108px;
 }
 

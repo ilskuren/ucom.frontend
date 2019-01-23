@@ -11,6 +11,7 @@ import loader from '../../utils/loader';
 import { POSTS_TITLE_MAX_LENGTH, POSTS_LEADING_TEXT_MAX_LENGTH } from '../../utils/posts';
 import CreateBy from '../CreateBy';
 
+
 const PostSubmitForm = (props) => {
   const entityImages = props.post.data.entityImages || {};
   const [loading, setLoading] = useState(false);

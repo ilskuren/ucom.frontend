@@ -30,11 +30,11 @@ const CommunityCard = (props) => {
   return (
     <div className="community-item">
       <div className="community-item__header">
-        <Link to={profileLink} href={profileLink} className="community-item__avatar">{avatar}</Link>
+        <Link target="_blank" to={profileLink} href={profileLink} className="community-item__avatar">{avatar}</Link>
         <div className="community-item__content">
           <div className="community-item__toobar">
             <div className="community-item__main">
-              <Link to={profileLink} href={profileLink} className="community-item__title">{organization.title}</Link>
+              <Link target="_blank" to={profileLink} href={profileLink} className="community-item__title">{organization.title}</Link>
               {organization.poweredBy &&
               <div className="community-item__powered">
                 Powered by {organization.poweredBy}

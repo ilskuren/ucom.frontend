@@ -77,7 +77,7 @@ const UserMenu = (props) => {
                           activeClassName="menu__link_active"
                           isActive={() => props.location.pathname.indexOf('/publications') === 0}
                         >
-                          Publications
+                          Overview
                         </NavLink>
                       </div>
 

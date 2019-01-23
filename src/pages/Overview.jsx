@@ -6,6 +6,7 @@ import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
 import Publications from '../components/Overview/Publications';
 import Communities from '../components/Overview/Communities';
+import Tags from '../components/Overview/TagsPage';
 import NotFoundPage from './NotFoundPage';
 import * as feedActions from '../actions/feed';
 import { FEED_PER_PAGE } from '../utils/feed';
@@ -24,7 +25,7 @@ const Overview = (props) => {
     publications: Publications,
     posts: () => 'posts',
     communities: Communities,
-    tags: () => 'tags',
+    tags: Tags,
   };
 
   const overviewRoutes = overviewUtils.OVERVIEW_ROUTES.map(item => ({

@@ -7,6 +7,10 @@ const urls = {
     return '/posts/new';
   },
 
+  getTagUrl(tag) {
+    return `/tags/${tag}`;
+  },
+
   getRegistrationUrl() {
     return '/registration';
   },

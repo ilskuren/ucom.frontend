@@ -5,6 +5,7 @@ import UserCard from '../../UserCard/UserCard';
 import Gallery from '../../Gallery';
 import Form from '../Form';
 import ShowReplies from '../ShowReplies';
+import CommentRating from '../../Rating/CommentRating';
 
 const Comment = (props) => {
   const [formVisible, setFormVisible] = useState(false);
@@ -44,6 +45,9 @@ const Comment = (props) => {
               </div>
             }
             <div className={styles.date}>{props.date}</div>
+            <div className={styles.rating}>
+              <CommentRating commentId={props.id} />
+            </div>
           </div>
         </div>
       </div>
@@ -60,6 +64,7 @@ const Comment = (props) => {
           replys={comment.replys}
           nextDepthTotalAmount={comment.nextDepthTotalAmount}
           metadata={props.metadata}
+          ownerId={props.ownerId}
           ownerImageUrl={props.ownerImageUrl}
           ownerPageUrl={props.ownerPageUrl}
           ownerName={props.ownerName}

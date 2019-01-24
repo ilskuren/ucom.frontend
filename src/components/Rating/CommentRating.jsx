@@ -5,31 +5,37 @@ import React from 'react';
 import Rating from './Rating';
 import { commentVote } from '../../actions/comments';
 import { getCommentById } from '../../store/comments';
-import { selectUser } from '../../store/selectors/user';
 
-const CommentRating = (props) => {
-  const comment = getCommentById(props.comments, props.commentId);
-
-  return (
-    <Rating
-      disabled={comment.userId === props.user.id}
-      currentVote={comment.currentVote}
-      myselfVote={comment.myselfData && comment.myselfData.myselfVote}
-      onClickVoteDown={() => props.commentVote({ postId: comment.commentableId, commentId: props.commentId, isUp: false })}
-      onClickVoteUp={() => props.commentVote({ postId: comment.commentableId, commentId: props.commentId, isUp: true })}
-    />
-  );
-};
+const CommentRating = props => (
+  <Rating
+    disabled={props.comment.userId === props.user.id}
+    currentVote={props.comment.currentVote}
+    myselfVote={props.comment.myselfData && props.comment.myselfData.myselfVote}
+    onClickVoteDown={() => props.commentVote({ postId: props.comment.commentableId, commentId: props.commentId, isUp: false })}
+    onClickVoteUp={() => props.commentVote({ postId: props.comment.commentableId, commentId: props.commentId, isUp: true })}
+  />
+);
 
 CommentRating.propTypes = {
-  commentVote: PropTypes.func,
-  commentId: PropTypes.number,
+  comment: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    currentVote: PropTypes.number.isRequired,
+    myselfData: PropTypes.shape({
+      myselfVote: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    }),
+    commentableId: PropTypes.number.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+  commentVote: PropTypes.func.isRequired,
+  commentId: PropTypes.number.isRequired,
 };
 
 export default connect(
-  state => ({
-    comments: state.comments,
-    user: selectUser(state),
+  (state, props) => ({
+    comment: getCommentById(state.comments, props.commentId),
+    user: state.user.data,
   }),
   dispatch => bindActionCreators({
     commentVote,

@@ -5,20 +5,16 @@ import {
   POSTS_CATREGORIES_TOP_ID,
   POST_TYPE_MEDIA_ID,
 } from '../utils/posts';
-
 import {
   USER_NEWS_FEED_ID,
   USER_WALL_FEED_ID,
   ORGANIZATION_FEED_ID,
 } from '../utils/feed';
-
-import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED } from '../utils/comments';
-
+import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED, COMMENTS_CONTAINER_ID_FEED_POST } from '../utils/comments';
 import api from '../api';
 import graphql from '../api/graphql';
-import loader from '../utils/loader';
 import { addPosts } from './posts';
-import { addComments } from './comments';
+import { commentsAddContainerData } from './comments';
 
 export const feedReset = () => ({ type: 'FEED_RESET' });
 export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload });
@@ -27,112 +23,16 @@ export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload }
 export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
 export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
 
-export const feedAddComments = ({
-  postId,
-  parentId,
-  comments,
-  metadata,
-}) => (dispatch) => {
-  dispatch(addComments(comments));
-  dispatch({
-    type: 'FEED_ADD_COMMENTS',
-    payload: {
-      postId,
-      parentId,
-      metadata,
-      commentIds: comments.map(i => i.id),
-    },
-  });
-};
-
-export const feedGetPostComments = ({
-  postId,
-  page,
-  perPage,
-}) => async (dispatch) => {
-  loader.start();
-
-  try {
-    const data = await graphql.getFeedComments({
-      page,
-      perPage,
-      commentableId: postId,
-    });
-
-    dispatch(feedAddComments({
-      postId,
-      parentId: 0,
-      comments: data.data,
-      metadata: data.metadata,
-    }));
-  } catch (e) {
-    console.error(e);
-  }
-
-  loader.done();
-};
-
-export const feedGetCommentsOnComment = ({
-  postId,
-  parentId,
-  parentDepth,
-  page,
-  perPage,
-}) => async (dispatch) => {
-  loader.start();
-
-  try {
-    const data = await graphql.getCommentsOnComment({
-      commentableId: postId,
-      parentId,
-      parentDepth,
-      page,
-      perPage,
-    });
-
-    dispatch(feedAddComments({
-      postId,
-      parentId,
-      metadata: data.metadata,
-      comments: data.data,
-    }));
-  } catch (e) {
-    console.error(e);
-  }
-
-  loader.done();
-};
-
-export const feedCreateComment = ({
-  data,
-  postId,
-  commentId,
-}) => async (dispatch) => {
-  loader.start();
-
-  try {
-    const commentData = await api.createComment(data, postId, commentId);
-
-    dispatch(feedAddComments({
-      postId,
-      comments: [commentData],
-    }));
-  } catch (e) {
-    console.error(e);
-  }
-
-  loader.done();
-};
-
 export const parseFeedData = ({
   posts,
   metadata,
 }) => (dispatch) => {
   posts.forEach((post) => {
     if (post.comments) {
-      dispatch(feedAddComments({
+      dispatch(commentsAddContainerData({
+        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        entryId: post.id,
         parentId: 0,
-        postId: post.id,
         comments: post.comments.data,
         metadata: post.comments.metadata,
       }));

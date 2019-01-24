@@ -1,15 +1,17 @@
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Comments from './index';
-import { getCommentById } from '../../store/comments';
+import { getCommentById, getCommentsByContainer } from '../../store/comments';
 import urls from '../../utils/urls';
 import { getUserName } from '../../utils/user';
-import { getCommentsTree } from '../../utils/comments';
-import { feedCreateComment, feedGetPostComments, feedGetCommentsOnComment } from '../../actions/feed';
+import { getCommentsTree, COMMENTS_CONTAINER_ID_FEED_POST } from '../../utils/comments';
+import { createComment, getPostComments, getCommentsOnComment } from '../../actions/comments';
+
+// TODO: Добавить юзеров в комментов в стор всех юзеров
 
 export default connect(
   (state, props) => {
-    const commentsData = state.feed.comments[props.postId];
+    const commentsData = getCommentsByContainer(state, COMMENTS_CONTAINER_ID_FEED_POST, props.postId);
     let comments = [];
     let metadata = {};
 
@@ -44,7 +46,8 @@ export default connect(
 
   dispatch => ({
     onSubmit: ({ message, postId, commentId }) => {
-      dispatch(feedCreateComment({
+      dispatch(createComment({
+        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
         postId,
         commentId,
         data: {
@@ -54,14 +57,24 @@ export default connect(
     },
 
     onClickShowNext: ({ postId, page, perPage }) => {
-      dispatch(feedGetPostComments({ postId, page, perPage }));
+      dispatch(getPostComments({
+        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        postId,
+        page,
+        perPage,
+      }));
     },
 
     onClickShowReplies: ({
       postId, parentId, parentDepth, page, perPage,
     }) => {
-      dispatch(feedGetCommentsOnComment({
-        postId, parentId, parentDepth, page, perPage,
+      dispatch(getCommentsOnComment({
+        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        commentableId: postId,
+        parentId,
+        parentDepth,
+        page,
+        perPage,
       }));
     },
   }),

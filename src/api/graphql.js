@@ -44,7 +44,7 @@ export default {
       });
   },
 
-  getFeedComments({
+  getPostComments({
     commentableId,
     page,
     perPage,

@@ -1,5 +1,3 @@
-import { uniq } from 'lodash';
-
 const getInitialState = () => ({
   data: {},
 });

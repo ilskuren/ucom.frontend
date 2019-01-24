@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -18,7 +18,7 @@ class PostFeedFooter extends PureComponent {
     const { post } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <div className={styles.footer}>
           <div>
             <span
@@ -74,7 +74,7 @@ class PostFeedFooter extends PureComponent {
             <LastUserComments postId={post.id} timestamp={this.props.timestamp} />
           )}
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

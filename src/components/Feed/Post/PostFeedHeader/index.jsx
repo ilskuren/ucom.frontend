@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import UserCard from '../../../UserCard';
 // import { POST_TYPE_REPOST_ID } from '../../../../utils/posts';
@@ -16,9 +16,13 @@ const PostFeedHeader = (props) => {
     return null;
   }
 
+  // if (this.props.owner !== this.props.accountName && this.props.accountName === post.user.accountName) {
+  //   ownerFeed = this.props.accountName;
+  // }
+
   return (
-    <div className={styles.header}>
-      <div className={styles.info_block}>
+    <Fragment>
+      <div className={styles.header}>
         {/* props.postTypeId === POST_TYPE_REPOST_ID */}
         <div className={styles.info}>
           <Link to={urls.getFeedPostUrl(post)}>{props.createdAt}</Link>
@@ -27,11 +31,11 @@ const PostFeedHeader = (props) => {
           <Avatar
             src={urls.getFileUrl(post.user.avatarFilename)}
             size="xmsmall"
-            square={1}
+            square="true"
           />
         </div>
         <div className={styles.info}>
-          <Link to={urls.getFeedPostUrl(post)}>@Molly</Link>
+          <Link to={urls.getFeedPostUrl(post)}>@a</Link>
         </div>
       </div>
 
@@ -47,7 +51,7 @@ const PostFeedHeader = (props) => {
           />
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

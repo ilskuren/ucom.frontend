@@ -68,6 +68,7 @@ class Repost extends PureComponent {
               tags={post.post.postTypeId && [getPostTypeById(post.post.postTypeId)]}
               commentsCount={post.postTypeId && post.commentsCount}
               sharesCount={post.postTypeId && post.sharesCount}
+              repost={1}
             />
           ) : (
             <PostFeedContent

@@ -1,8 +1,7 @@
-:local(.info_block) {
+:local(.header) {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  margin-top: -10px;
+  margin: 12px 0;
 }
 
 :local(.info) {

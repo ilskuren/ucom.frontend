@@ -1,0 +1,3 @@
+:local(.post) {
+  composes: post from '../Post.css';
+}

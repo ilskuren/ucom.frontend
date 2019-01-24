@@ -3,16 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getPostById } from '../../../store/posts';
-import { selectUser } from '../../../store/selectors/user';
-import { createComment } from '../../../actions/comments';
-import { getUserName } from '../../../utils/user';
-import { getUserById } from '../../../store/users';
-import { getPostTypeById, getPostCover } from '../../../utils/posts';
-import PostFeedHeader from './PostFeedHeader';
-import PostFeedFooter from './PostFeedFooter';
-import PostCard from '../../PostMedia/PostCard';
-import urls from '../../../utils/urls';
+import { getPostById } from '../../../../store/posts';
+import { selectUser } from '../../../../store/selectors/user';
+import { createComment } from '../../../../actions/comments';
+import { getUserName } from '../../../../utils/user';
+import { getUserById } from '../../../../store/users';
+import { getPostCover } from '../../../../utils/posts';
+import PostFeedHeader from '../PostFeedHeader';
+import PostFeedFooter from '../PostFeedFooter';
+import PostCard from '../../../PostMedia/PostCard';
+import urls from '../../../../utils/urls';
+import styles from './Media.css';
 
 class Media extends PureComponent {
   render() {
@@ -24,22 +25,17 @@ class Media extends PureComponent {
 
     const user = getUserById(this.props.users, post.userId);
 
-
     if (!user) {
       return null;
     }
 
-
     return (
-      <div className="post" id={`post-${post.id}`}>
+      <div className={styles.post} id={`post-${post.id}`}>
         <PostFeedHeader
-          postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
-          userName={getUserName(user)}
-          accountName={user.accountName}
-          profileLink={urls.getUserUrl(user.id)}
-          avatarUrl={urls.getFileUrl(user.avatarFilename)}
+          // userName={getUserName(user)}
+          // accountName={user.accountName}
         />
 
         <PostCard
@@ -48,11 +44,9 @@ class Media extends PureComponent {
           rate={post.currentRate}
           title={post.title || post.leadingText}
           url={urls.getPostUrl(post)}
-          userUrl={urls.getUserUrl(post.userId)}
           userImageUrl={urls.getFileUrl(user.avatarFilename)}
           userName={getUserName(post.user)}
           accountName={post.user && post.user.accountName}
-          tags={post.postTypeId && [getPostTypeById(post.postTypeId)]}
           commentsCount={post.postTypeId && post.commentsCount}
           sharesCount={post.postTypeId && post.sharesCount}
         />

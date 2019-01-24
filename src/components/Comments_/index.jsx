@@ -1,79 +1,81 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import styles from './styles.css';
 import Comment from './Comment';
 import Form from './Form';
 import ShowNext from './ShowNext';
-import ShowReplies from './ShowReplies';
 
-const Comments = props => (
-  <div className={styles.comments}>
-    <div className={styles.list}>
-      {props.comments.map((comment, index) => {
-        const nextComment = props.comments[index + 1];
-        const showReplies = comment.nextDepthTotalAmount > 0 && (nextComment ? nextComment.parentId !== comment.id : true);
-        const showNextReplies = (nextComment ? comment.depth > nextComment.depth : comment.depth > 0) &&
-          props.metadata[comment.parentId].hasMore;
+const Comments = (props) => {
+  const [timestamp] = useState((new Date()).getTime());
+  const newOwnerComments = props.comments
+    .filter(i => i.userId === props.ownerId && (new Date(i.createdAt)).getTime() > timestamp);
+  const comments = props.comments.filter(i => newOwnerComments.every(j => j.id !== i.id));
 
-        return (
-          <Fragment key={comment.id}>
-            <Comment
-              postId={props.postId}
-              id={comment.id}
-              depth={comment.depth}
-              text={comment.text}
-              date={comment.date}
-              userId={comment.userId}
-              ownerImageUrl={props.ownerImageUrl}
-              ownerPageUrl={props.ownerPageUrl}
-              ownerName={props.ownerName}
-              onSubmit={props.onSubmit}
-            />
+  return (
+    <div className={styles.comments}>
+      <div className={styles.list}>
+        {comments.map(comment => (
+          <Comment
+            key={comment.id}
+            postId={props.postId}
+            id={comment.id}
+            depth={comment.depth}
+            text={comment.text}
+            date={comment.date}
+            userId={comment.userId}
+            replys={comment.replys}
+            nextDepthTotalAmount={comment.nextDepthTotalAmount}
+            metadata={props.metadata}
+            ownerId={props.ownerId}
+            ownerImageUrl={props.ownerImageUrl}
+            ownerPageUrl={props.ownerPageUrl}
+            ownerName={props.ownerName}
+            onSubmit={props.onSubmit}
+            onClickShowReplies={props.onClickShowReplies}
+          />
+        ))}
 
-            {showReplies &&
-              <ShowReplies
-                postId={props.postId}
-                parentId={comment.id}
-                parentDepth={comment.depth}
-                depth={comment.depth}
-                onClick={props.onClickShowReplies}
-              />
-            }
+        {props.metadata[0] && props.metadata[0].hasMore &&
+          <ShowNext
+            postId={props.postId}
+            perPage={props.metadata[0].perPage}
+            page={props.metadata[0].page}
+            onClick={props.onClickShowNext}
+          />
+        }
 
-            {showNextReplies &&
-              <ShowReplies
-                showNext
-                postId={props.postId}
-                parentId={comment.parentId}
-                parentDepth={comment.depth - 1}
-                depth={comment.depth - 1}
-                onClick={props.onClickShowReplies}
-                page={props.metadata[comment.parentId].page + 1}
-              />
-            }
-          </Fragment>
-        );
-      })}
+        {newOwnerComments.map(comment => (
+          <Comment
+            key={comment.id}
+            postId={props.postId}
+            id={comment.id}
+            depth={comment.depth}
+            text={comment.text}
+            date={comment.date}
+            userId={comment.userId}
+            replys={comment.replys}
+            nextDepthTotalAmount={comment.nextDepthTotalAmount}
+            metadata={props.metadata}
+            ownerId={props.ownerId}
+            ownerImageUrl={props.ownerImageUrl}
+            ownerPageUrl={props.ownerPageUrl}
+            ownerName={props.ownerName}
+            onSubmit={props.onSubmit}
+            onClickShowReplies={props.onClickShowReplies}
+          />
+        ))}
 
-      {props.metadata[0] && props.metadata[0].hasMore &&
-        <ShowNext
+        <Form
           postId={props.postId}
-          perPage={props.metadata[0].perPage}
-          page={props.metadata[0].page}
-          onClick={props.onClickShowNext}
+          userImageUrl={props.ownerImageUrl}
+          userPageUrl={props.ownerPageUrl}
+          userName={props.ownerName}
+          onSubmit={props.onSubmit}
         />
-      }
-
-      <Form
-        postId={props.postId}
-        userImageUrl={props.ownerImageUrl}
-        userPageUrl={props.ownerPageUrl}
-        userName={props.ownerName}
-        onSubmit={props.onSubmit}
-      />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Comments.propTypes = {
   postId: PropTypes.number.isRequired,
@@ -84,12 +86,14 @@ Comments.propTypes = {
     date: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
     parentId: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
   })),
   metadata: PropTypes.objectOf(PropTypes.shape({
     hasMore: PropTypes.bool,
     page: PropTypes.number,
     perPage: PropTypes.number,
   })),
+  ownerId: PropTypes.number,
   ownerImageUrl: PropTypes.string,
   ownerPageUrl: PropTypes.string,
   ownerName: PropTypes.string,
@@ -101,6 +105,7 @@ Comments.propTypes = {
 Comments.defaultProps = {
   comments: [],
   metadata: {},
+  ownerId: null,
   ownerImageUrl: null,
   ownerPageUrl: null,
   ownerName: null,

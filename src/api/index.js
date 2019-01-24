@@ -327,14 +327,14 @@ class Api {
   }
 
   async createUserCommentPost({ userId, data }) {
-    const url = `/api/v1/users/${userId}/posts`;
+    const url = `/api/v2/users/${userId}/posts`;
     const response = await this.actions.post(url, snakes(data));
 
     return humps(response.data);
   }
 
   async updateUserCommentPost(userId, postId, data) {
-    const url = `/api/v1/users/${userId}/posts/${postId}`;
+    const url = `/api/v2/users/${userId}/posts/${postId}`;
     const response = await this.actions.patch(url, data);
 
     return humps(response.data);

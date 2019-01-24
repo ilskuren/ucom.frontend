@@ -21,3 +21,23 @@ export const sortComments = (comments) => {
 
   return comments.sort(sortCommentsFn);
 };
+
+export const getCommentsTree = (comments = []) => {
+  const makeReplyesLevel = (comment) => {
+    if (comment.nextDepthTotalAmount > 0 || comments.some(i => i.parentId === comment.id)) {
+      comment.replys = comments
+        .filter(i => i.parentId === comment.id)
+        .sort(sortCommentsFn)
+        .map(makeReplyesLevel);
+    }
+
+    return comment;
+  };
+
+  const commentsTree = comments
+    .filter(i => i.parentId === 0)
+    .sort(sortCommentsFn)
+    .map(makeReplyesLevel);
+
+  return commentsTree;
+};

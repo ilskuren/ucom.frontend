@@ -15,20 +15,8 @@ export const addPosts = (postsData = []) => (dispatch) => {
   const posts = [];
   const users = [];
   const organizations = [];
-  let comments = [];
 
   const parsePost = (post) => {
-    if (post.comments && post.comments.data) {
-      comments = comments.concat(post.comments.data);
-      post.comments.data = post.comments.data.map(i => i.id);
-    }
-
-    if (post.comments && post.comments.metadata) {
-      post.comments.metadata = {
-        0: post.comments.metadata,
-      };
-    }
-
     if (post.user) {
       users.push(post.user);
     }
@@ -47,30 +35,8 @@ export const addPosts = (postsData = []) => (dispatch) => {
   postsData.forEach(parsePost);
   dispatch(addUsers(users));
   dispatch(addOrganizations(organizations));
-  dispatch(addComments(comments));
   dispatch({ type: 'ADD_POSTS', payload: posts });
 };
-
-export const postsAddComments = ({
-  postId,
-  parentId,
-  data,
-  metadata,
-}) => (dispatch) => {
-  dispatch(addComments(data));
-  dispatch({
-    type: 'POSTS_ADD_COMMENTS',
-    payload: {
-      postId,
-      parentId,
-      metadata,
-      data: data.map(i => i.id),
-    },
-  });
-};
-
-export const postsAddSingleComment = ({ postId, commentId }) =>
-  ({ type: 'POSTS_ADD_SINGLE_COMMENT', payload: { postId, commentId } });
 
 export const fetchPost = postId => dispatch =>
   api.getPost(postId)

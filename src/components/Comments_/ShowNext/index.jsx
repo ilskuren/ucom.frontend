@@ -15,7 +15,7 @@ const ShowNext = ({
         page: page + 1,
       })}
     >
-      Show {perPage} next comments
+      Show next comments
     </div>
   </div>
 );

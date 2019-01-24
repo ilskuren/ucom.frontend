@@ -38,7 +38,7 @@ ShowReplies.propTypes = {
 ShowReplies.defaultProps = {
   depth: 0,
   page: 1,
-  count: 10,
+  count: null,
   showNext: false,
 };
 

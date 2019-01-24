@@ -4,9 +4,14 @@ import styles from './styles.css';
 import UserCard from '../../UserCard/UserCard';
 import Gallery from '../../Gallery';
 import Form from '../Form';
+import ShowReplies from '../ShowReplies';
 
 const Comment = (props) => {
   const [formVisible, setFormVisible] = useState(false);
+  const [timestamp] = useState((new Date()).getTime());
+  const newOwnerReplys = props.replys
+    .filter(i => i.userId === props.ownerId && (new Date(i.createdAt)).getTime() > timestamp);
+  const replys = props.replys.filter(i => newOwnerReplys.every(j => j.id !== i.id));
 
   return (
     <Fragment>
@@ -43,6 +48,59 @@ const Comment = (props) => {
         </div>
       </div>
 
+      {replys.map(comment => (
+        <Comment
+          key={comment.id}
+          postId={props.postId}
+          id={comment.id}
+          depth={comment.depth}
+          text={comment.text}
+          date={comment.date}
+          userId={comment.userId}
+          replys={comment.replys}
+          nextDepthTotalAmount={comment.nextDepthTotalAmount}
+          metadata={props.metadata}
+          ownerImageUrl={props.ownerImageUrl}
+          ownerPageUrl={props.ownerPageUrl}
+          ownerName={props.ownerName}
+          onSubmit={props.onSubmit}
+          onClickShowReplies={props.onClickShowReplies}
+        />
+      ))}
+
+      {
+        ((props.nextDepthTotalAmount > 0 && !props.metadata[props.id]) ||
+        (props.metadata[props.id] && props.metadata[props.id].hasMore)) &&
+        <ShowReplies
+          postId={props.postId}
+          parentId={props.id}
+          parentDepth={props.depth}
+          depth={props.depth}
+          onClick={props.onClickShowReplies}
+          page={props.metadata[props.id] ? props.metadata[props.id].page + 1 : 1}
+        />
+      }
+
+      {newOwnerReplys.map(comment => (
+        <Comment
+          key={comment.id}
+          postId={props.postId}
+          id={comment.id}
+          depth={comment.depth}
+          text={comment.text}
+          date={comment.date}
+          userId={comment.userId}
+          replys={comment.replys}
+          nextDepthTotalAmount={comment.nextDepthTotalAmount}
+          metadata={props.metadata}
+          ownerImageUrl={props.ownerImageUrl}
+          ownerPageUrl={props.ownerPageUrl}
+          ownerName={props.ownerName}
+          onSubmit={props.onSubmit}
+          onClickShowReplies={props.onClickShowReplies}
+        />
+      ))}
+
       {formVisible &&
         <Form
           postId={props.postId}
@@ -68,20 +126,40 @@ Comment.propTypes = {
     url: PropTypes.string.isRequired,
     alt: PropTypes.string,
   })),
+  nextDepthTotalAmount: PropTypes.number,
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   userId: PropTypes.number.isRequired,
+  ownerId: PropTypes.number,
   ownerImageUrl: PropTypes.string,
   ownerPageUrl: PropTypes.string,
   ownerName: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
+  onClickShowReplies: PropTypes.func.isRequired,
+  replys: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    depth: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+    parentId: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
+  })),
+  metadata: PropTypes.objectOf(PropTypes.shape({
+    hasMore: PropTypes.bool,
+    page: PropTypes.number,
+    perPage: PropTypes.number,
+  })).isRequired,
 };
 
 Comment.defaultProps = {
   images: [],
+  replys: [],
+  ownerId: null,
   ownerImageUrl: null,
   ownerPageUrl: null,
   ownerName: null,
+  nextDepthTotalAmount: 0,
 };
 
 export default Comment;

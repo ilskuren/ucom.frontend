@@ -1,9 +1,24 @@
-import api from '../api';
-import * as postsUtils from '../utils/posts';
-import { addPosts } from './posts';
-import graphql from '../api/graphql';
-import { USER_NEWS_FEED_ID, USER_WALL_FEED_ID, ORGANIZATION_FEED_ID } from '../utils/feed';
+import {
+  POSTS_CATREGORIES_HOT_ID,
+  POSTS_CATREGORIES_TRENDING_ID,
+  POSTS_CATREGORIES_FRESH_ID,
+  POSTS_CATREGORIES_TOP_ID,
+  POST_TYPE_MEDIA_ID,
+} from '../utils/posts';
+
+import {
+  USER_NEWS_FEED_ID,
+  USER_WALL_FEED_ID,
+  ORGANIZATION_FEED_ID,
+} from '../utils/feed';
+
 import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED } from '../utils/comments';
+
+import api from '../api';
+import graphql from '../api/graphql';
+import loader from '../utils/loader';
+import { addPosts } from './posts';
+import { addComments } from './comments';
 
 export const feedReset = () => ({ type: 'FEED_RESET' });
 export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload });
@@ -11,6 +26,125 @@ export const feedSetMetadata = payload => ({ type: 'FEED_SET_METADATA', payload 
 export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload });
 export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
 export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
+
+export const feedAddComments = ({
+  postId,
+  parentId,
+  comments,
+  metadata,
+}) => (dispatch) => {
+  dispatch(addComments(comments));
+  dispatch({
+    type: 'FEED_ADD_COMMENTS',
+    payload: {
+      postId,
+      parentId,
+      metadata,
+      commentIds: comments.map(i => i.id),
+    },
+  });
+};
+
+export const feedGetPostComments = ({
+  postId,
+  page,
+  perPage,
+}) => async (dispatch) => {
+  loader.start();
+
+  try {
+    const data = await graphql.getFeedComments({
+      page,
+      perPage,
+      commentableId: postId,
+    });
+
+    dispatch(feedAddComments({
+      postId,
+      parentId: 0,
+      comments: data.data,
+      metadata: data.metadata,
+    }));
+  } catch (e) {
+    console.error(e);
+  }
+
+  loader.done();
+};
+
+export const feedGetCommentsOnComment = ({
+  postId,
+  parentId,
+  parentDepth,
+  page,
+  perPage,
+}) => async (dispatch) => {
+  loader.start();
+
+  try {
+    const data = await graphql.getCommentsOnComment({
+      commentableId: postId,
+      parentId,
+      parentDepth,
+      page,
+      perPage,
+    });
+
+    dispatch(feedAddComments({
+      postId,
+      parentId,
+      metadata: data.metadata,
+      comments: data.data,
+    }));
+  } catch (e) {
+    console.error(e);
+  }
+
+  loader.done();
+};
+
+export const feedCreateComment = ({
+  data,
+  postId,
+  commentId,
+}) => async (dispatch) => {
+  loader.start();
+
+  try {
+    const commentData = await api.createComment(data, postId, commentId);
+
+    dispatch(feedAddComments({
+      postId,
+      comments: [commentData],
+    }));
+  } catch (e) {
+    console.error(e);
+  }
+
+  loader.done();
+};
+
+export const parseFeedData = ({
+  posts,
+  metadata,
+}) => (dispatch) => {
+  posts.forEach((post) => {
+    if (post.comments) {
+      dispatch(feedAddComments({
+        parentId: 0,
+        postId: post.id,
+        comments: post.comments.data,
+        metadata: post.comments.metadata,
+      }));
+
+      delete post.comments;
+    }
+  });
+
+  dispatch(addPosts(posts));
+  dispatch(feedAppendPostIds(posts.map(i => i.id)));
+  dispatch(feedSetMetadata(metadata));
+};
 
 export const feedGetUserPosts = ({
   page,
@@ -42,9 +176,10 @@ export const feedGetUserPosts = ({
       ...commentsParams[feedTypeId],
     });
 
-    dispatch(addPosts(data.data));
-    dispatch(feedAppendPostIds(data.data.map(i => i.id)));
-    dispatch(feedSetMetadata(data.metadata));
+    dispatch(parseFeedData({
+      posts: data.data,
+      metadata: data.metadata,
+    }));
   } catch (e) {
     console.error(e);
   }
@@ -77,17 +212,17 @@ export const feedCreatePost = (feedTypeId, params) => (dispatch, getState) => {
 
 export const feedGetPosts = (postsCategoryId, params) => (dispatch, getState) => {
   const paramsForCategories = {
-    [postsUtils.POSTS_CATREGORIES_HOT_ID]: {
+    [POSTS_CATREGORIES_HOT_ID]: {
       sortBy: '-current_rate',
       createdAt: '24_hours',
     },
-    [postsUtils.POSTS_CATREGORIES_TRENDING_ID]: {
+    [POSTS_CATREGORIES_TRENDING_ID]: {
       sortBy: '-current_rate_delta_daily',
     },
-    [postsUtils.POSTS_CATREGORIES_FRESH_ID]: {
+    [POSTS_CATREGORIES_FRESH_ID]: {
       sortBy: '-id',
     },
-    [postsUtils.POSTS_CATREGORIES_TOP_ID]: {
+    [POSTS_CATREGORIES_TOP_ID]: {
       sortBy: '-current_rate',
     },
   };
@@ -97,7 +232,7 @@ export const feedGetPosts = (postsCategoryId, params) => (dispatch, getState) =>
   return api.getPosts({
     ...params,
     ...paramsForCategories[postsCategoryId],
-    postTypeId: postsUtils.POST_TYPE_MEDIA_ID,
+    postTypeId: POST_TYPE_MEDIA_ID,
   })
     .then((data) => {
       const state = getState();

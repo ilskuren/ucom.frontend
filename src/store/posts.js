@@ -46,45 +46,6 @@ const posts = (state = getInitialState(), action) => {
         },
       };
 
-    case 'POSTS_ADD_COMMENTS': {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.postId]: {
-            ...state.data[action.payload.postId],
-            comments: {
-              ...state.data[action.payload.postId].comments,
-              data: uniq(state.data[action.payload.postId].comments
-                ? state.data[action.payload.postId].comments.data.concat(action.payload.data)
-                : action.payload.data),
-              metadata: {
-                ...state.data[action.payload.postId].comments.metadata,
-                [action.payload.parentId]: action.payload.metadata,
-              },
-            },
-          },
-        },
-      };
-    }
-
-    case 'POSTS_ADD_SINGLE_COMMENT':
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.postId]: {
-            ...state.data[action.payload.postId],
-            comments: {
-              ...state.data[action.payload.postId].comments,
-              data: uniq(state.data[action.payload.postId].comments
-                ? state.data[action.payload.postId].comments.data.concat(action.payload.commentId)
-                : [action.payload.commentId]),
-            },
-          },
-        },
-      };
-
     default: {
       return state;
     }

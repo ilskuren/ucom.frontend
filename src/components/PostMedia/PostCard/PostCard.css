@@ -23,14 +23,6 @@
   fill: #000;
 }
 
-.postCardWithCover {
-  color: #fff;
-}
-
-.postCardWithCover svg path {
-  fill: #fff;
-}
-
 .postCardCover {
   position: absolute;
   z-index: -1;
@@ -147,14 +139,8 @@
   padding: 20px 40px 40px;
   min-height: 280px;
   box-sizing: border-box;
-  margin: 0 -20px;
-}
-
-.postCardSmallRepost {
-  padding: 20px;
-  min-height: 280px;
-  box-sizing: border-box;
   margin: 0 -10px;
+  box-shadow: 0px 1px 4px rgba(60, 68, 75, 0.13);
 }
 
 .postCardSmallRepost .rate {
@@ -182,4 +168,21 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.postCardWithCover {
+  color: #fff;
+  margin: 0 -20px;
+  box-shadow: 0px 1px 1px rgba(60, 68, 75, 0.07);
+}
+
+.postCardWithCover svg path {
+  fill: #fff;
+}
+
+.postCardSmallRepost {
+  padding: 20px;
+  min-height: 280px;
+  box-sizing: border-box;
+  margin: 0 -10px;
 }

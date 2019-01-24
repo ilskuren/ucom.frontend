@@ -38,7 +38,6 @@ class Direct extends PureComponent {
           userRate={user.currentRate}
           profileLink={getUserUrl(user.id)}
           avatarUrl={getFileUrl(user.avatarFilename)}
-          owner={this.props.user.accountName}
         />
 
         <PostFeedContent

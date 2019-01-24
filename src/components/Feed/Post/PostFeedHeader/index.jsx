@@ -7,7 +7,7 @@ import UserCard from '../../../UserCard';
 import urls from '../../../../utils/urls';
 import { getPostById } from '../../../../store/posts';
 import styles from './PostFeedHeader.css';
-import Avatar from '../../../Avatar';
+// import Avatar from '../../../Avatar';
 
 const PostFeedHeader = (props) => {
   const post = getPostById(props.posts, props.postId);
@@ -16,10 +16,6 @@ const PostFeedHeader = (props) => {
     return null;
   }
 
-  // if (this.props.owner !== this.props.accountName && this.props.accountName === post.user.accountName) {
-  //   ownerFeed = this.props.accountName;
-  // }
-
   return (
     <Fragment>
       <div className={styles.header}>
@@ -27,7 +23,7 @@ const PostFeedHeader = (props) => {
         <div className={styles.info}>
           <Link to={urls.getFeedPostUrl(post)}>{props.createdAt}</Link>
         </div>
-        <div className={styles.avatarSmall}>
+        {/* <div className={styles.avatarSmall}>
           <Avatar
             src={urls.getFileUrl(post.user.avatarFilename)}
             size="xmsmall"
@@ -35,8 +31,8 @@ const PostFeedHeader = (props) => {
           />
         </div>
         <div className={styles.info}>
-          <Link to={urls.getFeedPostUrl(post)}>@a</Link>
-        </div>
+          <Link to={urls.getFeedPostUrl(post)} />
+        </div> */}
       </div>
 
       {props.accountName && (

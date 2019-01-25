@@ -9,6 +9,7 @@ import Comments from '../../Comments_/wrapper';
 import ShareBlock from './ShareBlock';
 import { createComment } from '../../../actions/comments';
 import urls from '../../../utils/urls';
+import { COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
 
 class PostFeedFooter extends PureComponent {
   render() {
@@ -60,7 +61,7 @@ class PostFeedFooter extends PureComponent {
         </div>
 
         <div className="post__comments">
-          <Comments postId={post.id} />
+          <Comments postId={post.id} containerId={COMMENTS_CONTAINER_ID_FEED_POST} />
         </div>
       </div>
     );

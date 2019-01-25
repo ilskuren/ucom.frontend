@@ -3,11 +3,24 @@ import graphql from '../api/graphql';
 import loader from '../utils/loader';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { addServerErrorNotification } from './notifications';
+import { addUsers } from './users';
 
-export const addComments = comments => ({
-  type: 'ADD_COMMENTS',
-  payload: comments,
-});
+export const addComments = comments => (dispatch) => {
+  const users = [];
+
+  comments.forEach((comment) => {
+    if (comment.user) {
+      users.push(comment.user);
+      comment.user = comment.user.id;
+    }
+  });
+
+  dispatch(addUsers(users));
+  dispatch({
+    type: 'ADD_COMMENTS',
+    payload: comments,
+  });
+};
 
 export const commentVote = ({
   isUp,
@@ -31,6 +44,26 @@ export const commentVote = ({
   }
   loader.done();
 };
+
+export const commentsResetContainerDataByEntryId = ({
+  containerId,
+  entryId,
+}) => ({
+  type: 'COMMENTS_RESET_CONTAINER_DATA_BY_ENTRY_ID',
+  payload: {
+    containerId,
+    entryId,
+  },
+});
+
+export const commentsResetContainerDataById = ({
+  containerId,
+}) => ({
+  type: 'COMMENTS_RESET_CONTAINER_DATA_BY_ID',
+  payload: {
+    containerId,
+  },
+});
 
 export const commentsAddContainerData = ({
   containerId,

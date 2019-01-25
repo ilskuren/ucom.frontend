@@ -4,6 +4,7 @@ import styles from './styles.css';
 import Comment from './Comment';
 import Form from './Form';
 import ShowNext from './ShowNext';
+import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../utils/comments';
 
 const Comments = (props) => {
   const [timestamp] = useState((new Date()).getTime());
@@ -16,6 +17,7 @@ const Comments = (props) => {
       <div className={styles.list}>
         {comments.map(comment => (
           <Comment
+            containerId={props.containerId}
             key={comment.id}
             postId={props.postId}
             id={comment.id}
@@ -37,6 +39,7 @@ const Comments = (props) => {
 
         {props.metadata[0] && props.metadata[0].hasMore &&
           <ShowNext
+            containerId={props.containerId}
             postId={props.postId}
             perPage={props.metadata[0].perPage}
             page={props.metadata[0].page}
@@ -46,6 +49,7 @@ const Comments = (props) => {
 
         {newOwnerComments.map(comment => (
           <Comment
+            containerId={props.containerId}
             key={comment.id}
             postId={props.postId}
             id={comment.id}
@@ -66,6 +70,7 @@ const Comments = (props) => {
         ))}
 
         <Form
+          containerId={props.containerId}
           postId={props.postId}
           userImageUrl={props.ownerImageUrl}
           userPageUrl={props.ownerPageUrl}
@@ -79,6 +84,7 @@ const Comments = (props) => {
 
 Comments.propTypes = {
   postId: PropTypes.number.isRequired,
+  containerId: PropTypes.oneOf([COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST]).isRequired,
   comments: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     depth: PropTypes.number.isRequired,

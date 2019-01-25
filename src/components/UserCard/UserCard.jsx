@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -14,7 +15,7 @@ const UserCard = (props) => {
   return (
     <div className={styles.userCard}>
       <div className={styles.avatar}>
-        <UserPick url={props.url} src={props.userPickSrc} alt={props.userPickAlt} />
+        <UserPick isOwner={props.isOwner} url={props.url} src={props.userPickSrc} alt={props.userPickAlt} />
       </div>
       <div className={styles.name}>
         <LinkTag to={props.url}>{props.name}</LinkTag>
@@ -26,25 +27,34 @@ const UserCard = (props) => {
   );
 };
 
+UserCard.propTypes = {
+  userPickSrc: PropTypes.string,
+  userPickAlt: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  rate: PropTypes.number.isRequired,
+  url: PropTypes.string,
+  isOwner: PropTypes.bool,
+};
+
+UserCard.defaultProps = {
+  userPickSrc: null,
+  userPickAlt: null,
+  url: PropTypes.null,
+  isOwner: false,
+};
+
 export default connect(
-  state => ({
-    users: state.users,
-  }),
+  (state, props) => () => {
+    const user = getUserById(state.users, props.userId);
+
+    return ({
+      ...props,
+      userPickSrc: urls.getFileUrl(user.avatarFilename),
+      userPickAlt: getUserName(user),
+      url: urls.getUserUrl(user.id),
+      name: getUserName(user),
+      rate: user.currentRate,
+    });
+  },
   null,
-)((props) => {
-  const user = getUserById(props.users, props.userId);
-
-  if (!user) {
-    return null;
-  }
-
-  return (
-    <UserCard
-      userPickSrc={urls.getFileUrl(user.avatarFilename)}
-      userPickAlt={getUserName(user)}
-      url={urls.getUserUrl(user.id)}
-      name={getUserName(user)}
-      rate={user.currentRate}
-    />
-  );
-});
+)(UserCard);

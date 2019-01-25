@@ -4,14 +4,12 @@ import Comments from './index';
 import { getCommentById, getCommentsByContainer } from '../../store/comments';
 import urls from '../../utils/urls';
 import { getUserName } from '../../utils/user';
-import { getCommentsTree, COMMENTS_CONTAINER_ID_FEED_POST } from '../../utils/comments';
+import { getCommentsTree } from '../../utils/comments';
 import { createComment, getPostComments, getCommentsOnComment } from '../../actions/comments';
-
-// TODO: Добавить юзеров в комментов в стор всех юзеров
 
 export default connect(
   (state, props) => {
-    const commentsData = getCommentsByContainer(state, COMMENTS_CONTAINER_ID_FEED_POST, props.postId);
+    const commentsData = getCommentsByContainer(state, props.containerId, props.postId);
     let comments = [];
     let metadata = {};
 
@@ -45,9 +43,14 @@ export default connect(
   },
 
   dispatch => ({
-    onSubmit: ({ message, postId, commentId }) => {
+    onSubmit: ({
+      message,
+      postId,
+      commentId,
+      containerId,
+    }) => {
       dispatch(createComment({
-        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        containerId,
         postId,
         commentId,
         data: {
@@ -56,9 +59,14 @@ export default connect(
       }));
     },
 
-    onClickShowNext: ({ postId, page, perPage }) => {
+    onClickShowNext: ({
+      containerId,
+      postId,
+      page,
+      perPage,
+    }) => {
       dispatch(getPostComments({
-        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        containerId,
         postId,
         page,
         perPage,
@@ -66,10 +74,15 @@ export default connect(
     },
 
     onClickShowReplies: ({
-      postId, parentId, parentDepth, page, perPage,
+      containerId,
+      postId,
+      parentId,
+      parentDepth,
+      page,
+      perPage,
     }) => {
       dispatch(getCommentsOnComment({
-        containerId: COMMENTS_CONTAINER_ID_FEED_POST,
+        containerId,
         commentableId: postId,
         parentId,
         parentDepth,

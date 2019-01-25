@@ -63,6 +63,27 @@ const comments = (state = getInitialState(), action) => {
         },
       };
 
+    case 'COMMENTS_RESET_CONTAINER_DATA_BY_ENTRY_ID':
+      return {
+        ...state,
+        containersData: {
+          ...state.containersData,
+          [action.payload.containerId]: {
+            ...state.containersData[action.payload.containerId],
+            [action.payload.entryId]: null,
+          },
+        },
+      };
+
+    case 'COMMENTS_RESET_CONTAINER_DATA_BY_ID':
+      return {
+        ...state,
+        containersData: {
+          ...state.containersData,
+          [action.payload.containerId]: {},
+        },
+      };
+
     default:
       return state;
   }

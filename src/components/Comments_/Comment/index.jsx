@@ -6,6 +6,7 @@ import Gallery from '../../Gallery';
 import Form from '../Form';
 import ShowReplies from '../ShowReplies';
 import CommentRating from '../../Rating/CommentRating';
+import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
 
 const Comment = (props) => {
   const [formVisible, setFormVisible] = useState(false);
@@ -18,7 +19,10 @@ const Comment = (props) => {
     <Fragment>
       <div className={styles.comment} depth={props.depth} id={`comment-${props.id}`}>
         <div className={styles.userCard}>
-          <UserCard userId={props.userId} />
+          <UserCard
+            userId={props.userId}
+            isOwner={props.ownerId === props.userId}
+          />
         </div>
         <div className={styles.content}>
           {props.images.length > 0 &&
@@ -54,6 +58,7 @@ const Comment = (props) => {
 
       {replys.map(comment => (
         <Comment
+          containerId={props.containerId}
           key={comment.id}
           postId={props.postId}
           id={comment.id}
@@ -77,6 +82,7 @@ const Comment = (props) => {
         ((props.nextDepthTotalAmount > 0 && !props.metadata[props.id]) ||
         (props.metadata[props.id] && props.metadata[props.id].hasMore)) &&
         <ShowReplies
+          containerId={props.containerId}
           postId={props.postId}
           parentId={props.id}
           parentDepth={props.depth}
@@ -88,6 +94,7 @@ const Comment = (props) => {
 
       {newOwnerReplys.map(comment => (
         <Comment
+          containerId={props.containerId}
           key={comment.id}
           postId={props.postId}
           id={comment.id}
@@ -98,6 +105,7 @@ const Comment = (props) => {
           replys={comment.replys}
           nextDepthTotalAmount={comment.nextDepthTotalAmount}
           metadata={props.metadata}
+          ownerId={props.ownerId}
           ownerImageUrl={props.ownerImageUrl}
           ownerPageUrl={props.ownerPageUrl}
           ownerName={props.ownerName}
@@ -108,6 +116,7 @@ const Comment = (props) => {
 
       {formVisible &&
         <Form
+          containerId={props.containerId}
           postId={props.postId}
           commentId={props.id}
           autoFocus
@@ -124,6 +133,7 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
+  containerId: PropTypes.oneOf([COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST]).isRequired,
   id: PropTypes.number.isRequired,
   postId: PropTypes.number.isRequired,
   depth: PropTypes.number.isRequired,

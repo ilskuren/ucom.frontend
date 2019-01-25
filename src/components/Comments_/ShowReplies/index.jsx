@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles.css';
+import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
 
 const ShowReplies = props => (
   <div className={styles.showReplies} depth={props.depth}>
@@ -13,6 +14,7 @@ const ShowReplies = props => (
       role="presentation"
       className={styles.title}
       onClick={() => props.onClick({
+        containerId: props.containerId,
         postId: props.postId,
         parentId: props.parentId,
         parentDepth: props.parentDepth,
@@ -25,6 +27,7 @@ const ShowReplies = props => (
 );
 
 ShowReplies.propTypes = {
+  containerId: PropTypes.oneOf([COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST]).isRequired,
   depth: PropTypes.number,
   onClick: PropTypes.func.isRequired,
   postId: PropTypes.number.isRequired,

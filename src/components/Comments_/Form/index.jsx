@@ -5,6 +5,7 @@ import styles from './styles.css';
 import UserPick from '../../UserPick/UserPick';
 import TextareaAutosize from '../../TextareaAutosize';
 import Image from './Image';
+import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
 
 // TODO: Upload images
 
@@ -22,9 +23,10 @@ const Form = (props) => {
   const submit = () => {
     if (message.length) {
       props.onSubmit({
-        message,
+        containerId: props.containerId,
         postId: props.postId,
         commentId: props.commentId,
+        message,
       });
       reset();
     }
@@ -88,6 +90,7 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
+  containerId: PropTypes.oneOf([COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST]).isRequired,
   postId: PropTypes.number.isRequired,
   commentId: PropTypes.number,
   depth: PropTypes.number,

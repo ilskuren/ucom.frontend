@@ -54,15 +54,9 @@ export const feedGetUserPosts = ({
   organizationId,
 }) => async (dispatch) => {
   const getFeedFunctions = {
-    [USER_NEWS_FEED_ID]: api.getUserNewsFeed.bind(api),
+    [USER_NEWS_FEED_ID]: graphql.getUserNewsFeed,
     [USER_WALL_FEED_ID]: graphql.getUserWallFeed,
-    [ORGANIZATION_FEED_ID]: api.getOrganizationWallFeed.bind(api),
-  };
-
-  const commentsParams = {
-    [USER_WALL_FEED_ID]: {
-      commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
-    },
+    [ORGANIZATION_FEED_ID]: graphql.getOrganizationWallFeed,
   };
 
   dispatch(feedSetLoading(true));
@@ -73,7 +67,7 @@ export const feedGetUserPosts = ({
       perPage,
       userId,
       organizationId,
-      ...commentsParams[feedTypeId],
+      commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
     });
 
     dispatch(parseFeedData({

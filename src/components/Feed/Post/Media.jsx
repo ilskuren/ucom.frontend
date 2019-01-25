@@ -3,17 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getPostById } from '../../../../store/posts';
-import { selectUser } from '../../../../store/selectors/user';
-import { createComment } from '../../../../actions/comments';
-import { getUserName } from '../../../../utils/user';
-import { getUserById } from '../../../../store/users';
-import { getPostCover } from '../../../../utils/posts';
-import PostFeedHeader from '../PostFeedHeader';
-import PostFeedFooter from '../PostFeedFooter';
-import PostCard from '../../../PostMedia/PostCard';
-import urls from '../../../../utils/urls';
-import styles from './Media.css';
+import { getPostById } from '../../../store/posts';
+import { selectUser } from '../../../store/selectors/user';
+import { createComment } from '../../../actions/comments';
+import { getUserName } from '../../../utils/user';
+import { getUserById } from '../../../store/users';
+import { getPostCover } from '../../../utils/posts';
+import PostFeedHeader from './PostFeedHeader';
+import PostFeedFooter from './PostFeedFooter';
+import PostCard from '../../PostMedia/PostCard';
+import urls from '../../../utils/urls';
+import styles from './Post.css';
 
 class Media extends PureComponent {
   render() {

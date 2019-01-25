@@ -10,7 +10,7 @@ import LastUserComments from '../../../Comments/LastUserComments';
 import ShareBlock from '../ShareBlock';
 import { createComment } from '../../../../actions/comments';
 import urls from '../../../../utils/urls';
-import styles from './PostFeedFooter.css';
+import styles from './styles.css';
 import PostRating from '../../../Rating/PostRating';
 
 class PostFeedFooter extends PureComponent {

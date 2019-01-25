@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { sanitizeCommentText, checkHashTag, escapeQuotes } from '../../../utils/text';
+import { sanitizeCommentText, checkHashTag, escapeQuotes } from '../../../../utils/text';
 
 class DescDirectPost extends PureComponent {
   constructor(props) {
@@ -29,7 +29,7 @@ class DescDirectPost extends PureComponent {
     text = checkHashTag(text);
 
     return (
-      <div>
+      <Fragment>
         {this.props.desc.length >= 100 ? (
           <div>
             {this.state.isHidden ? (
@@ -48,7 +48,7 @@ class DescDirectPost extends PureComponent {
         ) : (
           <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(text) }} />
         )}
-      </div>
+      </Fragment>
     );
   }
 }

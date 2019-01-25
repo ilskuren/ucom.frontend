@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import UserCard from '../../../UserCard';
-// import { POST_TYPE_REPOST_ID } from '../../../../utils/posts';
 import urls from '../../../../utils/urls';
 import { getPostById } from '../../../../store/posts';
-import styles from './PostFeedHeader.css';
+import styles from './styles.css';
+// import { POST_TYPE_REPOST_ID } from '../../../../utils/posts';
 // import Avatar from '../../../Avatar';
 
 const PostFeedHeader = (props) => {

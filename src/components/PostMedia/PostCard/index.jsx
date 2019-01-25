@@ -52,13 +52,6 @@ const PostCard = (props) => {
                   size="xmsmall"
                 />
                 <div className={styles.name}>{props.userName}</div>
-                  {/* <UserCard
-                    userName={props.userName}
-                    accountName={props.accountName}
-                    profileLink={props.userUrl}
-                    avatarUrl={props.userImageUrl}
-                    rate={props.userRate}
-                  /> */}
               </div>
             )}
           </div>

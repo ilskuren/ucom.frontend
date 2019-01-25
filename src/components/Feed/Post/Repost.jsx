@@ -3,19 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
-import { getFileUrl } from '../../../../utils/upload';
-import { getUserName, getUserUrl } from '../../../../utils/user';
-import { getPostById } from '../../../../store/posts';
-import { getUserById } from '../../../../store/users';
-import { selectUser } from '../../../../store/selectors/user';
-import { createComment } from '../../../../actions/comments';
-import { updatePost } from '../../../../actions/posts';
-import PostFeedHeader from '../PostFeedHeader';
-import PostFeedContent from '../PostFeedContent';
-import PostFeedFooter from '../PostFeedFooter';
-import PostCard from '../../../PostMedia/PostCard';
-import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../../utils/posts';
-import styles from './Repost.css';
+import { getFileUrl } from '../../../utils/upload';
+import { getUserName, getUserUrl } from '../../../utils/user';
+import { getPostById } from '../../../store/posts';
+import { getUserById } from '../../../store/users';
+import { selectUser } from '../../../store/selectors/user';
+import { createComment } from '../../../actions/comments';
+import { updatePost } from '../../../actions/posts';
+import PostFeedHeader from './PostFeedHeader';
+import PostFeedContent from './PostFeedContent';
+import PostFeedFooter from './PostFeedFooter';
+import PostCard from '../../PostMedia/PostCard';
+import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
+import styles from './Post.css';
 
 class Repost extends PureComponent {
   render() {
@@ -43,7 +43,7 @@ class Repost extends PureComponent {
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
-        <div className={styles.postBorder} id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+        <div className={styles.repost} id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}

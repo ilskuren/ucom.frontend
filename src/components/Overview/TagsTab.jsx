@@ -1,10 +1,10 @@
 import React from 'react';
-import UserList from './../User/UserList';
+import UserList from '../User/UserList';
 import TagsList from './TagsList';
 
 const LIST_LIMIT = 5;
 
-const TagsPage = () => (
+const TagsTab = () => (
   <div className="grid grid_publications">
     <div className="grid__item grid__item_main">
       <TagsList />
@@ -30,4 +30,4 @@ const TagsPage = () => (
 );
 
 
-export default TagsPage;
+export default TagsTab;

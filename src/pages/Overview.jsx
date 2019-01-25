@@ -6,7 +6,8 @@ import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
 import Publications from '../components/Overview/Publications';
 import Communities from '../components/Overview/Communities';
-import Tags from '../components/Overview/TagsPage';
+import Tags from '../components/Overview/TagsTab';
+import Posts from '../components/Overview/PostsTab';
 import NotFoundPage from './NotFoundPage';
 import * as feedActions from '../actions/feed';
 import { FEED_PER_PAGE } from '../utils/feed';
@@ -23,7 +24,7 @@ const Overview = (props) => {
 
   const overviewComponents = {
     publications: Publications,
-    posts: () => 'posts',
+    posts: Posts,
     communities: Communities,
     tags: Tags,
   };

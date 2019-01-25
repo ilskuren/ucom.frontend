@@ -2,7 +2,6 @@ import { uniq, compact } from 'lodash';
 import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router';
-
 import urls from '../../utils/urls';
 import Feed from './../Feed/FeedView';
 import UserList from './../User/UserList';

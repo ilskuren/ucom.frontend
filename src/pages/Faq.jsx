@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Element } from 'react-scroll';
 import PanelWrapper from '../components/Panel/PanelWrapper';
 import VerticalMenu from '../components/VerticalMenu';
@@ -24,6 +25,7 @@ const Faq = () => (
                   { name: 'PrivacyPolice', title: 'Privacy police' },
                   { name: 'Glossary', title: 'Glossary' },
                 ]}
+                sticky
               />
             </div>
 
@@ -39,20 +41,37 @@ const Faq = () => (
                       title="What is U.community?"
                     >
                       <div className="text_faq">
-                        <p>U.community is for everyone who wants fast and reliable messaging and calls. Business users and small teams may like the large groups, usernames, desktop apps and powerful file sharing options.
-                        </p>
-                        <p className="note">Since U.community groups can have up to 100,000 members, we support replies, mentions and hashtags that help maintain order and keep communication in large communities efficient. You can appoint admins with advanced tools to help these communities prosper in peace. Public groups can be joined by anyone and are powerful platforms for discussions and collecting feedback.
+                        <p>U°Community is a dapp on the U°OS blockchain. U°Community allows you to create content, interact with people, use dapps, run your business, govern Decentralized Autonomous Organizations (DAO) and Decentralized Autonomous Communities (DAC) and many other things.
+                          Your contributions to the network through U°Community are decentrally weighed by the community. The resulting weight of your contributions is your influence score called Importance. Your Importance is your digital asset.
                         </p>
                       </div>
                     </PanelWrapper>
                     <PanelWrapper
-                      title="Who is U.community for?"
+                      title="How can people interact on the platform?"
                     >
                       <div className="text_faq">
-                        <p>U.community is for everyone who wants fast and reliable messaging and calls. Business users and small teams may like the large groups, usernames, desktop apps and powerful file sharing options.
-                        </p>
-                        <p>Since U.community groups can have up to 100,000 members, we support replies, mentions and hashtags that help maintain order and keep communication in large communities efficient. You can appoint admins with advanced tools to help these communities prosper in peace. Public groups can be joined by anyone and are powerful platforms for discussions and collecting feedback.
-                        </p>
+                        <p>People on the U°Community platform can interact with each other using:</p>
+                      </div>
+                    </PanelWrapper>
+                    <PanelWrapper
+                      title="What can I do as an unregistered user?"
+                    >
+                      <div className="text_faq">
+                        <p>You can see all the content produced by other users on the entirety of U°Community.</p>
+                      </div>
+                    </PanelWrapper>
+                    <PanelWrapper
+                      title="What can I do as a registered user?
+                      "
+                    >
+                      <div className="text_faq">
+                        <p>You can see all the content produced by other users and interact with other users and content.</p>
+                        <p>You can create your own content.</p>
+                        <p>Other users will be able to interact with your profile and with your content.</p>
+                        <p>You can shape your own interests by following the people and communities you like.</p>
+                        <p>You can interact with all the content on the platform: like, comment and share posts, sell and purchase goods and services via offers, run and join [Decentralized Autonomous Communities](LINKtoGlossaryDAC) and [Decentralized Autonomous Organizations](LINKtoGlossaryDAO).</p>
+                        <p>You can transfer funds to other registered users. </p>
+                        <p>You can (and should) vote for Block Producers and Calculator Nodes on the  <Link className="auth__link" target="_blank" to="/governance"> governance page. </Link></p>
                       </div>
                     </PanelWrapper>
                   </div>

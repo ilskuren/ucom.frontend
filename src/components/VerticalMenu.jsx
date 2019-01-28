@@ -38,7 +38,7 @@ class VerticalMenu extends PureComponent {
 
   render() {
     return (
-      <ul className="vertical-menu">
+      <ul className={`vertical-menu ${this.props.sticky ? 'vertical-menu_sticky' : ''}`}>
         {this.props.sections.map(section => (
           <li
             key={section.name}

@@ -7,13 +7,12 @@ import Form from '../Form';
 import ShowReplies from '../ShowReplies';
 import CommentRating from '../../Rating/CommentRating';
 import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
+import { sanitizeCommentText } from '../../../utils/text';
 
 const Comment = (props) => {
   const [formVisible, setFormVisible] = useState(false);
-  const [timestamp] = useState((new Date()).getTime());
-  const newOwnerReplys = props.replys
-    .filter(i => i.userId === props.ownerId && (new Date(i.createdAt)).getTime() > timestamp);
-  const replys = props.replys.filter(i => newOwnerReplys.every(j => j.id !== i.id));
+  const newReplys = props.replys.filter(i => i.isNew);
+  const replys = props.replys.filter(i => newReplys.every(j => j.id !== i.id));
 
   return (
     <Fragment>
@@ -35,9 +34,13 @@ const Comment = (props) => {
             </div>
           }
 
-          <div className={styles.text}>
-            {props.text}
-          </div>
+          <div
+            className={styles.text}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeCommentText(props.text),
+            }}
+          />
+
           <div className={styles.actions}>
             {props.depth < 2 &&
               <div
@@ -92,7 +95,7 @@ const Comment = (props) => {
         />
       }
 
-      {newOwnerReplys.map(comment => (
+      {newReplys.map(comment => (
         <Comment
           containerId={props.containerId}
           key={comment.id}
@@ -158,7 +161,7 @@ Comment.propTypes = {
     date: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
     parentId: PropTypes.number.isRequired,
-    createdAt: PropTypes.string.isRequired,
+    isNew: PropTypes.bool.isRequired,
   })),
   metadata: PropTypes.objectOf(PropTypes.shape({
     hasMore: PropTypes.bool,

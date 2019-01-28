@@ -39,8 +39,14 @@ Feed.propTypes = {
   hasMore: PropTypes.bool.isRequired,
   postIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   loading: PropTypes.bool.isRequired,
+  loadMoreUrl: PropTypes.string,
   onSubmitPostForm: PropTypes.func,
   onClickLoadMore: PropTypes.func.isRequired,
+};
+
+Feed.defaultProps = {
+  loadMoreUrl: null,
+  onSubmitPostForm: null,
 };
 
 export default Feed;

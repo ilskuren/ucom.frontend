@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import UserCard from '../components/UserCard';
 import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
-import { getUserUrl, getUserName } from '../utils/user';
+import { getUserName } from '../utils/user';
+import urls from '../utils/urls';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
@@ -128,7 +129,7 @@ class EventsPage extends PureComponent {
                           <td className="list-table__cell list-table__cell_index">{index + 1}</td>
                           <td className="list-table__cell list-table__cell_name" data-title="Name">
                             <UserCard
-                              profileLink={getUserUrl(item.id)}
+                              profileLink={urls.getUserUrl(item.id)}
                               avatarUrl={getFileUrl(item.avatarFilename)}
                               userName={getUserName(item)}
                               accountName={item.accountName}

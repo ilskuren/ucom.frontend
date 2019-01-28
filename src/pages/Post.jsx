@@ -14,7 +14,7 @@ import ButtonEdit from '../components/ButtonEdit';
 import { sanitizePostText, checkHashTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
-import Comments from '../components/Comments_/wrapper';
+import Comments from '../components/Comments/wrapper';
 import { getPostBody, getContentMetaTags } from '../utils/posts';
 import loader from '../utils/loader';
 import { COMMENTS_CONTAINER_ID_POST } from '../utils/comments';

@@ -12,6 +12,7 @@ export const addComments = comments => (dispatch) => {
     if (comment.user) {
       users.push(comment.user);
       comment.user = comment.user.id;
+      comment.isNew = comment.isNew || false;
     }
   });
 
@@ -153,6 +154,7 @@ export const createComment = ({
   loader.start();
   try {
     const commentData = await api.createComment(data, postId, commentId);
+    commentData.isNew = true;
     dispatch(commentsAddContainerData({
       containerId,
       entryId: postId,

@@ -7,7 +7,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import UserOption from './UserOption';
 import Close from './Icons/Close';
 import api from '../api';
-import { getUserName, getNickname } from '../utils/user';
+import { getUserName } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
 const SelectUserOption = props => (
@@ -15,7 +15,7 @@ const SelectUserOption = props => (
     <UserOption
       name={getUserName(props.data)}
       avatar={getFileUrl(humps(props.data).avatarFilename)}
-      nickname={getNickname(props.data)}
+      nickname={props.data.accountName}
     />
   </components.Option>
 );

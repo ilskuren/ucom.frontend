@@ -9,7 +9,8 @@ import UserFollowButton from './UserFollowButton';
 import Followers from '../Followers/Followers';
 import { getUserById } from '../../store/users';
 import { getFileUrl } from '../../utils/upload';
-import { getUserName, getUserEditProfileUrl } from '../../utils/user';
+import { getUserName } from '../../utils/user';
+import urls from '../../utils/urls';
 import { selectUser } from '../../store/selectors/user';
 import ButtonEdit from '../ButtonEdit';
 
@@ -46,10 +47,10 @@ const UserHead = (props) => {
             <div className="user-header__edit-button">
               <span className="inline">
                 <span className="inline__item">
-                  <ButtonEdit url={getUserEditProfileUrl()} />
+                  <ButtonEdit url={urls.getUserEditProfileUrl()} />
                 </span>
                 <span className="inline__item">
-                  <Link to={getUserEditProfileUrl()}>Edit</Link>
+                  <Link to={urls.getUserEditProfileUrl()}>Edit</Link>
                 </span>
               </span>
             </div>

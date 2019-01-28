@@ -10,7 +10,7 @@ import urls from '../../utils/urls';
 import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
-import { getUserName, getUserUrl } from '../../utils/user';
+import { getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import { confirmNotification, declineNotification, seenNotification } from '../../actions/siteNotifications';
@@ -72,7 +72,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;started following you
@@ -85,7 +85,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvotes' : ' downvotes'} your `}
@@ -100,7 +100,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;shared your&nbsp;
@@ -116,7 +116,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvotes' : ' downvotes'} your`}
@@ -131,7 +131,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;started following&nbsp;
@@ -147,7 +147,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_POST ? ' upvotes ' : ' downvotes '}
@@ -164,7 +164,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_COMMENT ? ' upvotes ' : ' downvotes '}
@@ -180,7 +180,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted on your&nbsp;
@@ -195,7 +195,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.comment.user.id)}>
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your&nbsp;
@@ -211,7 +211,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.comment.userId)}>
+          <Link to={urls.getUserUrl(props.data.comment.userId)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;replied to your&nbsp;
@@ -227,7 +227,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted in&nbsp;
@@ -243,7 +243,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;commented&nbsp;
@@ -257,7 +257,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;replied to&nbsp;
@@ -273,7 +273,7 @@ const getTitle = (props) => {
         <Fragment>
           {props.data.user && (
             <Fragment>
-              <Link to={getUserUrl(props.data.user.id)}>
+              <Link to={urls.getUserUrl(props.data.user.id)}>
                 <strong>{getUserName(props.data.user)}</strong>
               </Link>
               &nbsp;
@@ -367,7 +367,7 @@ const getAvatar = (props) => {
 
       return (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <Avatar
               isPost
               src={getFileUrl(props.data.post.user.avatarFilename)}
@@ -383,7 +383,7 @@ const getAvatar = (props) => {
 
       return (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.comment.user.id)}>
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
             <Avatar src={getFileUrl(props.data.comment.user.avatarFilename)} />
           </Link>
         </div>
@@ -391,7 +391,7 @@ const getAvatar = (props) => {
     default: {
       return props.data && props.data.user ? (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <Avatar
               src={getFileUrl(props.data.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}

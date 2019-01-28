@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles.css';
 import Comment from './Comment';
 import Form from './Form';
@@ -7,10 +7,8 @@ import ShowNext from './ShowNext';
 import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../utils/comments';
 
 const Comments = (props) => {
-  const [timestamp] = useState((new Date()).getTime());
-  const newOwnerComments = props.comments
-    .filter(i => i.userId === props.ownerId && (new Date(i.createdAt)).getTime() > timestamp);
-  const comments = props.comments.filter(i => newOwnerComments.every(j => j.id !== i.id));
+  const newComment = props.comments.filter(i => i.isNew);
+  const comments = props.comments.filter(i => newComment.every(j => j.id !== i.id));
 
   return (
     <div className={styles.comments}>
@@ -47,7 +45,7 @@ const Comments = (props) => {
           />
         }
 
-        {newOwnerComments.map(comment => (
+        {newComment.map(comment => (
           <Comment
             containerId={props.containerId}
             key={comment.id}
@@ -92,7 +90,7 @@ Comments.propTypes = {
     date: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
     parentId: PropTypes.number.isRequired,
-    createdAt: PropTypes.string.isRequired,
+    isNew: PropTypes.bool.isRequired,
   })),
   metadata: PropTypes.objectOf(PropTypes.shape({
     hasMore: PropTypes.bool,

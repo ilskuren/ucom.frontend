@@ -30,6 +30,8 @@
   margin: 0 0 8px;
   font-size: 16px;
   line-height: 23px;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 :local(.actions) {

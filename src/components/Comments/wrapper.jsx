@@ -25,7 +25,7 @@ export default connect(
           nextDepthTotalAmount: comment.metadata.nextDepthTotalAmount,
           parentId: comment.parentId || 0,
           path: comment.path,
-          createdAt: comment.createdAt,
+          isNew: comment.isNew,
         })));
 
       ({ metadata } = commentsData);

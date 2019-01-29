@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { getFileUrl } from '../../../utils/upload';
 import { getUserName, getUserUrl } from '../../../utils/user';
 import { getPostById } from '../../../store/posts';
@@ -15,6 +15,7 @@ import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
 import PostCard from '../../PostMedia/PostCard';
 import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
+import RepostGroup from './RepostGroup';
 
 class Repost extends PureComponent {
   render() {
@@ -31,63 +32,67 @@ class Repost extends PureComponent {
     }
 
     return (
-      <div className="post post_repost">
-        <PostFeedHeader
-          postTypeId={post.postTypeId}
-          createdAt={moment(post.createdAt).fromNow()}
-          postId={post.id}
-          userName={getUserName(user)}
-          accountName={user.accountName}
-          profileLink={getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
-        />
-
-        <div className="post post_grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+      <Fragment>
+        <div className="post post_repost">
           <PostFeedHeader
-            postTypeId={post.post.postTypeId}
-            createdAt={moment(post.post.createdAt).fromNow()}
-            postId={post.post.id}
-            userName={getUserName(post.post.user)}
-            accountName={post.post.user.accountName}
-            profileLink={getUserUrl(post.post.user.id)}
-            avatarUrl={getFileUrl(post.post.user.avatarFilename)}
+            postTypeId={post.postTypeId}
+            createdAt={moment(post.createdAt).fromNow()}
+            postId={post.id}
+            userName={getUserName(user)}
+            accountName={user.accountName}
+            profileLink={getUserUrl(user.id)}
+            avatarUrl={getFileUrl(user.avatarFilename)}
           />
 
-          {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
-            <PostCard
-              onFeed
-              coverUrl={getFileUrl(post.post.mainImageFilename)}
-              rate={post.currentRate}
-              title={post.post.title || post.post.leadingText}
-              url={getPostUrl(post.post.id)}
-              userUrl={getUserUrl(post.post.user && post.post.user.id)}
-              userImageUrl={getFileUrl(post.post.user && post.post.user.avatarFilename)}
-              userName={getUserName(post.post.user)}
-              accountName={post.post.user && post.post.user.accountName}
-              tags={post.post.postTypeId && [getPostTypeById(post.post.postTypeId)]}
-              commentsCount={post.postTypeId && post.commentsCount}
-              sharesCount={post.postTypeId && post.sharesCount}
-            />
-          ) : (
-            <PostFeedContent
+          <div className="post post_grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+            <PostFeedHeader
+              postTypeId={post.post.postTypeId}
+              createdAt={moment(post.post.createdAt).fromNow()}
               postId={post.post.id}
-              userId={post.post.user.id}
+              userName={getUserName(post.post.user)}
+              accountName={post.post.user.accountName}
+              profileLink={getUserUrl(post.post.user.id)}
+              avatarUrl={getFileUrl(post.post.user.avatarFilename)}
             />
-          )}
+
+            {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
+              <PostCard
+                onFeed
+                coverUrl={getFileUrl(post.post.mainImageFilename)}
+                rate={post.currentRate}
+                title={post.post.title || post.post.leadingText}
+                url={getPostUrl(post.post.id)}
+                userUrl={getUserUrl(post.post.user && post.post.user.id)}
+                userImageUrl={getFileUrl(post.post.user && post.post.user.avatarFilename)}
+                userName={getUserName(post.post.user)}
+                accountName={post.post.user && post.post.user.accountName}
+                tags={post.post.postTypeId && [getPostTypeById(post.post.postTypeId)]}
+                commentsCount={post.postTypeId && post.commentsCount}
+                sharesCount={post.postTypeId && post.sharesCount}
+              />
+            ) : (
+              <PostFeedContent
+                postId={post.post.id}
+                userId={post.post.user.id}
+              />
+            )}
+          </div>
+
+          <PostFeedFooter
+            commentsCount={post.commentsCount}
+            post={post}
+            postTypeId={post.postTypeId}
+            el={this.el}
+            commentsIsVisible={this.props.commentsIsVisible}
+            toggleComments={this.props.toggleComments}
+            sharePopup={this.props.sharePopup}
+            toggleShare={this.props.toggleShare}
+            timestamp={this.props.timestamp}
+          />
         </div>
 
-        <PostFeedFooter
-          commentsCount={post.commentsCount}
-          post={post}
-          postTypeId={post.postTypeId}
-          el={this.el}
-          commentsIsVisible={this.props.commentsIsVisible}
-          toggleComments={this.props.toggleComments}
-          sharePopup={this.props.sharePopup}
-          toggleShare={this.props.toggleShare}
-          timestamp={this.props.timestamp}
-        />
-      </div>
+        <RepostGroup avatarUrl={getFileUrl(post.post.user.avatarFilename)} />
+      </Fragment>
     );
   }
 }

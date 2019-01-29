@@ -1,3 +1,5 @@
+import { uniq } from 'lodash';
+
 const getInitialState = () => ({
   loading: false,
   postIds: [],
@@ -15,11 +17,8 @@ export default (state = getInitialState(), action) => {
     case 'FEED_SET_POST_IDS':
       return { ...state, postIds: action.payload };
 
-    case 'FEED_APPEND_POST_IDS':
-      return { ...state, postIds: state.postIds.concat(action.payload) };
-
     case 'FEED_PREPEND_POST_IDS':
-      return { ...state, postIds: action.payload.concat(state.postIds) };
+      return { ...state, postIds: uniq(action.payload.concat(state.postIds)) };
 
     case 'FEED_SET_METADATA':
       return { ...state, metadata: action.payload };

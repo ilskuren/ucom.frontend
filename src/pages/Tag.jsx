@@ -1,18 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LayoutBase from '../components/Layout/LayoutBase';
 import TagHead from '../components/Tag/TagHead';
-import Feed from '../components/Feed/Feed';
+import Feed from '../components/Feed/FeedUser';
 import { TAG_FEED_ID } from '../utils/feed';
 import api from '../api';
 import TagOrganizations from '../components/Tag/TagOrganizations';
 import TagUsers from '../components/Tag/TagUsers';
 import TagCreatedAt from '../components/Tag/TagCreatedAt';
-import { addUsers } from '../actions/users';
-import { addOrganizations } from '../actions/organizations';
 import { addTags } from '../actions/tags';
 import NotFoundPage from './NotFoundPage';
+import { existHashTag } from '../utils/text';
+import { getPostById } from '../store/posts';
 
 const Tag = (props) => {
   const tagTitle = props.match.params.title;
@@ -65,10 +66,14 @@ const Tag = (props) => {
             <div className="grid__item">
               {tag &&
                 <Feed
-                  userId={props.user.data.id}
                   feedTypeId={TAG_FEED_ID}
-                  tagTitle={tag.title}
-                  lastTagId={tag.posts.data[tag.posts.data.length - 1]}
+                  userId={props.user.data.id}
+                  tagIdentity={tag.title}
+                  feedInputInitialText={tag.title}
+                  filter={(postId) => {
+                    const post = getPostById(props.posts, postId);
+                    return post && post.description && existHashTag(post.description, tag.title);
+                  }}
                 />
               }
             </div>
@@ -94,6 +99,26 @@ const Tag = (props) => {
   );
 };
 
+Tag.propTypes = {
+  posts: PropTypes.shape({
+    data: PropTypes.shape({
+      description: PropTypes.string,
+    }),
+  }).isRequired,
+  user: PropTypes.shape({
+    data: PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  }).isRequired,
+  tags: PropTypes.objectOf(PropTypes.any).isRequired,
+  addTags: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 export default connect(
   state => ({
     posts: state.posts,
@@ -101,8 +126,6 @@ export default connect(
     user: state.user,
   }),
   dispatch => bindActionCreators({
-    addUsers,
-    addOrganizations,
     addTags,
   }, dispatch),
 )(Tag);

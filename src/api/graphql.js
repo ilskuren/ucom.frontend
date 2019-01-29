@@ -29,17 +29,17 @@ const request = async (data) => {
 export default {
   async getUserWallFeed({
     userId,
-    page,
-    perPage,
-    commentsPage,
-    commentsPerPage,
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    commentsPage = 1,
+    commentsPerPage = COMMENTS_PER_PAGE,
   }) {
     const query = GraphQLSchema.getUserWallFeedQuery(
       userId,
-      page || 1,
-      perPage || FEED_PER_PAGE,
-      commentsPage || 1,
-      commentsPerPage || COMMENTS_PER_PAGE,
+      page,
+      perPage,
+      commentsPage,
+      commentsPerPage,
     );
 
     try {
@@ -51,16 +51,16 @@ export default {
   },
 
   async getUserNewsFeed({
-    page,
-    perPage,
-    commentsPage,
-    commentsPerPage,
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    commentsPage = 1,
+    commentsPerPage = COMMENTS_PER_PAGE,
   }) {
     const query = GraphQLSchema.getUserWallFeedQuery(
-      page || 1,
-      perPage || FEED_PER_PAGE,
-      commentsPage || 1,
-      commentsPerPage || COMMENTS_PER_PAGE,
+      page,
+      perPage,
+      commentsPage,
+      commentsPerPage,
     );
 
     try {
@@ -73,17 +73,17 @@ export default {
 
   async getOrganizationWallFeed({
     organizationId,
-    page,
-    perPage,
-    commentsPage,
-    commentsPerPage,
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    commentsPage = 1,
+    commentsPerPage = COMMENTS_PER_PAGE,
   }) {
     const query = GraphQLSchema.getOrganizationWallFeedQuery(
       organizationId,
-      page || 1,
-      perPage || FEED_PER_PAGE,
-      commentsPage || 1,
-      commentsPerPage || COMMENTS_PER_PAGE,
+      page,
+      perPage,
+      commentsPage,
+      commentsPerPage,
     );
 
     try {
@@ -96,13 +96,13 @@ export default {
 
   async getPostComments({
     commentableId,
-    page,
-    perPage,
+    page = 1,
+    perPage = COMMENTS_PER_PAGE,
   }) {
     const query = GraphQLSchema.getPostCommentsQuery(
       commentableId,
-      page || 1,
-      perPage || COMMENTS_PER_PAGE,
+      page,
+      perPage,
     );
 
     try {
@@ -117,15 +117,15 @@ export default {
     commentableId,
     parentId,
     parentDepth,
-    page,
-    perPage,
+    page = 1,
+    perPage = COMMENTS_PER_PAGE,
   }) {
     const query = GraphQLSchema.getCommentsOnCommentQuery(
       commentableId,
       parentId,
       parentDepth,
-      page || 1,
-      perPage || COMMENTS_PER_PAGE,
+      page,
+      perPage,
     );
 
     try {
@@ -151,6 +151,31 @@ export default {
     try {
       const data = await request({ query });
       return data.data.onePost;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getTagWallFeedQuery({
+    tagIdentity,
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    commentsPage = 1,
+    commentsPerPage = COMMENTS_PER_PAGE,
+  }) {
+    const token = getToken();
+    const query = await GraphQLSchema.getTagWallFeedQuery(
+      tagIdentity,
+      page,
+      perPage,
+      commentsPage,
+      commentsPerPage,
+      Boolean(token),
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.tagWallFeed;
     } catch (e) {
       throw e;
     }

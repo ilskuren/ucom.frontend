@@ -7,12 +7,15 @@ import LoadMore from './LoadMore';
 const Feed = props => (
   <div className="feed">
     {props.onSubmitPostForm &&
-      <FeedInput onSubmit={props.onSubmitPostForm} />
+      <FeedInput
+        onSubmit={props.onSubmitPostForm}
+        initialText={props.feedInputInitialText}
+      />
     }
 
     {props.postIds.length > 0 &&
       <div className="feed__list">
-        {props.postIds.map(id => (
+        {(props.filter ? props.postIds.filter(props.filter) : props.postIds).map(id => (
           <div className="feed__item" key={id}>
             <Post id={id} />
           </div>
@@ -40,13 +43,17 @@ Feed.propTypes = {
   postIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   loading: PropTypes.bool.isRequired,
   loadMoreUrl: PropTypes.string,
+  feedInputInitialText: PropTypes.string,
   onSubmitPostForm: PropTypes.func,
   onClickLoadMore: PropTypes.func.isRequired,
+  filter: PropTypes.func,
 };
 
 Feed.defaultProps = {
   loadMoreUrl: null,
   onSubmitPostForm: null,
+  feedInputInitialText: null,
+  filter: null,
 };
 
 export default Feed;

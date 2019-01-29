@@ -9,6 +9,7 @@ import {
   USER_NEWS_FEED_ID,
   USER_WALL_FEED_ID,
   ORGANIZATION_FEED_ID,
+  TAG_FEED_ID,
 } from '../utils/feed';
 import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED, COMMENTS_CONTAINER_ID_FEED_POST } from '../utils/comments';
 import api from '../api';
@@ -20,7 +21,6 @@ export const feedReset = () => ({ type: 'FEED_RESET' });
 export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload });
 export const feedSetMetadata = payload => ({ type: 'FEED_SET_METADATA', payload });
 export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload });
-export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
 export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
 
 export const parseFeedData = ({
@@ -42,7 +42,7 @@ export const parseFeedData = ({
   });
 
   dispatch(addPosts(posts));
-  dispatch(feedAppendPostIds(posts.map(i => i.id)));
+  dispatch(feedPrependPostIds(posts.map(i => i.id)));
   dispatch(feedSetMetadata(metadata));
 };
 
@@ -52,11 +52,13 @@ export const feedGetUserPosts = ({
   feedTypeId,
   userId,
   organizationId,
+  tagIdentity,
 }) => async (dispatch) => {
   const getFeedFunctions = {
     [USER_NEWS_FEED_ID]: graphql.getUserNewsFeed,
     [USER_WALL_FEED_ID]: graphql.getUserWallFeed,
     [ORGANIZATION_FEED_ID]: graphql.getOrganizationWallFeed,
+    [TAG_FEED_ID]: graphql.getTagWallFeedQuery,
   };
 
   dispatch(feedSetLoading(true));
@@ -67,6 +69,7 @@ export const feedGetUserPosts = ({
       perPage,
       userId,
       organizationId,
+      tagIdentity,
       commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
     });
 
@@ -81,22 +84,20 @@ export const feedGetUserPosts = ({
   dispatch(feedSetLoading(false));
 };
 
-export const feedCreatePost = (feedTypeId, params) => (dispatch, getState) => {
+export const feedCreatePost = (feedTypeId, params) => (dispatch) => {
   const createCommentPostFunctions = {
     [USER_NEWS_FEED_ID]: api.createUserCommentPost.bind(api),
     [USER_WALL_FEED_ID]: api.createUserCommentPost.bind(api),
     [ORGANIZATION_FEED_ID]: api.createOrganizationsCommentPost.bind(api),
+    [TAG_FEED_ID]: api.createUserCommentPost.bind(api),
   };
 
   dispatch(feedSetLoading(true));
 
   return createCommentPostFunctions[feedTypeId](params)
     .then((data) => {
-      const state = getState();
-      const { postIds } = state.feed;
-
       dispatch(addPosts([data]));
-      dispatch(feedSetPostIds([data.id].concat(postIds)));
+      dispatch(feedPrependPostIds([data.id]));
       dispatch(feedSetLoading(false));
     })
     .catch(() => {

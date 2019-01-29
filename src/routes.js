@@ -57,6 +57,9 @@ export default [{
   path: '/about',
   component: AboutPage,
 }, {
+  path: '/about/:page',
+  component: AboutPage,
+}, {
   path: '/communities',
   component: OrganizationsPage,
 }, {

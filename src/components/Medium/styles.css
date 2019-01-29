@@ -1,0 +1,33 @@
+:global(.medium-editor-element) {
+  flex: 1 1 auto;
+  padding: 57px 40px 90px;
+  padding-left: calc((91% - 700px) / 2);
+  padding-right: calc((109% - 700px) / 2);
+  box-shadow: 0px 0px 20px rgba(184, 184, 184, 0.25);
+  outline: none;
+}
+
+@media (max-width: 1023px) {
+  :global(.medium-editor-element) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+:global(.medium-editor-placeholder:after) {
+  font-style: normal;
+}
+
+:global(.iframe-video) {
+  display: block;
+  border: none;
+  width: 700px;
+  height: 393px;
+}
+
+@media(max-width: 861px) {
+  :global(.iframe-video) {
+    width: calc(100vw - 160px);
+    height: calc((100vw - 160px) * 56.25 / 100);
+  }
+}

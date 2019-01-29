@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import LayoutClean from '../components/Layout/LayoutClean';
 import CreateBy from '../components/CreateBy';
 import Button from '../components/Button';
-import Medium from '../components/Medium';
+import Medium from '../components/Medium/index';
 import api from '../api';
 import { selectUser } from '../store/selectors';
 import { postSetSaved, setPostData, validatePost, resetPost, setDataToStoreToLS } from '../actions';
@@ -122,38 +122,34 @@ const EditPost = (props) => {
         </div>
 
         <div className="edit-post__content">
-          <div className="edit-post__container">
-            <div className="edit-post__form">
-              {(!postId || loaded) &&
-                <Medium
-                  value={props.post.data.description}
-                  onChange={(content) => {
-                    const data = parseMediumContent(content);
-                    const dataToSave = {
-                      description: data.description,
-                    };
+          {(!postId || loaded) &&
+            <Medium
+              value={props.post.data.description}
+              onChange={(content) => {
+                const data = parseMediumContent(content);
+                const dataToSave = {
+                  description: data.description,
+                };
 
-                    if (!props.post.data.id) {
-                      dataToSave.title = data.title;
-                      dataToSave.leadingText = data.leadingText;
-                      dataToSave.entityImages = data.entityImages;
-                    }
+                if (!props.post.data.id) {
+                  dataToSave.title = data.title;
+                  dataToSave.leadingText = data.leadingText;
+                  dataToSave.entityImages = data.entityImages;
+                }
 
-                    props.setDataToStoreToLS(dataToSave);
-                    props.validatePost();
-                  }}
-                  onUploadStart={() => {
-                    setLoading(true);
-                    loader.start();
-                  }}
-                  onUploadDone={() => {
-                    setLoading(false);
-                    loader.done();
-                  }}
-                />
-              }
-            </div>
-          </div>
+                props.setDataToStoreToLS(dataToSave);
+                props.validatePost();
+              }}
+              onUploadStart={() => {
+                setLoading(true);
+                loader.start();
+              }}
+              onUploadDone={() => {
+                setLoading(false);
+                loader.done();
+              }}
+            />
+          }
         </div>
 
         <div className="edit-post__container">

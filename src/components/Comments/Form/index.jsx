@@ -1,16 +1,18 @@
+import autosize from 'autosize';
 import { KEY_RETURN, KEY_ESCAPE } from 'keycode-js';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './styles.css';
 import UserPick from '../../UserPick/UserPick';
-import TextareaAutosize from '../../TextareaAutosize';
 import Image from './Image';
 import { COMMENTS_CONTAINER_ID_POST, COMMENTS_CONTAINER_ID_FEED_POST } from '../../../utils/comments';
+import TributeWrapper from '../../TributeWrapper';
 
 // TODO: Upload images
 
 const Form = (props) => {
   const [message, setMessage] = useState('');
+  const textareaEl = useRef(null);
 
   const reset = () => {
     setMessage('');
@@ -32,6 +34,18 @@ const Form = (props) => {
     }
   };
 
+  useEffect(() => {
+    autosize(textareaEl.current);
+
+    return () => {
+      autosize.destroy(textareaEl);
+    };
+  }, []);
+
+  useEffect(() => {
+    autosize.update(textareaEl.current);
+  }, [message]);
+
   return (
     <div className={styles.form} depth={props.depth}>
       <div className={styles.userPick}>
@@ -41,21 +55,24 @@ const Form = (props) => {
       <div className={styles.content}>
         <div className={styles.field}>
           <div className={styles.inputWrapper}>
-            <TextareaAutosize
-              autoFocus={props.autoFocus}
-              rows="1"
-              className={styles.input}
-              placeholder="Leave a comment..."
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if ((e.ctrlKey || e.metaKey) && e.keyCode === KEY_RETURN) {
-                  submit();
-                } else if (e.keyCode === KEY_ESCAPE) {
-                  reset();
-                }
-              }}
-            />
+            <TributeWrapper onChange={message => setMessage(message)}>
+              <textarea
+                ref={textareaEl}
+                autoFocus={props.autoFocus}
+                rows="1"
+                className={styles.input}
+                placeholder="Leave a comment..."
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey || e.metaKey) && e.keyCode === KEY_RETURN) {
+                    submit();
+                  } else if (e.keyCode === KEY_ESCAPE) {
+                    reset();
+                  }
+                }}
+              />
+            </TributeWrapper>
           </div>
 
           <div className={styles.actions}>

@@ -1,6 +1,11 @@
-import { POST_TYPE_MEDIA_ID } from './posts';
+import * as postsUtils from './posts';
+import { getBackendConfig } from './config';
 
 const urls = {
+  getNewPostUrl() {
+    return '/posts/new';
+  },
+
   getRegistrationUrl() {
     return '/registration';
   },
@@ -18,19 +23,23 @@ const urls = {
   },
 
   getPostUrl(post) {
-    if (!post || !post.id || !post.entityIdFor || !post.entityNameFor) {
+    if (!post || !post.id) {
       return null;
     }
 
-    if (post.postTypeId === POST_TYPE_MEDIA_ID) {
+    if (post.postTypeId === postsUtils.POST_TYPE_MEDIA_ID) {
       return `/posts/${post.id}`;
     }
 
-    if (post.entityNameFor.trim() === 'org') {
+    if (post.entityNameFor && post.entityNameFor.trim() === 'org') {
       return `/communities/${post.entityIdFor}/${post.id}`;
     }
 
-    return `/user/${post.entityIdFor}/${post.id}`;
+    if (post.entityIdFor) {
+      return `/user/${post.entityIdFor}/${post.id}`;
+    }
+
+    return null;
   },
 
   getFeedPostUrl(post) {
@@ -45,6 +54,14 @@ const urls = {
     return `/user/${post.entityIdFor}/${post.id}`;
   },
 
+  getPostEditUrl(postId) {
+    if (!postId) {
+      return null;
+    }
+
+    return `/posts/${postId}/edit`;
+  },
+
   getOrganizationUrl(id) {
     if (!id) {
       return null;
@@ -53,12 +70,33 @@ const urls = {
     return `/communities/${id}`;
   },
 
-  getPublicationsCategoryUrl(name) {
-    return `/publications/${name}`;
+  getPublicationsCategoryUrl(
+    name = postsUtils.POSTS_CATREGORIES[0].name,
+    page,
+  ) {
+    let url = `/publications/${name}`;
+
+    if (page) {
+      url = `${url}/page/${page}`;
+    }
+
+    return url;
   },
 
   getPublicationsUrl() {
     return '/publications';
+  },
+
+  getFileUrl(filename) {
+    if (!filename) {
+      return null;
+    }
+
+    return `${getBackendConfig().httpEndpoint}/upload/${filename}`;
+  },
+
+  getPagingLink(params) {
+    return `/users?page=${params.page}&sortBy=${params.sortBy}&perPage=${params.perPage}&userName=${params.userName}`;
   },
 };
 

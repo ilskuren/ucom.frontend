@@ -2,10 +2,11 @@ import humps from 'lodash-humps';
 import api from '../api';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import loader from '../utils/loader';
-import { addErrorNotification } from './notifications';
+import { addServerErrorNotification } from './notifications';
 import { setPostCommentCount } from './posts';
 
 export const addComments = payload => ({ type: 'ADD_COMMENTS', payload });
+
 export const setCommentVote = payload => ({ type: 'SET_COMMENT_VOTE', payload });
 
 export const commentVote = payload => (dispatch) => {
@@ -20,7 +21,7 @@ export const commentVote = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -36,7 +37,7 @@ export const createComment = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };

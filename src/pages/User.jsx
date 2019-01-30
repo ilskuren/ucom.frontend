@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import UserHead from '../components/User/UserHead';
 import UserOrganizations from '../components/User/UserOrganizations';
@@ -17,34 +16,47 @@ import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import Post from '../components/Feed/Post/Post';
 import urls from '../utils/urls';
-import Feed from '../components/Feed/Feed';
-import { USER_WALL_FEED_ID } from '../utils/feed';
+import Feed from '../components/Feed/FeedUser';
+import { USER_WALL_FEED_ID, FEED_PER_PAGE } from '../utils/feed';
+import { feedGetUserPosts } from '../actions/feed';
+import loader from '../utils/loader';
+import NotFoundPage from './NotFoundPage';
 
 const UserPage = (props) => {
-  const userId = Number(props.match.params.id);
+  const userIdOrName = props.match.params.userId;
   const postId = Number(props.match.params.postId);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    loader.start();
     window.scrollTo(0, 0);
-    props.fetchUser(userId);
-  }, [userId]);
+    props.dispatch(fetchUser(userIdOrName))
+      .then(loader.done)
+      .then(() => setLoaded(true))
+      .catch(() => setLoaded(true));
+  }, [userIdOrName]);
 
   useEffect(() => {
     if (postId) {
-      props.fetchPost(postId);
+      loader.start();
+      props.dispatch(fetchPost(postId))
+        .then(loader.done);
     }
   }, [postId]);
 
-  const user = getUserById(props.users, userId);
-  const post = getPostById(props.posts, postId);
-
-  if (!user) {
+  const user = getUserById(props.users, userIdOrName);
+  if (loaded && !user) {
+    return <NotFoundPage />;
+  } else if (!user) {
     return null;
   }
 
+  const post = getPostById(props.posts, postId);
+  const userId = user.id;
+
   return (
     <LayoutBase>
-      {Boolean(post) &&
+      {post &&
         <Popup onClickClose={() => props.history.push(urls.getUserUrl(userId))}>
           <ModalContent mod="post">
             <Post id={post.id} postTypeId={post.postTypeId} />
@@ -59,7 +71,10 @@ const UserPage = (props) => {
           <div className="grid grid_user">
             <div className="grid__item">
               <UserAbout userId={userId} />
-              <Feed userId={userId} feedTypeId={USER_WALL_FEED_ID} />
+              <Feed
+                userId={userId}
+                feedTypeId={USER_WALL_FEED_ID}
+              />
             </div>
 
             <div className="grid__item">
@@ -75,14 +90,20 @@ const UserPage = (props) => {
   );
 };
 
-export default connect(
-  state => ({
-    users: state.users,
-    posts: state.posts,
-    user: selectUser(state),
-  }),
-  dispatch => bindActionCreators({
-    fetchUser,
-    fetchPost,
-  }, dispatch),
-)(UserPage);
+export const getUserPageData = (store, params) => {
+  const userPromise = store.dispatch(fetchUser(params.userId));
+  const postPromise = params.postId ? store.dispatch(fetchPost(params.postId)) : null;
+  const feedPromise = store.dispatch(feedGetUserPosts(USER_WALL_FEED_ID, {
+    page: 1,
+    perPage: FEED_PER_PAGE,
+    userId: params.userId,
+  }));
+
+  return Promise.all([userPromise, postPromise, feedPromise]);
+};
+
+export default connect(state => ({
+  users: state.users,
+  posts: state.posts,
+  user: selectUser(state),
+}))(UserPage);

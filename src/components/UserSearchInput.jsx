@@ -7,7 +7,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import UserOption from './UserOption';
 import Close from './Icons/Close';
 import api from '../api';
-import { getUserName } from '../utils/user';
+import { getUserName, getNickname } from '../utils/user';
 import { getFileUrl } from '../utils/upload';
 
 const SelectUserOption = props => (
@@ -15,6 +15,7 @@ const SelectUserOption = props => (
     <UserOption
       name={getUserName(props.data)}
       avatar={getFileUrl(humps(props.data).avatarFilename)}
+      nickname={getNickname(props.data)}
     />
   </components.Option>
 );
@@ -71,7 +72,7 @@ const UserSearchInput = ({
       placeholder={placeholder}
       className="dropdown"
       classNamePrefix="dropdown"
-      loadOptions={loadOptions || api.searchUsers}
+      loadOptions={loadOptions || api.searchUsers.bind(api)}
       getOptionLabel={data => getUserName(data)}
       getOptionValue={data => data.id}
       components={{

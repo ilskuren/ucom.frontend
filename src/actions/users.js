@@ -3,7 +3,7 @@ import snakes from '../utils/snakes';
 import { getToken, removeToken } from '../utils/token';
 import loader from '../utils/loader';
 // import { enableGtm } from '../utils/gtm';
-import { addErrorNotification } from './notifications';
+import { addServerErrorNotification } from './notifications';
 import { setUser } from './';
 import { siteNotificationsSetUnreadAmount } from './siteNotifications';
 import { getAccountState } from './wallet';
@@ -14,10 +14,11 @@ export const usersRemoveIFollow = payload => ({ type: 'USERS_REMOVE_I_FOLLOW', p
 export const usersAddFollowedBy = payload => ({ type: 'USERS_ADD_FOLLOWED_BY', payload });
 export const usersRemoveFollowedBy = payload => ({ type: 'USERS_REMOVE_FOLLOWED_BY', payload });
 
-export const addUsers = (payload = []) => {
+export const addUsers = (data = []) => (dispatch) => {
   let users = [];
+  let organizations = [];
 
-  payload.forEach((user) => {
+  data.forEach((user) => {
     if (user.followedBy) {
       users = users.concat(user.followedBy);
       user.followedBy = user.followedBy.map(u => u.id);
@@ -28,10 +29,15 @@ export const addUsers = (payload = []) => {
       user.iFollow = user.iFollow.map(u => u.id);
     }
 
+    if (user.organizations) {
+      organizations = organizations.concat(user.organizations);
+    }
+
     users.push(user);
   });
 
-  return ({ type: 'USERS_ADD', payload: users });
+  dispatch(addOrganizations(organizations));
+  dispatch({ type: 'USERS_ADD', payload: users });
 };
 
 export const fetchMyself = () => async (dispatch) => {
@@ -63,21 +69,11 @@ export const fetchMyself = () => async (dispatch) => {
   loader.done();
 };
 
-export const fetchUser = userId => async (dispatch) => {
-  loader.start();
-
-  try {
-    const data = await api.getUser(userId);
-
-    dispatch(addOrganizations(data.organizations));
-    dispatch(addUsers([data]));
-  } catch (e) {
-    console.error(e);
-    dispatch(addErrorNotification(e));
-  }
-
-  loader.done();
-};
+export const fetchUser = userId => dispatch =>
+  api.getUser(userId)
+    .then((data) => {
+      dispatch(addUsers([data]));
+    });
 
 export const updateUser = payload => async (dispatch) => {
   loader.start();
@@ -90,7 +86,7 @@ export const updateUser = payload => async (dispatch) => {
     dispatch(addUsers([data]));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();
@@ -113,7 +109,7 @@ export const followUser = data => async (dispatch) => {
     }));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();
@@ -136,7 +132,7 @@ export const unfollowUser = data => async (dispatch) => {
     }));
   } catch (e) {
     console.error(e);
-    dispatch(addErrorNotification(e));
+    dispatch(addServerErrorNotification(e));
   }
 
   loader.done();

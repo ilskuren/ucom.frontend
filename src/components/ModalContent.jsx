@@ -1,59 +1,35 @@
 import classNames from 'classnames';
-import React, { PureComponent } from 'react';
+import React, { useRef } from 'react';
 import CloseIcon from './Icons/Close';
-import { blurPage, unblurPage } from '../utils/page';
+import { getClassNames } from '../utils/bem';
 
-class ModalContent extends PureComponent {
-  componentDidMount() {
-    blurPage();
-    this.blurAnotherModals();
-  }
+export default (props) => {
+  const el = useRef(null);
 
-  componentWillUnmount() {
-    unblurPage();
-    this.unblurAnotherModals();
-  }
-
-  getAnotherModals() {
-    return Array.from(document.querySelectorAll('.modal-content'))
-      .filter(item => item !== this.el);
-  }
-
-  blurAnotherModals() {
-    this.getAnotherModals()
-      .forEach(item => item.classList.add('modal-content_blur'));
-  }
-
-  unblurAnotherModals() {
-    this.getAnotherModals()
-      .forEach(item => item.classList.remove('modal-content_blur'));
-  }
-
-  render() {
-    return (
-      <div
-        ref={(el) => { this.el = el; }}
-        className={classNames(
-          'modal-content',
-          { [`modal-content_${this.props.mod}`]: Boolean(this.props.mod) },
-        )}
-      >
-        {this.props.onClickClose &&
-          <div
-            onClick={this.props.onClickClose}
-            className="modal-content__close"
-            role="presentation"
-          >
-            <CloseIcon />
-          </div>
+  return (
+    <div
+      ref={el}
+      role="presentation"
+      className={classNames(getClassNames('modal-content', props.mod))}
+      onClick={(e) => {
+        if (props.onClickClose && e.target === el.current) {
+          props.onClickClose();
         }
-
-        <div className="modal-content__inner">
-          {this.props.children}
+      }}
+    >
+      {props.onClickClose &&
+        <div
+          role="presentation"
+          className="modal-content__close"
+          onClick={() => props.onClickClose()}
+        >
+          <CloseIcon />
         </div>
-      </div>
-    );
-  }
-}
+      }
 
-export default ModalContent;
+      <div className="modal-content__inner">
+        {props.children}
+      </div>
+    </div>
+  );
+};

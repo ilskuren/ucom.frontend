@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
 import Avatar from '../Avatar';
-import IconEdit from '../Icons/Edit';
 import Rate from '../Rate';
 import UserStatus from './UserStatus/UserStatus';
 import UserFollowButton from './UserFollowButton';
@@ -12,6 +11,7 @@ import { getUserById } from '../../store/users';
 import { getFileUrl } from '../../utils/upload';
 import { getUserName, getUserEditProfileUrl } from '../../utils/user';
 import { selectUser } from '../../store/selectors/user';
+import ButtonEdit from '../ButtonEdit';
 
 const UserHead = (props) => {
   const user = getUserById(props.users, props.userId);
@@ -46,9 +46,7 @@ const UserHead = (props) => {
             <div className="user-header__edit-button">
               <span className="inline">
                 <span className="inline__item">
-                  <Link className="button-icon button-icon_edit button-icon_edit_bordered" to={getUserEditProfileUrl()}>
-                    <IconEdit />
-                  </Link>
+                  <ButtonEdit url={getUserEditProfileUrl()} />
                 </span>
                 <span className="inline__item">
                   <Link to={getUserEditProfileUrl()}>Edit</Link>

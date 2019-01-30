@@ -1,5 +1,5 @@
 import thunk from 'redux-thunk';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import * as redux from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import post from '../store/post';
 import auth from './auth';
@@ -15,27 +15,43 @@ import userForm from './userForm';
 import wallet from './wallet/index';
 import governance from './governance/index';
 import registration from './registration';
+import mainPostGroup from './mainPostGroup';
+import feed from './feed';
+import tags from './tags';
 import { reducer as user } from './user';
 
-const app = combineReducers({
-  user,
-  post,
-  auth,
-  organization,
-  notifications,
-  siteNotifications,
-  posts,
-  users,
-  comments,
-  organizations,
-  menuPopup,
-  wallet,
-  userForm,
-  governance,
-  registration,
-});
-const middlewares = [thunk];
+export const createStore = () => {
+  const reducers = redux.combineReducers({
+    user,
+    post,
+    auth,
+    organization,
+    notifications,
+    siteNotifications,
+    posts,
+    users,
+    comments,
+    organizations,
+    menuPopup,
+    wallet,
+    userForm,
+    governance,
+    registration,
+    mainPostGroup,
+    feed,
+    tags,
+  });
+  const middlewares = [thunk];
+  let preloadedState;
 
-const store = createStore(app, composeWithDevTools(applyMiddleware(...middlewares)));
+  if (typeof window !== 'undefined') {
+    preloadedState = window.APP_STATE;
+    delete window.APP_STATE;
+  }
 
-export default store;
+  return redux.createStore(
+    reducers,
+    preloadedState,
+    composeWithDevTools(redux.applyMiddleware(...middlewares)),
+  );
+};

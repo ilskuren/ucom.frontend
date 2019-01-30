@@ -10,7 +10,7 @@ const HeaderMain = ({ location }) => (
     <nav className="menu menu_responsive menu_header">
 
       <div className="menu__item only-desktop">
-        <Link to="/posts/new/1" className="menu__link-button">
+        <Link to={urls.getNewPostUrl()} className="menu__link-button">
           <strong>Add publication</strong>
         </Link>
       </div>
@@ -39,7 +39,7 @@ const HeaderMain = ({ location }) => (
 
       <div className="menu__item only-desktop">
         <NavLink
-          to={urls.getPublicationsUrl()}
+          to={urls.getPublicationsCategoryUrl('trending')}
           className="menu__link menu__link_upper"
           activeClassName="menu__link_active"
           isActive={() => location.pathname.indexOf(urls.getPublicationsUrl()) === 0}

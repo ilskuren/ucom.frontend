@@ -24,3 +24,29 @@
     }
   }
 }
+
+// TODO: replace post-header to post-head and rename post-head
+.post-head {
+  margin: 34px 8px 0;
+  padding: 28px 32px;
+  border-radius: 12px 12px 0 0;
+  background: #EDF1F1;
+}
+
+.post-head__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 20px;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: none;
+  }
+}
+
+.post-head__follow {
+  min-width: 160px;
+}

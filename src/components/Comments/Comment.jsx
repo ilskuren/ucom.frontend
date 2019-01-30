@@ -12,7 +12,7 @@ import { selectUser } from '../../store/selectors';
 import { getUserUrl, getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
-import { sanitizeCommentText } from '../../utils/text';
+import { sanitizeCommentText, checkMentionTag } from '../../utils/text';
 
 class Comment extends PureComponent {
   constructor(props) {
@@ -57,7 +57,7 @@ class Comment extends PureComponent {
           </div>
           <div className="toolbar__main">
             <div className="comment__header">
-              <div className="toolbar toolbar_responsive">
+              <div className="toolbar">
                 <div className="toolbar__main">
                   <div className="comment__username">
                     <Link to={userUrl}>{getUserName(comment.user)}</Link>
@@ -69,7 +69,7 @@ class Comment extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="comment__text" dangerouslySetInnerHTML={{ __html: sanitizeCommentText(comment.description) }} />
+            <div className="comment__text" dangerouslySetInnerHTML={{ __html: sanitizeCommentText(checkMentionTag(comment.description)) }} />
             <div className="comment__actions">
               <div className="inline">
                 {this.props.user.id && (

@@ -3,7 +3,7 @@ import api from '../api';
 import { addUsers } from './users';
 import { addOrganizations } from './organizations';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
-import { addErrorNotification } from './notifications';
+import { addServerErrorNotification } from './notifications';
 import { addComments } from './comments';
 import snakes from '../utils/snakes';
 import loader from '../utils/loader';
@@ -11,7 +11,7 @@ import loader from '../utils/loader';
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
 
-export const addPosts = (payload = []) => (dispatch) => {
+export const addPosts = (data = []) => (dispatch) => {
   const posts = [];
   const users = [];
   const organizations = [];
@@ -32,26 +32,20 @@ export const addPosts = (payload = []) => (dispatch) => {
     }
   };
 
-  payload.forEach(parsePost);
+  data.forEach(parsePost);
   dispatch(addUsers(users));
   dispatch(addOrganizations(organizations));
   dispatch({ type: 'ADD_POSTS', payload: posts });
 };
 
-export const fetchPost = postId => async (dispatch) => {
-  loader.start();
+export const fetchPost = postId => dispatch =>
+  api.getPost(postId)
+    .then((data) => {
+      dispatch(addComments(humps(data.comments)));
+      dispatch(addPosts([data]));
 
-  try {
-    const data = humps(await api.getPost(postId));
-
-    dispatch(addComments(humps(data.comments)));
-    dispatch(addPosts([data]));
-  } catch (e) {
-    console.error(e);
-  }
-
-  loader.done();
-};
+      return data;
+    });
 
 export const updatePost = payload => (dispatch) => {
   loader.start();
@@ -60,7 +54,7 @@ export const updatePost = payload => (dispatch) => {
       dispatch(addPosts([data]));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -69,7 +63,7 @@ export const addRepost = postId => (dispatch) => {
   loader.start();
   api.repostPost(postId)
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };
@@ -86,7 +80,7 @@ export const postVote = payload => (dispatch) => {
       }));
     })
     .catch((error) => {
-      dispatch(addErrorNotification(error));
+      dispatch(addServerErrorNotification(error));
     })
     .then(() => loader.done());
 };

@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import Avatar from './Avatar';
 
 const UserOption = ({
-  name, linkColor, linkText, avatar,
+  name, nickname, linkColor, linkText, avatar,
 }) => {
   const linkClass = classNames('user-option__link', {
     [`user-option__link_color_${linkColor}`]: Boolean(linkColor),
   });
-
   return (
     <div className="user-option">
       <div className="toolbar toolbar_responsive">
@@ -22,6 +21,9 @@ const UserOption = ({
               <span className="user-option__name">
                 {name}
               </span>
+              <div className="user-option__nickname">
+                @{nickname}
+              </div>
             </span>
           </div>
         </div>
@@ -41,6 +43,7 @@ const UserOption = ({
 
 UserOption.propTypes = {
   name: PropTypes.string,
+  nickname: PropTypes.string,
   avatar: PropTypes.string,
   linkText: PropTypes.string,
   linkColor: PropTypes.string,

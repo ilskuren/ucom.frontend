@@ -11,14 +11,17 @@ import { escapeQuotes } from '../../utils/text';
 import IconClip from '../Icons/Clip';
 import IconClose from '../Icons/Close';
 import DropZone from '../DropZone';
+import TributeWrapper from '../TributeWrapper';
 import { updatePost } from '../../actions/posts';
 
 class FeedForm extends PureComponent {
   constructor(props) {
     super(props);
 
+    const initialText = this.props.initialText ? `#${this.props.initialText} ` : false;
+
     this.state = {
-      message: escapeQuotes(this.props.message) || '',
+      message: escapeQuotes(this.props.message) || initialText || '',
       base64Cover: '',
       fileImg: '',
       fileUrl: getFileUrl(this.props.mainImageFilename) || '',
@@ -36,6 +39,7 @@ class FeedForm extends PureComponent {
       }
     }
   }
+
 
   render() {
     const user = getUserById(this.props.users, this.props.user.id);
@@ -58,20 +62,24 @@ class FeedForm extends PureComponent {
           </div>
 
           <div className="feed-form__message">
-            <textarea
-              autoFocus
-              rows="4"
-              className="feed-form__textarea"
-              placeholder="Leave a comment"
-              value={this.state.message}
-              onChange={e => this.setState({ message: e.target.value })}
-              onKeyDown={(e) => {
-                if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
-                  e.preventDefault();
-                  this.sumbitForm(this.state.message, this.state.fileImg);
-                }
-              }}
-            />
+            <TributeWrapper
+              onChange={message => this.setState({ message })}
+            >
+              <textarea
+                autoFocus
+                rows="4"
+                className="feed-form__textarea"
+                placeholder="Leave a comment"
+                value={this.state.message}
+                onChange={e => this.setState({ message: e.target.value })}
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey && e.keyCode === 13) || (e.metaKey && e.keyCode === 13)) {
+                    e.preventDefault();
+                    this.sumbitForm(this.state.message, this.state.fileImg);
+                  }
+                }}
+              />
+            </TributeWrapper>
           </div>
 
           <div>
@@ -164,6 +172,7 @@ FeedForm.propTypes = {
 export default connect(
   state => ({
     users: state.users,
+    tags: state.tags,
     posts: state.posts,
     user: selectUser(state),
   }),

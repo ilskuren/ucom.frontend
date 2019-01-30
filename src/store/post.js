@@ -1,24 +1,26 @@
-import Validator from './../utils/validator';
-import { getRulesByPostTypeId } from '../utils/posts';
+import Validator from '../utils/validator';
+import { POST_TYPE_MEDIA_ID } from '../utils/posts';
 
 const getInitialState = () => ({
   data: {
     id: null,
-    post_type_id: 1,
-    organization_id: null,
+    entityImages: null,
+    postTypeId: POST_TYPE_MEDIA_ID,
     title: '',
-    leading_text: '',
+    leadingText: '',
     description: '',
-    main_image_filename: '',
-    action_button_title: '',
-    action_button_url: '',
-    action_duration_in_days: '',
-    post_users_team: [],
+    mainImageFilename: '',
   },
   errors: {},
   isValid: false,
   saved: false,
 });
+
+const rules = {
+  title: 'required',
+  leadingText: 'required',
+  description: 'required',
+};
 
 const post = (state = getInitialState(), action) => {
   switch (action.type) {
@@ -27,7 +29,7 @@ const post = (state = getInitialState(), action) => {
 
     case 'SET_POST_DATA': {
       const data = Object.assign({}, state.data, action.payload);
-      const validation = new Validator(data, getRulesByPostTypeId(data.post_type_id));
+      const validation = new Validator(data, rules);
 
       return Object.assign({}, state, {
         data,
@@ -36,7 +38,7 @@ const post = (state = getInitialState(), action) => {
     }
 
     case 'VALIDATE_POST': {
-      const validation = new Validator(state.data, getRulesByPostTypeId(state.data.post_type_id));
+      const validation = new Validator(state.data, rules);
 
       validation.passes();
 
@@ -46,7 +48,7 @@ const post = (state = getInitialState(), action) => {
     }
 
     case 'VALIDATE_POST_FIELD': {
-      const validation = new Validator(state.data, getRulesByPostTypeId(state.data.post_type_id));
+      const validation = new Validator(state.data, rules);
 
       validation.passes();
 

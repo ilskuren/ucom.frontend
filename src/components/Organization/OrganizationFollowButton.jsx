@@ -20,7 +20,7 @@ const OrganizationFollowButton = (props) => {
     return null;
   }
 
-  const userIsFollow = props.user.id ? (organization.followedBy || []).some(item => +item.id === +owner.id) : false;
+  const userIsFollow = props.user.id ? (organization.followedBy || []).some(item => owner && +item.id === +owner.id) : false;
 
   return (
     <Button

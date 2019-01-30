@@ -6,10 +6,6 @@
   margin: auto;
 }
 
-.modal-content_blur {
-  filter: blur(5px);
-}
-
 .modal-content__close {
   position: absolute;
   top: 80px;
@@ -21,10 +17,41 @@
   cursor: pointer;
 }
 
+.modal-content__close_text {
+  width: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .modal-content__inner {
   position: relative;
   z-index: 2;
+  border-radius: 2px;
   background: #fff;
+}
+
+.modal-content_governance-close {
+  max-width: 680px;
+  width: 100%;
+  max-height: 306px;
+  height: 100%;
+
+  .modal-content__close {
+    top: 60px;
+    right: 60px;
+  }
+}
+
+.modal-content_governance-election {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .modal-content__inner {
+    min-height: 100%;
+    flex: 1 1;
+  }
 }
 
 .modal-content_governance-vote {
@@ -59,25 +86,17 @@
   }
 }
 
-.modal-content_registration {
-  @media (max-width: 1023px) {
-    padding: 0;
-  }
-
-  .modal-content__inner {
-    @media (max-width: 1023px) {
-      border-radius: 0;
-    }
-  }
-
-  .modal-content__close {
-    @media (max-width: 1023px) {
-      top: 40px;
-      right: 40px;
-    }
-  }
-}
-
 .modal-content_post {
   max-width: 680px;
+}
+
+.modal-content_post-submit {
+  max-width: 680px;
+}
+
+.modal-content_small-close {
+  .modal-content__close {
+    top: 60px;
+    right: 60px;
+  }
 }

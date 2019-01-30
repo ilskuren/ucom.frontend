@@ -106,7 +106,12 @@ const users = (state = getInitialState(), action) => {
   }
 };
 
-export const getUserById = (users, userId) => users.data[userId];
+export const getUserById = (users, userIdOrName) => {
+  if (Number.isNaN(+userIdOrName) && (String(userIdOrName).length >= 12)) {
+    return Object.values(users.data).find(e => e.accountName === userIdOrName);
+  }
+  return users.data[userIdOrName];
+};
 
 export const getUsersByIds = (users, ids = []) => ids
   .map(id => getUserById(users, id))

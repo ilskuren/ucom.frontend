@@ -8,10 +8,12 @@ import { POST_TYPE_DIRECT_ID } from '../../utils/posts';
 import Feed from './FeedView';
 import { commentsResetContainerDataById } from '../../actions/comments';
 import { COMMENTS_CONTAINER_ID_FEED_POST } from '../../utils/comments';
+import loader from '../../utils/loader';
 
 const FeedUser = (props) => {
-  const onClickLoadMore = () => {
-    props.feedGetUserPosts({
+  const onClickLoadMore = async () => {
+    loader.start();
+    await props.feedGetUserPosts({
       feedTypeId: props.feedTypeId,
       page: props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
@@ -19,6 +21,7 @@ const FeedUser = (props) => {
       organizationId: props.organizationId,
       tagIdentity: props.tagIdentity,
     });
+    loader.done();
   };
 
   const onSubmitPostForm = (description, mainImageFilename) => {

@@ -20,6 +20,9 @@ export default (state = getInitialState(), action) => {
     case 'FEED_PREPEND_POST_IDS':
       return { ...state, postIds: uniq(action.payload.concat(state.postIds)) };
 
+    case 'FEED_APPEND_POST_IDS':
+      return { ...state, postIds: uniq(state.postIds.concat(action.payload)) };
+
     case 'FEED_SET_METADATA':
       return { ...state, metadata: action.payload };
 

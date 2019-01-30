@@ -22,6 +22,7 @@ export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload })
 export const feedSetMetadata = payload => ({ type: 'FEED_SET_METADATA', payload });
 export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload });
 export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
+export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
 
 export const parseFeedData = ({
   posts,
@@ -42,7 +43,7 @@ export const parseFeedData = ({
   });
 
   dispatch(addPosts(posts));
-  dispatch(feedPrependPostIds(posts.map(i => i.id)));
+  dispatch(feedAppendPostIds(posts.map(i => i.id)));
   dispatch(feedSetMetadata(metadata));
 };
 
@@ -58,7 +59,7 @@ export const feedGetUserPosts = ({
     [USER_NEWS_FEED_ID]: graphql.getUserNewsFeed,
     [USER_WALL_FEED_ID]: graphql.getUserWallFeed,
     [ORGANIZATION_FEED_ID]: graphql.getOrganizationWallFeed,
-    [TAG_FEED_ID]: graphql.getTagWallFeedQuery,
+    [TAG_FEED_ID]: graphql.getTagWallFeed,
   };
 
   dispatch(feedSetLoading(true));
@@ -72,7 +73,6 @@ export const feedGetUserPosts = ({
       tagIdentity,
       commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
     });
-
     dispatch(parseFeedData({
       posts: data.data,
       metadata: data.metadata,
@@ -81,7 +81,9 @@ export const feedGetUserPosts = ({
     console.error(e);
   }
 
-  dispatch(feedSetLoading(false));
+  setTimeout(() => {
+    dispatch(feedSetLoading(false));
+  }, 2000);
 };
 
 export const feedCreatePost = (feedTypeId, params) => (dispatch) => {
@@ -105,40 +107,48 @@ export const feedCreatePost = (feedTypeId, params) => (dispatch) => {
     });
 };
 
-export const feedGetPosts = (postsCategoryId, params) => (dispatch, getState) => {
-  const paramsForCategories = {
+export const feedGetPosts = (
+  postsCategoryId,
+  {
+    page,
+    perPage,
+  },
+) => async (dispatch) => {
+  const postFilteringForCategories = {
     [POSTS_CATREGORIES_HOT_ID]: {
-      sortBy: '-current_rate',
       createdAt: '24_hours',
     },
-    [POSTS_CATREGORIES_TRENDING_ID]: {
-      sortBy: '-current_rate_delta_daily',
+  };
+
+  const postOrderingForCategories = {
+    [POSTS_CATREGORIES_HOT_ID]: '-current_rate',
+    [POSTS_CATREGORIES_TRENDING_ID]: '-current_rate_delta_daily',
+    [POSTS_CATREGORIES_FRESH_ID]: '-id',
+    [POSTS_CATREGORIES_TOP_ID]: '-current_rate',
+  };
+
+  const params = {
+    postFiltering: {
+      postTypeId: POST_TYPE_MEDIA_ID,
+      ...postFilteringForCategories[postsCategoryId],
     },
-    [POSTS_CATREGORIES_FRESH_ID]: {
-      sortBy: '-id',
-    },
-    [POSTS_CATREGORIES_TOP_ID]: {
-      sortBy: '-current_rate',
-    },
+    postOrdering: postOrderingForCategories[postsCategoryId],
+    page,
+    perPage,
+    commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
   };
 
   dispatch(feedSetLoading(true));
 
-  return api.getPosts({
-    ...params,
-    ...paramsForCategories[postsCategoryId],
-    postTypeId: POST_TYPE_MEDIA_ID,
-  })
-    .then((data) => {
-      const state = getState();
-      const { postIds } = state.feed;
+  try {
+    const data = await graphql.getPosts(params);
+    dispatch(parseFeedData({
+      posts: data.data,
+      metadata: data.metadata,
+    }));
+  } catch (e) {
+    console.error(e);
+  }
 
-      dispatch(addPosts(data.data));
-      dispatch(feedSetPostIds(postIds.concat(data.data.map(i => i.id))));
-      dispatch(feedSetMetadata(data.metadata));
-      dispatch(feedSetLoading(false));
-    })
-    .catch(() => {
-      dispatch(feedSetLoading(false));
-    });
+  dispatch(feedSetLoading(false));
 };

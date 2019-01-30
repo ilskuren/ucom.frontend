@@ -5,6 +5,7 @@ import { getBackendConfig } from '../utils/config';
 import { getToken } from '../utils/token';
 import { COMMENTS_PER_PAGE } from '../utils/comments';
 import { FEED_PER_PAGE } from '../utils/feed';
+import snakes from '../utils/snakes';
 
 const request = async (data) => {
   const options = {
@@ -156,7 +157,7 @@ export default {
     }
   },
 
-  async getTagWallFeedQuery({
+  async getTagWallFeed({
     tagIdentity,
     page = 1,
     perPage = FEED_PER_PAGE,
@@ -176,6 +177,33 @@ export default {
     try {
       const data = await request({ query });
       return data.data.tagWallFeed;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getPosts({
+    postFiltering,
+    postOrdering,
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    commentsPage = 1,
+    commentsPerPage = COMMENTS_PER_PAGE,
+  }) {
+    const token = getToken();
+    const query = await GraphQLSchema.getPostsQuery(
+      snakes(postFiltering),
+      snakes(postOrdering),
+      page,
+      perPage,
+      commentsPage,
+      commentsPerPage,
+      Boolean(token),
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.posts;
     } catch (e) {
       throw e;
     }

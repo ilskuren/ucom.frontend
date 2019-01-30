@@ -1,4 +1,5 @@
 import MediumEditor from 'medium-editor';
+import './styles.css';
 
 class Input {
   constructor(tagName) {

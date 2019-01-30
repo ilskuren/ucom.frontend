@@ -2,29 +2,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { addErrorNotification } from '../actions/notifications';
-import TributeWrapper from './TributeWrapper';
+import { addErrorNotification } from '../../actions/notifications';
+import TributeWrapper from '../TributeWrapper';
+import './styles.css';
 
 class Medium extends PureComponent {
   componentDidMount() {
     const MediumEditor = require('medium-editor'); // eslint-disable-line
-    const MediumUpload = require('../utils/medium/mediumUpload'); // eslint-disable-line
-    const MediumPost = require('../utils/medium/mediumPost'); // eslint-disable-line
+    const MediumUpload = require('./upload/index'); // eslint-disable-line
+    const MediumPost = require('./post/index'); // eslint-disable-line
 
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
         buttons: ['h1', 'h2', 'bold', 'italic', 'underline', 'strikethrough', 'anchor', 'quote', 'orderedlist', 'unorderedlist'],
+        allowMultiParagraphSelection: false,
       },
       placeholder: false,
       imageDragging: false,
       extensions: {
         mediumPost: new MediumPost.default(), // eslint-disable-line
         mediumUpload: new MediumUpload.default({ // eslint-disable-line
-          onUploadError: (message) => {
+          onError: (message) => {
             this.props.addErrorNotification(message);
           },
           onUploadStart: () => {
-            if (typeof this.props.onUploadStart === 'function') {
+            if (this.props.onUploadStart) {
               this.props.onUploadStart();
             }
           },

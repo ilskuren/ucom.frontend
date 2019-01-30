@@ -98,6 +98,10 @@ const urls = {
 
     return `${getBackendConfig().httpEndpoint}/upload/${filename}`;
   },
+
+  getPagingLink(params) {
+    return `/users?page=${params.page}&sortBy=${params.sortBy}&perPage=${params.perPage}&userName=${params.userName}`;
+  },
 };
 
 export default urls;

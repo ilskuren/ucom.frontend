@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
@@ -11,7 +11,7 @@ import UserCard from '../components/UserCard/UserCard';
 import UserFollowButton from '../components/User/UserFollowButton';
 import urls from '../utils/urls';
 import ButtonEdit from '../components/ButtonEdit';
-import { sanitizePostText, checkHashTag } from '../utils/text';
+import { sanitizePostText, checkHashTag, checkMentionTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
 import Comments from '../components/Comments/wrapper';
@@ -19,9 +19,16 @@ import { getPostBody, getContentMetaTags } from '../utils/posts';
 import loader from '../utils/loader';
 import { COMMENTS_CONTAINER_ID_POST } from '../utils/comments';
 import { commentsResetContainerDataByEntryId } from '../actions/comments';
+import ShareButton from '../components/ShareButton';
+import ShareBlock from '../components/Feed/Post/ShareBlock';
 
 const PostPage = (props) => {
   const { postId } = props.match.params;
+  const [sharePopup, toggleSharePopup] = useState(false);
+
+  const toggleShare = () => {
+    toggleSharePopup(!sharePopup);
+  };
 
   useEffect(() => {
     loader.start();
@@ -64,7 +71,7 @@ const PostPage = (props) => {
                 <div
                   className="post-content"
                   dangerouslySetInnerHTML={{
-                    __html: sanitizePostText(checkHashTag(getPostBody(props.post))),
+                    __html: sanitizePostText(checkMentionTag(checkHashTag(getPostBody(props.post)))),
                   }}
                 />
               </div>
@@ -80,6 +87,21 @@ const PostPage = (props) => {
               </div>
               <div className="post-body__rating">
                 <PostRating postId={props.post.id} />
+              </div>
+              <div className="post-body__share">
+                <ShareButton
+                  toggleShare={toggleShare}
+                />
+                {sharePopup ? (
+                  <div className="post-body__share-popup">
+                    <ShareBlock
+                      link={urls.getPostUrl(props.post)}
+                      postId={props.post.id}
+                      onClickClose={toggleShare}
+                      repostAvailable={props.post.myselfData.repostAvailable}
+                    />
+                  </div>
+                ) : null }
               </div>
             </div>
           </div>

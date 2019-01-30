@@ -8,7 +8,8 @@ import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import ProfilesList from '../components/ProfilesList';
 import { getFileUrl } from '../utils/upload';
-import { getUserName, getUserUrl, userIsFollowed } from '../utils/user';
+import { getUserName, userIsFollowed } from '../utils/user';
+import urls from '../utils/urls';
 import { selectUser } from '../store/selectors';
 
 class Followers extends PureComponent {
@@ -46,7 +47,7 @@ class Followers extends PureComponent {
                   userName: getUserName(item),
                   accountName: item.accountName,
                   avatarUrl: getFileUrl(item.avatarFilename),
-                  profileLink: getUserUrl(item.id),
+                  profileLink: urls.getUserUrl(item.id),
                   rate: +item.currentRate,
                   follow: userIsFollowed(user.iFollow, item.id),
                 }))}

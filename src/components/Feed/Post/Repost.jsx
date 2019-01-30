@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import React, { PureComponent } from 'react';
 import { getFileUrl } from '../../../utils/upload';
-import { getUserName, getUserUrl } from '../../../utils/user';
+import { getUserName } from '../../../utils/user';
+import urls from '../../../utils/urls';
 import { getPostById } from '../../../store/posts';
 import { getUserById } from '../../../store/users';
 import { selectUser } from '../../../store/selectors/user';
@@ -20,7 +21,7 @@ class Repost extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
-    if (!post) {
+    if (!post || !post.post) {
       return null;
     }
 
@@ -38,7 +39,7 @@ class Repost extends PureComponent {
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
-          profileLink={getUserUrl(user.id)}
+          profileLink={urls.getUserUrl(user.id)}
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
@@ -49,7 +50,7 @@ class Repost extends PureComponent {
             postId={post.post.id}
             userName={getUserName(post.post.user)}
             accountName={post.post.user.accountName}
-            profileLink={getUserUrl(post.post.user.id)}
+            profileLink={urls.getUserUrl(post.post.user.id)}
             avatarUrl={getFileUrl(post.post.user.avatarFilename)}
           />
 
@@ -60,7 +61,7 @@ class Repost extends PureComponent {
               rate={post.currentRate}
               title={post.post.title || post.post.leadingText}
               url={getPostUrl(post.post.id)}
-              userUrl={getUserUrl(post.post.user && post.post.user.id)}
+              userUrl={urls.getUserUrl(post.post.user && post.post.user.id)}
               userImageUrl={getFileUrl(post.post.user && post.post.user.avatarFilename)}
               userName={getUserName(post.post.user)}
               accountName={post.post.user && post.post.user.accountName}

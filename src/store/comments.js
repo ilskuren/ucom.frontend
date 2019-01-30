@@ -1,36 +1,91 @@
+import { uniq } from 'lodash';
+import { COMMENTS_CONTAINER_ID_FEED_POST, COMMENTS_CONTAINER_ID_POST } from '../utils/comments';
+
 const getInitialState = () => ({
   data: {},
+  containersData: {
+    [COMMENTS_CONTAINER_ID_FEED_POST]: {},
+    [COMMENTS_CONTAINER_ID_POST]: {},
+  },
 });
 
 const comments = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'RESET_COMMENTS': {
+    case 'RESET_COMMENTS':
       return getInitialState();
-    }
 
-    case 'ADD_COMMENTS': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, action.payload
-          .reduce((value, item) => ({ ...value, [item.id]: Object.assign({}, state.data[item.id], item) }), {})),
-      });
-    }
+    case 'ADD_COMMENTS':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          ...action.payload.reduce((result, item) => ({
+            ...result,
+            [item.id]: { ...state.data[item.id], ...item },
+          }), {}),
+        },
+      };
 
-    case 'SET_COMMENT_VOTE': {
-      return Object.assign({}, state, {
-        data: Object.assign({}, state.data, {
-          [action.payload.id]: Object.assign({}, state.data[action.payload.id], {
+    case 'SET_COMMENT_VOTE':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload.id]: {
+            ...state.data[action.payload.id],
             currentVote: action.payload.currentVote,
-            myselfData: Object.assign({}, state.data[action.payload.id].myselfData, {
+            myselfData: {
+              ...state.data[action.payload.id].myselfData,
               myselfVote: action.payload.myselfVote,
-            }),
-          }),
-        }),
-      });
-    }
+            },
+          },
+        },
+      };
 
-    default: {
+    case 'COMMENTS_ADD_CONTAINER_DATA':
+      return {
+        ...state,
+        containersData: {
+          ...state.containersData,
+          [action.payload.containerId]: {
+            ...state.containersData[action.payload.containerId],
+            [action.payload.entryId]: {
+              ...state.containersData[action.payload.containerId][action.payload.entryId],
+              commentIds: uniq(state.containersData[action.payload.containerId][action.payload.entryId]
+                ? state.containersData[action.payload.containerId][action.payload.entryId].commentIds.concat(action.payload.commentIds)
+                : action.payload.commentIds),
+              metadata: {
+                ...(state.containersData[action.payload.containerId][action.payload.entryId] ? state.containersData[action.payload.containerId][action.payload.entryId].metadata : null),
+                ...(action.payload.metadata ? { [action.payload.parentId]: action.payload.metadata } : null),
+              },
+            },
+          },
+        },
+      };
+
+    case 'COMMENTS_RESET_CONTAINER_DATA_BY_ENTRY_ID':
+      return {
+        ...state,
+        containersData: {
+          ...state.containersData,
+          [action.payload.containerId]: {
+            ...state.containersData[action.payload.containerId],
+            [action.payload.entryId]: null,
+          },
+        },
+      };
+
+    case 'COMMENTS_RESET_CONTAINER_DATA_BY_ID':
+      return {
+        ...state,
+        containersData: {
+          ...state.containersData,
+          [action.payload.containerId]: {},
+        },
+      };
+
+    default:
       return state;
-    }
   }
 };
 
@@ -41,5 +96,8 @@ export const getCommentsByEntryId = (comments, entryId) => (
     .map(item => item[1])
     .filter(item => item.commentableId === entryId)
 );
+
+export const getCommentsByContainer = (state, containerId, entryId) =>
+  state.comments.containersData[containerId][entryId];
 
 export default comments;

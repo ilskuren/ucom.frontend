@@ -20,7 +20,7 @@ class LoadMore extends PureComponent {
         return;
       }
 
-      if (typeof this.props.onClick === 'function') {
+      if (this.props.onClick) {
         this.props.onClick();
       }
     }, 100);
@@ -50,7 +50,7 @@ class LoadMore extends PureComponent {
           )}
           disabled={this.props.disabled}
           onClick={() => {
-            if (typeof this.props.onClick === 'function') {
+            if (this.props.onClick) {
               this.props.onClick();
             }
           }}
@@ -64,6 +64,14 @@ class LoadMore extends PureComponent {
 
 LoadMore.propTypes = {
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  url: PropTypes.string,
+};
+
+LoadMore.defaultProps = {
+  url: null,
+  disabled: false,
+  onClick: null,
 };
 
 export default connect(state => ({

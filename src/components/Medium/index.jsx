@@ -9,8 +9,8 @@ import './styles.css';
 class Medium extends PureComponent {
   componentDidMount() {
     const MediumEditor = require('medium-editor'); // eslint-disable-line
-    const MediumUpload = require('./upload/index'); // eslint-disable-line
-    const MediumPost = require('./post/index'); // eslint-disable-line
+    const MediumUpload = require('./Upload/index'); // eslint-disable-line
+    const MediumPost = require('./Post/index'); // eslint-disable-line
 
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {

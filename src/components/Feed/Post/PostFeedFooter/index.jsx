@@ -67,7 +67,7 @@ class PostFeedFooter extends PureComponent {
           </div>
         </div>
 
-        <div className="post__comments">
+        <div className={styles.comments}>
           <Comments postId={post.id} containerId={COMMENTS_CONTAINER_ID_FEED_POST} />
         </div>
       </Fragment>
@@ -76,7 +76,12 @@ class PostFeedFooter extends PureComponent {
 }
 
 PostFeedFooter.propTypes = {
-  commentsCount: PropTypes.number,
+  post: PropTypes.objectOf(PropTypes.any).isRequired,
+  commentsCount: PropTypes.number.isRequired,
+  commentsIsVisible: PropTypes.bool.isRequired,
+  toggleComments: PropTypes.func.isRequired,
+  sharePopup: PropTypes.bool.isRequired,
+  toggleShare: PropTypes.func.isRequired,
 };
 
 export default connect(

@@ -1,19 +1,19 @@
-:local(.form) {
+.form {
   margin: 0 -20px;
   border: 1px solid #e1e1e1;
   border-width: 1px 0;
 }
 
-:local(.cover) {
-  margin-bottom: 16px;
+.cover {
+  margin-bottom: 20px;
 }
 
-:local(.cover img) {
+.cover img {
   display: block;
   max-width: 100%;
 }
 
-::local(.text) {
+.text {
   flex: 1 1 auto;
   margin: 10px;
   font-size: 16px;

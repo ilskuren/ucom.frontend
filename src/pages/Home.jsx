@@ -9,7 +9,7 @@ import { fetchUser } from '../actions/users';
 import UserPeoples from '../components/User/UserPeoples';
 import UserOrganizations from '../components/User/UserOrganizations';
 import { getUserById } from '../store/users';
-import Feed from '../components/Feed/Feed';
+import Feed from '../components/Feed/FeedUser';
 import { USER_NEWS_FEED_ID } from '../utils/feed';
 import { getMainPostGroupData } from '../actions/mainPostGroup';
 

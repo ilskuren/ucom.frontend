@@ -92,11 +92,11 @@ class PostFeedContent extends PureComponent {
 }
 
 PostFeedContent.propTypes = {
-  postId: PropTypes.number,
-  userId: PropTypes.number,
-  updatePost: PropTypes.func,
-  posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  postId: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
+  updatePost: PropTypes.func.isRequired,
   postTypeId: PropTypes.number,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

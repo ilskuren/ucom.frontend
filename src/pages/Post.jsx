@@ -44,6 +44,8 @@ const PostPage = (props) => {
     return null;
   }
 
+  console.log(props.post.myselfData.repostAvailable);
+
   return (
     <LayoutBase>
       <div className="container">

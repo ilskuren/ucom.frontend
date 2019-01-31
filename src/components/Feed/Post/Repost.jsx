@@ -15,7 +15,7 @@ import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
 import PostCard from '../../PostMedia/PostCard';
-import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
+import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID, getPostCover } from '../../../utils/posts';
 import styles from './Post.css';
 
 class Repost extends PureComponent {
@@ -35,17 +35,19 @@ class Repost extends PureComponent {
     return (
       <div className={styles.post}>
         <PostFeedHeader
+          userId={user.id}
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
           profileLink={urls.getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
+          // avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
         <div className={styles.repost} id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
+            userId={post.post.user.id}
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}
             postId={post.post.id}
@@ -58,8 +60,9 @@ class Repost extends PureComponent {
           {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
             <PostCard
               onFeed
-              coverUrl={getFileUrl(post.post.mainImageFilename)}
-              rate={post.currentRate}
+              coverUrl={getPostCover(post.post)}
+              // coverUrl={getFileUrl(post.post.mainImageFilename)}
+              rate={post.post.currentRate}
               title={post.post.title || post.post.leadingText}
               url={getPostUrl(post.post.id)}
               userUrl={urls.getUserUrl(post.post.user && post.post.user.id)}

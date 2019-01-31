@@ -9,6 +9,7 @@ import Avatar from '../../Avatar';
 
 const PostCard = (props) => {
   const PostLink = props.url ? Link : 'span';
+  const LinkTag = props.userUrl ? Link : 'div';
 
   return (
     <div
@@ -24,9 +25,7 @@ const PostCard = (props) => {
           <img className={styles.pic} src={props.coverUrl} alt="" />
         </PostLink>
       ) : (
-        <PostLink to={props.url}>
-          <div alt="cover" className={styles.media} />
-        </PostLink>
+        <PostLink to={props.url} className={styles.media} />
       )}
 
       {props.rate !== undefined && (
@@ -47,11 +46,13 @@ const PostCard = (props) => {
             {props.userName && (
               <div className={styles.username}>
                 <div className={styles.author}>by</div>
-                <Avatar
-                  src={props.userImageUrl}
-                  size="xmsmall"
-                />
-                <div className={styles.name}>{props.userName}</div>
+                <LinkTag to={props.userUrl}>
+                  <Avatar
+                    src={props.userImageUrl}
+                    size="xmsmall"
+                  />
+                </LinkTag>
+                <LinkTag to={props.userUrl}><div className={styles.name}>{props.userName}</div></LinkTag>
               </div>
             )}
           </div>

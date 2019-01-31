@@ -34,6 +34,7 @@ class Media extends PureComponent {
         <PostFeedHeader
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
+          // userId={user.id}
           // userName={getUserName(user)}
           // accountName={user.accountName}
         />
@@ -49,6 +50,7 @@ class Media extends PureComponent {
           accountName={post.user && post.user.accountName}
           commentsCount={post.postTypeId && post.commentsCount}
           sharesCount={post.postTypeId && post.sharesCount}
+          userUrl={urls.getUserUrl(user.id)}
         />
 
         <PostFeedFooter

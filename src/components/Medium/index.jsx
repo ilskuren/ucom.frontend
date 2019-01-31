@@ -1,3 +1,5 @@
+/* eslint-disable global-require, new-cap */
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -8,9 +10,11 @@ import './styles.css';
 
 class Medium extends PureComponent {
   componentDidMount() {
-    const MediumEditor = require('medium-editor'); // eslint-disable-line
-    const MediumUpload = require('./Upload/index'); // eslint-disable-line
-    const MediumPost = require('./Post/index'); // eslint-disable-line
+    const MediumEditor = require('medium-editor');
+    const MediumUpload = require('./Upload/index');
+    const MediumPost = require('./Post/index');
+    const FileDragging = require('./FileDragging');
+    const ImageFromLink = require('./ImageFromLink');
 
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
@@ -18,23 +22,17 @@ class Medium extends PureComponent {
         allowMultiParagraphSelection: false,
       },
       placeholder: false,
-      imageDragging: false,
+      autoLink: true,
       extensions: {
-        mediumPost: new MediumPost.default(), // eslint-disable-line
-        mediumUpload: new MediumUpload.default({ // eslint-disable-line
-          onError: (message) => {
-            this.props.addErrorNotification(message);
-          },
-          onUploadStart: () => {
-            if (this.props.onUploadStart) {
-              this.props.onUploadStart();
-            }
-          },
-          onUploadDone: () => {
-            if (typeof this.props.onUploadDone === 'function') {
-              this.props.onUploadDone();
-            }
-          },
+        imageFromLink: new ImageFromLink.default(),
+        fileDragging: new FileDragging.default({
+          onError: message => this.props.addErrorNotification(message),
+        }),
+        mediumPost: new MediumPost.default(),
+        mediumUpload: new MediumUpload.default({
+          onError: message => this.props.addErrorNotification(message),
+          onUploadStart: () => this.props.onUploadStart(),
+          onUploadDone: () => this.props.onUploadDone(),
         }),
       },
     });
@@ -43,11 +41,9 @@ class Medium extends PureComponent {
       this.mediumEditor.setContent(this.props.value);
     }
 
-    if (typeof this.props.onChange === 'function') {
-      this.mediumEditor.subscribe('editableInput', () => {
-        this.props.onChange(this.mediumEditor.getContent());
-      });
-    }
+    this.mediumEditor.subscribe('editableInput', () => {
+      this.props.onChange(this.mediumEditor.getContent());
+    });
   }
 
   componentDidUpdate() {
@@ -62,9 +58,7 @@ class Medium extends PureComponent {
 
   render() {
     return (
-      <TributeWrapper
-        onChange={e => this.props.onChange(e)}
-      >
+      <TributeWrapper onChange={e => this.props.onChange(e)}>
         <div className="post-content" ref={(el) => { this.el = el; }} />
       </TributeWrapper>
     );
@@ -73,7 +67,9 @@ class Medium extends PureComponent {
 
 Medium.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  onUploadStart: PropTypes.func.isRequired,
+  onUploadDone: PropTypes.func.isRequired,
 };
 
 export default connect(

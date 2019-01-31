@@ -6,6 +6,7 @@ import UserCard from '../../../UserCard/UserCard';
 import urls from '../../../../utils/urls';
 import { getPostById } from '../../../../store/posts';
 import styles from './styles.css';
+import { POST_TYPE_MEDIA_ID } from '../../../../utils/posts';
 
 const PostFeedHeader = (props) => {
   const post = getPostById(props.posts, props.postId);
@@ -22,13 +23,13 @@ const PostFeedHeader = (props) => {
         </div>
       </div>
 
-      {props.userId && (
+      { (props.userId && POST_TYPE_MEDIA_ID !== props.postTypeId) ? (
         <div className={styles.user}>
           <UserCard
             userId={props.userId}
           />
         </div>
-      )}
+      ) : null}
     </Fragment>
   );
 };
@@ -38,6 +39,7 @@ PostFeedHeader.propTypes = {
   createdAt: PropTypes.string.isRequired,
   postId: PropTypes.number.isRequired,
   userId: PropTypes.number,
+  postTypeId: PropTypes.number,
 };
 
 export default connect(state => ({

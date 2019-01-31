@@ -42,11 +42,11 @@ class Repost extends PureComponent {
           userName={getUserName(user)}
           accountName={user.accountName}
           profileLink={urls.getUserUrl(user.id)}
-          // avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
         <div className={styles.repost} id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
+            repost
             userId={post.post.user.id}
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}
@@ -60,8 +60,8 @@ class Repost extends PureComponent {
           {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
             <PostCard
               onFeed
+              repost
               coverUrl={getPostCover(post.post)}
-              // coverUrl={getFileUrl(post.post.mainImageFilename)}
               rate={post.post.currentRate}
               title={post.post.title || post.post.leadingText}
               url={getPostUrl(post.post.id)}
@@ -72,7 +72,6 @@ class Repost extends PureComponent {
               tags={post.post.postTypeId && [getPostTypeById(post.post.postTypeId)]}
               commentsCount={post.postTypeId && post.commentsCount}
               sharesCount={post.postTypeId && post.sharesCount}
-              repost={1}
             />
           ) : (
             <PostFeedContent
@@ -91,7 +90,6 @@ class Repost extends PureComponent {
           toggleComments={this.props.toggleComments}
           sharePopup={this.props.sharePopup}
           toggleShare={this.props.toggleShare}
-          timestamp={this.props.timestamp}
         />
       </div>
     );
@@ -101,6 +99,10 @@ class Repost extends PureComponent {
 Repost.propTypes = {
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
+  commentsIsVisible: PropTypes.bool.isRequired,
+  toggleComments: PropTypes.func.isRequired,
+  sharePopup: PropTypes.bool.isRequired,
+  toggleShare: PropTypes.func.isRequired,
 };
 
 export default connect(

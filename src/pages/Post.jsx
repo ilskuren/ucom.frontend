@@ -20,7 +20,7 @@ import loader from '../utils/loader';
 import { COMMENTS_CONTAINER_ID_POST } from '../utils/comments';
 import { commentsResetContainerDataByEntryId } from '../actions/comments';
 import ShareButton from '../components/ShareButton';
-import ShareBlock from '../components/Feed/Post/ShareBlock';
+import ShareBlock from '../components/ShareBlock';
 
 const PostPage = (props) => {
   const { postId } = props.match.params;
@@ -43,8 +43,6 @@ const PostPage = (props) => {
   if (!props.post || !props.postAuthor) {
     return null;
   }
-
-  console.log(props.post.myselfData.repostAvailable);
 
   return (
     <LayoutBase>

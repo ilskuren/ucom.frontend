@@ -1,27 +1,28 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { sanitizeCommentText, checkHashTag, escapeQuotes } from '../../../../utils/text';
+import styles from './styles.css';
 
 class DescDirectPost extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       isHidden: true,
-      textBtn: ' more',
+      textBtn: 'more',
     };
   }
 
   toggleHidden = () => {
     this.setState({
       isHidden: !this.state.isHidden,
-      textBtn: this.state.isHidden ? ' less' : ' more',
+      textBtn: this.state.isHidden ? null : 'more',
     });
   }
 
   resctrictText = (text) => {
     const count = text.substring(0, 100).lastIndexOf(' ');
     text = text.substring(0, count);
-    return checkHashTag(text);
+    return checkHashTag(`${text} `);
   }
 
   render() {
@@ -40,7 +41,7 @@ class DescDirectPost extends PureComponent {
             <span
               role="presentation"
               onClick={this.toggleHidden}
-              className="post__btn_more"
+              className={styles.showMore}
             >
               {this.state.textBtn}
             </span>

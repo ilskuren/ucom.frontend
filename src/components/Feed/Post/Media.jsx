@@ -32,11 +32,8 @@ class Media extends PureComponent {
     return (
       <div className={styles.post} id={`post-${post.id}`}>
         <PostFeedHeader
-          createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
-          // userId={user.id}
-          // userName={getUserName(user)}
-          // accountName={user.accountName}
+          createdAt={moment(post.createdAt).fromNow()}
         />
 
         <PostCard
@@ -62,7 +59,6 @@ class Media extends PureComponent {
           toggleComments={this.props.toggleComments}
           sharePopup={this.props.sharePopup}
           toggleShare={this.props.toggleShare}
-          timestamp={this.props.timestamp}
         />
       </div>
     );
@@ -70,9 +66,13 @@ class Media extends PureComponent {
 }
 
 Media.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
+  commentsIsVisible: PropTypes.bool.isRequired,
+  toggleComments: PropTypes.func.isRequired,
+  sharePopup: PropTypes.bool.isRequired,
+  toggleShare: PropTypes.func.isRequired,
 };
 
 export default connect(

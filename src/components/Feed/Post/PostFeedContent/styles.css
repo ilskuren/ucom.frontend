@@ -13,12 +13,21 @@
   max-width: 100%;
 }
 
-.text {
+.content {
   flex: 1 1 auto;
-  margin: 10px;
   font-size: 16px;
   line-height: 23px;
   display: flex;
   align-items: center;
   white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+
+.showMore {
+  color: #D8352F;
+}
+
+.showMore:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -46,7 +46,6 @@ class Post extends PureComponent {
             sharePopup={this.state.sharePopup}
             toggleShare={this.toggleShare}
             timestamp={this.state.timestamp}
-            imageFilename={this.props.main_image_filename}
           />
         );
       case POST_TYPE_MEDIA_ID:

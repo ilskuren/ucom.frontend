@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import IconComment from '../../../Icons/Comment';
 import IconShare from '../../../Icons/Share';
 import Comments from '../../../Comments/wrapper';
-import ShareBlock from '../ShareBlock';
+import ShareBlock from '../../../ShareBlock';
 import { createComment } from '../../../../actions/comments';
 import urls from '../../../../utils/urls';
 import styles from './styles.css';

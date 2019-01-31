@@ -7,10 +7,10 @@ import React, { Fragment, useEffect } from 'react';
 import Avatar from '../Avatar';
 import Button from '../Button';
 import urls from '../../utils/urls';
-import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon } from '../Icons/FeedIcons';
+import { DownvoteIcon, UpvoteIcon, SuccessIcon, ShareIcon, AtIcon } from '../Icons/FeedIcons';
 import InputErrorIcon from '../Icons/InputError';
 import InputCompleteIcon from '../Icons/InputComplete';
-import { getUserName, getUserUrl } from '../../utils/user';
+import { getUserName } from '../../utils/user';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import { confirmNotification, declineNotification, seenNotification } from '../../actions/siteNotifications';
@@ -35,6 +35,8 @@ import {
   CONGRATULATIONS_EVENT_ID,
   USER_SHARE_YOUR_POST,
   USER_SHARE_YOUR_MEDIA_POST,
+  USER_HAS_MENTIONED_YOU_IN_POST,
+  USER_HAS_MENTIONED_YOU_IN_COMMENT,
 } from '../../store/siteNotifications';
 
 const getAvatarIcon = (eventId) => {
@@ -58,6 +60,9 @@ const getAvatarIcon = (eventId) => {
     case USER_SHARE_YOUR_POST:
     case USER_SHARE_YOUR_MEDIA_POST:
       return <ShareIcon />;
+    case USER_HAS_MENTIONED_YOU_IN_POST:
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      return <AtIcon />;
     default:
       return null;
   }
@@ -72,7 +77,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;started following you
@@ -85,7 +90,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_POST ? ' upvotes' : ' downvotes'} your `}
@@ -100,7 +105,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;shared your&nbsp;
@@ -116,7 +121,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {`${props.eventId === USER_UPVOTES_YOUR_COMMENT ? ' upvotes' : ' downvotes'} your`}
@@ -131,7 +136,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;started following&nbsp;
@@ -147,7 +152,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_POST ? ' upvotes ' : ' downvotes '}
@@ -164,7 +169,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           {props.eventId === USER_UPVOTES_ORG_COMMENT ? ' upvotes ' : ' downvotes '}
@@ -180,7 +185,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted on your&nbsp;
@@ -195,7 +200,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.comment.user.id)}>
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;commented on your&nbsp;
@@ -211,7 +216,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.comment.userId)}>
+          <Link to={urls.getUserUrl(props.data.comment.userId)}>
             <strong>{getUserName(props.data.comment.user)}</strong>
           </Link>
           &nbsp;replied to your&nbsp;
@@ -227,7 +232,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <strong>{getUserName(props.data.post.user)}</strong>
           </Link>
           &nbsp;posted in&nbsp;
@@ -243,7 +248,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;commented&nbsp;
@@ -257,7 +262,7 @@ const getTitle = (props) => {
 
       return (
         <Fragment>
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <strong>{getUserName(props.data.user)}</strong>
           </Link>
           &nbsp;replied to&nbsp;
@@ -273,7 +278,7 @@ const getTitle = (props) => {
         <Fragment>
           {props.data.user && (
             <Fragment>
-              <Link to={getUserUrl(props.data.user.id)}>
+              <Link to={urls.getUserUrl(props.data.user.id)}>
                 <strong>{getUserName(props.data.user)}</strong>
               </Link>
               &nbsp;
@@ -282,6 +287,32 @@ const getTitle = (props) => {
           invites you to become a member of&nbsp;
           <Link to={getOrganizationUrl(props.data.organization.id)}>
             <strong>{props.data.organization.title}</strong>
+          </Link>
+        </Fragment>
+      );
+
+    case USER_HAS_MENTIONED_YOU_IN_POST:
+      return (
+        <Fragment>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
+            <strong>{getUserName(props.data.post.user)}</strong>
+          </Link>
+          &nbsp;mentioned you in the &nbsp;
+          <Link to={urls.getPostUrl(props.data.post)}>
+            <strong>post</strong>
+          </Link>
+        </Fragment>
+      );
+
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      return (
+        <Fragment>
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
+            <strong>{getUserName(props.data.comment.user)}</strong>
+          </Link>
+          &nbsp;mentioned you in the &nbsp;
+          <Link to={urls.getPostUrl(props.data.comment.post)}>
+            <strong>comment</strong>
           </Link>
         </Fragment>
       );
@@ -305,12 +336,24 @@ const getCover = (props) => {
       );
 
     case USER_CREATES_DIRECT_POST_FOR_YOU:
+    case USER_HAS_MENTIONED_YOU_IN_POST:
       if (!(props.data && props.data.post)) return null;
 
       return (
         <div className="site-notification__cover">
           <Link to={urls.getPostUrl(props.data.post)}>
             <Avatar square isPost src={getFileUrl(props.data.post.mainImageFilename)} />
+          </Link>
+        </div>
+      );
+
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      if (!(props.data && props.data.comment)) return null;
+
+      return (
+        <div className="site-notification__cover">
+          <Link to={urls.getPostUrl(props.data.comment.post)}>
+            <Avatar square isPost src={getFileUrl(props.data.comment.post.mainImageFilename)} />
           </Link>
         </div>
       );
@@ -363,14 +406,29 @@ const getAvatar = (props) => {
     case USER_CREATES_DIRECT_POST_FOR_YOU:
     case USER_SHARE_YOUR_POST:
     case USER_SHARE_YOUR_MEDIA_POST:
+    case USER_HAS_MENTIONED_YOU_IN_POST:
       if (!(props.data && props.data.post && props.data.post.user)) return null;
 
       return (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.post.user.id)}>
+          <Link to={urls.getUserUrl(props.data.post.user.id)}>
             <Avatar
               isPost
               src={getFileUrl(props.data.post.user.avatarFilename)}
+              icon={getAvatarIcon(props.eventId)}
+            />
+          </Link>
+        </div>
+      );
+    case USER_HAS_MENTIONED_YOU_IN_COMMENT:
+      if (!(props.data && props.data.comment && props.data.comment.user)) return null;
+
+      return (
+        <div className="site-notification__avatar">
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
+            <Avatar
+              isPost
+              src={getFileUrl(props.data.comment.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}
             />
           </Link>
@@ -383,7 +441,7 @@ const getAvatar = (props) => {
 
       return (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.comment.user.id)}>
+          <Link to={urls.getUserUrl(props.data.comment.user.id)}>
             <Avatar src={getFileUrl(props.data.comment.user.avatarFilename)} />
           </Link>
         </div>
@@ -391,7 +449,7 @@ const getAvatar = (props) => {
     default: {
       return props.data && props.data.user ? (
         <div className="site-notification__avatar">
-          <Link to={getUserUrl(props.data.user.id)}>
+          <Link to={urls.getUserUrl(props.data.user.id)}>
             <Avatar
               src={getFileUrl(props.data.user.avatarFilename)}
               icon={getAvatarIcon(props.eventId)}

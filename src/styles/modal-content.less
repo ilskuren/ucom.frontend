@@ -6,10 +6,6 @@
   margin: auto;
 }
 
-.modal-content_blur {
-  filter: blur(5px);
-}
-
 .modal-content__close {
   position: absolute;
   top: 80px;
@@ -21,16 +17,17 @@
   cursor: pointer;
 }
 
-.modal-content__close_text { 
+.modal-content__close_text {
   width: 70px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .modal-content__inner {
   position: relative;
   z-index: 2;
+  border-radius: 2px;
   background: #fff;
 }
 
@@ -91,4 +88,15 @@
 
 .modal-content_post {
   max-width: 680px;
+}
+
+.modal-content_post-submit {
+  max-width: 680px;
+}
+
+.modal-content_small-close {
+  .modal-content__close {
+    top: 60px;
+    right: 60px;
+  }
 }

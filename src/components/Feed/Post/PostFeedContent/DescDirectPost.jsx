@@ -33,7 +33,7 @@ class DescDirectPost extends PureComponent {
         {this.props.desc.length >= 100 ? (
           <div>
             {this.state.isHidden ? (
-              <span dangerouslySetInnerHTML={{ __html: this.resctrictText(sanitizeCommentText(this.props.desc)) }} />
+              <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(this.resctrictText(this.props.desc)) }} />
             ) : (
               <span dangerouslySetInnerHTML={{ __html: sanitizeCommentText(text) }} />
               )}

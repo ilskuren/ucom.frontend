@@ -9,6 +9,7 @@ import { updatePost } from '../../../../actions/posts';
 import { getPostById } from '../../../../store/posts';
 import { postIsEditable } from '../../../../utils/posts';
 import DescDirectPost from './DescDirectPost';
+import { checkMentionTag, escapeQuotes } from '../../../../utils/text';
 import styles from './styles.css';
 
 class PostFeedContent extends PureComponent {
@@ -66,7 +67,7 @@ class PostFeedContent extends PureComponent {
                   {post.description &&
                     <div className="toolbar__main toolbar__main_small">
                       <DescDirectPost
-                        desc={post.description}
+                        desc={checkMentionTag(escapeQuotes(post.description))}
                         limit={100}
                       />
                     </div>

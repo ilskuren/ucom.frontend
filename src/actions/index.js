@@ -1,3 +1,5 @@
+import { POSTS_DRAFT_LOCALSTORAGE_KEY } from '../utils/posts';
+
 export const setUser = payload => ({ payload, type: 'SET_USER' });
 export const removeUser = () => ({ type: 'REMOVE_USER' });
 export const setPostData = payload => ({ type: 'SET_POST_DATA', payload });
@@ -10,7 +12,7 @@ export const setPostDataToLS = () => (dispatch, getState) => {
     description: data.post.data.description,
   };
   if (!data.post.data.id) {
-    localStorage.setItem('post_data', JSON.stringify(postData));
+    localStorage.setItem(POSTS_DRAFT_LOCALSTORAGE_KEY, JSON.stringify(postData));
   }
 };
 export const setDataToStoreToLS = data => (dispatch) => {

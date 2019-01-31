@@ -1,4 +1,4 @@
-:local(.footer) {
+.footer {
   margin: 14px 0 14px;
   display: flex;
   justify-content: space-between;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-:local(.commentСount) {
+.commentСount {
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -16,12 +16,12 @@
   margin-right: 20px;
 }
 
-:local(.commentCountActive) {
+.commentCountActive {
   color: #000;
   fill: #000;
 }
 
-:local(.share) {
+.share {
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -31,7 +31,7 @@
   position: relative;
 }
 
-:local(.shareActive) {
+.shareActive {
   color: #000;
   fill: #000;
 }

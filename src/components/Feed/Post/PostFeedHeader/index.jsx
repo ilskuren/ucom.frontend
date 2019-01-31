@@ -6,7 +6,6 @@ import UserCard from '../../../UserCard';
 import urls from '../../../../utils/urls';
 import { getPostById } from '../../../../store/posts';
 import styles from './styles.css';
-// import { POST_TYPE_REPOST_ID } from '../../../../utils/posts';
 // import Avatar from '../../../Avatar';
 
 const PostFeedHeader = (props) => {
@@ -19,7 +18,6 @@ const PostFeedHeader = (props) => {
   return (
     <Fragment>
       <div className={styles.header}>
-        {/* props.postTypeId === POST_TYPE_REPOST_ID */}
         <div className={styles.info}>
           <Link to={urls.getFeedPostUrl(post)}>{props.createdAt}</Link>
         </div>

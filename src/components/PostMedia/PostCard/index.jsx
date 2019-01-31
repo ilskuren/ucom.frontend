@@ -5,7 +5,7 @@ import React, { Fragment } from 'react';
 import Rate from '../../Rate';
 import styles from './PostCard.css';
 import Avatar from '../../Avatar';
-import Eye from '../../Icons/Eye';
+// import Eye from '../../Icons/Eye';
 
 const PostCard = (props) => {
   const PostLink = props.url ? Link : 'span';
@@ -56,18 +56,19 @@ const PostCard = (props) => {
             )}
           </div>
 
-          <div className={styles.infoblockSide}>
+          {/* <div className={styles.infoblockSide}>
             <Eye className={styles.eye} />
             <span className={styles.views}>1943</span>
 
-            {/* props.commentsCount !== undefined && (
-              <div className="inline__item">
-                <div className={styles.shares}>
-                  <Rate value={props.commentsCount} dimension="" label="Comments" />
-                </div>
+          {props.commentsCount !== undefined && (
+            <div className="inline__item">
+              <div className={styles.shares}>
+                <Rate value={props.commentsCount} dimension="" label="Comments" />
               </div>
-            ) */}
+            </div>
+          )}
           </div>
+          */}
         </div>
       </Fragment>
     </div>

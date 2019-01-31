@@ -1,12 +1,12 @@
 import * as axios from 'axios';
 import MediumEditor from 'medium-editor';
-import api from '../../api';
-import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../upload';
-import config from '../../../package.json';
-import { sanitizePostText } from '../text';
+import api from '../../../api';
+import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, getBase64FromFile } from '../../../utils/upload';
+import config from '../../../../package.json';
+import './styles.css';
 
 class UploadButtons {
-  constructor({ onImageSelect, onEmbedSelect }) {
+  constructor({ onImageSelect, onVideoEmbedSelect }) {
     this.currentEl = null;
     this.el = document.createElement('div');
     this.el.className = 'medium-upload';
@@ -23,9 +23,9 @@ class UploadButtons {
       this.hide();
     });
 
-    this.el.querySelector('.js-embed').addEventListener('click', () => {
-      const url = prompt('Paste a YouTube link and press Enter'); // eslint-disable-line
-      onEmbedSelect(url);
+    this.el.querySelector('.js-video-embed').addEventListener('click', () => {
+      const url = prompt('Paste a link and press Enter'); // eslint-disable-line
+      onVideoEmbedSelect(url);
       this.hide();
     });
 
@@ -52,7 +52,7 @@ class UploadButtons {
           </label>
         </div>
         <div class="medium-upload__item">
-          <div class="medium-upload__button js-embed">
+          <div class="medium-upload__button js-video-embed">
             <svg width="21" height="21" viewBox="0 0 576 512" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" />
             </svg>
@@ -72,18 +72,10 @@ class UploadButtons {
 
   showButton() {
     this.el.classList.add('medium-upload_active');
-
-    if (this.currentEl) {
-      this.currentEl.style.opacity = 0;
-    }
   }
 
   hideButtons() {
     this.el.classList.remove('medium-upload_active');
-
-    if (this.currentEl) {
-      this.currentEl.style.opacity = '';
-    }
   }
 
   show(el) {
@@ -118,20 +110,27 @@ class MediumUpload extends MediumEditor.Extension {
 
     this.onUploadStart = params.onUploadStart;
     this.onUploadDone = params.onUploadDone;
-    this.onUploadError = params.onUploadError;
+    this.onError = params.onError;
     this.uploadButtons = new UploadButtons({
       onImageSelect: this.uplaodImage,
-      onEmbedSelect: this.getEmbed,
+      onVideoEmbedSelect: this.appendVideoEmbed,
     });
   }
 
   init() {
     this.base.subscribe('editableKeyup', this.onEdit);
     this.base.subscribe('editableClick', this.onEdit);
+    this.onWindowResize = this.onWindowResize.bind(this);
+    window.addEventListener('resize', this.onWindowResize);
   }
 
   destroy() {
     this.uploadButtons.remove();
+    window.removeEventListener('resize', this.onWindowResize);
+  }
+
+  onWindowResize() {
+    this.uploadButtons.hide();
   }
 
   onEdit = () => {
@@ -146,8 +145,6 @@ class MediumUpload extends MediumEditor.Extension {
 
   hasShowUploadButtons() {
     return this.currentEl.parentNode === this.base.origElements &&
-      this.currentEl.tagName === 'P' &&
-      this.currentEl.className === '' &&
       this.currentEl.innerHTML === '<br>';
   }
 
@@ -182,15 +179,14 @@ class MediumUpload extends MediumEditor.Extension {
       return;
     }
 
-    if (file.size > UPLOAD_SIZE_LIMIT && typeof this.onUploadError === 'function') {
-      this.onUploadError(UPLOAD_SIZE_LIMIT_ERROR);
+    if (file.size > UPLOAD_SIZE_LIMIT && typeof this.onError === 'function') {
+      this.onError(UPLOAD_SIZE_LIMIT_ERROR);
       return;
     }
 
     const p = document.createElement('p');
     const img = document.createElement('img');
 
-    p.contentEditable = false;
     p.appendChild(img);
 
     try {
@@ -219,30 +215,28 @@ class MediumUpload extends MediumEditor.Extension {
     }
   }
 
-  getEmbed = async (url) => {
+  appendVideoEmbed = async (url) => {
     if (!url) {
       return;
     }
 
     try {
       const data = await axios.get(config.iframely.httpEndpoint, { params: { url } });
-      const html = sanitizePostText(data.data.html);
-
-      if (!html) {
-        return;
-      }
-
-      const div = document.createElement('div');
-      div.innerHTML = html;
-      div.contentEditable = false;
-      const iframe = div.querySelector('iframe');
-
-      if (iframe) {
-        div.classList.add('medium-upload-iframe-wrapper');
-      }
-
-      this.insertEl(div);
+      const embedUrl = data.data.links.player.find(i => i.rel.some(j => ['oembed', 'html5'].indexOf(j) > 0)).href;
+      const p = document.createElement('p');
+      p.innerHTML = `
+        <iframe
+          class="iframe-video"
+          src="${embedUrl}"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      `;
+      this.insertEl(p);
     } catch (e) {
+      if (this.onError) {
+        this.onError('No supported video found');
+      }
       console.error(e);
     }
   }

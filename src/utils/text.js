@@ -51,10 +51,10 @@ export const getTextContent = memoize((content) => {
 
 export const sanitizePostText = memoize(html => sanitizeHtml(html, {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'h2', 'h1']),
-  allowedIframeHostnames: ['www.youtube.com'],
+  allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com'],
   allowedSchemes: ['http', 'https'],
   allowedAttributes: {
-    iframe: ['src'],
+    iframe: ['src', 'allowfullscreen', 'allow'],
     a: ['href', 'name', 'target', 'class'],
     img: ['src'],
   },
@@ -71,6 +71,9 @@ export const sanitizePostText = memoize(html => sanitizeHtml(html, {
     a: [
       'tag_link',
       'mention_link',
+    ],
+    iframe: [
+      'iframe-video',
     ],
   },
   transformTags: {

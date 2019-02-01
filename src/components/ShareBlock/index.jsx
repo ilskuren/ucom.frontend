@@ -63,10 +63,6 @@ class ShareBlock extends PureComponent {
   }
 }
 
-ShareBlock.defaultProps = {
-  repostAvailable: true,
-};
-
 ShareBlock.propTypes = {
   link: PropTypes.string,
   addRepost: PropTypes.func,

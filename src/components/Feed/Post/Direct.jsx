@@ -6,14 +6,12 @@ import React, { PureComponent } from 'react';
 import { getPostById } from '../../../store/posts';
 import { selectUser } from '../../../store/selectors/user';
 import { createComment } from '../../../actions/comments';
-import { getFileUrl } from '../../../utils/upload';
-import { getUserName } from '../../../utils/user';
-import urls from '../../../utils/urls';
 import { getUserById } from '../../../store/users';
 import { escapeQuotes } from '../../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
+import styles from './Post.css';
 
 class Direct extends PureComponent {
   render() {
@@ -28,15 +26,11 @@ class Direct extends PureComponent {
     }
 
     return (
-      <div className="post" id={`post-${post.id}`}>
+      <div className={styles.post} id={`post-${post.id}`}>
         <PostFeedHeader
-          postTypeId={post.postTypeId}
+          userId={user.id}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
-          userName={getUserName(user)}
-          accountName={user.accountName}
-          profileLink={urls.getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
         <PostFeedContent
@@ -55,7 +49,6 @@ class Direct extends PureComponent {
           toggleComments={this.props.toggleComments}
           sharePopup={this.props.sharePopup}
           toggleShare={this.props.toggleShare}
-          timestamp={this.props.timestamp}
         />
       </div>
     );
@@ -63,9 +56,13 @@ class Direct extends PureComponent {
 }
 
 Direct.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
+  commentsIsVisible: PropTypes.bool.isRequired,
+  toggleComments: PropTypes.func.isRequired,
+  sharePopup: PropTypes.bool.isRequired,
+  toggleShare: PropTypes.func.isRequired,
 };
 
 export default connect(

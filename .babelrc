@@ -14,7 +14,7 @@
       "plugins": [
         [
           "css-modules-transform", {
-            "generateScopedName": "[hash:8]",
+            "generateScopedName": "[local]--[hash:base64:5]",
             "extensions": [".css"]
           }
         ]

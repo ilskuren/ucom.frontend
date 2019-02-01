@@ -57,7 +57,7 @@ export default {
     commentsPage = 1,
     commentsPerPage = COMMENTS_PER_PAGE,
   }) {
-    const query = GraphQLSchema.getUserWallFeedQuery(
+    const query = GraphQLSchema.getUserNewsFeed(
       page,
       perPage,
       commentsPage,

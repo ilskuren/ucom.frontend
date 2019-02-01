@@ -49,11 +49,11 @@ export default connect(
 
     return ({
       ...props,
-      userPickSrc: urls.getFileUrl(user.avatarFilename),
+      userPickSrc: user ? urls.getFileUrl(user.avatarFilename) : null,
       userPickAlt: getUserName(user),
-      url: urls.getUserUrl(user.id),
+      url: user ? urls.getUserUrl(user.id) : null,
       name: getUserName(user),
-      rate: user.currentRate,
+      rate: user ? user.currentRate : null,
     });
   },
   null,

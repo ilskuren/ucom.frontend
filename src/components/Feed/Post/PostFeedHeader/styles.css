@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  line-height: 16px;
+}
+
+.info {
+  color: rgba(0,0,0,.6);
+  font-size: 12px;
+  margin: 0 10px 0 0;
+}
+
+.user {
+  margin-bottom: 20px;
+}
+
+.avatarSmall {
+  margin-right: 5px;
+}

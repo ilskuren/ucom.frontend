@@ -15,7 +15,6 @@ class Medium extends PureComponent {
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
         buttons: ['h1', 'h2', 'bold', 'italic', 'underline', 'strikethrough', 'anchor', 'quote', 'orderedlist', 'unorderedlist'],
-        allowMultiParagraphSelection: false,
       },
       placeholder: false,
       imageDragging: false,

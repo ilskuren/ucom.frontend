@@ -18,6 +18,7 @@ import { parseMediumContent, POSTS_DRAFT_LOCALSTORAGE_KEY } from '../utils/posts
 import Popup from '../components/Popup';
 import ModalContent from '../components/ModalContent';
 import PostSubmitForm from '../components/Post/PostSubmitForm';
+import { addServerErrorNotification } from '../actions/notifications';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
@@ -33,6 +34,7 @@ const EditPost = (props) => {
       const data = await api.getPost(props.match.params.id);
       props.setPostData(data);
     } catch (e) {
+      props.addServerErrorNotification(e);
       console.error(e);
     }
 
@@ -62,6 +64,7 @@ const EditPost = (props) => {
       props.setPostData({ id: data.id || data.postId });
     } catch (e) {
       console.error(e);
+      props.addServerErrorNotification(e);
       setLoading(false);
     }
 
@@ -188,5 +191,6 @@ export default connect(
     authShowPopup,
     postSetSaved,
     setDataToStoreToLS,
+    addServerErrorNotification,
   }, dispatch),
 )(EditPost);

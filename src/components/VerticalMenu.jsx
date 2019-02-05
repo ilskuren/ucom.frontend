@@ -17,10 +17,13 @@ class VerticalMenu extends PureComponent {
     this.setActiveSectionName(this.props.sections[0].name);
   }
 
+
   componentWillReceiveProps(props) {
     if (!isEqual(props.sections, this.props.sections)) {
       this.setActiveSectionName(props.sections[0].name);
     }
+
+    this.setState({ activeSectionName: props.activeSectionName });
   }
 
   setActiveSectionName(activeSectionName) {
@@ -32,9 +35,11 @@ class VerticalMenu extends PureComponent {
       duration: 1500,
       delay: 100,
       smooth: true,
+      offset: -115,
     });
     this.setActiveSectionName(sectionName);
   }
+
 
   render() {
     return (

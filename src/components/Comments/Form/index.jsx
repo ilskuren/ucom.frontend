@@ -23,7 +23,7 @@ const Form = (props) => {
   };
 
   const submit = () => {
-    if (message.length) {
+    if (message.trim().length) {
       props.onSubmit({
         containerId: props.containerId,
         postId: props.postId,

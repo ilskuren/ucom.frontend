@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Element } from 'react-scroll';
+import { throttle } from 'lodash';
 import Panel from '../components/Panel/Panel';
 import VerticalMenu from '../components/VerticalMenu';
 import LayoutBase from '../components/Layout/LayoutBase';
-
+import { calculateClosestTo0, getKeyByValue } from '../utils/text';
 
 const Faq = () => {
   const [openedQuestions, setOpenedQuestions] = useState([]);
+  const [activeSectionName, setActiveFaqSectionName] = useState('');
 
   const PanelWrapper = (props) => {
     const index = openedQuestions.indexOf(props.title);
@@ -29,7 +31,27 @@ const Faq = () => {
       </Panel>
     );
   };
+
   const FAQLink = props => <a className="auth__link" href={`#${props.name.replace(/ /g, '_')}`} onClick={() => setOpenedQuestions([...openedQuestions, props.name])}>{props.children}</a>;
+
+  const onScroll = () => {
+    const UCommunity = (document.querySelector('[name="U°Community"]').offsetTop - window.scrollY) + 150;
+    const UOS = document.querySelector('[name="U°OS"]').offsetTop - window.scrollY - 115;
+    const Glossary = document.querySelector('[name="Glossary"]').offsetTop - window.scrollY - 115;
+    const tabs = { 'U°Community': UCommunity, 'U°OS': UOS, Glossary };
+    const sectionName = getKeyByValue(tabs, 0) ? getKeyByValue(tabs, 0) : getKeyByValue(tabs, calculateClosestTo0([UCommunity, UOS, Glossary]));
+
+    if (sectionName !== activeSectionName) {
+      setActiveFaqSectionName(sectionName);
+    }
+  };
+
+  const throttledOnScroll = throttle(onScroll, 250);
+
+  useEffect(() => {
+    window.addEventListener('scroll', throttledOnScroll);
+    return () => window.removeEventListener('scroll', throttledOnScroll);
+  });
 
   return (
     <LayoutBase>
@@ -51,6 +73,7 @@ const Faq = () => {
                     { name: 'Glossary', title: 'Glossary' },
                   ]}
                   sticky
+                  activeSectionName={activeSectionName}
                 />
               </div>
 
@@ -102,7 +125,7 @@ const Faq = () => {
                           <p>You can create your own content.</p>
                           <p>Other users will be able to interact with your profile and with your content.</p>
                           <p>You can shape your own interests by following the people and communities you like.</p>
-                          <p>You can interact with all the content on the platform: like, comment and share posts, sell and purchase goods and services via offers, run and join <FAQLink name="Community">Community</FAQLink> and/or an <FAQLink name="Organization">Organization</FAQLink>.</p>
+                          <p>You can interact with all the content on the platform: like, comment and share posts, sell and purchase goods and services via offers, run and join a <FAQLink name="Community">Community</FAQLink> and/or an <FAQLink name="Organization">Organization</FAQLink>.</p>
                           <p>You can transfer funds to other registered users. </p>
                           <p>You can (and should) vote for <FAQLink name="Block Producer">Block Producers</FAQLink> and <FAQLink name="Calculator Node">Calculator Nodes</FAQLink> on the <Link className="auth__link" target="_blank" to="/governance">governance page.</Link></p>
                         </div>
@@ -229,7 +252,7 @@ const Faq = () => {
                       >
                         <div className="text_faq">
                           <p>Please do! U°Community is open source and the development community is growing.</p>
-                          <p>Start with <a className="auth__link" target="_blank" rel="noopener noreferrer" href="https://github.com/UOSnetwork/uos.docs/blob/master/CONTRIBUTING.md">CONTRIBUTING.md of U°OS Network on GitHub.</a>  We keep it up to date.</p>
+                          <p>Start with <a className="auth__link" target="_blank" rel="noopener noreferrer" href="https://github.com/UOSnetwork/uos.docs/blob/master/CONTRIBUTING.md">CONTRIBUTING.md of U°OS Network on GitHub.</a> We keep it up to date.</p>
                         </div>
                       </PanelWrapper>
                       <PanelWrapper
@@ -338,7 +361,7 @@ const Faq = () => {
                       title="Who is building U°OS?"
                     >
                       <div className="text_faq">
-                        <p>Check the <Link className="auth__link" target="_blank" to="/communities/4">board of U°OS Network</Link>
+                        <p>Check the <Link className="auth__link" target="_blank" to="/communities/4">board of U°OS Network </Link>
                           and the <a className="auth__link" target="_blank" rel="noopener noreferrer" href="https://github.com/orgs/UOSnetwork/people">U°OS Network GitHub.</a> We are a group of people that believe in the sovereignty of the <FAQLink name="Digital individual">Digital individual</FAQLink> and in the <FAQLink name="Network economy">Network economy</FAQLink>.
                         </p>
                         <p>You are more than welcome to join us.</p>
@@ -356,7 +379,7 @@ const Faq = () => {
                     >
                       <div className="text_faq">
                         <p>Please do! U°OS is open source and the development community is growing.</p>
-                        <p>Start with <a className="auth__link" target="_blank" rel="noopener noreferrer" href="https://github.com/UOSnetwork/uos.docs/blob/master/CONTRIBUTING.md">CONTRIBUTING.md of U°OS Network on GitHub.</a>  We keep it up to date.</p>
+                        <p>Start with <a className="auth__link" target="_blank" rel="noopener noreferrer" href="https://github.com/UOSnetwork/uos.docs/blob/master/CONTRIBUTING.md">CONTRIBUTING.md of U°OS Network on GitHub.</a> We keep it up to date.</p>
                       </div>
                     </PanelWrapper>
                     <PanelWrapper
@@ -388,7 +411,6 @@ const Faq = () => {
                       </div>
                     </PanelWrapper>
                   </Element>
-
                   <Element name="Glossary" className="fields__block">
                     <div className="fields__title">
                       <h1 className="title title_small">Glossary</h1>

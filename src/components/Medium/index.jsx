@@ -15,7 +15,6 @@ class Medium extends PureComponent {
     const MediumPost = require('./Post/index');
     const FileDragging = require('./FileDragging');
     const ImageFromLink = require('./ImageFromLink');
-    const PasteImage = require('./PasteImage');
 
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
@@ -24,7 +23,6 @@ class Medium extends PureComponent {
       placeholder: false,
       autoLink: true,
       extensions: {
-        pasteImage: new PasteImage.default(),
         imageFromLink: new ImageFromLink.default(),
         fileDragging: new FileDragging.default({
           onError: message => this.props.addErrorNotification(message),

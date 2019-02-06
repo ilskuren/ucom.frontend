@@ -5,7 +5,8 @@
   },
   "extends": ["airbnb"],
   "rules": {
-    "react/require-default-props": "off",
+    "react/require-default-props": "warn",
+    "react/prop-types": "warn",
     "react/no-array-index-key": "off",
     "react/no-danger": "off",
     "react/no-did-update-set-state": "off",
@@ -20,10 +21,10 @@
     "import/prefer-default-export": "off",
     "no-shadow": "off",
     "quote-props": "off",
-    "react/prop-types": "off",
     "camelcase": "off",
     "class-methods-use-this": "off",
     "no-console": [1, {"allow": ["error"] }],
-    "jsx-a11y/no-autofocus": "off"
+    "jsx-a11y/no-autofocus": "off",
+    "global-require": "off"
   }
 }

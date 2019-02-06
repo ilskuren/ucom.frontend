@@ -1,5 +1,5 @@
-import * as postsUtils from './posts';
 import * as overviewUtils from './overview';
+import { POST_TYPE_MEDIA_ID } from './posts';
 import { getBackendConfig } from './config';
 
 const urls = {
@@ -23,6 +23,10 @@ const urls = {
     return `/user/${userId}`;
   },
 
+  getUserEditProfileUrl() {
+    return '/profile/';
+  },
+
   getGovernanceUrl() {
     return '/governance';
   },
@@ -32,7 +36,7 @@ const urls = {
       return null;
     }
 
-    if (post.postTypeId === postsUtils.POST_TYPE_MEDIA_ID) {
+    if (post.postTypeId === POST_TYPE_MEDIA_ID) {
       return `/posts/${post.id}`;
     }
 
@@ -98,6 +102,10 @@ const urls = {
     }
 
     return `${getBackendConfig().httpEndpoint}/upload/${filename}`;
+  },
+
+  getPagingLink(params) {
+    return `/users?page=${params.page}&sortBy=${params.sortBy}&perPage=${params.perPage}&userName=${params.userName}`;
   },
 };
 

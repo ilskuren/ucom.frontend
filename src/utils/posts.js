@@ -1,3 +1,4 @@
+import { truncate } from 'lodash';
 import urls from './urls';
 
 export const UPVOTE_STATUS = 'upvote';
@@ -13,6 +14,11 @@ export const POSTS_CATREGORIES_HOT_ID = 1;
 export const POSTS_CATREGORIES_TRENDING_ID = 2;
 export const POSTS_CATREGORIES_FRESH_ID = 3;
 export const POSTS_CATREGORIES_TOP_ID = 4;
+
+export const POSTS_TITLE_MAX_LENGTH = 255;
+export const POSTS_LEADING_TEXT_MAX_LENGTH = 255;
+
+export const POSTS_DRAFT_LOCALSTORAGE_KEY = 'post_data_v_1';
 
 export const POSTS_CATREGORIES = [{
   id: POSTS_CATREGORIES_TRENDING_ID,
@@ -68,7 +74,7 @@ export const postIsEditable = (createdAt) => {
 };
 
 export const getPostBody = (post) => {
-  const createdAtTime = (new Date(post.createdAt)).getTime();
+  const createdAtTime = Number.isInteger(+post.createdAt) ? +post.createdAt : new Date(post.createdAt);
   const newPostsTime = 1545226768471;
   const postIsNewEditor = createdAtTime - newPostsTime > 0;
 
@@ -113,7 +119,10 @@ export const parseMediumContent = (html) => {
 
   for (let i = 0; i < childNodes.length; i++) {
     if (childNodes[i].textContent) {
-      title = childNodes[i].textContent;
+      title = truncate(childNodes[i].textContent, {
+        length: POSTS_TITLE_MAX_LENGTH,
+        separator: ' ',
+      });
       childNodes.splice(i, 1);
       break;
     }
@@ -121,7 +130,10 @@ export const parseMediumContent = (html) => {
 
   for (let i = 0; i < childNodes.length; i++) {
     if (childNodes[i].textContent) {
-      leadingText = childNodes[i].textContent;
+      leadingText = truncate(childNodes[i].textContent, {
+        length: POSTS_LEADING_TEXT_MAX_LENGTH,
+        separator: ' ',
+      });
       break;
     }
   }

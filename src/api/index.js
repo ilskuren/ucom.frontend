@@ -76,7 +76,7 @@ class Api {
   }
 
   async getUsers(params) {
-    const response = await this.actions.get(`/api/v1/users?${param(params)}`);
+    const response = await this.actions.get(`/api/v1/users?${param(snakes(params))}&v2=true`);
 
     return humps(response.data);
   }
@@ -179,7 +179,7 @@ class Api {
 
     const response = await this.actions.post(url);
 
-    return response.data;
+    return humps(response.data);
   }
 
   async checkAccountName(accountName) {
@@ -327,14 +327,14 @@ class Api {
   }
 
   async createUserCommentPost({ userId, data }) {
-    const url = `/api/v1/users/${userId}/posts`;
+    const url = `/api/v2/users/${userId}/posts`;
     const response = await this.actions.post(url, snakes(data));
 
     return humps(response.data);
   }
 
   async updateUserCommentPost(userId, postId, data) {
-    const url = `/api/v1/users/${userId}/posts/${postId}`;
+    const url = `/api/v2/users/${userId}/posts/${postId}`;
     const response = await this.actions.patch(url, data);
 
     return humps(response.data);

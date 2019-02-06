@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { WalletCommentIcon } from '../Icons/WalletIcons';
-import Panel from '../Panel';
+import Panel from '../Panel/Panel';
 
 const WalletActivityPopup = (props) => {
   const [active, setActive] = useState(false);

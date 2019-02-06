@@ -4,7 +4,8 @@ import React from 'react';
 import UserFollowButton from '../User/UserFollowButton';
 import UserCard from '../UserCard';
 import { getUserById } from '../../store/users';
-import { getUserUrl, getUserName } from '../../utils/user';
+import { getUserName } from '../../utils/user';
+import urls from '../../utils/urls';
 import { getFileUrl } from '../../utils/upload';
 import { selectUser } from '../../store/selectors/user';
 import { getOrganizationById } from '../../store/organizations';
@@ -48,7 +49,7 @@ const OrganizationHead = (props) => {
             <UserCard
               size="big"
               userName={getUserName(user)}
-              profileLink={getUserUrl(user.id)}
+              profileLink={urls.getUserUrl(user.id)}
               avatarUrl={getFileUrl(user.avatarFilename)}
               rate={Number(user.currentRate)}
             />

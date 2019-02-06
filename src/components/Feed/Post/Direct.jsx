@@ -7,7 +7,8 @@ import { getPostById } from '../../../store/posts';
 import { selectUser } from '../../../store/selectors/user';
 import { createComment } from '../../../actions/comments';
 import { getFileUrl } from '../../../utils/upload';
-import { getUserName, getUserUrl } from '../../../utils/user';
+import { getUserName } from '../../../utils/user';
+import urls from '../../../utils/urls';
 import { getUserById } from '../../../store/users';
 import { escapeQuotes } from '../../../utils/text';
 import PostFeedHeader from './PostFeedHeader';
@@ -34,7 +35,7 @@ class Direct extends PureComponent {
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
-          profileLink={getUserUrl(user.id)}
+          profileLink={urls.getUserUrl(user.id)}
           avatarUrl={getFileUrl(user.avatarFilename)}
         />
 

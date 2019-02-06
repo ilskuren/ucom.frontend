@@ -13,6 +13,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import RegistrationPage from './components/Registration/Registration';
 import GovernancePage from './components/Governance/Governance';
 import Tag from './pages/Tag';
+import Faq from './pages/Faq';
 
 export default [{
   path: '/',
@@ -57,6 +58,9 @@ export default [{
   path: '/about',
   component: AboutPage,
 }, {
+  path: '/about/:page',
+  component: AboutPage,
+}, {
   path: '/communities',
   component: OrganizationsPage,
 }, {
@@ -77,7 +81,12 @@ export default [{
 }, {
   path: '/tags/:title',
   component: Tag,
-}, {
+},
+{
+  path: '/faq',
+  component: Faq,
+},
+{
   path: '*',
   component: NotFoundPage,
 }];

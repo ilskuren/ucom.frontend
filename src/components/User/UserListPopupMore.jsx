@@ -5,7 +5,8 @@ import UserCard from '../UserCard';
 import Rate from '../Rate';
 import UserFollowButton from './UserFollowButton';
 import { selectUser } from '../../store/selectors/user';
-import { getUserName, getUserUrl } from '../../utils/user';
+import { getUserName } from '../../utils/user';
+import urls from '../../utils/urls';
 import { getFileUrl } from '../../utils/upload';
 import api from '../../api';
 import loader from '../../utils/loader';
@@ -62,7 +63,7 @@ const UserListPopupMore = (props) => {
                 userName={getUserName(item)}
                 accountName={item.accountName}
                 avatarUrl={getFileUrl(item.avatarFilename)}
-                profileLink={getUserUrl(item.id)}
+                profileLink={urls.getUserUrl(item.id)}
                 sign={props.noSign ? '' : '@'}
               />
             </div>

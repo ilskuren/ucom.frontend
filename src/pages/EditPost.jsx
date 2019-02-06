@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import LayoutClean from '../components/Layout/LayoutClean';
 import CreateBy from '../components/CreateBy';
 import Button from '../components/Button';
-import Medium from '../components/Medium';
+import Medium from '../components/Medium/index';
 import api from '../api';
 import { selectUser } from '../store/selectors';
 import { postSetSaved, setPostData, validatePost, resetPost, setDataToStoreToLS } from '../actions';
@@ -14,12 +14,17 @@ import { authShowPopup } from '../actions/auth';
 import loader from '../utils/loader';
 import urls from '../utils/urls';
 import Close from '../components/Close';
-import { parseMediumContent } from '../utils/posts';
+import { parseMediumContent, POSTS_DRAFT_LOCALSTORAGE_KEY } from '../utils/posts';
+import Popup from '../components/Popup';
+import ModalContent from '../components/ModalContent';
+import PostSubmitForm from '../components/Post/PostSubmitForm';
+import { addServerErrorNotification } from '../actions/notifications';
 
 const EditPost = (props) => {
   const postId = props.match.params.id;
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [submitPopupVisible, setSubmitPopupVisible] = useState(false);
 
   const getPost = async () => {
     loader.start();
@@ -29,6 +34,7 @@ const EditPost = (props) => {
       const data = await api.getPost(props.match.params.id);
       props.setPostData(data);
     } catch (e) {
+      props.addServerErrorNotification(e);
       console.error(e);
     }
 
@@ -48,7 +54,7 @@ const EditPost = (props) => {
       return;
     }
 
-    const saveFn = postId ? api.updatePost.bind(api) : api.createPost.bind(api);
+    const saveFn = (postId ? api.updatePost : api.createPost).bind(api);
     loader.start();
     setLoading(true);
 
@@ -58,6 +64,7 @@ const EditPost = (props) => {
       props.setPostData({ id: data.id || data.postId });
     } catch (e) {
       console.error(e);
+      props.addServerErrorNotification(e);
       setLoading(false);
     }
 
@@ -66,10 +73,11 @@ const EditPost = (props) => {
 
   useEffect(() => {
     props.resetPost();
+
     if (postId) {
       getPost(postId);
-    } else if (localStorage.post_data) {
-      const value = localStorage.getItem('post_data');
+    } else if (localStorage[POSTS_DRAFT_LOCALSTORAGE_KEY]) {
+      const value = localStorage.getItem(POSTS_DRAFT_LOCALSTORAGE_KEY);
       props.setPostData(JSON.parse(value));
     }
 
@@ -79,12 +87,23 @@ const EditPost = (props) => {
   }, [postId]);
 
   if (props.post.data.id && props.post.saved) {
-    localStorage.removeItem('post_data');
+    localStorage.removeItem(POSTS_DRAFT_LOCALSTORAGE_KEY);
     return <Redirect to={urls.getPostUrl(humps(props.post.data))} />;
   }
 
   return (
     <LayoutClean>
+      {submitPopupVisible &&
+        <Popup onClickClose={() => setSubmitPopupVisible(false)}>
+          <ModalContent
+            mod={['post-submit', 'small-close']}
+            onClickClose={() => setSubmitPopupVisible(false)}
+          >
+            <PostSubmitForm onSubmit={() => savePost()} />
+          </ModalContent>
+        </Popup>
+      }
+
       <div className="edit-post">
         <div className="edit-post__container">
           <div className="edit-post__toolbar">
@@ -96,7 +115,7 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
+                <Button isStretched theme="red" size="small" text="Publish" onClick={() => setSubmitPopupVisible(true)} isDisabled={loading || !props.post.isValid} />
               </div>
               <div className="edit-post-toolbar__close">
                 <Close />
@@ -106,27 +125,34 @@ const EditPost = (props) => {
         </div>
 
         <div className="edit-post__content">
-          <div className="edit-post__container">
-            <div className="edit-post__form">
-              {(!postId || loaded) &&
-                <Medium
-                  value={props.post.data.description}
-                  onChange={(description) => {
-                    props.setDataToStoreToLS(parseMediumContent(description));
-                    props.validatePost();
-                  }}
-                  onUploadStart={() => {
-                    setLoading(true);
-                    loader.start();
-                  }}
-                  onUploadDone={() => {
-                    setLoading(false);
-                    loader.done();
-                  }}
-                />
-              }
-            </div>
-          </div>
+          {(!postId || loaded) &&
+            <Medium
+              value={props.post.data.description}
+              onChange={(content) => {
+                const data = parseMediumContent(content);
+                const dataToSave = {
+                  description: data.description,
+                };
+
+                if (!props.post.data.id) {
+                  dataToSave.title = data.title;
+                  dataToSave.leadingText = data.leadingText;
+                  dataToSave.entityImages = data.entityImages;
+                }
+
+                props.setDataToStoreToLS(dataToSave);
+                props.validatePost();
+              }}
+              onUploadStart={() => {
+                setLoading(true);
+                loader.start();
+              }}
+              onUploadDone={() => {
+                setLoading(false);
+                loader.done();
+              }}
+            />
+          }
         </div>
 
         <div className="edit-post__container">
@@ -136,7 +162,14 @@ const EditPost = (props) => {
                 <CreateBy />
               </div>
               <div className="edit-post-toolbar__action">
-                <Button isStretched theme="red" size="small" text="Publish" onClick={savePost} isDisabled={loading || !props.post.isValid} />
+                <Button
+                  isStretched
+                  theme="red"
+                  size="small"
+                  text="Publish"
+                  onClick={() => setSubmitPopupVisible(true)}
+                  isDisabled={loading || !props.post.isValid}
+                />
               </div>
             </div>
           </div>
@@ -158,5 +191,6 @@ export default connect(
     authShowPopup,
     postSetSaved,
     setDataToStoreToLS,
+    addServerErrorNotification,
   }, dispatch),
 )(EditPost);

@@ -1,0 +1,16 @@
+:local(.showNext) {
+  padding: 20px;
+  font-size: 14px;
+}
+
+:local(.inner) {
+  padding: 10px;
+  border-radius: 4px;
+  background: #F8F8F9;
+  text-align: center;
+}
+
+:local(.inner:hover) {
+  background: #eee;
+  cursor: pointer;
+}

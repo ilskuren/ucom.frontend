@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import React, { useState, Fragment } from 'react';
-import { getFileUrl } from '../../utils/upload';
+import React, { useState } from 'react';
+// import { getFileUrl } from '../../utils/upload';
+// import urls from '../../utils/urls';
 import UserListPopup from './UserListPopup';
 import UserListPopupMore from './UserListPopupMore';
-import urls from '../../utils/urls';
 import { getUsersByIds } from '../../store/users';
-import UserCard from '../UserCard';
-import { UserCardSimpleWrapper } from '../User/UserCardSimple';
+import UserCard from '../UserCard/UserCard';
+// import { UserCardSimpleWrapper } from '../User/UserCardSimple';
 
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
-import { getUserName } from '../../utils/user';
-import Rate from '../Rate';
+// import { getUserName } from '../../utils/user';
+// import Rate from '../Rate';
 
 const UserList = (props) => {
   const [popupVisible, setPopupVisible] = useState(false);
@@ -28,8 +28,8 @@ const UserList = (props) => {
       <div className="organization-list__list">
         {visibleUsers.map(item => (
           <div className="organization-list__item" key={item.id}>
-            {props.isNew ?
-              <UserCardSimpleWrapper userId={item.id} /> :
+            {/* {props.isNew ?
+              <UserCard userId={item.id} /> :
               <Fragment>
                 <UserCard
                   userName={getUserName(item)}
@@ -42,8 +42,8 @@ const UserList = (props) => {
                   <Rate value={item.currentRate} />
                 </div>
               </Fragment>
-            }
-
+            } */}
+            <UserCard userId={item.id} />
           </div>
         ))}
       </div>

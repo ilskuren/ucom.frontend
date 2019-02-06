@@ -9,7 +9,6 @@ const UserOption = ({
   const linkClass = classNames('user-option__link', {
     [`user-option__link_color_${linkColor}`]: Boolean(linkColor),
   });
-
   return (
     <div className="user-option">
       <div className="toolbar toolbar_responsive">

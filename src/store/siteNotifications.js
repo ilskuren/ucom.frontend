@@ -19,6 +19,8 @@ export const USER_COMMENTS_ORG_POST = 91;
 export const USER_LEAVES_COMMENT_ON_ORG_COMMENT = 92;
 export const USER_SHARE_YOUR_POST = 73;
 export const USER_SHARE_YOUR_MEDIA_POST = 93;
+export const USER_HAS_MENTIONED_YOU_IN_POST = 120;
+export const USER_HAS_MENTIONED_YOU_IN_COMMENT = 121;
 
 const getInitialState = () => ({
   list: {},

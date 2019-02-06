@@ -1,4 +1,4 @@
-import { getUserUrl } from './user';
+import urls from './urls';
 import { getOrganizationUrl } from './organization';
 
 export const getSourceUrl = (source) => {
@@ -11,7 +11,7 @@ export const getSourceUrl = (source) => {
   }
 
   if (source.entityName.trim() === 'users') {
-    return getUserUrl(source.entityId);
+    return urls.getUserUrl(source.entityId);
   }
 
   return getOrganizationUrl(source.entityId);

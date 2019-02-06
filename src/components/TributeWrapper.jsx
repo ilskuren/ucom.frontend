@@ -1,3 +1,5 @@
+import { isObject } from 'lodash';
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { defaultTributeConfig } from '../utils/tribute';
 
@@ -34,8 +36,11 @@ class TributeWrapper extends PureComponent {
       React.cloneElement(this.props.children, {
         ref: (element) => {
           this.element = element;
+
           if (typeof this.props.children.ref === 'function') {
             this.props.children.ref(element);
+          } else if (isObject(this.props.children.ref)) {
+            this.props.children.ref.current = element;
           }
         },
       })
@@ -43,8 +48,17 @@ class TributeWrapper extends PureComponent {
   }
 }
 
+TributeWrapper.propTypes = {
+  children: PropTypes.shape({
+    ref: PropTypes.any,
+  }).isRequired,
+  config: PropTypes.objectOf(PropTypes.any),
+  onChange: PropTypes.func,
+};
+
 TributeWrapper.defaultProps = {
   config: {},
+  onChange: null,
 };
 
 export default TributeWrapper;

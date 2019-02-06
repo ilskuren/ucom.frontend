@@ -5,7 +5,8 @@ import React from 'react';
 import UserSearchInput from './UserSearchInput';
 import UserCard from './UserCard';
 import IconRemove from './Icons/Remove';
-import { getUserName, getUserUrl } from '../utils/user';
+import { getUserName } from '../utils/user';
+import urls from '../utils/urls';
 import { getFileUrl } from '../utils/upload';
 import { getUsersTeamStatusById } from '../utils/organization';
 import {
@@ -37,7 +38,7 @@ const UsersTeamForm = props => (
                   userName={getUserName(item)}
                   accountName={item.accountName}
                   avatarUrl={getFileUrl(item.avatarFilename)}
-                  profileLink={getUserUrl(item.id)}
+                  profileLink={urls.getUserUrl(item.id)}
                 />
               </div>
               <div className="toolbar__side">

@@ -1,4 +1,4 @@
-import * as postsUtils from './posts';
+import { POST_TYPE_MEDIA_ID, POSTS_CATREGORIES } from './posts';
 import { getBackendConfig } from './config';
 
 const urls = {
@@ -18,6 +18,10 @@ const urls = {
     return `/user/${userId}`;
   },
 
+  getUserEditProfileUrl() {
+    return '/profile/';
+  },
+
   getGovernanceUrl() {
     return '/governance';
   },
@@ -27,7 +31,7 @@ const urls = {
       return null;
     }
 
-    if (post.postTypeId === postsUtils.POST_TYPE_MEDIA_ID) {
+    if (post.postTypeId === POST_TYPE_MEDIA_ID) {
       return `/posts/${post.id}`;
     }
 
@@ -71,7 +75,7 @@ const urls = {
   },
 
   getPublicationsCategoryUrl(
-    name = postsUtils.POSTS_CATREGORIES[0].name,
+    name = POSTS_CATREGORIES[0].name,
     page,
   ) {
     let url = `/publications/${name}`;

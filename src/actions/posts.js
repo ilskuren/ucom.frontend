@@ -1,24 +1,24 @@
 import humps from 'lodash-humps';
 import api from '../api';
+import graphql from '../api/graphql';
 import { addUsers } from './users';
 import { addOrganizations } from './organizations';
 import { UPVOTE_STATUS, DOWNVOTE_STATUS } from '../utils/posts';
 import { addServerErrorNotification } from './notifications';
-import { addComments } from './comments';
+import { addComments, commentsAddContainerData } from './comments';
+import { COMMENTS_CONTAINER_ID_POST } from '../utils/comments';
 import snakes from '../utils/snakes';
 import loader from '../utils/loader';
 
 export const setPostVote = payload => ({ type: 'SET_POST_VOTE', payload });
 export const setPostCommentCount = payload => ({ type: 'SET_POST_COMMENT_COUNT', payload });
 
-export const addPosts = (data = []) => (dispatch) => {
+export const addPosts = (postsData = []) => (dispatch) => {
   const posts = [];
   const users = [];
   const organizations = [];
 
   const parsePost = (post) => {
-    posts.push(post);
-
     if (post.user) {
       users.push(post.user);
     }
@@ -30,9 +30,11 @@ export const addPosts = (data = []) => (dispatch) => {
     if (post.post) {
       parsePost(post.post);
     }
+
+    posts.push(post);
   };
 
-  data.forEach(parsePost);
+  postsData.forEach(parsePost);
   dispatch(addUsers(users));
   dispatch(addOrganizations(organizations));
   dispatch({ type: 'ADD_POSTS', payload: posts });
@@ -46,6 +48,29 @@ export const fetchPost = postId => dispatch =>
 
       return data;
     });
+
+export const postsFetch = ({
+  postId,
+}) => async (dispatch) => {
+  try {
+    const data = await graphql.getOnePost({
+      postId,
+    });
+    dispatch(commentsAddContainerData({
+      containerId: COMMENTS_CONTAINER_ID_POST,
+      entryId: postId,
+      parentId: 0,
+      comments: data.comments.data,
+      metadata: data.comments.metadata,
+    }));
+    delete data.comments;
+    dispatch(addPosts([data]));
+    return data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
 
 export const updatePost = payload => (dispatch) => {
   loader.start();

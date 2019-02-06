@@ -1,20 +1,24 @@
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import LayoutBase from '../components/Layout/LayoutBase';
-import { fetchPost } from '../actions/posts';
+import { postsFetch } from '../actions/posts';
 import { getPostById } from '../store/posts';
 import { getUserById } from '../store/users';
-import { UserCardSimpleWrapper } from '../components/User/UserCardSimple';
+import UserCard from '../components/UserCard/UserCard';
 import UserFollowButton from '../components/User/UserFollowButton';
 import urls from '../utils/urls';
 import ButtonEdit from '../components/ButtonEdit';
 import { sanitizePostText, checkHashTag, checkMentionTag } from '../utils/text';
 import PostRating from '../components/Rating/PostRating';
 import Rate from '../components/Rate';
-import Comments from '../components/Comments/Comments';
-import * as postsUtils from '../utils/posts';
+import Comments from '../components/Comments/wrapper';
+import { getPostBody, getContentMetaTags } from '../utils/posts';
 import loader from '../utils/loader';
+import { COMMENTS_CONTAINER_ID_POST } from '../utils/comments';
+import { commentsResetContainerDataByEntryId } from '../actions/comments';
 import ShareButton from '../components/ShareButton';
 import ShareBlock from '../components/Feed/Post/ShareBlock';
 
@@ -28,24 +32,17 @@ const PostPage = (props) => {
 
   useEffect(() => {
     loader.start();
-    props.dispatch(fetchPost(postId))
+    props.commentsResetContainerDataByEntryId({
+      entryId: postId,
+      containerId: COMMENTS_CONTAINER_ID_POST,
+    });
+    props.postsFetch({ postId })
       .then(loader.done);
   }, [postId]);
 
-  const post = getPostById(props.posts, postId);
-
-  if (!post || !post.user || !post.user.id) {
+  if (!props.post || !props.postAuthor) {
     return null;
   }
-
-  const user = getUserById(props.users, post.user.id);
-
-  if (!user) {
-    return null;
-  }
-
-  post.description = checkHashTag(post.description);
-  post.description = checkMentionTag(post.description);
 
   return (
     <LayoutBase>
@@ -53,10 +50,10 @@ const PostPage = (props) => {
         <div className="post-head">
           <div className="post-head__inner">
             <div className="post-head__user">
-              <UserCardSimpleWrapper userId={user.id} />
+              <UserCard userId={props.postAuthor.id} />
             </div>
             <div className="post-head__follow">
-              <UserFollowButton userId={user.id} />
+              <UserFollowButton userId={props.postAuthor.id} />
             </div>
           </div>
         </div>
@@ -64,27 +61,32 @@ const PostPage = (props) => {
         <div className="post-body">
           <div className="post-body__inner">
             <div className="post-body__aside">
-              {props.user.id === post.userId &&
-                <ButtonEdit url={urls.getPostEditUrl(post.id)} />
+              {props.user.id === props.post.userId &&
+                <ButtonEdit url={urls.getPostEditUrl(props.post.id)} />
               }
             </div>
 
             <div className="post-body__main">
               <div className="post-body__content">
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: sanitizePostText(postsUtils.getPostBody(post)) }} />
+                <div
+                  className="post-content"
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizePostText(checkMentionTag(checkHashTag(getPostBody(props.post)))),
+                  }}
+                />
               </div>
 
               <div className="post-body__comments">
-                <Comments postId={post.id} />
+                <Comments postId={props.post.id} containerId={COMMENTS_CONTAINER_ID_POST} />
               </div>
             </div>
 
             <div className="post-body__bside">
               <div className="post-body__rate">
-                <Rate className="rate_medium" value={post.currentRate} />
+                <Rate className="rate_medium" value={props.post.currentRate} />
               </div>
               <div className="post-body__rating">
-                <PostRating postId={post.id} />
+                <PostRating postId={props.post.id} />
               </div>
               <div className="post-body__share">
                 <ShareButton
@@ -93,10 +95,10 @@ const PostPage = (props) => {
                 {sharePopup ? (
                   <div className="post-body__share-popup">
                     <ShareBlock
-                      link={urls.getPostUrl(post)}
-                      postId={post.id}
+                      link={urls.getPostUrl(props.post)}
+                      postId={props.post.id}
                       onClickClose={toggleShare}
-                      repostAvailable={post.myselfData.repostAvailable}
+                      repostAvailable={props.post.myselfData.repostAvailable}
                     />
                   </div>
                 ) : null }
@@ -111,14 +113,51 @@ const PostPage = (props) => {
   );
 };
 
-export const getPostPageData = (store, { postId }) =>
-  store.dispatch(fetchPost(postId))
-    .then(data => ({
-      contentMetaTags: postsUtils.getContentMetaTags(data),
-    }));
+PostPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postId: PropTypes.string,
+    }),
+  }).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+  }),
+  post: PropTypes.objectOf(PropTypes.any),
+  postAuthor: PropTypes.objectOf(PropTypes.any),
+  postsFetch: PropTypes.func.isRequired,
+  commentsResetContainerDataByEntryId: PropTypes.func.isRequired,
+};
 
-export default connect(state => ({
-  user: state.user.data,
-  posts: state.posts,
-  users: state.users,
-}))(PostPage);
+PostPage.defaultProps = {
+  user: {},
+  post: null,
+  postAuthor: null,
+};
+
+export default connect(
+  (state, props) => {
+    const post = getPostById(state.posts, props.match.params.postId);
+    const postAuthor = post ? getUserById(state.users, post.user.id) : null;
+
+    return ({
+      user: state.user.data,
+      post,
+      postAuthor,
+    });
+  },
+  dispatch => bindActionCreators({
+    postsFetch,
+    commentsResetContainerDataByEntryId,
+  }, dispatch),
+)(PostPage);
+
+export const getPostPageData = async (store, { postId }) => {
+  try {
+    const data = await store.dispatch(postsFetch({ postId }));
+    return ({
+      contentMetaTags: getContentMetaTags(data),
+    });
+  } catch (e) {
+    throw e;
+  }
+};

@@ -91,3 +91,7 @@
   height: 100%;
   border: 0;
 }
+
+:global([data-survey]) {
+  margin: 0 0 16px;
+}

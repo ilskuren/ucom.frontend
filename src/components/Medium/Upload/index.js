@@ -6,7 +6,7 @@ import config from '../../../../package.json';
 import './styles.css';
 
 class UploadButtons {
-  constructor({ onImageSelect, onVideoEmbedSelect }) {
+  constructor({ onImageSelect, onVideoEmbedSelect, onSurveyEmbedSelect }) {
     this.currentEl = null;
     this.el = document.createElement('div');
     this.el.className = 'medium-upload';
@@ -26,6 +26,11 @@ class UploadButtons {
     this.el.querySelector('.js-video-embed').addEventListener('click', () => {
       const url = prompt('Paste a link and press Enter'); // eslint-disable-line
       onVideoEmbedSelect(url);
+      this.hide();
+    });
+
+    this.el.querySelector('.js-survey-embed').addEventListener('click', () => {
+      onSurveyEmbedSelect();
       this.hide();
     });
 
@@ -117,7 +122,7 @@ class UploadButtons {
   }
 }
 
-class MediumUpload extends MediumEditor.Extension {
+export default class MediumUpload extends MediumEditor.Extension {
   name = 'MediumUpload';
   currentEl = null;
 
@@ -130,6 +135,7 @@ class MediumUpload extends MediumEditor.Extension {
     this.uploadButtons = new UploadButtons({
       onImageSelect: this.uplaodImage,
       onVideoEmbedSelect: this.appendVideoEmbed,
+      onSurveyEmbedSelect: this.appendSurveyEmbed,
     });
   }
 
@@ -256,6 +262,16 @@ class MediumUpload extends MediumEditor.Extension {
       console.error(e);
     }
   }
-}
 
-export default MediumUpload;
+  appendSurveyEmbed = () => {
+    const surveyEl = document.createElement('div');
+    surveyEl.setAttribute('data-survey', '');
+    surveyEl.contentEditable = false;
+
+    surveyEl.innerHTML = `
+      <div contenteditable="false" data-survey></div>
+    `;
+
+    this.insertEl(surveyEl);
+  }
+}

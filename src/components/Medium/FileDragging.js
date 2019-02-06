@@ -46,3 +46,4 @@ export default MediumEditor.extensions.fileDragging.extend({
     loader.done();
   },
 });
+

@@ -5,12 +5,12 @@ import Pagination from 'rc-pagination';
 import UserCard from '../components/UserCard';
 import LayoutBase from '../components/Layout/LayoutBase';
 import api from '../api';
-import { getUserUrl, getUserName } from '../utils/user';
+import { getUserName } from '../utils/user';
+import urls from '../utils/urls';
 import IconTableTriangle from '../components/Icons/TableTriangle';
 import SearchInput from '../components/SearchInput';
 import { getFileUrl } from '../utils/upload';
 import loader from '../utils/loader';
-import urls from '../utils/urls';
 
 const { getPagingLink } = urls;
 
@@ -117,6 +117,7 @@ const UsersPage = (props) => {
                                 </div>
                               )}
                             </div>
+
                           </Link>
                         </td>
                       ))}
@@ -128,7 +129,7 @@ const UsersPage = (props) => {
                         <td className="list-table__cell list-table__cell_index">{index + 1}</td>
                         <td className="list-table__cell list-table__cell_name" data-title="Name">
                           <UserCard
-                            profileLink={getUserUrl(item.id)}
+                            profileLink={urls.getUserUrl(item.id)}
                             avatarUrl={getFileUrl(item.avatarFilename)}
                             userName={getUserName(item)}
                             accountName={item.accountName}

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
@@ -19,7 +20,7 @@ import ModalContent from '../components/ModalContent';
 import Post from '../components/Feed/Post/Post';
 import urls from '../utils/urls';
 import { fetchPost } from '../actions/posts';
-import Feed from '../components/Feed/Feed';
+import Feed from '../components/Feed/FeedUser';
 import { ORGANIZATION_FEED_ID } from '../utils/feed';
 
 const OrganizationPage = (props) => {
@@ -173,6 +174,22 @@ const OrganizationPage = (props) => {
       </div>
     </LayoutBase>
   );
+};
+
+OrganizationPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number,
+      postId: PropTypes.number,
+    }).isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  organizations: PropTypes.arrayOf(PropTypes.any).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
+  getOrganization: PropTypes.func.isRequired,
+  fetchPost: PropTypes.func.isRequired,
 };
 
 export default connect(

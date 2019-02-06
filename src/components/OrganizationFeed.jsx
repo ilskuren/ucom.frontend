@@ -3,7 +3,8 @@ import Post from './Post';
 import api from '../api';
 import { getFileUrl } from '../utils/upload';
 import { getPostUrl, getPostTypeById } from '../utils/posts';
-import { getUserName, getUserUrl } from '../utils/user';
+import { getUserName } from '../utils/user';
+import urls from '../utils/urls';
 
 class OrganizationFeed extends PureComponent {
   constructor(props) {
@@ -50,7 +51,7 @@ class OrganizationFeed extends PureComponent {
                 coverUrl={getFileUrl(item.mainImageFilename)}
                 userName={getUserName(item.user)}
                 accountName={item.user.accountName}
-                profileLink={getUserUrl(item.user.id)}
+                profileLink={urls.getUserUrl(item.user.id)}
                 avatarUrl={getFileUrl(item.user.avatarFilename)}
               />
             </div>

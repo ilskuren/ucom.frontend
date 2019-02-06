@@ -12,7 +12,6 @@ import UserCard from './UserCard';
 import Header from './Header/Header';
 import LogoutIcon from './Icons/Logout';
 import { getFileUrl } from '../utils/upload';
-// import { getUserUrl } from '../utils/user';
 import { selectUser } from '../store/selectors';
 import { getOrganizationUrl } from '../utils/organization';
 import { showMenuPopup, hideMenuPopup } from '../actions/menuPopup';

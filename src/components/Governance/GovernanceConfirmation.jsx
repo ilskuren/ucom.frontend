@@ -4,7 +4,7 @@ import Button from '../Button';
 import Avatar from '../Avatar';
 import { IconOK, IconNo } from '../Icons/GovernanceIcons';
 import { getFileUrl } from '../../utils/upload';
-import Panel from '../Panel';
+import Panel from '../Panel/Panel';
 
 const GovernanceConfirmation = (props) => {
   const [idList, setListId] = useState([]);

@@ -1,9 +1,10 @@
 import React from 'react';
-import IconPlus from './Icons/Plus';
-import IconMinus from './Icons/Minus';
+import IconPlus from '../Icons/Plus';
+import IconMinus from '../Icons/Minus';
 
 const Panel = props => (
-  <div className="panel">
+  <div className="panel" >
+    <div className="anchor" id={props.id} />
     <div
       role="presentation"
       className="panel__header"

@@ -15,7 +15,8 @@ import PostFeedHeader from './PostFeedHeader';
 import PostFeedContent from './PostFeedContent';
 import PostFeedFooter from './PostFeedFooter';
 import PostCard from '../../PostMedia/PostCard';
-import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID } from '../../../utils/posts';
+import { getPostUrl, getPostTypeById, POST_TYPE_MEDIA_ID, getPostCover } from '../../../utils/posts';
+import styles from './Post.css';
 
 class Repost extends PureComponent {
   render() {
@@ -32,19 +33,21 @@ class Repost extends PureComponent {
     }
 
     return (
-      <div className="post post_repost">
+      <div className={styles.post}>
         <PostFeedHeader
+          userId={user.id}
           postTypeId={post.postTypeId}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
           userName={getUserName(user)}
           accountName={user.accountName}
           profileLink={urls.getUserUrl(user.id)}
-          avatarUrl={getFileUrl(user.avatarFilename)}
         />
 
-        <div className="post post_grey" id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
+        <div className={styles.repost} id={`post-${post.post.id}`} ref={(el) => { this.el = el; }}>
           <PostFeedHeader
+            repost
+            userId={post.post.user.id}
             postTypeId={post.post.postTypeId}
             createdAt={moment(post.post.createdAt).fromNow()}
             postId={post.post.id}
@@ -57,8 +60,9 @@ class Repost extends PureComponent {
           {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
             <PostCard
               onFeed
-              coverUrl={getFileUrl(post.post.mainImageFilename)}
-              rate={post.currentRate}
+              repost
+              coverUrl={getPostCover(post.post)}
+              rate={post.post.currentRate}
               title={post.post.title || post.post.leadingText}
               url={getPostUrl(post.post.id)}
               userUrl={urls.getUserUrl(post.post.user && post.post.user.id)}
@@ -86,7 +90,6 @@ class Repost extends PureComponent {
           toggleComments={this.props.toggleComments}
           sharePopup={this.props.sharePopup}
           toggleShare={this.props.toggleShare}
-          timestamp={this.props.timestamp}
         />
       </div>
     );
@@ -96,6 +99,10 @@ class Repost extends PureComponent {
 Repost.propTypes = {
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
+  commentsIsVisible: PropTypes.bool.isRequired,
+  toggleComments: PropTypes.func.isRequired,
+  sharePopup: PropTypes.bool.isRequired,
+  toggleShare: PropTypes.func.isRequired,
 };
 
 export default connect(

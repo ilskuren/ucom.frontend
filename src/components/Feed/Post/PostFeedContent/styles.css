@@ -1,0 +1,33 @@
+.form {
+  margin: 0 -20px;
+  border: 1px solid #e1e1e1;
+  border-width: 1px 0;
+}
+
+.cover {
+  margin-bottom: 20px;
+}
+
+.cover img {
+  display: block;
+  max-width: 100%;
+}
+
+.content {
+  flex: 1 1 auto;
+  font-size: 16px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+
+.showMore {
+  color: #D8352F;
+}
+
+.showMore:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

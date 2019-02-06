@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Button from '../components/Button';
-import UserCard from '../components/UserCard';
+import UserCard from './UserCard';
 import Pagination from './Pagination';
 
 const renderProfilesTableRow = ({

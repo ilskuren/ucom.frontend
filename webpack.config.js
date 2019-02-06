@@ -30,7 +30,7 @@ module.exports = {
           loader: 'css-loader',
           options: {
             modules: true,
-            localIdentName: '[hash:8]',
+            localIdentName: '[local]--[hash:base64:5]',
           },
         }, {
           loader: 'postcss-loader',

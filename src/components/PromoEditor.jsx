@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { setPostData } from '../actions';
-import Medium from './Medium';
+import Medium from './Medium/index';
 
 const TABS = [{
   id: 1,

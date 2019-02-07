@@ -86,7 +86,7 @@ const Faq = () => {
 
                     <div className="content__section content__section_small" id="question-1">
                       <PanelWrapper
-                        title="What is U°community?"
+                        title="What is U°Community?"
                       >
                         <div className="text_faq">
                           <p>U°Community is a dapp on the U°OS blockchain. U°Community allows you to create content, interact with people, use dapps, run your business, govern Decentralized Autonomous Organizations (DAO) and Decentralized Autonomous Communities (DAC) and many other things.

@@ -4,13 +4,13 @@ import LayoutBase from '../components/Layout/LayoutBase';
 import Footer from '../components/Footer';
 import urls from '../utils/urls';
 import * as overviewUtils from '../utils/overview';
-import Publications from '../components/Overview/Publications';
-import Communities from '../components/Overview/Communities';
+import Publications from '../components/Overview/PublicationsTab';
+import Communities from '../components/Overview/CommunitiesTab';
 import Tags from '../components/Overview/TagsTab';
-import Posts from '../components/Overview/PostsTab';
 import NotFoundPage from './NotFoundPage';
 import * as feedActions from '../actions/feed';
 import { FEED_PER_PAGE } from '../utils/feed';
+import { POST_TYPE_DIRECT_ID, POST_TYPE_MEDIA_ID } from '../utils/posts';
 
 
 const Overview = (props) => {
@@ -23,8 +23,8 @@ const Overview = (props) => {
   }
 
   const overviewComponents = {
-    publications: Publications,
-    posts: Posts,
+    publications: props => <Publications {...props} postTypeId={POST_TYPE_MEDIA_ID} />,
+    posts: props => <Publications {...props} postTypeId={POST_TYPE_DIRECT_ID} />,
     communities: Communities,
     tags: Tags,
   };
@@ -100,7 +100,7 @@ const Overview = (props) => {
 export const getPageData = (store, { name, page = 1 }) => {
   const overviewCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
 
-  return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE }));
+  return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE, POST_TYPE_MEDIA_ID }));
 };
 
 export default Overview;

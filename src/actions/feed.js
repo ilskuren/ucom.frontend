@@ -1,4 +1,3 @@
-import { POST_TYPE_MEDIA_ID } from '../utils/posts';
 import {
   USER_NEWS_FEED_ID,
   USER_WALL_FEED_ID,
@@ -108,6 +107,7 @@ export const feedGetPosts = (
   {
     page,
     perPage,
+    postTypeId,
   },
 ) => async (dispatch) => {
   const postFilteringForCategories = {
@@ -125,7 +125,7 @@ export const feedGetPosts = (
 
   const params = {
     postFiltering: {
-      postTypeId: POST_TYPE_MEDIA_ID,
+      postTypeId,
       ...postFilteringForCategories[postsCategoryId],
     },
     postOrdering: postOrderingForCategories[postsCategoryId],

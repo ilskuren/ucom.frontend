@@ -4,11 +4,11 @@ import CommunityCard from './CommunityCard';
 
 const CommunitiesList = props => (
   <div className="feed">
-    {props.organizationsIds.length > 0 &&
+    {props.communityIds.length > 0 &&
       <div className="feed__list">
-        {props.organizationsIds.map((id, i) => (
+        {props.communityIds.map((community, i) => (
           <div className="feed__item" key={i}>
-            <CommunityCard id={id} />
+            <CommunityCard community={community} />
           </div>
         ))}
       </div>

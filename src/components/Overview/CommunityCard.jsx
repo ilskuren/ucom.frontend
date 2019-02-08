@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar';
 import AvatarFromFile from '../AvatarFromFile';
 import CommunityIcon from '../Icons/Community';
-import { getOrganizationById } from '../../store/organizations';
 import { getFileUrl } from '../../utils/upload';
 import { getOrganizationUrl } from '../../utils/organization';
 import { getOrganization } from '../../actions/organizations';
 
 
 const CommunityCard = (props) => {
-  useEffect(() => {
-    props.getOrganization(props.id);
-  }, [props.id]);
+  const organization = props.community;
 
-  const organization = getOrganizationById(props.organizations, props.id);
-  if (!organization) {
-    return null;
-  }
   const profileLink = getOrganizationUrl(organization.id);
   const avatarUrl = getFileUrl(organization.avatarFilename);
 
@@ -51,7 +44,7 @@ const CommunityCard = (props) => {
         </div>
       </div>
 
-      <div className="community-item__footer">
+      {/* <div className="community-item__footer">
         {organization.followedBy &&
         <div className="community-item__folowers">
           {organization.followedBy.length ?
@@ -75,7 +68,7 @@ const CommunityCard = (props) => {
             Posts
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

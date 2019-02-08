@@ -208,4 +208,43 @@ export default {
       throw e;
     }
   },
+
+  async getCommunities({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    ordering,
+  }) {
+    const query = await GraphQLSchema.getOrganizationsQuery(
+      ordering,
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.organizations;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getTags({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+    ordering,
+  }) {
+    const query = await GraphQLSchema.getManyTagsQuery(
+      ordering,
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.manyTags;
+    } catch (e) {
+      throw e;
+    }
+  },
 };
+

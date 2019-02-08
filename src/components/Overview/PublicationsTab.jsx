@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router';
 import urls from '../../utils/urls';
-import Feed from './../Feed/FeedView';
-import UserList from './../User/UserList';
-import OrganizationList from './../Organization/OrganizationList';
+import { POST_TYPE_MEDIA_ID } from '../../utils/posts';
+import Feed from '../Feed/FeedView';
+import UserList from '../User/UserList';
+import OrganizationList from '../Organization/OrganizationList';
 // import TagList from './../Tag/TagList';
 import * as overviewUtils from '../../utils/overview';
 import { getPostById } from '../../store/posts';
@@ -23,12 +24,15 @@ const Publications = (props) => {
   const posts = props.feed.postIds.map(id => getPostById(props.posts, id));
   const usersIds = compact(uniq(posts.map(i => i.userId)));
   const orgsIds = compact(uniq(posts.map(i => i.organizationId)));
+  const { postTypeId } = props;
+  const isMediaPost = postTypeId === POST_TYPE_MEDIA_ID;
 
   const onClickLoadMore = () => {
     loader.start();
     props.dispatch(feedActions.feedGetPosts(overviewCategory.id, {
       page: +props.feed.metadata.page + 1,
       perPage: FEED_PER_PAGE,
+      postTypeId,
     }))
       .then(loader.done());
   };
@@ -39,6 +43,7 @@ const Publications = (props) => {
     props.dispatch(feedActions.feedGetPosts(overviewCategory.id, {
       page,
       perPage: FEED_PER_PAGE,
+      postTypeId,
     }))
       .then(loader.done);
   }, [overviewCategoryName]);
@@ -58,7 +63,7 @@ const Publications = (props) => {
       <div className="grid__item grid__item_side">
         <div className="feed_side">
           <div className="sidebar">
-            {!!usersIds.length &&
+            {!!usersIds.length && isMediaPost &&
               <div className="user-section">
                 <div className="user-section__title">
                   <h2 className="title title_xxsmall title_medium">
@@ -77,7 +82,7 @@ const Publications = (props) => {
               <TagList />
             </div> */}
 
-            {!!orgsIds.length &&
+            {!!orgsIds.length && isMediaPost &&
               <div className="user-section">
                 <div className="user-section__title">
                   <h2 className="title title_xxsmall title_medium">

@@ -94,4 +94,10 @@
 
 :global([data-survey]) {
   margin: 0 0 16px;
+  user-select: none;
+}
+
+:global([data-embed].selected) {
+  border-radius: 2px;
+  border: 2px solid #d8352f;
 }

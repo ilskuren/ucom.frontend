@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles.css';
 import TextareaAutosize from '../../TextareaAutosize';
 import IconClose from '../../Icons/Close';
+import Checkbox from '../../Checkbox';
 
 const Survey = () => (
   <div className={styles.survey}>
@@ -15,12 +16,31 @@ const Survey = () => (
       rows={1}
     />
 
-    <div className={styles.list}>
-      <div className={styles.item}>
-        <TextareaAutosize className={styles.question} />
+    <ul className={styles.list}>
+      <li className={styles.item}>
+        <TextareaAutosize
+          placeholder="Poll option"
+          className={styles.question}
+          rows={1}
+        />
+      </li>
+      <li className={styles.item}>
+        <TextareaAutosize
+          placeholder="Poll option"
+          className={styles.question}
+          rows={1}
+        />
+      </li>
+    </ul>
+
+    <button className={styles.action}>Add another poll option</button>
+
+    <div className={styles.options}>
+      <div className={styles.option}>
+        <Checkbox /> Multiple choices
       </div>
-      <div className={styles.item}>
-        <TextareaAutosize className={styles.question} />
+      <div className={styles.option}>
+        <Checkbox /> Time-limited poll
       </div>
     </div>
   </div>

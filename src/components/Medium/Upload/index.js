@@ -156,6 +156,10 @@ export default class MediumUpload extends MediumEditor.Extension {
   }
 
   onEdit = () => {
+    if (!window.getSelection().anchorNode) {
+      return;
+    }
+
     this.currentEl = this.base.getSelectedParentElement();
 
     if (this.hasShowUploadButtons()) {
@@ -266,11 +270,8 @@ export default class MediumUpload extends MediumEditor.Extension {
   appendSurveyEmbed = () => {
     const surveyEl = document.createElement('div');
     surveyEl.setAttribute('data-survey', '');
+    surveyEl.setAttribute('data-embed', '');
     surveyEl.contentEditable = false;
-
-    surveyEl.innerHTML = `
-      <div contenteditable="false" data-survey></div>
-    `;
 
     this.insertEl(surveyEl);
   }

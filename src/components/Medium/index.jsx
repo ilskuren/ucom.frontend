@@ -12,6 +12,7 @@ class Medium extends PureComponent {
     const MediumUpload = require('./Upload/index'); // eslint-disable-line
     const MediumPost = require('./Post/index'); // eslint-disable-line
     const MediumSurvey = require('./Survey/index'); // eslint-disable-line
+    const MediumEmbed = require('./Embed/index'); // eslint-disable-line
 
     this.mediumEditor = new MediumEditor(this.el, {
       toolbar: {
@@ -20,6 +21,7 @@ class Medium extends PureComponent {
       placeholder: false,
       imageDragging: false,
       extensions: {
+        mediumEmbed: new MediumEmbed.default(), // eslint-disable-line
         mediumSurvey: new MediumSurvey.default(), // eslint-disable-line
         mediumPost: new MediumPost.default(), // eslint-disable-line
         mediumUpload: new MediumUpload.default({ // eslint-disable-line

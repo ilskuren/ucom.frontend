@@ -1,5 +1,6 @@
 import { KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_LEFT, KEY_BACK_SPACE, KEY_DELETE } from 'keycode-js';
 import MediumEditor from 'medium-editor';
+import './styles.css';
 
 export default class MediumEmbed extends MediumEditor.Extension {
   name = 'MediumEmbed';
@@ -7,8 +8,16 @@ export default class MediumEmbed extends MediumEditor.Extension {
   init() {
     let state = {};
 
-    this.base.subscribe('editableClick', () => {
-      state = { ...state, ...this.getState() };
+    this.base.subscribe('editableClick', (e) => {
+      const selectedBlock = this.getBlockFromElement(e.target);
+      this.removeActiveFromAllEmbeds();
+
+      if (this.blockIsEmbed(selectedBlock)) {
+        this.setActiveEmbed(selectedBlock);
+        window.getSelection().empty();
+      }
+
+      state = this.getState();
     });
 
     this.base.subscribe('editableKeyup', () => {
@@ -16,30 +25,178 @@ export default class MediumEmbed extends MediumEditor.Extension {
     });
 
     this.base.subscribe('editableKeydown', (e) => {
-      if (e.which === KEY_DOWN && state.cursonInLastLine && state.nextElementIsEmbed) {
-        console.log('bingo down');
-      }
+      const selection = window.getSelection();
 
-      if (e.which === KEY_UP && state.cursonInFirstLine && state.prevElementIsEmbed) {
-        console.log('bingo up');
-      }
+      switch (e.which) {
+        case KEY_DOWN: {
+          if (!state.nextBlock) {
+            return;
+          }
 
-      if ((e.which === KEY_RIGHT || e.which === KEY_DELETE) && state.cursonInLastLine && state.cursonInLastCharacter && state.nextElementIsEmbed) {
-        console.log('bingo right');
-        e.preventDefault();
-      }
+          if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
+            e.preventDefault();
+            this.setActiveEmbed(state.nextBlock);
+            return;
+          }
 
-      if ((e.which === KEY_LEFT || e.which === KEY_BACK_SPACE) && state.cursonInFirstLine && state.cursonInFirstCharacter && state.prevElementIsEmbed) {
-        console.log('bingo left');
-        e.preventDefault();
+          if (state.selectedBlockIsEmbed) {
+            e.preventDefault();
+            this.removeActiveFromAllEmbeds();
+            this.setCursorBeforeStartOfBlock(state.nextBlock);
+            return;
+          }
+
+          if (state.cursonInLastLine && state.nextBlockIsEmbed) {
+            e.preventDefault();
+            selection.empty();
+            this.setActiveEmbed(state.nextBlock);
+          }
+
+          break;
+        }
+
+        case KEY_UP: {
+          if (!state.prevBlock) {
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
+            e.preventDefault();
+            this.setActiveEmbed(state.prevBlock);
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed) {
+            e.preventDefault();
+            this.removeActiveFromAllEmbeds();
+            this.setCursorBeforeEndBlock(state.prevBlock);
+            return;
+          }
+
+          if (state.cursonInFirstLine && state.prevBlockIsEmbed) {
+            e.preventDefault();
+            selection.empty();
+            this.setActiveEmbed(state.prevBlock);
+          }
+
+          break;
+        }
+
+        case KEY_DELETE:
+        case KEY_RIGHT: {
+          if (!state.nextBlock) {
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
+            e.preventDefault();
+            this.setActiveEmbed(state.nextBlock);
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed) {
+            e.preventDefault();
+            this.removeActiveFromAllEmbeds();
+            this.setCursorBeforeStartOfBlock(state.nextBlock);
+          }
+
+          if (state.cursonInLastLine && state.cursonInLastCharacter && state.nextBlockIsEmbed) {
+            e.preventDefault();
+            selection.empty();
+            this.setActiveEmbed(state.nextBlock);
+          }
+
+          break;
+        }
+
+        case KEY_BACK_SPACE:
+        case KEY_LEFT: {
+          if (!state.prevBlock) {
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
+            e.preventDefault();
+            this.setActiveEmbed(state.prevBlock);
+            return;
+          }
+
+          if (state.selectedBlockIsEmbed) {
+            e.preventDefault();
+            this.removeActiveFromAllEmbeds();
+            this.setCursorAfterEndBlock(state.prevBlock);
+          }
+
+          if (state.cursonInFirstLine && state.cursonInFirstCharacter && state.prevBlockIsEmbed) {
+            e.preventDefault();
+            selection.empty();
+            this.setActiveEmbed(state.prevBlock);
+          }
+
+          break;
+        }
+
+        default: {
+          break;
+        }
       }
     });
   }
 
-  getCursorLine() {
+  getState() {
+    const state = {
+      cursonInLastLine: false,
+      cursonInFirstLine: false,
+      cursonInLastCharacter: false,
+      cursonInFirstCharacter: false,
+      selectedBlockIsEmbed: false,
+      nextBlockIsEmbed: false,
+      prevBlockIsEmbed: false,
+      nextBlock: null,
+      prevBlock: null,
+    };
+
+    const selectedBlock = this.getSelectedBlock();
+
+    if (!selectedBlock) {
+      return state;
+    }
+
+    state.nextBlock = selectedBlock.nextSibling;
+    state.prevBlock = selectedBlock.previousSibling;
+    state.nextBlockIsEmbed = state.nextBlock ? this.blockIsEmbed(state.nextBlock) : false;
+    state.prevBlockIsEmbed = state.prevBlock ? this.blockIsEmbed(state.prevBlock) : false;
+
+    if (this.blockIsEmbed(selectedBlock)) {
+      state.selectedBlockIsEmbed = true;
+      return state;
+    }
+
+    const selectedLine = this.getSelectedLine();
+
+    if (selectedLine) {
+      const selectedBlockContent = selectedBlock.textContent;
+      const selectedLineIndex = selectedBlockContent.indexOf(selectedLine);
+      let selectedBlockRest = selectedBlockContent.slice(0, selectedLineIndex);
+      selectedBlockRest = selectedBlockContent.replace(selectedBlockRest, '');
+      selectedBlockRest = selectedBlockRest.replace(selectedLine, '');
+
+      state.cursonInLastLine = selectedBlockRest.length === 0;
+      state.cursonInFirstLine = selectedBlockContent.indexOf(selectedLine) === 0;
+
+      const caretCharacterOffsetWithin = this.getCaretCharacterOffsetWithin(selectedBlock);
+
+      state.cursonInLastCharacter = selectedBlockContent.length === caretCharacterOffsetWithin;
+      state.cursonInFirstCharacter = caretCharacterOffsetWithin === 0;
+    }
+
+    return state;
+  }
+
+  getSelectedLine() {
     const selection = window.getSelection();
 
-    if (!selection || selection.anchorOffset !== selection.focusOffset) {
+    if (selection.rangeCount === 0 || selection.anchorOffset !== selection.focusOffset) {
       return null;
     }
 
@@ -56,63 +213,6 @@ export default class MediumEmbed extends MediumEditor.Extension {
     return line;
   }
 
-  getState() {
-    const state = {
-      cursonInLastLine: false,
-      cursonInFirstLine: false,
-      cursonInLastCharacter: false,
-      cursonInFirstCharacter: false,
-      nextElementIsEmbed: false,
-      prevElementIsEmbed: false,
-    };
-
-
-    const line = this.getCursorLine();
-    const currentBlock = this.getCurrentBlock();
-
-    if (!line || !currentBlock) {
-      return state;
-    }
-
-    const caretCharacterOffsetWithin = this.getCaretCharacterOffsetWithin(currentBlock);
-    const content = currentBlock.textContent;
-    const lineIndex = content.indexOf(line);
-    let rest = content.slice(0, lineIndex);
-    rest = content.replace(rest, '');
-    rest = rest.replace(line, '');
-
-    state.cursonInLastLine = rest.length === 0;
-    state.cursonInFirstLine = content.indexOf(line) === 0;
-
-    const nextBlock = currentBlock.nextSibling;
-    const prevBlock = currentBlock.previousSibling;
-
-    state.nextElementIsEmbed = nextBlock ? nextBlock.hasAttribute('data-embed') : false;
-    state.prevElementIsEmbed = prevBlock ? prevBlock.hasAttribute('data-embed') : false;
-    state.cursonInLastCharacter = content.length === caretCharacterOffsetWithin;
-    state.cursonInFirstCharacter = caretCharacterOffsetWithin === 0;
-
-    return state;
-  }
-
-  getCurrentBlock() {
-    const selection = window.getSelection();
-
-    if (!selection || selection.anchorOffset !== selection.focusOffset) {
-      return null;
-    }
-
-    const findCurrentBlock = (el) => {
-      if (el.parentElement.hasAttribute('data-medium-editor-element')) {
-        return el;
-      }
-
-      return findCurrentBlock(el.parentElement);
-    };
-
-    return findCurrentBlock(this.base.getSelectedParentElement());
-  }
-
   getCaretCharacterOffsetWithin(element) {
     const sel = window.getSelection();
     let caretOffset = 0;
@@ -126,5 +226,109 @@ export default class MediumEmbed extends MediumEditor.Extension {
     }
 
     return caretOffset;
+  }
+
+  getSelectedBlock() {
+    const activeEmbed = this.getActiveEmbeds()[0];
+
+    if (activeEmbed) {
+      return activeEmbed;
+    }
+
+    const selection = window.getSelection();
+
+    if (selection.rangeCount === 0 || selection.anchorOffset !== selection.focusOffset) {
+      return null;
+    }
+
+    return this.getBlockFromElement(this.base.getSelectedParentElement());
+  }
+
+  getBlockFromElement(element) {
+    if (!element) {
+      return false;
+    }
+
+    const find = (el) => {
+      if (el.parentElement.hasAttribute('data-medium-editor-element')) {
+        return el;
+      }
+
+      return find(el.parentElement);
+    };
+
+    return find(element);
+  }
+
+  blockIsEmbed(block) {
+    if (!block) {
+      return false;
+    }
+
+    return block.hasAttribute('data-embed');
+  }
+
+  getEmbeds() {
+    return Array.from(document.querySelectorAll('[data-embed]'));
+  }
+
+  getActiveEmbeds() {
+    return Array.from(document.querySelectorAll('[data-embed].active'));
+  }
+
+  removeActiveFromAllEmbeds() {
+    this.getActiveEmbeds().forEach((el) => {
+      el.classList.remove('active');
+    });
+  }
+
+  setActiveEmbed(element) {
+    this.removeActiveFromAllEmbeds();
+    element.classList.add('active');
+  }
+
+  setCursorBeforeStartOfBlock(block) {
+    if (!block) {
+      return;
+    }
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+
+    range.setStartBefore(block.childNodes[0]);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  setCursorBeforeEndBlock(block) {
+    if (!block) {
+      return;
+    }
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+    const lastChildNode = block.childNodes[block.childNodes.length - 1];
+
+    range.setStartAfter(lastChildNode);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    selection.modify('move', 'backward', 'lineboundary');
+  }
+
+  setCursorAfterEndBlock(block) {
+    if (!block) {
+      return;
+    }
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+
+    range.setStartBefore(block.childNodes[0]);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    selection.modify('move', 'forward', 'lineboundary');
   }
 }

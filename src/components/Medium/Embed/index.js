@@ -1,4 +1,4 @@
-import { KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_LEFT, KEY_BACK_SPACE, KEY_DELETE } from 'keycode-js';
+import { KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_LEFT, KEY_BACK_SPACE, KEY_DELETE, KEY_ENTER, KEY_RETURN } from 'keycode-js';
 import MediumEditor from 'medium-editor';
 import './styles.css';
 
@@ -6,141 +6,203 @@ export default class MediumEmbed extends MediumEditor.Extension {
   name = 'MediumEmbed';
 
   init() {
-    let state = {};
+    this.state = {};
+    this.onKeyDown = this.onKeyDown.bind(this);
 
     this.base.subscribe('editableClick', (e) => {
       const selectedBlock = this.getBlockFromElement(e.target);
       this.removeActiveFromAllEmbeds();
 
-      if (this.blockIsEmbed(selectedBlock)) {
+      if (selectedBlock && this.blockIsEmbed(selectedBlock)) {
         this.setActiveEmbed(selectedBlock);
         window.getSelection().empty();
       }
 
-      state = this.getState();
+      this.state = this.getState();
     });
 
     this.base.subscribe('editableKeyup', () => {
-      state = { ...state, ...this.getState() };
+      this.state = this.getState();
     });
 
-    this.base.subscribe('editableKeydown', (e) => {
-      const selection = window.getSelection();
+    this.base.subscribe('editableKeydown', this.onKeyDown);
+  }
 
-      switch (e.which) {
-        case KEY_DOWN: {
-          if (!state.nextBlock) {
-            return;
-          }
+  onKeyDown(e) {
+    const selection = window.getSelection();
+    const { state } = this;
 
-          if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
-            e.preventDefault();
-            this.setActiveEmbed(state.nextBlock);
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed) {
-            e.preventDefault();
-            this.removeActiveFromAllEmbeds();
-            this.setCursorBeforeStartOfBlock(state.nextBlock);
-            return;
-          }
-
-          if (state.cursonInLastLine && state.nextBlockIsEmbed) {
-            e.preventDefault();
-            selection.empty();
-            this.setActiveEmbed(state.nextBlock);
-          }
-
-          break;
+    switch (e.which) {
+      case KEY_DOWN: {
+        if (!state.nextBlock) {
+          return;
         }
 
-        case KEY_UP: {
-          if (!state.prevBlock) {
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
-            e.preventDefault();
-            this.setActiveEmbed(state.prevBlock);
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed) {
-            e.preventDefault();
-            this.removeActiveFromAllEmbeds();
-            this.setCursorBeforeEndBlock(state.prevBlock);
-            return;
-          }
-
-          if (state.cursonInFirstLine && state.prevBlockIsEmbed) {
-            e.preventDefault();
-            selection.empty();
-            this.setActiveEmbed(state.prevBlock);
-          }
-
-          break;
+        if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.setActiveEmbed(state.nextBlock);
+          return;
         }
 
-        case KEY_DELETE:
-        case KEY_RIGHT: {
-          if (!state.nextBlock) {
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
-            e.preventDefault();
-            this.setActiveEmbed(state.nextBlock);
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed) {
-            e.preventDefault();
-            this.removeActiveFromAllEmbeds();
-            this.setCursorBeforeStartOfBlock(state.nextBlock);
-          }
-
-          if (state.cursonInLastLine && state.cursonInLastCharacter && state.nextBlockIsEmbed) {
-            e.preventDefault();
-            selection.empty();
-            this.setActiveEmbed(state.nextBlock);
-          }
-
-          break;
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.removeActiveFromAllEmbeds();
+          this.setCursorBeforeStartOfBlock(state.nextBlock);
+          return;
         }
 
-        case KEY_BACK_SPACE:
-        case KEY_LEFT: {
-          if (!state.prevBlock) {
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
-            e.preventDefault();
-            this.setActiveEmbed(state.prevBlock);
-            return;
-          }
-
-          if (state.selectedBlockIsEmbed) {
-            e.preventDefault();
-            this.removeActiveFromAllEmbeds();
-            this.setCursorAfterEndBlock(state.prevBlock);
-          }
-
-          if (state.cursonInFirstLine && state.cursonInFirstCharacter && state.prevBlockIsEmbed) {
-            e.preventDefault();
-            selection.empty();
-            this.setActiveEmbed(state.prevBlock);
-          }
-
-          break;
+        if (state.cursonInLastLine && state.nextBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.nextBlock);
         }
 
-        default: {
-          break;
-        }
+        break;
       }
-    });
+
+      case KEY_UP: {
+        if (!state.prevBlock) {
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.setActiveEmbed(state.prevBlock);
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.removeActiveFromAllEmbeds();
+          this.setCursorBeforeEndBlock(state.prevBlock);
+          return;
+        }
+
+        if (state.cursonInFirstLine && state.prevBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.prevBlock);
+        }
+
+        break;
+      }
+
+      case KEY_RIGHT: {
+        if (!state.nextBlock) {
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed && state.nextBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.setActiveEmbed(state.nextBlock);
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.removeActiveFromAllEmbeds();
+          this.setCursorBeforeStartOfBlock(state.nextBlock);
+        }
+
+        if (state.cursonInLastLine && state.cursonInLastCharacter && state.nextBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.nextBlock);
+        }
+
+        break;
+      }
+
+      case KEY_DELETE: {
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.deleteBlock(state.selectedBlock);
+          return;
+        }
+
+        if (state.nextBlock && state.cursonInLastLine && state.cursonInLastCharacter && state.nextBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.nextBlock);
+        }
+
+        break;
+      }
+
+      case KEY_LEFT: {
+        if (!state.prevBlock) {
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed && state.prevBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.setActiveEmbed(state.prevBlock);
+          return;
+        }
+
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.removeActiveFromAllEmbeds();
+          this.setCursorAfterEndBlock(state.prevBlock);
+          return;
+        }
+
+        if (state.cursonInFirstLine && state.cursonInFirstCharacter && state.prevBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.prevBlock);
+        }
+
+        break;
+      }
+
+      case KEY_BACK_SPACE: {
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.deleteBlock(state.selectedBlock);
+          return;
+        }
+
+        if (state.prevBlock && state.cursonInFirstLine && state.cursonInFirstCharacter && state.prevBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          selection.empty();
+          this.setActiveEmbed(state.prevBlock);
+        }
+
+        break;
+      }
+
+      case KEY_ENTER:
+      case KEY_RETURN: {
+        if (state.selectedBlockIsEmbed) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.addEmptyBlockBefore(state.selectedBlock);
+        }
+
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
   }
 
   getState() {
@@ -149,6 +211,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
       cursonInFirstLine: false,
       cursonInLastCharacter: false,
       cursonInFirstCharacter: false,
+      selectedBlock: null,
       selectedBlockIsEmbed: false,
       nextBlockIsEmbed: false,
       prevBlockIsEmbed: false,
@@ -162,6 +225,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
       return state;
     }
 
+    state.selectedBlock = selectedBlock;
     state.nextBlock = selectedBlock.nextSibling;
     state.prevBlock = selectedBlock.previousSibling;
     state.nextBlockIsEmbed = state.nextBlock ? this.blockIsEmbed(state.nextBlock) : false;
@@ -174,7 +238,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
 
     const selectedLine = this.getSelectedLine();
 
-    if (selectedLine) {
+    if (typeof selectedLine === 'string') {
       const selectedBlockContent = selectedBlock.textContent;
       const selectedLineIndex = selectedBlockContent.indexOf(selectedLine);
       let selectedBlockRest = selectedBlockContent.slice(0, selectedLineIndex);
@@ -245,8 +309,8 @@ export default class MediumEmbed extends MediumEditor.Extension {
   }
 
   getBlockFromElement(element) {
-    if (!element) {
-      return false;
+    if (!element || element.hasAttribute('data-medium-editor-element')) {
+      return null;
     }
 
     const find = (el) => {
@@ -268,8 +332,12 @@ export default class MediumEmbed extends MediumEditor.Extension {
     return block.hasAttribute('data-embed');
   }
 
-  getEmbeds() {
-    return Array.from(document.querySelectorAll('[data-embed]'));
+  blockIsEmpty(block) {
+    if (!block) {
+      return false;
+    }
+
+    return block.textContent.length === 0;
   }
 
   getActiveEmbeds() {
@@ -279,12 +347,17 @@ export default class MediumEmbed extends MediumEditor.Extension {
   removeActiveFromAllEmbeds() {
     this.getActiveEmbeds().forEach((el) => {
       el.classList.remove('active');
+      el.removeEventListener('keydown', this.onKeyDown);
     });
   }
 
-  setActiveEmbed(element) {
+  setActiveEmbed(block) {
     this.removeActiveFromAllEmbeds();
-    element.classList.add('active');
+
+    block.classList.add('active');
+    block.setAttribute('tabindex', '0');
+    block.addEventListener('keydown', this.onKeyDown);
+    block.focus();
   }
 
   setCursorBeforeStartOfBlock(block) {
@@ -299,6 +372,8 @@ export default class MediumEmbed extends MediumEditor.Extension {
     range.collapse(true);
     selection.removeAllRanges();
     selection.addRange(range);
+    block.setAttribute('tabindex', '0');
+    block.focus();
   }
 
   setCursorBeforeEndBlock(block) {
@@ -315,6 +390,8 @@ export default class MediumEmbed extends MediumEditor.Extension {
     selection.removeAllRanges();
     selection.addRange(range);
     selection.modify('move', 'backward', 'lineboundary');
+    block.setAttribute('tabindex', '0');
+    block.focus();
   }
 
   setCursorAfterEndBlock(block) {
@@ -324,11 +401,45 @@ export default class MediumEmbed extends MediumEditor.Extension {
 
     const selection = window.getSelection();
     const range = document.createRange();
+    const lastChildNode = block.childNodes[block.childNodes.length - 1];
 
-    range.setStartBefore(block.childNodes[0]);
+    range.setStartAfter(lastChildNode);
     range.collapse(true);
     selection.removeAllRanges();
     selection.addRange(range);
     selection.modify('move', 'forward', 'lineboundary');
+    block.setAttribute('tabindex', '0');
+    block.focus();
+  }
+
+  deleteBlock(block) {
+    if (!block) {
+      return;
+    }
+
+    const p = document.createElement('p');
+    p.innerHTML = '<br>';
+    block.parentNode.replaceChild(p, block);
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+
+    range.setStartAfter(p.childNodes[0]);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    block.setAttribute('tabindex', '0');
+    block.focus();
+  }
+
+  addEmptyBlockBefore(block) {
+    if (!block) {
+      return;
+    }
+
+    const p = document.createElement('p');
+    p.innerHTML = '<br>';
+    block.parentNode.insertBefore(p, block);
   }
 }

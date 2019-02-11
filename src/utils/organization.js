@@ -44,7 +44,7 @@ export const getSourceNameById = (id) => {
     }
 
     case SOURCES_ID_GITHUB: {
-      return 'GitHub';
+      return 'Github';
     }
     default: {
       return null;

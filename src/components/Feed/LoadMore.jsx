@@ -73,4 +73,10 @@ LoadMore.defaultProps = {
   onClick: null,
 };
 
+LoadMore.defaultProps = {
+  url: null,
+  disabled: false,
+  onClick: null,
+};
+
 export default LoadMore;

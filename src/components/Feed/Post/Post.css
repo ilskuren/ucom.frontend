@@ -1,0 +1,11 @@
+.post {
+  position: relative;
+  padding: 0 20px 20px;
+  border: 1px solid #E1E1E1;
+}
+
+.repost {
+  border: none;
+  border-left: 2px solid #E7ECEC;
+  padding: 0 10px;
+}

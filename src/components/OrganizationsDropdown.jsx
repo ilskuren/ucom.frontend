@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { PureComponent } from 'react';
 import { Tooltip } from 'react-tippy';
-import UserCard from '../components/UserCard';
+import UserCard from './UserCard';
 import { selectUser } from '../store/selectors';
 import { getFileUrl } from '../utils/upload';
 import { getUserName } from '../utils/user';

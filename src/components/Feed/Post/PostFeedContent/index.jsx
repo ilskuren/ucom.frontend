@@ -1,15 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import FeedForm from '../FeedForm';
-import IconEdit from '../../Icons/Edit';
-import { getFileUrl } from '../../../utils/upload';
-import { updatePost } from '../../../actions/posts';
-import { getPostById } from '../../../store/posts';
-import { postIsEditable } from '../../../utils/posts';
-import { checkMentionTag, escapeQuotes } from '../../../utils/text';
+import FeedForm from '../../FeedForm';
+import IconEdit from '../../../Icons/Edit';
+import { getFileUrl } from '../../../../utils/upload';
+import { updatePost } from '../../../../actions/posts';
+import { getPostById } from '../../../../store/posts';
+import { postIsEditable } from '../../../../utils/posts';
 import DescDirectPost from './DescDirectPost';
+import { checkMentionTag, escapeQuotes } from '../../../../utils/text';
+import styles from './styles.css';
 
 class PostFeedContent extends PureComponent {
   constructor(props) {
@@ -36,9 +37,9 @@ class PostFeedContent extends PureComponent {
     }
 
     return (
-      <div className="post__content">
+      <Fragment>
         {this.state.formIsVisible ? (
-          <div className="post__form">
+          <div className={styles.form}>
             <FeedForm
               message={post.description}
               postId={post.id}
@@ -54,48 +55,46 @@ class PostFeedContent extends PureComponent {
             />
           </div>
         ) : (
-          <div className="post__title">
+          <Fragment>
             {(this.props.postTypeId === 10 || post.postTypeId === 10) ? (
-              <div>
+              <Fragment>
                 {post.mainImageFilename && !this.state.formIsVisible && (
-                  <div className="post__cover">
+                  <div className={styles.cover}>
                     <img src={getFileUrl(post.mainImageFilename)} alt="cover" />
                   </div>
                 )}
-                <div className="toolbar">
-                  {post.description &&
-                    <div className="toolbar__main toolbar__main_small">
-                      <DescDirectPost
-                        desc={checkMentionTag(escapeQuotes(post.description))}
-                        limit={100}
-                      />
-                    </div>
-                  }
-                  {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
-                    <div className="toolbar__side">
-                      <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
-                        <IconEdit />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
+                {post.description &&
+                  <div className={styles.content}>
+                    <DescDirectPost
+                      desc={checkMentionTag(escapeQuotes(post.description))}
+                      limit={100}
+                    />
+                  </div>
+                }
+                {post.userId === this.props.userId && postIsEditable(post.createdAt) && (
+                  <div className="toolbar__side">
+                    <button className="button-icon button-icon_edit button-icon_edit_small" onClick={this.showForm}>
+                      <IconEdit />
+                    </button>
+                  </div>
+                )}
+              </Fragment>
             ) : (
               null
             )}
-          </div>
+          </Fragment>
         )}
-      </div>
+      </Fragment>
     );
   }
 }
 
 PostFeedContent.propTypes = {
-  postId: PropTypes.number,
+  postId: PropTypes.number.isRequired,
   userId: PropTypes.number,
-  updatePost: PropTypes.func,
-  posts: PropTypes.objectOf(PropTypes.object).isRequired,
+  updatePost: PropTypes.func.isRequired,
   postTypeId: PropTypes.number,
+  posts: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

@@ -1,1 +1,3 @@
-export const formatRate = rate => rate.toLocaleString('ru-RU');
+export const formatRate = rate => (
+  rate ? rate.toLocaleString('ru-RU') : 0
+);

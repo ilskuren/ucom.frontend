@@ -1,11 +1,4 @@
 import {
-  POSTS_CATREGORIES_HOT_ID,
-  POSTS_CATREGORIES_TRENDING_ID,
-  POSTS_CATREGORIES_FRESH_ID,
-  POSTS_CATREGORIES_TOP_ID,
-  POST_TYPE_MEDIA_ID,
-} from '../utils/posts';
-import {
   USER_NEWS_FEED_ID,
   USER_WALL_FEED_ID,
   ORGANIZATION_FEED_ID,
@@ -13,6 +6,8 @@ import {
 } from '../utils/feed';
 import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED, COMMENTS_CONTAINER_ID_FEED_POST } from '../utils/comments';
 import api from '../api';
+import * as overviewUtils from '../utils/overview';
+
 import graphql from '../api/graphql';
 import { addPosts } from './posts';
 import { commentsAddContainerData } from './comments';
@@ -112,24 +107,25 @@ export const feedGetPosts = (
   {
     page,
     perPage,
+    postTypeId,
   },
 ) => async (dispatch) => {
   const postFilteringForCategories = {
-    [POSTS_CATREGORIES_HOT_ID]: {
+    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: {
       createdAt: '24_hours',
     },
   };
 
   const postOrderingForCategories = {
-    [POSTS_CATREGORIES_HOT_ID]: '-current_rate',
-    [POSTS_CATREGORIES_TRENDING_ID]: '-current_rate_delta_daily',
-    [POSTS_CATREGORIES_FRESH_ID]: '-id',
-    [POSTS_CATREGORIES_TOP_ID]: '-current_rate',
+    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: '-current_rate',
+    [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: '-current_rate_delta_daily',
+    [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: '-id',
+    [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: '-current_rate',
   };
 
   const params = {
     postFiltering: {
-      postTypeId: POST_TYPE_MEDIA_ID,
+      postTypeId,
       ...postFilteringForCategories[postsCategoryId],
     },
     postOrdering: postOrderingForCategories[postsCategoryId],

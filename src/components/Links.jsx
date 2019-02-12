@@ -16,7 +16,7 @@ const Links = props => (
               <SocialIcon sourceUrl={hostName} />
             </span>
             <span className="inline__item">
-              <a href={normalizeUrl(item.sourceUrl)} target="blank">{hostName}</a>
+              <a href={normalizeUrl(item.sourceUrl)} rel="noopener noreferrer" target="_blank">{hostName}</a>
             </span>
           </span>
         </li>

@@ -104,7 +104,7 @@ const OrganizationsCreatePage = (props) => {
 
                   <div className="fields__item">
                     <div className="field">
-                      <div className="field__label">@organization slug</div>
+                      <div className="field__label">mycommunity</div>
                       <div className="field__input">
                         <TextInput
                           touched
@@ -126,7 +126,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="Example Kickcoin"
+                          placeholder="UOS"
                           value={props.organization.data.currencyToShow}
                           onChange={currencyToShow => props.setOrganizationData({ currencyToShow })}
                           error={props.organization.errors.currencyToShow && props.organization.errors.currencyToShow[0]}
@@ -156,7 +156,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="EOS"
+                          placeholder="UOS"
                           value={props.organization.data.poweredBy}
                           onChange={poweredBy => props.setOrganizationData({ poweredBy })}
                           error={props.organization.errors.poweredBy && props.organization.errors.poweredBy[0]}

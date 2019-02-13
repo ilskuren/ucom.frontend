@@ -2,6 +2,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 
+const copySettings = [];
+
+copySettings.push({ from: './src/favicon/*', flatten: true });
+if (process.env.NODE_ENV === 'staging') {
+  copySettings.push({ from: './src/robot.txt', flatten: true });
+}
+
 module.exports = {
   entry: [
     'babel-polyfill',
@@ -9,9 +16,7 @@ module.exports = {
   ],
 
   plugins: [
-    new CopyWebpackPlugin([
-      { from: './src/favicon/*', flatten: true },
-    ]),
+    new CopyWebpackPlugin(copySettings),
   ],
 
   module: {

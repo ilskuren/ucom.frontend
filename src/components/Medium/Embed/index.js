@@ -15,7 +15,6 @@ export default class MediumEmbed extends MediumEditor.Extension {
 
       if (selectedBlock && this.blockIsEmbed(selectedBlock)) {
         this.setActiveEmbed(selectedBlock);
-        window.getSelection().empty();
       }
 
       this.state = this.getState();
@@ -170,6 +169,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
         break;
       }
 
+      // TODO: If empty block remove block
       case KEY_BACK_SPACE: {
         if (state.selectedBlockIsEmbed) {
           e.preventDefault();
@@ -183,6 +183,10 @@ export default class MediumEmbed extends MediumEditor.Extension {
           e.stopPropagation();
           selection.empty();
           this.setActiveEmbed(state.prevBlock);
+
+          if (this.blockIsEmpty(state.selectedBlock)) {
+            this.removeBlock(state.selectedBlock);
+          }
         }
 
         break;
@@ -356,8 +360,11 @@ export default class MediumEmbed extends MediumEditor.Extension {
 
     block.classList.add('active');
     block.setAttribute('tabindex', '0');
-    block.addEventListener('keydown', this.onKeyDown);
-    block.focus();
+    block.addEventListener('keydown', this.onKeyDown, true);
+
+    if (block !== document.activeElement && !block.contains(document.activeElement)) {
+      block.focus();
+    }
   }
 
   setCursorBeforeStartOfBlock(block) {
@@ -441,5 +448,9 @@ export default class MediumEmbed extends MediumEditor.Extension {
     const p = document.createElement('p');
     p.innerHTML = '<br>';
     block.parentNode.insertBefore(p, block);
+  }
+
+  removeBlock(block) {
+    block.parentNode.removeChild(block);
   }
 }

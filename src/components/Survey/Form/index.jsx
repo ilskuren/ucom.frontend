@@ -11,7 +11,7 @@ const Survey = () => (
     </div>
 
     <TextareaAutosize
-      placeholder="Your question"
+      placeholder="Write your question"
       className={styles.title}
       rows={1}
     />

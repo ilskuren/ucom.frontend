@@ -93,13 +93,21 @@ class UploadButtons {
 
   showButton() {
     this.el.classList.add('medium-upload_active');
+    if (this.currentEl) {
+      this.currentEl.classList.add('active-buttons');
+    }
   }
 
   hideButtons() {
     this.el.classList.remove('medium-upload_active');
+    if (this.currentEl) {
+      this.currentEl.classList.remove('active-buttons');
+    }
   }
 
   show(el) {
+    this.hideButtons();
+
     const rect = el.getBoundingClientRect();
     const top = rect.top + window.scrollY;
     const left = rect.left + window.scrollX;

@@ -228,7 +228,6 @@ export default class MediumUpload extends MediumEditor.Extension {
 
     const p = document.createElement('p');
     p.contentEditable = false;
-    p.setAttribute('data-embed', '');
     const img = document.createElement('img');
 
     p.appendChild(img);
@@ -270,7 +269,6 @@ export default class MediumUpload extends MediumEditor.Extension {
       const embedUrl = data.data.links.player.find(i => i.rel.some(j => ['oembed', 'html5'].indexOf(j) > 0)).href;
       const p = document.createElement('p');
       p.contentEditable = false;
-      p.setAttribute('data-embed', '');
       p.innerHTML = `
         <iframe
           class="iframe-video"
@@ -291,7 +289,6 @@ export default class MediumUpload extends MediumEditor.Extension {
   appendSurveyEmbed = () => {
     const surveyEl = document.createElement('div');
     surveyEl.setAttribute('data-survey', '');
-    surveyEl.setAttribute('data-embed', '');
     surveyEl.contentEditable = false;
 
     this.insertEl(surveyEl);

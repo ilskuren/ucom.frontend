@@ -1,8 +1,4 @@
-:global([data-embed]) {
-  outline: none;
-}
-
-:global([data-embed].active) {
+:global([contenteditable="false"].active) {
   border-radius: 2px;
   box-shadow: 0 0 0 2px #d8352f;
   user-select: initial;

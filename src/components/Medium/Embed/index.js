@@ -184,7 +184,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
           selection.empty();
           this.setActiveEmbed(state.prevBlock);
 
-          if (this.blockIsEmpty(state.selectedBlock)) {
+          if (this.blockIsEmpty(state.selectedBlock) && state.selectedBlock.nextSibling) {
             this.removeBlock(state.selectedBlock);
           }
         }
@@ -333,7 +333,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
       return false;
     }
 
-    return block.hasAttribute('data-embed');
+    return block.getAttribute('contenteditable') === 'false';
   }
 
   blockIsEmpty(block) {
@@ -345,7 +345,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
   }
 
   getActiveEmbeds() {
-    return Array.from(document.querySelectorAll('[data-embed].active'));
+    return Array.from(document.querySelectorAll('[contenteditable="false"].active'));
   }
 
   removeActiveFromAllEmbeds() {

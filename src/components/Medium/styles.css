@@ -7,6 +7,10 @@
   outline: none;
 }
 
+:global(.medium-editor-element *) {
+  outline: none;
+}
+
 @media (max-width: 1023px) {
   :global(.medium-editor-element) {
     padding-left: 40px;

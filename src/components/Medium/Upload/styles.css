@@ -34,6 +34,10 @@
   margin: 0 10px 0 0;
 }
 
+:global(.medium-upload__item_survay) {
+  display: none;
+}
+
 :global(.medium-upload__button) {
   box-sizing: border-box;
   display: flex;

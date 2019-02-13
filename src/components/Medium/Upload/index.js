@@ -68,7 +68,7 @@ class UploadButtons {
             </svg>
           </div>
         </div>
-        <div class="medium-upload__item">
+        <div class="medium-upload__item medium-upload__item_survay">
           <div class="medium-upload__icon js-survey-embed">
           <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="9.92981" y="1.77778" width="1.68421" height="10.6667" rx="0.842105" fill="#C4C4C4"/>

@@ -104,13 +104,13 @@ const OrganizationsCreatePage = (props) => {
 
                   <div className="fields__item">
                     <div className="field">
-                      <div className="field__label">mycommunity</div>
+                      <div className="field__label">@organization slug</div>
                       <div className="field__input">
                         <TextInput
                           touched
                           topLabel
                           isRequired
-                          placeholder="kickbnb"
+                          placeholder="mycommunity"
                           value={props.organization.data.nickname}
                           onChange={nickname => props.setOrganizationData({ nickname })}
                           error={props.organization.errors.nickname && props.organization.errors.nickname[0]}

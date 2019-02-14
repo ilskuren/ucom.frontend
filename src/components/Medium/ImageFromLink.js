@@ -1,4 +1,7 @@
 import MediumEditor from 'medium-editor';
+import { getBlockFromElement } from './utils';
+
+const IMG_URL_REGEXP = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
 
 export default class ImageFromLink extends MediumEditor.Extension {
   name = 'ImageFromLink';
@@ -6,24 +9,42 @@ export default class ImageFromLink extends MediumEditor.Extension {
   init() {
     this.base.subscribe('editableKeyup', () => {
       this.getEditorElements().forEach((el) => {
-        const imagesLinksEls = el.querySelectorAll('[href$="jpeg"], [href$="jpg"], [href$="png"]');
-        imagesLinksEls.forEach(linkEl => this.converLinkToImage(linkEl));
+        Array.from(el.querySelectorAll('a'))
+          .filter(el => IMG_URL_REGEXP.test(el.href))
+          .forEach(el => this.converLinkToImage(el));
       });
     });
   }
 
   converLinkToImage(linkEl) {
-    const parentEl = linkEl.parentNode;
-    const childNodes = Array.from(parentEl.childNodes)
-      .filter(node => node !== linkEl)
-      .filter(node => node.tagName !== 'BR');
-    const imgEl = document.createElement('img');
-    imgEl.src = linkEl.href;
+    const block = getBlockFromElement(linkEl);
+    const p = document.createElement('p');
+    p.contentEditable = false;
+    const img = document.createElement('img');
+    img.src = linkEl.href;
+    p.appendChild(img);
 
-    if (childNodes.length) {
-      parentEl.replaceChild(imgEl, linkEl);
+    linkEl.parentNode.removeChild(linkEl);
+
+    if (!block.textContent.length) {
+      block.parentNode.replaceChild(p, block);
     } else {
-      parentEl.innerHTML = imgEl.outerHTML;
+      block.parentNode.insertBefore(p, block.nextSibling);
     }
+
+    if (p.parentNode.lastChild === p) {
+      const newP = document.createElement('p');
+      newP.innerHTML = '<br>';
+      p.parentElement.appendChild(newP);
+      setTimeout(() => {
+        this.base.selectElement(newP);
+        const selection = this.base.exportSelection();
+        selection.start = selection.end;
+        this.base.importSelection(selection);
+        this.base.checkContentChanged(this.base.origElements);
+      }, 0);
+    }
+
+    this.base.checkContentChanged(this.base.origElements);
   }
 }

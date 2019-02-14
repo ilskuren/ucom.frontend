@@ -1,5 +1,6 @@
 import { KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_LEFT, KEY_BACK_SPACE, KEY_DELETE, KEY_ENTER, KEY_RETURN } from 'keycode-js';
 import MediumEditor from 'medium-editor';
+import { getBlockFromElement } from '../utils';
 import './styles.css';
 
 export default class MediumEmbed extends MediumEditor.Extension {
@@ -10,7 +11,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
     this.onKeyDown = this.onKeyDown.bind(this);
 
     this.base.subscribe('editableClick', (e) => {
-      const selectedBlock = this.getBlockFromElement(e.target);
+      const selectedBlock = getBlockFromElement(e.target);
       this.removeActiveFromAllEmbeds();
 
       if (selectedBlock && this.blockIsEmbed(selectedBlock)) {
@@ -309,23 +310,7 @@ export default class MediumEmbed extends MediumEditor.Extension {
       return null;
     }
 
-    return this.getBlockFromElement(this.base.getSelectedParentElement());
-  }
-
-  getBlockFromElement(element) {
-    if (!element || element.hasAttribute('data-medium-editor-element')) {
-      return null;
-    }
-
-    const find = (el) => {
-      if (el.parentElement.hasAttribute('data-medium-editor-element')) {
-        return el;
-      }
-
-      return find(el.parentElement);
-    };
-
-    return find(element);
+    return getBlockFromElement(this.base.getSelectedParentElement());
   }
 
   blockIsEmbed(block) {

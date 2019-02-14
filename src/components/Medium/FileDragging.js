@@ -3,6 +3,7 @@ import MediumEditor from 'medium-editor';
 import api from '../../api';
 import { UPLOAD_SIZE_LIMIT, UPLOAD_SIZE_LIMIT_ERROR, UPLAOD_ERROR_BASE, getBase64FromFile } from '../../utils/upload';
 import loader from '../../utils/loader';
+import { getBlockFromElement } from './utils';
 
 const CLASS_DRAG_OVER = 'medium-editor-dragover';
 
@@ -30,7 +31,7 @@ export default MediumEditor.extensions.fileDragging.extend({
         return;
       }
 
-      let block = this.getBlockFromElement(e.target);
+      let block = getBlockFromElement(e.target);
 
       if (!block) {
         block = this.base.origElements.lastChild;
@@ -85,6 +86,7 @@ export default MediumEditor.extensions.fileDragging.extend({
       if (imgEl) {
         imgEl.src = imgUrl;
         imgEl.removeAttribute('id');
+        this.base.checkContentChanged(this.base.origElements);
       }
     } catch (e) {
       console.error(e);
@@ -94,21 +96,5 @@ export default MediumEditor.extensions.fileDragging.extend({
     }
 
     loader.done();
-  },
-
-  getBlockFromElement(element) {
-    if (!element || element.hasAttribute('data-medium-editor-element')) {
-      return null;
-    }
-
-    const find = (el) => {
-      if (el.parentElement.hasAttribute('data-medium-editor-element')) {
-        return el;
-      }
-
-      return find(el.parentElement);
-    };
-
-    return find(element);
   },
 });

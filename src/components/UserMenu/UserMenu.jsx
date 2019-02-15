@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { bindActionCreators } from 'redux';
@@ -7,16 +7,12 @@ import { withRouter } from 'react-router';
 import { selectUser } from '../../store/selectors';
 import { removeUser } from '../../actions';
 import { showMenuPopup, hideMenuPopup } from '../../actions/menuPopup';
-import { getFileUrl } from '../../utils/upload';
-import { getOrganizationUrl } from '../../utils/organization';
 import Popup from '../Popup';
-import UserCard from '../UserCard';
 import LogoutIcon from '../Icons/Logout';
 import MenuWallet from '../Wallet/MenuWallet';
 import WalletActivity from '../Wallet/WalletActivity';
 import { removeBrainkey } from '../../utils/brainkey';
 import { removeToken } from '../../utils/token';
-import urls from '../../utils/urls';
 
 const UserMenu = (props) => {
   const logout = () => {
@@ -37,7 +33,7 @@ const UserMenu = (props) => {
                 <div className="content__inner content__inner_grid">
                   <div className="user-menu__side">
                     <div className="menu menu_vertical">
-                      <div className="menu__item else-desktop">
+                      {/* <div className="menu__item else-desktop">
                         <NavLink
                           to={urls.getNewPostUrl()}
                           className="menu__link menu__link_upper"
@@ -90,18 +86,15 @@ const UserMenu = (props) => {
                         >
                           Governance
                         </NavLink>
-                      </div>
+                      </div> */}
 
                       {props.user.id &&
                         <div className="menu__item">
-                          <NavLink
-                            to={`/user/${props.user.id}`}
-                            className="menu__link menu__link_upper"
-                            activeClassName="menu__link_active"
-                            isActive={() => props.location.pathname === `/user/${props.user.id}`}
+                          <div
+                            className="menu__link menu__link_upper menu__link_active"
                           >
-                            My profile
-                          </NavLink>
+                            Wallet
+                          </div>
                         </div>
                       }
 
@@ -120,39 +113,15 @@ const UserMenu = (props) => {
 
                       {props.user.id &&
                         <div className="menu__item">
-                          <span className="menu__link menu__link_upper" role="presentation" onClick={logout}>
+                          <span className="menu__link menu__logout menu__link_upper" role="presentation" onClick={logout}>
                             <span className="inline inline_small">
-                              <span className="inline__item"><LogoutIcon /></span>
                               <span className="inline__item">Log out</span>
+                              <span className="inline__item "><LogoutIcon /></span>
                             </span>
                           </span>
                         </div>
                       }
                     </div>
-                    {props.user.id &&
-                      <div className="user-menu__section">
-                        <div className="user-menu__title">Communities</div>
-                        <div className="user-menu__communities">
-                          {props.user.organizations && props.user.organizations.map(item => (
-                            <UserCard
-                              key={item.id}
-                              squareAvatar
-                              roundedAvatar
-                              size="small"
-                              rate={item.currentRate}
-                              userName={item.title}
-                              accountName={item.nickname}
-                              avatarUrl={getFileUrl(item.avatarFilename)}
-                              profileLink={getOrganizationUrl(item.id)}
-                            />
-                          ))}
-                          <Link to="/communities/new" className="button-create-new">
-                            <span className="button-create-new__icon">+</span>
-                            <span className="button-create-new__title">Create new</span>
-                          </Link>
-                        </div>
-                      </div>
-                    }
                   </div>
                   <div>
                     {props.user.id && <MenuWallet />}

@@ -110,7 +110,7 @@ const OrganizationsCreatePage = (props) => {
                           touched
                           topLabel
                           isRequired
-                          placeholder="kickbnb"
+                          placeholder="mycommunity"
                           value={props.organization.data.nickname}
                           onChange={nickname => props.setOrganizationData({ nickname })}
                           error={props.organization.errors.nickname && props.organization.errors.nickname[0]}
@@ -126,7 +126,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="Example Kickcoin"
+                          placeholder="UOS"
                           value={props.organization.data.currencyToShow}
                           onChange={currencyToShow => props.setOrganizationData({ currencyToShow })}
                           error={props.organization.errors.currencyToShow && props.organization.errors.currencyToShow[0]}
@@ -156,7 +156,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="EOS"
+                          placeholder="UOS"
                           value={props.organization.data.poweredBy}
                           onChange={poweredBy => props.setOrganizationData({ poweredBy })}
                           error={props.organization.errors.poweredBy && props.organization.errors.poweredBy[0]}

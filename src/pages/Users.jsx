@@ -71,12 +71,14 @@ const UsersPage = (props) => {
 
   return (
     <LayoutBase>
-      <div className="content">
-        <div className="content__inner">
-          <div className="content__title content__title_narrow content__title_searched">
-            <h1 className="title">People</h1>
-            <SearchInput setSearch={onChangeSearch} search={userName} />
-          </div>
+      <div className="layout layout_entries">
+        <div className="layout__title">
+          <h1 className="title">People</h1>
+        </div>
+        <div className="layout__search">
+          <SearchInput setSearch={onChangeSearch} search={userName} />
+        </div>
+        <div className="layout__table">
           {users && users.length > 0 &&
             <div className="table-content table-content_big-bottom">
               <div className="table-content__table">

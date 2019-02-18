@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { bindActionCreators } from 'redux';
@@ -32,7 +32,7 @@ const UserMenu = (props) => {
               <div className="content">
                 <div className="content__inner content__inner_grid">
                   <div className="user-menu__side">
-                    <div className="menu menu_vertical menu_fixed-width">
+                    <div className="menu menu_vertical menu_fixed-width menu_bold">
                       {/* <div className="menu__item else-desktop">
                         <NavLink
                           to={urls.getNewPostUrl()}
@@ -98,7 +98,7 @@ const UserMenu = (props) => {
                         </div>
                       }
 
-                      {props.user.id &&
+                      {/* {props.user.id &&
                         <div className="menu__item">
                           <NavLink
                             to="/profile/"
@@ -109,7 +109,7 @@ const UserMenu = (props) => {
                             Settings
                           </NavLink>
                         </div>
-                      }
+                      } */}
 
                       {props.user.id &&
                         <div className="menu__item">

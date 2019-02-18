@@ -32,7 +32,7 @@ const UserMenu = (props) => {
               <div className="content">
                 <div className="content__inner content__inner_grid">
                   <div className="user-menu__side">
-                    <div className="menu menu_vertical">
+                    <div className="menu menu_vertical menu_fixed-width">
                       {/* <div className="menu__item else-desktop">
                         <NavLink
                           to={urls.getNewPostUrl()}
@@ -104,7 +104,7 @@ const UserMenu = (props) => {
                             to="/profile/"
                             className="menu__link menu__link_upper"
                             activeClassName="menu__link_active"
-                            isActive={() => props.location.pathname === '/profile/general-info'}
+                            isActive={() => props.location.pathname === '/profile'}
                           >
                             Settings
                           </NavLink>

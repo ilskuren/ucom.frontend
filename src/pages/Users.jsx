@@ -91,6 +91,10 @@ const UsersPage = (props) => {
                         name: 'account_name',
                         sortable: true,
                       }, {
+                        title: 'Date',
+                        name: 'id',
+                        sortable: true,
+                      }, {
                         title: 'Rate',
                         name: 'current_rate',
                         sortable: true,
@@ -138,6 +142,7 @@ const UsersPage = (props) => {
                             sign="@"
                           />
                         </td>
+                        <td className="list-table__cell list-table__cell_date" data-title="Date" />
                         <td className="list-table__cell" data-title="Rate">
                           <span className="title title_xsmall title_light">{(+item.currentRate).toLocaleString()}°</span>
                         </td>

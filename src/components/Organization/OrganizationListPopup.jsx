@@ -9,14 +9,14 @@ import ModalContent from '../ModalContent';
 import Rate from '../Rate';
 
 const OrganizationListPopup = (props) => {
-  if (!props.organizationsIds || !props.organizationsIds.length) {
+  if ((!props.organizationsIds || !props.organizationsIds.length) && (!props.readyOrganizations || !props.readyOrganizations.length)) {
     return null;
   }
 
-  const organizations = props.organizationsIds
+  const organizations = props.readyOrganizations ? props.readyOrganizations : props.organizationsIds
     .sort()
     .map(id => getOrganizationById(props.organizations, id));
-
+  console.log(organizations);
   return (
     <Popup onClickClose={props.onClickClose}>
       <ModalContent onClickClose={props.onClickClose}>

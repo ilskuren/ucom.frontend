@@ -74,6 +74,33 @@
 .user-menu__side {
   padding-bottom: 40px;
   margin-right: 50px;
+
+  .menu__link {
+    font-size: 12px;
+    font-weight: bold;
+    color: #505050;
+    opacity: 0.2;
+
+    &:hover {
+      color: black;
+      text-decoration: none;
+      opacity: 1;
+    }
+    
+    &.menu__link_active {
+      color: @red;
+      opacity: 1;
+    }
+  }
+  
+  .menu__logout {
+    fill: #505050;
+    opacity: 1;
+
+    &:hover {
+      fill: black;
+    }
+  }
 }
 
 .user-menu__title {

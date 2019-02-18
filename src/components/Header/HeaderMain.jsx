@@ -20,7 +20,7 @@ import UserMenuTrigger from '../UserMenu/UserMenuTrigger';
 
 
 const HeaderMain = ({
-  authShowPopup, users, user, // triggerMenuPopup, menuPopupVisibility,
+  authShowPopup, users, user, menuPopupVisibility, triggerMenuPopup,
 }) => {
   const owner = getUserById(users, user.id);
   const [visibleOrganizationListPopup, setOrganizationListPopup] = useState(false);
@@ -62,7 +62,7 @@ const HeaderMain = ({
     <div className="header__main">
       {visibleOrganizationListPopup && <OrganizationListPopup readyOrganizations={user.organizations.slice(3)} onClickClose={() => setOrganizationListPopup(false)} />}
 
-      <nav className="menu menu_header">
+      <nav className="fixed-menu menu_header">
         {owner ?
           <Fragment>
             <div className="header-dropdown">
@@ -79,7 +79,7 @@ const HeaderMain = ({
                 offset={-30}
                 distance={20}
               >
-                <Link className="avatar-and-rate" to={`/user/${user.id}`}>
+                <Link className="avatar-and-rate" to={`/user/${user.id}`} onClick={() => (menuPopupVisibility ? triggerMenuPopup() : null)}>
                   <div className="header__rate">{(+owner.currentRate).toLocaleString()}°</div>
                   <Avatar size="xsmall" src={getFileUrl(owner.avatarFilename)} />
                 </Link>
@@ -89,7 +89,7 @@ const HeaderMain = ({
 
             <NotificationTrigger />
 
-            <div className="header-search">
+            <div className={`header-search ${menuPopupVisibility ? '' : 'header-search_border'}`}>
               <IconSearch />
             </div>
 
@@ -97,14 +97,17 @@ const HeaderMain = ({
 
           </Fragment>
          :
-          <div className="menu__item">
+          <Fragment>
+            <div className={`header-search ${menuPopupVisibility ? '' : 'header-search_border'}`}>
+              <IconSearch />
+            </div>
             <button
-              className="menu__link menu__link_upper"
+              className="menu__link menu__link_upper menu_sigh-in"
               onClick={() => authShowPopup()}
             >
               SIGN in
             </button>
-          </div>
+          </Fragment>
         }
         {/* <div className="menu__item else-desktop">
           <div className="menu-popup">

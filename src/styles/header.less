@@ -32,13 +32,20 @@
   font-size: 16px;
   justify-content: center;
   align-items: center;
-  background: #F9F9F9;
   padding-right: 0;
 
   @media (max-width: 767px) {
     padding-left: 20px;
     padding-right: 20px;
   }
+}
+
+.header_z-index {
+  z-index: 2000;
+}
+
+.header_grayed {
+  background: #F9F9F9;
 }
 
 .logo-fixed { 
@@ -167,7 +174,6 @@
   fill: #505050;
   padding-right: 31px;
   height: 36px;
-  border-right: #E8ECEC 1px solid;
   align-items: center;
   display: flex;
   cursor: pointer;
@@ -177,6 +183,11 @@
   }
 }
 
+.header-search_border {
+  border-right: #E8ECEC 1px solid;
+  padding-right: 30px;
+}
+
 .header-burger {
   fill: #505050;
   cursor: pointer;
@@ -184,7 +195,6 @@
   width: 77px;
   justify-content: center;
   align-items: center;
-  padding-right: 15px;
   display: flex;
   
   &:hover {
@@ -210,8 +220,13 @@
     }
 
     .avatar {
-      width: 34px;
-      height: 34px;
+      overflow: hidden;
+    }
+    
+    .avatar__img {
+      background-size: cover;
+      background-repeat: no-repeat;
+      transform: scale(1.0625);
    }
   }
 }

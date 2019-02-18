@@ -9,7 +9,7 @@ import HeaderSide from './HeaderSide';
 import HeaderMain from './HeaderMain';
 import CreateEventPopup from '../CreateEventPopup';
 
-const Header = () => {
+const Header = (props) => {
   const [createPopupIsVisible, setCreatePopupIsVisible] = useState(false);
   const [isScrolledHeader, setScrolledHeader] = useState(false);
 
@@ -25,8 +25,8 @@ const Header = () => {
   });
 
   return (
-    <div className={`header ${isScrolledHeader ? 'header_shadow' : ''}`} id="top">
-      <div className="header__inner">
+    <div className={`header ${isScrolledHeader ? 'header_shadow' : ''} ${props.menuPopupVisibility ? 'header_grayed' : ''} ${props.tooltipVisibilty ? 'header_z-index' : ''}`} id="top">
+      <div className="header__inner ">
         <HeaderSide />
         <HeaderMain />
       </div>
@@ -43,4 +43,6 @@ const Header = () => {
 
 export default withRouter(connect(state => ({
   user: selectUser(state),
+  menuPopupVisibility: state.menuPopup.menuPopupVisibility,
+  tooltipVisibilty: state.siteNotifications.tooltipVisibilty,
 }))(Header));

@@ -55,6 +55,7 @@ class Repost extends PureComponent {
             accountName={post.post.user.accountName}
             profileLink={urls.getUserUrl(post.post.user.id)}
             avatarUrl={getFileUrl(post.post.user.avatarFilename)}
+            feedTypeId={this.props.feedTypeId}
           />
 
           {post.post.postTypeId === POST_TYPE_MEDIA_ID ? (
@@ -103,6 +104,7 @@ Repost.propTypes = {
   toggleComments: PropTypes.func.isRequired,
   sharePopup: PropTypes.bool.isRequired,
   toggleShare: PropTypes.func.isRequired,
+  feedTypeId: PropTypes.number.isRequired,
 };
 
 export default connect(

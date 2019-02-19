@@ -34,6 +34,7 @@ class Media extends PureComponent {
         <PostFeedHeader
           postId={post.id}
           createdAt={moment(post.createdAt).fromNow()}
+          feedTypeId={this.props.feedTypeId}
         />
 
         <PostCard
@@ -67,6 +68,7 @@ class Media extends PureComponent {
 
 Media.propTypes = {
   id: PropTypes.number.isRequired,
+  feedTypeId: PropTypes.number.isRequired,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
   commentsIsVisible: PropTypes.bool.isRequired,

@@ -31,6 +31,7 @@ class Direct extends PureComponent {
           userId={user.id}
           createdAt={moment(post.createdAt).fromNow()}
           postId={post.id}
+          feedTypeId={this.props.feedTypeId}
         />
 
         <PostFeedContent
@@ -57,6 +58,7 @@ class Direct extends PureComponent {
 
 Direct.propTypes = {
   id: PropTypes.number.isRequired,
+  feedTypeId: PropTypes.number.isRequired,
   posts: PropTypes.objectOf(PropTypes.object).isRequired,
   users: PropTypes.objectOf(PropTypes.object).isRequired,
   commentsIsVisible: PropTypes.bool.isRequired,

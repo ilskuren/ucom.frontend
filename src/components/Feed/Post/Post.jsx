@@ -31,7 +31,6 @@ class Post extends PureComponent {
   render() {
     const post = getPostById(this.props.posts, this.props.id);
 
-
     if (!post) {
       return null;
     }
@@ -41,6 +40,7 @@ class Post extends PureComponent {
         return (
           <Repost
             id={this.props.id}
+            feedTypeId={this.props.feedTypeId}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}
@@ -52,6 +52,7 @@ class Post extends PureComponent {
         return (
           <Media
             id={this.props.id}
+            feedTypeId={this.props.feedTypeId}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}
@@ -63,6 +64,7 @@ class Post extends PureComponent {
         return (
           <Direct
             id={this.props.id}
+            feedTypeId={this.props.feedTypeId}
             commentsIsVisible={this.state.commentsIsVisible}
             toggleComments={this.toggleComments}
             sharePopup={this.state.sharePopup}

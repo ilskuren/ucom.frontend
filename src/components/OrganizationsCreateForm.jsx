@@ -110,7 +110,7 @@ const OrganizationsCreatePage = (props) => {
                           touched
                           topLabel
                           isRequired
-                          placeholder="kickbnb"
+                          placeholder="mycommunity"
                           value={props.organization.data.nickname}
                           onChange={nickname => props.setOrganizationData({ nickname })}
                           error={props.organization.errors.nickname && props.organization.errors.nickname[0]}
@@ -126,7 +126,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="Example Kickcoin"
+                          placeholder="UOS"
                           value={props.organization.data.currencyToShow}
                           onChange={currencyToShow => props.setOrganizationData({ currencyToShow })}
                           error={props.organization.errors.currencyToShow && props.organization.errors.currencyToShow[0]}
@@ -156,7 +156,7 @@ const OrganizationsCreatePage = (props) => {
                         <TextInput
                           touched
                           topLabel
-                          placeholder="EOS"
+                          placeholder="UOS"
                           value={props.organization.data.poweredBy}
                           onChange={poweredBy => props.setOrganizationData({ poweredBy })}
                           error={props.organization.errors.poweredBy && props.organization.errors.poweredBy[0]}
@@ -322,16 +322,16 @@ const OrganizationsCreatePage = (props) => {
             <div className="grid__item grid__item_side">
               <VerticalMenu
                 sections={[
-                  { name: 'PersonalNeworks', title: 'Personal Neworks' },
+                  { name: 'Contacts', title: 'Contacts' },
                   { name: 'SocialNetworks', title: 'Social Networks' },
                 ]}
               />
             </div>
             <div className="grid__item grid__item_main">
               <div className="fields">
-                <Element name="PersonalNeworks">
+                <Element name="Contacts">
                   <div className="fields__title">
-                    <h1 className="title title_small">Personal networks</h1>
+                    <h1 className="title title_small">Contacts</h1>
                   </div>
 
                   <div className="fields__item">

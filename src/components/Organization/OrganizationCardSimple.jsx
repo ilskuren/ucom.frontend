@@ -14,11 +14,13 @@ const OrganizationCardSimple = (props) => {
       <div className="user-card-simple__avatar">
         <OrganizationPick url={props.url} src={props.organizationPickSrc} alt={props.name} />
       </div>
-      <div className="user-card-simple__name">
-        <LinkTag to={props.url}>{props.name}</LinkTag>
-      </div>
-      <div className="user-card-simple__rate">
-        {props.rate}°
+      <div className="user-card-simple__rate-and-name">
+        <div className="user-card-simple__name">
+          <LinkTag to={props.url}>{props.name}</LinkTag>
+        </div>
+        <div className="user-card-simple__rate">
+          {props.rate}°
+        </div>
       </div>
     </div>
   );

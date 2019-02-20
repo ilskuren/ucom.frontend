@@ -29,12 +29,6 @@ const Communities = (props) => {
   React.useEffect(() => {
     loader.start();
     props.dispatch(feedActions.communityFeedReset());
-
-    if ((overviewCategory.id !== overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID) && (overviewCategory.id !== overviewUtils.OVERVIEW_CATEGORIES_TOP_ID)) {
-      loader.done();
-      return;
-    }
-
     props.dispatch(feedActions.communityFeedGet({
       page,
       perPage: FEED_PER_PAGE,

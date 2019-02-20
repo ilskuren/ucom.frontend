@@ -228,6 +228,40 @@ export default {
     }
   },
 
+  async getTrendingCommunities({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+  }) {
+    const query = await GraphQLSchema.getTrendingOrganizationsQuery(
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.organizations;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getHotCommunities({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+  }) {
+    const query = await GraphQLSchema.getHotOrganizationsQuery(
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.organizations;
+    } catch (e) {
+      throw e;
+    }
+  },
+
   async getTags({
     page = 1,
     perPage = FEED_PER_PAGE,
@@ -235,6 +269,40 @@ export default {
   }) {
     const query = await GraphQLSchema.getManyTagsQuery(
       ordering,
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.manyTags;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getTrendingTags({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+  }) {
+    const query = await GraphQLSchema.getManyTrendingTagsQuery(
+      page,
+      perPage,
+    );
+
+    try {
+      const data = await request({ query });
+      return data.data.manyTags;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getHotTags({
+    page = 1,
+    perPage = FEED_PER_PAGE,
+  }) {
+    const query = await GraphQLSchema.getManyHotTagsQuery(
       page,
       perPage,
     );

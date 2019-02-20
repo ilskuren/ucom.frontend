@@ -29,16 +29,29 @@ export const communityFeedGet = ({
     [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: '-current_rate',
   };
 
-  const params = {
+  const params = categoryId === overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID || categoryId === overviewUtils.OVERVIEW_CATEGORIES_HOT_ID ? {
+    page,
+    perPage,
+  } : {
     page,
     perPage,
     ordering: orderingForCategories[categoryId],
   };
 
+  let functionGet;
+
+  if (categoryId === overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID) {
+    functionGet = graphql.getTrendingCommunities;
+  } else if (categoryId === overviewUtils.OVERVIEW_CATEGORIES_HOT_ID) {
+    functionGet = graphql.getHotCommunities;
+  } else {
+    functionGet = graphql.getCommunities;
+  }
+
   dispatch(communityFeedSetLoading(true));
 
   try {
-    const data = await graphql.getCommunities(params);
+    const data = await functionGet(params);
     dispatch(parseFeedData({
       communities: data.data,
       metadata: data.metadata,

@@ -5,6 +5,8 @@
   left: 0;
   width: 100%;
   background: #fff;
+  transition: box-shadow .2s ease-in-out;
+  box-shadow: 0px 1px 4px rgba(60, 68, 75, 0);
 }
 
 .header_shadow {
@@ -66,6 +68,7 @@
     font-size: 12px;
     font-weight: bold;
     color: #505050;
+    transition: all .2s;
 
     &:hover {
       color: black;
@@ -177,6 +180,7 @@
   align-items: center;
   display: flex;
   cursor: pointer;
+  transition: all .2s;
 
   &:hover {
     fill: black;
@@ -196,7 +200,8 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  
+  transition: all .2s;
+
   &:hover {
     fill: black;
   }
@@ -211,16 +216,21 @@
   align-items: center;
   text-decoration: none;
   margin-right: 32px;
+  
+  .avatar__img, .header__rate {
+    transition: all .2s;
+  }
+
+  .avatar {
+    overflow: hidden;
+    border-radius: 50%;
+  }
 
   &:hover {
     text-decoration: none;
 
     .header__rate {
       color: black;
-    }
-
-    .avatar {
-      overflow: hidden;
     }
     
     .avatar__img {

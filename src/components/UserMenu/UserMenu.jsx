@@ -32,7 +32,7 @@ const UserMenu = (props) => {
               <div className="content">
                 <div className="content__inner content__inner_grid">
                   <div className="user-menu__side">
-                    <div className="menu menu_vertical menu_fixed-width menu_bold">
+                    <div className="menu menu_vertical menu_fixed-width">
                       {/* <div className="menu__item else-desktop">
                         <NavLink
                           to={urls.getNewPostUrl()}

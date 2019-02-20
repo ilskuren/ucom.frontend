@@ -224,10 +224,12 @@
   .avatar {
     overflow: hidden;
     border-radius: 50%;
+    -webkit-transform:scale(1.0);
   }
 
   &:hover {
     text-decoration: none;
+    -webkit-transform:scale(1.0);
 
     .header__rate {
       color: black;
@@ -237,6 +239,9 @@
       background-size: cover;
       background-repeat: no-repeat;
       transform: scale(1.0625);
+      -webkit-transform:scale(1.0625);
+      -moz-transform:scale(1.0625);
+      -o-transform:scale(1.0625);
    }
   }
 }

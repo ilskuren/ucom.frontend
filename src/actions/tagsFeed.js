@@ -8,7 +8,7 @@ export const tagsFeedSetMetadata = payload => ({ type: 'TAGS_FEED_SET_METADATA',
 export const tagsFeedSetIds = payload => ({ type: 'TAGS_FEED_SET_IDS', payload });
 export const tagsFeedPrependIds = payload => ({ type: 'TAGS_FEED_PREPEND_IDS', payload });
 export const tagsFeedAppendIds = payload => ({ type: 'TAGS_FEED_APPEND_IDS', payload });
-export const tagsFeedAppendUsers = payload => ({ type: 'TAGS_FEED_APPEND_USERS', payload });
+export const tagsFeedSetSideUsers = payload => ({ type: 'TAGS_FEED_SET_SIDE_USERS', payload });
 
 export const tagsFeedGet = ({
   page,
@@ -21,6 +21,7 @@ export const tagsFeedGet = ({
     [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: 'Fresh',
     [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: 'Top',
   };
+
   const params = {
     page,
     perPage,
@@ -33,9 +34,9 @@ export const tagsFeedGet = ({
 
   try {
     const data = await graphql.getOverview(params);
-    dispatch(tagsFeedAppendIds(data.data.manyTags.data));
-    dispatch(tagsFeedSetMetadata(data.data.manyTags.metadata));
-    dispatch(tagsFeedAppendUsers(data.data.manyUsers.data));
+    dispatch(tagsFeedAppendIds(data.manyTags.data));
+    dispatch(tagsFeedSetMetadata(data.manyTags.metadata));
+    dispatch(tagsFeedSetSideUsers(data.manyUsers.data));
   } catch (e) {
     console.error(e);
   }

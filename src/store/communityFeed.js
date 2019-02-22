@@ -30,7 +30,7 @@ export default (state = getInitialState(), action) => {
     case 'COMMUNITY_FEED_SET_LOADING':
       return { ...state, loading: action.payload };
 
-    case 'COMMUNITY_FEED_APPEND_USERS':
+    case 'COMMUNITY_FEED_SET_SIDE_USERS':
       return { ...state, manyUsers: uniq(state.manyUsers.concat(action.payload)) };
 
     default:

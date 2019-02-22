@@ -192,8 +192,7 @@ export default {
     postTypeId,
   }) {
     const token = getToken();
-
-    const query = filter === 'Posts' ?
+    const query = tab === 'Posts' ?
       await GraphQLSchema[`getMany${filter}PostsQuery`](
         postTypeId,
         page,
@@ -206,6 +205,7 @@ export default {
         perPage,
       );
 
+    // console.log(query);
     try {
       const data = await request({ query });
       return data.data;

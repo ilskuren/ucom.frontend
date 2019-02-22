@@ -1,3 +1,5 @@
+import * as overviewUtils from '../utils/overview';
+
 import {
   USER_NEWS_FEED_ID,
   USER_WALL_FEED_ID,
@@ -6,8 +8,6 @@ import {
 } from '../utils/feed';
 import { COMMENTS_INITIAL_COUNT_USER_WALL_FEED, COMMENTS_CONTAINER_ID_FEED_POST } from '../utils/comments';
 import api from '../api';
-import * as overviewUtils from '../utils/overview';
-
 import graphql from '../api/graphql';
 import { addPosts } from './posts';
 import { commentsAddContainerData } from './comments';
@@ -18,6 +18,10 @@ export const feedSetMetadata = payload => ({ type: 'FEED_SET_METADATA', payload 
 export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload });
 export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
 export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
+export const feedSetSideUsers = payload => ({ type: 'FEED_SET_SIDE_USERS', payload });
+export const feedSetSidePosts = payload => ({ type: 'FEED_SET_SIDE_POSTS', payload });
+export const feedSetSideOrganizations = payload => ({ type: 'FEED_SET_SIDE_ORGANIZATIONS', payload });
+export const feedSetSideTags = payload => ({ type: 'FEED_SET_SIDE_TAGS', payload });
 
 export const parseFeedData = ({
   posts,
@@ -102,15 +106,13 @@ export const feedCreatePost = (feedTypeId, params) => (dispatch) => {
     });
 };
 
-export const feedGetPosts = (
-  postsCategoryId,
-  {
-    page,
-    perPage,
-    postTypeId,
-  },
-) => async (dispatch) => {
-  const postOrderingForCategories = {
+export const feedGetPosts = ({
+  postTypeId,
+  page,
+  perPage,
+  categoryId,
+}) => async (dispatch) => {
+  const filter = {
     [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: 'Hot',
     [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: 'Trending',
     [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: 'Fresh',
@@ -118,21 +120,26 @@ export const feedGetPosts = (
   };
 
   const params = {
+    tab: 'Posts',
+    filter: filter[categoryId],
     postTypeId,
-    postOrdering: postOrderingForCategories[postsCategoryId],
     page,
     perPage,
     commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
+    commentsPage: 1,
   };
-
   dispatch(feedSetLoading(true));
 
   try {
     const data = await graphql.getOverview(params);
     dispatch(parseFeedData({
-      posts: data.data,
-      metadata: data.metadata,
+      posts: data.manyPosts.data,
+      metadata: data.manyPosts.metadata,
     }));
+    dispatch(feedSetSideUsers(data.manyUsers.data));
+    dispatch(feedSetSidePosts(data.manyPosts.data));
+    dispatch(feedSetSideOrganizations(data.manyOrganizations.data));
+    dispatch(feedSetSideTags(data.manyTags.data));
   } catch (e) {
     console.error(e);
   }

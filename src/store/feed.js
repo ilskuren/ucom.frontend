@@ -7,6 +7,9 @@ const getInitialState = () => ({
     hasMore: false,
     page: 1,
   },
+  manyUsers: [],
+  manyOrganizations: [],
+  manyTags: [],
 });
 
 export default (state = getInitialState(), action) => {
@@ -28,6 +31,18 @@ export default (state = getInitialState(), action) => {
 
     case 'FEED_SET_LOADING':
       return { ...state, loading: action.payload };
+
+    case 'FEED_SET_SIDE_USERS':
+      return { ...state, manyUsers: uniq(state.manyUsers.concat(action.payload)) };
+
+    case 'FEED_SET_SIDE_POSTS':
+      return { ...state, manyUsers: uniq(state.manyUsers.concat(action.payload)) };
+
+    case 'FEED_SET_SIDE_ORGANIZATIONS':
+      return { ...state, manyOrganizations: uniq(state.manyOrganizations.concat(action.payload)) };
+
+    case 'FEED_SET_SIDE_TAGS':
+      return { ...state, manyTags: uniq(state.manyTags.concat(action.payload)) };
 
     default:
       return state;

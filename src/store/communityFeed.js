@@ -1,4 +1,4 @@
-import { uniq } from 'lodash';
+import { uniq, merge } from 'lodash';
 
 const getInitialState = () => ({
   loading: false,
@@ -12,26 +12,26 @@ const getInitialState = () => ({
 
 export default (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'COMMUNITY_FEED_RESET':
+    case 'ORGANIZATIONS_FEED_RESET':
       return getInitialState();
 
-    case 'COMMUNITY_FEED_SET_IDS':
+    case 'ORGANIZATIONS_FEED_SET_IDS':
       return { ...state, communityIds: action.payload };
 
-    case 'COMMUNITY_FEED_PREPEND_IDS':
+    case 'ORGANIZATIONS_FEED_PREPEND_IDS':
       return { ...state, communityIds: uniq(action.payload.concat(state.communityIds)) };
 
-    case 'COMMUNITY_FEED_APPEND_IDS':
+    case 'ORGANIZATIONS_FEED_APPEND_IDS':
       return { ...state, communityIds: uniq(state.communityIds.concat(action.payload)) };
 
-    case 'COMMUNITY_FEED_SET_METADATA':
+    case 'ORGANIZATIONS_FEED_SET_METADATA':
       return { ...state, metadata: action.payload };
 
-    case 'COMMUNITY_FEED_SET_LOADING':
+    case 'ORGANIZATIONS_FEED_SET_LOADING':
       return { ...state, loading: action.payload };
 
-    case 'COMMUNITY_FEED_SET_SIDE_USERS':
-      return { ...state, manyUsers: uniq(state.manyUsers.concat(action.payload)) };
+    case 'ORGANIZATIONS_FEED_SET_SIDE_USERS':
+      return { ...state, manyUsers: merge(state.manyUsers, action.payload) };
 
     default:
       return state;

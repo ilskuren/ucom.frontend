@@ -12,16 +12,16 @@ import graphql from '../api/graphql';
 import { addPosts } from './posts';
 import { commentsAddContainerData } from './comments';
 
-export const feedReset = () => ({ type: 'FEED_RESET' });
-export const feedSetLoading = payload => ({ type: 'FEED_SET_LOADING', payload });
-export const feedSetMetadata = payload => ({ type: 'FEED_SET_METADATA', payload });
-export const feedSetPostIds = payload => ({ type: 'FEED_SET_POST_IDS', payload });
-export const feedPrependPostIds = payload => ({ type: 'FEED_PREPEND_POST_IDS', payload });
-export const feedAppendPostIds = payload => ({ type: 'FEED_APPEND_POST_IDS', payload });
-export const feedSetSideUsers = payload => ({ type: 'FEED_SET_SIDE_USERS', payload });
-export const feedSetSidePosts = payload => ({ type: 'FEED_SET_SIDE_POSTS', payload });
-export const feedSetSideOrganizations = payload => ({ type: 'FEED_SET_SIDE_ORGANIZATIONS', payload });
-export const feedSetSideTags = payload => ({ type: 'FEED_SET_SIDE_TAGS', payload });
+export const feedReset = () => ({ type: 'POSTS_FEED_RESET' });
+export const feedSetLoading = payload => ({ type: 'POSTS_FEED_SET_LOADING', payload });
+export const feedSetMetadata = payload => ({ type: 'POSTS_FEED_SET_METADATA', payload });
+export const feedSetPostIds = payload => ({ type: 'POSTS_FEED_SET_POST_IDS', payload });
+export const feedPrependPostIds = payload => ({ type: 'POSTS_FEED_PREPEND_POST_IDS', payload });
+export const feedAppendPostIds = payload => ({ type: 'POSTS_FEED_APPEND_POST_IDS', payload });
+export const feedSetSideUsers = payload => ({ type: 'POSTS_FEED_SET_SIDE_USERS', payload });
+export const feedSetSideOrganizations = payload => ({ type: 'POSTS_FEED_SET_SIDE_ORGANIZATIONS', payload });
+export const feedSetSideTags = payload => ({ type: 'POSTS_FEED_SET_SIDE_TAGS', payload });
+
 
 export const parseFeedData = ({
   posts,
@@ -106,19 +106,19 @@ export const feedCreatePost = (feedTypeId, params) => (dispatch) => {
     });
 };
 
+const filter = {
+  [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: 'Hot',
+  [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: 'Trending',
+  [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: 'Fresh',
+  [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: 'Top',
+};
+
 export const feedGetPosts = ({
   postTypeId,
   page,
   perPage,
   categoryId,
 }) => async (dispatch) => {
-  const filter = {
-    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: 'Hot',
-    [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: 'Trending',
-    [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: 'Fresh',
-    [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: 'Top',
-  };
-
   const params = {
     tab: 'Posts',
     filter: filter[categoryId],
@@ -126,7 +126,7 @@ export const feedGetPosts = ({
     page,
     perPage,
     commentsPerPage: COMMENTS_INITIAL_COUNT_USER_WALL_FEED,
-    commentsPage: 1,
+    commentsPage: page,
   };
   dispatch(feedSetLoading(true));
 
@@ -137,7 +137,6 @@ export const feedGetPosts = ({
       metadata: data.manyPosts.metadata,
     }));
     dispatch(feedSetSideUsers(data.manyUsers.data));
-    dispatch(feedSetSidePosts(data.manyPosts.data));
     dispatch(feedSetSideOrganizations(data.manyOrganizations.data));
     dispatch(feedSetSideTags(data.manyTags.data));
   } catch (e) {
@@ -146,3 +145,27 @@ export const feedGetPosts = ({
 
   dispatch(feedSetLoading(false));
 };
+export const feedGetSide = ({
+  categoryId,
+  tab,
+  side,
+  postTypeId,
+}) => async (dispatch) => {
+  const params = {
+    tab,
+    filter: filter[categoryId],
+    side,
+    postTypeId,
+  };
+  dispatch(feedSetLoading(true));
+  try {
+    const data = await graphql.getOverviewSide(params);
+    const payload = data[`many${side}`].data;
+    dispatch({ type: `${tab.toUpperCase()}_FEED_SET_SIDE_${side.toUpperCase()}`, payload });
+  } catch (e) {
+    console.error(e);
+  }
+
+  dispatch(feedSetLoading(false));
+};
+

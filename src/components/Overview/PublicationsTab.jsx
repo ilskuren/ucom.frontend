@@ -66,17 +66,31 @@ const Publications = (props) => {
                   Published by
                   </h2>
                 </div>
-                <UserList myUsers={props.feed.manyUsers} limit={LIST_LIMIT} />
+                <UserList
+                  loadMore={() => props.dispatch(feedActions.feedGetSide({
+                    postTypeId, categoryId: overviewCategory.id, tab: 'Posts', side: 'Users',
+                  }))}
+                  myUsers={props.feed.manyUsers}
+                  limit={LIST_LIMIT}
+                />
               </div>
             }
+            {!!props.feed.manyTags.length &&
             <div className="user-section">
               <div className="user-section__title">
                 <h2 className="title title_xxsmall title_medium">
                 Included tags
                 </h2>
               </div>
-              <TagList />
+              <TagList
+                loadMore={() => props.dispatch(feedActions.feedGetSide({
+                  postTypeId, categoryId: overviewCategory.id, tab: 'Posts', side: 'Tags',
+                }))}
+                myTags={props.feed.manyTags}
+                limit={LIST_LIMIT}
+              />
             </div>
+            }
 
             {!!props.feed.manyOrganizations.length &&
               <div className="user-section">
@@ -85,7 +99,13 @@ const Publications = (props) => {
                   Communities
                   </h2>
                 </div>
-                <OrganizationList limit={LIST_LIMIT} organizationsIds={props.feed.manyOrganizations} />
+                <OrganizationList
+                  loadMore={() => props.dispatch(feedActions.feedGetSide({
+                    postTypeId, categoryId: overviewCategory.id, tab: 'Posts', side: 'Organizations',
+                  }))}
+                  limit={LIST_LIMIT}
+                  myOrganizations={props.feed.manyOrganizations}
+                />
               </div>
             }
           </div>

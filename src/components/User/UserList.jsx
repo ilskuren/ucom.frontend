@@ -10,21 +10,24 @@ import Popup from '../Popup';
 import ModalContent from '../ModalContent';
 import { getUserName } from '../../utils/user';
 
-const UserList = (props) => {
+const UserList = ({
+  usersIds, myUsers, limit, users, tagTitle, loadMore,
+}) => {
   const [popupVisible, setPopupVisible] = useState(false);
-  if ((!props.usersIds || !props.usersIds.length) && (!props.myUsers || !props.myUsers.length)) {
+  if ((!usersIds || !usersIds.length) && (!myUsers || !myUsers.length)) {
     return null;
   }
 
-  const visibleUsers = props.myUsers ? props.myUsers.slice(0, props.limit) : getUsersByIds(props.users, props.usersIds.sort())
-    .slice(0, props.limit);
-  const allUsers = props.myUsers ? props.myUsers : props.usersIds;
+  const visibleUsers = myUsers ? myUsers.slice(0, limit) : getUsersByIds(users, usersIds.sort())
+    .slice(0, limit);
+
+  const allUsers = myUsers || usersIds;
   return (
     <div className="organization-list">
       <div className="organization-list__list">
         {visibleUsers.map(item => (
           <div className="organization-list__item" key={item.id}>
-            {props.myUsers ?
+            {myUsers ?
               <MyUserCard
                 name={getUserName(item)}
                 userPickAlt={getUserName(item)}
@@ -38,38 +41,39 @@ const UserList = (props) => {
       </div>
 
 
-      {allUsers.length > props.limit &&
+      {allUsers.length > limit &&
         <div className="organization-list__more">
           <button
             className="button-clean button-clean_link"
-            onClick={() => setPopupVisible(true)}
+            onClick={async () => { await loadMore(); setPopupVisible(true); }}
           >
             View All
           </button>
         </div>
       }
 
-      {popupVisible && props.myUsers &&
+      {popupVisible && myUsers &&
         <Popup onClickClose={() => setPopupVisible(false)}>
-          <ModalContent onClickClose={() => setPopupVisible(false)}> (
+          <ModalContent onClickClose={() => setPopupVisible(false)}>
             <UserListPopup
-              myUsers={props.myUsers}
+              myUsers={myUsers}
+              title="Users"
             />
           </ModalContent>
         </Popup>
       }
 
-      {popupVisible && props.usersIds &&
+      {popupVisible && usersIds &&
         <Popup onClickClose={() => setPopupVisible(false)}>
           <ModalContent onClickClose={() => setPopupVisible(false)}>
-            {props.tagTitle ? (
+            {tagTitle ? (
               <UserListPopupMore
-                usersIds={props.usersIds}
-                tagTitle={props.tagTitle}
+                usersIds={usersIds}
+                tagTitle={tagTitle}
               />
             ) : (
               <UserListPopup
-                usersIds={props.usersIds}
+                usersIds={usersIds}
               />
             )}
           </ModalContent>

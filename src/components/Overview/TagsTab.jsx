@@ -8,6 +8,7 @@ import * as feedActions from '../../actions/tagsFeed';
 import loader from '../../utils/loader';
 import { FEED_PER_PAGE } from '../../utils/feed';
 import urls from '../../utils/urls';
+import { feedGetSide } from '../../actions/feed';
 
 const LIST_LIMIT = 5;
 
@@ -51,15 +52,16 @@ const TagsTab = (props) => {
       <div className="grid__item grid__item_side">
         <div className="feed_side">
           <div className="sidebar">
+            {!!props.tagsFeed.manyUsers.length &&
             <div className="user-section">
               <div className="user-section__title">
                 <h2 className="title title_xxsmall title_medium">
                 Top uses by
                 </h2>
               </div>
-              <UserList myUsers={props.tagsFeed.manyUsers} limit={LIST_LIMIT} />
+              <UserList loadMore={() => props.dispatch(feedGetSide({ categoryId: overviewCategory.id, tab: 'Tags', side: 'Users' }))} myUsers={props.tagsFeed.manyUsers} limit={LIST_LIMIT} />
             </div>
-
+            }
           </div>
         </div>
       </div>

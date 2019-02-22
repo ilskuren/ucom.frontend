@@ -17,7 +17,6 @@ const UserListPopup = (props) => {
 
   const users = props.myUsers ? props.myUsers : getUsersByIds(props.users, props.usersIds);
 
-  console.log(users);
   return (
     <div className="entry-list">
       <div className="entry-list__title">{props.title}</div>

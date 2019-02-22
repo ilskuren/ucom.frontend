@@ -3,13 +3,13 @@ import * as overviewUtils from '../utils/overview';
 
 import graphql from '../api/graphql';
 
-export const communityFeedReset = () => ({ type: 'COMMUNITY_FEED_RESET' });
-export const communityFeedSetLoading = payload => ({ type: 'COMMUNITY_FEED_SET_LOADING', payload });
-export const communityFeedSetMetadata = payload => ({ type: 'COMMUNITY_FEED_SET_METADATA', payload });
-export const communityFeedSetIds = payload => ({ type: 'COMMUNITY_FEED_SET_IDS', payload });
-export const communityFeedPrependIds = payload => ({ type: 'COMMUNITY_FEED_PREPEND_IDS', payload });
-export const communityFeedAppendIds = payload => ({ type: 'COMMUNITY_FEED_APPEND_IDS', payload });
-export const communityFeedSetSideUsers = payload => ({ type: 'COMMUNITY_FEED_SET_SIDE_USERS', payload });
+export const communityFeedReset = () => ({ type: 'ORGANIZATIONS_FEED_RESET' });
+export const communityFeedSetLoading = payload => ({ type: 'ORGANIZATIONS_FEED_SET_LOADING', payload });
+export const communityFeedSetMetadata = payload => ({ type: 'ORGANIZATIONS_FEED_SET_METADATA', payload });
+export const communityFeedSetIds = payload => ({ type: 'ORGANIZATIONS_FEED_SET_IDS', payload });
+export const communityFeedPrependIds = payload => ({ type: 'ORGANIZATIONS_FEED_PREPEND_IDS', payload });
+export const communityFeedAppendIds = payload => ({ type: 'ORGANIZATIONS_FEED_APPEND_IDS', payload });
+export const communityFeedSetSideUsers = payload => ({ type: 'ORGANIZATIONS_FEED_SET_SIDE_USERS', payload });
 
 export const communityFeedGet = ({
   page,

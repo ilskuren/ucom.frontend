@@ -9,11 +9,11 @@ import ModalContent from '../ModalContent';
 import Rate from '../Rate';
 
 const OrganizationListPopup = (props) => {
-  if (!props.organizationsIds || !props.organizationsIds.length) {
+  if (!props.organizationsIds && !props.myOrganizations) {
     return null;
   }
 
-  const organizations = props.organizationsIds
+  const organizations = props.myOrganizations ? props.myOrganizations : props.organizationsIds
     .sort()
     .map(id => getOrganizationById(props.organizations, id));
 

@@ -4,7 +4,7 @@ import * as axios from 'axios';
 import { getBackendConfig } from '../utils/config';
 import { getToken } from '../utils/token';
 import { COMMENTS_PER_PAGE } from '../utils/comments';
-import { FEED_PER_PAGE } from '../utils/feed';
+import { FEED_PER_PAGE, OVERVIEW_SIDE_PER_PAGE } from '../utils/feed';
 
 const request = async (data) => {
   const options = {
@@ -205,7 +205,32 @@ export default {
         perPage,
       );
 
-    // console.log(query);
+    try {
+      const data = await request({ query });
+      return data.data;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  async getOverviewSide({
+    page = 1,
+    perPage = OVERVIEW_SIDE_PER_PAGE,
+    filter,
+    tab,
+    side,
+    postTypeId,
+  }) {
+    const query = tab === 'Posts' && side === 'Users' ?
+      await GraphQLSchema[`getMany${side}For${filter}${tab}Query`](
+        postTypeId,
+        page,
+        perPage,
+      ) :
+      await GraphQLSchema[`getMany${side}For${filter}${tab}Query`](
+        page,
+        perPage,
+      );
     try {
       const data = await request({ query });
       return data.data;

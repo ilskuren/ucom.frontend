@@ -1,4 +1,4 @@
-import { uniq } from 'lodash';
+import { uniq, merge } from 'lodash';
 
 const getInitialState = () => ({
   loading: false,
@@ -31,7 +31,7 @@ export default (state = getInitialState(), action) => {
       return { ...state, loading: action.payload };
 
     case 'TAGS_FEED_SET_SIDE_USERS':
-      return { ...state, manyUsers: uniq(state.manyUsers.concat(action.payload)) };
+      return { ...state, manyUsers: merge(state.manyUsers, action.payload) };
 
     default:
       return state;

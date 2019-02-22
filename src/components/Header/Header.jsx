@@ -1,6 +1,6 @@
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { selectUser } from '../../store/selectors';
 import Popup from '../Popup';
@@ -17,11 +17,11 @@ const Header = (props) => {
     setScrolledHeader(window.top.scrollY > 0);
   };
 
-  const debouncedcheckScroll = debounce(checkScroll, 100);
+  const throttledcheckScroll = throttle(checkScroll, 500);
 
   useEffect(() => {
-    window.addEventListener('scroll', debouncedcheckScroll);
-    return () => window.removeEventListener('scroll', debouncedcheckScroll);
+    window.addEventListener('scroll', throttledcheckScroll);
+    return () => window.removeEventListener('scroll', throttledcheckScroll);
   });
 
   return (

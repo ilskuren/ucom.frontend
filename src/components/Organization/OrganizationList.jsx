@@ -3,7 +3,6 @@ import React, { PureComponent, Fragment } from 'react';
 import { getOrganizationById } from '../../store/organizations';
 import { getFileUrl } from '../../utils/upload';
 import OrganizationCard from './OrganizationCard';
-import { OrganizationCardSimpleWrapper } from './OrganizationCardSimple';
 import { getOrganizationUrl } from '../../utils/organization';
 import OrganizationListPopup from './OrganizationListPopup';
 import OrganizationListPopupMore from './OrganizationListPopupMore';
@@ -18,15 +17,21 @@ class OrganizationList extends PureComponent {
   }
 
   render() {
-    if (!this.props.organizationsIds || !this.props.organizationsIds.length) {
+    const {
+      organizationsIds, myOrganizations, limit, organizations, tagTitle, loadMore,
+    } = this.props;
+    if ((!organizationsIds || !organizationsIds.length) && (!myOrganizations || !myOrganizations.length)) {
       return null;
     }
 
-    const visibleOrganizations = this.props.organizationsIds
-      .sort()
-      .slice(0, this.props.limit)
-      .map(id => getOrganizationById(this.props.organizations, id))
-      .filter(item => item && item.id);
+    const visibleOrganizations = myOrganizations ? myOrganizations.slice(0, limit) :
+      organizationsIds
+        .sort()
+        .slice(0, limit)
+        .map(id => getOrganizationById(organizations, id))
+        .filter(item => item && item.id);
+
+    const allOrganizations = myOrganizations || organizationsIds;
 
     return (
       <Fragment>
@@ -34,42 +39,46 @@ class OrganizationList extends PureComponent {
           <div className="organization-list__list">
             {visibleOrganizations.map(item => (
               <div className="organization-list__item" key={item.id}>
-                {this.props.isNew ?
-                  <OrganizationCardSimpleWrapper organizationId={item.id} /> :
-                  <OrganizationCard
-                    avatarSrc={getFileUrl(item.avatarFilename)}
-                    title={item.title}
-                    nickname={item.nickname}
-                    currentRate={item.currentRate}
-                    url={getOrganizationUrl(item.id)}
-                  />
-                }
+                <OrganizationCard
+                  avatarSrc={getFileUrl(item.avatarFilename)}
+                  title={item.title}
+                  nickname={item.nickname}
+                  currentRate={item.currentRate}
+                  url={getOrganizationUrl(item.id)}
+                />
               </div>
             ))}
           </div>
 
-          {this.props.organizationsIds.length > this.props.limit &&
+          {allOrganizations.length > limit &&
             <div className="organization-list__more">
               <button
                 className="button-clean button-clean_link"
-                onClick={() => this.setState({ popupVisible: true })}
+                onClick={() => { this.setState({ popupVisible: true }); loadMore(); }}
               >
                 View All
               </button>
             </div>
           }
-        </div>
 
-        {this.state.popupVisible && (
-          this.props.tagTitle ? (
+        </div>
+        {this.state.popupVisible && myOrganizations &&
+          <OrganizationListPopup
+            myOrganizations={myOrganizations}
+            onClickClose={() => this.setState({ popupVisible: false })}
+          />
+        }
+
+        {this.state.popupVisible && organizationsIds && (
+          tagTitle ? (
             <OrganizationListPopupMore
-              organizationsIds={this.props.organizationsIds}
-              tagTitle={this.props.tagTitle}
+              organizationsIds={organizationsIds}
+              tagTitle={tagTitle}
               onClickClose={() => this.setState({ popupVisible: false })}
             />
           ) : (
             <OrganizationListPopup
-              organizationsIds={this.props.organizationsIds}
+              organizationsIds={organizationsIds}
               onClickClose={() => this.setState({ popupVisible: false })}
             />
           )

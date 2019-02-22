@@ -110,24 +110,15 @@ export const feedGetPosts = (
     postTypeId,
   },
 ) => async (dispatch) => {
-  const postFilteringForCategories = {
-    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: {
-      createdAt: '24_hours',
-    },
-  };
-
   const postOrderingForCategories = {
-    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: '-current_rate',
-    [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: '-current_rate_delta_daily',
-    [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: '-id',
-    [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: '-current_rate',
+    [overviewUtils.OVERVIEW_CATEGORIES_HOT_ID]: 'Hot',
+    [overviewUtils.OVERVIEW_CATEGORIES_TRENDING_ID]: 'Trending',
+    [overviewUtils.OVERVIEW_CATEGORIES_FRESH_ID]: 'Fresh',
+    [overviewUtils.OVERVIEW_CATEGORIES_TOP_ID]: 'Top',
   };
 
   const params = {
-    postFiltering: {
-      postTypeId,
-      ...postFilteringForCategories[postsCategoryId],
-    },
+    postTypeId,
     postOrdering: postOrderingForCategories[postsCategoryId],
     page,
     perPage,
@@ -137,7 +128,7 @@ export const feedGetPosts = (
   dispatch(feedSetLoading(true));
 
   try {
-    const data = await graphql.getPosts(params);
+    const data = await graphql.getOverview(params);
     dispatch(parseFeedData({
       posts: data.data,
       metadata: data.metadata,

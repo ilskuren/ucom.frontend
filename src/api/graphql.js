@@ -5,7 +5,6 @@ import { getBackendConfig } from '../utils/config';
 import { getToken } from '../utils/token';
 import { COMMENTS_PER_PAGE } from '../utils/comments';
 import { FEED_PER_PAGE } from '../utils/feed';
-import snakes from '../utils/snakes';
 
 const request = async (data) => {
   const options = {
@@ -182,134 +181,34 @@ export default {
     }
   },
 
-  async getPosts({
-    postFiltering,
-    postOrdering,
+
+  async getOverview({
     page = 1,
     perPage = FEED_PER_PAGE,
-    commentsPage = 1,
-    commentsPerPage = COMMENTS_PER_PAGE,
+    commentsPage,
+    commentsPerPage,
+    filter,
+    tab,
+    postTypeId,
   }) {
     const token = getToken();
-    const query = await GraphQLSchema.getPostsQuery(
-      snakes(postFiltering),
-      snakes(postOrdering),
-      page,
-      perPage,
-      commentsPage,
-      commentsPerPage,
-      Boolean(token),
-    );
+
+    const query = filter === 'Posts' ?
+      await GraphQLSchema[`getMany${filter}PostsQuery`](
+        postTypeId,
+        page,
+        perPage,
+        commentsPage,
+        commentsPerPage,
+        Boolean(token),
+      ) : await GraphQLSchema[`getMany${filter}${tab}Query`](
+        page,
+        perPage,
+      );
 
     try {
       const data = await request({ query });
-      return data.data.posts;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getCommunities({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-    ordering,
-  }) {
-    const query = await GraphQLSchema.getOrganizationsQuery(
-      ordering,
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.organizations;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getTrendingCommunities({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-  }) {
-    const query = await GraphQLSchema.getTrendingOrganizationsQuery(
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.organizations;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getHotCommunities({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-  }) {
-    const query = await GraphQLSchema.getHotOrganizationsQuery(
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.organizations;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getTags({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-    ordering,
-  }) {
-    const query = await GraphQLSchema.getManyTagsQuery(
-      ordering,
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.manyTags;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getTrendingTags({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-  }) {
-    const query = await GraphQLSchema.getManyTrendingTagsQuery(
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.manyTags;
-    } catch (e) {
-      throw e;
-    }
-  },
-
-  async getHotTags({
-    page = 1,
-    perPage = FEED_PER_PAGE,
-  }) {
-    const query = await GraphQLSchema.getManyHotTagsQuery(
-      page,
-      perPage,
-    );
-
-    try {
-      const data = await request({ query });
-      return data.data.manyTags;
+      return data.data;
     } catch (e) {
       throw e;
     }

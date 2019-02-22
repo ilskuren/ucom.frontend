@@ -1,54 +1,44 @@
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
-// import { getFileUrl } from '../../utils/upload';
-// import urls from '../../utils/urls';
+import { getFileUrl } from '../../utils/upload';
+import urls from '../../utils/urls';
 import UserListPopup from './UserListPopup';
 import UserListPopupMore from './UserListPopupMore';
 import { getUsersByIds } from '../../store/users';
-import UserCard from '../UserCard/UserCard';
-// import { UserCardSimpleWrapper } from '../User/UserCardSimple';
-
+import DefaultUserCard, { MyUserCard } from '../UserCard/UserCard';
 import Popup from '../Popup';
 import ModalContent from '../ModalContent';
-// import { getUserName } from '../../utils/user';
-// import Rate from '../Rate';
+import { getUserName } from '../../utils/user';
 
 const UserList = (props) => {
   const [popupVisible, setPopupVisible] = useState(false);
-
-  if (!props.usersIds || !props.usersIds.length) {
+  if ((!props.usersIds || !props.usersIds.length) && (!props.myUsers || !props.myUsers.length)) {
     return null;
   }
 
-  const visibleUsers = getUsersByIds(props.users, props.usersIds.sort())
+  const visibleUsers = props.myUsers ? props.myUsers.slice(0, props.limit) : getUsersByIds(props.users, props.usersIds.sort())
     .slice(0, props.limit);
-
+  const allUsers = props.myUsers ? props.myUsers : props.usersIds;
   return (
     <div className="organization-list">
       <div className="organization-list__list">
         {visibleUsers.map(item => (
           <div className="organization-list__item" key={item.id}>
-            {/* {props.isNew ?
-              <UserCard userId={item.id} /> :
-              <Fragment>
-                <UserCard
-                  userName={getUserName(item)}
-                  accountName={item.accountName}
-                  profileLink={urls.getUserUrl(item.id)}
-                  avatarUrl={getFileUrl(item.avatarFilename)}
-                  sign="@"
-                />
-                <div className="organization-list__rate">
-                  <Rate value={item.currentRate} />
-                </div>
-              </Fragment>
-            } */}
-            <UserCard userId={item.id} />
+            {props.myUsers ?
+              <MyUserCard
+                name={getUserName(item)}
+                userPickAlt={getUserName(item)}
+                url={urls.getUserUrl(item.id)}
+                userPickSrc={getFileUrl(item.avatarFilename)}
+                rate={item.currentRate}
+              /> : <DefaultUserCard userId={item.id} />
+            }
           </div>
         ))}
       </div>
 
-      {props.usersIds.length > props.limit &&
+
+      {allUsers.length > props.limit &&
         <div className="organization-list__more">
           <button
             className="button-clean button-clean_link"
@@ -59,7 +49,17 @@ const UserList = (props) => {
         </div>
       }
 
-      {popupVisible &&
+      {popupVisible && props.myUsers &&
+        <Popup onClickClose={() => setPopupVisible(false)}>
+          <ModalContent onClickClose={() => setPopupVisible(false)}> (
+            <UserListPopup
+              myUsers={props.myUsers}
+            />
+          </ModalContent>
+        </Popup>
+      }
+
+      {popupVisible && props.usersIds &&
         <Popup onClickClose={() => setPopupVisible(false)}>
           <ModalContent onClickClose={() => setPopupVisible(false)}>
             {props.tagTitle ? (

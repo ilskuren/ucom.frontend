@@ -1,14 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-// import UserList from '../User/UserList';
+import UserList from '../User/UserList';
 import TagsList from './TagsList';
 import * as overviewUtils from '../../utils/overview';
 import * as feedActions from '../../actions/tagsFeed';
 import loader from '../../utils/loader';
 import { FEED_PER_PAGE } from '../../utils/feed';
 import urls from '../../utils/urls';
-// const LIST_LIMIT = 5;
+
+const LIST_LIMIT = 5;
 
 const TagsTab = (props) => {
   const page = +props.match.params.page || 1;
@@ -50,15 +51,15 @@ const TagsTab = (props) => {
       <div className="grid__item grid__item_side">
         <div className="feed_side">
           <div className="sidebar">
-            {/* <div className="user-section">
-                <div className="user-section__title">
-                  <h2 className="title title_xxsmall title_medium">
-                  Top uses by
-                  </h2>
-                </div>
-                <UserList isNew usersIds={[34, 40, 379]} limit={LIST_LIMIT} />
+            <div className="user-section">
+              <div className="user-section__title">
+                <h2 className="title title_xxsmall title_medium">
+                Top uses by
+                </h2>
               </div>
-            */}
+              <UserList myUsers={props.tagsFeed.manyUsers} limit={LIST_LIMIT} />
+            </div>
+
           </div>
         </div>
       </div>

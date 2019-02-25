@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import CommunitiesList from './CommunitiesList';
 import * as overviewUtils from '../../utils/overview';
 import * as feedActions from '../../actions/communityFeed';
-import { feedGetSide } from '../../actions/feed';
+// import { feedGetSide } from '../../actions/feed';
 import loader from '../../utils/loader';
 import { FEED_PER_PAGE } from '../../utils/feed';
 import urls from '../../utils/urls';
-import UserList from './../User/UserList';
+// import UserList from './../User/UserList';
 
-const LIST_LIMIT = 5;
+// const LIST_LIMIT = 5;
 
 const Communities = (props) => {
   const page = +props.match.params.page || 1;
@@ -50,7 +50,7 @@ const Communities = (props) => {
         />
       </div>
 
-      <div className="grid__item grid__item_side">
+      {/* <div className="grid__item grid__item_side">
         <div className="feed_side">
           <div className="sidebar">
 
@@ -66,7 +66,7 @@ const Communities = (props) => {
             }
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

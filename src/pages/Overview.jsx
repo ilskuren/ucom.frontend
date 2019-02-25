@@ -98,8 +98,9 @@ const Overview = (props) => {
 };
 
 export const getPageData = (store, { name, page = 1 }) => {
-  const overviewCategoryId = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name).id;
-
+  const overviewCategory = overviewUtils.OVERVIEW_CATEGORIES.find(i => i.name === name);
+  if (!overviewCategory) return null;
+  const overviewCategoryId = overviewCategory.id;
   return store.dispatch(feedActions.feedGetPosts(overviewCategoryId, { page, perPage: FEED_PER_PAGE, POST_TYPE_MEDIA_ID }));
 };
 

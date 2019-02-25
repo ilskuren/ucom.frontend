@@ -5,7 +5,7 @@ import urls from '../../utils/urls';
 import Feed from '../Feed/FeedView';
 import UserList from '../User/UserList';
 import OrganizationList from '../Organization/OrganizationList';
-import TagList from './../Tag/TagList';
+// import TagList from './../Tag/TagList';
 import * as overviewUtils from '../../utils/overview';
 import * as feedActions from '../../actions/feed';
 import { FEED_PER_PAGE } from '../../utils/feed';
@@ -75,7 +75,7 @@ const Publications = (props) => {
                 />
               </div>
             }
-            {!!props.feed.manyTags.length &&
+            {/* {!!props.feed.manyTags.length &&
             <div className="user-section">
               <div className="user-section__title">
                 <h2 className="title title_xxsmall title_medium">
@@ -90,7 +90,7 @@ const Publications = (props) => {
                 limit={LIST_LIMIT}
               />
             </div>
-            }
+            } */}
 
             {!!props.feed.manyOrganizations.length &&
               <div className="user-section">

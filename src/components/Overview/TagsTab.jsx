@@ -1,16 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import UserList from '../User/UserList';
+// import UserList from '../User/UserList';
 import TagsList from './TagsList';
 import * as overviewUtils from '../../utils/overview';
 import * as feedActions from '../../actions/tagsFeed';
 import loader from '../../utils/loader';
 import { FEED_PER_PAGE } from '../../utils/feed';
 import urls from '../../utils/urls';
-import { feedGetSide } from '../../actions/feed';
+// import { feedGetSide } from '../../actions/feed';
 
-const LIST_LIMIT = 5;
+// const LIST_LIMIT = 5;
 
 const TagsTab = (props) => {
   const page = +props.match.params.page || 1;
@@ -49,7 +49,7 @@ const TagsTab = (props) => {
         />
       </div>
 
-      <div className="grid__item grid__item_side">
+      {/* <div className="grid__item grid__item_side">
         <div className="feed_side">
           <div className="sidebar">
             {!!props.tagsFeed.manyUsers.length &&
@@ -64,7 +64,7 @@ const TagsTab = (props) => {
             }
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
